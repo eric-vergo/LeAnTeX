@@ -3,3 +3,6 @@
 # until the owner decides (see STATUS.md).
 corpus/blueprint-noperthedron.jsonl
 fixtures/blueprint-noperthedron.jsonl
+fixtures/layout/blueprint-noperthedron.jsonl
+# A checkout of KaTeX's source for the table generators (tools/gen-*.mjs).
+.cache/
