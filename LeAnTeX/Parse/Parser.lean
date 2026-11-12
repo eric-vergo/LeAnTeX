@@ -226,9 +226,10 @@ partial def parseFunction (breakOnTokenText : Option String := none)
     perrAt s!"Can't use function '{func}' in text mode" token
   else if mode == .math && !spec.allowedInMath then
     perrAt s!"Can't use function '{func}' in math mode" token
-  let (args, optArgs) ← parseArguments func { numArgs := spec.numArgs,
-                                              numOptionalArgs := spec.numOptionalArgs, argTypes := spec.argTypes,
-                                              isPrimitive := spec.isPrimitive, isSqrt := spec.type == "sqrt" }
+  let argSpec : ArgSpec := {
+    numArgs := spec.numArgs, numOptionalArgs := spec.numOptionalArgs, argTypes := spec.argTypes
+    isPrimitive := spec.isPrimitive, isSqrt := spec.type == "sqrt" }
+  let (args, optArgs) ← parseArguments func argSpec
   some <$> callFunction func args optArgs (some token) breakOnTokenText
 
 /-- Run a function's handler (KaTeX's `callFunction`). -/
@@ -349,8 +350,9 @@ partial def beginHandler (c : Ctx) (args : Array Node) : M Node := do
   if c.funcName != "\\begin" then return .environment (← curMode) .absent envName nameGroup
   let some env := Tables.environments[envName]?
     | perrLoc s!"No such environment: {envName}" nameGroup.loc
-  let (eargs, eopt) ← parseArguments s!"\\begin\{{envName}}" { numArgs := env.numArgs,
-                                                               numOptionalArgs := env.numOptionalArgs, argTypes := env.argTypes }
+  let argSpec : ArgSpec := {
+    numArgs := env.numArgs, numOptionalArgs := env.numOptionalArgs, argTypes := env.argTypes }
+  let (eargs, eopt) ← parseArguments s!"\\begin\{{envName}}" argSpec
   let some h := environmentHandler env.handler
     | ierr s!"LeAnTeX has no handler for the KaTeX environment {envName}"
   let mode ← curMode

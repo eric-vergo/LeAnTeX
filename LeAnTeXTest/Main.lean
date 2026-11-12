@@ -97,8 +97,9 @@ def readJsonLines (path : System.FilePath) : IO (Array Json) := do
     | .error e => throw (IO.userError s!"{path}: bad JSON line ({e}): {l.take 80}")
   return out
 
-/-- Whether two errors are the same: for a `ParseError` the raw and full message, position and length;
-for an error KaTeX raises as a JavaScript `Error` the message; for other classes the class. -/
+/-- Whether two errors are the same: for a `ParseError` the raw and full message, position and
+length; for an error KaTeX raises as a JavaScript `Error` the message; for other classes the
+class. -/
 def sameError (k l : Json) : Bool :=
   let kind := (k.get? "kind").bind Json.getStr?
   kind == (l.get? "kind").bind Json.getStr? &&
@@ -270,7 +271,8 @@ def report (results : Array Result) (rows : Array (String × String × String ×
   s := s ++ "\n## KaTeX's names\n\nStatus of every name KaTeX defines (`parity/names.tsv`): " ++
     "*parsed identically* when every corpus case that uses it matches, *differs* when one " ++
     "does not, *internal* for names that cannot be typed (`\\\\atopfrac`, the `{CD}` arrows, " ++
-    "the text ligatures `--`, `---`, ` `` `, `''`), which the parser reaches from other commands, " ++
+    "the text ligatures `--`, `---`, ` `` `, `''`), which the parser reaches from other " ++
+    "commands, " ++
     "*untested* when no case uses it, *not yet* when LeAnTeX has no implementation. " ++
     "Per-name rows: `parity/names-status.tsv`.\n\n| Kind | Names | Parsed identically | " ++
     "Differs | Internal | Untested | Not yet |\n|---|---:|---:|---:|---:|---:|---:|\n"

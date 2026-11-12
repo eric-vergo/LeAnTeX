@@ -192,11 +192,13 @@ private def alignedHandler (ops : Ops) (ctx : EnvCtx) (args : Array Node) : M No
   if (ctx.envName.splitOn "ed").length == 1 then validateAms ctx
   let isSplit := ctx.envName == "split"
   let leqno := (← settings).leqno
-  let res ← parseArray ops { cols := some #[], addJot := some true,
-                             autoTag := if isSplit then none else getAutoTag ctx.envName, emptySingleRow := true,
-                             colSeparationType := some (if (ctx.envName.splitOn "at").length > 1 then "alignat"
-                             else "align"),
-                             maxNumCols := if isSplit then some 2 else none, leqno := some leqno } "display"
+  let colSep := if (ctx.envName.splitOn "at").length > 1 then "alignat" else "align"
+  let opts : ArrayOpts := {
+    cols := some #[], addJot := some true, emptySingleRow := true, leqno := some leqno
+    autoTag := if isSplit then none else getAutoTag ctx.envName
+    colSeparationType := some colSep
+    maxNumCols := if isSplit then some 2 else none }
+  let res ← parseArray ops opts "display"
   let .array m l _ hs aj _ st body gaps hl tags lq := res | return res
   let mut numMaths := 0
   let mut numCols := 0
@@ -392,8 +394,8 @@ def environmentHandler (key : String) : Option EnvHandler :=
       if body.size > 0 && body[0]!.size > 1 then perr "{subarray} can contain only one column"
     return res
   | "cases" => some fun ops ctx _ _ => do
-    let res ← parseArray ops { arraystretch := some 1.2,
-                               cols := some #[.align "l" (some 0) (some 1.0), .align "l" (some 0) (some 0)] }
+    let cols := #[.align "l" (some 0) (some 1.0), .align "l" (some 0) (some 0)]
+    let res ← parseArray ops { arraystretch := some 1.2, cols := some cols }
       (dCellStyle ctx.envName)
     let r := ctx.envName.contains 'r'
     return .leftright ctx.mode .absent #[res] (if r then "." else "\\{")
@@ -401,13 +403,19 @@ def environmentHandler (key : String) : Option EnvHandler :=
   | "align" | "alignat" => some fun ops ctx args _ => alignedHandler ops ctx args
   | "gathered" => some fun ops ctx _ _ => do
     if ctx.envName == "gather" || ctx.envName == "gather*" then validateAms ctx
-    parseArray ops { cols := some #[.align "c" none none], addJot := some true,
-                     colSeparationType := some "gather", autoTag := getAutoTag ctx.envName,
-                     emptySingleRow := true, leqno := some (← settings).leqno } "display"
+    let leqno := (← settings).leqno
+    let opts : ArrayOpts := {
+      cols := some #[.align "c" none none], addJot := some true
+      colSeparationType := some "gather", autoTag := getAutoTag ctx.envName
+      emptySingleRow := true, leqno := some leqno }
+    parseArray ops opts "display"
   | "equation" => some fun ops ctx _ _ => do
     validateAms ctx
-    parseArray ops { autoTag := getAutoTag ctx.envName, emptySingleRow := true,
-                     singleRow := true, maxNumCols := some 1, leqno := some (← settings).leqno } "display"
+    let leqno := (← settings).leqno
+    let opts : ArrayOpts := {
+      autoTag := getAutoTag ctx.envName, emptySingleRow := true, singleRow := true
+      maxNumCols := some 1, leqno := some leqno }
+    parseArray ops opts "display"
   | "CD" => some fun ops ctx _ _ => do
     validateAms ctx
     parseCD ops
