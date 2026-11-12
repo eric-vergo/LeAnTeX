@@ -171,8 +171,10 @@ inductive Node where
   | sqrt (mode : Mode) (loc : OLoc) (body : Node) (index : Option Node)
   /-- `\vcenter`. -/
   | vcenter (mode : Mode) (loc : OLoc) (body : Node)
-  /-- An extensible arrow (`\xrightarrow` …). -/
-  | xArrow (mode : Mode) (loc : OLoc) (label : String) (body : Node) (below : Option Node)
+  /-- An extensible arrow (`\xrightarrow` …). The body and the label below are missing (not
+  `null`) for the `{CD}` environment's `@=`, which calls the handler without arguments. -/
+  | xArrow (mode : Mode) (loc : OLoc) (label : String) (body : Option Node)
+      (below : Option (Option Node))
   /-- `\reflectbox`. -/
   | reflectbox (mode : Mode) (loc : OLoc) (body : Node)
   deriving Inhabited

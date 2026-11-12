@@ -77,6 +77,11 @@ for (const name of names) {
     let rejected = 0;
     for (const line of lines.slice(1)) {
         const c = JSON.parse(line);
+        if (!c.tex.isWellFormed()) {
+            // A lone surrogate cannot occur in a Lean string, so the case cannot be replayed.
+            out.push(JSON.stringify({id: c.id, unrepresentable: true}));
+            continue;
+        }
         const a = answer(c);
         if (a.tree) accepted++; else rejected++;
         out.push(JSON.stringify({id: c.id, ...a}));

@@ -97,14 +97,14 @@ def readJsonLines (path : System.FilePath) : IO (Array Json) := do
     | .error e => throw (IO.userError s!"{path}: bad JSON line ({e}): {l.take 80}")
   return out
 
-/-- Whether two errors are the same: for a `ParseError` the raw message, position and length;
+/-- Whether two errors are the same: for a `ParseError` the raw and full message, position and length;
 for an error KaTeX raises as a JavaScript `Error` the message; for other classes the class. -/
 def sameError (k l : Json) : Bool :=
   let kind := (k.get? "kind").bind Json.getStr?
   kind == (l.get? "kind").bind Json.getStr? &&
     match kind with
     | some "ParseError" =>
-      ["rawMessage", "position", "length"].all fun f =>
+      ["rawMessage", "position", "length", "message"].all fun f =>
         match k.get? f, l.get? f with
         | some a, some b => a.sameAs b
         | none, none => true
@@ -165,6 +165,8 @@ def runCorpus (name : String) : IO (Array Result) := do
     let tex := ((j.get? "tex").bind Json.getStr?).getD ""
     let c : Case := { id, tex, settings := caseSettings j }
     let some k := byId[id]? | throw (IO.userError s!"no fixture for {id}; run tools/record.mjs")
+    -- a formula with a lone surrogate has no Lean string; the recorder marks it
+    if k.get? "unrepresentable" |>.isSome then continue
     let l := leanAnswer c
     out := out.push { corpus := name, case := c, outcome := compare k l, katex := k, lean := l }
   return out

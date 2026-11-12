@@ -239,7 +239,7 @@ def functionHandler (key : String) : Option Handler :=
   | "\\underleftarrow" => some fun _ c args _ => do
     return .accentUnder (← curMode) .absent c.funcName args[0]!
   | "\\xleftarrow" => some fun _ c args opt => do
-    return .xArrow (← curMode) .absent c.funcName args[0]! opt[0]!
+    return .xArrow (← curMode) .absent c.funcName args[0]? opt[0]?
   | "\\@char" => some fun _ _ args _ => do
     let arg := args[0]!
     unless arg matches .ordgroup .. do wrongNode "ordgroup" (some arg)

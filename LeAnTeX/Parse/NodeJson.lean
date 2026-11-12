@@ -144,7 +144,8 @@ partial def Node.toJson (n : Node) : Json :=
     | .smash _ _ body sh sd => #[("body", body.toJson), ("smashHeight", b sh), ("smashDepth", b sd)]
     | .sqrt _ _ body idx => #[("body", body.toJson), nulKV "index" Node.toJson idx]
     | .xArrow _ _ label body below =>
-      #[("label", s label), ("body", body.toJson), nulKV "below" Node.toJson below]
+      #[("label", s label)] ++ opt "body" Node.toJson body ++
+      opt "below" (fun b => (nul "" Node.toJson b).1) below
   .obj (head ++ fields)
 
 /-- A list of nodes. -/

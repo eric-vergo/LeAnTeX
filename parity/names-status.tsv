@@ -6,8 +6,8 @@ function	\tilde	parsed identically	4	0
 function	\bar	parsed identically	27	0
 function	\breve	parsed identically	13	0
 function	\check	parsed identically	1	0
-function	\hat	differs	23	1
-function	\vec	differs	15	2
+function	\hat	parsed identically	23	0
+function	\vec	parsed identically	15	0
 function	\dot	parsed identically	2	0
 function	\mathring	parsed identically	2	0
 function	\widecheck	parsed identically	4	0
@@ -83,7 +83,7 @@ function	\\cdparent	untested	0	0
 function	\@char	parsed identically	3	0
 function	\textcolor	parsed identically	25	0
 function	\color	parsed identically	10	0
-function	\\	differs	164	3
+function	\\	parsed identically	164	0
 function	\global	parsed identically	10	0
 function	\long	parsed identically	5	0
 function	\\globallong	untested	0	0
@@ -125,16 +125,16 @@ function	\sout	parsed identically	9	0
 function	\angl	parsed identically	6	0
 function	\hline	parsed identically	6	0
 function	\hdashline	parsed identically	3	0
-function	\begin	differs	201	3
-function	\end	differs	194	3
-function	\mathrm	differs	432	3
+function	\begin	parsed identically	201	0
+function	\end	parsed identically	194	0
+function	\mathrm	parsed identically	432	0
 function	\mathit	parsed identically	5	0
-function	\mathbf	differs	403	1
+function	\mathbf	parsed identically	403	0
 function	\mathnormal	parsed identically	4	0
 function	\mathsfit	parsed identically	1	0
-function	\mathbb	differs	455	8
-function	\mathcal	differs	408	3
-function	\mathfrak	differs	15	4
+function	\mathbb	parsed identically	455	0
+function	\mathcal	parsed identically	408	0
+function	\mathfrak	parsed identically	15	0
 function	\mathscr	parsed identically	3	0
 function	\mathsf	parsed identically	390	0
 function	\mathtt	parsed identically	5	0
@@ -151,7 +151,7 @@ function	\it	parsed identically	4	0
 function	\cal	parsed identically	2	0
 function	\cfrac	parsed identically	4	0
 function	\dfrac	parsed identically	22	0
-function	\frac	differs	216	3
+function	\frac	parsed identically	216	0
 function	\tfrac	parsed identically	8	0
 function	\dbinom	parsed identically	2	0
 function	\binom	parsed identically	9	0
@@ -196,13 +196,13 @@ function	\coprod	parsed identically	1	0
 function	\bigvee	parsed identically	1	0
 function	\bigwedge	parsed identically	2	0
 function	\biguplus	parsed identically	1	0
-function	\bigcap	differs	3	1
-function	\bigcup	differs	5	1
+function	\bigcap	parsed identically	3	0
+function	\bigcup	parsed identically	5	0
 function	\intop	parsed identically	2	0
-function	\prod	differs	28	1
-function	\sum	differs	200	5
+function	\prod	parsed identically	28	0
+function	\sum	parsed identically	200	0
 function	\bigotimes	parsed identically	1	0
-function	\bigoplus	differs	7	1
+function	\bigoplus	parsed identically	7	0
 function	\bigodot	parsed identically	1	0
 function	\bigsqcup	parsed identically	1	0
 function	\smallint	parsed identically	1	0
@@ -217,7 +217,7 @@ function	⨀	parsed identically	1	0
 function	⨁	parsed identically	1	0
 function	⨂	parsed identically	1	0
 function	⨄	parsed identically	1	0
-function	⨆	differs	2	1
+function	⨆	parsed identically	2	0
 function	\mathop	parsed identically	8	0
 function	\arcsin	parsed identically	1	0
 function	\arccos	parsed identically	1	0
@@ -237,12 +237,12 @@ function	\ctg	parsed identically	1	0
 function	\cth	parsed identically	1	0
 function	\deg	parsed identically	6	0
 function	\dim	parsed identically	1	0
-function	\exp	differs	17	1
+function	\exp	parsed identically	17	0
 function	\hom	parsed identically	1	0
 function	\ker	parsed identically	1	0
 function	\lg	parsed identically	1	0
 function	\ln	parsed identically	3	0
-function	\log	differs	19	1
+function	\log	parsed identically	19	0
 function	\sec	parsed identically	1	0
 function	\sin	parsed identically	394	0
 function	\sinh	parsed identically	1	0
@@ -252,17 +252,17 @@ function	\tanh	parsed identically	1	0
 function	\tg	parsed identically	1	0
 function	\th	parsed identically	1	0
 function	\det	parsed identically	3	0
-function	\gcd	differs	2	1
+function	\gcd	parsed identically	2	0
 function	\inf	parsed identically	4	0
 function	\lim	parsed identically	19	0
-function	\max	differs	5	1
+function	\max	parsed identically	5	0
 function	\min	parsed identically	1	0
 function	\Pr	parsed identically	1	0
 function	\sup	parsed identically	3	0
 function	\int	parsed identically	31	0
 function	\iint	parsed identically	4	0
 function	\iiint	parsed identically	5	0
-function	\oint	differs	22	1
+function	\oint	parsed identically	22	0
 function	\oiint	parsed identically	4	0
 function	\oiiint	parsed identically	4	0
 function	∫	parsed identically	5	0
@@ -273,7 +273,7 @@ function	∯	untested	0	0
 function	∰	untested	0	0
 function	\operatorname@	untested	0	0
 function	\operatornamewithlimits	parsed identically	1	0
-function	\overline	differs	395	1
+function	\overline	parsed identically	395	0
 function	\phantom	parsed identically	6	0
 function	\vphantom	parsed identically	2	0
 function	\raisebox	parsed identically	7	0
@@ -293,7 +293,7 @@ function	\LARGE	parsed identically	2	0
 function	\huge	parsed identically	1	0
 function	\Huge	parsed identically	7	0
 function	\smash	parsed identically	23	0
-function	\sqrt	differs	72	1
+function	\sqrt	parsed identically	72	0
 function	\displaystyle	parsed identically	21	0
 function	\textstyle	parsed identically	11	0
 function	\scriptstyle	parsed identically	10	0
@@ -343,10 +343,10 @@ environment	alignat*	parsed identically	4	0
 environment	alignedat	parsed identically	6	0
 environment	equation	parsed identically	10	0
 environment	equation*	parsed identically	1	0
-environment	CD	differs	10	3
+environment	CD	parsed identically	10	0
 macro	\nonumber	parsed identically	4	0
 macro	\notag	parsed identically	2	0
-macro	\operatorname	differs	66	1
+macro	\operatorname	parsed identically	66	0
 macro	\hphantom	parsed identically	5	0
 macro	\@ifstar	parsed identically	2	0
 macro	\bgroup	untested	0	0
@@ -377,8 +377,8 @@ macro	\clap	parsed identically	3	0
 macro	\mathstrut	parsed identically	2	0
 macro	\underbar	parsed identically	3	0
 macro	\not	parsed identically	3	0
-macro	\neq	differs	11	1
-macro	\ne	differs	16	4
+macro	\neq	parsed identically	11	0
+macro	\ne	parsed identically	16	0
 macro	≠	parsed identically	3	0
 macro	\notin	parsed identically	3	0
 macro	∉	parsed identically	2	0
@@ -416,7 +416,7 @@ macro	\varPhi	parsed identically	1	0
 macro	\varPsi	parsed identically	1	0
 macro	\varOmega	parsed identically	1	0
 macro	\substack	parsed identically	6	0
-macro	\colon	differs	15	3
+macro	\colon	parsed identically	15	0
 macro	\boxed	parsed identically	9	0
 macro	\iff	parsed identically	2	0
 macro	\implies	parsed identically	2	0
@@ -496,7 +496,7 @@ macro	\simcoloncolon	parsed identically	1	0
 macro	\approxcolon	parsed identically	1	0
 macro	\approxcoloncolon	parsed identically	1	0
 macro	\notni	parsed identically	1	0
-macro	\limsup	differs	11	1
+macro	\limsup	parsed identically	11	0
 macro	\liminf	parsed identically	7	0
 macro	\injlim	parsed identically	2	0
 macro	\projlim	parsed identically	2	0
@@ -676,17 +676,17 @@ macro	\providecommand	parsed identically	393	0
 macro	\message	parsed identically	1	0
 macro	\errmessage	parsed identically	1	0
 macro	\show	untested	0	0
-macro	\dots	differs	42	1
+macro	\dots	parsed identically	42	0
 macro	\dotso	parsed identically	1	0
 macro	\dotsc	parsed identically	5	0
-macro	\cdots	differs	21	1
+macro	\cdots	parsed identically	21	0
 macro	\tag@literal	untested	0	0
 macro	\bra@ket	untested	0	0
 macro	\bra@set	untested	0	0
-symbol-math	0	differs	390	24
-symbol-math	1	differs	1103	41
-symbol-math	2	differs	969	23
-symbol-math	3	differs	223	1
+symbol-math	0	parsed identically	390	0
+symbol-math	1	parsed identically	1103	0
+symbol-math	2	parsed identically	969	0
+symbol-math	3	parsed identically	223	0
 symbol-math	4	parsed identically	98	0
 symbol-math	5	parsed identically	91	0
 symbol-math	6	parsed identically	38	0
@@ -708,8 +708,8 @@ symbol-math	\succeq	parsed identically	1	0
 symbol-math	⪰	parsed identically	1	0
 symbol-math	\simeq	parsed identically	3	0
 symbol-math	≃	parsed identically	1	0
-symbol-math	\mid	differs	25	2
-symbol-math	∣	differs	4	1
+symbol-math	\mid	parsed identically	25	0
+symbol-math	∣	parsed identically	4	0
 symbol-math	\ll	parsed identically	1	0
 symbol-math	≪	parsed identically	1	0
 symbol-math	\gg	parsed identically	1	0
@@ -741,12 +741,12 @@ symbol-math	\owns	parsed identically	1	0
 symbol-math	\ldotp	parsed identically	1	0
 symbol-math	\cdotp	parsed identically	3	0
 symbol-math	·	parsed identically	5	0
-symbol-math	\#	differs	5	2
+symbol-math	\#	parsed identically	5	0
 symbol-math	\&	parsed identically	2	0
 symbol-math	\aleph	parsed identically	1	0
 symbol-math	ℵ	parsed identically	1	0
 symbol-math	\forall	parsed identically	5	0
-symbol-math	∀	differs	4	1
+symbol-math	∀	parsed identically	4	0
 symbol-math	\hbar	parsed identically	1	0
 symbol-math	ℏ	untested	0	0
 symbol-math	\exists	parsed identically	5	0
@@ -755,7 +755,7 @@ symbol-math	\nabla	parsed identically	1	0
 symbol-math	∇	parsed identically	2	0
 symbol-math	\flat	parsed identically	1	0
 symbol-math	♭	parsed identically	2	0
-symbol-math	\ell	differs	26	2
+symbol-math	\ell	parsed identically	26	0
 symbol-math	ℓ	parsed identically	3	0
 symbol-math	\natural	parsed identically	1	0
 symbol-math	♮	parsed identically	2	0
@@ -1239,8 +1239,8 @@ symbol-math	\%	parsed identically	3	0
 symbol-math	\_	parsed identically	1	0
 symbol-math	\angle	parsed identically	1	0
 symbol-math	∠	parsed identically	2	0
-symbol-math	\infty	differs	75	4
-symbol-math	∞	differs	26	1
+symbol-math	\infty	parsed identically	75	0
+symbol-math	∞	parsed identically	26	0
 symbol-math	\prime	parsed identically	1	0
 symbol-math	\triangle	parsed identically	1	0
 symbol-math	\Gamma	parsed identically	7	0
@@ -1248,7 +1248,7 @@ symbol-math	Γ	parsed identically	3	0
 symbol-math	\Delta	parsed identically	3	0
 symbol-math	Δ	parsed identically	2	0
 symbol-math	\Theta	parsed identically	1	0
-symbol-math	Θ	differs	3	1
+symbol-math	Θ	parsed identically	3	0
 symbol-math	\Lambda	parsed identically	2	0
 symbol-math	Λ	parsed identically	1	0
 symbol-math	\Xi	parsed identically	1	0
@@ -1284,44 +1284,44 @@ symbol-math	\lnot	parsed identically	1	0
 symbol-math	\top	parsed identically	2	0
 symbol-math	\bot	parsed identically	1	0
 symbol-math	\emptyset	parsed identically	2	0
-symbol-math	\varnothing	differs	5	1
+symbol-math	\varnothing	parsed identically	5	0
 symbol-math	\alpha	parsed identically	398	0
-symbol-math	α	differs	15	3
-symbol-math	\beta	differs	9	1
-symbol-math	β	differs	7	1
-symbol-math	\gamma	differs	18	1
-symbol-math	γ	differs	4	1
-symbol-math	\delta	differs	16	1
+symbol-math	α	parsed identically	15	0
+symbol-math	\beta	parsed identically	9	0
+symbol-math	β	parsed identically	7	0
+symbol-math	\gamma	parsed identically	18	0
+symbol-math	γ	parsed identically	4	0
+symbol-math	\delta	parsed identically	16	0
 symbol-math	δ	parsed identically	6	0
-symbol-math	\epsilon	differs	4	1
+symbol-math	\epsilon	parsed identically	4	0
 symbol-math	ϵ	parsed identically	2	0
 symbol-math	\zeta	parsed identically	5	0
 symbol-math	ζ	parsed identically	2	0
 symbol-math	\eta	parsed identically	2	0
 symbol-math	η	parsed identically	2	0
 symbol-math	\theta	parsed identically	393	0
-symbol-math	θ	differs	10	1
-symbol-math	\iota	differs	13	2
+symbol-math	θ	parsed identically	10	0
+symbol-math	\iota	parsed identically	13	0
 symbol-math	ι	parsed identically	3	0
-symbol-math	\kappa	differs	22	2
+symbol-math	\kappa	parsed identically	22	0
 symbol-math	κ	parsed identically	2	0
 symbol-math	\lambda	parsed identically	7	0
-symbol-math	λ	differs	7	4
-symbol-math	\mu	differs	12	2
-symbol-math	μ	differs	9	1
-symbol-math	\nu	differs	4	2
+symbol-math	λ	parsed identically	7	0
+symbol-math	\mu	parsed identically	12	0
+symbol-math	μ	parsed identically	9	0
+symbol-math	\nu	parsed identically	4	0
 symbol-math	ν	parsed identically	2	0
-symbol-math	\xi	differs	7	1
+symbol-math	\xi	parsed identically	7	0
 symbol-math	ξ	parsed identically	2	0
 symbol-math	\omicron	parsed identically	1	0
 symbol-math	ο	parsed identically	2	0
-symbol-math	\pi	differs	48	1
-symbol-math	π	differs	15	1
+symbol-math	\pi	parsed identically	48	0
+symbol-math	π	parsed identically	15	0
 symbol-math	\rho	parsed identically	33	0
 symbol-math	ρ	parsed identically	2	0
-symbol-math	\sigma	differs	60	2
-symbol-math	σ	differs	7	2
-symbol-math	\tau	differs	26	1
+symbol-math	\sigma	parsed identically	60	0
+symbol-math	σ	parsed identically	7	0
+symbol-math	\tau	parsed identically	26	0
 symbol-math	τ	parsed identically	4	0
 symbol-math	\upsilon	parsed identically	1	0
 symbol-math	υ	parsed identically	2	0
@@ -1331,10 +1331,10 @@ symbol-math	\chi	parsed identically	45	0
 symbol-math	χ	parsed identically	2	0
 symbol-math	\psi	parsed identically	14	0
 symbol-math	ψ	parsed identically	6	0
-symbol-math	\omega	differs	29	2
+symbol-math	\omega	parsed identically	29	0
 symbol-math	ω	parsed identically	10	0
 symbol-math	\varepsilon	parsed identically	3	0
-symbol-math	ε	differs	6	1
+symbol-math	ε	parsed identically	6	0
 symbol-math	\vartheta	parsed identically	1	0
 symbol-math	ϑ	parsed identically	2	0
 symbol-math	\varpi	parsed identically	1	0
@@ -1345,26 +1345,26 @@ symbol-math	\varsigma	parsed identically	1	0
 symbol-math	ς	parsed identically	2	0
 symbol-math	\varphi	parsed identically	392	0
 symbol-math	φ	parsed identically	4	0
-symbol-math	*	differs	84	3
+symbol-math	*	parsed identically	84	0
 symbol-math	∗	untested	0	0
-symbol-math	+	differs	818	14
-symbol-math	-	differs	414	22
+symbol-math	+	parsed identically	818	0
+symbol-math	-	parsed identically	414	0
 symbol-math	−	untested	0	0
 symbol-math	\cdot	parsed identically	33	0
 symbol-math	⋅	parsed identically	2	0
-symbol-math	\circ	differs	13	1
+symbol-math	\circ	parsed identically	13	0
 symbol-math	∘	parsed identically	2	0
 symbol-math	\div	parsed identically	3	0
 symbol-math	÷	parsed identically	1	0
-symbol-math	\pm	differs	7	1
+symbol-math	\pm	parsed identically	7	0
 symbol-math	±	parsed identically	1	0
-symbol-math	\times	differs	30	3
+symbol-math	\times	parsed identically	30	0
 symbol-math	×	parsed identically	3	0
 symbol-math	\cap	parsed identically	2	0
 symbol-math	∩	parsed identically	3	0
 symbol-math	\cup	parsed identically	2	0
 symbol-math	∪	parsed identically	1	0
-symbol-math	\setminus	differs	8	1
+symbol-math	\setminus	parsed identically	8	0
 symbol-math	∖	parsed identically	1	0
 symbol-math	\land	parsed identically	1	0
 symbol-math	\lor	parsed identically	1	0
@@ -1373,37 +1373,37 @@ symbol-math	∧	parsed identically	1	0
 symbol-math	\vee	parsed identically	1	0
 symbol-math	∨	parsed identically	1	0
 symbol-math	\surd	parsed identically	1	0
-symbol-math	\langle	differs	32	1
+symbol-math	\langle	parsed identically	32	0
 symbol-math	⟨	parsed identically	2	0
 symbol-math	\lvert	parsed identically	6	0
 symbol-math	\lVert	parsed identically	1	0
 symbol-math	?	parsed identically	9	0
-symbol-math	!	differs	39	1
-symbol-math	\rangle	differs	30	1
+symbol-math	!	parsed identically	39	0
+symbol-math	\rangle	parsed identically	30	0
 symbol-math	⟩	parsed identically	2	0
 symbol-math	\rvert	parsed identically	6	0
 symbol-math	\rVert	parsed identically	1	0
-symbol-math	=	differs	678	41
-symbol-math	:	differs	78	4
+symbol-math	=	parsed identically	678	0
+symbol-math	:	parsed identically	78	0
 symbol-math	\approx	parsed identically	2	0
 symbol-math	≈	parsed identically	1	0
-symbol-math	\cong	differs	13	2
+symbol-math	\cong	parsed identically	13	0
 symbol-math	≅	parsed identically	5	0
-symbol-math	\ge	differs	29	3
+symbol-math	\ge	parsed identically	29	0
 symbol-math	\geq	parsed identically	26	0
-symbol-math	≥	differs	4	1
+symbol-math	≥	parsed identically	4	0
 symbol-math	\gets	parsed identically	1	0
 symbol-math	\gt	parsed identically	4	0
-symbol-math	>	differs	50	8
-symbol-math	\in	differs	142	22
-symbol-math	∈	differs	28	11
+symbol-math	>	parsed identically	50	0
+symbol-math	\in	parsed identically	142	0
+symbol-math	∈	parsed identically	28	0
 symbol-math	\@not	untested	0	0
 symbol-math	\subset	parsed identically	1	0
 symbol-math	⊂	parsed identically	1	0
 symbol-math	\supset	parsed identically	1	0
 symbol-math	⊃	parsed identically	1	0
-symbol-math	\subseteq	differs	13	2
-symbol-math	⊆	differs	5	1
+symbol-math	\subseteq	parsed identically	13	0
+symbol-math	⊆	parsed identically	5	0
 symbol-math	\supseteq	parsed identically	1	0
 symbol-math	⊇	parsed identically	1	0
 symbol-math	\nsubseteq	parsed identically	1	0
@@ -1413,14 +1413,14 @@ symbol-math	⊉	parsed identically	1	0
 symbol-math	\models	parsed identically	1	0
 symbol-math	\leftarrow	parsed identically	1	0
 symbol-math	←	parsed identically	1	0
-symbol-math	\le	differs	74	1
-symbol-math	\leq	differs	42	2
-symbol-math	≤	differs	25	3
+symbol-math	\le	parsed identically	74	0
+symbol-math	\leq	parsed identically	42	0
+symbol-math	≤	parsed identically	25	0
 symbol-math	\lt	parsed identically	5	0
-symbol-math	<	differs	117	8
+symbol-math	<	parsed identically	117	0
 symbol-math	\rightarrow	parsed identically	4	0
-symbol-math	→	differs	14	3
-symbol-math	\to	differs	91	10
+symbol-math	→	parsed identically	14	0
+symbol-math	\to	parsed identically	91	0
 symbol-math	\ngeq	parsed identically	2	0
 symbol-math	≱	parsed identically	1	0
 symbol-math	\nleq	parsed identically	2	0
@@ -1430,7 +1430,7 @@ symbol-math	\space	parsed identically	3	0
 symbol-math	\nobreakspace	parsed identically	3	0
 symbol-math	\nobreak	parsed identically	1	0
 symbol-math	\allowbreak	parsed identically	1	0
-symbol-math	,	differs	424	33
+symbol-math	,	parsed identically	424	0
 symbol-math	;	parsed identically	17	0
 symbol-math	\barwedge	parsed identically	1	0
 symbol-math	⊼	parsed identically	1	0
@@ -1440,9 +1440,9 @@ symbol-math	\odot	parsed identically	1	0
 symbol-math	⊙	parsed identically	1	0
 symbol-math	\oplus	parsed identically	1	0
 symbol-math	⊕	parsed identically	2	0
-symbol-math	\otimes	differs	27	4
-symbol-math	⊗	differs	10	1
-symbol-math	\partial	differs	7	1
+symbol-math	\otimes	parsed identically	27	0
+symbol-math	⊗	parsed identically	10	0
+symbol-math	\partial	parsed identically	7	0
 symbol-math	∂	parsed identically	10	0
 symbol-math	\oslash	parsed identically	1	0
 symbol-math	⊘	parsed identically	1	0
@@ -1457,18 +1457,18 @@ symbol-math	\diamond	parsed identically	1	0
 symbol-math	\star	parsed identically	2	0
 symbol-math	\triangleleft	parsed identically	1	0
 symbol-math	\triangleright	parsed identically	1	0
-symbol-math	\{	differs	56	4
-symbol-math	\}	differs	53	4
+symbol-math	\{	parsed identically	56	0
+symbol-math	\}	parsed identically	53	0
 symbol-math	\lbrace	parsed identically	2	0
 symbol-math	\rbrace	parsed identically	1	0
 symbol-math	\lbrack	parsed identically	1	0
-symbol-math	[	differs	551	7
+symbol-math	[	parsed identically	551	0
 symbol-math	\rbrack	parsed identically	1	0
-symbol-math	]	differs	549	6
+symbol-math	]	parsed identically	549	0
 symbol-math	\lparen	parsed identically	2	0
-symbol-math	(	differs	1079	68
+symbol-math	(	parsed identically	1079	0
 symbol-math	\rparen	parsed identically	2	0
-symbol-math	)	differs	1072	69
+symbol-math	)	parsed identically	1072	0
 symbol-math	\lfloor	parsed identically	2	0
 symbol-math	⌊	parsed identically	2	0
 symbol-math	\rfloor	parsed identically	3	0
@@ -1478,9 +1478,9 @@ symbol-math	⌈	parsed identically	1	0
 symbol-math	\rceil	parsed identically	1	0
 symbol-math	⌉	untested	0	0
 symbol-math	\backslash	parsed identically	1	0
-symbol-math	|	differs	153	5
+symbol-math	|	parsed identically	153	0
 symbol-math	\vert	parsed identically	9	0
-symbol-math	\|	differs	21	1
+symbol-math	\|	parsed identically	21	0
 symbol-math	\Vert	parsed identically	2	0
 symbol-math	\uparrow	parsed identically	3	0
 symbol-math	↑	parsed identically	1	0
@@ -1498,25 +1498,25 @@ symbol-math	\coprod	parsed identically	1	0
 symbol-math	\bigvee	parsed identically	1	0
 symbol-math	\bigwedge	parsed identically	2	0
 symbol-math	\biguplus	parsed identically	1	0
-symbol-math	\bigcap	differs	3	1
-symbol-math	\bigcup	differs	5	1
+symbol-math	\bigcap	parsed identically	3	0
+symbol-math	\bigcup	parsed identically	5	0
 symbol-math	\int	parsed identically	31	0
 symbol-math	\intop	parsed identically	2	0
 symbol-math	\iint	parsed identically	4	0
 symbol-math	\iiint	parsed identically	5	0
-symbol-math	\prod	differs	28	1
-symbol-math	\sum	differs	200	5
+symbol-math	\prod	parsed identically	28	0
+symbol-math	\sum	parsed identically	200	0
 symbol-math	\bigotimes	parsed identically	1	0
-symbol-math	\bigoplus	differs	7	1
+symbol-math	\bigoplus	parsed identically	7	0
 symbol-math	\bigodot	parsed identically	1	0
-symbol-math	\oint	differs	22	1
+symbol-math	\oint	parsed identically	22	0
 symbol-math	\oiint	parsed identically	4	0
 symbol-math	\oiiint	parsed identically	4	0
 symbol-math	\bigsqcup	parsed identically	1	0
 symbol-math	\smallint	parsed identically	1	0
 symbol-math	\mathellipsis	parsed identically	1	0
 symbol-math	\ldots	parsed identically	13	0
-symbol-math	…	differs	9	2
+symbol-math	…	parsed identically	9	0
 symbol-math	\@cdots	untested	0	0
 symbol-math	⋯	parsed identically	6	0
 symbol-math	\ddots	parsed identically	2	0
@@ -1529,8 +1529,8 @@ symbol-math	\tilde	parsed identically	4	0
 symbol-math	\bar	parsed identically	27	0
 symbol-math	\breve	parsed identically	13	0
 symbol-math	\check	parsed identically	1	0
-symbol-math	\hat	differs	23	1
-symbol-math	\vec	differs	15	2
+symbol-math	\hat	parsed identically	23	0
+symbol-math	\vec	parsed identically	15	0
 symbol-math	\dot	parsed identically	2	0
 symbol-math	\mathring	parsed identically	2	0
 symbol-math	\@imath	untested	0	0
@@ -1543,69 +1543,69 @@ symbol-math	\pounds	parsed identically	2	0
 symbol-math	\mathsterling	parsed identically	1	0
 symbol-math	£	parsed identically	3	0
 symbol-math	\maltese	parsed identically	4	0
-symbol-math	/	differs	156	7
-symbol-math	@	differs	10	3
-symbol-math	.	differs	166	3
+symbol-math	/	parsed identically	156	0
+symbol-math	@	parsed identically	10	0
+symbol-math	.	parsed identically	166	0
 symbol-math	"	parsed identically	6	0
-symbol-math	A	differs	230	16
-symbol-math	B	differs	154	9
-symbol-math	C	differs	484	7
-symbol-math	D	differs	422	4
-symbol-math	E	differs	74	6
-symbol-math	F	differs	88	10
-symbol-math	G	differs	68	7
-symbol-math	H	differs	69	3
-symbol-math	I	differs	418	3
-symbol-math	J	differs	15	2
-symbol-math	K	differs	57	2
-symbol-math	L	differs	79	2
-symbol-math	M	differs	446	9
-symbol-math	N	differs	456	7
-symbol-math	O	differs	415	3
-symbol-math	P	differs	427	3
-symbol-math	Q	differs	403	2
-symbol-math	R	differs	530	14
-symbol-math	S	differs	471	7
-symbol-math	T	differs	83	4
-symbol-math	U	differs	419	7
-symbol-math	V	differs	46	8
-symbol-math	W	differs	26	3
-symbol-math	X	differs	488	12
-symbol-math	Y	differs	44	5
-symbol-math	Z	differs	405	1
-symbol-math	a	differs	1062	29
-symbol-math	b	differs	414	13
-symbol-math	c	differs	655	14
-symbol-math	d	differs	644	8
-symbol-math	e	differs	693	3
-symbol-math	f	differs	296	35
-symbol-math	g	differs	169	6
-symbol-math	h	differs	114	3
-symbol-math	i	differs	811	29
-symbol-math	j	differs	117	6
-symbol-math	k	differs	294	14
-symbol-math	l	differs	177	8
-symbol-math	m	differs	266	8
-symbol-math	n	differs	846	38
-symbol-math	o	differs	529	4
-symbol-math	p	differs	550	12
-symbol-math	q	differs	102	4
-symbol-math	r	differs	633	7
-symbol-math	s	differs	577	17
-symbol-math	t	differs	636	10
-symbol-math	u	differs	101	5
-symbol-math	v	differs	60	3
-symbol-math	w	differs	87	6
-symbol-math	x	differs	801	32
-symbol-math	y	differs	283	10
-symbol-math	z	differs	142	4
-symbol-math	ℂ	differs	3	1
+symbol-math	A	parsed identically	230	0
+symbol-math	B	parsed identically	154	0
+symbol-math	C	parsed identically	484	0
+symbol-math	D	parsed identically	422	0
+symbol-math	E	parsed identically	74	0
+symbol-math	F	parsed identically	88	0
+symbol-math	G	parsed identically	68	0
+symbol-math	H	parsed identically	69	0
+symbol-math	I	parsed identically	418	0
+symbol-math	J	parsed identically	15	0
+symbol-math	K	parsed identically	57	0
+symbol-math	L	parsed identically	79	0
+symbol-math	M	parsed identically	446	0
+symbol-math	N	parsed identically	456	0
+symbol-math	O	parsed identically	415	0
+symbol-math	P	parsed identically	427	0
+symbol-math	Q	parsed identically	403	0
+symbol-math	R	parsed identically	530	0
+symbol-math	S	parsed identically	471	0
+symbol-math	T	parsed identically	83	0
+symbol-math	U	parsed identically	419	0
+symbol-math	V	parsed identically	46	0
+symbol-math	W	parsed identically	26	0
+symbol-math	X	parsed identically	488	0
+symbol-math	Y	parsed identically	44	0
+symbol-math	Z	parsed identically	405	0
+symbol-math	a	parsed identically	1062	0
+symbol-math	b	parsed identically	414	0
+symbol-math	c	parsed identically	655	0
+symbol-math	d	parsed identically	644	0
+symbol-math	e	parsed identically	693	0
+symbol-math	f	parsed identically	296	0
+symbol-math	g	parsed identically	169	0
+symbol-math	h	parsed identically	114	0
+symbol-math	i	parsed identically	811	0
+symbol-math	j	parsed identically	117	0
+symbol-math	k	parsed identically	294	0
+symbol-math	l	parsed identically	177	0
+symbol-math	m	parsed identically	266	0
+symbol-math	n	parsed identically	846	0
+symbol-math	o	parsed identically	529	0
+symbol-math	p	parsed identically	550	0
+symbol-math	q	parsed identically	102	0
+symbol-math	r	parsed identically	633	0
+symbol-math	s	parsed identically	577	0
+symbol-math	t	parsed identically	636	0
+symbol-math	u	parsed identically	101	0
+symbol-math	v	parsed identically	60	0
+symbol-math	w	parsed identically	87	0
+symbol-math	x	parsed identically	801	0
+symbol-math	y	parsed identically	283	0
+symbol-math	z	parsed identically	142	0
+symbol-math	ℂ	parsed identically	3	0
 symbol-math	ℍ	parsed identically	2	0
-symbol-math	ℕ	differs	2	1
+symbol-math	ℕ	parsed identically	2	0
 symbol-math	ℙ	parsed identically	1	0
 symbol-math	ℚ	parsed identically	2	0
-symbol-math	ℝ	differs	9	2
-symbol-math	ℤ	differs	4	1
+symbol-math	ℝ	parsed identically	9	0
+symbol-math	ℤ	parsed identically	4	0
 symbol-math	ℎ	parsed identically	2	0
 symbol-math	𝐀	parsed identically	4	0
 symbol-math	𝐴	parsed identically	1	0
@@ -2031,7 +2031,7 @@ symbol-math	𝚘	untested	0	0
 symbol-math	𝐩	untested	0	0
 symbol-math	𝑝	untested	0	0
 symbol-math	𝒑	untested	0	0
-symbol-math	𝔭	differs	4	3
+symbol-math	𝔭	parsed identically	4	0
 symbol-math	𝖕	untested	0	0
 symbol-math	𝗉	untested	0	0
 symbol-math	𝗽	untested	0	0
@@ -2040,7 +2040,7 @@ symbol-math	𝚙	untested	0	0
 symbol-math	𝐪	untested	0	0
 symbol-math	𝑞	untested	0	0
 symbol-math	𝒒	untested	0	0
-symbol-math	𝔮	differs	3	1
+symbol-math	𝔮	parsed identically	3	0
 symbol-math	𝖖	untested	0	0
 symbol-math	𝗊	untested	0	0
 symbol-math	𝗾	untested	0	0
@@ -2171,10 +2171,10 @@ symbol-math	𝟿	untested	0	0
 symbol-math	Ð	parsed identically	3	0
 symbol-math	Þ	parsed identically	3	0
 symbol-math	þ	parsed identically	3	0
-symbol-text	0	differs	390	24
-symbol-text	1	differs	1103	41
-symbol-text	2	differs	969	23
-symbol-text	3	differs	223	1
+symbol-text	0	parsed identically	390	0
+symbol-text	1	parsed identically	1103	0
+symbol-text	2	parsed identically	969	0
+symbol-text	3	parsed identically	223	0
 symbol-text	4	parsed identically	98	0
 symbol-text	5	parsed identically	91	0
 symbol-text	6	parsed identically	38	0
@@ -2182,7 +2182,7 @@ symbol-text	7	parsed identically	39	0
 symbol-text	8	parsed identically	46	0
 symbol-text	9	parsed identically	20	0
 symbol-text	·	parsed identically	5	0
-symbol-text	\#	differs	5	2
+symbol-text	\#	parsed identically	5	0
 symbol-text	\&	parsed identically	2	0
 symbol-text	\S	parsed identically	1	0
 symbol-text	\P	parsed identically	1	0
@@ -2201,30 +2201,30 @@ symbol-text	\%	parsed identically	3	0
 symbol-text	\_	parsed identically	1	0
 symbol-text	\textunderscore	parsed identically	1	0
 symbol-text	\ 	parsed identically	16	0
-symbol-text	 	differs	1787	130
+symbol-text	 	parsed identically	1786	0
 symbol-text	\space	parsed identically	3	0
 symbol-text	\nobreakspace	parsed identically	3	0
-symbol-text	\{	differs	56	4
+symbol-text	\{	parsed identically	56	0
 symbol-text	\textbraceleft	parsed identically	1	0
-symbol-text	\}	differs	53	4
+symbol-text	\}	parsed identically	53	0
 symbol-text	\textbraceright	parsed identically	1	0
 symbol-text	\lbrack	parsed identically	1	0
-symbol-text	[	differs	551	7
+symbol-text	[	parsed identically	551	0
 symbol-text	\rbrack	parsed identically	1	0
-symbol-text	]	differs	549	6
+symbol-text	]	parsed identically	549	0
 symbol-text	\textless	parsed identically	1	0
-symbol-text	<	differs	117	8
+symbol-text	<	parsed identically	117	0
 symbol-text	\textgreater	parsed identically	1	0
-symbol-text	>	differs	50	8
+symbol-text	>	parsed identically	50	0
 symbol-text	\textbar	parsed identically	1	0
-symbol-text	|	differs	153	5
+symbol-text	|	parsed identically	153	0
 symbol-text	\textbardbl	parsed identically	1	0
 symbol-text	\textasciitilde	parsed identically	1	0
 symbol-text	\textbackslash	parsed identically	1	0
 symbol-text	\textasciicircum	parsed identically	1	0
 symbol-text	\textellipsis	parsed identically	3	0
 symbol-text	\ldots	parsed identically	13	0
-symbol-text	…	differs	9	2
+symbol-text	…	parsed identically	9	0
 symbol-text	\varvdots	untested	0	0
 symbol-text	\i	parsed identically	3	0
 symbol-text	ı	parsed identically	7	0
@@ -2266,7 +2266,7 @@ symbol-text	\textemdash	parsed identically	1	0
 symbol-text	`	parsed identically	6	0
 symbol-text	‘	untested	0	0
 symbol-text	\textquoteleft	parsed identically	1	0
-symbol-text	'	differs	55	3
+symbol-text	'	parsed identically	55	0
 symbol-text	’	parsed identically	1	0
 symbol-text	\textquoteright	parsed identically	1	0
 symbol-text	``	untested	0	0
@@ -2282,80 +2282,80 @@ symbol-text	\pounds	parsed identically	2	0
 symbol-text	\textsterling	parsed identically	1	0
 symbol-text	£	parsed identically	3	0
 symbol-text	\maltese	parsed identically	4	0
-symbol-text	!	differs	39	1
-symbol-text	@	differs	10	3
-symbol-text	*	differs	84	3
-symbol-text	(	differs	1079	68
-symbol-text	)	differs	1072	69
-symbol-text	-	differs	414	22
-symbol-text	=	differs	678	41
-symbol-text	+	differs	818	14
+symbol-text	!	parsed identically	39	0
+symbol-text	@	parsed identically	10	0
+symbol-text	*	parsed identically	84	0
+symbol-text	(	parsed identically	1079	0
+symbol-text	)	parsed identically	1072	0
+symbol-text	-	parsed identically	414	0
+symbol-text	=	parsed identically	678	0
+symbol-text	+	parsed identically	818	0
 symbol-text	"	parsed identically	6	0
 symbol-text	;	parsed identically	17	0
-symbol-text	:	differs	78	4
+symbol-text	:	parsed identically	78	0
 symbol-text	?	parsed identically	9	0
-symbol-text	/	differs	156	7
-symbol-text	.	differs	166	3
-symbol-text	,	differs	424	33
-symbol-text	A	differs	230	16
-symbol-text	B	differs	154	9
-symbol-text	C	differs	484	7
-symbol-text	D	differs	422	4
-symbol-text	E	differs	74	6
-symbol-text	F	differs	88	10
-symbol-text	G	differs	68	7
-symbol-text	H	differs	69	3
-symbol-text	I	differs	418	3
-symbol-text	J	differs	15	2
-symbol-text	K	differs	57	2
-symbol-text	L	differs	79	2
-symbol-text	M	differs	446	9
-symbol-text	N	differs	456	7
-symbol-text	O	differs	415	3
-symbol-text	P	differs	427	3
-symbol-text	Q	differs	403	2
-symbol-text	R	differs	530	14
-symbol-text	S	differs	471	7
-symbol-text	T	differs	83	4
-symbol-text	U	differs	419	7
-symbol-text	V	differs	46	8
-symbol-text	W	differs	26	3
-symbol-text	X	differs	488	12
-symbol-text	Y	differs	44	5
-symbol-text	Z	differs	405	1
-symbol-text	a	differs	1062	29
-symbol-text	b	differs	414	13
-symbol-text	c	differs	655	14
-symbol-text	d	differs	644	8
-symbol-text	e	differs	693	3
-symbol-text	f	differs	296	35
-symbol-text	g	differs	169	6
-symbol-text	h	differs	114	3
-symbol-text	i	differs	811	29
-symbol-text	j	differs	117	6
-symbol-text	k	differs	294	14
-symbol-text	l	differs	177	8
-symbol-text	m	differs	266	8
-symbol-text	n	differs	846	38
-symbol-text	o	differs	529	4
-symbol-text	p	differs	550	12
-symbol-text	q	differs	102	4
-symbol-text	r	differs	633	7
-symbol-text	s	differs	577	17
-symbol-text	t	differs	636	10
-symbol-text	u	differs	101	5
-symbol-text	v	differs	60	3
-symbol-text	w	differs	87	6
-symbol-text	x	differs	801	32
-symbol-text	y	differs	283	10
-symbol-text	z	differs	142	4
-symbol-text	ℂ	differs	3	1
+symbol-text	/	parsed identically	156	0
+symbol-text	.	parsed identically	166	0
+symbol-text	,	parsed identically	424	0
+symbol-text	A	parsed identically	230	0
+symbol-text	B	parsed identically	154	0
+symbol-text	C	parsed identically	484	0
+symbol-text	D	parsed identically	422	0
+symbol-text	E	parsed identically	74	0
+symbol-text	F	parsed identically	88	0
+symbol-text	G	parsed identically	68	0
+symbol-text	H	parsed identically	69	0
+symbol-text	I	parsed identically	418	0
+symbol-text	J	parsed identically	15	0
+symbol-text	K	parsed identically	57	0
+symbol-text	L	parsed identically	79	0
+symbol-text	M	parsed identically	446	0
+symbol-text	N	parsed identically	456	0
+symbol-text	O	parsed identically	415	0
+symbol-text	P	parsed identically	427	0
+symbol-text	Q	parsed identically	403	0
+symbol-text	R	parsed identically	530	0
+symbol-text	S	parsed identically	471	0
+symbol-text	T	parsed identically	83	0
+symbol-text	U	parsed identically	419	0
+symbol-text	V	parsed identically	46	0
+symbol-text	W	parsed identically	26	0
+symbol-text	X	parsed identically	488	0
+symbol-text	Y	parsed identically	44	0
+symbol-text	Z	parsed identically	405	0
+symbol-text	a	parsed identically	1062	0
+symbol-text	b	parsed identically	414	0
+symbol-text	c	parsed identically	655	0
+symbol-text	d	parsed identically	644	0
+symbol-text	e	parsed identically	693	0
+symbol-text	f	parsed identically	296	0
+symbol-text	g	parsed identically	169	0
+symbol-text	h	parsed identically	114	0
+symbol-text	i	parsed identically	811	0
+symbol-text	j	parsed identically	117	0
+symbol-text	k	parsed identically	294	0
+symbol-text	l	parsed identically	177	0
+symbol-text	m	parsed identically	266	0
+symbol-text	n	parsed identically	846	0
+symbol-text	o	parsed identically	529	0
+symbol-text	p	parsed identically	550	0
+symbol-text	q	parsed identically	102	0
+symbol-text	r	parsed identically	633	0
+symbol-text	s	parsed identically	577	0
+symbol-text	t	parsed identically	636	0
+symbol-text	u	parsed identically	101	0
+symbol-text	v	parsed identically	60	0
+symbol-text	w	parsed identically	87	0
+symbol-text	x	parsed identically	801	0
+symbol-text	y	parsed identically	283	0
+symbol-text	z	parsed identically	142	0
+symbol-text	ℂ	parsed identically	3	0
 symbol-text	ℍ	parsed identically	2	0
-symbol-text	ℕ	differs	2	1
+symbol-text	ℕ	parsed identically	2	0
 symbol-text	ℙ	parsed identically	1	0
 symbol-text	ℚ	parsed identically	2	0
-symbol-text	ℝ	differs	9	2
-symbol-text	ℤ	differs	4	1
+symbol-text	ℝ	parsed identically	9	0
+symbol-text	ℤ	parsed identically	4	0
 symbol-text	ℎ	parsed identically	2	0
 symbol-text	𝐀	parsed identically	4	0
 symbol-text	𝐴	parsed identically	1	0
@@ -2781,7 +2781,7 @@ symbol-text	𝚘	untested	0	0
 symbol-text	𝐩	untested	0	0
 symbol-text	𝑝	untested	0	0
 symbol-text	𝒑	untested	0	0
-symbol-text	𝔭	differs	4	3
+symbol-text	𝔭	parsed identically	4	0
 symbol-text	𝖕	untested	0	0
 symbol-text	𝗉	untested	0	0
 symbol-text	𝗽	untested	0	0
@@ -2790,7 +2790,7 @@ symbol-text	𝚙	untested	0	0
 symbol-text	𝐪	untested	0	0
 symbol-text	𝑞	untested	0	0
 symbol-text	𝒒	untested	0	0
-symbol-text	𝔮	differs	3	1
+symbol-text	𝔮	parsed identically	3	0
 symbol-text	𝖖	untested	0	0
 symbol-text	𝗊	untested	0	0
 symbol-text	𝗾	untested	0	0
