@@ -233,6 +233,11 @@ def nameParity (results : Array Result) :
       let (n, bad) := used.getD key (0, 0)
       let status :=
         if !implemented kind name then "not yet"
+        else if n == 0 && (name.startsWith "\\\\" ||
+            (kind == "symbol-text" && name.length > 1 && !name.startsWith "\\")) then
+          -- `\\…` names cannot be typed and the text ligatures are not tokens: the parser
+          -- reaches them from other commands (`\atop`, `\global`, `{CD}`) or by merging tokens
+          "internal"
         else if n == 0 then "untested"
         else if bad == 0 then "parsed identically"
         else "differs"
@@ -264,14 +269,16 @@ def report (results : Array Result) (rows : Array (String × String × String ×
     s := s ++ s!"| {o.name} | {(results.filter (·.outcome == o)).size} |\n"
   s := s ++ "\n## KaTeX's names\n\nStatus of every name KaTeX defines (`parity/names.tsv`): " ++
     "*parsed identically* when every corpus case that uses it matches, *differs* when one " ++
-    "does not, *untested* when no case uses it, *not yet* when LeAnTeX has no implementation. " ++
+    "does not, *internal* for names that cannot be typed (`\\\\atopfrac`, the `{CD}` arrows, " ++
+    "the text ligatures `--`, `---`, ` `` `, `''`), which the parser reaches from other commands, " ++
+    "*untested* when no case uses it, *not yet* when LeAnTeX has no implementation. " ++
     "Per-name rows: `parity/names-status.tsv`.\n\n| Kind | Names | Parsed identically | " ++
-    "Differs | Untested | Not yet |\n|---|---:|---:|---:|---:|---:|\n"
+    "Differs | Internal | Untested | Not yet |\n|---|---:|---:|---:|---:|---:|---:|\n"
   for k in ["function", "environment", "macro", "symbol-math", "symbol-text"] do
     let rs := rows.filter (·.1 == k)
     let cnt (st : String) := (rs.filter (·.2.2.1 == st)).size
     s := s ++ s!"| {k} | {rs.size} | {cnt "parsed identically"} | {cnt "differs"} | " ++
-      s!"{cnt "untested"} | {cnt "not yet"} |\n"
+      s!"{cnt "internal"} | {cnt "untested"} | {cnt "not yet"} |\n"
   let differ := rows.filter (·.2.2.1 == "differs")
   if !differ.isEmpty then
     s := s ++ "\n### Names that differ\n\n"
