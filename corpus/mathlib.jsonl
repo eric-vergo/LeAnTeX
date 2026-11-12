@@ -1,0 +1,1121 @@
+{"meta": {"corpus": "mathlib", "count": 1120, "generator": "tools/extract-mathlib.py", "license": "Apache-2.0 (LICENSE file at the root of the upstream repository)", "source": "Mathlib doc comments from https://github.com/leanprover-community/mathlib4 at commit 56a005855ea17e0b0958f73ec801ae140b0a1679"}}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/AddConstMap/Basic.lean:18", "tex": "S^1"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Algebra/AddConstMap/Basic.lean:19", "tex": "f\\colon S^1\\to S^1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/AddConstMap/Basic.lean:20", "tex": "\\tilde f\\colon \\mathbb R\\to \\mathbb R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/AddConstMap/Basic.lean:21", "tex": "\\tilde f(x + 1) = \\tilde f(x)+1"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Algebra/Algebra/Operations.lean:860", "tex": "I : J"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Category/ModuleCat/Differentials/Presheaf.lean:24", "tex": "O_S ⟶ f_* O_X"}
+{"count": 53, "display": false, "id": "mathlib/Mathlib/Algebra/Category/ModuleCat/EnoughInjectives.lean:14", "tex": "R"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/ContinuedFractions/Basic.lean:95", "tex": "\n  h + \\dfrac{a_0}\n            {b_0 + \\dfrac{a_1}\n                         {b_1 + \\dfrac{a_2}\n                                      {b_2 + \\dfrac{a_3}\n                                                   {b_3 + \\dots}}}}\n"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/Algebra/ContinuedFractions/Basic.lean:171", "tex": "\n  h + \\dfrac{1}\n            {b_0 + \\dfrac{1}\n                         {b_1 + \\dfrac{1}\n                                      {b_2 + \\dfrac{1}\n                                                   {b_3 + \\dots}}}}\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/ContinuedFractions/ConvergentsEquiv.lean:24", "tex": "\n  c = h + \\dfrac{a_0}\n                {b_0 + \\dfrac{a_1}\n                             {b_1 + \\dfrac{a_2}\n                                          {b_2 + \\dfrac{a_3}\n                                                       {b_3 + \\dots}}}}\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/ContinuedFractions/Euler.lean:48", "tex": "\n  h + \\cfrac{\\rho_0}\n            {1 - \\cfrac{\\rho_1}\n                       {1 + \\rho_1 - \\cfrac{\\rho_2}\n                                           {1 + \\rho_2 - \\cfrac{\\rho_3}\n                                                               {1 + \\rho_3 - \\dots}}}}\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/ContinuedFractions/Euler.lean:220", "tex": "\n  A_n = h + \\sum_{i = 0}^{n - 1} \\prod_{j = 0}^i \\rho_j\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/ContinuedFractions/Euler.lean:231", "tex": "\n  \\dfrac{A_n}{B_n} = h + \\sum_{i = 0}^{n - 1} \\prod_{j = 0}^i \\rho_j\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/DualNumber.lean:44", "tex": "a + bε"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/DualNumber.lean:44", "tex": "ε^2 = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/DualNumber.lean:49", "tex": "ε"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Algebra/Field/GeomSum.lean:14", "tex": "\\sum_{i=0}^{n-1} x^i"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Algebra/Field/GeomSum.lean:15", "tex": "\\sum_{i=0}^{n-1} x^i y^{n-1-i}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Field/GeomSum.lean:19", "tex": "\\sum_{i=m}^{n-1} x^i=\\frac{x^n-x^m}{x-1}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Field/GeomSum.lean:20", "tex": "\\sum_{i=m}^{n-1} x^iy^{n - 1 - i}=\\frac{x^n-y^{n-m}x^m}{x-y}"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Algebra/Group/Action/Defs.lean:625", "tex": "Gal(L/K)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Group/Units/Defs.lean:27", "tex": "R^{\\times}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/Jordan/Basic.lean:51", "tex": "\n{a\\,b\\,c} = (a * b) * c - (a * c) * b + a * (b * c).\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/Lie/Classical.lean:47", "tex": "\n  J = \\left[\\begin{array}{cc}\n              0_l & 1_l\\\\\n              1_l & 0_l\n            \\end{array}\\right]\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/Lie/SerreConstruction.lean:18", "tex": "\n\\begin{align}\n  [H_i, H_j] &= 0\\\\\n  [E_i, F_i] &= H_i\\\\\n  [E_i, F_j] &= 0 \\quad\\text{if $i \\ne j$}\\\\\n  [H_i, E_j] &= A_{ij}E_j\\\\\n  [H_i, F_j] &= -A_{ij}F_j\\\\\n  ad(E_i)^{1 - A_{ij}}(E_j) &= 0 \\quad\\text{if $i \\ne j$}\\\\\n  ad(F_i)^{1 - A_{ij}}(F_j) &= 0 \\quad\\text{if $i \\ne j$}\\\\\n\\end{align}\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Module/Submodule/Map.lean:619", "tex": "\\{f ∈ Hom(M, M₂) | f(p) ⊆ q \\}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/Module/Torsion/PrimaryComponent.lean:15", "tex": "M(I) := \\bigcup_{i : \\mathbb{N}} \\text{torsionBySet A  M }  I ^ i."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/Module/Torsion/PrimaryComponent.lean:18", "tex": "M \\cong \\bigoplus_{P} M(P)."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean:28", "tex": "R[X_i : i \\in σ]"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Algebra/MvPolynomial/Basic.lean:123", "tex": "X_n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Algebra/MvPolynomial/Degrees.lean:16", "tex": "P \\in R[X]"}
+{"count": 14, "display": false, "id": "mathlib/Mathlib/Algebra/MvPolynomial/Degrees.lean:16", "tex": "x"}
+{"count": 46, "display": false, "id": "mathlib/Mathlib/Algebra/MvPolynomial/Degrees.lean:17", "tex": "n"}
+{"count": 7, "display": false, "id": "mathlib/Mathlib/Algebra/MvPolynomial/Degrees.lean:18", "tex": "P"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/MvPolynomial/Variables.lean:16", "tex": "x \\in X"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/Order/Floor/BigOperators.lean:18", "tex": " \\sum_{i=0}^{n-1} \\left\\lfloor x + \\frac{i}{n} \\right\\rfloor = \\lfloor n x \\rfloor. "}
+{"count": 26, "display": false, "id": "mathlib/Mathlib/Algebra/Order/Module/HahnEmbedding.lean:259", "tex": "f"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/Algebra/Polynomial/Derivation.lean:132", "tex": " d(f(a)) = f' (a) d a. "}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/Polynomial/Eval/Degree.lean:72", "tex": "(d + 1) (1 + y)^d - (d + 1)y^d = \\sum_{i = 0}^d {d + 1 \\choose i} \\cdot i \\cdot y^{i - 1}."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Polynomial/FieldDivision.lean:20", "tex": "R[X]"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/Polynomial/Laurent.lean:18", "tex": "\n\\sum_{i \\in \\mathbb{Z}} a_i T ^ i\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Algebra/Polynomial/Module/AEval.lean:34", "tex": "f • m = f(a) • m"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Polynomial/Splits.lean:332", "tex": "f'(r) = \\prod_{a}(x-a)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Polynomial/SumIteratedDerivative.lean:59", "tex": "I_i"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Algebra/QuadraticAlgebra/Defs.lean:40", "tex": "i^2 = a + bi"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Quaternion.lean:24", "tex": "\\operatorname{char} R ≠ 2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Quaternion.lean:25", "tex": "b = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/Quaternion.lean:61", "tex": "j^2 = c"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/Ring/CentroidHom.lean:20", "tex": "\nT(ab) = (Ta)b, T(ab) = a(Tb).\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Algebra/Ring/GeomSum.lean:76", "tex": "x^n-y^n = (x-y) \\sum x^ky^{n-1-k}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:16", "tex": "\\sum_{i= 0}^n a_iX^n, n\\geq 0, a_i\\in R"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:18", "tex": "\\sum_{i= 0}^n a_iX^n + \\sum_{i= 0}^n b_iX^n= \\sum_{i= 0}^n (a_i + b_i)X^n."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:20", "tex": "Xa = \\varphi (a)X"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:32", "tex": "(\\text{ofAdd } 1) \\cdot a := \\varphi(a)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:69", "tex": "\\mathbb{F}_q"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:70", "tex": "q"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:70", "tex": "\\varphi(a) = a^q"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:81", "tex": "Xa = \\varphi (a)X + δ (a)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/Symmetrized.lean:15", "tex": "\na \\circ b = \\frac{1}{2}(ab + ba)\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:549", "tex": "\\begin{align}\n(r + m)^n &= r^n + r^{n-1}m + r^{n-2}mr + \\cdots + rmr^{n-2} + mr^{n-1} \\\\\n          & =r^n + \\sum_{i = 0}^{n - 1} r^{(n - 1) - i} m r^{i}\n\\end{align}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:554", "tex": "(r + m)^n = r^n + nr^{n-1}m"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:633", "tex": "\\prod_{i=0}^n (r_i + m_i)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:634", "tex": "r_0\\cdots r_{i-1}m_ir_{i+1}\\cdots r_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:684", "tex": "r + m"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:684", "tex": "r^{-1} - r^{-1}mr^{-1}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/VariableChange.lean:53", "tex": "\\begin{pmatrix} u^2 & 0 & r \\cr u^2s & u^3 & t \\cr 0 & 0 & 1 \\end{pmatrix}."}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/Spec.lean:12", "tex": "Spec"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:101", "tex": "U ⊆ Spec A"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:101", "tex": "𝒪(U)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:102", "tex": "s : U → ⨆_{𝔭 ∈ U} A_𝔭"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:102", "tex": "s(𝔭) ∈ A_𝔭"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:102", "tex": "𝔭"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:103", "tex": "s"}
+{"count": 15, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:103", "tex": "A"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:104", "tex": "𝔭 ∈ U"}
+{"count": 6, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:104", "tex": "V"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:105", "tex": "U"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:105", "tex": "a, f ∈ A"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:105", "tex": "𝔮 ∈ V, f ∉ 𝔮"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:106", "tex": "s(𝔮) = a/f"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:106", "tex": "A_𝔮"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:882", "tex": "Spec R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicTopology/DoldKan/Decomposition.lean:53", "tex": "(n+1)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicTopology/DoldKan/Decomposition.lean:54", "tex": "x = x' + \\sum (i=0}^{q-1} σ_{n-i}(y_i)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicTopology/DoldKan/Decomposition.lean:54", "tex": "x'"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicTopology/DoldKan/Decomposition.lean:55", "tex": "y_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicTopology/DoldKan/Homotopies.lean:31", "tex": "d_0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/AlgebraicTopology/DoldKan/Homotopies.lean:125", "tex": "(hσ q) ∘ d + d ∘ (hσ q)"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Analysis/AbsoluteValue/Equivalence.lean:303", "tex": "v"}
+{"count": 11, "display": false, "id": "mathlib/Mathlib/Analysis/AbsoluteValue/Equivalence.lean:303", "tex": "w"}
+{"count": 21, "display": false, "id": "mathlib/Mathlib/Analysis/AbsoluteValue/Equivalence.lean:303", "tex": "F"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/AbsoluteValue/Equivalence.lean:304", "tex": "v(x) \\leq v(y)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/AbsoluteValue/Equivalence.lean:304", "tex": "w(x) \\leq w(y)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/AbsoluteValue/Equivalence.lean:304", "tex": "\\frac{\\log (v(a))}{\\log (w(a))}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/AbsoluteValue/Equivalence.lean:305", "tex": "0 \\neq a\\in F"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/AbsoluteValue/Equivalence.lean:305", "tex": "v(a) \\neq 1"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Analytic/Binomial.lean:20", "tex": "\n\\sum_{k=0}^{\\infty} \\; \\binom{a}{k} \\; x^k = 1 + a x + \\frac{a(a-1)}{2!} x^2 +\n  \\frac{a(a-1)(a-2)}{3!} x^3 + \\cdots\n"}
+{"count": 12, "display": false, "id": "mathlib/Mathlib/Analysis/Analytic/Binomial.lean:24", "tex": "a"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Analytic/Binomial.lean:24", "tex": "\\mathbb{K}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Analytic/ChangeOrigin.lean:15", "tex": "\nf (x + y + z) = \\sum_{n} p_n (y + z)^n = \\sum_{n, k} \\binom{n}{k} p_n y^{n-k} z^k\n= \\sum_{k} \\Bigl(\\sum_{n} \\binom{n}{k} p_n y^{n-k}\\Bigr) z^k.\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Analytic/ChangeOrigin.lean:20", "tex": "\\sum_{n} \\binom{n}{k} p_n y^{n-k}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Analytic/Inverse.lean:299", "tex": "\nq_n = - (p_1)^{-n} \\sum_{k=0}^{n-1} \\sum_{i_1 + \\dotsc + i_k = n} q_k (p_{i_1}, \\dotsc, p_{i_k}).\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Analytic/Inverse.lean:309", "tex": "\nq_n = - (p_1)^{-1} \\sum_{k=2}^n \\sum_{i_1 + \\dotsc + i_k = n} p_k (q_{i_1}, \\dotsc, q_{i_k}).\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Analytic/Inverse.lean:316", "tex": "\nQ_n ≤ C' \\sum_{k=2}^n r^k \\sum_{i_1 + \\dotsc + i_k = n} Q_{i_1} \\dotsm Q_{i_k}.\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Analytic/Inverse.lean:324", "tex": "\n\\begin{align}\nQ(z) & := \\sum Q_n z^n = Q_1 z + C' \\sum_{2 \\leq k \\leq n} \\sum_{i_1 + \\dotsc + i_k = n}\n  (r z^{i_1} Q_{i_1}) \\dotsm (r z^{i_k} Q_{i_k})\n\\\\ & = Q_1 z + C' \\sum_{k = 2}^\\infty (\\sum_{i_1 \\geq 1} r z^{i_1} Q_{i_1})\n  \\dotsm (\\sum_{i_k \\geq 1} r z^{i_k} Q_{i_k})\n\\\\ & = Q_1 z + C' \\sum_{k = 2}^\\infty (r Q(z))^k\n= Q_1 z + C' (r Q(z))^2 / (1 - r Q(z)).\n\\end{align}\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Analytic/Inverse.lean:345", "tex": "S_n = \\sum_{k=1}^n Q_k a^k"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Analytic/Inverse.lean:348", "tex": "\nS_n \\leq Q_1 a + C' \\sum_{k=2}^n (r S_{n-1})^k.\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Analytic/Inverse.lean:352", "tex": "S_n \\leq Q_1 a + C' (r S_{n-1})^2 / (1- r S_{n-1})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Analytic/Inverse.lean:353", "tex": "S_{n-1} \\leq K a"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Analytic/Inverse.lean:355", "tex": "S_n \\leq Q_1 a + 2 C' r^2 K^2 a^2"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Analytic/RadiusLiminf.lean:15", "tex": "\\liminf_{n\\to\\infty} \\frac{1}{\\sqrt[n]{‖p n‖}}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Analytic/RadiusLiminf.lean:65", "tex": "\\limsup_{n\\to\\infty} \\sqrt[n]{‖p n‖}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Asymptotics/Defs.lean:47", "tex": "f(n) = n ^ {1 + O(g(n))}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Asymptotics/TVS.lean:23", "tex": "f = o(g)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Asymptotics/TVS.lean:23", "tex": "f = O(g)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Asymptotics/TVS.lean:26", "tex": "\\operatorname{gauge}_{K, U} (f(x)) = o(\\operatorname{gauge}_{K, V} (g(x)))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Asymptotics/TVS.lean:27", "tex": "\\operatorname{gauge}_{K, U} (f(x)) = O(\\operatorname{gauge}_{K, V} (g(x)))"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Asymptotics/TVS.lean:28", "tex": "\\operatorname{gauge}_{K, U}(y) = \\inf \\{‖c‖ \\mid y ∈ c • U\\}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Asymptotics/TVS.lean:30", "tex": "f=Θ(g)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Asymptotics/TVS.lean:30", "tex": "f=O(g)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Asymptotics/TVS.lean:30", "tex": "g=O(f)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Asymptotics/TVS.lean:104", "tex": "\\operatorname{gauge}_{K, U} (f(x)) \\le \\operatorname{gauge}_{K, V} (g(x))"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/CStarAlgebra/Multiplier.lean:67", "tex": "L"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiff/FaaDiBruno.lean:911", "tex": "p₁(a, k) - p₂(a, k) = O(f(a))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiff/FaaDiBruno.lean:911", "tex": "q₁(a, k) - q₂(a, k) = O(f(a))"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiff/FaaDiBruno.lean:916", "tex": "C^{k+α}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiff/FaaDiBruno.lean:954", "tex": "p₁(a, k) - p₂(a, k) = o(f(a))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiff/FaaDiBruno.lean:954", "tex": "q₁(a, k) - q₂(a, k) = o(f(a))"}
+{"count": 13, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:14", "tex": "C^{k+(α)}"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:17", "tex": "C^k"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:18", "tex": "D^kf(x)-D^kf(a) = O(‖x - a‖ ^ α)"}
+{"count": 24, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:61", "tex": "C^n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:80", "tex": "C^{k+(0)}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:86", "tex": "C^{0+(α)}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:87", "tex": "C^0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:88", "tex": "f(x) - f(a) = O(‖x - a‖ ^ α)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:119", "tex": "D^k f"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:238", "tex": "C^{k + (α)}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:238", "tex": "C^{l + (α)}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/ContDiffHolder/Pointwise.lean:246", "tex": "D^mf"}
+{"count": 3, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/Basic.lean:28", "tex": "\ndω(x; v_0, \\dots, v_n) = \\sum_{i=0}^n (-1)^i D_x ω(x; v_0, \\dots, \\widehat{v_i}, \\dots, v_n) · v_i\n"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/Basic.lean:32", "tex": "\\widehat{v_i}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:19", "tex": "\n  dω(V_0(x), \\dots, V_n(x)) = \\sum_{i=0}^k (-1)^i •\n      D_x\\left(ω\\big(x; V_0(x), \\dots, \\widehat{V_i(x)}, \\dots, V_k(x)\\big)\\right)(V_i(x)) +\n    \\sum_{0 \\le i < j\\le k} (-1)^{i + j}\n        ω\\big(x; [V_i, V_j](x), V_0(x), …, \\widehat{V_i(x)}, …, \\widehat{V_j(x)}, …, V_k(x)\\big),\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:25", "tex": "[V_i, V_j]"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:25", "tex": "V_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:25", "tex": "V_j"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:26", "tex": "\\widehat{V_i(x)}"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:53", "tex": "\n  dω(V_0(x), \\dots, V_{n + 1}(x)) =\n    \\sum_{i=0}^{n + 1} (-1)^i •\n      D_x\\left(ω\\big(x; V_0(x), \\dots, \\widehat{V_i(x)}, \\dots, V_{n + 1}(x)\\big)\\right)(V_i(x)) -\n      \\sum_{0 \\le i \\le j\\le n} (-1)^{i + j}\n        ω\\big(x; [V_i, V_{j + 1}](x),\n          V_0(x), …, \\widehat{V_i(x)}, …, \\widehat{V_{j + 1}(x)}, …, V_k(x)\\big),\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:62", "tex": "[V_i, V_{j + 1}]"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:62", "tex": "V_{j + 1}"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:67", "tex": "\n  dω(V_0(x), \\dots, V_{n + 1}(x)) =\n    \\sum_{i=0}^{n + 1} (-1)^i •\n      D_x\\left(ω\\big(x; V_0(x), \\dots, \\widehat{V_i(x)}, \\dots, V_{n + 1}(x)\\big)\\right)(V_i(x)) -\n      \\sum_{0 \\le i < j\\le n + 1} (-1)^{i + j}\n        ω\\big(x; [V_i, V_j](x),\n          V_0(x), …, \\widehat{V_i(x)}, …, \\widehat{V_j(x)}, …, V_k(x)\\big).\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:157", "tex": "[V_i, V_j](x) = 0"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/DifferentialForm/VectorField.lean:159", "tex": "\n  dω(V_0(x), \\dots, V_{n + 1}(x)) = \\sum_{i=0}^{n + 1} (-1)^i •\n    D_x\\left(ω\\big(x; V_0(x), \\dots, \\widehat{V_i(x)}, \\dots, V_{n + 1}(x)\\big)\\right)(V_i(x)).\n"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/LocalExtr/Rolle.lean:16", "tex": "(a, b)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/LocalExtr/Rolle.lean:16", "tex": "a < b"}
+{"count": 7, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/LocalExtr/Rolle.lean:17", "tex": "[a, b]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/LocalExtr/Rolle.lean:18", "tex": "f(a) = f(b)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/LocalExtr/Rolle.lean:20", "tex": "c∈(a, b)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/LocalExtr/Rolle.lean:20", "tex": "f'(c)=0"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/LocalExtr/Rolle.lean:25", "tex": "x ∈ (a, b)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/LocalExtr/Rolle.lean:25", "tex": "f'(x)"}
+{"count": 10, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/LocalExtr/Rolle.lean:32", "tex": "b"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/Taylor.lean:69", "tex": "∑_{k=0}^n \\frac{(x - x₀)^k}{k!} f^{(k)}(x₀),"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/Taylor.lean:70", "tex": "f^{(k)}(x₀)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/Taylor.lean:300", "tex": "f(x) - (P_n f)(x₀, x) = \\frac{(x - x')^n}{n!} \\frac{g(x) - g(x₀)}{g' x'},"}
+{"count": 6, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/Taylor.lean:301", "tex": "P_n f"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/Taylor.lean:328", "tex": "f(x) - (P_n f)(x₀, x) = \\frac{f^{(n+1)}(x') (x - x₀)^{n+1}}{(n+1)!},"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/Taylor.lean:329", "tex": "f^{(n+1)}"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Analysis/Calculus/Taylor.lean:329", "tex": "n+1"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/Taylor.lean:369", "tex": "f(x) - (P_n f)(x₀, x) = \\frac{f^{(n+1)}(x') (x - x')^n (x-x₀)}{n!},"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/Taylor.lean:451", "tex": "\\int_{x_0}^x \\frac{f^{(k+1)}(t) (x - t)^k}{k!} =\n\\frac{f^{(k)}(t) (x - t)^k}{k!} |_{x_0}^x -\\int_{x_0}^x \\frac{f^{(k)}(t) (x - t)^{k-1}}{(k-1)!}."}
+{"count": 3, "display": true, "id": "mathlib/Mathlib/Analysis/Calculus/Taylor.lean:454", "tex": "f(x) - (P_n f)(x₀, x) = \\int_{x_0}^x \\frac{f^{(n+1)}(t) (x - t)^n}{n!} dt,"}
+{"count": 11, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:98", "tex": "C^1"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:107", "tex": "\\frac{\\partial f}{\\partial \\bar z}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:111", "tex": "F(z)=f(c+e^{z})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:112", "tex": "[\\ln r, \\ln R]\\times [0, 2\\pi]"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:113", "tex": "\n  \\oint_{|z-c|=r}\\frac{f(z)\\,dz}{z-c}=\\oint_{|z-c|=R}\\frac{f(z)\\,dz}{z-c}\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:119", "tex": "\\frac{f(z)}{z-c}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:124", "tex": "\n  \\oint_{|z-c|=R}\\frac{f(z)\\,dz}{z-c}=2\\pi if(c)\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:130", "tex": "\n  \\oint_{|z-c|=R} f(z)\\,dz=0.\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:137", "tex": "\n  \\oint_{|z-c|=R} \\frac{f(z)\\,dz}{z-w}=\\oint_{|z-c|=R} \\frac{f(w)\\,dz}{z-w}=\n  \\left(\\oint_{|z-c|=R} \\frac{dz}{z-w}\\right)f(w).\n"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:181", "tex": "2i\\frac{\\partial f}{\\partial \\bar z}=i\\frac{\\partial f}{\\partial x}-\\frac{\\partial f}{\\partial y}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:374", "tex": "\\oint_{‖z-c‖=R} \\frac{f(z)}{z-c}\\,dz"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:422", "tex": "\\oint_{|z-c|=R} \\frac{f(z)}{z-c}\\,dz"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:436", "tex": "\\oint_{|z-c|=R}f(z)\\,dz"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:491", "tex": "\\frac{1}{2πi}\\oint_{|z-c|=R}(z-w)^{-1}f(z)\\,dz=f(w)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:527", "tex": "\\oint_{|z-c|=R}(z-w)^{-1}f(z)\\,dz=2πif(w)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:567", "tex": "\\oint_{|z-c|=R}\\frac{f(z)}{z-w}dz=2\\pi i\\,f(w)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/Polynomial/GaussLucas.lean:55", "tex": "P'"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/RemovableSingularity.lean:17", "tex": "f(z) - f(c)=o((z-c)^{-1})"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean:161", "tex": "\\frac{d}{dz}[(cz+d)^k] = k \\cdot c \\cdot (cz+d)^{k-1}"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Analysis/Convex/Mul.lean:18", "tex": "[0, +∞)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Convex/Mul.lean:19", "tex": "(0, +∞)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Convex/SpecificFunctions/Basic.lean:18", "tex": "(-∞, 0)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Convex/SpecificFunctions/Deriv.lean:21", "tex": "[0,+∞)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Convex/SpecificFunctions/Deriv.lean:24", "tex": "[0, π]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Convex/SpecificFunctions/Deriv.lean:25", "tex": "[-π/2, π/2]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Distribution/SchwartzSpace/Basic.lean:23", "tex": "f : ℝ^n → ℂ"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Distribution/SchwartzSpace/Basic.lean:23", "tex": "C_{αβ} > 0"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Distribution/SchwartzSpace/Basic.lean:23", "tex": "|x^α ∂^β f(x)| < C_{αβ}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Distribution/SchwartzSpace/Basic.lean:24", "tex": "x ∈ ℝ^n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Distribution/SchwartzSpace/Basic.lean:24", "tex": "α, β"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Analysis/Fourier/LpSpace.lean:12", "tex": "L^p"}
+{"count": 7, "display": false, "id": "mathlib/Mathlib/Analysis/Fourier/LpSpace.lean:14", "tex": "L^2"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/NormDet.lean:18", "tex": "T"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/NormDet.lean:18", "tex": "\\sqrt{det(T^{H}T)}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/NormDet.lean:18", "tex": "T^{H}"}
+{"count": 14, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/NormDet.lean:20", "tex": "m"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/NormDet.lean:20", "tex": "\\mathbb{R}^m \\to \\mathbb{R}^n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/NormDet.lean:26", "tex": "det(T^{H}T)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:28", "tex": "\\langle x, y \\rangle := \\frac{1}{4} (‖x + y‖^2 - ‖x - y‖^2 + i ‖ix + y‖ ^ 2 - i ‖ix - y‖^2)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:32", "tex": "‖x + y‖^2 + ‖x - y‖^2 = 2 (‖x‖^2 + ‖y‖^2)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:37", "tex": "\\langle λ x, y \\rangle = λ \\langle x, y \\rangle"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:37", "tex": "λ ∈ ℕ"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:37", "tex": "λ = -1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:37", "tex": "λ ∈ ℤ"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:37", "tex": "λ ∈ ℚ"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/PiL2.lean:21", "tex": "\n\\langle x, y\\rangle = \\sum \\langle x_i, y_i \\rangle.\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/InnerProductSpace/ProdL2.lean:14", "tex": "\n\\langle x, y\\rangle = \\langle x_1, y_1 \\rangle + \\langle x_2, y_2 \\rangle.\n"}
+{"count": 6, "display": false, "id": "mathlib/Mathlib/Analysis/Matrix/Normed.lean:33", "tex": "L^\\infty"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Matrix/Normed.lean:223", "tex": "L_\\infty"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Matrix/Normed.lean:225", "tex": "\\|A\\|_\\infty = \\operatorname{sup}_i (\\sum_j \\|A_{ij}\\|)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Matrix/Normed.lean:498", "tex": "\\|A\\| = \\sqrt{\\sum_{i,j} \\|A_{ij}\\|^2}"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:28", "tex": "z"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:29", "tex": "\\sum_{i\\in s} w_i=1"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:30", "tex": "\n\\prod_{i\\in s} z_i^{w_i} ≤ \\sum_{i\\in s} w_iz_i.\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:33", "tex": "w_i=\\frac{1}{n}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:51", "tex": "\n1/(\\sum_{i\\in s} w_i/z_i) ≤ \\prod_{i\\in s} z_i^{w_i}\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:62", "tex": "\\frac{1}{p}+\\frac{1}{q}=1"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:63", "tex": "\nab ≤ \\frac{a^p}{p} + \\frac{b^q}{q}.\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:74", "tex": "L_p"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:74", "tex": "L_q"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:76", "tex": "\n\\sum_{i\\in s} a_ib_i ≤ \\sqrt[p]{\\sum_{i\\in s} a_i^p}\\sqrt[q]{\\sum_{i\\in s} b_i^q}.\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:83", "tex": "a_ib_i"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:89", "tex": "\n\\|a\\|_p=\\sqrt[p]{\\sum_{i\\in s} a_i^p}\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:92", "tex": "\\|a+b\\|_p\\le \\|a\\|_p+\\|b\\|_p"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:96", "tex": "\\|a\\|_p"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:97", "tex": "\\sum_{i\\in s}a_ib_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalities.lean:97", "tex": "\\|b\\|_q\\le 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalitiesPow.lean:23", "tex": "p ≤ q"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/MeanInequalitiesPow.lean:24", "tex": "\n\\sqrt[p]{\\sum_{i\\in s} w_i z_i^p} ≤ \\sqrt[q]{\\sum_{i\\in s} w_i z_i^q}.\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/MeanInequalitiesPow.lean:28", "tex": "p=1"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/MeanInequalitiesPow.lean:32", "tex": "\n\\left(\\sum_{i\\in s} w_i z_i\\right)^n ≤ \\sum_{i\\in s} w_i z_i^n\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Algebra/QuaternionExponential.lean:38", "tex": "\\cos ‖q‖"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Algebra/QuaternionExponential.lean:58", "tex": "\\frac{q}{‖q‖} \\sin ‖q‖"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Algebra/TrivSqZeroExt.lean:17", "tex": "ℓ^1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Algebra/TrivSqZeroExt.lean:18", "tex": "\\|r + m\\| \\coloneqq \\|r\\| + \\|m\\|"}
+{"count": 7, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Algebra/UnitizationL1.lean:11", "tex": "L^1"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Normed/Lp/PiLp.lean:20", "tex": "\nd(x, y) = \\left(\\sum d(x_i, y_i)^p\\right)^{1/p}.\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Lp/PiLp.lean:23", "tex": "{i | d (x_i, y_i) ≠ 0}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Normed/Lp/PiLp.lean:44", "tex": "\n\\left(\\sum ‖f (x)‖^p \\right)^{1/p}.\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Normed/Lp/PiLp.lean:53", "tex": "\n\\left(\\int ‖f (x)‖^p dμ\\right)^{1/p}.\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Normed/Lp/ProdLp.lean:18", "tex": "\nd(x, y) = \\left(d(x_1, y_1)^p + d(x_2, y_2)^p\\right)^{1/p}.\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Module/Alternating/Curry.lean:34", "tex": "Hom(\\bigwedge^{n+1} M, N) \\to Hom(M, Hom(\\bigwedge^n M, N))"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/Normed/Module/Alternating/Uncurry/Fin.lean:176", "tex": "\nf(v_i, v_j; v_0, \\dots, \\hat{v_i}, \\dots, \\hat{v_j}, \\dots, v_{n+1}) -\nf(v_j, v_i; v_0, \\dots, \\hat{v_i}, \\dots, \\hat{v_j}, \\dots, v_{n+1})\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Module/Alternating/Uncurry/Fin.lean:182", "tex": "\\hat{v_i}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Module/Alternating/Uncurry/Fin.lean:182", "tex": "\\hat{v_j}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Module/MStructure.lean:18", "tex": "\\|x\\| = \\|P x\\| + \\|(1 - P) x\\|"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Module/MStructure.lean:21", "tex": "\\|x\\| = max(\\|P x\\|,\\|(1 - P) x\\|)"}
+{"count": 12, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Module/WeakDual.lean:196", "tex": "E"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Basic.lean:29", "tex": "\\begin{pmatrix} Φ & 0 \\cr 0 & 0 \\end{pmatrix}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Basic.lean:172", "tex": "\\begin{pmatrix} \\texttt{equiv} & 0 \\cr 0 & 0 \\end{pmatrix}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Open.lean:42", "tex": "T₀ = \\begin{pmatrix} α₀ & 0 \\cr 0 & 0 \\end{pmatrix}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Open.lean:44", "tex": "T = \\begin{pmatrix} α & β \\cr γ & δ \\end{pmatrix}"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/ODE/ExistUnique.lean:189", "tex": "\\dot x=v(t, x)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/ODE/PicardLindelof.lean:32", "tex": "\\alpha(t) = x_0 + \\int_{t_0}^t f(\\tau, \\alpha(\\tau))\\,\\mathrm{d}\\tau."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/ODE/PicardLindelof.lean:364", "tex": "(K \\max(t_{\\mathrm{max}}, t_{\\mathrm{min}})^n / n!"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Real/Cardinality.lean:208", "tex": "(a, ∞)"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Analysis/Real/Cardinality.lean:228", "tex": "[a, ∞)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Real/Cardinality.lean:232", "tex": "(-∞, a)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Real/Cardinality.lean:239", "tex": "(-∞, a]"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Real/Cardinality.lean:254", "tex": "[a, b)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/Real/Cardinality.lean:262", "tex": "(a, b]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/Real/OfDigits.lean:24", "tex": "[0,1)"}
+{"count": 8, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Arcosh.lean:14", "tex": "[0, ∞)"}
+{"count": 9, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Arcosh.lean:14", "tex": "[1, ∞)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Arcosh.lean:23", "tex": "(0, ∞)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Arcosh.lean:24", "tex": "(1, ∞)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Bessel.lean:21", "tex": "J_a(x)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Bessel.lean:24", "tex": "\nJ_a(x) = (x / 2)^a \\frac{₀F₁(-; a + 1; -(x/2)^2)} {Γ(a + 1)}\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Bessel.lean:27", "tex": "₀F₁"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Bessel.lean:33", "tex": "J_a(0) = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Bessel.lean:33", "tex": "a \\ne 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Bessel.lean:33", "tex": "a = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Bessel.lean:33", "tex": "J_0(0) = 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/CompareExp.lean:19", "tex": "z^{a_1}e^{b_1 * z} = o\\left(z^{a_1}e^{b_1 * z}\\right)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/CompareExp.lean:112", "tex": "\\log |z| =o(ℜ z)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Arctan.lean:16", "tex": "\\arctan z = -\\frac i2 \\log \\frac{1 + zi}{1 - zi}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Arctan.lean:18", "tex": "\\arctan z = \\frac{(-1)^n}{2n + 1} z^{2n + 1},\\ |z|<1"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Complex/Arg.lean:14", "tex": "(-π, π]"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Complex/CircleMap.lean:13", "tex": "θ ↦ c + R e^{θi}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Exponential.lean:217", "tex": "\\exp (ux)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Exponential.lean:217", "tex": "u"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Exponential.lean:232", "tex": "\\frac{d}{dt}e^{x(t)} = \\int_0^1 e^{sx(t)} \\left(\\frac{d}{dt}e^{x(t)}\\right) e^{(1-s)x(t)} ds"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Gamma/Deligne.lean:16", "tex": " \\Gamma_{\\mathbb{R}}(s) = \\pi ^ {-s / 2} \\Gamma (s / 2) "}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Gamma/Deligne.lean:20", "tex": " \\Gamma_{\\mathbb{C}}(s) = 2 (2 \\pi) ^ {-s} \\Gamma (s). "}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/JapaneseBracket.lean:18", "tex": "(1 + \\|x\\|^2)^{1/2}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/JapaneseBracket.lean:19", "tex": "1 + \\|x\\|"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/JapaneseBracket.lean:20", "tex": "(1 + \\|x\\|^2)^{-r/2}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/JapaneseBracket.lean:20", "tex": "(1 + |x|)^{-r}"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Log/Deriv.lean:258", "tex": "\\frac{1}{2} * \\log(\\frac{1+x}{1-x})"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/OrdinaryHypergeometric.lean:17", "tex": "\n_2\\mathrm{F}_1(a\\ b\\ c : \\mathbb{K}, x : \\mathbb{A}) = \\sum_{n=0}^{\\infty}\\frac{(a)_n(b)_n}{(c)_n}\n\\frac{x^n}{n!}   \\,,\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/OrdinaryHypergeometric.lean:21", "tex": "(a)_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/PolynomialExp.lean:14", "tex": "\\lim_{x\\to\\infty}\\frac{P(x)}{e^x}=0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/PolynomialExp.lean:18", "tex": "e^{cx}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/RegularizedHypergeometric.lean:21", "tex": "\\sum_j \\frac{(a)^n (b)^n}{\\Gamma(c + n) n!} z^ n,"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:84", "tex": "g_p(x)=p(x^{-1})f(x)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:85", "tex": "g_p(x)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:86", "tex": "g_p'=g_{x^2(p-p')}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:86", "tex": "g_p"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:90", "tex": "P(x^{-1})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:90", "tex": "P∈ℝ[X]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:179", "tex": "(-∞, 0]"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/SmoothTransition.lean:180", "tex": "[0, 1]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Stirling.lean:16", "tex": "n!"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Stirling.lean:16", "tex": "\\sqrt{2\\pi n}(\\frac{n}{e})^n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Stirling.lean:26", "tex": "a_n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Stirling.lean:26", "tex": "\\frac{n!}{\\sqrt{2n}(\\frac{n}{e})^n}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Stirling.lean:30", "tex": "\\log(1 + x)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Stirling.lean:33", "tex": "a = \\sqrt{\\pi}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Stirling.lean:54", "tex": "\\sqrt(π)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Trigonometric/Basic.lean:1269", "tex": "\\left|exp^{a\\left(e^{z}+e^{-z}\\right)}\\right| \\le e^{a\\cos b \\exp^{|re z|}}."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Analysis/SpecialFunctions/Trigonometric/EulerSineProd.lean:16", "tex": " \\sin \\pi z = \\pi z \\prod_{n = 1}^\\infty \\left(1 - \\frac{z ^ 2}{n ^ 2}\\right) "}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean:83", "tex": "f n = o(a ^ n)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean:83", "tex": "-R < a < R"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean:84", "tex": "0 < a < R"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean:85", "tex": "f n = O(a ^ n)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean:87", "tex": "|f n| ≤ Ca^n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean:90", "tex": "|f n| ≤ a ^ n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Basic/ExistsUnique.lean:151", "tex": "O(n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Basic/Real/Sign.lean:18", "tex": "\\begin{cases} -1 & \\text{if } r < 0, \\\\\n                              ~~\\, 0 & \\text{if } r = 0, \\\\\n                              ~~\\, 1 & \\text{if } r > 0. \\end{cases}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Basic/Sign/Defs.lean:19", "tex": "\\{-1, 0, 1\\}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/CategoryTheory/Adjunction/AdjointFunctorTheorems.lean:26", "tex": "{f_i : A ⟶ G (B_i)}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/CategoryTheory/InducedCategory.lean:16", "tex": " Hom_C(X, Y) = Hom_D(FX, FY) "}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/CategoryTheory/Limits/ColimitLimit.lean:20", "tex": "\\colim_k \\lim_j F(j,k) → \\lim_j \\colim_k F(j, k)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/CategoryTheory/Limits/Fubini.lean:16", "tex": "lim_{J × K} G = lim_J (lim_K G(j, -))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/CategoryTheory/Limits/Fubini.lean:667", "tex": "\\lim_k \\lim_j G(j,k) ≅ \\lim_j \\lim_k G(j,k)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/CategoryTheory/Limits/Fubini.lean:705", "tex": "\\colim_k \\colim_j G(j,k) ≅ \\colim_j \\colim_k G(j,k)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/CategoryTheory/Limits/Preserves/Bifunctor.lean:17", "tex": "\\lim_{(j_1,j_2)} G(K_1(j_1), K_2(j_2)) \\simeq G(\\lim K_1, \\lim K_2)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/CategoryTheory/Limits/Preserves/Bifunctor.lean:72", "tex": "\\mathrm{colim}_{(j_1,j_2)} G(K_1(j_1),K_2(j_2)) \\simeq G(\\mathrm{colim} K_1,\\mathrm{colim} K_2)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/CategoryTheory/Limits/Shapes/Equalizers.lean:15", "tex": "{a ∈ A | f(a) = g(a)}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/CategoryTheory/Sites/Descent/IsPrestack.lean:119", "tex": "p^* M ⟶ p^* N"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/CategoryTheory/Subobject/Basic.lean:729", "tex": "\\exists_f"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Combinatorics/Additive/CauchyDavenport.lean:194", "tex": "ℤ/nℤ"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Colex.lean:25", "tex": "∑_{i ∈ s} 2^i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:206", "tex": "B_1, \\ldots, B_k"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:207", "tex": "x \\in \\bigcup_i B_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:207", "tex": "C_x"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:208", "tex": "B_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:208", "tex": "\\sum_i |B_i| = \\sum_x |C_x|"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:14", "tex": "f(i, c)"}
+{"count": 15, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:15", "tex": "i"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:15", "tex": "c"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:16", "tex": "\nG_f(X) = \\sum_{n = 0}^{\\infty} \\left(\\sum_{p \\in P_{n}} \\prod_{i \\in p} f(i, \\#i)\\right) X^n\n= \\prod_{i = 1}^{\\infty}\\left(1 + \\sum_{j = 1}^{\\infty} f(i, j) X^{ij}\\right)\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:20", "tex": "P_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:20", "tex": "\\#i"}
+{"count": 10, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:20", "tex": "p"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:25", "tex": "f(i, c) = 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:25", "tex": "p(n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:27", "tex": "f(i, 1) = 1"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:27", "tex": "f(i, c) = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:27", "tex": "c > 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:28", "tex": "c < m"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:36", "tex": "f(0, c)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:36", "tex": "f(i, 0)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:37", "tex": "f(i, 0) = 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:37", "tex": "f(0, c) = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:37", "tex": "c \\ne 0"}
+{"count": 6, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/Glaisher.lean:16", "tex": "d"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/Glaisher.lean:30", "tex": "\\prod_{i=1,i\\nmid m}^\\infty\\frac{1}{1-X^i}=\\prod_{i=0}^\\infty (1+X^{i+1}+\\cdots+X^{(m-1)(i+1)})"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/Glaisher.lean:47", "tex": "\n\\prod_{i \\in p} \\sum_{j = 0}^{\\infty} X^{ij}\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Partition/Glaisher.lean:78", "tex": "\n\\prod_{i = 1}^{\\infty} \\sum_{j = 0}^{m - 1} X^{ij}\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Basic.lean:13", "tex": "k(3k-1)/2"}
+{"count": 18, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Basic.lean:13", "tex": "k"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Basic.lean:16", "tex": "k = 0, 1, -1, 2, -2, \\cdots"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/EulerFunction.lean:17", "tex": "‖x‖ < 1"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/EulerFunction.lean:19", "tex": " \\prod_{n = 0}^{\\infty} (1 - x^{n + 1}) = \\sum_{k=-\\infty}^{\\infty} (-1)^k x^{a_k} "}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/EulerFunction.lean:21", "tex": "a_k = k(3k - 1)/2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/EulerFunction.lean:85", "tex": "\\phi(x) = \\sum_{k=-\\infty}^{\\infty}(-1)^k x^{k (3k - 1) / 2}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/PowerSeries.lean:79", "tex": "\\sum_{k=-\\infty}^{\\infty}(-1)^k x^{k * (3k - 1) / 2}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:41", "tex": " a_{k, n} = x^{(k+1)n} \\prod_{i=0}^{n} (1 - x^{k + i + 1}) "}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:45", "tex": " A_k = \\sum_{n=0}^{\\infty} a_{k, n} "}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:51", "tex": " b_{k, n} = x^{(k+1)n} (x^{2k + n + 3} - 1) \\prod_{i=0}^{n-1} (1 - x^{k + i + 2}) "}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:57", "tex": " a_{k,n} + x^{3k + 5}a_{k + 1, n} = b_{k, n+1} - b_{k, n} "}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:69", "tex": " A_k = 1 - x^{2k + 3} - x^{3k + 5}A_{k + 1} "}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:90", "tex": "A_0"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:92", "tex": " \\prod_{n = 0}^{\\infty} (1 - x^{n + 1}) = 1 - x - x^2 A_0 "}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:115", "tex": " \\prod_{n = 0}^{\\infty} (1 - x^{n + 1}) =\n\\left(\\sum_{k=0}^{j} (-1)^k \\left(x^{k(3k+1)/2} - x^{(k+1)(3k+2)/2}\\right) \\right) +\n(-1)^{j+1}x^{(j+1)(3j+4)/2}A_j "}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:144", "tex": " \\prod_{n = 0}^{\\infty} (1 - x^{n + 1}) =\n\\sum_{k=0}^{\\infty} (-1)^k \\left(x^{k(3k+1)/2} - x^{(k+1)(3k+2)/2}\\right) "}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Hall/Basic.lean:15", "tex": "X_1, X_2, \\dots, X_n"}
+{"count": 12, "display": false, "id": "mathlib/Mathlib/Combinatorics/Hall/Basic.lean:16", "tex": "S"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Hall/Basic.lean:17", "tex": "x_1, x_2, \\dots, x_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Hall/Basic.lean:18", "tex": "x_i\\in X_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Schnirelmann.lean:20", "tex": "inf_{n > 0} |A ∩ {1,...,n}| / n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/Schnirelmann.lean:52", "tex": "|A ∩ {1, ..., n}| / n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/SimpleGraph/CompleteMultipartite.lean:214", "tex": "K_r(t)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/SimpleGraph/LapMatrix.lean:173", "tex": "x \\in \\mathbb{R}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Combinatorics/SimpleGraph/LapMatrix.lean:174", "tex": "x^{\\top} L x = \\sum_{i \\sim j} (x_{i}-x_{j})^{2}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Combinatorics/SimpleGraph/LapMatrix.lean:175", "tex": "\\sim"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Computability/AkraBazzi/SumTransform.lean:25", "tex": "\\varepsilon(x) = 1 / \\log x"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Computability/AkraBazzi/SumTransform.lean:27", "tex": "\\sum_i a_i\\,(b_i)^p = 1"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Computability/PartrecCode.lean:32", "tex": "S_n^m"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Data/DFinsupp/Defs.lean:795", "tex": "\\prod_{i\\in s}\\beta_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Data/DFinsupp/Defs.lean:795", "tex": "\\prod_{\\mathtt{i : \\iota}}\\beta_i"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Data/Finset/Card.lean:150", "tex": "\\#(s \\setminus \\{a\\}) = \\#s - 1"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Data/Finset/Card.lean:150", "tex": "a \\in s"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Data/Nat/MaxPowDiv.lean:30", "tex": "O(\\log(\\nu_p(n)))"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Data/Nat/MaxPowDiv.lean:30", "tex": "O(\\log(\\log(n)))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Data/Nat/NthRoot/Defs.lean:21", "tex": "x^n = a"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Data/Set/Prod.lean:475", "tex": "X \\times_Y Z"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Data/Set/Prod.lean:478", "tex": "X \\times_Y X"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Data/Set/Prod.lean:491", "tex": "\\Delta: X \\to X \\times_Y X"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Data/Set/Prod.lean:495", "tex": "\\Delta(X) \\subseteq X \\times_Y X"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Data/Set/Prod.lean:498", "tex": "X_i, Y_i, Z_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Data/Set/Prod.lean:499", "tex": "X_1 \\times_{Y_1} Z_1 \\to X_2 \\times_{Y_2} Z_2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Data/Set/Prod.lean:509", "tex": "(X \\times_Y Z) \\times_Z (X \\times_Y Z) \\to X \\times_Y X"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Data/Set/Prod.lean:515", "tex": "(X \\times_Y Z) \\times_X (X \\times_Y Z) \\to Z \\times_Y Z"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Dynamics/BirkhoffSum/Average.lean:15", "tex": "\n\\frac{1}{n}\\sum_{k=0}^{n-1}g(f^{[k]}(x)),\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Dynamics/Circle/RotationNumber/TranslationNumber.lean:15", "tex": "\n  \\tau(f)=\\lim_{n\\to\\infty}{f^n(x)-x}{n}\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Dynamics/Circle/RotationNumber/TranslationNumber.lean:27", "tex": "S^1=ℝ/ℤ"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Dynamics/Circle/RotationNumber/TranslationNumber.lean:547", "tex": "τ(f)=\\lim_{n→∞}\\frac{f^n(x)-x}{n}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Dynamics/Circle/RotationNumber/TranslationNumber.lean:683", "tex": "\\frac{f^n(x)-x}{n}"}
+{"count": 11, "display": false, "id": "mathlib/Mathlib/FieldTheory/Fixed.lean:343", "tex": "G"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/Fixed.lean:344", "tex": "[F : F^G] = |G|"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/Galois/Basic.lean:90", "tex": "E / E^G"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/FieldTheory/Galois/Basic.lean:104", "tex": "E / F"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/FieldTheory/Galois/Basic.lean:105", "tex": "|\\text{Aut}(E/F)| = [E : F]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/Galois/Basic.lean:147", "tex": "E / K / F"}
+{"count": 11, "display": false, "id": "mathlib/Mathlib/FieldTheory/Galois/Basic.lean:148", "tex": "K"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/FieldTheory/Galois/Basic.lean:598", "tex": "F / K / k"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/IsAlgClosed/AlgebraicClosure.lean:21", "tex": "X_{f,1}, \\dots, X_{f,\\deg f}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/FieldTheory/IsAlgClosed/AlgebraicClosure.lean:23", "tex": "f - \\prod_i (X - X_{f,i})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/IsAlgClosed/AlgebraicClosure.lean:46", "tex": "X_{f,1}, \\dots, X_{f,n}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/IsAlgClosed/AlgebraicClosure.lean:78", "tex": "X_{f_i}"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/FieldTheory/PurelyInseparable/Tower.lean:20", "tex": "[E:F]_s [K:E]_s = [K:F]_s"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/FieldTheory/PurelyInseparable/Tower.lean:24", "tex": "[E:F]_i [K:E]_i = [K:F]_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/PurelyInseparable/Tower.lean:119", "tex": "[E:F] [K:E]_s = [K:F]_s"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/PurelyInseparable/Tower.lean:135", "tex": "[K:F]_i = [K:E]_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/PurelyInseparable/Tower.lean:144", "tex": "[K:F]_s = [K:E]_s"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/PurelyInseparable/Tower.lean:157", "tex": "[E:F] [K:E]_i = [K:F]_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/RatFunc/Defs.lean:45", "tex": "K_X"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/FieldTheory/SeparableClosure.lean:26", "tex": "[E:F]_s"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/FieldTheory/SeparableClosure.lean:31", "tex": "[E:F]_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/SeparableDegree.lean:25", "tex": "\\operatorname{Emb}_F(E)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/SeparableDegree.lean:39", "tex": "F = \\mathbb{Q}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/SeparableDegree.lean:39", "tex": "E = \\mathbb{Q}( \\mu_{p^\\infty} )"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/SeparableDegree.lean:39", "tex": "\\operatorname{Emb}_F (E)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/SeparableDegree.lean:40", "tex": "\\operatorname{Gal}(E/F)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/SeparableDegree.lean:41", "tex": "\\mathbb{Z}_p^\\times"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/FieldTheory/SeparableDegree.lean:41", "tex": " [E:F] "}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Geometry/Euclidean/NinePointCircle.lean:22", "tex": "1/n"}
+{"count": 16, "display": false, "id": "mathlib/Mathlib/Geometry/Euclidean/NinePointCircle.lean:49", "tex": "N"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Geometry/Euclidean/NinePointCircle.lean:49", "tex": "O"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Geometry/Euclidean/NinePointCircle.lean:50", "tex": "OG : GN = n : 1"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Geometry/Euclidean/Volume/Basic.lean:18", "tex": "h * b / n"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Geometry/Euclidean/Volume/Basic.lean:18", "tex": "h"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Geometry/Euclidean/Volume/Measure.lean:294", "tex": "(n-d)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Geometry/Euclidean/Volume/Measure.lean:329", "tex": "(n-1)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Geometry/Euclidean/Volume/MeasureSimplex.lean:64", "tex": "(n - 1)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Geometry/Manifold/VectorBundle/CovariantDerivative/Basic.lean:29", "tex": "Hom(TM, V)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Geometry/Manifold/VectorBundle/CovariantDerivative/Basic.lean:86", "tex": "Hom(TM, E)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/CosetCover.lean:17", "tex": "C₁"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/CosetCover.lean:17", "tex": "C₂"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/CosetCover.lean:17", "tex": "Cₙ"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/GroupTheory/CosetCover.lean:18", "tex": " G = ⋃_{i = 1}^n C_i g_i. "}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/GroupTheory/CosetCover.lean:21", "tex": "C_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:19", "tex": "M = (M_{i,i'})_{i, i' \\in B}"}
+{"count": 45, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:20", "tex": "M"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:21", "tex": "M_{i,i'} = 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:21", "tex": "i = i'"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:23", "tex": "\\langle \\{s_i\\}_{i \\in B} \\vert \\{(s_i s_{i'})^{M_{i, i'}}\\}_{i, i' \\in B} \\rangle."}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:24", "tex": "s_i"}
+{"count": 8, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:27", "tex": "W"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:29", "tex": "s_i \\in W"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:34", "tex": "f \\colon B \\to G"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:35", "tex": "W \\to G"}
+{"count": 7, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:37", "tex": "B"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:37", "tex": "(i_1, \\ldots, i_\\ell)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:38", "tex": "s_{i_1} \\cdots s_{i_\\ell} \\in W"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:44", "tex": "S = \\{s_i : i \\in B\\} \\subseteq W"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:73", "tex": "M : B \\times B \\to \\mathbb{N}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:73", "tex": "\\{\\alpha_i : i \\in B\\}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:74", "tex": "\\langle \\cdot, \\cdot \\rangle \\colon V \\times V \\to \\mathbb{R}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:75", "tex": "\\langle \\alpha_i, \\alpha_{i'}\\rangle = - \\cos(\\pi / M_{i,i'}),"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:76", "tex": "GL(V)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:76", "tex": "\\alpha_i"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:77", "tex": "D"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:77", "tex": "I"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:97", "tex": "i, i' \\in B"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:98", "tex": "(s_i s_{i'})^{M_{i, i'}}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:99", "tex": "\\{s_i\\}_{i \\in B}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:100", "tex": "M_{i, i'} = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Basic.lean:101", "tex": "s_{i'}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:23", "tex": "t = u s_i u^{-1}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:23", "tex": "u \\in W"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:23", "tex": "t"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:24", "tex": "w \\in W"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:25", "tex": "\\ell(t w) < \\ell(w)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:26", "tex": "\\ell(w t) > \\ell(w)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:26", "tex": "\\ell"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:66", "tex": "w s_i w^{-1}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:127", "tex": "\\ell (w t) < \\ell(w)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:131", "tex": "\\ell (t w) < \\ell(w)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:185", "tex": "s_{i_1} \\cdots s_{i_\\ell}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:186", "tex": "s_{i_\\ell}\\cdots s_{i_1}\\cdots s_{i_\\ell}, \\ldots,\n    s_{i_{\\ell}}s_{i_{\\ell - 1}}s_{i_{\\ell - 2}}s_{i_{\\ell - 1}}s_{i_\\ell}, \\ldots,\n    s_{i_{\\ell}}s_{i_{\\ell - 1}}s_{i_\\ell}, s_{i_\\ell}."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Inversion.lean:197", "tex": "s_{i_1}, s_{i_1}s_{i_2}s_{i_1}, s_{i_1}s_{i_2}s_{i_3}s_{i_2}s_{i_1}, \\ldots,\n    s_{i_1}\\cdots s_{i_\\ell}\\cdots s_{i_1}."}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:21", "tex": "\\ell(w)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:24", "tex": "w = s_{i_1} \\cdots s_{i_\\ell}."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:25", "tex": "w_1, w_2 \\in W"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:25", "tex": "\\ell (w_1 w_2) \\leq \\ell (w_1) + \\ell (w_2)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:26", "tex": "\\ell (w_1 w_2)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:26", "tex": "\\ell (w_1) + \\ell (w_2)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:32", "tex": "i \\in B"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:33", "tex": "\\ell(s_i w) < \\ell(w)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:34", "tex": "\\ell(s_i w) + 1 = \\ell(w)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:35", "tex": "\\ell(s_i w) = \\ell(w) + 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Length.lean:251", "tex": "\\ell(w s_i) < \\ell(w)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Matrix.lean:28", "tex": "M_{i,i'}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Matrix.lean:29", "tex": "\\infty"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/GroupTheory/Coxeter/Matrix.lean:29", "tex": "0"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Alternating.lean:71", "tex": "A_n"}
+{"count": 6, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Alternating.lean:272", "tex": "A_5"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Alternating.lean:317", "tex": "(04)(13)"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Dihedral.lean:252", "tex": "2n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Dihedral.lean:252", "tex": "n(n+3)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Dihedral.lean:253", "tex": "n + n + n + n*n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Dihedral.lean:301", "tex": "n \\ne 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Dihedral.lean:312", "tex": "n \\ne 2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Dihedral.lean:313", "tex": "r^{n/2}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Dihedral.lean:313", "tex": "n = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Dihedral.lean:313", "tex": "D_0"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Quaternion.lean:16", "tex": "\\langle a, x | a^{2n} = 1, x^2 = a^n, x^{-1}ax=a^{-1}\\rangle"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Quaternion.lean:17", "tex": "a^i"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/GroupTheory/SpecificGroups/Quaternion.lean:17", "tex": "x * a^i"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/InformationTheory/KullbackLeibler/KLFun.lean:30", "tex": "[0,∞)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/InformationTheory/KullbackLeibler/KLFun.lean:69", "tex": "(0,∞)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/LinearAlgebra/Alternating/DomCoprod.lean:120", "tex": "\n(f \\wedge g)(u_1, \\ldots, u_{m+n}) =\n  \\sum_{\\operatorname{shuffle}(m, n)} \\operatorname{sign}(\\sigma)\n    f(u_{\\sigma(1)}, \\ldots, u_{\\sigma(m)}) g(u_{\\sigma(m+1)}, \\ldots, u_{\\sigma(m+n)}),\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Alternating/DomCoprod.lean:125", "tex": "\\operatorname{shuffle}(m, n)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Alternating/DomCoprod.lean:125", "tex": "[1, m+n]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Alternating/DomCoprod.lean:126", "tex": "\\sigma(1) < \\cdots < \\sigma(m)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Alternating/DomCoprod.lean:126", "tex": "\\sigma(m+1) < \\cdots < \\sigma(m+n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Alternating/DomCoprod.lean:131", "tex": "\\sigma"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/LinearAlgebra/Alternating/Uncurry/Fin.lean:152", "tex": "\nf(v_i, v_j; v_0, \\dots, \\hat{v_i}, \\dots, \\hat{v_j}-) -\nf(v_j, v_i; v_0, \\dots, \\hat{v_i}, \\dots, \\hat{v_j}-)\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/BaseChange.lean:178", "tex": "<|Cℓ(A ⊗_R V, Q_A) ≅ A ⊗_R Cℓ(V, Q)<|"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/Basic.lean:304", "tex": "aba"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/Conjugation.lean:176", "tex": "{-1}^n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/Contraction.lean:79", "tex": "v ⌋ x"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/Contraction.lean:108", "tex": "x ⌊ v"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/Contraction.lean:238", "tex": "\\lambda_B"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/Contraction.lean:326", "tex": "\\bar \\lambda_B"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/Inversion.lean:13", "tex": "ι(m)^{-1} = \\frac{ι(m)}{Q(m)}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/Inversion.lean:34", "tex": "v^{-1} = \\frac{v}{Q(v)}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/Inversion.lean:45", "tex": "aba^{-1}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/Inversion.lean:51", "tex": "a^{-1}ba"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CliffordAlgebra/SpinGroup.lean:29", "tex": "\\{ x \\in \\mathop{\\mathcal{C}\\ell} | x \\text{ is invertible and } x v x^{-1} ∈ V \\}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Contraction.lean:14", "tex": "M, N"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Contraction.lean:15", "tex": "M^* \\otimes M \\to R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Contraction.lean:15", "tex": "M \\otimes M^* \\to R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Contraction.lean:15", "tex": "M^* \\otimes N → Hom(M, N)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Contraction.lean:170", "tex": "M^* ⊗ N → Hom(M, N)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/CrossProduct.lean:15", "tex": "R^3"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Dimension/Free.lean:41", "tex": "\\operatorname{rank}_F(A) = \\operatorname{rank}_F(K) * \\operatorname{rank}_K(A)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Dual/Basis.lean:14", "tex": "M \\to R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Dual/Basis.lean:272", "tex": "\\sum_{p ∈ Q n} (ε p m) • e p = m"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Dual/Defs.lean:345", "tex": "\\operatorname{ker}(\\iota^* : V^* \\to W^*) = \\operatorname{ann}(W)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:400", "tex": "L_1, ..., L_n, K"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:401", "tex": "\\bigcap_{i=1}^n \\mathrm{ker}(L_i) \\subseteq \\mathrm{ker}(K)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:402", "tex": "L_1, ..., L_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:639", "tex": "\\operatorname{im}(q^* : (V/W)^* \\to V^*) = \\operatorname{ann}(W)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:651", "tex": "(M/W)^* \\cong \\operatorname{ann}(W)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/FreeModule/Norm.lean:58", "tex": "S/\\langle f \\rangle"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Charpoly/Basic.lean:46", "tex": "t I - M"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Charpoly/Basic.lean:138", "tex": "\\det (t I - M)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/Basic.lean:11", "tex": "GL(n, R)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/Basic.lean:23", "tex": "[a, -b; b, a]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/Basic.lean:24", "tex": "GL_2(R)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/GeneralLinearGroup/Projective.lean:39", "tex": "PGL(n, R)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Ideal.lean:22", "tex": "Mₙ(R)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Ideal.lean:23", "tex": "J(Mₙ(I)) = Mₙ(J(I))"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Ideal.lean:24", "tex": "I ≤ R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Ideal.lean:82", "tex": "J(Mₙ(I))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Ideal.lean:83", "tex": "J(I)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Ideal.lean:102", "tex": "Mₙ(J(I)) ≤ J(Mₙ(I))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Ideal.lean:279", "tex": "Mₙ(I)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Ideal.lean:280", "tex": "J ≤ Mₙ(R)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/Ideal.lean:280", "tex": "\\{Nᵢⱼ ∣ ∃ N ∈ J\\}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Matrix/SpecialLinearGroup.lean:16", "tex": "SL(n, R)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/QuadraticForm/Basic.lean:61", "tex": "Q(rm) = rQ(m)r^*"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/QuadraticForm/Basic.lean:62", "tex": "r^*"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Quotient/Basic.lean:437", "tex": "\\{f ∈ Hom(M, M₂) | f(p) ⊆ q \\} \\to Hom(M/p, M₂/q)"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:35", "tex": "(r_1 r_2)^m z"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:35", "tex": "r_1"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:36", "tex": "r_2"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:36", "tex": "z \\in M"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:154", "tex": "x, y \\in M"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:154", "tex": "f, g \\in M^*"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:155", "tex": "f(x) = g(y) = 2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:155", "tex": "r_1, r_2 \\colon M \\to M"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:156", "tex": "r_1z = z - f(z) x"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:156", "tex": "r_2 z = z - g(z) y"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:159", "tex": "r_1 r_2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:162", "tex": "f(z) = 2 \\langle x, z \\rangle / \\langle x, x \\rangle"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:163", "tex": "g(z) = 2 \\langle y, z\\rangle / \\langle y, y\\rangle"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:165", "tex": "\\cos^{-1}\\left(\\frac{f(y) g(x) - 2}{2}\\right)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:168", "tex": "\\mathbb{R}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:170", "tex": "t = f(y) g(x) - 2"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:227", "tex": "(r_1 r_2)^m"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:271", "tex": "(r_1 r_2)^m x"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:272", "tex": "z = x"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Reflection.lean:312", "tex": "r_2 (r_1 r_2)^m x"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/RootSystem/GeckConstruction/Basic.lean:33", "tex": "H ⊕ K^∣Φ|"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/RootSystem/GeckConstruction/Basic.lean:45", "tex": "2^l"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/RootSystem/GeckConstruction/Basic.lean:45", "tex": "l"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Span/Basic.lean:903", "tex": "r \\mapsto r \\cdot x"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/Span/Basic.lean:926", "tex": "r \\cdot x \\mapsto r"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/SymmetricAlgebra/Basic.lean:31", "tex": "a \\circ b = \\frac{1}{2}(ab + ba)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorPower/Basic.lean:35", "tex": "M^{\\otimes n}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Graded/External.lean:16", "tex": "A \\hat\\otimes_R B"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Graded/External.lean:19", "tex": "(a \\otimes b) \\cdot (a' \\otimes b') = (-1)^{\\deg a' \\deg b} (a \\cdot a') \\otimes (b \\cdot b')"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Graded/External.lean:37", "tex": "a \\otimes b"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Graded/External.lean:37", "tex": "(-1)^{\\deg a' \\deg b} (b \\otimes a)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Graded/External.lean:101", "tex": "a ⊗ b"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Graded/External.lean:101", "tex": "(-1)^{\\deg a' \\deg b} (b ⊗ a)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Graded/Internal.lean:43", "tex": "(-1)^{\\deg a' \\deg b}"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:15", "tex": "M \\otimes N"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:16", "tex": "\\sum_{i} m_i \\otimes n_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:20", "tex": "\\sum_{i \\in \\iota} m_i \\otimes n_i"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:22", "tex": "\\kappa"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:22", "tex": "(y_j)_{j \\in \\kappa}"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:23", "tex": "(a_{ij})_{i \\in \\iota, j \\in \\kappa}"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:24", "tex": "n_i = \\sum_j a_{ij} y_j"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:25", "tex": "j"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:26", "tex": "\\sum_i a_{ij} m_i = 0."}
+{"count": 13, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:29", "tex": "\\sum_i m_i \\otimes n_i"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:30", "tex": "\\sum_i m_i \\otimes n_i = 0"}
+{"count": 6, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:35", "tex": "m_i"}
+{"count": 9, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:40", "tex": "M' \\subseteq M"}
+{"count": 8, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:41", "tex": "M' \\otimes N \\to M \\otimes N"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:42", "tex": "M = R"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:16", "tex": "\\oint_{|z-c|=|R|} f(z)\\,dz"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:27", "tex": "\\int_{0}^{2π}(c + Re^{θ i})' f(c+Re^{θ i})\\,dθ"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:30", "tex": "\\sum_{n=0}^{\\infty} \\oint_{|z-c|=R} \\left(\\frac{w-c}{z - c}\\right)^n \\frac{1}{z-c}f(z)\\,dz"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:433", "tex": "\\oint_{|z-c|=R} f(z)\\,dz"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:635", "tex": "\\frac{1}{2πi}\\sum_{n=0}^{\\infty}\n  \\oint_{|z-c|=R} \\left(\\frac{w-c}{z - c}\\right)^n \\frac{1}{z-c}f(z)\\,dz"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:746", "tex": "\\oint_{|z-c|=R} \\frac{dz}{z-w} = 2πi"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:746", "tex": "|w-c| < R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/CircleTransform.lean:14", "tex": "(2πi)^{-1}\\frac{f(x)}{x-w}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/CurveIntegral/Basic.lean:21", "tex": "\\int_0^1 \\omega(\\gamma(t))(\\gamma'(t))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/IntegralEqImproper.lean:1432", "tex": "(∞, a]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean:43", "tex": "F_μ(b)-F_μ(a)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean:43", "tex": "F_μ(a)=μ(-∞, a]"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/DistLEIntegral.lean:174", "tex": "Df(x) = O(‖x - a‖ ^ r)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/DistLEIntegral.lean:175", "tex": "f(x) - f(a) = O(‖x - a‖ ^ {r + 1})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/DistLEIntegral.lean:198", "tex": "f(x) = O(‖x - a‖ ^ {r + 1})"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/FundThmCalculus.lean:79", "tex": "\n  \\int_{va}^{vb} f ∂μ - \\int_{ua}^{ub} f ∂μ =\n  \\int_{ub}^{vb} cb ∂μ - \\int_{ua}^{va} ca ∂μ + o(‖∫_{ua}^{va} 1 ∂μ‖ + ‖∫_{ub}^{vb} (1:ℝ) ∂μ‖)\n"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Periodic.lean:90", "tex": "(t, t + T]"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Periodic.lean:237", "tex": "(t, t + 1]"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/MeasureTheory/Integral/Layercake.lean:30", "tex": "∫ f(ω) \\,∂μ(ω) = ∫ μ \\{ω \\mid f(ω) ≥ t\\} \\,dt"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/Layercake.lean:44", "tex": "∫ f(ω) \\,∂μ(ω) = ∫ μ \\{ω \\mid f(ω) ≥ t\\} \\,dt"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/Layercake.lean:45", "tex": "∫ f(ω) \\,∂μ(ω) = ∫ μ \\{ω \\mid f(ω) > t\\} \\,dt"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/MeasureTheory/Integral/Marginal.lean:29", "tex": "\n  \\vec{x}\\mapsto \\int\\!\\!\\cdots\\!\\!\\int f(\\vec{x}[\\vec{y}])dy_{i_1}\\cdots dy_{i_k}.\n  "}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/Marginal.lean:32", "tex": "\\vec{x}[\\vec{y}]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/Marginal.lean:32", "tex": "\\vec{x}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/Marginal.lean:32", "tex": "x_{i_j}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/Marginal.lean:32", "tex": "y_{i_j}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/Marginal.lean:33", "tex": "1 \\le j \\le k"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:17", "tex": "z_k=c_k+R_ke^{θ_ki}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:19", "tex": "[0, (fun _ ↦ 2π)] = \\{θ\\|∀ k, 0 ≤ θ_k ≤ 2π\\}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:28", "tex": "θ=(θ_0,…,θ_{n-1})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:28", "tex": "z=(z_0,…,z_{n-1})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:28", "tex": "z_k= c_k + R_ke^{θ_k i}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:36", "tex": "\\iiint_{[0, 2 * π]} (∏_{k = 1}^{n} i R_k e^{θ_k * i}) • f (c + Re^{θ_k i})\\,dθ_0…dθ_{k-1}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:79", "tex": "θ_i ↦ c + R e^{θ_i*I}, θ ∈ ℝⁿ"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Measure/OpenPos.lean:247", "tex": "[0,1]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Measure/OpenPos.lean:248", "tex": "α ∈ (0,1)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/Measure/OpenPos.lean:248", "tex": "C ⊆ [0,1]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:63", "tex": "(A_n)_{n \\in \\mathbb{N}}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:64", "tex": "s(A_{n + 1})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:65", "tex": "i \\setminus \\bigcup_{k \\le n} A_k"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:72", "tex": "i \\setminus \\bigcup_{k = 0}^\\infty A_k"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:86", "tex": "(A_n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/ModelTheory/Order.lean:173", "tex": "\\forall x, \\exists y, \\neg y \\le x"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/ModelTheory/Order.lean:178", "tex": "\\forall x, \\exists y, \\neg x \\le y"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/ModelTheory/Order.lean:183", "tex": "\\forall x, \\forall y, x < y \\to \\exists z, x < z \\wedge z < y"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ADEInequality.lean:58", "tex": "A_r"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ADEInequality.lean:66", "tex": "D_{r+2}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ADEInequality.lean:74", "tex": "E_{r+3}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ADEInequality.lean:82", "tex": "E_6"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ADEInequality.lean:90", "tex": "E_7"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ADEInequality.lean:98", "tex": "E_8"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ArithmeticFunction/Misc.lean:52", "tex": "n \\mapsto \\prod_{p \\mid n} f(p)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:24", "tex": "(B_0, B_1, B_2, \\ldots)=(1, -1/2, 1/6, 0, -1/30, \\ldots)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:26", "tex": "x/\\tan(x)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:27", "tex": "\\coth(x)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:29", "tex": "1 \\leq n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:31", "tex": "\\zeta(2n)=\\sum_{t\\geq1}t^{-2n}=(-1)^{n+1}\\frac{(2\\pi)^{2n}B_{2n}}{2(2n)!}."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:37", "tex": "\\sum B_n\\frac{t^n}{n!}=\\frac{t}{1-e^{-t}}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:42", "tex": "B_1=-1/2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:42", "tex": "B_n^-"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:48", "tex": "B_n=1-\\sum_{k\\lt n}\\frac{\\binom{n}{k}}{n-k+1}B_k."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:49", "tex": "B_0=1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:81", "tex": "B_n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:82", "tex": "B_n = 1 - \\sum_{k < n} \\binom{n}{k}\\frac{B_k}{n+1-k}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:290", "tex": "\\sum_{k=0}^{n-1} k^p = \\sum_{i=0}^p B_i\\binom{p+1}{i}\\frac{n^{p+1-i}}{p+1}."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:356", "tex": "\\sum_{k=1}^{n} k^p = \\sum_{i=0}^p (-1)^iB_i\\binom{p+1}{i}\\frac{n^{p+1-i}}{p+1}."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:406", "tex": "k \\ge 0"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:407", "tex": "B_{2k} + \\sum_{p \\text{ prime}, (p - 1) \\mid 2k} \\frac{1}{p} \\in \\mathbb{Z}."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/Bernoulli.lean:661", "tex": "B_{2k} + \\sum_{p - 1 \\mid 2k} \\frac{1}{p}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:19", "tex": " B_n(X) = ∑_{k = 0}^n {n \\choose k} (-1)^k B_k X^{n - k} "}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:20", "tex": "B_k"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:21", "tex": " \\frac{t e^{tX} }{ e^t - 1} = ∑_{n = 0}^{\\infty} B_n(X) \\frac{t^n}{n!} "}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:29", "tex": "k^\\mathrm{th}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:255", "tex": "(e^X - 1) * ∑ Bₙ(t)* X^n/n! = Xe^{tX}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Chebyshev.lean:845", "tex": "\\pi(x)"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:16", "tex": "\\xi"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:17", "tex": "x/y"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:19", "tex": "\\left|\\xi - \\frac{x}{y}\\right| < \\frac{1}{y^2} \\,."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:24", "tex": "\\left|\\xi - \\frac{x}{y}\\right| < \\frac{1}{2y^2} \\,,"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:290", "tex": "|\\xi - x/y| < 1/(2y^2)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:296", "tex": "|\\xi - x/y| < 1/(y(2y-1))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:297", "tex": "y \\ge 2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:297", "tex": "-\\frac{1}{2} < \\xi - x < 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:297", "tex": "y = 1"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/EulerProduct/DirichletLSeries.lean:15", "tex": "\\prod_p \\frac{1}{1 - p^{-s}}\n   = \\lim_{n \\to \\infty} \\prod_{p < n} \\frac{1}{1 - p^{-s}} = \\zeta(s)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/EulerProduct/DirichletLSeries.lean:17", "tex": "> 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/FLT/Four.lean:263", "tex": "n=4"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Harmonic/Bounds.lean:15", "tex": "\\log(n + 1) \\le H_n \\le 1 + \\log(n)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/LSeries/HardyZ.lean:17", "tex": " Z(t) = \\frac{\\Lambda(1/2 + it)}{|\\Gamma_{\\mathbb{R}}(1/2 + it)|}. "}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/NumberTheory/LegendreSymbol/Basic.lean:15", "tex": "\\Bigl(\\frac{a}{p}\\Bigr)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/LegendreSymbol/JacobiSymbol.lean:71", "tex": "\\Bigl(\\frac{a}{b}\\Bigr)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/LucasLehmer.lean:433", "tex": "\\omega^{(q+1)/2}=-1"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/NumberTheory/MaricaSchoenheim.lean:15", "tex": "0 < a_1 < \\dots a_n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/NumberTheory/MaricaSchoenheim.lean:16", "tex": "\\max_{i, j} \\frac{a_i}{\\gcd(a_i, a_j)} \\ge n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/MaricaSchoenheim.lean:16", "tex": "a_i"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/NumberTheory/ModularForms/Derivative.lean:16", "tex": "D = \\frac{1}{2\\pi i} \\frac{d}{dz}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ModularForms/Derivative.lean:17", "tex": "\\partial_k := D - \\frac{k}{12} E_2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ModularForms/Derivative.lean:22", "tex": "\\partial_k F := D F - \\frac{k}{12} E_2 F"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ModularForms/Derivative.lean:224", "tex": "\\partial_k (F ∣[k] γ) = (\\partial_k F) ∣[k + 2] \\gamma"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/ModularForms/Derivative.lean:224", "tex": "\\gamma \\in SL(2, \\mathbb{Z})"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/ModularForms/JacobiTheta/OneVariable.lean:15", "tex": "\\theta(\\tau) = \\sum_{n \\in \\mathbb{Z}} \\exp (i \\pi n ^ 2 \\tau),"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/ModularForms/JacobiTheta/TwoVariable.lean:19", "tex": "\\theta(z, \\tau) = \\sum_{n \\in \\mathbb{Z}} \\exp (2 i \\pi n z + i \\pi n ^ 2 \\tau),"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/ModularForms/JacobiTheta/TwoVariable.lean:26", "tex": "\\theta'(z, τ) = \\sum_{n \\in \\mathbb{Z}} 2 \\pi i n \\exp (2 i \\pi n z + i \\pi n ^ 2 \\tau)."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:18", "tex": "\n\\delta(S) = \\lim_{s \\to 1^+}\n  \\frac{\\sum_{\\mathfrak p \\in S} \\operatorname{N} \\mathfrak p^{-s}}\n    {\\sum_{\\mathfrak p} \\operatorname{N} \\mathfrak p^{-s}},\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:53", "tex": "\\sum_{\\mathfrak p \\in S} \\operatorname{N} \\mathfrak p^{-s}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:77", "tex": "\n\\frac{\\sum_{\\mathfrak p \\in S} \\operatorname{N} \\mathfrak p^{-s}}\n  {\\sum_{\\mathfrak p} \\operatorname{N} \\mathfrak p^{-s}},\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:81", "tex": "s \\to 1^+"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/NumberField/InfiniteAdeleRing.lean:106", "tex": "\\prod_v K_v"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/NumberTheory/Pell.lean:17", "tex": "x^2 - d y^2 = 1"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/NumberTheory/Pell.lean:18", "tex": "y"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Pell.lean:22", "tex": "d = a^2 - 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Pell.lean:22", "tex": "a > 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Pell.lean:31", "tex": "y \\ne 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Pell.lean:36", "tex": "x > 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Pell.lean:36", "tex": "y > 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/SelbergSieve.lean:22", "tex": "\\nu(n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/SelbergSieve.lean:22", "tex": "\\frac{\\omega(n)}{n}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/SelbergSieve.lean:123", "tex": "\\nu"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/SelbergSieve.lean:190", "tex": "\\mu^{+}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/SelbergSieve.lean:190", "tex": "\\mu * \\zeta ≤ \\mu^{+} * \\zeta"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/SelbergSieve.lean:276", "tex": "S = \\sum_{l \\mid P, l \\le \\sqrt{y}} g(l)"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/NumberTheory/Transcendental/Liouville/LiouvilleNumber.lean:19", "tex": "\n\\sum_{i=0}^\\infty\\frac{1}{m^{i!}}.\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Transcendental/Liouville/LiouvilleNumber.lean:22", "tex": "1 < m"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Transcendental/Liouville/LiouvilleNumber.lean:25", "tex": "m \\in \\mathbb{N}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Transcendental/Liouville/LiouvilleNumber.lean:25", "tex": "2 \\le m"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Transcendental/Liouville/LiouvilleNumber.lean:26", "tex": "m = 2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Transcendental/Liouville/LiouvilleNumber.lean:31", "tex": "2 ≤ m"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/NumberTheory/Transcendental/Liouville/LiouvilleNumber.lean:32", "tex": "m \\in \\mathbb{R}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/Transcendental/Liouville/LiouvilleNumber.lean:58", "tex": "\n\\sum_{i=0}^k\\frac{1}{m^{i!}}.\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/Transcendental/Liouville/LiouvilleNumber.lean:67", "tex": "\n\\sum_{i=k+1}^\\infty\\frac{1}{m^{i!}}.\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/WellApproximable.lean:22", "tex": "\n  |x - m/n| < δₙ,\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/NumberTheory/ZetaValues.lean:24", "tex": "\\zeta(2k) = \\frac{(-1)^{(k + 1)} 2 ^ {2k - 1} \\pi^{2k} B_{2 k}}{(2 k)!}."}
+{"count": 17, "display": false, "id": "mathlib/Mathlib/Order/BourbakiWitt.lean:23", "tex": "X"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/BourbakiWitt.lean:24", "tex": "f : X → X"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Filter/AtTopBot/Group.lean:139", "tex": "\\lim_{x\\to+\\infty}|x|_m=+\\infty"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Filter/AtTopBot/Group.lean:140", "tex": "\\lim_{x\\to+\\infty}|x|=+\\infty"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Filter/AtTopBot/Group.lean:144", "tex": "\\lim_{x\\to\\infty^{-1}|x|_m=+\\infty"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Filter/AtTopBot/Group.lean:145", "tex": "\\lim_{x\\to-\\infty}|x|=+\\infty"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Order/Interval/Finset/Defs.lean:349", "tex": "(-∞, b]"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Order/Interval/Finset/Defs.lean:355", "tex": "(-∞, b)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Interval/Set/ProjIcc.lean:238", "tex": "[b, +∞)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:34", "tex": "∀ k, x_{k+1} ≤ f(x_k)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:34", "tex": "x_k"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:35", "tex": "f^k(x_0)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:35", "tex": "y_k"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:36", "tex": "x_{k+1} ≤ f(x_k)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:36", "tex": "y_{k+1} ≥ f(y_k)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:36", "tex": "k < n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:36", "tex": "x_0 ≤ y_0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:37", "tex": "x_n ≤ y_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:39", "tex": "x_n < y_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:110", "tex": "f(x) ≤ x"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/Iterate.lean:121", "tex": "x ≤ f x"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Order/PrimeSeparator.lean:17", "tex": "J"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Order/SemiconjSup.lean:114", "tex": "s(x)=\\{f_1(g)^{-1} (f_2(g)(x)) | g \\in G\\}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Order/TeichmullerTukey.lean:21", "tex": "X ∈ F"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:31", "tex": "(X_i)_{i \\in \\iota}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:32", "tex": "i \\ne j"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:32", "tex": "\\mathrm{Cov}(X_i, X_j) = 0"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:33", "tex": "(X, Y)"}
+{"count": 20, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:34", "tex": "Y"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:34", "tex": "\\mathrm{Cov}(X, Y) = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:235", "tex": "((X_{i,j})_{j \\in \\kappa_i})_{i \\in \\iota}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:236", "tex": "i_1 \\ne i_2 \\in \\iota"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:236", "tex": "j_1 \\in \\kappa_{i_1}, j_2 \\in \\kappa_{i_2}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:237", "tex": "\\mathrm{Cov}(X_{i_1, j_1}, X_{i_2, j_2}) = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:336", "tex": "((X_i)_{i \\in \\iota}, (Y_j)_{j \\in \\kappa})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:337", "tex": "(Y_j)_{j \\in \\kappa}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:337", "tex": "i \\in \\iota, j \\in \\kappa"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/HasGaussianLaw/Independence.lean:338", "tex": "\\mathrm{Cov}(X_i, Y_j) = 0"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:24", "tex": "((X^t_s)_{s \\in S_t})_{t \\in T}"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:25", "tex": "t_1, t_2 \\in T"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:25", "tex": "t_1 \\ne t_2"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:26", "tex": "s_1 \\in S_{t_1}"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:26", "tex": "s_2 \\in S_{t_2}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:26", "tex": "\\mathrm{Cov}(X^{t_1}_{s_1}, X^{t_2}_{s_2} = 0"}
+{"count": 17, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:28", "tex": "(X_s)_{s \\in S}"}
+{"count": 10, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:28", "tex": "(Y_t)_{t \\in T}"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:29", "tex": "s \\in S"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:29", "tex": "t \\in T"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:30", "tex": "\\mathrm{Cov}(X_s, Y_t) = 0"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:64", "tex": "X^{t_1}_{s_1}"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:64", "tex": "X^{t_2}_{s_2}"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:119", "tex": "X_s"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Probability/Distributions/Gaussian/IsGaussianProcess/Independence.lean:119", "tex": "Y_t"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:114", "tex": "(X_1, ..., X_p)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:114", "tex": "(Y_1, ..., Y_q)"}
+{"count": 11, "display": false, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:115", "tex": "g"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:116", "tex": "P[f(X_1, ..., X_p) g(Y_1, ..., Y_q)] = P[f(X_1, ..., X_p)] * P[g(Y_1, ..., Y_q)]."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:174", "tex": "P[f(X) g(Y)] = P[f(X)] * P[g(Y)]."}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:232", "tex": "P[\\mathbb{I}_A f(X_1, ..., X_p)] = P(A) P[f(X_1, ..., X_p)]."}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:243", "tex": "P[\\mathbb{I}_A f(X)] = P(A) P[f(X)]."}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:292", "tex": "\\mathcal{A}"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:293", "tex": "A \\in \\mathcal{A}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:331", "tex": "s_1, ..., s_p \\in S, t_1, ..., t_q \\in T"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:333", "tex": "P[f(X_{s_1}, ..., X_{s_p}) g(Y_{t_1}, ..., Y_{t_q})] =\nP[f(X_{s_1}, ..., X_{s_p})] * P[g(Y_{t_1}, ..., Y_{t_q})]."}
+{"count": 16, "display": false, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:387", "tex": "s_1, ..., s_p \\in S"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/Probability/Independence/BoundedContinuousFunction.lean:388", "tex": "P[\\mathbb{I}_A f(X_{s_1}, ..., X_{s_p})] =\nP(A) P[f(X_{s_1}, ..., X_{s_p})]."}
+{"count": 14, "display": false, "id": "mathlib/Mathlib/Probability/Independence/Process/Basic.lean:16", "tex": "(X_{s_1}, ..., X_{s_p})"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Probability/Independence/Process/Basic.lean:19", "tex": "t_1, ..., t_q \\in T"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/Probability/Independence/Process/Basic.lean:20", "tex": "(Y_{t_1}, ..., Y_{t_q})"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Independence/Process/Basic.lean:137", "tex": "(Y_s)_{s \\in S}"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Independence/Process/Basic.lean:235", "tex": "((X^s_t)_{t \\in T_s})_{s \\in S}"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Independence/Process/Basic.lean:236", "tex": "s_1, ..., s_n"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Independence/Process/Basic.lean:236", "tex": "t^{s_i}_1, ..., t^{s_i}_{p_i}"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Independence/Process/Basic.lean:237", "tex": "(X^{s_1}_{t^{s_1}_1}, ..., X^{s_1}_{t^{s_1}_{p_1}}), ...,\n(X^{s_n}_{t^{s_n}_1}, ..., X^{s_n}_{t^{s_n}_{p_n}})"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Kernel/Category/Stoch.lean:29", "tex": "X = Y = \\{\\varnothing\\}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Kernel/Category/Stoch.lean:29", "tex": "\\kappa(\\cdot | \\varnothing) = 2\\delta_{\\varnothing}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Kernel/Category/Stoch.lean:30", "tex": "\\eta(\\cdot | \\varnothing) = (1/2)\\delta_{\\varnothing}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Kernel/Deterministic.lean:39", "tex": "\\kappa(\\cdot | \\varnothing) = 2\\delta_\n{\\varnothing}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:175", "tex": "(\\mathcal{F}_n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:175", "tex": "(s_n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:176", "tex": "s_n \\in \\mathcal{F}_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:176", "tex": "limsup_n s_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:177", "tex": "\\sum_n \\mathbb{P}[s_n \\mid \\mathcal{F}_n] = \\infty"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:181", "tex": "\n  f_n := \\sum_{k < n} \\big(\\mathbf{1}_{s_{k + 1}} - \\mathbb{P}[s_{k + 1} \\mid \\mathcal{F}_k]\\big).\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:186", "tex": "\\pm \\infty"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:187", "tex": "\n  \\limsup_n s_n = \\{\\sum_n \\mathbf{1}_{s_n} = \\infty\\}\n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:69", "tex": "(x_n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:70", "tex": "\\limsup_{n \\to \\infty} |x_n| < \\infty"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:70", "tex": "a < b \\in \\mathbb{Q}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:72", "tex": "\\omega"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:72", "tex": "\\limsup_{n \\to \\infty} |f_n(\\omega)| < \\infty"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:73", "tex": "(f_n(\\omega))"}
+{"count": 6, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:76", "tex": "(f_n)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:77", "tex": "\n  \\mathbb{E} \\limsup_{n \\to \\infty} |f_n| \\le \\limsup_{n \\to \\infty} \\mathbb{E}|f_n| < \\infty\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:80", "tex": "\\limsup_{n \\to \\infty} |f_n| < \\infty"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:84", "tex": "\\mathcal{F}_\\infty"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:85", "tex": "f_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:85", "tex": "\\mathcal{F}_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:85", "tex": "\\mathcal{F}_n \\le \\mathcal{F}_\\infty"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:86", "tex": "|g| \\le \\liminf_{n \\to \\infty} |f_n|"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:87", "tex": "\n  \\mathbb{E}|g| \\le \\mathbb{E} \\limsup_{n \\to \\infty} |f_n| \\le\n    \\limsup_{n \\to \\infty} \\mathbb{E}|f_n| < \\infty\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:95", "tex": "a, b ∈ s"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:96", "tex": "|f_n(\\omega)|"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:97", "tex": "f_n(\\omega) \\to \\pm \\infty"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:97", "tex": "\\limsup f_n(\\omega)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:98", "tex": "\\liminf f_n(\\omega)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:99", "tex": "\\liminf |f_n(\\omega)| < \\infty"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:266", "tex": "m \\ge n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:267", "tex": "\n  \\|f_n - \\mathbb{E}[g \\mid \\mathcal{F}_n]\\|_1 =\n    \\|\\mathbb{E}[f_m - g \\mid \\mathcal{F}_n]\\|_1 \\le \\|f_m - g\\|_1.\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:271", "tex": "m \\to \\infty"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:273", "tex": "f_n := \\mathbb{E}[h \\mid \\mathcal{F}_n]"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:274", "tex": "(f_n)_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:276", "tex": "\\epsilon > 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:277", "tex": "\\delta > 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:277", "tex": "\\mu(A) < δ"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:278", "tex": "\\mathbb{E}|h|\\mathbf{1}_A < \\epsilon"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:278", "tex": "\\lambda"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:280", "tex": "\n  \\mu(|f_n| \\ge \\lambda) \\le \\lambda^{-1}\\mathbb{E}|f_n| \\le \\lambda^{-1}\\mathbb{E}|h| < \\delta,\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:284", "tex": "\n  \\mathbb{E}|f_n|\\mathbf{1}_{|f_n| \\ge \\lambda} \\le\n    \\mathbb{E}|h|\\mathbf{1}_{|f_n| \\ge \\lambda} < \\epsilon,\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:288", "tex": "f_n \\to h"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:289", "tex": "h = g"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:290", "tex": "s \\in \\mathcal{F}_n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:292", "tex": "\n  \\mathbb{E}g\\mathbf{1}_s = \\mathbb{E}[\\mathbb{E}[g \\mid \\mathcal{F}_n]\\mathbf{1}_s] =\n    \\mathbb{E}[\\mathbb{E}[h \\mid \\mathcal{F}_n]\\mathbf{1}_s] = \\mathbb{E}h\\mathbf{1}_s\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:296", "tex": "\\mathbb{E}[g \\mid \\mathcal{F}_n] = \\mathbb{E}[h \\mid \\mathcal{F}_n]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Convergence.lean:297", "tex": "s \\in \\mathcal{F}_\\infty"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:18", "tex": "(f_n)_{n \\in \\mathbb{N}}"}
+{"count": 6, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:18", "tex": "U_N(a, b)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:21", "tex": "(b - a) \\mathbb{E}[U_N(a, b)] \\le \\mathbb{E}[(f_N - a)^+]."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:80", "tex": "\n  \\sigma_n := \\inf \\{n \\ge \\tau_n \\mid f_n \\le a\\} \\wedge N;\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:83", "tex": "\n  \\tau_{n + 1} := \\inf \\{n \\ge \\sigma_n \\mid f_n \\ge b\\} \\wedge N.\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:88", "tex": "U_N(a, b) := \\sup \\{n \\mid \\tau_n < N\\}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:90", "tex": "a < b \\in \\mathbb{R}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:91", "tex": "0 \\le f_0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:91", "tex": "a \\le f_N"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:92", "tex": "\n  (b - a) \\mathbb{E}[U_N(a, b)] \\le \\mathbb{E}[f_N].\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:97", "tex": "(C_n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:98", "tex": "(C_{n + 1})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:99", "tex": "(C \\bullet f)_n := \\sum_{k \\le n} C_{k + 1}(f_{k + 1} - f_k)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:101", "tex": "C_n := \\sum_{k \\le n} \\mathbf{1}_{[\\sigma_k, \\tau_{k + 1})}(n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:102", "tex": "(1 - C_n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:103", "tex": "(1 - C) \\bullet f"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:104", "tex": "0 \\le \\mathbb{E}[((1 - C) \\bullet f)_0] \\le \\mathbb{E}[((1 - C) \\bullet f)_N]"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:105", "tex": "\n  \\mathbb{E}[(C \\bullet f)_N] \\le \\mathbb{E}[(1 \\bullet f)_N] = \\mathbb{E}[f_N] - \\mathbb{E}[f_0].\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:110", "tex": "\n\\begin{align}\n    (C \\bullet f)_N & =\n      \\sum_{n \\le N} \\sum_{k \\le N} \\mathbf{1}_{[\\sigma_k, \\tau_{k + 1})}(n)(f_{n + 1} - f_n)\\\\\n    & = \\sum_{k \\le N} \\sum_{n \\le N} \\mathbf{1}_{[\\sigma_k, \\tau_{k + 1})}(n)(f_{n + 1} - f_n)\\\\\n    & = \\sum_{k \\le N} (f_{\\sigma_k + 1} - f_{\\sigma_k} + f_{\\sigma_k + 2} - f_{\\sigma_k + 1}\n      + \\cdots + f_{\\tau_{k + 1}} - f_{\\tau_{k + 1} - 1})\\\\\n    & = \\sum_{k \\le N} (f_{\\tau_{k + 1}} - f_{\\sigma_k})\n      \\ge \\sum_{k < U_N(a, b)} (b - a) = (b - a) U_N(a, b)\n\\end{align}\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:121", "tex": "k < U_N(a, b)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:122", "tex": "f_{\\tau_{k + 1}} - f_{\\sigma_k} \\ge b - a"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:122", "tex": "k > U_N(a, b)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:123", "tex": "f_{\\tau_{k + 1}} = f_{\\sigma_k} = f_N"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:124", "tex": "f_{\\tau_{U_N(a, b) + 1}} - f_{\\sigma_{U_N(a, b)}} = f_N - a \\ge 0"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:125", "tex": "\n  (b - a) \\mathbb{E}[U_N(a, b)] \\le \\mathbb{E}[(C \\bullet f)_N]\n  \\le \\mathbb{E}[f_N] - \\mathbb{E}[f_0] \\le \\mathbb{E}[f_N],\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:131", "tex": "((f_n - a)^+)_n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:695", "tex": "\n  (b - a) \\sup_N \\mathbb{E}[U_N(a, b)] \\le \\sup_N \\mathbb{E}[f_N].\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:704", "tex": "U_N(a, b) ≤ N"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:706", "tex": "\n  U_N(a, b) = \\sum_{i = 1}^N \\mathbf{1}_{\\{U_N(a, b) < N\\}}\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:709", "tex": "\\{U_N(a, b) < N\\}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Basic.lean:682", "tex": "V, W"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Basic.lean:682", "tex": "φ : V^* ⊗ W → Hom_k(V, W)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Basic.lean:684", "tex": "V^* ⊗ W"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Basic.lean:685", "tex": "Hom_k(V, W)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Basic.lean:686", "tex": "φ"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Coinduced.lean:15", "tex": "Coind_G^H(A)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Coinduced.lean:22", "tex": "Hom(k[H], A)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/FiniteIndex.lean:16", "tex": "Ind_S^G(A) ≅ Coind_S^G(A)"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:16", "tex": "0 \\to \\mathrm{Fun}(G^0, A) \\to \\mathrm{Fun}(G^1, A) \\to \\mathrm{Fun}(G^2, A) \\to \\dots"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:17", "tex": "d^n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:17", "tex": "f: G^n \\to A"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:17", "tex": "(g_0, \\dots, g_n)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:18", "tex": "\\rho(g_0)(f(g_1, \\dots, g_n))"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:19", "tex": "+ \\sum_{i = 0}^{n - 1} (-1)^{i + 1}\\cdot f(g_0, \\dots, g_ig_{i + 1}, \\dots, g_n)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:20", "tex": "+ (-1)^{n + 1}\\cdot f(g_0, \\dots, g_{n - 1})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:23", "tex": "\\mathrm{Fun}(G^n, A) \\cong \\mathrm{Hom}(\\bigoplus_{G^n} k[G], A)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:24", "tex": "k[G]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:25", "tex": "\\mathrm{Hom}(P, A)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:30", "tex": "\\mathrm{H}^n(G, A) \\cong \\mathrm{Ext}^n(k, A),"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:30", "tex": "\\mathrm{Ext}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:40", "tex": "\\mathrm{Fun}(G^n, A)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:40", "tex": "\\mathrm{H}^n(G, A)."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:42", "tex": "\\mathrm{Hom}(P, A),"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:43", "tex": "\\mathrm{H}^n(G, A),"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:45", "tex": "\\mathrm{H}^n(G, A) \\cong \\mathrm{Ext}^n(k, A)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Hilbert90.lean:15", "tex": "H^1(Aut_K(L), L^\\times)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Hilbert90.lean:16", "tex": "H^1"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Hilbert90.lean:18", "tex": "L/K"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Hilbert90.lean:19", "tex": "N_{L/K}(x) = 1,"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Hilbert90.lean:20", "tex": "x = y/σ(y)."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Hilbert90.lean:28", "tex": "f: Aut_K(L) \\to L^\\times"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Hilbert90.lean:29", "tex": "g(β)/β = f(g)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Hilbert90.lean:47", "tex": "H^n(Gal(L/K), L)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Hilbert90.lean:48", "tex": "1 ≤ n."}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:17", "tex": "\\dots \\to \\bigoplus_{G^2} A \\to \\bigoplus_{G^1} A \\to \\bigoplus_{G^0} A"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:18", "tex": "d_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:18", "tex": "a\\cdot (g_0, \\dots, g_n)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:19", "tex": "\\rho(g_0^{-1})(a)\\cdot (g_1, \\dots, g_n)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:20", "tex": "+ \\sum_{i = 0}^{n - 1}(-1)^{i + 1}a\\cdot (g_0, \\dots, g_ig_{i + 1}, \\dots, g_n)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:21", "tex": "+ (-1)^{n + 1}a\\cdot (g_0, \\dots, g_{n - 1})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:24", "tex": "\\bigoplus_{G^n} A \\cong (A \\otimes_k \\left(\\bigoplus_{G^n} k[G]\\right))_G"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:25", "tex": "(A \\otimes_k P)_G"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:31", "tex": "\\mathrm{H}_n(G, A) \\cong \\mathrm{Tor}_n(A, k),"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:31", "tex": "\\mathrm{Tor}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:32", "tex": "(A, B) \\mapsto (A \\otimes_k B)_G."}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:41", "tex": "(A, B) \\mapsto (A \\otimes_k B)_G"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:43", "tex": "\\bigoplus_{G^n} A"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:43", "tex": "\\mathrm{H}_n(G, A)."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:45", "tex": "\\mathrm{H}_n(G, A),"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:47", "tex": "\\mathrm{H}_n(G, A) \\cong \\mathrm{Tor}_n(A, k)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:152", "tex": "\\dots \\to \\bigoplus_{G^1} A \\to \\bigoplus_{G^0} A \\to 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RepresentationTheory/Induced.lean:14", "tex": "Ind_G^H(A)"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/RepresentationTheory/Maschke.lean:52", "tex": " \\frac{1}{|G|} \\sum_{g \\in G} g⁻¹ • π(g • -). "}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:15", "tex": "K(S, n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:16", "tex": "K^\\times"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:18", "tex": " K(S, n) := \\{x(K^\\times)^n \\in K^\\times / (K^\\times)^n \\ \\mid \\\n                \\forall v \\notin S, \\ \\mathrm{ord}_v(x) \\equiv 0 \\pmod n\\}. "}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:22", "tex": " 1 \\to R_S^\\times / (R_S^\\times)^n \\to K(S, n) \\to \\mathrm{Cl}_S(R)[n] \\to 0, "}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:23", "tex": "R_S^\\times"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:23", "tex": "\\mathrm{Cl}_S(R)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:47", "tex": "H^1(K, \\mu_n)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:48", "tex": "\\mu_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:50", "tex": "K^\\times / (K^\\times)^n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Finiteness/Finsupp.lean:151", "tex": "M → N → P → 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:15", "tex": "\\sum_{i \\in \\iota} f_i x_i = 0"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:18", "tex": "x_i = \\sum_j a_{ij} y_j"}
+{"count": 2, "display": true, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:20", "tex": "\\sum_i f_i a_{ij} = 0."}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:30", "tex": "R^l"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:30", "tex": "f \\in R^l"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:31", "tex": "x \\colon R^l \\to M"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:31", "tex": "x(f) = 0"}
+{"count": 7, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:31", "tex": "R^k"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:32", "tex": "a \\colon R^l \\to R^k"}
+{"count": 7, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:32", "tex": "y \\colon R^k \\to M"}
+{"count": 7, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:33", "tex": "x = y \\circ a"}
+{"count": 5, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:33", "tex": "a(f) = 0"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:40", "tex": "f \\colon K \\to N"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:41", "tex": "x \\colon N \\to M"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:41", "tex": "x \\circ f = 0"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:42", "tex": "a \\colon N \\to R^k"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:43", "tex": "a \\circ f = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:44", "tex": "K = R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:44", "tex": "N = R^l"}
+{"count": 6, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:67", "tex": "\\sum_i f_i x_i = 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:91", "tex": "(f_i)_{i \\in \\iota}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:91", "tex": "(x_i)_{i \\in \\iota}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:92", "tex": "\\sum_i f_i x_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:108", "tex": "I \\subseteq R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:108", "tex": "I \\otimes M \\to M"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:109", "tex": "\\sum_i f_i \\otimes x_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:109", "tex": "R \\otimes M"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:217", "tex": "f \\in N"}
+{"count": 3, "display": false, "id": "mathlib/Mathlib/RingTheory/FormalGroup/Basic.lean:58", "tex": "F(X, Y)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/FormalGroup/Basic.lean:66", "tex": "F(F(X, Y), Z) = F(X, F(Y, Z))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/FormalGroup/Basic.lean:74", "tex": "F(X,Y) = F(Y,X)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/FormalGroup/Basic.lean:125", "tex": "x +_F y = F(x, y)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/FormalGroup/Basic.lean:205", "tex": "F(X,0)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/FormalGroup/Basic.lean:257", "tex": "F(0,X)"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/RingTheory/Kaehler/JacobiZariski.lean:15", "tex": "R \\to S \\to T"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/Kaehler/JacobiZariski.lean:18", "tex": "\nH_1(L_{T/R}) \\to H_1(L_{T/S}) \\to T \\otimes_S \\Omega_{S/R} \\to \\Omega_{T/R} \\to \\Omega_{T/S} \\to 0\n"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/Kaehler/JacobiZariski.lean:38", "tex": "\nT \\otimes_S H_1(L_{S/R}) \\to H_1(L_{T/R}) \\to H_1(L_{T/S})\n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Kaehler/JacobiZariski.lean:541", "tex": "H_1(L_{T/R}) \\to H_1(L_{T/S}) \\to T \\otimes_S \\Omega_{S/R}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Kaehler/JacobiZariski.lean:549", "tex": "H_1(L_{T/S}) \\to T \\otimes_S \\Omega_{S/R} \\to \\Omega_{T/R}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Kaehler/JacobiZariski.lean:556", "tex": "T \\otimes_S H_1(L_{S/R}) \\to H_1(L_{T/R}) \\to H_1(L_{T/S})"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/LocalProperties/IntegrallyClosed.lean:56", "tex": "\\bigcap_{\\mathfrak{p} \\in S} R_{\\mathfrak{p}} = R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/LocalProperties/IntegrallyClosed.lean:56", "tex": "\\mathfrak{p} \\in S"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/LocalProperties/IntegrallyClosed.lean:57", "tex": "R_{\\mathfrak{p}}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Localization/AtPrime/Basic.lean:149", "tex": "(-∞, I]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:20", "tex": "\\sum_i c_i X_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:20", "tex": "R[X_1\\dots,X_n]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:28", "tex": "\\sum_i c_i X_i Y_i"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:28", "tex": "R[X_1\\dots,X_n,Y_1,\\dots,Y_n]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:42", "tex": " \\sum c_i X_i ^ 2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:53", "tex": "X^2-Y"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:53", "tex": "X^2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:53", "tex": "X^2-1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:53", "tex": "X^2-Y^2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:54", "tex": "X^2+Y^2"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:130", "tex": "\\sum_{i=1}^n X_i Y_i"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:157", "tex": "\\sum_i c_i X_i"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:196", "tex": "\\sum_i c_i X_i Y_i"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1148", "tex": "lm(f)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1148", "tex": "lm(g)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1149", "tex": "lc(f)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1149", "tex": "lc(g)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1151", "tex": "lcm(lm(f),lm(g))"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1154", "tex": "sPoly(f,g) := (lcm(lm(f),lm(g)) / lm(f)) * lc(g) * f - (lcm(lm(f),lm(g)) / lm(g)) * lc(f) * g."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1156", "tex": "(lcm(lm(f),lm(g)) / lm(f))"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1156", "tex": "lcm(lm(f),lm(g)) / lm(g)"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1161", "tex": "sPoly'(f,g) :=\n  (lcm(lm(f),lm(g)) / (lm(f) * lc(f))) * f - (lcm(lm(f),lm(g)) / (lm(g) * lc(g))) * g,"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1166", "tex": "sPoly(f,g) = lc(f) * lc(g) * sPoly'(f,g)."}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean:135", "tex": "R[x_1,\\dots,x_n]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean:136", "tex": "R[\\{x_i \\mid i ∈ σ\\}]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean:136", "tex": "x_i"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/MvPowerSeries/Trunc.lean:183", "tex": "c\\prod_i X_i^{a_i}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Norm/Transitivity.lean:199", "tex": "\\text{Norm}_{A/R} = \\text{Norm}_{A/S} \\circ \\text{Norm}_{S/R}"}
+{"count": 7, "display": false, "id": "mathlib/Mathlib/RingTheory/Perfectoid/BDeRham.lean:12", "tex": "\\mathbb{B}_{dR}^+"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/RingTheory/Perfectoid/BDeRham.lean:12", "tex": "\\mathbb{B}_{dR}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Perfectoid/BDeRham.lean:70", "tex": "R = \\mathcal{O}_{\\mathbb{C}_p}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/PiTensorProduct.lean:217", "tex": "1 ⊗ ⋯ ⊗ a ⊗ 1 ⊗ ⋯"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Polynomial/Chebyshev.lean:24", "tex": "C_n(2x) = 2T_n(x)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Polynomial/Chebyshev.lean:26", "tex": "S_n(2x) = U_n(x)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Polynomial/Quotient.lean:28", "tex": "x \\in R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Polynomial/Quotient.lean:29", "tex": "R[X] / \\langle X - x \\rangle \\cong R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Polynomial/Quotient.lean:47", "tex": "y \\in R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Polynomial/Quotient.lean:48", "tex": "R[X] / \\langle x, X - y \\rangle \\cong R / \\langle x \\rangle"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Polynomial/Quotient.lean:58", "tex": "y(X) \\in R[X]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Polynomial/Quotient.lean:59", "tex": "R[X, Y] / \\langle X - x, Y - y(X) \\rangle \\cong R"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/PowerSeries/Exp.lean:123", "tex": "e^{aX} * e^{bX} = e^{(a + b)X}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/PowerSeries/Exp.lean:150", "tex": "e^{x} * e^{-x} = 1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/PowerSeries/Exp.lean:154", "tex": "(e^{X})^k = e^{kX}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/PowerSeries/Exp.lean:165", "tex": "\\sum_{k = 0}^{n - 1} (e^{X})^k = \\sum_{p = 0}^{\\infty} \\sum_{k = 0}^{n - 1} \\frac{k^p}{p!}X^p"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/RingTheory/RootsOfUnity/Lemmas.lean:16", "tex": " \\prod_{k=1}^{n-1} (1 - \\mu^k) = n \\,; "}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Spectrum/Prime/LTSeries.lean:16", "tex": "\\mathfrak{p}_0 < \\dots < \\mathfrak{p}_n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Spectrum/Prime/LTSeries.lean:16", "tex": "x \\in \\mathfrak{p}_n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Spectrum/Prime/LTSeries.lean:17", "tex": "\\mathfrak{q}_0 < \\dots < \\mathfrak{q}_n"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Spectrum/Prime/LTSeries.lean:18", "tex": "x \\in \\mathfrak{q}_1"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Spectrum/Prime/LTSeries.lean:18", "tex": "\\mathfrak{p}_0 = \\mathfrak{q}_0"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/RingTheory/Spectrum/Prime/LTSeries.lean:18", "tex": "\\mathfrak{p}_n = \\mathfrak{q}_n"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/TensorProduct/Maps.lean:846", "tex": "A ⊗ \\text{Hom}_R(M, N) → \\text{Hom}_A (M_A, N_A)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/TensorProduct/Maps.lean:847", "tex": "M_A"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/TensorProduct/Maps.lean:847", "tex": "N_A"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/TensorProduct/Maps.lean:858", "tex": "A ⊗ (\\text{End}_R M) → \\text{End}_A (A ⊗ M)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/Trace/Defs.lean:143", "tex": "\\text{Trace}_{T/R} = \\text{Trace}_{S/R} \\circ \\text{Trace}_{T/S}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/WittVector/Domain.lean:23", "tex": "w_x"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/RingTheory/WittVector/Domain.lean:26", "tex": "V^{m+n}\\left(F^n(w_x) \\cdot F^m(w_y)\\right)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/Algebra/AsymptoticCone.lean:20", "tex": "t_n > 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/Algebra/AsymptoticCone.lean:20", "tex": "x_n \\in A"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/Algebra/AsymptoticCone.lean:20", "tex": "t_n \\to 0"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/Algebra/AsymptoticCone.lean:20", "tex": "t_n x_n \\to v"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/Algebra/Nonarchimedean/AdicTopology.lean:136", "tex": "I^n M"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/CWComplex/Abstract/Basic.lean:20", "tex": "(i-1)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Topology/CWComplex/Abstract/Basic.lean:20", "tex": "(-1)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/EMetricSpace/Lipschitz.lean:364", "tex": "x ↦ \\sqrt{x}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Topology/ExtremallyDisconnected.lean:140", "tex": "\\pi"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/ExtremallyDisconnected.lean:142", "tex": "\\pi(E_0) \\ne A"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/ExtremallyDisconnected.lean:142", "tex": "E_0 \\subsetneq E"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/ExtremallyDisconnected.lean:178", "tex": "\\rho"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/ExtremallyDisconnected.lean:179", "tex": "\\rho(G)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/ExtremallyDisconnected.lean:180", "tex": "A \\setminus \\rho(E \\setminus G)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/ExtremallyDisconnected.lean:206", "tex": "U_1"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/ExtremallyDisconnected.lean:206", "tex": "U_2"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/ExtremallyDisconnected.lean:207", "tex": "\\overline{U_1}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/ExtremallyDisconnected.lean:207", "tex": "\\overline{U_2}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Topology/Homotopy/HomotopyGroup.lean:66", "tex": "I^N"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Topology/Homotopy/HomotopyGroup.lean:66", "tex": "I × I^{N\\setminus\\{j\\}}"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Topology/Homotopy/HomotopyGroup.lean:265", "tex": "I^N → X"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Topology/Homotopy/HomotopyGroup.lean:265", "tex": "I → (I^{N\\setminus\\{j\\}} → X)"}
+{"count": 2, "display": false, "id": "mathlib/Mathlib/Topology/MetricSpace/Sequences.lean:27", "tex": "ℝ^n"}
+{"count": 4, "display": false, "id": "mathlib/Mathlib/Topology/Order/LowerUpperTopology.lean:406", "tex": "(-∞,a]"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/Order/OrderClosed.lean:18", "tex": "[a, +∞)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/Order/Rolle.lean:18", "tex": "f(a)=f(b)"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/Sets/VietorisTopology.lean:16", "tex": "\\{K \\mid K \\subseteq U\\}"}
+{"count": 1, "display": false, "id": "mathlib/Mathlib/Topology/Sets/VietorisTopology.lean:16", "tex": "\\{K \\mid K \\cap U \\ne \\emptyset\\}"}
+{"count": 1, "display": true, "id": "mathlib/Mathlib/Topology/UniformSpace/CompactConvergence.lean:41", "tex": "\n    E(K, V) = \\{ (f, g) | ∀ (x ∈ K), (f x, g x) ∈ V \\}.\n  "}

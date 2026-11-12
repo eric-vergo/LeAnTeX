@@ -1,1 +1,5 @@
 .lake/
+# The Noperthedron blueprint corpus: its licence is not stated upstream, so it stays local
+# until the owner decides (see STATUS.md).
+corpus/blueprint-noperthedron.jsonl
+fixtures/blueprint-noperthedron.jsonl

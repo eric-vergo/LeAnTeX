@@ -1,0 +1,288 @@
+{"meta": {"corpus": "rokicki", "count": 287, "generator": "tools/extract-blueprint.py", "license": "Apache-2.0 (LICENSE file at the root of the upstream repository)", "source": "Verso blueprint site built from https://github.com/eric-vergo/Rokicki-s-Constant at commit f160ed7031bc01c7e186f7f9dffd442b40060856"}}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/1", "tex": "d : \\mathbb{N} \\to \\{0, 1\\}"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/2", "tex": "x = \\sum_{k \\geq 0} d_k / 2^{k+1} \\in [0, 1]"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/3", "tex": "x"}
+{"count": 4, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/4", "tex": "d"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/5", "tex": "0.0111\\ldots = 0.1000\\ldots"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/6", "tex": "f : \\mathbb{N} \\to \\alpha"}
+{"count": 3, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/7", "tex": "p"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/8", "tex": "f(n + p) = f(n)"}
+{"count": 11, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/9", "tex": "n"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/10", "tex": "f"}
+{"count": 4, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/11", "tex": "N"}
+{"count": 3, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/12", "tex": "n \\geq N"}
+{"count": 1, "display": true, "id": "rokicki/Binary-expansions-of-rational-numbers/13", "tex": "T_d(n) = \\sum_{k \\geq 0} \\frac{d_{n+k}}{2^{k+1}}."}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/14", "tex": "d_k \\leq 1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/15", "tex": "T_d(0) = x"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/16", "tex": "T_d(n+1) = 2\\,T_d(n) - d_n"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/17", "tex": "0 \\leq T_d(n) \\leq 1"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/18", "tex": "\\sum_k 2^{-(k+1)} = 1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/19", "tex": "T_d(n) = 1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/20", "tex": "d_{n+k} = 1"}
+{"count": 11, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/21", "tex": "k"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/22", "tex": "T_d(n) = 0"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/23", "tex": "d_{n+k} = 0"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/24", "tex": "d_{n+k_0} = 0"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/25", "tex": "T_d(n) \\leq 1 - 2^{-(k_0+1)} < 1"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/26", "tex": "i < j"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/27", "tex": "T_d(i) = T_d(j)"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/28", "tex": "d_i = d_j"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/29", "tex": "T_d(i+1) = T_d(j+1)"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/30", "tex": "d_i \\neq d_j"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/31", "tex": "d_i = 0"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/32", "tex": "d_j = 1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/33", "tex": "T = T_d(i) = T_d(j)"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/34", "tex": "T_d(i+1) = 2T"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/35", "tex": "T_d(j+1) = 2T - 1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/36", "tex": "[0, 1]"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/37", "tex": "T = 1/2"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/38", "tex": "T_d(i+1) = 1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/39", "tex": "T_d(j+1) = 0"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/40", "tex": "i+1"}
+{"count": 5, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/41", "tex": "1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/42", "tex": "j + 1 > i + 1"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/43", "tex": "T_d(j+1) = 1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/44", "tex": "d_i = 1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/45", "tex": "d_j = 0"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/46", "tex": "T_d(i+1) = 0"}
+{"count": 4, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/47", "tex": "0"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/48", "tex": "j+1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/49", "tex": "2^n x - T_d(n) = \\sum_{k < n} d_k\\, 2^{\\,n-1-k}"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/50", "tex": "T_d(n)"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/51", "tex": "x = a / b"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/52", "tex": "b \\geq 1"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/53", "tex": "b\\, T_d(n) = 2^n a - b \\sum_{k<n} d_k 2^{n-1-k}"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/54", "tex": "[0, b]"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/55", "tex": "T_d(n) \\in \\{0, 1/b, \\ldots, 1\\}"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/56", "tex": "x = \\sum_k d_k / 2^{k+1}"}
+{"count": 4, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/57", "tex": "p > 0"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/58", "tex": "T_d(i+k) = T_d(j+k)"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/59", "tex": "d_{i+k} = d_{j+k}"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/60", "tex": "p = j - i"}
+{"count": 1, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/61", "tex": "i"}
+{"count": 2, "display": false, "id": "rokicki/Binary-expansions-of-rational-numbers/62", "tex": "\\sum_k d_k / 2^{k+1}"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/1", "tex": "p_1 = 2 < p_2 = 3 < p_3 = 5 < \\cdots"}
+{"count": 2, "display": false, "id": "rokicki/Introduction/2", "tex": "p_k"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/3", "tex": "k \\geq 2"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/4", "tex": "b_k = 1"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/5", "tex": "p_k \\equiv 3 \\pmod 4"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/6", "tex": "b_k = 0"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/7", "tex": "p_k \\equiv 1 \\pmod 4"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/8", "tex": "b_2 b_3 \\cdots b_n"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/9", "tex": "1, 2, 5, 11, 22, 44, 89, 179, \\ldots"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/10", "tex": "A362583(n) / 2^{n-1}"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/11", "tex": "0.b_2 b_3 b_4 \\cdots"}
+{"count": 1, "display": true, "id": "rokicki/Introduction/12", "tex": "\\rho = \\sum_{k \\geq 2} \\frac{b_k}{2^{k-1}} = 0.70040013796579773\\ldots,"}
+{"count": 7, "display": false, "id": "rokicki/Introduction/13", "tex": "\\rho"}
+{"count": 2, "display": false, "id": "rokicki/Introduction/Reading-guide/1", "tex": "\\chi_4"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/1", "tex": "(b_k)"}
+{"count": 6, "display": false, "id": "rokicki/Introduction/Strategy/2", "tex": "4"}
+{"count": 2, "display": false, "id": "rokicki/Introduction/Strategy/3", "tex": "\\chi = \\chi_4"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/4", "tex": "\\chi(p_k) = 1 - 2 b_k"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/5", "tex": "S(n) = \\sum_{k < n} \\chi(p_{k+2})"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/6", "tex": "P"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/7", "tex": "S(n) = c\\, n + O(1)"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/Strategy/8", "tex": "c"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/Strategy/9", "tex": "\\chi"}
+{"count": 5, "display": false, "id": "rokicki/Introduction/Strategy/10", "tex": "c \\neq 0"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/Strategy/11", "tex": "c = 0"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/12", "tex": "L"}
+{"count": 1, "display": true, "id": "rokicki/Introduction/Strategy/13", "tex": "L(s, \\chi) = \\exp\\Big( \\sum_p \\chi(p)\\, p^{-s} + \\sum_p \\sum_{m \\geq 2} \\frac{\\chi(p)^m p^{-ms}}{m} \\Big), \\qquad \\operatorname{Re} s > 1,"}
+{"count": 4, "display": false, "id": "rokicki/Introduction/Strategy/14", "tex": "L(\\cdot, \\chi)"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/Strategy/15", "tex": "L(1, \\chi) \\neq 0"}
+{"count": 2, "display": false, "id": "rokicki/Introduction/Strategy/16", "tex": "\\sum_p 1/p"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/17", "tex": "\\sum_p \\chi(p) p^{-\\sigma} = c \\sum_p p^{-\\sigma} + O(1)"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/Strategy/18", "tex": "\\sigma > 1"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/19", "tex": "\\pm\\infty"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/Strategy/20", "tex": "\\sigma \\to 1^+"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/21", "tex": "L(\\sigma, \\chi)"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/22", "tex": "\\infty"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/Strategy/23", "tex": "S(n)"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/24", "tex": "\\sum_p \\chi(p) p^{-s}"}
+{"count": 6, "display": false, "id": "rokicki/Introduction/Strategy/25", "tex": "\\operatorname{Re} s > 0"}
+{"count": 7, "display": false, "id": "rokicki/Introduction/Strategy/26", "tex": "\\operatorname{Re} s > 1/2"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/Strategy/27", "tex": "\\sigma \\to 1/2^+"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/28", "tex": "m = 2"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/29", "tex": "\\sum_p p^{-2\\sigma}/2"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/Strategy/30", "tex": "+\\infty"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/31", "tex": "|L(\\sigma, \\chi)| \\to \\infty"}
+{"count": 2, "display": false, "id": "rokicki/Introduction/Strategy/32", "tex": "1/2"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/Strategy/33", "tex": "\\sum_{p \\leq x} \\chi_4(p)"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/The-formal-statement/1", "tex": "p_{k+2}"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/The-formal-statement/2", "tex": "q_k = p_{k+2}"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/The-formal-statement/3", "tex": "q_0 = 3"}
+{"count": 1, "display": false, "id": "rokicki/Introduction/The-formal-statement/4", "tex": "d_k = b_{k+2}"}
+{"count": 3, "display": false, "id": "rokicki/Introduction/The-formal-statement/5", "tex": "q_k"}
+{"count": 6, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/1", "tex": "\\operatorname{Re} s > 1"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/1", "tex": "f(N), \\ldots, f(N+p-1)"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/2", "tex": "a : \\mathbb{N} \\to \\mathbb{Z}"}
+{"count": 5, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/3", "tex": "C"}
+{"count": 1, "display": true, "id": "rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/4", "tex": "\\Big| \\sum_{k < n} a_k - c\\, n \\Big| \\leq C \\qquad \\text{for all } n."}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/5", "tex": "S(n) = \\sum_{k<n} a_k"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/6", "tex": "a_{n+p} = a_n"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/7", "tex": "c = (S(N+p) - S(N)) / p"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/8", "tex": "S(n+p) - S(n) = S(N+p) - S(N) = c\\,p"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/9", "tex": "n \\mapsto S(n) - c\\,n"}
+{"count": 3, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/1", "tex": "a"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/2", "tex": "w"}
+{"count": 2, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/3", "tex": "S(n) = \\sum_{j<n} a_j"}
+{"count": 1, "display": true, "id": "rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/4", "tex": "\\sum_{k \\leq n} a_k w_k = S(n+1)\\, w_n + \\sum_{k < n} S(k+1)\\, (w_k - w_{k+1})."}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/5", "tex": "e : \\mathbb{N} \\to \\mathbb{R}"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/6", "tex": "f : \\mathbb{N} \\to \\mathbb{R}"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/7", "tex": "\\sum_k e_k f_k"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/8", "tex": "2 C f_0"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/9", "tex": "|\\sum_{k \\leq n} e_k f_k| \\leq C f_n + C \\sum_{k<n} (f_k - f_{k+1}) = C f_0"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/10", "tex": "f_k - f_{k+1}"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/1", "tex": "a : \\mathbb{N} \\to \\mathbb{C}"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/2", "tex": "q : \\mathbb{N} \\to \\mathbb{N}"}
+{"count": 1, "display": true, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/3", "tex": "A(s) = \\sum_{k \\geq 0} S(k+1)\\, \\big( q_k^{-s} - q_{k+1}^{-s} \\big)."}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/4", "tex": "1 \\leq x \\leq y"}
+{"count": 2, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/5", "tex": "0 < \\delta \\leq \\operatorname{Re} s"}
+{"count": 1, "display": true, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/6", "tex": "\\big| x^{-s} - y^{-s} \\big| \\leq \\frac{|s|}{\\delta}\\, \\big( x^{-\\delta} - y^{-\\delta} \\big)."}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/7", "tex": "y^{-s} - x^{-s} = -s \\int_x^y t^{-s-1}\\, dt"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/8", "tex": "|t^{-s-1}| = t^{-\\operatorname{Re} s - 1} \\leq t^{-\\delta - 1}"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/9", "tex": "t \\geq 1"}
+{"count": 4, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/10", "tex": "q"}
+{"count": 3, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/11", "tex": "q_0 > 0"}
+{"count": 3, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/12", "tex": "|S(n)| \\leq C"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/13", "tex": "C \\frac{|s|}{\\delta} (q_k^{-\\delta} - q_{k+1}^{-\\delta})"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/14", "tex": "q_k^{-\\delta}"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/15", "tex": "q_0^{-\\delta}"}
+{"count": 2, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/16", "tex": "s"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/17", "tex": "\\delta = \\operatorname{Re} s"}
+{"count": 2, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/18", "tex": "A"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/19", "tex": "s_0"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/20", "tex": "\\operatorname{Re} s_0 > 0"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/21", "tex": "\\delta = \\operatorname{Re} s_0 / 2"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/22", "tex": "|s| \\leq |s_0| + 1"}
+{"count": 2, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/23", "tex": "\\sum_k q_k^{\\,r}"}
+{"count": 3, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/24", "tex": "r < -1"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/25", "tex": "\\sum_k a_k q_k^{-s}"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/26", "tex": "q_k \\geq k + 1"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/27", "tex": "\\sum_k (k+1)^r"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/28", "tex": "A(s) = \\sum_k a_k q_k^{-s}"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/29", "tex": "S(n+1)\\, q_n^{-s}"}
+{"count": 3, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/30", "tex": "S"}
+{"count": 1, "display": false, "id": "rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/31", "tex": "q_n \\to \\infty"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/1", "tex": "k \\geq 0"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/2", "tex": "k \\mapsto q_k"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/3", "tex": "q_k \\equiv 1"}
+{"count": 3, "display": false, "id": "rokicki/Rokickis-constant/4", "tex": "q_k \\equiv 3 \\pmod 4"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/5", "tex": "q_k \\neq 2"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/6", "tex": "p_1 = 2"}
+{"count": 2, "display": false, "id": "rokicki/Rokickis-constant/7", "tex": "3"}
+{"count": 2, "display": false, "id": "rokicki/Rokickis-constant/8", "tex": "d_k = 1"}
+{"count": 2, "display": false, "id": "rokicki/Rokickis-constant/9", "tex": "d_k = 0"}
+{"count": 1, "display": true, "id": "rokicki/Rokickis-constant/10", "tex": "\\rho = \\sum_{k \\geq 0} \\frac{d_k}{2^{k+1}}."}
+{"count": 2, "display": false, "id": "rokicki/Rokickis-constant/11", "tex": "d_k \\in \\{0, 1\\}"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/12", "tex": "q_k \\equiv 1 \\pmod 4"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/13", "tex": "0 \\leq \\rho \\leq 1"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/14", "tex": "T_d(0)"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/15", "tex": "a_n = \\sum_{k < n} d_k\\, 2^{\\,n-1-k}"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/16", "tex": "d_0 d_1 \\cdots d_{n-1}"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/17", "tex": "A362583(n+1)"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/18", "tex": "2"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/19", "tex": "a_n / 2^n \\to \\rho"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/20", "tex": "n \\to \\infty"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/21", "tex": "a_n / 2^n = \\sum_{k<n} d_k / 2^{k+1}"}
+{"count": 2, "display": false, "id": "rokicki/Rokickis-constant/22", "tex": "\\chi_4(q_k) = 1 - 2 d_k"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/23", "tex": "\\chi_4(n) = 1"}
+{"count": 2, "display": false, "id": "rokicki/Rokickis-constant/24", "tex": "n \\equiv 1"}
+{"count": 1, "display": false, "id": "rokicki/Rokickis-constant/25", "tex": "\\chi_4(n) = -1"}
+{"count": 2, "display": false, "id": "rokicki/Rokickis-constant/26", "tex": "n \\equiv 3 \\pmod 4"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/1", "tex": "H"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/2", "tex": "\\operatorname{Re} s > \\sigma_0 > 1/2"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/3", "tex": "2 q_k^{-2\\sigma_0}"}
+{"count": 3, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/4", "tex": "M"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/5", "tex": "|H(s)| \\leq M"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/6", "tex": "\\operatorname{Re} s \\geq 1"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/7", "tex": "M = 2 \\sum_k q_k^{-2}"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/8", "tex": "\\sigma > 1/2"}
+{"count": 1, "display": true, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/9", "tex": "\\operatorname{Re} H(\\sigma) \\geq \\tfrac{1}{2} \\sum_k q_k^{-2\\sigma} - 2 \\sum_k q_k^{-3/2}."}
+{"count": 3, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/10", "tex": "\\sigma"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/11", "tex": "z_k(\\sigma)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/12", "tex": "z_k(\\sigma)^2 = q_k^{-2\\sigma}"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/13", "tex": "\\chi(q_k)^2 = 1"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/14", "tex": "H(\\sigma)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/15", "tex": "z_k^2 / 2"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/16", "tex": "2|z_k|^3 = 2 q_k^{-3\\sigma} \\leq 2 q_k^{-3/2}"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/17", "tex": "\\operatorname{Re} H(\\sigma) \\to +\\infty"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/18", "tex": "\\sum_k q_k^{-2\\sigma} \\to +\\infty"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/19", "tex": "2\\sigma \\to 1^+"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/20", "tex": "\\sum_k q_k^{-3/2}"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/1", "tex": "F"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/2", "tex": "\\sum_p F(p) = F(2) + \\sum_{k \\geq 0} F(q_k)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/3", "tex": "k \\mapsto p_{k+1}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/4", "tex": "\\mathbb{N}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/5", "tex": "k = 0"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/6", "tex": "\\sum_k 1/q_k"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/7", "tex": "p = 2"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/8", "tex": "\\sum_k q_k^{-\\sigma} \\to +\\infty"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/9", "tex": "\\sum_{k<N} 1/q_k > M + 1"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/10", "tex": "\\sum_{k<N} q_k^{-\\sigma}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/1", "tex": "z_k(s) = \\chi(q_k)\\, q_k^{-s}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/2", "tex": "|z_k(s)| = q_k^{-\\operatorname{Re} s}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/3", "tex": "|z_k(s)| \\leq 3/4"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/4", "tex": "|\\chi(q_k)| = 1"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/5", "tex": "q_k \\geq 3"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/6", "tex": "q_k^{-\\operatorname{Re} s} \\leq 3^{-1/2} < 3/4"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/7", "tex": "|z| \\leq 3/4"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/8", "tex": "1 - z"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/9", "tex": "|{-\\log(1-z)} - z| \\leq 2|z|^2"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/10", "tex": "|{-\\log(1-z)} - z - z^2/2| \\leq 2|z|^3"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/11", "tex": "\\log(1-z)^{-1}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/12", "tex": "\\big| \\log(1-z)^{-1} - \\sum_{j \\leq n} z^j/j \\big| \\leq |z|^{n+1} (1-|z|)^{-1} / (n+1)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/13", "tex": "(1 - |z|)^{-1} \\leq 4"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/14", "tex": "G(s) = \\sum_k z_k(s) = \\sum_k \\chi(q_k)\\, q_k^{-s}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/15", "tex": "H(s) = \\sum_k \\big( -\\log(1 - z_k(s)) - z_k(s) \\big)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/16", "tex": "\\sum_{m \\geq 2} \\chi(q_k)^m q_k^{-ms} / m"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/17", "tex": "1/2 < \\sigma_0 \\leq \\operatorname{Re} s"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/18", "tex": "H(s)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/19", "tex": "z = z_k(s)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/20", "tex": "|z_k(s)|^2 = q_k^{-2 \\operatorname{Re} s} \\leq q_k^{-2\\sigma_0}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/21", "tex": "G(s)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/22", "tex": "G"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/23", "tex": "\\chi(q_k)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/24", "tex": "2 q_k^{-2 \\operatorname{Re} s}"}
+{"count": 1, "display": true, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/25", "tex": "\\exp\\big( G(s) + H(s) \\big) = L(s, \\chi)."}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/26", "tex": "\\exp\\big( \\sum_p -\\log(1 - \\chi(p) p^{-s}) \\big) = L(s, \\chi)"}
+{"count": 2, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/27", "tex": "\\chi(2) = 0"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/28", "tex": "z_k + \\big( -\\log(1 - z_k) - z_k \\big)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-character/1", "tex": "\\chi(n) = 1"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-character/2", "tex": "\\chi(n) = -1"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-character/3", "tex": "\\chi(n) = 0"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-character/4", "tex": "\\mathbb{Z}"}
+{"count": 3, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-character/5", "tex": "\\mathbb{C}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-character/6", "tex": "\\chi(n)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-character/7", "tex": "\\chi(3) = -1 \\neq 1"}
+{"count": 1, "display": false, "id": "rokicki/The-character-modulo-four-and-the-Euler-product/The-character/8", "tex": "\\chi(q_k) = 1 - 2 d_k \\in \\{1, -1\\}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/1", "tex": "S(n) = \\sum_{k < n} \\chi_4(q_k) \\in \\mathbb{Z}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/2", "tex": "c\\,n + O(1)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/3", "tex": "\\exp(G + H) = L(\\cdot, \\chi)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/4", "tex": "x \\in \\mathbb{R}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/5", "tex": "\\exp(F(\\sigma)) = L(\\sigma, \\chi)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/6", "tex": "\\sigma > x"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/7", "tex": "\\exp(\\operatorname{Re} F(\\sigma)) \\to |L(x, \\chi)|"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/8", "tex": "\\sigma \\to x^+"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/9", "tex": "|\\exp w| = \\exp(\\operatorname{Re} w)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-bounded-case/1", "tex": "\\big\\| \\sum_{j<n} \\chi(q_j) \\big\\| \\leq C"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-bounded-case/2", "tex": "A(s)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-bounded-case/3", "tex": "a_k = \\chi(q_k)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-bounded-case/4", "tex": "\\exp\\big( A(s) + H(s) \\big) = L(s, \\chi)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-bounded-case/5", "tex": "A = G"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-bounded-case/6", "tex": "\\exp\\big( \\operatorname{Re} A(\\sigma) + \\operatorname{Re} H(\\sigma) \\big) = |L(\\sigma, \\chi)| \\to |L(1/2, \\chi)| < \\infty"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-bounded-case/7", "tex": "\\operatorname{Re} A(\\sigma) \\to \\operatorname{Re} A(1/2)"}
+{"count": 2, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/1", "tex": "|S(n) - c\\,n| \\leq C"}
+{"count": 1, "display": true, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/2", "tex": "\\Big| \\operatorname{Re} G(\\sigma) - c \\sum_k q_k^{-\\sigma} \\Big| \\leq 2C."}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/3", "tex": "\\operatorname{Re} G(\\sigma) - c \\sum_k q_k^{-\\sigma} = \\sum_k (\\chi(q_k) - c)\\, q_k^{-\\sigma}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/4", "tex": "\\chi(q_k) - c"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/5", "tex": "q_k^{-\\sigma}"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/6", "tex": "3^{-\\sigma} \\leq 1"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/7", "tex": "F(\\sigma) = G(\\sigma) + H(\\sigma)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/8", "tex": "\\exp F(\\sigma) = L(\\sigma, \\chi)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/9", "tex": "\\exp(\\operatorname{Re} F(\\sigma)) \\to |L(1, \\chi)|"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/10", "tex": "\\operatorname{Re} F(\\sigma)"}
+{"count": 1, "display": false, "id": "rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/11", "tex": "|\\operatorname{Re} F(\\sigma)| \\geq |c| \\sum_k q_k^{-\\sigma} - 2C - M \\to +\\infty"}
+{"count": 1, "display": true, "id": "rokicki/The-main-theorem/1", "tex": "\\rho = \\sum_{k \\geq 0} \\frac{[\\,p_{k+2} \\equiv 3 \\pmod 4\\,]}{2^{k+1}}."}
+{"count": 1, "display": false, "id": "rokicki/The-main-theorem/2", "tex": "k \\mapsto \\chi_4(q_k) = 1 - 2 d_k"}
+{"count": 1, "display": false, "id": "rokicki/The-main-theorem/3", "tex": "S(n) = c\\,n + O(1)"}

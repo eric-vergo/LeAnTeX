@@ -1,0 +1,1162 @@
+{"meta":{"corpus":"katex-spec","source":"KaTeX 0.19.1, https://github.com/KaTeX/KaTeX (tag v0.19.1), test/*-spec.ts","license":"MIT (KaTeX, see LICENSE-KaTeX)","generator":"tools/harvest-katex.mjs","count":1161}}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser > should not fail on an empty string/1","settings":{"strict":true},"tex":""}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser > should ignore whitespace/1","settings":{"strict":true},"tex":"    x    y    "}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser > should ignore whitespace/2","settings":{"strict":true},"tex":"xy"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser > should ignore whitespace in atom/1","settings":{"strict":true},"tex":"    x   ^ y    "}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser > should ignore whitespace in atom/2","settings":{"strict":true},"tex":"x^y"}
+{"count":1,"display":false,"id":"katex-spec/katex > An ord parser > should not fail/1","tex":"1234|/@.\"`abcdefgzABCDEFGZ"}
+{"count":1,"display":false,"id":"katex-spec/katex > A bin parser > should not fail/1","tex":"+-*\\cdot\\pm\\div"}
+{"count":1,"display":false,"id":"katex-spec/katex > A rel parser > should not fail/1","tex":"=<>\\leq\\geq\\neq\\nleq\\ngeq\\cong"}
+{"count":1,"display":false,"id":"katex-spec/katex > A rel parser > should not fail/2","tex":"\\not=\\not<\\not>\\not\\leq\\not\\geq\\not\\in"}
+{"count":1,"display":false,"id":"katex-spec/katex > A mathinner parser > should not fail/1","tex":"\\mathinner{\\langle{\\psi}\\rangle}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A mathinner parser > should not fail/2","tex":"\\frac 1 {\\mathinner{\\langle{\\psi}\\rangle}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A punct parser > should not fail/1","settings":{"strict":true},"tex":",;"}
+{"count":1,"display":false,"id":"katex-spec/katex > An open parser > should not fail/1","tex":"(["}
+{"count":1,"display":false,"id":"katex-spec/katex > A close parser > should not fail/1","tex":")]?!"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\KaTeX parser > should not fail/1","tex":"\\KaTeX"}
+{"count":2,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not fail on superscripts/1","tex":"x^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not fail on subscripts/1","tex":"x_3"}
+{"count":2,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not fail on both subscripts and superscripts/1","tex":"x^2_3"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not fail on both subscripts and superscripts/2","tex":"x_2^3"}
+{"count":2,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not fail when there is no nucleus/1","tex":"^3"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not fail when there is no nucleus/2","tex":"^3+"}
+{"count":2,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not fail when there is no nucleus/3","tex":"_2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not fail when there is no nucleus/4","tex":"^3_2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not fail when there is no nucleus/5","tex":"_2^3"}
+{"count":2,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should produce the same thing regardless of order/2","tex":"x_3^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not parse double subscripts or superscripts/1","tex":"x^x^x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not parse double subscripts or superscripts/2","tex":"x_x_x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not parse double subscripts or superscripts/3","tex":"x_x^x_x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not parse double subscripts or superscripts/4","tex":"x_x^x^x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not parse double subscripts or superscripts/5","tex":"x^x_x_x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not parse double subscripts or superscripts/6","tex":"x^x_x^x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work correctly with {}s/1","tex":"x^{2+3}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work correctly with {}s/2","tex":"x_{3-2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work correctly with {}s/3","tex":"x^{2+3}_3"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work correctly with {}s/4","tex":"x^2_{3-2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work correctly with {}s/5","tex":"x^{2+3}_{3-2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work correctly with {}s/6","tex":"x_{3-2}^{2+3}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work correctly with {}s/7","tex":"x_3^{2+3}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work correctly with {}s/8","tex":"x_{3-2}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work with nested super/subscripts/1","tex":"x^{x^x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work with nested super/subscripts/2","tex":"x^{x_x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work with nested super/subscripts/3","tex":"x_{x^x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work with nested super/subscripts/4","tex":"x_{x_x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work with Unicode (sub|super)script characters/1","tex":"A² + B²⁺³ + ¹²C + E₂³ + F₂₊₃"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should work with Unicode (sub|super)script characters/2","tex":"A^{2} + B^{2+3} + ^{12}C + E_{2}^{3} + F_{2+3}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should not fail if \\relax is in an atom/1","settings":{"strict":true},"tex":"\\hskip1em\\relax^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should skip \\relax in super/subscripts/1","tex":"x^\\relax 2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should skip \\relax in super/subscripts/3","tex":"x_\\relax 2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subscript and superscript parser > should skip \\relax in super/subscripts/4","tex":"x_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should fail when the limit control is not preceded by an op node/1","tex":"3\\nolimits_2^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should fail when the limit control is not preceded by an op node/2","tex":"\\sqrt\\limits_2^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should fail when the limit control is not preceded by an op node/3","tex":"45 +\\nolimits 45"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should parse when the limit control directly follows an op node/1","tex":"\\int\\limits_2^2 3"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should parse when the limit control directly follows an op node/2","tex":"\\sum\\nolimits_3^4 4"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should parse when the limit control is in the sup/sub area of an op node/1","tex":"\\int_2^2\\limits"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should parse when the limit control is in the sup/sub area of an op node/2","tex":"\\int^2\\nolimits_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should parse when the limit control is in the sup/sub area of an op node/3","tex":"\\int_2\\limits^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should allow multiple limit controls in the sup/sub area of an op node/1","tex":"\\int_2\\nolimits^2\\limits 3"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should allow multiple limit controls in the sup/sub area of an op node/2","tex":"\\int\\nolimits\\limits_2^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser with limit controls > should allow multiple limit controls in the sup/sub area of an op node/3","tex":"\\int\\limits\\limits\\limits_2^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A group parser > should not fail/1","tex":"{xy}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\begingroup...\\endgroup parser > should not fail/1","tex":"\\begingroup xy \\endgroup"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\begingroup...\\endgroup parser > should fail when it is mismatched/1","tex":"\\begingroup xy"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\begingroup...\\endgroup parser > should fail when it is mismatched/2","tex":"\\begingroup xy }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\begingroup...\\endgroup parser > should not affect spacing in math mode/1","tex":"\\begingroup x+ \\endgroup y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\begingroup...\\endgroup parser > should not affect spacing in math mode/2","tex":"x+y"}
+{"count":1,"display":false,"id":"katex-spec/katex > An implicit group parser > should not fail/1","tex":"\\Large x"}
+{"count":1,"display":false,"id":"katex-spec/katex > An implicit group parser > should not fail/2","tex":"abc {abc \\Large xyz} abc"}
+{"count":3,"display":false,"id":"katex-spec/katex > A function parser > should parse no argument functions/1","tex":"\\div"}
+{"count":1,"display":false,"id":"katex-spec/katex > A function parser > should parse 1 argument functions/1","tex":"\\blue x"}
+{"count":3,"display":false,"id":"katex-spec/katex > A function parser > should parse 2 argument functions/1","tex":"\\frac 1 2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A function parser > should not parse 1 argument functions with no arguments/1","tex":"\\blue"}
+{"count":1,"display":false,"id":"katex-spec/katex > A function parser > should not parse 2 argument functions with 0 or 1 arguments/1","tex":"\\frac"}
+{"count":1,"display":false,"id":"katex-spec/katex > A function parser > should not parse 2 argument functions with 0 or 1 arguments/2","tex":"\\frac 1"}
+{"count":1,"display":false,"id":"katex-spec/katex > A function parser > should not parse a function with text right after it/1","tex":"\\redx"}
+{"count":2,"display":false,"id":"katex-spec/katex > A function parser > should parse a function with a number right after it/1","tex":"\\frac12"}
+{"count":1,"display":false,"id":"katex-spec/katex > A function parser > should parse some functions with text right after it/1","tex":"\\;x"}
+{"count":2,"display":false,"id":"katex-spec/katex > A frac parser > should not fail/1","tex":"\\frac{x}{y}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A frac parser > should also parse cfrac, dfrac, tfrac, and genfrac/1","tex":"\\cfrac{x}{y}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A frac parser > should also parse cfrac, dfrac, tfrac, and genfrac/2","tex":"\\dfrac{x}{y}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A frac parser > should also parse cfrac, dfrac, tfrac, and genfrac/3","tex":"\\tfrac{x}{y}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A frac parser > should also parse cfrac, dfrac, tfrac, and genfrac/4","tex":"\\genfrac ( ] {0.06em}{0}{a}{b+c}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A frac parser > should also parse cfrac, dfrac, tfrac, and genfrac/5","tex":"\\genfrac ( ] {0.8pt}{}{a}{b+c}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A frac parser > should fail, given math as a line thickness to genfrac/1","tex":"\\genfrac ( ] {b+c}{0}{a}{b+c}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A frac parser > should fail if genfrac is given less than 6 arguments/1","tex":"\\genfrac ( ] {0.06em}{0}{a}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An over/brace/brack parser > should not fail/1","tex":"1 \\over x"}
+{"count":1,"display":false,"id":"katex-spec/katex > An over/brace/brack parser > should not fail/2","tex":"1+2i \\over 3+4i"}
+{"count":1,"display":false,"id":"katex-spec/katex > An over/brace/brack parser > should not fail/3","tex":"a+b \\brace c+d"}
+{"count":1,"display":false,"id":"katex-spec/katex > An over/brace/brack parser > should not fail/4","tex":"a+b \\brack c+d"}
+{"count":1,"display":false,"id":"katex-spec/katex > An over/brace/brack parser > should handle \\textstyle correctly/1","tex":"\\textstyle 1 \\over 2"}
+{"count":2,"display":false,"id":"katex-spec/katex > An over/brace/brack parser > should handle \\textstyle correctly/2","tex":"\\frac{\\textstyle 1}{2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An over/brace/brack parser > should handle \\textstyle correctly/3","tex":"{\\textstyle 1} \\over 2"}
+{"count":1,"display":false,"id":"katex-spec/katex > An over/brace/brack parser > should fail with multiple overs in the same group/1","tex":"1 \\over 2 + 3 \\over 4"}
+{"count":1,"display":false,"id":"katex-spec/katex > An over/brace/brack parser > should fail with multiple overs in the same group/2","tex":"1 \\over 2 \\choose 3"}
+{"count":1,"display":false,"id":"katex-spec/katex > A genfrac builder > should not fail/7","tex":"\\genfrac {} {} {0.8pt}{}{a}{b+c}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A genfrac builder > should not fail/8","tex":"\\genfrac [ {} {0.8pt}{}{a}{b+c}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A genfrac builder > should render \\tfrac like \\textstyle\\frac/1","tex":"x_{\\tfrac{1}{2}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A genfrac builder > should render \\tfrac like \\textstyle\\frac/2","tex":"x_{\\textstyle\\frac{1}{2}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A genfrac builder > should render \\dfrac like \\displaystyle\\frac in subscripts/1","tex":"x_{\\dfrac{a}{b}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A genfrac builder > should render \\dfrac like \\displaystyle\\frac in subscripts/2","tex":"x_{\\displaystyle\\frac{a}{b}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A genfrac builder > should render \\dfrac like \\displaystyle\\frac in subscripts/3","tex":"x_{y_{\\dfrac{a}{b}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A genfrac builder > should render \\dfrac like \\displaystyle\\frac in subscripts/4","tex":"x_{y_{\\displaystyle\\frac{a}{b}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A infix builder > should not fail/1","tex":"a \\over b"}
+{"count":1,"display":false,"id":"katex-spec/katex > A infix builder > should not fail/2","tex":"a \\atop b"}
+{"count":1,"display":false,"id":"katex-spec/katex > A infix builder > should not fail/3","tex":"a \\choose b"}
+{"count":1,"display":false,"id":"katex-spec/katex > A infix builder > should not fail/4","tex":"a \\brace b"}
+{"count":1,"display":false,"id":"katex-spec/katex > A infix builder > should not fail/5","tex":"a \\brack b"}
+{"count":1,"display":false,"id":"katex-spec/katex > A sizing parser > should not fail/1","tex":"\\Huge{x}\\small{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should not fail/1","tex":"\\text{a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should not parse bad text/1","tex":"\\text{a b%}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should not parse bad functions inside text/1","tex":"\\text{\\sqrt{x}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should parse text with no braces around it/1","tex":"\\text x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should parse nested expressions/1","tex":"\\text{a {b} \\blue{c} \\textcolor{#fff}{x} \\llap{x}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should handle backslash followed by newline/1","tex":"\\text{\\ \t\r \n \t\r  }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should handle backslash followed by newline/2","tex":"\\text{\\ }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should accept math mode tokens after its argument/1","tex":"\\text{sin}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should parse math within text group/1","settings":{"strict":true},"tex":"\\text{graph: $y = mx + b$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should parse math within text group/2","settings":{"strict":true},"tex":"\\text{graph: \\(y = mx + b\\)}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should parse math within text within math within text/1","settings":{"strict":true},"tex":"\\text{hello $x + \\text{world $y$} + z$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should parse math within text within math within text/2","settings":{"strict":true},"tex":"\\text{hello \\(x + \\text{world $y$} + z\\)}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should parse math within text within math within text/3","settings":{"strict":true},"tex":"\\text{hello $x + \\text{world \\(y\\)} + z$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should parse math within text within math within text/4","settings":{"strict":true},"tex":"\\text{hello \\(x + \\text{world \\(y\\)} + z\\)}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should forbid \\( within math mode/1","tex":"\\("}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should forbid \\( within math mode/2","tex":"\\text{$\\(x\\)$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should forbid $ within math mode/1","tex":"$x$"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should forbid $ within math mode/2","tex":"\\text{\\($x$\\)}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should detect unbalanced \\)/1","tex":"\\)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should detect unbalanced \\)/2","tex":"\\text{\\)}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A text parser > should detect unbalanced $/1","tex":"$"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should detect unbalanced $/2","tex":"\\text{$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should not mix $ and \\(..\\)/1","tex":"\\text{$x\\)}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should not mix $ and \\(..\\)/2","tex":"\\text{\\(x$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should parse spacing functions/1","tex":"a b\\, \\; \\! \\: \\> ~ \\thinspace \\medspace \\quad \\ "}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should parse spacing functions/2","tex":"\\enspace \\thickspace \\qquad \\space \\nobreakspace"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should omit spaces after commands/1","tex":"\\text{\\textellipsis !}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should omit spaces after commands/2","tex":"\\text{\\textellipsis!}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A text parser > should handle ⋮ and \\vdots/1","tex":"\\text{a \\vdots b ⋮ d}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A texvc builder > should not fail/1","tex":"\\lang\\N\\darr\\R\\dArr\\Z\\Darr\\alef\\rang"}
+{"count":1,"display":false,"id":"katex-spec/katex > A texvc builder > should not fail/2","tex":"\\alefsym\\uarr\\Alpha\\uArr\\Beta\\Uarr\\Chi"}
+{"count":1,"display":false,"id":"katex-spec/katex > A texvc builder > should not fail/3","tex":"\\clubs\\diamonds\\hearts\\spades\\cnums\\Complex"}
+{"count":1,"display":false,"id":"katex-spec/katex > A texvc builder > should not fail/4","tex":"\\Dagger\\empty\\harr\\Epsilon\\hArr\\Eta\\Harr\\exist"}
+{"count":1,"display":false,"id":"katex-spec/katex > A texvc builder > should not fail/5","tex":"\\image\\larr\\infin\\lArr\\Iota\\Larr\\isin\\Kappa"}
+{"count":1,"display":false,"id":"katex-spec/katex > A texvc builder > should not fail/6","tex":"\\Mu\\lrarr\\natnums\\lrArr\\Nu\\Lrarr\\Omicron"}
+{"count":1,"display":false,"id":"katex-spec/katex > A texvc builder > should not fail/7","tex":"\\real\\rarr\\plusmn\\rArr\\reals\\Rarr\\Reals\\Rho"}
+{"count":1,"display":false,"id":"katex-spec/katex > A texvc builder > should not fail/8","tex":"\\text{\\sect}\\sdot\\sub\\sube\\supe"}
+{"count":1,"display":false,"id":"katex-spec/katex > A texvc builder > should not fail/9","tex":"\\Tau\\thetasym\\weierp\\Zeta"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should not fail/1","tex":"\\blue{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should parse a custom color/1","tex":"\\textcolor{#fA6}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should parse a custom color/2","tex":"\\textcolor{#fA6fA6}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should parse a custom color/3","tex":"\\textcolor{fA6fA6}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should not parse a bad custom color/1","tex":"\\textcolor{bad-color}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should not parse a bad custom color/2","tex":"\\textcolor{#fA6f1}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should not parse a bad custom color/3","tex":"\\textcolor{#gA6}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should parse new colors from the branding guide/1","tex":"\\redA{x}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A color parser > should use one-argument \\color by default/1","tex":"\\color{#fA6}xy"}
+{"count":2,"display":false,"id":"katex-spec/katex > A color parser > should use one-argument \\color by default/2","tex":"\\textcolor{#fA6}{xy}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should use two-argument \\color if requested/1","settings":{"colorIsTextColor":true},"tex":"\\color{#fA6}xy"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should use two-argument \\color if requested/2","settings":{"colorIsTextColor":true},"tex":"\\textcolor{#fA6}{x}y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should not define \\color in global context/1","settings":{"colorIsTextColor":true,"globalGroup":true},"tex":"\\color{#fA6}xy"}
+{"count":1,"display":false,"id":"katex-spec/katex > A color parser > should not define \\color in global context/2","settings":{"colorIsTextColor":true,"globalGroup":true},"tex":"\\textcolor{#fA6}{x}y"}
+{"count":1,"display":false,"id":"katex-spec/katex > Alpha hex color parser > should not parse invalid alpha hex colors/1","tex":"\\textcolor{#ff00008g}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Alpha hex color parser > should not parse invalid alpha hex colors/2","tex":"\\textcolor{#ff00008}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Alpha hex color parser > should not parse invalid alpha hex colors/3","tex":"\\textcolor{#ff000080f}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Alpha hex color parser > should build correctly with alpha colors/1","tex":"\\textcolor{#ff000080}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Alpha hex color parser > should build correctly with alpha colors/2","tex":"\\textcolor{#1234ABCD}{z}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Alpha hex color parser > should build correctly with alpha colors/3","tex":"\\textcolor{#abc8}{w}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A tie parser > should parse ties in math mode/1","tex":"a~b"}
+{"count":1,"display":false,"id":"katex-spec/katex > A tie parser > should parse ties in text mode/1","tex":"\\text{a~ b}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A delimiter sizing parser > should parse normal delimiters/1","tex":"\\bigl |"}
+{"count":1,"display":false,"id":"katex-spec/katex > A delimiter sizing parser > should parse normal delimiters/2","tex":"\\Biggr \\langle"}
+{"count":2,"display":false,"id":"katex-spec/katex > A delimiter sizing parser > should accept a single braced delimiter/1","tex":"\\bigl{|}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A delimiter sizing parser > should not parse not-delimiters/1","tex":"\\bigl x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A delimiter sizing parser > should not parse not-delimiters/2","tex":"\\bigl{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An overline parser > should not fail/1","tex":"\\overline{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should not fail on a text argument/1","tex":"\\rlap{\\,/}{=}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should not fail on a text argument/2","tex":"\\mathrlap{\\,/}{=}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should not fail on a text argument/3","tex":"{=}\\llap{/\\,}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should not fail on a text argument/4","tex":"{=}\\mathllap{/\\,}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should not fail on a text argument/5","tex":"\\sum_{\\clap{ABCDEFG}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should not fail on a text argument/6","tex":"\\sum_{\\mathclap{ABCDEFG}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should not fail if math version is used/1","tex":"\\mathrlap{\\frac{a}{b}}{=}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should not fail if math version is used/2","tex":"{=}\\mathllap{\\frac{a}{b}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should not fail if math version is used/3","tex":"\\sum_{\\mathclap{\\frac{a}{b}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should fail on math if AMS version is used/1","tex":"\\rlap{\\frac{a}{b}}{=}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should fail on math if AMS version is used/2","tex":"{=}\\llap{\\frac{a}{b}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An lap parser > should fail on math if AMS version is used/3","tex":"\\sum_{\\clap{\\frac{a}{b}}}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A rule parser > should not fail/1","tex":"\\rule{1em}{2em}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A rule parser > should not fail/2","tex":"\\rule{1ex}{2em}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A rule parser > should not parse invalid units/1","tex":"\\rule{1au}{2em}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A rule parser > should not parse invalid units/2","tex":"\\rule{1em}{em}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A rule parser > should not parse incomplete rules/1","tex":"\\rule{1em}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A rule parser > should parse in text mode/1","tex":"\\text{a\\rule{1em}{2em}b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A kern parser > should not parse invalid units/1","tex":"\\kern{1au}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A kern parser > should not parse invalid units/2","tex":"\\kern{em}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A non-braced kern parser > should not parse invalid units/1","tex":"\\kern1au"}
+{"count":1,"display":false,"id":"katex-spec/katex > A non-braced kern parser > should not parse invalid units/2","tex":"\\kern em"}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should not fail/1","tex":"\\left( \\dfrac{x}{y} \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should error when it is mismatched/1","tex":"\\left( \\dfrac{x}{y}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should error when it is mismatched/2","tex":"\\dfrac{x}{y} \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should error when braces are mismatched/1","tex":"{ \\left( \\dfrac{x}{y} } \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should error when non-delimiters are provided/1","tex":"\\left$ \\dfrac{x}{y} \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should parse the empty '.' delimiter/1","tex":"\\left( \\dfrac{x}{y} \\right."}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should parse the '.' delimiter with normal sizes/1","tex":"\\Bigl ."}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should handle \\middle/1","tex":"\\left( \\dfrac{x}{y} \\middle| \\dfrac{y}{z} \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should handle multiple \\middles/1","tex":"\\left( \\dfrac{x}{y} \\middle| \\dfrac{y}{z} \\middle/ \\dfrac{z}{q} \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should handle nested \\middles/1","tex":"\\left( a^2 \\middle| \\left( b \\middle/ c \\right) \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A left/right parser > should error when \\middle is not in \\left...\\right/1","tex":"(\\middle|\\dfrac{x}{y})"}
+{"count":2,"display":false,"id":"katex-spec/katex > left/right builder > should build \"\\left\\langle \\right\\rangle\" like \"\\left< \\right>\"/1","tex":"\\left\\langle \\right\\rangle"}
+{"count":1,"display":false,"id":"katex-spec/katex > left/right builder > should build \"\\left\\langle \\right\\rangle\" like \"\\left< \\right>\"/2","tex":"\\left< \\right>"}
+{"count":1,"display":false,"id":"katex-spec/katex > left/right builder > should build \"\\left\\langle \\right\\rangle\" like \"\\left⟨ \\right⟩\"/2","tex":"\\left⟨ \\right⟩"}
+{"count":1,"display":false,"id":"katex-spec/katex > left/right builder > should build \"\\left\\lparen \\right\\rparen\" like \"\\left( \\right)\"/1","tex":"\\left\\lparen \\right\\rparen"}
+{"count":1,"display":false,"id":"katex-spec/katex > left/right builder > should build \"\\left\\lparen \\right\\rparen\" like \"\\left( \\right)\"/2","tex":"\\left( \\right)"}
+{"count":2,"display":false,"id":"katex-spec/katex > A begin/end parser > should parse a simple environment/1","tex":"\\begin{matrix}a&b\\\\c&d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should parse an environment with argument/1","tex":"\\begin{array}{cc}a&b\\\\c&d\\end{array}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should parse and build an empty environment/1","tex":"\\begin{aligned}\\end{aligned}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should parse and build an empty environment/2","tex":"\\begin{matrix}\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should parse an environment with hlines/1","tex":"\\begin{matrix}\\hline a&b\\\\ \\hline c&d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should parse an environment with hlines/2","tex":"\\begin{matrix}\\hline a&b\\cr \\hline c&d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should parse an environment with hlines/3","tex":"\\begin{matrix}\\hdashline a&b\\\\ \\hdashline c&d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should forbid hlines outside array environment/1","tex":"\\hline"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should error when name is mismatched/1","tex":"\\begin{matrix}a&b\\\\c&d\\end{pmatrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should error when commands are mismatched/1","tex":"\\begin{matrix}a&b\\\\c&d\\right{pmatrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should error when end is missing/1","tex":"\\begin{matrix}a&b\\\\c&d"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should error when braces are mismatched/1","tex":"{\\begin{matrix}a&b\\\\c&d}\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should cooperate with infix notation/1","tex":"\\begin{matrix}0&1\\over2&3\\\\4&5&6\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should nest/1","tex":"\\begin{array}{rl}\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}&0\\\\0&\\begin{pmatrix}1&2\\\\3&4\\end{pmatrix}\\end{array}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should allow \\cr and \\\\ as a line terminator/1","tex":"\\begin{matrix}a&b\\cr c&d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should not allow \\cr to scan for an optional size argument/1","tex":"\\begin{matrix}a&b\\cr[c]&d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should not treat [ after space as optional argument to \\\\/1","tex":"\\begin{matrix}a&b\\\\ [c]&d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should not treat [ after space as optional argument to \\\\/2","tex":"a\\\\ [b]"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./1","tex":"\\begin{matrix*}[r] a & -1 \\\\ -1 & d \\end{matrix*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./2","tex":"\\begin{pmatrix*}[r] a & -1 \\\\ -1 & d \\end{pmatrix*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./3","tex":"\\begin{bmatrix*}[r] a & -1 \\\\ -1 & d \\end{bmatrix*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./4","tex":"\\begin{Bmatrix*}[r] a & -1 \\\\ -1 & d \\end{Bmatrix*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./5","tex":"\\begin{vmatrix*}[r] a & -1 \\\\ -1 & d \\end{vmatrix*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./6","tex":"\\begin{Vmatrix*}[r] a & -1 \\\\ -1 & d \\end{Vmatrix*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./7","tex":"\\begin{matrix*} a & -1 \\\\ -1 & d \\end{matrix*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./8","tex":"\\begin{matrix*}[] a & -1 \\\\ -1 & d \\end{matrix*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A sqrt parser > should parse square roots/1","tex":"\\sqrt{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A sqrt parser > should error when there is no group/1","tex":"\\sqrt"}
+{"count":1,"display":false,"id":"katex-spec/katex > A sqrt parser > should build sized square roots/1","tex":"\\Large\\sqrt[3]{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A sqrt parser > should expand argument if optional argument doesn't exist/1","macros":{"\\foo":"123"},"tex":"\\sqrt\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A sqrt parser > should expand argument if optional argument doesn't exist/2","macros":{"\\foo":"123"},"tex":"\\sqrt123"}
+{"count":1,"display":false,"id":"katex-spec/katex > A sqrt parser > should not expand argument if optional argument exists/1","macros":{"\\foo":"123"},"tex":"\\sqrt[2]\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A sqrt parser > should not expand argument if optional argument exists/2","macros":{"\\foo":"123"},"tex":"\\sqrt[2]{123}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work/1","tex":"\\frac 2 3"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail if there are not enough arguments/1","tex":"\\frac{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail if there are not enough arguments/2","tex":"\\textcolor{#fff}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail if there are not enough arguments/4","tex":"\\llap"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail if there are not enough arguments/5","tex":"\\bigl"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail if there are not enough arguments/6","tex":"\\text"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when there are missing sup/subscripts/1","tex":"x^"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when there are missing sup/subscripts/2","tex":"x_"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments require arguments/1","tex":"\\frac \\frac x y z"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments require arguments/2","tex":"\\frac x \\frac y z"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments require arguments/3","tex":"\\frac \\sqrt x y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments require arguments/4","tex":"\\frac x \\sqrt y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments require arguments/5","tex":"\\frac \\mathllap x y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments require arguments/6","tex":"\\frac x \\mathllap y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments require arguments/7","tex":"\\mathllap \\mathllap x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments require arguments/8","tex":"\\sqrt \\mathllap x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when the arguments have braces/1","tex":"\\frac {\\frac x y} z"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when the arguments have braces/2","tex":"\\frac x {\\frac y z}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when the arguments have braces/3","tex":"\\frac {\\sqrt x} y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when the arguments have braces/4","tex":"\\frac x {\\sqrt y}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when the arguments have braces/5","tex":"\\frac {\\mathllap x} y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when the arguments have braces/6","tex":"\\frac x {\\mathllap y}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when the arguments have braces/7","tex":"\\mathllap {\\frac x y}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when the arguments have braces/8","tex":"\\mathllap {\\mathllap x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when the arguments have braces/9","tex":"\\sqrt {\\mathllap x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when sup/subscripts require arguments/1","tex":"x^\\sqrt x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when sup/subscripts require arguments/2","tex":"x^\\mathllap x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when sup/subscripts require arguments/3","tex":"x_\\sqrt x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when sup/subscripts require arguments/4","tex":"x_\\mathllap x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when sup/subscripts arguments have braces/1","tex":"x^{\\sqrt x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when sup/subscripts arguments have braces/2","tex":"x^{\\mathllap x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when sup/subscripts arguments have braces/3","tex":"x_{\\sqrt x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should work when sup/subscripts arguments have braces/4","tex":"x_{\\mathllap x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should allow \\imath in sup/subscripts/1","tex":"x^\\imath"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should allow \\imath in sup/subscripts/2","tex":"x_\\imath"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should parse multiple primes correctly/1","tex":"x''''"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should parse multiple primes correctly/2","tex":"x_2''"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should parse multiple primes correctly/3","tex":"x''_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when sup/subscripts are interspersed with arguments/1","tex":"\\sqrt^23"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when sup/subscripts are interspersed with arguments/2","tex":"\\frac^234"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when sup/subscripts are interspersed with arguments/3","tex":"\\frac2^34"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed when sup/subscripts come after whole functions/1","tex":"\\sqrt2^3"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed when sup/subscripts come after whole functions/2","tex":"\\frac23^4"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed with a sqrt around a text/frac/1","tex":"\\sqrt \\frac x y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed with a sqrt around a text/frac/2","tex":"\\sqrt \\text x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed with a sqrt around a text/frac/3","tex":"x^\\frac x y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed with a sqrt around a text/frac/4","tex":"x_\\text x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments are \\left/1","tex":"\\frac \\left( x \\right) y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments are \\left/2","tex":"\\frac x \\left( y \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments are \\left/3","tex":"\\mathllap \\left( x \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments are \\left/4","tex":"\\sqrt \\left( x \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should fail when arguments are \\left/5","tex":"x^\\left( x \\right)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed when there are braces around the \\left/\\right/1","tex":"\\frac {\\left( x \\right)} y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed when there are braces around the \\left/\\right/2","tex":"\\frac x {\\left( y \\right)}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed when there are braces around the \\left/\\right/3","tex":"\\mathllap {\\left( x \\right)}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed when there are braces around the \\left/\\right/4","tex":"\\sqrt {\\left( x \\right)}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A TeX-compliant parser > should succeed when there are braces around the \\left/\\right/5","tex":"x^{\\left( x \\right)}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/1","tex":"\\int_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/2","tex":"\\iint_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/3","tex":"\\iiint_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/4","tex":"\\int\\nolimits_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/5","tex":"\\iint\\nolimits_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/6","tex":"\\iiint\\nolimits_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/7","tex":"\\oint_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/8","tex":"\\oiint_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/9","tex":"\\oiiint_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/10","tex":"\\oint\\nolimits_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/11","tex":"\\oiint\\nolimits_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/12","tex":"\\oiiint\\nolimits_i^n"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/13","tex":"\\mathop{\\int}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An op symbol builder > should not fail/14","tex":"\\mathop \\int"}
+{"count":1,"display":false,"id":"katex-spec/katex > A style change parser > should not fail/1","tex":"\\displaystyle x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A style change parser > should not fail/2","tex":"\\textstyle x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A style change parser > should not fail/3","tex":"\\scriptstyle x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A style change parser > should not fail/4","tex":"\\scriptscriptstyle x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should parse \\mathrm, \\mathbb, \\mathit, and \\mathnormal/1","tex":"\\mathrm x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should parse \\mathrm, \\mathbb, \\mathit, and \\mathnormal/2","tex":"\\mathbb x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should parse \\mathrm, \\mathbb, \\mathit, and \\mathnormal/3","tex":"\\mathit x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should parse \\mathrm, \\mathbb, \\mathit, and \\mathnormal/4","tex":"\\mathnormal x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should parse \\mathrm, \\mathbb, \\mathit, and \\mathnormal/5","tex":"\\mathrm {x + 1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should parse \\mathrm, \\mathbb, \\mathit, and \\mathnormal/6","tex":"\\mathbb {x + 1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should parse \\mathrm, \\mathbb, \\mathit, and \\mathnormal/7","tex":"\\mathit {x + 1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should parse \\mathrm, \\mathbb, \\mathit, and \\mathnormal/8","tex":"\\mathnormal {x + 1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should parse \\mathcal and \\mathfrak/1","tex":"\\mathcal{ABC123}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should parse \\mathcal and \\mathfrak/2","tex":"\\mathfrak{abcABC123}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should not parse a series of font commands/1","tex":"\\mathbb \\mathrm R"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > should be allowed in the argument/1","tex":"e^\\mathbf{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/1","tex":"\\rm xyz"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/2","tex":"\\mathrm{xyz}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/3","tex":"\\sf xyz"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/4","tex":"\\mathsf{xyz}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/5","tex":"\\tt xyz"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/6","tex":"\\mathtt{xyz}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/7","tex":"\\bf xyz"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/8","tex":"\\mathbf{xyz}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/9","tex":"\\it xyz"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/10","tex":"\\mathit{xyz}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/11","tex":"\\cal xyz"}
+{"count":1,"display":false,"id":"katex-spec/katex > A font parser > old-style fonts work like new-style fonts/12","tex":"\\mathcal{xyz}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\pmb builder > should not fail/1","tex":"\\pmb{\\mu}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\pmb builder > should not fail/2","tex":"\\pmb{=}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\pmb builder > should not fail/3","tex":"\\pmb{+}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\pmb builder > should not fail/4","tex":"\\pmb{\\frac{x^2}{x_1}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\pmb builder > should not fail/5","tex":"\\pmb{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\pmb builder > should not fail/6","tex":"\\def\\x{1}\\pmb{\\x\\def\\x{2}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\pmb builder > should not fail/7","tex":"\\pmb{1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A raise parser > should parse and build text in \\raisebox/1","settings":{"strict":true},"tex":"\\raisebox{5pt}{text}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A raise parser > should parse and build text in \\raisebox/2","settings":{"strict":true},"tex":"\\raisebox{-5pt}{text}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A raise parser > should parse and build math in non-strict \\vcenter/1","settings":{"strict":false},"tex":"\\vcenter{\\frac a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A raise parser > should fail to parse math in \\raisebox/1","settings":{"strict":false},"tex":"\\raisebox{5pt}{\\frac a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A raise parser > should fail to parse math in \\raisebox/2","settings":{"strict":false},"tex":"\\raisebox{-5pt}{\\frac a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A raise parser > should fail to parse math in an \\hbox/1","settings":{"strict":false},"tex":"\\hbox{\\frac a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A raise parser > should fail to build, given an unbraced length/1","settings":{"strict":true},"tex":"\\raisebox5pt{text}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A raise parser > should fail to build, given an unbraced length/2","settings":{"strict":true},"tex":"\\raisebox-5pt{text}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A raise parser > should build math in an hbox when math mode is set/1","settings":{"strict":true},"tex":"a + \\vcenter{\\hbox{$\\frac{\\frac a b}c$}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments at the end of a line/1","tex":"a^2 + b^2 = c^2 % Pythagoras' Theorem\n"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments at the start of a line/1","tex":"% comment\n"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse multiple lines of comments in a row/1","tex":"% comment 1\n% comment 2\n"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments between subscript and superscript/1","tex":"x_3 %comment\n^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments between subscript and superscript/3","tex":"x^ %comment\n{2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments between subscript and superscript/4","tex":"x^{2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments between subscript and superscript/5","tex":"x^ %comment\n\\frac{1}{2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments between subscript and superscript/6","tex":"x^\\frac{1}{2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments in size and color groups/1","tex":"\\kern{1 %kern\nem}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments in size and color groups/2","tex":"\\kern1 %kern\nem"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments in size and color groups/3","tex":"\\color{#f00%red\n}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments before an expression/1","tex":"%comment\n{2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments before an expression/2","tex":"{2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments before and between \\hline/1","tex":"\\begin{matrix}a&b\\\\ %hline\n\\hline %hline\n\\hline c&d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments in the macro definition/1","tex":"\\def\\foo{1 %}\n2}\n\\foo"}
+{"count":3,"display":false,"id":"katex-spec/katex > A comment parser > should parse comments in the macro definition/2","tex":"12"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should not expand nor ignore spaces after a command sequence in a comment/1","tex":"\\def\\foo{1\n2}\nx %\\foo\n"}
+{"count":3,"display":false,"id":"katex-spec/katex > A comment parser > should not expand nor ignore spaces after a command sequence in a comment/2","tex":"x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should not parse a comment without newline in strict mode/1","settings":{"strict":true},"tex":"x%y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should not parse a comment without newline in strict mode/2","settings":{"strict":false},"tex":"x%y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should not produce or consume space/1","tex":"\\text{hello% comment 1\nworld}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should not produce or consume space/2","tex":"\\text{helloworld}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should not produce or consume space/3","tex":"\\text{hello% comment\n\nworld}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should not produce or consume space/4","tex":"\\text{hello world}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should not include comments in the output/1","tex":"5 % comment\n"}
+{"count":1,"display":false,"id":"katex-spec/katex > A comment parser > should not include comments in the output/2","tex":"5"}
+{"count":1,"display":false,"id":"katex-spec/katex > An HTML font tree-builder > should render wide characters with mord and with the correct font/1","tex":"𝐀 = 𝐚"}
+{"count":1,"display":false,"id":"katex-spec/katex > An HTML font tree-builder > should render wide characters with mord and with the correct font/2","tex":"\\mathbf A = \\mathbf a"}
+{"count":1,"display":false,"id":"katex-spec/katex > An includegraphics builder > should not fail/1","settings":{"trust":true},"tex":"\\includegraphics[height=0.9em, totalheight=0.9em, width=0.9em, alt=KA logo]{https://cdn.kastatic.org/images/apple-touch-icon-57x57-precomposed.new.png}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An HTML extension builder > should not fail/1","settings":{"strict":false,"trust":true},"tex":"\\htmlId{bar}{x}\\htmlClass{foo}{x}\\htmlStyle{color: red;}{x}\\htmlData{foo=a, bar=b}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An HTML extension builder > should still treat % as a comment around the attribute value/1","settings":{"strict":false,"trust":true},"tex":"\\htmlStyle %before\n{width:50%;}%after\n{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An HTML extension builder > should still treat % as a comment around the attribute value/2","settings":{"strict":false,"trust":true},"tex":"\\htmlStyle{width:50%;}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\htmlData macro > should not fail if an argument contains a single equals sign/1","settings":{"strict":false,"trust":true},"tex":"\\htmlData{foo=a}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\htmlData macro > should accept empty values/1","settings":{"strict":false,"trust":true},"tex":"\\htmlData{foo=}{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\htmlData macro > should accept empty keys/1","settings":{"strict":false,"trust":true},"tex":"\\htmlData{=a}{x}"}
+{"count":2,"display":false,"id":"katex-spec/katex > An accent parser > should not fail/1","tex":"\\vec{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An accent parser > should not fail/2","tex":"\\vec{x^2}"}
+{"count":2,"display":false,"id":"katex-spec/katex > An accent parser > should not fail/3","tex":"\\vec{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > An accent parser > should not fail/4","tex":"\\vec x"}
+{"count":1,"display":false,"id":"katex-spec/katex > An accent parser > should not fail/5","tex":"\\underbar{X}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An accent parser > should parse stretchy, shifty accents/1","tex":"\\widehat{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An accent parser > should parse stretchy, shifty accents/2","tex":"\\widecheck{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An accent parser > should parse stretchy, non-shifty accents/1","tex":"\\overrightarrow{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An accent builder > should not fail/3","tex":"\\vec{x}_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > An accent builder > should not fail/4","tex":"\\vec{x}_2^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A stretchy and shifty accent builder > should not fail/1","tex":"\\widehat{AB}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A stretchy and shifty accent builder > should not fail/2","tex":"\\widecheck{AB}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A stretchy and shifty accent builder > should not fail/3","tex":"\\widehat{AB}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A stretchy and shifty accent builder > should not fail/4","tex":"\\widehat{AB}_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A stretchy and shifty accent builder > should not fail/5","tex":"\\widehat{AB}_2^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A stretchy and non-shifty accent builder > should not fail/1","tex":"\\overrightarrow{AB}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A stretchy and non-shifty accent builder > should not fail/2","tex":"\\overrightarrow{AB}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A stretchy and non-shifty accent builder > should not fail/3","tex":"\\overrightarrow{AB}_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A stretchy and non-shifty accent builder > should not fail/4","tex":"\\overrightarrow{AB}_2^2"}
+{"count":2,"display":false,"id":"katex-spec/katex > An under-accent parser > should not fail/1","tex":"\\underrightarrow{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An under-accent parser > should not fail/2","tex":"\\underrightarrow{x^2}"}
+{"count":2,"display":false,"id":"katex-spec/katex > An under-accent parser > should not fail/3","tex":"\\underrightarrow{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > An under-accent parser > should not fail/4","tex":"\\underrightarrow x"}
+{"count":1,"display":false,"id":"katex-spec/katex > An under-accent builder > should not fail/3","tex":"\\underrightarrow{x}_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > An under-accent builder > should not fail/4","tex":"\\underrightarrow{x}_2^2"}
+{"count":2,"display":false,"id":"katex-spec/katex > An extensible arrow parser > should not fail/1","tex":"\\xrightarrow{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An extensible arrow parser > should not fail/2","tex":"\\xrightarrow{x^2}"}
+{"count":2,"display":false,"id":"katex-spec/katex > An extensible arrow parser > should not fail/3","tex":"\\xrightarrow{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > An extensible arrow parser > should not fail/4","tex":"\\xrightarrow x"}
+{"count":2,"display":false,"id":"katex-spec/katex > An extensible arrow parser > should not fail/5","tex":"\\xrightarrow[under]{over}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An extensible arrow builder > should not fail/3","tex":"\\xrightarrow{x}_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > An extensible arrow builder > should not fail/4","tex":"\\xrightarrow{x}_2^2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A horizontal brace parser > should not fail/1","tex":"\\overbrace{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A horizontal brace parser > should not fail/2","tex":"\\overbrace{x^2}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A horizontal brace parser > should not fail/3","tex":"\\overbrace{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A horizontal brace parser > should not fail/4","tex":"\\overbrace x"}
+{"count":2,"display":false,"id":"katex-spec/katex > A horizontal brace parser > should not fail/5","tex":"\\underbrace{x}_2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A horizontal brace parser > should not fail/6","tex":"\\underbrace{x}_2^2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A horizontal bracket parser > should not fail/1","tex":"\\overbracket{x}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A horizontal bracket parser > should not fail/2","tex":"\\underbracket{x}_2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A boxed parser > should not fail/1","tex":"\\boxed{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A boxed parser > should not fail/2","tex":"\\boxed{x^2}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A boxed parser > should not fail/3","tex":"\\boxed{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A boxed parser > should not fail/4","tex":"\\boxed x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A boxed builder > should not fail/3","tex":"\\boxed{x}_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A boxed builder > should not fail/4","tex":"\\boxed{x}_2^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > An fbox parser, unlike a boxed parser, > should fail when given math/1","tex":"\\fbox{\\frac a b}"}
+{"count":3,"display":false,"id":"katex-spec/katex > A colorbox parser > should not fail, given a text argument/1","tex":"\\colorbox{red}{a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A colorbox parser > should not fail, given a text argument/2","tex":"\\colorbox{red}{x}^2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A colorbox parser > should not fail, given a text argument/3","tex":"\\colorbox{red} x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A colorbox parser > should fail, given a math argument/1","tex":"\\colorbox{red}{\\alpha}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A colorbox parser > should fail, given a math argument/2","tex":"\\colorbox{red}{\\frac{a}{b}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A colorbox parser > should parse a color/2","tex":"\\colorbox{#197}{a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A colorbox parser > should parse a color/3","tex":"\\colorbox{#1a9b7c}{a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A colorbox builder > should not fail/2","tex":"\\colorbox{red}{a b}^2"}
+{"count":3,"display":false,"id":"katex-spec/katex > An fcolorbox parser > should not fail, given a text argument/1","tex":"\\fcolorbox{blue}{yellow}{a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An fcolorbox parser > should not fail, given a text argument/2","tex":"\\fcolorbox{blue}{yellow}{x}^2"}
+{"count":2,"display":false,"id":"katex-spec/katex > An fcolorbox parser > should not fail, given a text argument/3","tex":"\\fcolorbox{blue}{yellow} x"}
+{"count":1,"display":false,"id":"katex-spec/katex > An fcolorbox parser > should fail, given a math argument/1","tex":"\\fcolorbox{blue}{yellow}{\\alpha}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An fcolorbox parser > should fail, given a math argument/2","tex":"\\fcolorbox{blue}{yellow}{\\frac{a}{b}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An fcolorbox parser > should parse a color/2","tex":"\\fcolorbox{blue}{#197}{a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An fcolorbox parser > should parse a color/3","tex":"\\fcolorbox{blue}{#1a9b7c}{a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A fcolorbox builder > should not fail/2","tex":"\\fcolorbox{blue}{yellow}{a b}^2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A strike-through parser > should not fail/1","tex":"\\cancel{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A strike-through parser > should not fail/2","tex":"\\cancel{x^2}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A strike-through parser > should not fail/3","tex":"\\cancel{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A strike-through parser > should not fail/4","tex":"\\cancel x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A strike-through builder > should not fail/3","tex":"\\cancel{x}_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A strike-through builder > should not fail/4","tex":"\\cancel{x}_2^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A strike-through builder > should not fail/5","settings":{"strict":false},"tex":"\\sout{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A strike-through builder > should not fail/6","settings":{"strict":false},"tex":"\\sout{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A strike-through builder > should not fail/7","settings":{"strict":false},"tex":"\\sout{x}_2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A strike-through builder > should not fail/8","settings":{"strict":false},"tex":"\\sout{x}_2^2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A strike-through builder > should not fail/9","tex":"\\text{\\sout{abc}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A \\sout parser > should fail in math mode with strict settings/1","settings":{"strict":true},"tex":"\\sout{x}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A actuarial angle parser > should not fail in math mode/1","tex":"a_{\\angl{n}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A actuarial angle parser > should fail in text mode/1","tex":"\\text{a_{\\angl{n}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A actuarial angle builder > should not fail/2","tex":"a_{\\angl{n}i}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A actuarial angle builder > should not fail/3","tex":"a_{\\angl n}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A actuarial angle builder > should not fail/4","tex":"a_\\angln"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\phase > should fail in text mode/1","tex":"\\text{\\phase{-78.2^\\circ}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\phase > should not fail in math mode/1","tex":"\\phase{-78.2^\\circ}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A phantom parser > should not fail/1","tex":"\\phantom{x}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A phantom parser > should not fail/2","tex":"\\phantom{x^2}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A phantom parser > should not fail/3","tex":"\\phantom{x}^2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A phantom parser > should not fail/4","tex":"\\phantom x"}
+{"count":2,"display":false,"id":"katex-spec/katex > A phantom parser > should not fail/5","tex":"\\hphantom{x}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A phantom parser > should not fail/6","tex":"\\hphantom{x^2}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A phantom parser > should not fail/7","tex":"\\hphantom{x}^2"}
+{"count":2,"display":false,"id":"katex-spec/katex > A phantom parser > should not fail/8","tex":"\\hphantom x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A phantom builder > should not fail/5","tex":"\\mathstrut"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/1","tex":"\\smash{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/2","tex":"\\smash{x^2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/3","tex":"\\smash{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/4","tex":"\\smash x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/5","tex":"\\smash[b]{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/6","tex":"\\smash[b]{x^2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/7","tex":"\\smash[b]{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/8","tex":"\\smash[b] x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/9","tex":"\\smash[]{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/10","tex":"\\smash[]{x^2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/11","tex":"\\smash[]{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash parser > should not fail/12","tex":"\\smash[] x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash builder > should not fail/1","settings":{"strict":false},"tex":"\\smash{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash builder > should not fail/2","settings":{"strict":false},"tex":"\\smash{x^2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash builder > should not fail/3","settings":{"strict":false},"tex":"\\smash{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash builder > should not fail/4","settings":{"strict":false},"tex":"\\smash x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash builder > should not fail/5","settings":{"strict":false},"tex":"\\smash[b]{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash builder > should not fail/6","settings":{"strict":false},"tex":"\\smash[b]{x^2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash builder > should not fail/7","settings":{"strict":false},"tex":"\\smash[b]{x}^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smash builder > should not fail/8","settings":{"strict":false},"tex":"\\smash[b] x"}
+{"count":1,"display":false,"id":"katex-spec/katex > An optional argument parser > should not fail/1","tex":"\\frac[1]{2}{3}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An optional argument parser > should not fail/2","tex":"\\rule[0.2em]{1em}{1em}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An optional argument parser > should work with sqrts with optional arguments/1","tex":"\\sqrt[3]{2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An optional argument parser > should work when the optional argument is missing/1","tex":"\\sqrt{2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An optional argument parser > should fail when the optional argument is malformed/1","tex":"\\rule[1]{2em}{3em}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An optional argument parser > should not work if the optional argument isn't closed/1","tex":"\\sqrt["}
+{"count":1,"display":false,"id":"katex-spec/katex > A subarray environment > should accept only a single alignment character/1","tex":"\\begin{subarray}{cc}a \\\\ b\\end{subarray}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subarray environment > should accept only a single alignment character/2","tex":"\\begin{subarray}{c}a & b \\\\ c & d\\end{subarray}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A subarray environment > should accept only a single alignment character/3","tex":"\\begin{subarray}{c}a \\\\ b\\end{subarray}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A substack function > should build/1","tex":"\\sum_{\\substack{ 0<i<m \\\\ 0<j<n }}  P(i,j)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A substack function > should accommodate macros in the argument/1","tex":"\\sum_{\\substack{ 0<i<\\varPi \\\\ 0<j<\\pi }}  P(i,j)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A substack function > should accommodate an empty argument/1","tex":"\\sum_{\\substack{}}  P(i,j)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A smallmatrix environment > should build/1","tex":"\\begin{smallmatrix} a & b \\\\ c & d \\end{smallmatrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A cases environment > should parse its input/1","tex":"f(a,b)=\\begin{cases}a+1&\\text{if }b\\text{ is odd}\\\\a&\\text{if }b=0\\\\a-1&\\text{otherwise}\\end{cases}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An rcases environment > should build/1","tex":"\\begin{rcases} a &\\text{if } b \\\\ c &\\text{if } d \\end{rcases}⇒…"}
+{"count":1,"display":false,"id":"katex-spec/katex > An aligned environment > should parse its input/1","tex":"\\begin{aligned}a&=b&c&=d\\\\e&=f\\end{aligned}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An aligned environment > should allow cells in brackets/1","tex":"\\begin{aligned}[a]&[b]\\\\ [c]&[d]\\end{aligned}"}
+{"count":1,"display":false,"id":"katex-spec/katex > An aligned environment > should forbid cells in brackets without space/1","tex":"\\begin{aligned}[a]&[b]\\\\[c]&[d]\\end{aligned}"}
+{"count":1,"display":false,"id":"katex-spec/katex > AMS environments > should fail outside display mode/1","settings":{"strict":false},"tex":"\\begin{gather}a+b\\\\c+d\\end{gather}"}
+{"count":1,"display":false,"id":"katex-spec/katex > AMS environments > should fail outside display mode/2","settings":{"strict":false},"tex":"\\begin{gather*}a+b\\\\c+d\\end{gather*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > AMS environments > should fail outside display mode/3","settings":{"strict":false},"tex":"\\begin{align}a&=b+c\\\\d+e&=f\\end{align}"}
+{"count":1,"display":false,"id":"katex-spec/katex > AMS environments > should fail outside display mode/4","settings":{"strict":false},"tex":"\\begin{align*}a&=b+c\\\\d+e&=f\\end{align*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > AMS environments > should fail outside display mode/5","settings":{"strict":false},"tex":"\\begin{alignat}{2}10&x+ &3&y = 2\\\\3&x+&13&y = 4\\end{alignat}"}
+{"count":1,"display":false,"id":"katex-spec/katex > AMS environments > should fail outside display mode/6","settings":{"strict":false},"tex":"\\begin{alignat*}{2}10&x+ &3&y = 2\\\\3&x+&13&y = 4\\end{alignat*}"}
+{"count":1,"display":false,"id":"katex-spec/katex > AMS environments > should fail outside display mode/7","settings":{"strict":false},"tex":"\\begin{equation}a=b+c\\end{equation}"}
+{"count":1,"display":false,"id":"katex-spec/katex > AMS environments > should fail outside display mode/8","settings":{"strict":false},"tex":"\\begin{split}a &=b+c\\\\&=e+f\\end{split}"}
+{"count":1,"display":false,"id":"katex-spec/katex > AMS environments > should fail outside display mode/9","settings":{"strict":false},"tex":"\\begin{CD}A @>a>> B \\\\@VbVV @AAcA\\\\C @= D\\end{CD}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build if in display mode/1","tex":"\\begin{gather}a+b\\\\c+d\\end{gather}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build if in display mode/2","tex":"\\begin{gather*}a+b\\\\c+d\\end{gather*}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build if in display mode/3","tex":"\\begin{align}a&=b+c\\\\d+e&=f\\end{align}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build if in display mode/4","tex":"\\begin{align*}a&=b+c\\\\d+e&=f\\end{align*}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build if in display mode/5","tex":"\\begin{alignat}{2}10&x+ &3&y = 2\\\\3&x+&13&y = 4\\end{alignat}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build if in display mode/6","tex":"\\begin{alignat*}{2}10&x+ &3&y = 2\\\\3&x+&13&y = 4\\end{alignat*}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build if in display mode/7","tex":"\\begin{equation}a=b+c\\end{equation}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build if in display mode/8","tex":"\\begin{equation}\\begin{split}a &=b+c\\\\&=e+f\\end{split}\\end{equation}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build if in display mode/9","tex":"\\begin{split}a &=b+c\\\\&=e+f\\end{split}"}
+{"count":2,"display":true,"id":"katex-spec/katex > AMS environments > should build if in display mode/10","tex":"\\begin{CD}A @<a<< B @>>b> C @>>> D\\\\@. @| @AcAA @VVdV \\\\@. E @= F @>>> G\\end{CD}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build an empty environment/1","tex":"\\begin{gather}\\end{gather}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build an empty environment/2","tex":"\\begin{gather*}\\end{gather*}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build an empty environment/3","tex":"\\begin{align}\\end{align}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build an empty environment/4","tex":"\\begin{align*}\\end{align*}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build an empty environment/5","tex":"\\begin{alignat}{2}\\end{alignat}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build an empty environment/6","tex":"\\begin{alignat*}{2}\\end{alignat*}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build an empty environment/7","tex":"\\begin{equation}\\end{equation}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build an empty environment/8","tex":"\\begin{split}\\end{split}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > should build an empty environment/9","tex":"\\begin{CD}\\end{CD}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > {equation} should fail if argument contains two rows./1","tex":"\\begin{equation}a=\\cr b+c\\end{equation}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > {equation} should fail if argument contains two columns./1","tex":"\\begin{equation}a &=b+c\\end{equation}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > {split} should fail if argument contains three columns./1","tex":"\\begin{equation}\\begin{split}a &=b &+c\\\\&=e &+f\\end{split}\\end{equation}"}
+{"count":1,"display":true,"id":"katex-spec/katex > AMS environments > {array} should fail if body contains more columns than specification./1","tex":"\\begin{array}{2}a & b & c\\\\d & e  f\\end{array}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The CD environment > should fail if not is display mode/1","tex":"\\begin{CD}A @<a<< B @>>b> C @>>> D\\\\@. @| @AcAA @VVdV \\\\@. E @= F @>>> G\\end{CD}"}
+{"count":1,"display":true,"id":"katex-spec/katex > The CD environment > should fail if the character after '@' is not in <>AV=|./1","tex":"\\begin{CD}A @X<a<< B @>>b> C @>>> D\\\\@. @| @AcAA @VVdV \\\\@. E @= F @>>> G\\end{CD}"}
+{"count":1,"display":true,"id":"katex-spec/katex > The CD environment > should fail if an arrow does not have its final character./1","tex":"\\begin{CD}A @<a< B @>>b> C @>>> D\\\\@. @| @AcAA @VVdV \\\\@. E @= F @>>> G\\end{CD}"}
+{"count":1,"display":true,"id":"katex-spec/katex > The CD environment > should fail if an arrow does not have its final character./2","tex":"\\begin{CD}A @<a<< B @>>b C @>>> D\\\\@. @| @AcAA @VVdV \\\\@. E @= F @>>> G\\end{CD}"}
+{"count":1,"display":true,"id":"katex-spec/katex > The CD environment > should fail without an \\\\end./1","tex":"\\begin{CD}A @<a<< B @>>b> C @>>> D\\\\@. @| @AcAA @VVdV \\\\@. E @= F @>>> G"}
+{"count":1,"display":false,"id":"katex-spec/katex > operatorname support > should not fail/1","tex":"\\operatorname{x*Π∑\\Pi\\sum\\frac a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > operatorname support > should not fail/2","tex":"\\operatorname*{x*Π∑\\Pi\\sum\\frac a b}"}
+{"count":1,"display":false,"id":"katex-spec/katex > operatorname support > should not fail/3","tex":"\\operatorname*{x*Π∑\\Pi\\sum\\frac a b}_y x"}
+{"count":1,"display":false,"id":"katex-spec/katex > operatorname support > should not fail/4","tex":"\\operatorname*{x*Π∑\\Pi\\sum\\frac a b}\\limits_y x"}
+{"count":1,"display":false,"id":"katex-spec/katex > operatorname support > should not fail/5","tex":"\\operatorname{sn}\\limits_{b>c}(b+c)"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should parse its input/1","settings":{"trust":true},"tex":"\\href{http://example.com/}{\\sin}"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should parse its input/2","settings":{"trust":true},"tex":"\\url{http://example.com/}"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow empty URLs/1","settings":{"trust":true},"tex":"\\href{}{example here}"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow empty URLs/2","settings":{"trust":true},"tex":"\\url{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow single-character URLs/1","settings":{"trust":true},"tex":"\\href%end"}
+{"count":2,"display":false,"id":"katex-spec/katex > href and url commands > should allow single-character URLs/2","settings":{"trust":true},"tex":"\\href{%}end"}
+{"count":2,"display":false,"id":"katex-spec/katex > href and url commands > should allow single-character URLs/3","settings":{"trust":true},"tex":"\\url%end"}
+{"count":2,"display":false,"id":"katex-spec/katex > href and url commands > should allow single-character URLs/4","settings":{"trust":true},"tex":"\\url{%}end"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow single-character URLs/5","settings":{"trust":true},"tex":"\\url%%end\n"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow single-character URLs/6","settings":{"trust":true},"tex":"\\url{%}"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow single-character URLs/7","settings":{"trust":true},"tex":"\\url end"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow single-character URLs/8","settings":{"trust":true},"tex":"\\url{e}nd"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow single-character URLs/10","settings":{"trust":true},"tex":"\\url {%}end"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow spaces single-character URLs/1","settings":{"trust":true},"tex":"\\href %end"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow spaces single-character URLs/3","settings":{"trust":true},"tex":"\\url %end"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should not allow unbalanced brace(s) in url/1","tex":"\\href{http://example.com/{a}{bar}"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should not allow unbalanced brace(s) in url/2","tex":"\\href{http://example.com/}a}{bar}"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should not allow unbalanced brace(s) in url/3","tex":"\\url{http://example.com/{a}"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should not allow unbalanced brace(s) in url/4","tex":"\\url{http://example.com/}a}"}
+{"count":1,"display":false,"id":"katex-spec/katex > href and url commands > should allow comments after URLs/1","tex":"\\url{http://example.com/}%comment\n"}
+{"count":1,"display":false,"id":"katex-spec/katex > A raw text parser > should return null for a omitted optional string/1","tex":"\\includegraphics{https://cdn.kastatic.org/images/apple-touch-icon-57x57-precomposed.new.png}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should still parse on unrecognized control sequences/1","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\error"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in superscripts and subscripts/1","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"2_\\error"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in superscripts and subscripts/2","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"3^{\\error}_\\error"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in superscripts and subscripts/3","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\int\\nolimits^\\error_\\error"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in fractions/1","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\frac{345}{\\error}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in fractions/2","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\frac\\error{\\error}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in square roots/1","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\sqrt\\error"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in square roots/2","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\sqrt{234\\error}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in text boxes/1","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\text{\\error}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in environment names/1","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\begin{\\pmatrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in environment names/2","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\begin{\\error}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in environment names/3","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\begin{\\error}x\\end{\\error}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in environment names/4","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\begin{matrix}a\\end{\\pmatrix}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in a column count/1","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\begin{alignedat}{\\error}a&b\\end{alignedat}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in a \\@char argument/1","settings":{"throwOnError":false,"errorColor":"#933"},"tex":"\\@char{\\error}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The symbol table integrity > should treat certain symbols as synonyms/1","tex":"<"}
+{"count":1,"display":false,"id":"katex-spec/katex > The symbol table integrity > should treat certain symbols as synonyms/2","tex":"\\lt"}
+{"count":1,"display":false,"id":"katex-spec/katex > The symbol table integrity > should treat certain symbols as synonyms/3","tex":">"}
+{"count":1,"display":false,"id":"katex-spec/katex > The symbol table integrity > should treat certain symbols as synonyms/4","tex":"\\gt"}
+{"count":1,"display":false,"id":"katex-spec/katex > The symbol table integrity > should treat certain symbols as synonyms/5","tex":"\\left<\\frac{1}{x}\\right>"}
+{"count":1,"display":false,"id":"katex-spec/katex > The symbol table integrity > should treat certain symbols as synonyms/6","tex":"\\left\\lt\\frac{1}{x}\\right\\gt"}
+{"count":1,"display":false,"id":"katex-spec/katex > Symbols > should support AMS symbols in both text and math mode/1","tex":"\\yen\\checkmark\\circledR\\maltese"}
+{"count":1,"display":false,"id":"katex-spec/katex > Symbols > should support AMS symbols in both text and math mode/2","settings":{"strict":true},"tex":"\\text{\\yen\\checkmark\\circledR\\maltese}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should produce individual tokens/1","macros":{"\\foo":"123"},"tex":"e^\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should produce individual tokens/2","macros":{"\\foo":"123"},"tex":"e^1 23"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should preserve leading spaces inside macro definition/1","macros":{"\\foo":" x"},"tex":"\\text{\\foo}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should preserve leading spaces inside macro definition/2","macros":{"\\foo":" x"},"tex":"\\text{ x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should preserve leading spaces inside macro argument/1","macros":{"\\foo":"#1"},"tex":"\\text{\\foo{ x}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should preserve leading spaces inside macro argument/2","macros":{"\\foo":"#1"},"tex":"\\text{ x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should ignore expanded spaces in math mode/1","macros":{"\\foo":" x"},"tex":"\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should ignore expanded spaces in math mode/2","macros":{"\\foo":" x"},"tex":"x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces after control-word macro/1","macros":{"\\foo":"x"},"tex":"\\text{\\foo }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces after control-word macro/2","macros":{"\\foo":"x"},"tex":"\\text{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces after macro with \\relax/1","macros":{"\\foo":"\\relax"},"tex":"\\text{\\foo }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces after macro with \\relax/2","macros":{"\\foo":"\\relax"},"tex":"\\text{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should not consume spaces after control-word expansion/1","macros":{"\\\\":"\\relax"},"tex":"\\text{\\\\ }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should not consume spaces after control-word expansion/2","macros":{"\\\\":"\\relax"},"tex":"\\text{ }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces after \\relax/1","tex":"\\text{\\relax }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces after \\relax/2","tex":"\\text{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces after control-word function/1","tex":"\\text{\\KaTeX }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces after control-word function/2","tex":"\\text{\\KaTeX}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should preserve spaces after control-symbol macro/1","macros":{"\\%":"x"},"tex":"\\text{\\% y}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should preserve spaces after control-symbol macro/2","macros":{"\\%":"x"},"tex":"\\text{x y}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should preserve spaces after control-symbol function/1","tex":"\\text{\\' }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces between arguments/1","macros":{"\\foo":"#1#2end"},"tex":"\\text{\\foo 1 2}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces between arguments/2","macros":{"\\foo":"#1#2end"},"tex":"\\text{12end}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should consume spaces between arguments/3","macros":{"\\foo":"#1#2end"},"tex":"\\text{\\foo {1} {2}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for multiple expansion/1","macros":{"\\foo":"\\bar\\bar","\\bar":"a"},"tex":"1\\foo2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for multiple expansion/2","macros":{"\\foo":"\\bar\\bar","\\bar":"a"},"tex":"1aa2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for multiple expansion with argument/1","macros":{"\\foo":"\\bar{#1}\\bar{#1}","\\bar":"#1#1"},"tex":"1\\foo2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for multiple expansion with argument/2","macros":{"\\foo":"\\bar{#1}\\bar{#1}","\\bar":"#1#1"},"tex":"12222"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for macro argument/1","macros":{"\\foo":"(#1)","\\bar":"xyz"},"tex":"\\foo\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for macro argument/2","macros":{"\\foo":"(#1)","\\bar":"xyz"},"tex":"(xyz)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow properly nested group for macro argument/1","macros":{"\\foo":"(#1)"},"tex":"\\foo{e^{x_{12}+3}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow properly nested group for macro argument/2","macros":{"\\foo":"(#1)"},"tex":"(e^{x_{12}+3})"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should delay expansion if preceded by \\expandafter/1","macros":{"\\foo":"#1+#2","\\bar":"xy"},"tex":"\\expandafter\\foo\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should delay expansion if preceded by \\expandafter/2","macros":{"\\foo":"#1+#2","\\bar":"xy"},"tex":"x+y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should delay expansion if preceded by \\expandafter/3","tex":"\\def\\foo{x}\\def\\bar{\\def\\foo{y}}\\expandafter\\bar\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should delay expansion if preceded by \\expandafter/5","tex":"\\expandafter\\foo\\def\\foo{x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should not expand if preceded by \\noexpand/1","macros":{"\\foo":"x"},"tex":"\\noexpand\\foo y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should not expand if preceded by \\noexpand/2","macros":{"\\foo":"x"},"tex":"y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should not expand if preceded by \\noexpand/3","macros":{"\\foo":"x"},"tex":"\\expandafter\\foo\\noexpand\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should not expand if preceded by \\noexpand/4","macros":{"\\foo":"x"},"tex":"x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should not expand if preceded by \\noexpand/5","tex":"\\noexpand\\frac xy"}
+{"count":4,"display":false,"id":"katex-spec/katex > A macro expander > should not expand if preceded by \\noexpand/6","tex":"xy"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should not expand if preceded by \\noexpand/7","tex":"\\noexpand\\def\\foo{xy}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for space macro argument (text version)/1","macros":{"\\foo":"(#1)","\\bar":" "},"tex":"\\text{\\foo\\bar}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for space macro argument (text version)/2","macros":{"\\foo":"(#1)","\\bar":" "},"tex":"\\text{( )}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for space macro argument (math version)/1","macros":{"\\foo":"(#1)","\\bar":" "},"tex":"\\foo\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for space macro argument (math version)/2","macros":{"\\foo":"(#1)","\\bar":" "},"tex":"()"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for space second argument (text version)/1","macros":{"\\foo":"(#1,#2)","\\bar":" "},"tex":"\\text{\\foo\\bar\\bar}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for space second argument (text version)/2","macros":{"\\foo":"(#1,#2)","\\bar":" "},"tex":"\\text{( , )}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should treat \\relax as empty argument/1","macros":{"\\foo":"(#1,#2)"},"tex":"\\text{\\foo\\relax x}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should treat \\relax as empty argument/2","macros":{"\\foo":"(#1,#2)"},"tex":"\\text{(,x)}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for space second argument (math version)/1","macros":{"\\foo":"(#1,#2)","\\bar":" "},"tex":"\\foo\\bar\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for space second argument (math version)/2","macros":{"\\foo":"(#1,#2)","\\bar":" "},"tex":"(,)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for empty macro argument/1","macros":{"\\foo":"(#1)","\\bar":""},"tex":"\\foo\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for empty macro argument/2","macros":{"\\foo":"(#1)","\\bar":""},"tex":"()"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for space function arguments/1","macros":{"\\bar":" "},"tex":"\\frac\\bar\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow for space function arguments/2","macros":{"\\bar":" "},"tex":"\\frac{}{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should build \\overset and \\underset/1","tex":"\\overset{f}{\\rightarrow} Y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should build \\overset and \\underset/2","tex":"\\underset{f}{\\rightarrow} Y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should build \\iff, \\implies, \\impliedby/1","tex":"X \\iff Y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should build \\iff, \\implies, \\impliedby/2","tex":"X \\implies Y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should build \\iff, \\implies, \\impliedby/3","tex":"X \\impliedby Y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow aliasing characters/1","macros":{"’":"'"},"tex":"x’=c"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should allow aliasing characters/2","macros":{"’":"'"},"tex":"x'=c"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\@firstoftwo should consume both, and avoid errors/1","tex":"\\@firstoftwo{yes}{no}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > \\@firstoftwo should consume both, and avoid errors/2","tex":"yes"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\@firstoftwo should consume both, and avoid errors/3","tex":"\\@firstoftwo{yes}{1'_2^3}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > \\@ifstar should consume star but nothing else/1","tex":"\\@ifstar{yes}{no}*!"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > \\@ifstar should consume star but nothing else/2","tex":"yes!"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > \\@ifstar should consume star but nothing else/3","tex":"\\@ifstar{yes}{no}?!"}
+{"count":3,"display":false,"id":"katex-spec/katex > A macro expander > \\@ifstar should consume star but nothing else/4","tex":"no?!"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\@ifnextchar should not consume nonspaces/1","tex":"\\@ifnextchar!{yes}{no}!!"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\@ifnextchar should not consume nonspaces/2","tex":"yes!!"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\@ifnextchar should not consume nonspaces/3","tex":"\\@ifnextchar!{yes}{no}?!"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\@ifnextchar should consume spaces/1","tex":"\\def\\x#1{\\@ifnextchar x{yes}{no}}\\x{}x\\x{} x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\@ifnextchar should consume spaces/2","tex":"yesxyesx"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work immediately/1","tex":"\\TextOrMath{text}{math}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work immediately/2","tex":"math"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work after other math/1","tex":"x+\\TextOrMath{text}{math}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work after other math/2","tex":"x+math"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work immediately after \\text/1","tex":"\\text{\\TextOrMath{text}{math}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work immediately after \\text/2","tex":"\\text{text}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work later after \\text/1","tex":"\\text{hello \\TextOrMath{text}{math}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work later after \\text/2","tex":"\\text{hello text}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work immediately after \\text ends/1","tex":"\\text{\\TextOrMath{text}{math}}\\TextOrMath{text}{math}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work immediately after \\text ends/2","tex":"\\text{text}math"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work immediately after $/1","tex":"\\text{$\\TextOrMath{text}{math}$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work immediately after $/2","tex":"\\text{$math$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work later after $/1","tex":"\\text{$x+\\TextOrMath{text}{math}$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work later after $/2","tex":"\\text{$x+math$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work immediately after $ ends/1","tex":"\\text{$\\TextOrMath{text}{math}$\\TextOrMath{text}{math}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work immediately after $ ends/2","tex":"\\text{$math$text}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work in a macro/1","macros":{"\\mode":"\\TextOrMath{text}{math}"},"tex":"\\mode\\text{\\mode$\\mode$\\mode}\\mode"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work in a macro/2","macros":{"\\mode":"\\TextOrMath{text}{math}"},"tex":"math\\text{text$math$text}math"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work in a macro passed to \\text/1","macros":{"\\mode":"\\TextOrMath{t}{m}"},"tex":"\\text\\mode"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work in a macro passed to \\text/2","macros":{"\\mode":"\\TextOrMath{t}{m}"},"tex":"\\text t"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/1","tex":"\\char`a"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/2","tex":"\\char`\\a"}
+{"count":3,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/3","tex":"\\char`\\%"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/4","tex":"\\char37"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/6","tex":"\\char'45"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/8","tex":"\\char\"25"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/9","tex":"\\char"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/10","tex":"\\char`"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/11","tex":"\\char'"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/12","tex":"\\char\""}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/13","tex":"\\char'a"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > \\char produces literal characters/14","tex":"\\char\"g"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\@char reports a non-character argument/1","tex":"\\@char{\\text{2}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\@char reports a non-character argument/2","tex":"\\text{\\@char{6 5}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\char rejects code points outside the Unicode codespace/1","tex":"\\char\"110000"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should build Unicode private area characters/1","tex":"\\gvertneqq\\lvertneqq\\ngeqq\\ngeqslant\\nleqq"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should build Unicode private area characters/2","tex":"\\nleqslant\\nshortmid\\nshortparallel\\varsubsetneq"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should build Unicode private area characters/3","tex":"\\varsubsetneqq\\varsupsetneq\\varsupsetneqq"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work in a macro passed to \\text/3","macros":{"\\mode":"\\TextOrMath{text}{math}"},"tex":"\\text\\mode"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\TextOrMath should work in a macro passed to \\text/4","macros":{"\\mode":"\\TextOrMath{text}{math}"},"tex":"\\text{text}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/1","tex":"\\gdef\\foo{x^2}\\foo+\\foo"}
+{"count":7,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/2","tex":"x^2+x^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/3","tex":"\\gdef\\foo{hi}\\foo+\\text\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/4","tex":"hi+\\text{hi}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/5","tex":"\\gdef\\foo#1{hi #1}\\text{\\foo{Alice}, \\foo{Bob}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/6","tex":"\\text{hi Alice, hi Bob}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/7","tex":"\\gdef\\foo#1#2{(#1,#2)}\\foo 1 2+\\foo 3 4"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/8","tex":"(1,2)+(3,4)"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/9","tex":"\\gdef\\foo#2{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/10","tex":"\\gdef\\foo#a{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/11","tex":"\\gdef\\foo#1#3{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/12","tex":"\\gdef\\foo#1#2#3#4#5#6#7#8#9{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/13","tex":"\\gdef\\foo#1#2#3#4#5#6#7#8#9#10{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/14","tex":"\\gdef\\foo1"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/15","tex":"\\gdef{\\foo}{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/16","tex":"\\gdef\\foo\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/17","tex":"\\gdef{\\foo\\bar}{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros/18","tex":"\\gdef{}{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros with delimited parameter/1","tex":"\\gdef\\foo|#1||{#1}\\text{\\foo| x y ||}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros with delimited parameter/2","tex":"\\text{ x y }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros with delimited parameter/3","tex":"\\gdef\\foo#1|#2{#1+#2}\\foo 1 2 |34"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros with delimited parameter/4","tex":"12+34"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros with delimited parameter/5","tex":"\\gdef\\foo#1#{#1}\\foo1^{23}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros with delimited parameter/6","tex":"1^{23}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros with delimited parameter/7","tex":"\\gdef\\foo|{}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros with delimited parameter/8","tex":"\\gdef\\foo#1|{#1}\\foo1"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef defines macros with delimited parameter/9","tex":"\\gdef\\foo#1|{#1}\\foo1}|"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\xdef should expand definition/1","tex":"\\def\\foo{a}\\xdef\\bar{\\foo}\\def\\foo{}\\bar"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > \\xdef should expand definition/2","tex":"a"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\xdef should expand definition/3","tex":"\\def\\foo{a}\\xdef\\bar{\\def\\noexpand\\foo{}}\\foo\\bar\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\xdef should expand definition/5","tex":"\\def\\foo{a}\\xdef\\bar{\\foo\\noexpand\\foo}\\def\\foo{b}\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\xdef should expand definition/6","tex":"ab"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\xdef should expand definition/7","tex":"\\xdef\\bar{\\foo}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\def should be handled in Parser/1","settings":{"maxExpand":0},"tex":"\\gdef\\foo{1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\def should be handled in Parser/2","tex":"2^\\def\\foo{1}2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\def works locally/1","tex":"\\def\\x{1}\\x{\\def\\x{2}\\x{\\def\\x{3}\\x}\\x}\\x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\def works locally/2","tex":"1{2{3}2}1"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\def works locally/3","tex":"\\def\\x{1}\\x\\def\\x{2}\\x{\\def\\x{3}\\x\\def\\x{4}\\x}\\x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\def works locally/4","tex":"12{34}2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef overrides at all levels/1","tex":"\\def\\x{1}\\x{\\def\\x{2}\\x{\\gdef\\x{3}\\x}\\x}\\x"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef overrides at all levels/2","tex":"1{2{3}3}3"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef overrides at all levels/3","tex":"\\def\\x{1}\\x{\\def\\x{2}\\x{\\global\\def\\x{3}\\x}\\x}\\x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef overrides at all levels/5","tex":"\\def\\x{1}\\x{\\def\\x{2}\\x{\\gdef\\x{3}\\x\\def\\x{4}\\x}\\x\\def\\x{5}\\x}\\x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef overrides at all levels/6","tex":"1{2{34}35}3"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\global needs to followed by macro prefixes, \\def or \\edef/1","tex":"\\global\\def\\foo{}\\foo"}
+{"count":9,"display":false,"id":"katex-spec/katex > A macro expander > \\global needs to followed by macro prefixes, \\def or \\edef/2","tex":""}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\global needs to followed by macro prefixes, \\def or \\edef/3","tex":"\\global\\edef\\foo{}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\global needs to followed by macro prefixes, \\def or \\edef/5","tex":"\\def\\DEF{\\def}\\global\\DEF\\foo{}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\global needs to followed by macro prefixes, \\def or \\edef/7","tex":"\\global\\global\\def\\foo{}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\global needs to followed by macro prefixes, \\def or \\edef/9","tex":"\\global\\long\\def\\foo{}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\global needs to followed by macro prefixes, \\def or \\edef/11","tex":"\\global\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\global needs to followed by macro prefixes, \\def or \\edef/12","tex":"\\global\\bar x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\long needs to followed by macro prefixes, \\def or \\edef/1","tex":"\\long\\def\\foo{}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\long needs to followed by macro prefixes, \\def or \\edef/3","tex":"\\long\\edef\\foo{}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\long needs to followed by macro prefixes, \\def or \\edef/5","tex":"\\long\\global\\def\\foo{}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\long needs to followed by macro prefixes, \\def or \\edef/7","tex":"\\long\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > Macro arguments do not generate groups/1","tex":"\\def\\x{1}\\x\\def\\foo#1{#1}\\foo{\\x\\def\\x{2}\\x}\\x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > Macro arguments do not generate groups/2","tex":"1122"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\textbf arguments do generate groups/1","tex":"\\def\\x{1}\\x\\textbf{\\x\\def\\x{2}\\x}\\x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\textbf arguments do generate groups/2","tex":"1\\textbf{12}1"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\sqrt optional arguments generate groups/1","tex":"\\def\\x{1}\\def\\y{1}\\x\\y\\sqrt[\\def\\x{2}\\x]{\\def\\y{2}\\y}\\x\\y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\sqrt optional arguments generate groups/2","tex":"11\\sqrt[2]{2}11"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > array cells generate groups/1","tex":"\\def\\x{1}\\begin{matrix}\\x&\\def\\x{2}\\x&\\x\\end{matrix}\\x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > array cells generate groups/2","tex":"\\begin{matrix}1&2&1\\end{matrix}1"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > array cells generate groups/3","tex":"\\def\\x{1}\\begin{matrix}\\def\\x{2}\\x&\\x\\end{matrix}\\x"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > array cells generate groups/4","tex":"\\begin{matrix}2&1\\end{matrix}1"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\gdef changes settings.macros/1","tex":"\\gdef\\foo{1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\def doesn't change settings.macros/1","tex":"\\def\\foo{1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\def doesn't change settings.macros on error/1","tex":"\\def\\foo{c^}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\def changes settings.macros with globalGroup/1","settings":{"globalGroup":true},"tex":"\\def\\foo{1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/1","tex":"\\let\\foo=\\frac\\def\\frac{}\\foo12"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/3","tex":"\\def\\foo{1}\\let\\bar\\foo\\def\\foo{2}\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/4","tex":"1"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/5","tex":"\\let\\foo=\\kern\\edef\\bar{\\foo1em}\\let\\kern=\\relax\\bar"}
+{"count":3,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/6","tex":"\\kern1em"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/7","tex":"\\let\\foo{\\sqrt\\foo1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/8","tex":"\\sqrt{1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/9","tex":"\\let\\equals==a\\equals b"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/10","tex":"a=b"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/11","tex":"\\let\\foo=x\\noexpand\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/13","tex":"\\let\\foo=x\\edef\\bar{\\foo}\\def\\foo{y}\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let copies the definition/14","tex":"y"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let should consume one optional space after equals sign/1","tex":"\\def\\:{\\let\\space= }\\: \\text{\\space}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\let should consume one optional space after equals sign/2","tex":"\\text{ }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\futurelet should parse correctly/1","tex":"\\futurelet\\foo\\frac1{2+\\foo}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\futurelet should parse correctly/2","tex":"\\frac1{2+1}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand doesn't change settings.macros/1","tex":"\\newcommand\\foo{x^2}\\foo+\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand changes settings.macros with globalGroup/1","settings":{"globalGroup":true},"tex":"\\newcommand\\foo{x^2}\\foo+\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand defines new macros/3","tex":"\\newcommand{\\foo}{x^2}\\foo+\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand defines new macros/5","tex":"\\newcommand\\bar{x^2}\\bar+\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand defines new macros/6","tex":"\\newcommand{\\bar}{x^2}\\bar+\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand defines new macros/7","tex":"\\newcommand\\lambda{x^2}\\lambda"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand defines new macros/8","tex":"\\newcommand\\textdollar{x^2}\\textdollar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand defines new macros/9","tex":"\\newcommand{\\foo}{1}\\foo\\newcommand{\\foo}{2}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand defines new macros/10","tex":"\\newcommand\\limits{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\renewcommand redefines macros/1","tex":"\\renewcommand\\foo{x^2}\\foo+\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\renewcommand redefines macros/2","tex":"\\renewcommand{\\foo}{x^2}\\foo+\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\renewcommand redefines macros/3","tex":"\\renewcommand\\bar{x^2}\\bar+\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\renewcommand redefines macros/5","tex":"\\renewcommand{\\bar}{x^2}\\bar+\\bar"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\renewcommand redefines macros/7","tex":"\\newcommand{\\foo}{1}\\foo\\renewcommand{\\foo}{2}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\providecommand defines but does not redefine macros/1","tex":"\\providecommand\\foo{x^2}\\foo+\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\providecommand defines but does not redefine macros/3","tex":"\\providecommand{\\foo}{x^2}\\foo+\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\providecommand defines but does not redefine macros/5","tex":"\\newcommand{\\foo}{1}\\foo\\providecommand{\\foo}{2}\\foo"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > \\providecommand defines but does not redefine macros/6","tex":"11"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\providecommand defines but does not redefine macros/7","tex":"\\providecommand{\\foo}{1}\\foo\\renewcommand{\\foo}{2}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\providecommand defines but does not redefine macros/9","tex":"\\providecommand{\\foo}{1}\\foo\\providecommand{\\foo}{2}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand is local/1","tex":"\\newcommand\\foo{1}\\foo{\\renewcommand\\foo{2}\\foo}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand is local/2","tex":"1{2}1"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand accepts number of arguments/1","tex":"\\newcommand\\foo[1]{#1^2}\\foo x+\\foo{y}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand accepts number of arguments/2","tex":"x^2+y^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand accepts number of arguments/3","tex":"\\newcommand\\foo[10]{#1^2}\\foo 0123456789"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand accepts number of arguments/4","tex":"0^2"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand accepts number of arguments/5","tex":"\\newcommand\\foo[x]{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > \\newcommand accepts number of arguments/6","tex":"\\newcommand\\foo[1.5]{}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should treat \\hspace, \\hskip like \\kern/1","tex":"\\hspace{1em}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should treat \\hspace, \\hskip like \\kern/3","tex":"\\hskip{1em}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\limsup as expected/1","tex":"\\limsup"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\limsup as expected/2","tex":"\\operatorname*{lim\\,sup}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\liminf as expected/1","tex":"\\liminf"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\liminf as expected/2","tex":"\\operatorname*{lim\\,inf}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/1","tex":"\\injlim"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/2","tex":"\\operatorname*{inj\\,lim}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/3","tex":"\\projlim"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/4","tex":"\\operatorname*{proj\\,lim}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/5","tex":"\\varlimsup"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/6","tex":"\\operatorname*{\\overline{lim}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/7","tex":"\\varliminf"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/8","tex":"\\operatorname*{\\underline{lim}}"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/9","tex":"\\varinjlim"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/10","tex":"\\operatorname*{\\underrightarrow{lim}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/13","tex":"\\varprojlim"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand AMS log-like symbols as expected/14","tex":"\\operatorname*{\\underleftarrow{lim}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\plim as expected/1","tex":"\\plim"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\plim as expected/2","tex":"\\mathop{\\operatorname{plim}}\\limits"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\argmin as expected/1","tex":"\\argmin"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\argmin as expected/2","tex":"\\operatorname*{arg\\,min}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\argmax as expected/1","tex":"\\argmax"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\argmax as expected/2","tex":"\\operatorname*{arg\\,max}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\bra as expected/1","tex":"\\bra{\\phi}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\bra as expected/2","tex":"\\mathinner{\\langle{\\phi}|}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\ket as expected/1","tex":"\\ket{\\psi}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\ket as expected/2","tex":"\\mathinner{|{\\psi}\\rangle}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\braket as expected/1","tex":"\\braket{\\phi|\\psi}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\braket as expected/2","tex":"\\mathinner{\\langle{\\phi|\\psi}\\rangle}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Bra as expected/1","tex":"\\Bra{\\phi}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Bra as expected/2","tex":"\\left\\langle\\phi\\right|"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Ket as expected/1","tex":"\\Ket{\\psi}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Ket as expected/2","tex":"\\left|\\psi\\right\\rangle"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Braket as expected/1","tex":"\\Braket{ ϕ | \\frac{∂^2}{∂ t^2} | ψ }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Braket as expected/2","tex":"\\left\\langle ϕ\\,\\middle\\vert\\,\\frac{∂^2}{∂ t^2}\\,\\middle\\vert\\, ψ\\right\\rangle"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\set as expected/1","tex":"\\set{x|x<5|S|}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\set as expected/2","tex":"\\{\\,x\\mid x<5|S|\\,\\}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\set as expected/3","tex":"\\set{x||x<5|S|}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\set as expected/4","tex":"\\{\\,x\\mid |x<5|S|\\,\\}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\set as expected/5","tex":"\\set{x\\|x<5|S|}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\set as expected/6","tex":"\\{\\,x\\|x<5\\mid S|\\,\\}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Set as expected/1","tex":"\\Set{ x | x<\\frac 1 2 |S| }"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Set as expected/2","tex":"\\left\\{\\: x\\;\\middle\\vert\\; x<\\frac 1 2 |S| \\:\\right\\}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Set as expected/3","tex":"\\Set{ x || x<\\frac 1 2 |S| }"}
+{"count":2,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Set as expected/4","tex":"\\left\\{\\: x\\;\\middle\\Vert\\; x<\\frac 1 2 |S| \\:\\right\\}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A macro expander > should expand \\Set as expected/5","tex":"\\Set{ x \\| x<\\frac 1 2 |S| }"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\tag support > should fail outside display mode/1","tex":"\\tag{hi}x+y"}
+{"count":1,"display":true,"id":"katex-spec/katex > \\tag support > should fail with multiple tags/1","tex":"\\tag{1}\\tag{2}x+y"}
+{"count":1,"display":true,"id":"katex-spec/katex > \\tag support > should fail with multiple tags in one row/1","tex":"\\begin{align}\\tag{1}x+y\\tag{2}\\end{align}"}
+{"count":1,"display":true,"id":"katex-spec/katex > \\tag support > should work with one tag per row/1","tex":"\\begin{align}\\tag{1}x\\\\&+y\\tag{2}\\end{align}"}
+{"count":1,"display":true,"id":"katex-spec/katex > \\tag support > should work with \\nonumber/\\notag/1","macros":{"\\@eqnsw":"1"},"tex":"\\begin{align}\\tag{1}\\nonumber x\\\\&+y\\notag\\end{align}"}
+{"count":1,"display":true,"id":"katex-spec/katex > \\tag support > should work with \\nonumber/\\notag/2","macros":{"\\@eqnsw":"1"},"tex":"\\begin{align}\\tag{1}x\\\\&+y\\nonumber\\end{align}"}
+{"count":3,"display":true,"id":"katex-spec/katex > \\tag support > should build/1","macros":{"\\@eqnsw":"1"},"tex":"\\tag{hi}x+y"}
+{"count":1,"display":true,"id":"katex-spec/katex > \\tag support > should ignore location of \\tag/2","macros":{"\\@eqnsw":"1"},"tex":"x+y\\tag{hi}"}
+{"count":1,"display":true,"id":"katex-spec/katex > \\tag support > should handle \\tag* like \\tag/2","macros":{"\\@eqnsw":"1"},"tex":"\\tag*{({hi})}x+y"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/1","tex":"L\\@binrel+xR"}
+{"count":2,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/2","tex":"L\\mathbin xR"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/3","tex":"L\\@binrel=xR"}
+{"count":2,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/4","tex":"L\\mathrel xR"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/5","tex":"L\\@binrel xxR"}
+{"count":2,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/6","tex":"L\\mathord xR"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/7","tex":"L\\@binrel{+}{x}R"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/8","tex":"L\\mathbin{x}R"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/9","tex":"L\\@binrel{=}{x}R"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/10","tex":"L\\mathrel{x}R"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/11","tex":"L\\@binrel{x}{x}R"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should generate proper class/12","tex":"L\\mathord{x}R"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should base on just first character in group/1","tex":"L\\@binrel{+x}xR"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should base on just first character in group/3","tex":"L\\@binrel{=x}xR"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\@binrel automatic bin/rel/ord > should base on just first character in group/5","tex":"L\\@binrel{xx}xR"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should parse Latin-1 letters in math mode/1","settings":{"strict":false},"tex":"ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåèéêëìíîïñòóôõöùúûüýÿ"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should parse Latin-1 letters in math mode/2","settings":{"strict":false},"tex":"\\grave A\\acute A\\hat A\\tilde A\\ddot A\\mathring A\\grave E\\acute E\\hat E\\ddot E\\grave I\\acute I\\hat I\\ddot I\\tilde N\\grave O\\acute O\\hat O\\tilde O\\ddot O\\grave U\\acute U\\hat U\\ddot U\\acute Y\\grave a\\acute a\\hat a\\tilde a\\ddot a\\mathring a\\grave e\\acute e\\hat e\\ddot e\\grave ı\\acute ı\\hat ı\\ddot ı\\tilde n\\grave o\\acute o\\hat o\\tilde o\\ddot o\\grave u\\acute u\\hat u\\ddot u\\acute y\\ddot y"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should parse Latin-1 letters in text mode/1","settings":{"strict":true},"tex":"\\text{ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåèéêëìíîïñòóôõöùúûüýÿ}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should parse Latin-1 letters in text mode/2","settings":{"strict":true},"tex":"\\text{\\`A\\'A\\^A\\~A\\\"A\\r A\\`E\\'E\\^E\\\"E\\`I\\'I\\^I\\\"I\\~N\\`O\\'O\\^O\\~O\\\"O\\`U\\'U\\^U\\\"U\\'Y\\`a\\'a\\^a\\~a\\\"a\\r a\\`e\\'e\\^e\\\"e\\`ı\\'ı\\^ı\\\"ı\\~n\\`o\\'o\\^o\\~o\\\"o\\`u\\'u\\^u\\\"u\\'y\\\"y}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should support \\aa in text mode/1","settings":{"strict":true},"tex":"\\text{\\aa\\AA}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should support \\aa in text mode/2","settings":{"strict":true},"tex":"\\text{\\r a\\r A}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should support \\aa in text mode/3","settings":{"strict":true},"tex":"\\aa"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should support \\aa in text mode/4","settings":{"strict":true},"tex":"\\Aa"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should parse combining characters/1","settings":{"strict":false},"tex":"ÁĆ"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should parse combining characters/2","settings":{"strict":false},"tex":"Á\\acute C"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should parse combining characters/3","settings":{"strict":true},"tex":"\\text{ÁĆ}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should parse combining characters/4","settings":{"strict":true},"tex":"\\text{Á\\'C}"}
+{"count":2,"display":false,"id":"katex-spec/katex > Unicode accents > should parse multi-accented characters/1","settings":{"strict":false},"tex":"ấā́ắ\\text{ấā́ắ}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should parse accented i's and j's/1","settings":{"strict":false},"tex":"íȷ́"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode accents > should parse accented i's and j's/2","settings":{"strict":false},"tex":"\\acute ı\\acute ȷ"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should parse negated relations/1","settings":{"strict":true},"tex":"∉∤∦≁≆≠≨≩≮≯≰≱⊀⊁⊈⊉⊊⊋⊬⊭⊮⊯⋠⋡⋦⋧⋨⋩⋬⋭⪇⪈⪉⪊⪵⪶⪹⪺⫋⫌"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build relations/1","settings":{"strict":true},"tex":"∈∋∝∼∽≂≃≅≈≊≍≎≏≐≑≒≓≖≗≜≡≤≥≦≧≪≫≬≳≷≺≻≼≽≾≿∴∵∣≔≕⩴⋘⋙⟂⊨∌"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should parse relations/1","tex":"⊶⊷"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build big operators/1","settings":{"strict":true},"tex":"∏∐∑∫∬∭∮⋀⋁⋂⋃⨀⨁⨂⨄⨆"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build more relations/1","settings":{"strict":true},"tex":"⊂⊃⊆⊇⊏⊐⊑⊒⊢⊣⊩⊪⊸⋈⋍⋐⋑⋔⋛⋞⋟⌢⌣⩾⪆⪌⪕⪖⪯⪰⪷⪸⫅⫆≘≙≚≛≝≞≟≲⩽⪅≶⋚⪋"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should parse symbols/1","settings":{"strict":true},"tex":"£¥ℂℍℑℎℓℕ℘ℙℚℜℝℤℲℵðℶℷℸ⅁∀∁∂∃∇∞∠∡∢♠♡♢♣♭♮♯✓°¬‼⋮·©"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should parse symbols/2","settings":{"strict":true},"tex":"\\text{£¥ℂℍℎ©®}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build Greek capital letters/1","settings":{"strict":true},"tex":"ΑΒΕΖΗΙΚΜΝΟΡΤΧϝ"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build arrows/1","settings":{"strict":true},"tex":"←↑→↓↔↕↖↗↘↙↚↛↞↠↢↣↦↩↪↫↬↭↮↰↱↶↷↼↽↾↾↿⇀⇁⇂⇃⇄⇆⇇⇈⇉"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build more arrows/1","settings":{"strict":true},"tex":"⇊⇋⇌⇍⇎⇏⇐⇑⇒⇓⇔⇕⇚⇛⇝⟵⟶⟷⟸⟹⟺⟼"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build binary operators/1","settings":{"strict":true},"tex":"±×÷∓∔∧∨∩∪≀⊎⊓⊔⊕⊖⊗⊘⊙⊚⊛⊝◯⊞⊟⊠⊡⊺⊻⊼⋇⋉⋊⋋⋌⋎⋏⋒⋓⩞⋅∘∖∙"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build common ords/1","settings":{"strict":true},"tex":"§¶£¥∇∞⋅∠∡∢♠♡♢♣♭♮♯✓…⋮⋯⋱! ‼ ⦵"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build delimiters/1","tex":"\\left⌊\\frac{a}{b}\\right⌋"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build delimiters/2","tex":"\\left⌈\\frac{a}{b}\\right⌈"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build delimiters/3","tex":"\\left⟮\\frac{a}{b}\\right⟯"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build delimiters/4","tex":"\\left⟨\\frac{a}{b}\\right⟩"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build delimiters/5","tex":"\\left⎰\\frac{a}{b}\\right⎱"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build delimiters/6","tex":"┌x┐ └x┘"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build delimiters/7","tex":"⌜x⌝ ⌞x⌟"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build delimiters/8","tex":"⟦x⟧"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build delimiters/9","tex":"\\llbracket \\rrbracket"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build delimiters/10","tex":"\\lBrace \\rBrace"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build some surrogate pairs/1","settings":{"strict":true},"tex":"𝐀𝑨𝔄𝕬𝔸𝒜𝖠𝗔𝘈𝙰𝟎𝟢𝟬𝟶"}
+{"count":1,"display":false,"id":"katex-spec/katex > Unicode > should build some surrogate pairs/2","settings":{"strict":true},"tex":"\text{𝐀𝑨𝔄𝕬𝔸𝒜𝖠𝗔𝘈𝙰𝟎𝟢𝟬𝟶}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The maxExpand setting > should prevent expansion/1","tex":"\\gdef\\foo{1}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > The maxExpand setting > should prevent expansion/2","settings":{"maxExpand":1},"tex":"\\gdef\\foo{1}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > The maxExpand setting > should prevent expansion/3","settings":{"maxExpand":0},"tex":"\\gdef\\foo{1}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > The maxExpand setting > should prevent infinite loops/1","settings":{"maxExpand":10},"tex":"\\gdef\\foo{\\foo}\\foo"}
+{"count":1,"display":false,"id":"katex-spec/katex > The maxExpand setting > should prevent exponential blowup via \\edef/1","settings":{"maxExpand":10},"tex":"\\edef0{x}\\edef0{00}\\edef0{00}\\edef0{00}\\edef0{00}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The maxExpand setting > should count correctly/1","settings":{"maxExpand":63},"tex":"\n        \\def\\a#1{\\b{#1}\\b{#1}}\n        \\def\\b#1{\\c{#1}\\c{#1}}\n        \\def\\c#1{\\d{#1}\\d{#1}}\n        \\def\\d#1{\\e{#1}\\e{#1}}\n        \\def\\e#1{\\f{#1}\\f{#1}}\n        \\def\\f#1{#1}\n    \\a{1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The maxExpand setting > should count correctly/2","settings":{"maxExpand":62},"tex":"\n        \\def\\a#1{\\b{#1}\\b{#1}}\n        \\def\\b#1{\\c{#1}\\c{#1}}\n        \\def\\c#1{\\d{#1}\\d{#1}}\n        \\def\\d#1{\\e{#1}\\e{#1}}\n        \\def\\e#1{\\f{#1}\\f{#1}}\n        \\def\\f#1{#1}\n    \\a{1}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The maxExpand setting > should count correctly with Unicode sub/superscripts/1","settings":{"maxExpand":256},"tex":"\n        \\def\\a#1{\\b{#1}\\b{#1}}\n        \\def\\b#1{\\c{#1}\\c{#1}}\n        \\def\\c#1{\\d{#1}\\d{#1}}\n        \\def\\d#1{\\e{#1}\\e{#1}}\n        \\def\\e#1{\\f{#1}\\f{#1}}\n        \\def\\f#1{#1}\n    \\def+{\\a{1}}x⁺x⁺x⁺x⁺"}
+{"count":1,"display":false,"id":"katex-spec/katex > The maxExpand setting > should count correctly with Unicode sub/superscripts/2","settings":{"maxExpand":255},"tex":"\n        \\def\\a#1{\\b{#1}\\b{#1}}\n        \\def\\b#1{\\c{#1}\\c{#1}}\n        \\def\\c#1{\\d{#1}\\d{#1}}\n        \\def\\d#1{\\e{#1}\\e{#1}}\n        \\def\\e#1{\\f{#1}\\f{#1}}\n        \\def\\f#1{#1}\n    \\def+{\\a{1}}x⁺x⁺x⁺x⁺"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\mathchoice function > should render as if there is nothing other in display math/1","tex":"\\displaystyle\\mathchoice{\\sum_{k = 0}^{\\infty} x^k}{T}{S}{SS}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\mathchoice function > should render as if there is nothing other in display math/2","tex":"\\displaystyle\\sum_{k = 0}^{\\infty} x^k"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\mathchoice function > should render as if there is nothing other in text/1","tex":"\\mathchoice{D}{\\sum_{k = 0}^{\\infty} x^k}{S}{SS}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\mathchoice function > should render as if there is nothing other in text/2","tex":"\\sum_{k = 0}^{\\infty} x^k"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\mathchoice function > should render as if there is nothing other in scriptstyle/1","tex":"x_{\\mathchoice{D}{T}{\\sum_{k = 0}^{\\infty} x^k}{SS}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\mathchoice function > should render as if there is nothing other in scriptstyle/2","tex":"x_{\\sum_{k = 0}^{\\infty} x^k}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\mathchoice function > should render  as if there is nothing other in scriptscriptstyle/1","tex":"x_{y_{\\mathchoice{D}{T}{S}{\\sum_{k = 0}^{\\infty} x^k}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > The \\mathchoice function > should render  as if there is nothing other in scriptscriptstyle/2","tex":"x_{y_{\\sum_{k = 0}^{\\infty} x^k}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Newlines via \\\\ and \\newline > should build \\\\ without the optional argument and \\newline the same/1","tex":"hello \\\\ world"}
+{"count":1,"display":false,"id":"katex-spec/katex > Newlines via \\\\ and \\newline > should build \\\\ without the optional argument and \\newline the same/2","tex":"hello \\newline world"}
+{"count":1,"display":false,"id":"katex-spec/katex > Newlines via \\\\ and \\newline > should not allow \\newline to scan for an optional size argument/1","tex":"hello \\newline[w]orld"}
+{"count":1,"display":false,"id":"katex-spec/katex > Newlines via \\\\ and \\newline > should not allow \\cr at top level/1","tex":"hello \\cr world"}
+{"count":1,"display":false,"id":"katex-spec/katex > Symbols > should parse \\text{\\i\\j}/1","settings":{"strict":true},"tex":"\\text{\\i\\j}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Symbols > should parse spacing functions in math or text mode/1","settings":{"strict":true},"tex":"A\\;B\\,C\\nobreakspace \\text{A\\;B\\,C\\nobreakspace}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Symbols > should build \\minuso/1","settings":{"strict":true},"tex":"\\\\minuso"}
+{"count":1,"display":false,"id":"katex-spec/katex > Symbols > should render ligature commands like their unicode characters/1","settings":{"strict":true},"tex":"\\text{\\ae\\AE\\oe\\OE\\o\\O\\ss}"}
+{"count":1,"display":false,"id":"katex-spec/katex > Symbols > should render ligature commands like their unicode characters/2","settings":{"strict":true},"tex":"\\text{æÆœŒøØß}"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should allow unicode text when not strict/1","settings":{"strict":false},"tex":"é"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should allow unicode text when not strict/2","settings":{"strict":false},"tex":"試"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should allow unicode text when not strict/3","settings":{"strict":"ignore"},"tex":"é"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should allow unicode text when not strict/4","settings":{"strict":"ignore"},"tex":"試"}
+{"count":2,"display":false,"id":"katex-spec/katex > strict setting > should forbid unicode text when strict/1","settings":{"strict":true},"tex":"é"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should forbid unicode text when strict/2","settings":{"strict":true},"tex":"試"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should forbid unicode text when strict/3","settings":{"strict":"error"},"tex":"é"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should forbid unicode text when strict/4","settings":{"strict":"error"},"tex":"試"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should warn about unicode text when default/1","tex":"é"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should warn about unicode text when default/2","tex":"試"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should always allow unicode text in text mode/1","settings":{"strict":false},"tex":"\\text{é試}"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should always allow unicode text in text mode/2","settings":{"strict":true},"tex":"\\text{é試}"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should always allow unicode text in text mode/3","tex":"\\text{é試}"}
+{"count":1,"display":true,"id":"katex-spec/katex > strict setting > should warn about top-level \\newline in display mode/1","tex":"x\\\\y"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should warn about top-level \\newline in display mode/2","tex":"x\\\\y"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should report symbols missing from the font when building/1","settings":{"strict":true},"tex":"\\origof"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should report symbols missing from the font when building/2","settings":{"strict":"ignore"},"tex":"\\origof"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should report symbols missing from the font when building/3","tex":"\\origof"}
+{"count":1,"display":false,"id":"katex-spec/katex > strict setting > should report symbols missing from the font when building/4","settings":{"strict":"error"},"tex":"\\origof"}
+{"count":1,"display":false,"id":"katex-spec/katex > Extending katex by new fonts and symbols > should add font metrics to metrics map and render successfully/1","tex":"۹۹^{۱۱}"}
+{"count":1,"display":false,"id":"katex-spec/katex > debugging macros > message > should print the argument using console.log/1","tex":"\\message{Hello, world}"}
+{"count":1,"display":false,"id":"katex-spec/katex > debugging macros > errmessage > should print the argument using console.error/1","tex":"\\errmessage{Hello, world}"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\relax > should stop the expansion/1","tex":"\\kern2\\relax em"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\emph > should toggle italics/1","tex":"\\emph{foo \\emph{bar}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\emph > should toggle italics/2","tex":"\\textit{foo \\textup{bar}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\emph > should toggle italics within text/1","tex":"\\text{\\emph{foo \\emph{bar}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\emph > should toggle italics within text/2","tex":"\\text{\\textit{foo \\textup{bar}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\emph > should toggle italics within textup/1","tex":"\\textup{\\emph{foo \\emph{bar}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\emph > should toggle italics within textup/2","tex":"\\textup{\\textit{foo \\textup{bar}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\emph > should toggle italics within textit/1","tex":"\\textit{\\emph{foo \\emph{bar}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\emph > should toggle italics within textit/2","tex":"\\textit{\\textup{foo \\textit{bar}}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A reflectbox builder > should build/1","tex":"\\reflectbox{abc}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A reflectbox builder > should build/2","tex":"\\reflectbox{$x^2$}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A reflectbox builder > should parse text and math arguments in their respective modes/1","tex":"\\reflectbox{x^2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A reflectbox builder > should parse text and math arguments in their respective modes/2","tex":"\\mathreflectbox{x^2}"}
+{"count":1,"display":false,"id":"katex-spec/katex > A reflectbox builder > should parse text and math arguments in their respective modes/3","tex":"\\text{\\reflectbox{abc}}"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\mapsfrom > should give both inputs relation spacing and preserve unary minus/1","tex":"a ↤ b"}
+{"count":1,"display":false,"id":"katex-spec/katex > \\mapsfrom > should give both inputs relation spacing and preserve unary minus/2","tex":"a \\mapsfrom b"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #handleInfixNodes > rejects repeated infix operators/1","tex":"1\\over 2\\over 3"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #handleInfixNodes > rejects conflicting infix operators/1","tex":"1\\over 2\\choose 3"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #handleSupSubscript > rejects ^ at end of group/1","tex":"{1^}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #handleSupSubscript > rejects _ at end of input/1","tex":"1_"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #handleSupSubscript > rejects \\sqrt as argument to ^/1","tex":"1^\\sqrt{2}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseAtom > rejects \\limits without operator/1","tex":"\\alpha\\limits\\omega"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseAtom > rejects \\limits at the beginning of the input/1","tex":"\\limits\\omega"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseAtom > rejects double superscripts/1","tex":"1^2^3"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseAtom > rejects double superscripts/2","tex":"1^{2+3}_4^5"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseAtom > rejects double superscripts involving primes/1","tex":"1'_2^3"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseAtom > rejects double superscripts involving primes/2","tex":"1^2'"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseAtom > rejects double superscripts involving primes/3","tex":"1^2_3'"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseAtom > rejects double superscripts involving primes/4","tex":"1'_2'"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseAtom > rejects double subscripts/1","tex":"1_2_3"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseAtom > rejects double subscripts/2","tex":"1_{2+3}^4_5"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseImplicitGroup > reports unknown environments/1","tex":"\\begin{foo}bar\\end{foo}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseImplicitGroup > reports mismatched environments/1","tex":"\\begin{pmatrix}1&2\\\\3&4\\end{bmatrix}+5"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseImplicitGroup > keeps spaces in an environment name/1","tex":"\\begin{ma trix}x\\end{ma trix}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseImplicitGroup > reports environment names that aren't plain characters/1","tex":"\\begin{\\text{a}}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseImplicitGroup > reports environment names that aren't plain characters/2","tex":"\\begin{ma~trix}x\\end{ma~trix}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseImplicitGroup > rejects a column count that isn't a positive integer/1","tex":"\\begin{alignedat}{\\text{2}}a&b\\end{alignedat}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseImplicitGroup > rejects a column count that isn't a positive integer/2","tex":"\\begin{alignedat}{2.5}a&b\\end{alignedat}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseImplicitGroup > rejects a column count that isn't a positive integer/3","tex":"\\begin{alignedat}{0}a&b\\end{alignedat}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseFunction > rejects math-mode functions in text mode/1","tex":"\\text{\\sqrt2 is irrational}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseFunction > rejects strict-mode text-mode-only functions in math mode/1","settings":{"strict":true},"tex":"\\'echec"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseArguments > complains about missing argument at end of input/1","tex":"2\\sqrt"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseArguments > complains about missing argument at end of group/1","tex":"1^{2\\sqrt}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseArguments > complains about functions as arguments to others/1","tex":"\\sqrt\\over2"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #parseGroup > complains about undefined control sequence/1","tex":"\\xyz"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #verb > complains about mismatched \\verb with end of string/1","tex":"\\verb|hello"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser: > #verb > complains about mismatched \\verb with end of line/1","tex":"\\verb|hello\nworld|"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseInput expecting EOF > complains about extra }/1","tex":"{1+2}}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseInput expecting EOF > complains about extra \\end/1","tex":"x\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseInput expecting EOF > complains about top-level &/1","tex":"1&2"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseImplicitGroup expecting \\right > rejects missing \\right/1","tex":"\\left(1+2)"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseImplicitGroup expecting \\right > rejects incorrectly scoped \\right/1","tex":"{\\left(1+2}\\right)"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseSpecialGroup expecting braces > complains about missing { for color/1","tex":"\\textcolor#ffffff{text}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseSpecialGroup expecting braces > complains about missing { for size/1","tex":"\\rule{1em}[2em]"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseSpecialGroup expecting braces > complains about missing } for color/1","tex":"\\textcolor{#ffffff{text}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseSpecialGroup expecting braces > complains about missing ] for size/1","tex":"\\rule[1em{2em}{3em}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseSpecialGroup expecting braces > complains about missing ] for size at end of input/1","tex":"\\rule[1em"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseSpecialGroup expecting braces > complains about missing } for color at end of input/1","tex":"\\textcolor{#123456"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseGroup expecting } > at end of file/1","tex":"\\sqrt{2"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseOptionalGroup expecting ] > at end of file/1","tex":"\\sqrt[3"}
+{"count":1,"display":false,"id":"katex-spec/errors > Parser.expect calls: > #parseOptionalGroup expecting ] > before group/1","tex":"\\sqrt[3{2}"}
+{"count":1,"display":false,"id":"katex-spec/errors > environments.js: > parseArray > rejects missing \\end/1","tex":"\\begin{matrix}1"}
+{"count":1,"display":false,"id":"katex-spec/errors > environments.js: > parseArray > rejects incorrectly scoped \\end/1","tex":"{\\begin{matrix}1}\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-spec/errors > environments.js: > array environment > rejects unknown column types/1","tex":"\\begin{array}{cba}\\end{array}"}
+{"count":1,"display":false,"id":"katex-spec/errors > functions.js: > delimiter functions > reject invalid opening delimiters/1","tex":"\\bigl 1 + 2 \\bigr"}
+{"count":1,"display":false,"id":"katex-spec/errors > functions.js: > delimiter functions > reject invalid closing delimiters/1","tex":"\\bigl(1+2\\bigr=3"}
+{"count":1,"display":false,"id":"katex-spec/errors > functions.js: > delimiter functions > reject multi-symbol group delimiters/1","tex":"\\bigl{((}1+2\\bigr)3"}
+{"count":1,"display":false,"id":"katex-spec/errors > functions.js: > \\begin and \\end > reject invalid environment names/1","tex":"\\begin x\\end y"}
+{"count":1,"display":false,"id":"katex-spec/errors > Lexer: > #_innerLex > rejects lone surrogate char/1","tex":"\udcba "}
+{"count":1,"display":false,"id":"katex-spec/errors > Lexer: > #_innerLex > rejects lone backslash at end of input/1","tex":"\\"}
+{"count":1,"display":false,"id":"katex-spec/errors > Lexer: > #_innerLexColor > reject 3-digit hex notation without #/1","tex":"\\textcolor{1a2}{foo}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Lexer: > #_innerLexSize > reject size without unit/1","tex":"\\rule{0}{2em}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Lexer: > #_innerLexSize > reject size without number/1","tex":"\\rule{em}{2em}"}
+{"count":1,"display":false,"id":"katex-spec/errors > Unicode accents > should return error for invalid combining characters/1","tex":"Ą"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Latin-1 inside \\text{}/1","tex":"\\text{ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåèéêëìíîïñòóôõöùúûüýÿÆÇÐØÞßæçðøþ}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build middle dot inside \\text{}/1","tex":"\\text{eV·nm}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build middle dot like \\cdotp in math mode/1","tex":"x·y"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build middle dot like \\cdotp in math mode/2","tex":"x\\cdotp y"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not build \\cdotp in text mode/1","tex":"\\text{\\cdotp}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should parse middle dot in math mode with strict/1","settings":{"strict":true},"tex":"·"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Latin-1 inside \\text{} like accent commands/1","tex":"\\text{ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåèéêëìíîïñòóôõöùúûüýÿÇç}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Latin-1 inside \\text{} like accent commands/2","tex":"\\text{\\`A\\'A\\^A\\~A\\\"A\\r A\\`E\\'E\\^E\\\"E\\`I\\'I\\^I\\\"I\\~N\\`O\\'O\\^O\\~O\\\"O\\`U\\'U\\^U\\\"U\\'Y\\`a\\'a\\^a\\~a\\\"a\\r a\\`e\\'e\\^e\\\"e\\`ı\\'ı\\^ı\\\"ı\\~n\\`o\\'o\\^o\\~o\\\"o\\`u\\'u\\^u\\\"u\\'y\\\"y\\c C\\c c}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/1","settings":{"strict":true},"tex":"À"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/2","settings":{"strict":true},"tex":"Á"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/3","settings":{"strict":true},"tex":"Â"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/4","settings":{"strict":true},"tex":"Ã"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/5","settings":{"strict":true},"tex":"Ä"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/6","settings":{"strict":true},"tex":"Å"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/7","settings":{"strict":true},"tex":"È"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/8","settings":{"strict":true},"tex":"É"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/9","settings":{"strict":true},"tex":"Ê"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/10","settings":{"strict":true},"tex":"Ë"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/11","settings":{"strict":true},"tex":"Ì"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/12","settings":{"strict":true},"tex":"Í"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/13","settings":{"strict":true},"tex":"Î"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/14","settings":{"strict":true},"tex":"Ï"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/15","settings":{"strict":true},"tex":"Ñ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/16","settings":{"strict":true},"tex":"Ò"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/17","settings":{"strict":true},"tex":"Ó"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/18","settings":{"strict":true},"tex":"Ô"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/19","settings":{"strict":true},"tex":"Õ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/20","settings":{"strict":true},"tex":"Ö"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/21","settings":{"strict":true},"tex":"Ù"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/22","settings":{"strict":true},"tex":"Ú"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/23","settings":{"strict":true},"tex":"Û"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/24","settings":{"strict":true},"tex":"Ü"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/25","settings":{"strict":true},"tex":"Ý"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/26","settings":{"strict":true},"tex":"à"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/27","settings":{"strict":true},"tex":"á"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/28","settings":{"strict":true},"tex":"â"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/29","settings":{"strict":true},"tex":"ã"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/30","settings":{"strict":true},"tex":"ä"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/31","settings":{"strict":true},"tex":"å"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/32","settings":{"strict":true},"tex":"è"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/34","settings":{"strict":true},"tex":"ê"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/35","settings":{"strict":true},"tex":"ë"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/36","settings":{"strict":true},"tex":"ì"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/37","settings":{"strict":true},"tex":"í"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/38","settings":{"strict":true},"tex":"î"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/39","settings":{"strict":true},"tex":"ï"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/40","settings":{"strict":true},"tex":"ñ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/41","settings":{"strict":true},"tex":"ò"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/42","settings":{"strict":true},"tex":"ó"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/43","settings":{"strict":true},"tex":"ô"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/44","settings":{"strict":true},"tex":"õ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/45","settings":{"strict":true},"tex":"ö"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/46","settings":{"strict":true},"tex":"ù"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/47","settings":{"strict":true},"tex":"ú"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/48","settings":{"strict":true},"tex":"û"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/49","settings":{"strict":true},"tex":"ü"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/50","settings":{"strict":true},"tex":"ý"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/51","settings":{"strict":true},"tex":"ÿ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/52","settings":{"strict":true},"tex":"Ç"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/53","settings":{"strict":true},"tex":"Ð"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/54","settings":{"strict":true},"tex":"Þ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/55","settings":{"strict":true},"tex":"ç"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Latin-1 outside \\text{} with strict/56","settings":{"strict":true},"tex":"þ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Latin-1 outside \\text{}/1","settings":{"strict":false},"tex":"ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåèéêëìíîïñòóôõöùúûüýÿÇÐÞçðþ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build all lower case Greek letters/1","tex":"αβγδεϵζηθϑικλμνξοπϖρϱςστυφϕχψω"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build math upper case Greek letters/1","tex":"ΓΔΘΛΞΠΣΥΦΨΩ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Cyrillic inside \\text{}/1","tex":"\\text{БГДЖЗЙЛФЦШЫЮЯ}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Cyrillic outside \\text{}/1","settings":{"strict":false},"tex":"БГДЖЗЙЛФЦШЫЮЯ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Cyrillic outside \\text{} with strict/1","settings":{"strict":true},"tex":"БГДЖЗЙЛФЦШЫЮЯ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build CJK inside \\text{}/1","tex":"\\text{私はバナナです}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build CJK inside \\text{}/2","tex":"\\text{여보세요}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build CJK outside \\text{}/1","settings":{"strict":false},"tex":"私はバナナです"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build CJK outside \\text{}/2","settings":{"strict":false},"tex":"여보세요"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse CJK outside \\text{} with strict/1","settings":{"strict":true},"tex":"私はバナナです。"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse CJK outside \\text{} with strict/2","settings":{"strict":true},"tex":"여보세요"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Devanagari inside \\text{}/1","tex":"\\text{नमस्ते}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Devanagari outside \\text{}/1","settings":{"strict":false},"tex":"नमस्ते"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Devanagari outside \\text{} with strict/1","settings":{"strict":true},"tex":"नमस्ते"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Georgian inside \\text{}/1","tex":"\\text{გამარჯობა}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Georgian outside \\text{}/1","settings":{"strict":false},"tex":"გამარჯობა"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse Georgian outside \\text{} with strict/1","settings":{"strict":true},"tex":"გამარჯობა"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Armenian both inside and outside \\text{}/1","settings":{"strict":false},"tex":"ԱԲԳաբգ"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build Armenian both inside and outside \\text{}/2","settings":{"strict":false},"tex":"\\text{ԱԲԳաբգ}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should build extended Latin characters inside \\text{}/1","tex":"\\text{ěščřžůřťďňőİı}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not parse extended Latin outside \\text{} with strict/1","settings":{"strict":true},"tex":"ěščřžůřťďňőİı"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not allow emoji in strict mode/1","settings":{"strict":true},"tex":"✌"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should not allow emoji in strict mode/2","settings":{"strict":true},"tex":"\\text{✌}"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should allow emoji outside strict mode/1","tex":"✌"}
+{"count":1,"display":false,"id":"katex-spec/unicode > unicode > should allow emoji outside strict mode/2","tex":"\\text{✌}"}

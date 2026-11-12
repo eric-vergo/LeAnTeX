@@ -1,0 +1,347 @@
+/-
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
+-/
+import LeAnTeX
+
+/-!
+# The differential test and the parity report
+
+`lake test` runs this from the repository root. For every case of every corpus
+(`corpus/*.jsonl`) it parses the formula with LeAnTeX and compares the result with KaTeX's
+recorded answer (`fixtures/*.jsonl`, written by `tools/record.mjs`): the parse tree as JSON, or
+the error (class, raw message, position, length), and the strict-mode warnings. It then builds
+the parity report over KaTeX's name list (`parity/names.tsv`).
+
+* `lake test` (no arguments): fail if a case that matched in the committed baseline
+  (`parity/baseline.tsv`) no longer matches, or if a corpus or fixture is missing.
+* `lake exe leantex-test --update`: rewrite `parity/baseline.tsv`, `parity/REPORT.md` and
+  `parity/names-status.tsv` from the current results.
+* `lake exe leantex-test --show ID-PREFIX`: print the cases whose id starts with the prefix that
+  do not match, with both answers.
+-/
+
+open LeAnTeX
+
+/-- A corpus case: its id, the formula and the settings it is parsed with. -/
+structure Case where
+  /-- The case id. -/
+  id : String
+  /-- The formula. -/
+  tex : String
+  /-- The settings. -/
+  settings : Settings
+
+/-- How a case compares with KaTeX. -/
+inductive Outcome where
+  /-- Both accept with the same tree and warnings. -/
+  | same
+  /-- Both reject with the same error. -/
+  | sameError
+  /-- Both accept, with different trees. -/
+  | treeDiffers
+  /-- Both accept with the same tree, but the warnings differ. -/
+  | warningsDiffer
+  /-- Both reject, with different errors. -/
+  | errorDiffers
+  /-- KaTeX accepts, LeAnTeX rejects. -/
+  | leanRejects
+  /-- KaTeX rejects, LeAnTeX accepts. -/
+  | leanAccepts
+  deriving BEq
+
+/-- The outcome's name in reports. -/
+def Outcome.name : Outcome → String
+  | .same => "same" | .sameError => "same-error" | .treeDiffers => "tree-differs"
+  | .warningsDiffer => "warnings-differ" | .errorDiffers => "error-differs"
+  | .leanRejects => "lean-rejects" | .leanAccepts => "lean-accepts"
+
+/-- Whether the outcome is parity. -/
+def Outcome.ok (o : Outcome) : Bool := o == .same || o == .sameError
+
+/-- The settings a corpus case asks for. -/
+def caseSettings (j : Json) : Settings := Id.run do
+  let mut s : Settings := {}
+  s := { s with displayMode := ((j.get? "display").bind Json.getBool?).getD false }
+  if let some (.obj kvs) := j.get? "macros" then
+    s := { s with macros := kvs.filterMap fun (k, v) => v.getStr?.map (k, ·) }
+  if let some st := j.get? "settings" then
+    if let some v := st.get? "strict" then
+      s := { s with strict := match v with
+        | .bool true | .str "error" => .error
+        | .bool false | .str "ignore" => .ignore
+        | _ => .warn }
+    if let some v := (st.get? "trust").bind Json.getBool? then s := { s with trust := v }
+    if let some v := (st.get? "throwOnError").bind Json.getBool? then
+      s := { s with throwOnError := v }
+    if let some v := (st.get? "colorIsTextColor").bind Json.getBool? then
+      s := { s with colorIsTextColor := v }
+    if let some v := (st.get? "globalGroup").bind Json.getBool? then
+      s := { s with globalGroup := v }
+    if let some v := (st.get? "leqno").bind Json.getBool? then s := { s with leqno := v }
+    if let some v := (st.get? "fleqn").bind Json.getBool? then s := { s with fleqn := v }
+    if let some v := (st.get? "maxExpand").bind Json.getNum? then
+      s := { s with maxExpand := v.toUInt64.toNat }
+    if let some v := (st.get? "errorColor").bind Json.getStr? then
+      s := { s with errorColor := v }
+  return s
+
+/-- The JSON lines of a file after its metadata line. -/
+def readJsonLines (path : System.FilePath) : IO (Array Json) := do
+  let lines ← IO.FS.lines path
+  let mut out := #[]
+  for l in lines.toList.drop 1 do
+    if l.trimAscii.isEmpty then continue
+    match Json.parse l with
+    | .ok j => out := out.push j
+    | .error e => throw (IO.userError s!"{path}: bad JSON line ({e}): {l.take 80}")
+  return out
+
+/-- Whether two errors are the same: for a `ParseError` the raw message, position and length;
+for an error KaTeX raises as a JavaScript `Error` the message; for other classes the class. -/
+def sameError (k l : Json) : Bool :=
+  let kind := (k.get? "kind").bind Json.getStr?
+  kind == (l.get? "kind").bind Json.getStr? &&
+    match kind with
+    | some "ParseError" =>
+      ["rawMessage", "position", "length"].all fun f =>
+        match k.get? f, l.get? f with
+        | some a, some b => a.sameAs b
+        | none, none => true
+        | _, _ => false
+    | some "Error" => ((k.get? "message").map fun a =>
+        ((l.get? "message").map a.sameAs).getD false).getD false
+    | _ => true
+
+/-- LeAnTeX's answer for a case, in the fixture's shape. -/
+def leanAnswer (c : Case) : Json :=
+  let r := parse c.tex c.settings
+  let warnings := Json.arr (r.warnings.map Json.str)
+  match r.result with
+  | .ok t => .obj #[("tree", nodesToJson t), ("warnings", warnings)]
+  | .error e => .obj #[("error", e.toJson), ("warnings", warnings)]
+
+/-- Compare LeAnTeX's answer with KaTeX's. -/
+def compare (katex lean : Json) : Outcome :=
+  let warnSame := match katex.get? "warnings", lean.get? "warnings" with
+    | some a, some b => a.sameAs b
+    | _, _ => false
+  match katex.get? "tree", katex.get? "error", lean.get? "tree", lean.get? "error" with
+  | some kt, _, some lt, _ => if kt.sameAs lt then (if warnSame then .same else .warningsDiffer)
+      else .treeDiffers
+  | some _, _, none, _ => .leanRejects
+  | none, some ke, _, some le => if sameError ke le then .sameError else .errorDiffers
+  | _, _, _, _ => .leanAccepts
+
+/-- The result of one case. -/
+structure Result where
+  /-- The corpus. -/
+  corpus : String
+  /-- The case. -/
+  case : Case
+  /-- How it compares. -/
+  outcome : Outcome
+  /-- KaTeX's answer. -/
+  katex : Json
+  /-- LeAnTeX's answer. -/
+  lean : Json
+
+/-- The corpora: every `corpus/*.jsonl`, sorted. -/
+def corpora : IO (Array String) := do
+  let entries ← System.FilePath.readDir "corpus"
+  let names := entries.filterMap fun e =>
+    if e.fileName.endsWith ".jsonl" then some (e.fileName.dropEnd 6).toString else none
+  return names.qsort (· < ·)
+
+/-- Run every case of a corpus against its fixture. -/
+def runCorpus (name : String) : IO (Array Result) := do
+  let cases ← readJsonLines s!"corpus/{name}.jsonl"
+  let fixtures ← readJsonLines s!"fixtures/{name}.jsonl"
+  let byId : Std.HashMap String Json := Std.HashMap.ofList (fixtures.toList.filterMap fun f =>
+    ((f.get? "id").bind Json.getStr?).map (·, f))
+  let mut out := #[]
+  for j in cases do
+    let some id := (j.get? "id").bind Json.getStr? | continue
+    let tex := ((j.get? "tex").bind Json.getStr?).getD ""
+    let c : Case := { id, tex, settings := caseSettings j }
+    let some k := byId[id]? | throw (IO.userError s!"no fixture for {id}; run tools/record.mjs")
+    let l := leanAnswer c
+    out := out.push { corpus := name, case := c, outcome := compare k l, katex := k, lean := l }
+  return out
+
+/-- Unescape a field of `parity/names.tsv`. -/
+def unescapeTsv (s : String) : String := Id.run do
+  let mut out := ""
+  let mut esc := false
+  for c in s.toList do
+    if esc then
+      out := out.push (match c with | 't' => '\t' | 'n' => '\n' | c => c)
+      esc := false
+    else if c == '\\' then esc := true
+    else out := out.push c
+  return out
+
+/-- The names a formula uses: the texts of its tokens and its environment names. -/
+def namesUsed (tex : String) : List String := Id.run do
+  let lx := Lexer.ofSource ⟨0, tex⟩
+  let mut toks : Array String := #[]
+  let mut lx := lx
+  for _ in [0:tex.length + 1] do
+    match lx.lex .ignore with
+    | .ok (t, lx', _) =>
+      if t.text == "EOF" then break
+      toks := toks.push t.text
+      lx := lx'
+    | .error _ => break
+  let mut envs := #[]
+  for i in [0:toks.size] do
+    if toks[i]! == "\\begin" && toks[i + 1]? == some "{" then
+      let name := (toks.extract (i + 2) toks.size).toList.takeWhile (· != "}")
+      envs := envs.push ("env:" ++ String.join name)
+  return toks.toList ++ envs.toList
+
+/-- Whether LeAnTeX implements a name of the given kind. -/
+def implemented (kind name : String) : Bool :=
+  match kind with
+  | "function" => match Tables.functions[name]? with
+    | some spec => spec.handler == "\\begin" || (functionHandler spec.handler).isSome
+    | none => false
+  | "environment" => match Tables.environments[name]? with
+    | some spec => (environmentHandler spec.handler).isSome
+    | none => false
+  | "macro" => Tables.builtinStringMacros.contains name || implementedNatives.contains name
+  | _ => true
+
+/-- The per-name parity rows (kind, name, status, cases using it, cases differing) and the
+counts per kind and status. -/
+def nameParity (results : Array Result) :
+    IO (Array (String × String × String × Nat × Nat)) := do
+  let lines ← IO.FS.lines "parity/names.tsv"
+  let mut used : Std.HashMap String (Nat × Nat) := {}
+  for r in results do
+    for n in (namesUsed r.case.tex).eraseDups do
+      let (a, b) := used.getD n (0, 0)
+      used := used.insert n (a + 1, if r.outcome.ok then b else b + 1)
+  let mut rows := #[]
+  for l in lines.toList.drop 2 do
+    match l.splitOn "\t" with
+    | kind :: name :: _ =>
+      let name := unescapeTsv name
+      let key := if kind == "environment" then "env:" ++ name else name
+      let (n, bad) := used.getD key (0, 0)
+      let status :=
+        if !implemented kind name then "not yet"
+        else if n == 0 then "untested"
+        else if bad == 0 then "parsed identically"
+        else "differs"
+      rows := rows.push (kind, name, status, n, bad)
+    | _ => pure ()
+  return rows
+
+/-- The Markdown parity report. -/
+def report (results : Array Result) (rows : Array (String × String × String × Nat × Nat)) :
+    String := Id.run do
+  let mut s := "# Parity report\n\n" ++
+    "Generated by `lake exe leantex-test --update`; do not edit by hand. LeAnTeX's parser " ++
+    "against KaTeX 0.19.1's `__parse`: the parse tree (as JSON), or for a formula KaTeX " ++
+    "rejects the error (class, message, position), and the strict-mode warnings.\n\n" ++
+    "## Corpora\n\n| Corpus | Cases | Accepted, same tree | Rejected, same error | " ++
+    "Mismatched |\n|---|---:|---:|---:|---:|\n"
+  let names := (results.map (·.corpus)).toList.eraseDups
+  for c in names do
+    let rs := results.filter (·.corpus == c)
+    let same := (rs.filter (·.outcome == .same)).size
+    let se := (rs.filter (·.outcome == .sameError)).size
+    s := s ++ s!"| {c} | {rs.size} | {same} | {se} | {rs.size - same - se} |\n"
+  let total := results.size
+  let ok := (results.filter (·.outcome.ok)).size
+  s := s ++ s!"| all | {total} | {(results.filter (·.outcome == .same)).size} | " ++
+    s!"{(results.filter (·.outcome == .sameError)).size} | {total - ok} |\n\n"
+  s := s ++ "## Mismatches by kind\n\n| Kind | Cases |\n|---|---:|\n"
+  for o in [Outcome.treeDiffers, .warningsDiffer, .errorDiffers, .leanRejects, .leanAccepts] do
+    s := s ++ s!"| {o.name} | {(results.filter (·.outcome == o)).size} |\n"
+  s := s ++ "\n## KaTeX's names\n\nStatus of every name KaTeX defines (`parity/names.tsv`): " ++
+    "*parsed identically* when every corpus case that uses it matches, *differs* when one " ++
+    "does not, *untested* when no case uses it, *not yet* when LeAnTeX has no implementation. " ++
+    "Per-name rows: `parity/names-status.tsv`.\n\n| Kind | Names | Parsed identically | " ++
+    "Differs | Untested | Not yet |\n|---|---:|---:|---:|---:|---:|\n"
+  for k in ["function", "environment", "macro", "symbol-math", "symbol-text"] do
+    let rs := rows.filter (·.1 == k)
+    let cnt (st : String) := (rs.filter (·.2.2.1 == st)).size
+    s := s ++ s!"| {k} | {rs.size} | {cnt "parsed identically"} | {cnt "differs"} | " ++
+      s!"{cnt "untested"} | {cnt "not yet"} |\n"
+  let differ := rows.filter (·.2.2.1 == "differs")
+  if !differ.isEmpty then
+    s := s ++ "\n### Names that differ\n\n"
+    for (k, n, _, u, b) in differ do
+      s := s ++ s!"* `{n}` ({k}): {b} of {u} cases\n"
+  let notYet := rows.filter (·.2.2.1 == "not yet")
+  if !notYet.isEmpty then
+    s := s ++ "\n### Not yet implemented\n\n"
+    for (k, n, _, _, _) in notYet do
+      s := s ++ s!"* `{n}` ({k})\n"
+  let bad := results.filter (!·.outcome.ok)
+  if !bad.isEmpty then
+    s := s ++ "\n## Mismatched cases\n\n| Case | Kind |\n|---|---|\n"
+    for r in bad do
+      s := s ++ s!"| `{r.case.id.replace "|" "\\|"}` | {r.outcome.name} |\n"
+  return s
+
+/-- The baseline: per case, `ok` or `mismatch`. -/
+def baselineText (results : Array Result) : String :=
+  "# corpus\tcase id\tstatus (written by lake exe leantex-test --update)\n" ++
+  String.join (results.toList.map fun r =>
+    s!"{r.corpus}\t{r.case.id}\t{if r.outcome.ok then "ok" else "mismatch"}\n")
+
+/-- Run everything; see the module docstring for the modes. -/
+def main (args : List String) : IO UInt32 := do
+  let mut results := #[]
+  for c in ← corpora do
+    results := results ++ (← runCorpus c)
+  match args with
+  | ["--show", pre] =>
+    for r in results do
+      if r.case.id.startsWith pre && !r.outcome.ok then
+        IO.println s!"== {r.case.id} [{r.outcome.name}]\ntex: {r.case.tex}"
+        IO.println s!"katex: {r.katex.compress}"
+        IO.println s!"lean:  {r.lean.compress}"
+    return 0
+  | ["--update"] =>
+    let rows ← nameParity results
+    IO.FS.writeFile "parity/REPORT.md" (report results rows)
+    IO.FS.writeFile "parity/baseline.tsv" (baselineText results)
+    IO.FS.writeFile "parity/names-status.tsv" ("# kind\tname\tstatus\tcases\tcases differing\n" ++
+      String.join (rows.toList.map fun (k, n, st, u, b) => s!"{k}\t{n}\t{st}\t{u}\t{b}\n"))
+    let ok := (results.filter (·.outcome.ok)).size
+    IO.println s!"parity: {ok} of {results.size} cases match; report written"
+    return 0
+  | [] =>
+    let baseline ← IO.FS.lines "parity/baseline.tsv"
+    let now : Std.HashMap String Bool := Std.HashMap.ofList (results.toList.map fun r =>
+      (r.corpus ++ "\t" ++ r.case.id, r.outcome.ok))
+    let mut regressions := #[]
+    let mut improved := 0
+    for l in baseline.toList.drop 1 do
+      match l.splitOn "\t" with
+      | [c, id, st] =>
+        -- a corpus that is not in this checkout (one kept out of the repository) is skipped
+        if !(← System.FilePath.pathExists s!"corpus/{c}.jsonl") then continue
+        match now[c ++ "\t" ++ id]? with
+        | some true => if st == "mismatch" then improved := improved + 1
+        | some false => if st == "ok" then regressions := regressions.push s!"{c}: {id}"
+        | none => if st == "ok" then regressions := regressions.push s!"{c}: {id} (missing)"
+      | _ => pure ()
+    let ok := (results.filter (·.outcome.ok)).size
+    IO.println s!"parity: {ok} of {results.size} cases match KaTeX"
+    if improved > 0 then
+      IO.println s!"{improved} cases match that the baseline lists as mismatched; record them \
+        with `lake exe leantex-test --update`"
+    if regressions.isEmpty then
+      IO.println "no regression against parity/baseline.tsv"
+      return 0
+    IO.eprintln s!"{regressions.size} regressions against parity/baseline.tsv:"
+    for r in regressions do IO.eprintln s!"  {r}"
+    return 1
+  | _ =>
+    IO.eprintln "usage: leantex-test [--update | --show ID-PREFIX]"
+    return 2

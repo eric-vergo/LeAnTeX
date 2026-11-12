@@ -1,0 +1,994 @@
+{"meta":{"corpus":"katex-support-table","source":"KaTeX 0.19.1, https://github.com/KaTeX/KaTeX (tag v0.19.1), docs/support_table.md","license":"MIT (KaTeX, see LICENSE-KaTeX)","generator":"tools/harvest-katex.mjs","count":993}}
+{"count":1,"display":false,"id":"katex-support-table/!/1","macros":{"\\VERT":"|"},"tex":"n!"}
+{"count":1,"display":false,"id":"katex-support-table/\\!/1","macros":{"\\VERT":"|"},"tex":"a\\!b"}
+{"count":1,"display":false,"id":"katex-support-table/#/1","macros":{"\\VERT":"|"},"tex":"\\def\\sqr#1{#1^2} \\sqr{y}"}
+{"count":1,"display":false,"id":"katex-support-table/\\#/1","macros":{"\\VERT":"|"},"tex":"\\#"}
+{"count":1,"display":false,"id":"katex-support-table/\\%/1","macros":{"\\VERT":"|"},"tex":"\\%"}
+{"count":2,"display":false,"id":"katex-support-table/&/1","macros":{"\\VERT":"|"},"tex":"\\begin{matrix} a & b\\cr c & d \\end{matrix}"}
+{"count":1,"display":false,"id":"katex-support-table/\\&/1","macros":{"\\VERT":"|"},"tex":"\\&"}
+{"count":1,"display":false,"id":"katex-support-table/'/1","macros":{"\\VERT":"|"},"tex":"'"}
+{"count":1,"display":false,"id":"katex-support-table/\\'/1","macros":{"\\VERT":"|"},"tex":"\\text{\\'{a}}"}
+{"count":1,"display":false,"id":"katex-support-table/(/1","macros":{"\\VERT":"|"},"tex":"("}
+{"count":1,"display":false,"id":"katex-support-table/)/1","macros":{"\\VERT":"|"},"tex":")"}
+{"count":1,"display":false,"id":"katex-support-table/\\(…\\)/1","macros":{"\\VERT":"|"},"tex":"\\text{\\(\\frac a b\\)}"}
+{"count":1,"display":false,"id":"katex-support-table/\\ /1","macros":{"\\VERT":"|"},"tex":"a\\ b"}
+{"count":1,"display":false,"id":"katex-support-table/\\\"/1","macros":{"\\VERT":"|"},"tex":"\\text{\\\"{a}}"}
+{"count":2,"display":false,"id":"katex-support-table/\\$/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textdollar}"}
+{"count":1,"display":false,"id":"katex-support-table/\\,/1","macros":{"\\VERT":"|"},"tex":"a\\,\\,{b}"}
+{"count":1,"display":false,"id":"katex-support-table/\\./1","macros":{"\\VERT":"|"},"tex":"\\text{\\.{a}}"}
+{"count":1,"display":false,"id":"katex-support-table/\\:/1","macros":{"\\VERT":"|"},"tex":"a\\:\\:{b}"}
+{"count":1,"display":false,"id":"katex-support-table/\\;/1","macros":{"\\VERT":"|"},"tex":"a\\;\\;{b}"}
+{"count":1,"display":false,"id":"katex-support-table/_/1","macros":{"\\VERT":"|"},"tex":"x_i"}
+{"count":1,"display":false,"id":"katex-support-table/\\_/1","macros":{"\\VERT":"|"},"tex":"\\_"}
+{"count":1,"display":false,"id":"katex-support-table/\\`/1","macros":{"\\VERT":"|"},"tex":"\\text{\\`{a}}"}
+{"count":1,"display":false,"id":"katex-support-table/&#060;/1","macros":{"\\VERT":"|"},"tex":"<"}
+{"count":1,"display":false,"id":"katex-support-table/\\=/1","macros":{"\\VERT":"|"},"tex":"\\text{\\={a}}"}
+{"count":1,"display":false,"id":"katex-support-table/ >/1","macros":{"\\VERT":"|"},"tex":">"}
+{"count":1,"display":false,"id":"katex-support-table/\\>/1","macros":{"\\VERT":"|"},"tex":"a\\>\\>{b}"}
+{"count":1,"display":false,"id":"katex-support-table/[/1","macros":{"\\VERT":"|"},"tex":"["}
+{"count":1,"display":false,"id":"katex-support-table/]/1","macros":{"\\VERT":"|"},"tex":"]"}
+{"count":2,"display":false,"id":"katex-support-table/{/1","macros":{"\\VERT":"|"},"tex":"{a}"}
+{"count":1,"display":false,"id":"katex-support-table/\\{/1","macros":{"\\VERT":"|"},"tex":"\\{"}
+{"count":1,"display":false,"id":"katex-support-table/\\}/1","macros":{"\\VERT":"|"},"tex":"\\}"}
+{"count":2,"display":false,"id":"katex-support-table/&#124;/1","macros":{"\\VERT":"|"},"tex":"\\vert"}
+{"count":2,"display":false,"id":"katex-support-table/\\&#124;/1","macros":{"\\VERT":"|"},"tex":"\\Vert"}
+{"count":1,"display":false,"id":"katex-support-table/~/1","macros":{"\\VERT":"|"},"tex":"\\text{no~no~no~breaks}"}
+{"count":1,"display":false,"id":"katex-support-table/\\~/1","macros":{"\\VERT":"|"},"tex":"\\text{\\~{a}}"}
+{"count":3,"display":false,"id":"katex-support-table/\\\\ /1","macros":{"\\VERT":"|"},"tex":"\\begin{matrix} a & b\\\\ c & d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-support-table/^/1","macros":{"\\VERT":"|"},"tex":"x^i"}
+{"count":1,"display":false,"id":"katex-support-table/\\^/1","macros":{"\\VERT":"|"},"tex":"\\text{\\^{a}}"}
+{"count":1,"display":false,"id":"katex-support-table/AA/1","macros":{"\\VERT":"|"},"tex":"\\text{\\AA}"}
+{"count":1,"display":false,"id":"katex-support-table/aa/1","macros":{"\\VERT":"|"},"tex":"\\text{\\aa}"}
+{"count":1,"display":false,"id":"katex-support-table/above/1","macros":{"\\VERT":"|"},"tex":"{a \\above{2pt} b+1}"}
+{"count":1,"display":false,"id":"katex-support-table/acute/1","macros":{"\\VERT":"|"},"tex":"\\acute e"}
+{"count":1,"display":false,"id":"katex-support-table/AE/1","macros":{"\\VERT":"|"},"tex":"\\text{\\AE}"}
+{"count":1,"display":false,"id":"katex-support-table/ae/1","macros":{"\\VERT":"|"},"tex":"\\text{\\ae}"}
+{"count":1,"display":false,"id":"katex-support-table/alef/1","macros":{"\\VERT":"|"},"tex":"\\alef"}
+{"count":1,"display":false,"id":"katex-support-table/alefsym/1","macros":{"\\VERT":"|"},"tex":"\\alefsym"}
+{"count":1,"display":false,"id":"katex-support-table/aleph/1","macros":{"\\VERT":"|"},"tex":"\\aleph"}
+{"count":1,"display":true,"id":"katex-support-table/{align}/1","macros":{"\\VERT":"|"},"tex":"\\begin{align}a&=b+c\\\\d+e&=f\\end{align}"}
+{"count":1,"display":true,"id":"katex-support-table/{align*}/1","macros":{"\\VERT":"|"},"tex":"\\begin{align*}a&=b+c\\\\d+e&=f\\end{align*}"}
+{"count":1,"display":false,"id":"katex-support-table/{aligned}/1","macros":{"\\VERT":"|"},"tex":"\\begin{aligned}a&=b+c\\\\d+e&=f\\end{aligned}"}
+{"count":1,"display":true,"id":"katex-support-table/{alignat}/1","macros":{"\\VERT":"|"},"tex":"\\begin{alignat}{2}10&x+&3&y=2\\\\3&x+&13&y=4\\end{alignat}"}
+{"count":1,"display":true,"id":"katex-support-table/{alignat*}/1","macros":{"\\VERT":"|"},"tex":"\\begin{alignat*}{2}10&x+&3&y=2\\\\3&x+&13&y=4\\end{alignat*}"}
+{"count":1,"display":false,"id":"katex-support-table/{alignedat}/1","macros":{"\\VERT":"|"},"tex":"\\begin{alignedat}{2}10&x+&3&y=2\\\\3&x+&13&y=4\\end{alignedat}"}
+{"count":1,"display":false,"id":"katex-support-table/Alpha/1","macros":{"\\VERT":"|"},"tex":"\\Alpha"}
+{"count":1,"display":false,"id":"katex-support-table/alpha/1","macros":{"\\VERT":"|"},"tex":"\\alpha"}
+{"count":1,"display":false,"id":"katex-support-table/amalg/1","macros":{"\\VERT":"|"},"tex":"\\amalg"}
+{"count":1,"display":false,"id":"katex-support-table/And/1","macros":{"\\VERT":"|"},"tex":"\\And"}
+{"count":1,"display":false,"id":"katex-support-table/angl/1","macros":{"\\VERT":"|"},"tex":"a_{\\angl n}"}
+{"count":1,"display":false,"id":"katex-support-table/angln/1","macros":{"\\VERT":"|"},"tex":"a_\\angln"}
+{"count":1,"display":false,"id":"katex-support-table/angle/1","macros":{"\\VERT":"|"},"tex":"\\angle"}
+{"count":1,"display":false,"id":"katex-support-table/approx/1","macros":{"\\VERT":"|"},"tex":"\\approx"}
+{"count":1,"display":false,"id":"katex-support-table/approxeq/1","macros":{"\\VERT":"|"},"tex":"\\approxeq"}
+{"count":1,"display":false,"id":"katex-support-table/approxcolon/1","macros":{"\\VERT":"|"},"tex":"\\approxcolon"}
+{"count":1,"display":false,"id":"katex-support-table/approxcoloncolon/1","macros":{"\\VERT":"|"},"tex":"\\approxcoloncolon"}
+{"count":1,"display":false,"id":"katex-support-table/arccos/1","macros":{"\\VERT":"|"},"tex":"\\arccos"}
+{"count":1,"display":false,"id":"katex-support-table/arcctg/1","macros":{"\\VERT":"|"},"tex":"\\arcctg"}
+{"count":1,"display":false,"id":"katex-support-table/arcsin/1","macros":{"\\VERT":"|"},"tex":"\\arcsin"}
+{"count":1,"display":false,"id":"katex-support-table/arctan/1","macros":{"\\VERT":"|"},"tex":"\\arctan"}
+{"count":1,"display":false,"id":"katex-support-table/arctg/1","macros":{"\\VERT":"|"},"tex":"\\arctg"}
+{"count":1,"display":false,"id":"katex-support-table/arg/1","macros":{"\\VERT":"|"},"tex":"\\arg"}
+{"count":1,"display":false,"id":"katex-support-table/argmax/1","macros":{"\\VERT":"|"},"tex":"\\argmax"}
+{"count":1,"display":false,"id":"katex-support-table/argmin/1","macros":{"\\VERT":"|"},"tex":"\\argmin"}
+{"count":1,"display":false,"id":"katex-support-table/{array}/1","macros":{"\\VERT":"|"},"tex":"\\begin{array}{cc}a&b\\\\c&d\\end{array}"}
+{"count":1,"display":false,"id":"katex-support-table/arraystretch/1","macros":{"\\VERT":"|"},"tex":"\\def\\arraystretch{1.5}\\begin{array}{cc}a&b\\\\c&d\\end{array}"}
+{"count":1,"display":false,"id":"katex-support-table/ast/1","macros":{"\\VERT":"|"},"tex":"\\ast"}
+{"count":1,"display":false,"id":"katex-support-table/asymp/1","macros":{"\\VERT":"|"},"tex":"\\asymp"}
+{"count":1,"display":false,"id":"katex-support-table/atop/1","macros":{"\\VERT":"|"},"tex":"{a \\atop b}"}
+{"count":1,"display":false,"id":"katex-support-table/backepsilon/1","macros":{"\\VERT":"|"},"tex":"\\backepsilon"}
+{"count":1,"display":false,"id":"katex-support-table/backprime/1","macros":{"\\VERT":"|"},"tex":"\\backprime"}
+{"count":1,"display":false,"id":"katex-support-table/backsim/1","macros":{"\\VERT":"|"},"tex":"\\backsim"}
+{"count":1,"display":false,"id":"katex-support-table/backsimeq/1","macros":{"\\VERT":"|"},"tex":"\\backsimeq"}
+{"count":1,"display":false,"id":"katex-support-table/backslash/1","macros":{"\\VERT":"|"},"tex":"\\backslash"}
+{"count":1,"display":false,"id":"katex-support-table/bar/1","macros":{"\\VERT":"|"},"tex":"\\bar{y}"}
+{"count":1,"display":false,"id":"katex-support-table/barwedge/1","macros":{"\\VERT":"|"},"tex":"\\barwedge"}
+{"count":1,"display":false,"id":"katex-support-table/Bbb/1","macros":{"\\VERT":"|"},"tex":"\\Bbb{ABC}"}
+{"count":1,"display":false,"id":"katex-support-table/Bbbk/1","macros":{"\\VERT":"|"},"tex":"\\Bbbk"}
+{"count":1,"display":false,"id":"katex-support-table/bcancel/1","macros":{"\\VERT":"|"},"tex":"\\bcancel{5}"}
+{"count":1,"display":false,"id":"katex-support-table/because/1","macros":{"\\VERT":"|"},"tex":"\\because"}
+{"count":1,"display":false,"id":"katex-support-table/begingroup/1","macros":{"\\VERT":"|"},"tex":"\\begingroup a}"}
+{"count":1,"display":false,"id":"katex-support-table/Beta/1","macros":{"\\VERT":"|"},"tex":"\\Beta"}
+{"count":1,"display":false,"id":"katex-support-table/beta/1","macros":{"\\VERT":"|"},"tex":"\\beta"}
+{"count":1,"display":false,"id":"katex-support-table/beth/1","macros":{"\\VERT":"|"},"tex":"\\beth"}
+{"count":1,"display":false,"id":"katex-support-table/between/1","macros":{"\\VERT":"|"},"tex":"\\between"}
+{"count":1,"display":false,"id":"katex-support-table/bf/1","macros":{"\\VERT":"|"},"tex":"\\bf AaBb12"}
+{"count":1,"display":false,"id":"katex-support-table/big/1","macros":{"\\VERT":"|"},"tex":"\\big(\\big)"}
+{"count":1,"display":false,"id":"katex-support-table/Big/1","macros":{"\\VERT":"|"},"tex":"\\Big(\\Big)"}
+{"count":1,"display":false,"id":"katex-support-table/bigcap/1","macros":{"\\VERT":"|"},"tex":"\\bigcap"}
+{"count":1,"display":false,"id":"katex-support-table/bigcirc/1","macros":{"\\VERT":"|"},"tex":"\\bigcirc"}
+{"count":1,"display":false,"id":"katex-support-table/bigcup/1","macros":{"\\VERT":"|"},"tex":"\\bigcup"}
+{"count":1,"display":false,"id":"katex-support-table/bigg/1","macros":{"\\VERT":"|"},"tex":"\\bigg(\\bigg)"}
+{"count":1,"display":false,"id":"katex-support-table/Bigg/1","macros":{"\\VERT":"|"},"tex":"\\Bigg(\\Bigg)"}
+{"count":1,"display":false,"id":"katex-support-table/biggl/1","macros":{"\\VERT":"|"},"tex":"\\biggl("}
+{"count":1,"display":false,"id":"katex-support-table/Biggl/1","macros":{"\\VERT":"|"},"tex":"\\Biggl("}
+{"count":1,"display":false,"id":"katex-support-table/biggm/1","macros":{"\\VERT":"|"},"tex":"\\biggm\\vert"}
+{"count":1,"display":false,"id":"katex-support-table/Biggm/1","macros":{"\\VERT":"|"},"tex":"\\Biggm\\vert"}
+{"count":1,"display":false,"id":"katex-support-table/biggr/1","macros":{"\\VERT":"|"},"tex":"\\biggr)"}
+{"count":1,"display":false,"id":"katex-support-table/Biggr/1","macros":{"\\VERT":"|"},"tex":"\\Biggr)"}
+{"count":1,"display":false,"id":"katex-support-table/bigl/1","macros":{"\\VERT":"|"},"tex":"\\bigl("}
+{"count":1,"display":false,"id":"katex-support-table/Bigl/1","macros":{"\\VERT":"|"},"tex":"\\Bigl("}
+{"count":1,"display":false,"id":"katex-support-table/bigm/1","macros":{"\\VERT":"|"},"tex":"\\bigm\\vert"}
+{"count":1,"display":false,"id":"katex-support-table/Bigm/1","macros":{"\\VERT":"|"},"tex":"\\Bigm\\vert"}
+{"count":1,"display":false,"id":"katex-support-table/bigodot/1","macros":{"\\VERT":"|"},"tex":"\\bigodot"}
+{"count":1,"display":false,"id":"katex-support-table/bigoplus/1","macros":{"\\VERT":"|"},"tex":"\\bigoplus"}
+{"count":1,"display":false,"id":"katex-support-table/bigotimes/1","macros":{"\\VERT":"|"},"tex":"\\bigotimes"}
+{"count":1,"display":false,"id":"katex-support-table/bigr/1","macros":{"\\VERT":"|"},"tex":"\\bigr)"}
+{"count":1,"display":false,"id":"katex-support-table/Bigr/1","macros":{"\\VERT":"|"},"tex":"\\Bigr)"}
+{"count":1,"display":false,"id":"katex-support-table/bigsqcup/1","macros":{"\\VERT":"|"},"tex":"\\bigsqcup"}
+{"count":1,"display":false,"id":"katex-support-table/bigstar/1","macros":{"\\VERT":"|"},"tex":"\\bigstar"}
+{"count":1,"display":false,"id":"katex-support-table/bigtriangledown/1","macros":{"\\VERT":"|"},"tex":"\\bigtriangledown"}
+{"count":1,"display":false,"id":"katex-support-table/bigtriangleup/1","macros":{"\\VERT":"|"},"tex":"\\bigtriangleup"}
+{"count":1,"display":false,"id":"katex-support-table/biguplus/1","macros":{"\\VERT":"|"},"tex":"\\biguplus"}
+{"count":1,"display":false,"id":"katex-support-table/bigvee/1","macros":{"\\VERT":"|"},"tex":"\\bigvee"}
+{"count":1,"display":false,"id":"katex-support-table/bigwedge/1","macros":{"\\VERT":"|"},"tex":"\\bigwedge"}
+{"count":1,"display":false,"id":"katex-support-table/binom/1","macros":{"\\VERT":"|"},"tex":"\\binom n k"}
+{"count":1,"display":false,"id":"katex-support-table/blacklozenge/1","macros":{"\\VERT":"|"},"tex":"\\blacklozenge"}
+{"count":1,"display":false,"id":"katex-support-table/blacksquare/1","macros":{"\\VERT":"|"},"tex":"\\blacksquare"}
+{"count":1,"display":false,"id":"katex-support-table/blacktriangle/1","macros":{"\\VERT":"|"},"tex":"\\blacktriangle"}
+{"count":1,"display":false,"id":"katex-support-table/blacktriangledown/1","macros":{"\\VERT":"|"},"tex":"\\blacktriangledown"}
+{"count":1,"display":false,"id":"katex-support-table/blacktriangleleft/1","macros":{"\\VERT":"|"},"tex":"\\blacktriangleleft"}
+{"count":1,"display":false,"id":"katex-support-table/blacktriangleright/1","macros":{"\\VERT":"|"},"tex":"\\blacktriangleright"}
+{"count":1,"display":false,"id":"katex-support-table/bm/1","macros":{"\\VERT":"|"},"tex":"\\bm{AaBb}"}
+{"count":1,"display":false,"id":"katex-support-table/{Bmatrix}/1","macros":{"\\VERT":"|"},"tex":"\\begin{Bmatrix}a&b\\\\c&d\\end{Bmatrix}"}
+{"count":1,"display":false,"id":"katex-support-table/{Bmatrix*}/1","macros":{"\\VERT":"|"},"tex":"\\begin{Bmatrix*}[r]0&-1\\\\-1&0\\end{Bmatrix*}"}
+{"count":1,"display":false,"id":"katex-support-table/{bmatrix}/1","macros":{"\\VERT":"|"},"tex":"\\begin{bmatrix}a&b\\\\c&d\\end{bmatrix}"}
+{"count":1,"display":false,"id":"katex-support-table/{bmatrix*}/1","macros":{"\\VERT":"|"},"tex":"\\begin{bmatrix*}[r]0&-1\\\\-1&0\\end{bmatrix*}"}
+{"count":1,"display":false,"id":"katex-support-table/bmod/1","macros":{"\\VERT":"|"},"tex":"a \\bmod b"}
+{"count":1,"display":false,"id":"katex-support-table/bold/1","macros":{"\\VERT":"|"},"tex":"\\bold{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/boldsymbol/1","macros":{"\\VERT":"|"},"tex":"\\boldsymbol{AaBb}"}
+{"count":1,"display":false,"id":"katex-support-table/bot/1","macros":{"\\VERT":"|"},"tex":"\\bot"}
+{"count":1,"display":false,"id":"katex-support-table/bowtie/1","macros":{"\\VERT":"|"},"tex":"\\bowtie"}
+{"count":1,"display":false,"id":"katex-support-table/Box/1","macros":{"\\VERT":"|"},"tex":"\\Box"}
+{"count":1,"display":false,"id":"katex-support-table/boxdot/1","macros":{"\\VERT":"|"},"tex":"\\boxdot"}
+{"count":1,"display":false,"id":"katex-support-table/boxed/1","macros":{"\\VERT":"|"},"tex":"\\boxed{ab}"}
+{"count":1,"display":false,"id":"katex-support-table/boxminus/1","macros":{"\\VERT":"|"},"tex":"\\boxminus"}
+{"count":1,"display":false,"id":"katex-support-table/boxplus/1","macros":{"\\VERT":"|"},"tex":"\\boxplus"}
+{"count":1,"display":false,"id":"katex-support-table/boxtimes/1","macros":{"\\VERT":"|"},"tex":"\\boxtimes"}
+{"count":1,"display":false,"id":"katex-support-table/Bra/1","macros":{"\\VERT":"|"},"tex":"\\Bra{\\psi}"}
+{"count":1,"display":false,"id":"katex-support-table/bra/1","macros":{"\\VERT":"|"},"tex":"\\bra{\\psi}"}
+{"count":1,"display":false,"id":"katex-support-table/braket/1","macros":{"\\VERT":"|"},"tex":"\\braket{\\phi\\VERT\\psi}"}
+{"count":1,"display":false,"id":"katex-support-table/Braket/1","macros":{"\\VERT":"|"},"tex":"\\Braket{ ϕ \\VERT \\frac{∂^2}{∂ t^2} \\VERT ψ }"}
+{"count":1,"display":false,"id":"katex-support-table/brace/1","macros":{"\\VERT":"|"},"tex":"{n\\brace k}"}
+{"count":1,"display":false,"id":"katex-support-table/brack/1","macros":{"\\VERT":"|"},"tex":"{n\\brack k}"}
+{"count":1,"display":false,"id":"katex-support-table/breve/1","macros":{"\\VERT":"|"},"tex":"\\breve{eu}"}
+{"count":1,"display":false,"id":"katex-support-table/bull/1","macros":{"\\VERT":"|"},"tex":"\\bull"}
+{"count":1,"display":false,"id":"katex-support-table/bullet/1","macros":{"\\VERT":"|"},"tex":"\\bullet"}
+{"count":1,"display":false,"id":"katex-support-table/Bumpeq/1","macros":{"\\VERT":"|"},"tex":"\\Bumpeq"}
+{"count":1,"display":false,"id":"katex-support-table/bumpeq/1","macros":{"\\VERT":"|"},"tex":"\\bumpeq"}
+{"count":1,"display":false,"id":"katex-support-table/cal/1","macros":{"\\VERT":"|"},"tex":"\\cal AaBb123"}
+{"count":1,"display":false,"id":"katex-support-table/cancel/1","macros":{"\\VERT":"|"},"tex":"\\cancel{5}"}
+{"count":1,"display":false,"id":"katex-support-table/Cap/1","macros":{"\\VERT":"|"},"tex":"\\Cap"}
+{"count":1,"display":false,"id":"katex-support-table/cap/1","macros":{"\\VERT":"|"},"tex":"\\cap"}
+{"count":1,"display":false,"id":"katex-support-table/{cases}/1","macros":{"\\VERT":"|"},"tex":"\\begin{cases}a&\\text{if }b\\\\c&\\text{if }d\\end{cases}"}
+{"count":1,"display":true,"id":"katex-support-table/{CD}/1","macros":{"\\VERT":"|"},"tex":"\\begin{CD}A @>a>> B \\\\@VbVV @AAcA\\\\C @= D\\end{CD}"}
+{"count":1,"display":false,"id":"katex-support-table/cdot/1","macros":{"\\VERT":"|"},"tex":"\\cdot"}
+{"count":1,"display":false,"id":"katex-support-table/cdotp/1","macros":{"\\VERT":"|"},"tex":"\\cdotp"}
+{"count":1,"display":false,"id":"katex-support-table/cdots/1","macros":{"\\VERT":"|"},"tex":"\\cdots"}
+{"count":1,"display":false,"id":"katex-support-table/ce /1","macros":{"\\VERT":"|"},"tex":"{\\mathrm{C}{\\vphantom{X}}_{\\smash[t]{6}}\\mathrm{H}{\\vphantom{X}}_{\\smash[t]{5}}{-}\\mathrm{CHO}}"}
+{"count":1,"display":false,"id":"katex-support-table/centerdot/1","macros":{"\\VERT":"|"},"tex":"a\\centerdot b"}
+{"count":1,"display":false,"id":"katex-support-table/cfrac/1","macros":{"\\VERT":"|"},"tex":"\\cfrac{2}{1+\\cfrac{2}{1+\\cfrac{2}{1}}}"}
+{"count":1,"display":false,"id":"katex-support-table/char/1","macros":{"\\VERT":"|"},"tex":"\\char\"263a"}
+{"count":1,"display":false,"id":"katex-support-table/check/1","macros":{"\\VERT":"|"},"tex":"\\check{oe}"}
+{"count":1,"display":false,"id":"katex-support-table/ch/1","macros":{"\\VERT":"|"},"tex":"\\ch"}
+{"count":1,"display":false,"id":"katex-support-table/checkmark/1","macros":{"\\VERT":"|"},"tex":"\\checkmark"}
+{"count":1,"display":false,"id":"katex-support-table/Chi/1","macros":{"\\VERT":"|"},"tex":"\\Chi"}
+{"count":1,"display":false,"id":"katex-support-table/chi/1","macros":{"\\VERT":"|"},"tex":"\\chi"}
+{"count":1,"display":false,"id":"katex-support-table/choose/1","macros":{"\\VERT":"|"},"tex":"{n+1 \\choose k+2}"}
+{"count":1,"display":false,"id":"katex-support-table/circ/1","macros":{"\\VERT":"|"},"tex":"\\circ"}
+{"count":1,"display":false,"id":"katex-support-table/circeq/1","macros":{"\\VERT":"|"},"tex":"\\circeq"}
+{"count":1,"display":false,"id":"katex-support-table/circlearrowleft/1","macros":{"\\VERT":"|"},"tex":"\\circlearrowleft"}
+{"count":1,"display":false,"id":"katex-support-table/circlearrowright/1","macros":{"\\VERT":"|"},"tex":"\\circlearrowright"}
+{"count":1,"display":false,"id":"katex-support-table/circledast/1","macros":{"\\VERT":"|"},"tex":"\\circledast"}
+{"count":1,"display":false,"id":"katex-support-table/circledcirc/1","macros":{"\\VERT":"|"},"tex":"\\circledcirc"}
+{"count":1,"display":false,"id":"katex-support-table/circleddash/1","macros":{"\\VERT":"|"},"tex":"\\circleddash"}
+{"count":1,"display":false,"id":"katex-support-table/circledR/1","macros":{"\\VERT":"|"},"tex":"\\circledR"}
+{"count":1,"display":false,"id":"katex-support-table/circledS/1","macros":{"\\VERT":"|"},"tex":"\\circledS"}
+{"count":1,"display":false,"id":"katex-support-table/clubs/1","macros":{"\\VERT":"|"},"tex":"\\clubs"}
+{"count":1,"display":false,"id":"katex-support-table/clubsuit/1","macros":{"\\VERT":"|"},"tex":"\\clubsuit"}
+{"count":1,"display":false,"id":"katex-support-table/cnums/1","macros":{"\\VERT":"|"},"tex":"\\cnums"}
+{"count":1,"display":false,"id":"katex-support-table/colon/1","macros":{"\\VERT":"|"},"tex":"\\colon"}
+{"count":1,"display":false,"id":"katex-support-table/Colonapprox/1","macros":{"\\VERT":"|"},"tex":"\\Colonapprox"}
+{"count":1,"display":false,"id":"katex-support-table/colonapprox/1","macros":{"\\VERT":"|"},"tex":"\\colonapprox"}
+{"count":1,"display":false,"id":"katex-support-table/coloncolon/1","macros":{"\\VERT":"|"},"tex":"\\coloncolon"}
+{"count":1,"display":false,"id":"katex-support-table/coloncolonapprox/1","macros":{"\\VERT":"|"},"tex":"\\coloncolonapprox"}
+{"count":1,"display":false,"id":"katex-support-table/coloncolonequals/1","macros":{"\\VERT":"|"},"tex":"\\coloncolonequals"}
+{"count":1,"display":false,"id":"katex-support-table/coloncolonminus/1","macros":{"\\VERT":"|"},"tex":"\\coloncolonminus"}
+{"count":1,"display":false,"id":"katex-support-table/coloncolonsim/1","macros":{"\\VERT":"|"},"tex":"\\coloncolonsim"}
+{"count":1,"display":false,"id":"katex-support-table/Coloneq/1","macros":{"\\VERT":"|"},"tex":"\\Coloneq"}
+{"count":1,"display":false,"id":"katex-support-table/coloneq/1","macros":{"\\VERT":"|"},"tex":"\\coloneq"}
+{"count":1,"display":false,"id":"katex-support-table/colonequals/1","macros":{"\\VERT":"|"},"tex":"\\colonequals"}
+{"count":1,"display":false,"id":"katex-support-table/Coloneqq/1","macros":{"\\VERT":"|"},"tex":"\\Coloneqq"}
+{"count":1,"display":false,"id":"katex-support-table/coloneqq/1","macros":{"\\VERT":"|"},"tex":"\\coloneqq"}
+{"count":1,"display":false,"id":"katex-support-table/colonminus/1","macros":{"\\VERT":"|"},"tex":"\\colonminus"}
+{"count":1,"display":false,"id":"katex-support-table/Colonsim/1","macros":{"\\VERT":"|"},"tex":"\\Colonsim"}
+{"count":1,"display":false,"id":"katex-support-table/colonsim/1","macros":{"\\VERT":"|"},"tex":"\\colonsim"}
+{"count":1,"display":false,"id":"katex-support-table/color/1","macros":{"\\VERT":"|"},"tex":"\\color{#0000FF} AaBb123"}
+{"count":1,"display":false,"id":"katex-support-table/colorbox/1","macros":{"\\VERT":"|"},"tex":"\\colorbox{red}{Black on red}"}
+{"count":1,"display":false,"id":"katex-support-table/complement/1","macros":{"\\VERT":"|"},"tex":"\\complement"}
+{"count":1,"display":false,"id":"katex-support-table/Complex/1","macros":{"\\VERT":"|"},"tex":"\\Complex"}
+{"count":1,"display":false,"id":"katex-support-table/cong/1","macros":{"\\VERT":"|"},"tex":"\\cong"}
+{"count":1,"display":false,"id":"katex-support-table/coprod/1","macros":{"\\VERT":"|"},"tex":"\\coprod"}
+{"count":1,"display":false,"id":"katex-support-table/copyright/1","macros":{"\\VERT":"|"},"tex":"\\copyright"}
+{"count":1,"display":false,"id":"katex-support-table/cos/1","macros":{"\\VERT":"|"},"tex":"\\cos"}
+{"count":1,"display":false,"id":"katex-support-table/cosec/1","macros":{"\\VERT":"|"},"tex":"\\cosec"}
+{"count":1,"display":false,"id":"katex-support-table/cosh/1","macros":{"\\VERT":"|"},"tex":"\\cosh"}
+{"count":1,"display":false,"id":"katex-support-table/cot/1","macros":{"\\VERT":"|"},"tex":"\\cot"}
+{"count":1,"display":false,"id":"katex-support-table/cotg/1","macros":{"\\VERT":"|"},"tex":"\\cotg"}
+{"count":1,"display":false,"id":"katex-support-table/coth/1","macros":{"\\VERT":"|"},"tex":"\\coth"}
+{"count":1,"display":false,"id":"katex-support-table/csc/1","macros":{"\\VERT":"|"},"tex":"\\csc"}
+{"count":1,"display":false,"id":"katex-support-table/ctg/1","macros":{"\\VERT":"|"},"tex":"\\ctg"}
+{"count":1,"display":false,"id":"katex-support-table/cth/1","macros":{"\\VERT":"|"},"tex":"\\cth"}
+{"count":1,"display":false,"id":"katex-support-table/Cup/1","macros":{"\\VERT":"|"},"tex":"\\Cup"}
+{"count":1,"display":false,"id":"katex-support-table/cup/1","macros":{"\\VERT":"|"},"tex":"\\cup"}
+{"count":1,"display":false,"id":"katex-support-table/curlyeqprec/1","macros":{"\\VERT":"|"},"tex":"\\curlyeqprec"}
+{"count":1,"display":false,"id":"katex-support-table/curlyeqsucc/1","macros":{"\\VERT":"|"},"tex":"\\curlyeqsucc"}
+{"count":1,"display":false,"id":"katex-support-table/curlyvee/1","macros":{"\\VERT":"|"},"tex":"\\curlyvee"}
+{"count":1,"display":false,"id":"katex-support-table/curlywedge/1","macros":{"\\VERT":"|"},"tex":"\\curlywedge"}
+{"count":1,"display":false,"id":"katex-support-table/curvearrowleft/1","macros":{"\\VERT":"|"},"tex":"\\curvearrowleft"}
+{"count":1,"display":false,"id":"katex-support-table/curvearrowright/1","macros":{"\\VERT":"|"},"tex":"\\curvearrowright"}
+{"count":1,"display":false,"id":"katex-support-table/dag/1","macros":{"\\VERT":"|"},"tex":"\\dag"}
+{"count":1,"display":false,"id":"katex-support-table/Dagger/1","macros":{"\\VERT":"|"},"tex":"\\Dagger"}
+{"count":1,"display":false,"id":"katex-support-table/dagger/1","macros":{"\\VERT":"|"},"tex":"\\dagger"}
+{"count":1,"display":false,"id":"katex-support-table/daleth/1","macros":{"\\VERT":"|"},"tex":"\\daleth"}
+{"count":1,"display":false,"id":"katex-support-table/Darr/1","macros":{"\\VERT":"|"},"tex":"\\Darr"}
+{"count":1,"display":false,"id":"katex-support-table/dArr/1","macros":{"\\VERT":"|"},"tex":"\\dArr"}
+{"count":1,"display":false,"id":"katex-support-table/darr/1","macros":{"\\VERT":"|"},"tex":"\\darr"}
+{"count":1,"display":false,"id":"katex-support-table/dashleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\dashleftarrow"}
+{"count":1,"display":false,"id":"katex-support-table/dashrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\dashrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/dashv/1","macros":{"\\VERT":"|"},"tex":"\\dashv"}
+{"count":1,"display":false,"id":"katex-support-table/dbinom/1","macros":{"\\VERT":"|"},"tex":"\\dbinom n k"}
+{"count":1,"display":false,"id":"katex-support-table/dblcolon/1","macros":{"\\VERT":"|"},"tex":"\\dblcolon"}
+{"count":1,"display":false,"id":"katex-support-table/{dcases}/1","macros":{"\\VERT":"|"},"tex":"\\begin{dcases}a&\\text{if }b\\\\c&\\text{if }d\\end{dcases}"}
+{"count":1,"display":false,"id":"katex-support-table/ddag/1","macros":{"\\VERT":"|"},"tex":"\\ddag"}
+{"count":1,"display":false,"id":"katex-support-table/ddagger/1","macros":{"\\VERT":"|"},"tex":"\\ddagger"}
+{"count":1,"display":false,"id":"katex-support-table/ddddot/1","macros":{"\\VERT":"|"},"tex":"\\ddddot x"}
+{"count":1,"display":false,"id":"katex-support-table/dddot/1","macros":{"\\VERT":"|"},"tex":"\\dddot x"}
+{"count":1,"display":false,"id":"katex-support-table/ddot/1","macros":{"\\VERT":"|"},"tex":"\\ddot x"}
+{"count":1,"display":false,"id":"katex-support-table/ddots/1","macros":{"\\VERT":"|"},"tex":"\\ddots"}
+{"count":1,"display":false,"id":"katex-support-table/def/1","macros":{"\\VERT":"|"},"tex":"\\def\\foo{x^2} \\foo + \\foo"}
+{"count":1,"display":false,"id":"katex-support-table/deg/1","macros":{"\\VERT":"|"},"tex":"\\deg"}
+{"count":1,"display":false,"id":"katex-support-table/degree/1","macros":{"\\VERT":"|"},"tex":"\\degree"}
+{"count":1,"display":false,"id":"katex-support-table/delta/1","macros":{"\\VERT":"|"},"tex":"\\delta"}
+{"count":1,"display":false,"id":"katex-support-table/Delta/1","macros":{"\\VERT":"|"},"tex":"\\Delta"}
+{"count":1,"display":false,"id":"katex-support-table/det/1","macros":{"\\VERT":"|"},"tex":"\\det"}
+{"count":1,"display":false,"id":"katex-support-table/digamma/1","macros":{"\\VERT":"|"},"tex":"\\digamma"}
+{"count":1,"display":false,"id":"katex-support-table/dfrac/1","macros":{"\\VERT":"|"},"tex":"\\dfrac{a-1}{b-1}"}
+{"count":1,"display":false,"id":"katex-support-table/diagdown/1","macros":{"\\VERT":"|"},"tex":"\\diagdown"}
+{"count":1,"display":false,"id":"katex-support-table/diagup/1","macros":{"\\VERT":"|"},"tex":"\\diagup"}
+{"count":1,"display":false,"id":"katex-support-table/Diamond/1","macros":{"\\VERT":"|"},"tex":"\\Diamond"}
+{"count":1,"display":false,"id":"katex-support-table/diamond/1","macros":{"\\VERT":"|"},"tex":"\\diamond"}
+{"count":1,"display":false,"id":"katex-support-table/diamonds/1","macros":{"\\VERT":"|"},"tex":"\\diamonds"}
+{"count":1,"display":false,"id":"katex-support-table/diamondsuit/1","macros":{"\\VERT":"|"},"tex":"\\diamondsuit"}
+{"count":1,"display":false,"id":"katex-support-table/dim/1","macros":{"\\VERT":"|"},"tex":"\\dim"}
+{"count":1,"display":false,"id":"katex-support-table/displaystyle/1","macros":{"\\VERT":"|"},"tex":"\\displaystyle\\sum_0^n"}
+{"count":1,"display":false,"id":"katex-support-table/div/1","macros":{"\\VERT":"|"},"tex":"\\div"}
+{"count":1,"display":false,"id":"katex-support-table/divideontimes/1","macros":{"\\VERT":"|"},"tex":"\\divideontimes"}
+{"count":1,"display":false,"id":"katex-support-table/dot/1","macros":{"\\VERT":"|"},"tex":"\\dot x"}
+{"count":1,"display":false,"id":"katex-support-table/Doteq/1","macros":{"\\VERT":"|"},"tex":"\\Doteq"}
+{"count":1,"display":false,"id":"katex-support-table/doteq/1","macros":{"\\VERT":"|"},"tex":"\\doteq"}
+{"count":1,"display":false,"id":"katex-support-table/doteqdot/1","macros":{"\\VERT":"|"},"tex":"\\doteqdot"}
+{"count":1,"display":false,"id":"katex-support-table/dotplus/1","macros":{"\\VERT":"|"},"tex":"\\dotplus"}
+{"count":1,"display":false,"id":"katex-support-table/dots/1","macros":{"\\VERT":"|"},"tex":"x_1 + \\dots + x_n"}
+{"count":1,"display":false,"id":"katex-support-table/dotsb/1","macros":{"\\VERT":"|"},"tex":"x_1 +\\dotsb + x_n"}
+{"count":1,"display":false,"id":"katex-support-table/dotsc/1","macros":{"\\VERT":"|"},"tex":"x,\\dotsc,y"}
+{"count":1,"display":true,"id":"katex-support-table/dotsi/1","macros":{"\\VERT":"|"},"tex":"\\int_{A_1}\\int_{A_2}\\dotsi"}
+{"count":1,"display":false,"id":"katex-support-table/dotsm/1","macros":{"\\VERT":"|"},"tex":"x_1 x_2 \\dotsm x_n"}
+{"count":1,"display":false,"id":"katex-support-table/dotso/1","macros":{"\\VERT":"|"},"tex":"\\dotso"}
+{"count":1,"display":false,"id":"katex-support-table/doublebarwedge/1","macros":{"\\VERT":"|"},"tex":"\\doublebarwedge"}
+{"count":1,"display":false,"id":"katex-support-table/doublecap/1","macros":{"\\VERT":"|"},"tex":"\\doublecap"}
+{"count":1,"display":false,"id":"katex-support-table/doublecup/1","macros":{"\\VERT":"|"},"tex":"\\doublecup"}
+{"count":1,"display":false,"id":"katex-support-table/Downarrow/1","macros":{"\\VERT":"|"},"tex":"\\Downarrow"}
+{"count":1,"display":false,"id":"katex-support-table/downarrow/1","macros":{"\\VERT":"|"},"tex":"\\downarrow"}
+{"count":1,"display":false,"id":"katex-support-table/downdownarrows/1","macros":{"\\VERT":"|"},"tex":"\\downdownarrows"}
+{"count":1,"display":false,"id":"katex-support-table/downharpoonleft/1","macros":{"\\VERT":"|"},"tex":"\\downharpoonleft"}
+{"count":1,"display":false,"id":"katex-support-table/downharpoonright/1","macros":{"\\VERT":"|"},"tex":"\\downharpoonright"}
+{"count":1,"display":false,"id":"katex-support-table/{drcases}/1","macros":{"\\VERT":"|"},"tex":"\\begin{drcases}a&\\text{if }b\\\\c&\\text{if }d\\end{drcases}"}
+{"count":1,"display":false,"id":"katex-support-table/edef/1","macros":{"\\VERT":"|"},"tex":"\\def\\foo{a}\\edef\\fcopy{\\foo}\\def\\foo{}\\fcopy"}
+{"count":1,"display":false,"id":"katex-support-table/ell/1","macros":{"\\VERT":"|"},"tex":"\\ell"}
+{"count":1,"display":false,"id":"katex-support-table/emph/1","macros":{"\\VERT":"|"},"tex":"\\emph{nested \\emph{emphasis}}"}
+{"count":1,"display":false,"id":"katex-support-table/empty/1","macros":{"\\VERT":"|"},"tex":"\\empty"}
+{"count":1,"display":false,"id":"katex-support-table/emptyset/1","macros":{"\\VERT":"|"},"tex":"\\emptyset"}
+{"count":1,"display":false,"id":"katex-support-table/endgroup/1","macros":{"\\VERT":"|"},"tex":"{a\\endgroup"}
+{"count":1,"display":false,"id":"katex-support-table/enspace/1","macros":{"\\VERT":"|"},"tex":"a\\enspace b"}
+{"count":1,"display":false,"id":"katex-support-table/Epsilon/1","macros":{"\\VERT":"|"},"tex":"\\Epsilon"}
+{"count":1,"display":false,"id":"katex-support-table/epsilon/1","macros":{"\\VERT":"|"},"tex":"\\epsilon"}
+{"count":1,"display":false,"id":"katex-support-table/eqcirc/1","macros":{"\\VERT":"|"},"tex":"\\eqcirc"}
+{"count":1,"display":false,"id":"katex-support-table/Eqcolon/1","macros":{"\\VERT":"|"},"tex":"\\Eqcolon"}
+{"count":1,"display":false,"id":"katex-support-table/eqcolon/1","macros":{"\\VERT":"|"},"tex":"\\eqcolon"}
+{"count":1,"display":true,"id":"katex-support-table/{equation}/1","macros":{"\\VERT":"|"},"tex":"\\begin{equation}a = b + c\\end{equation}"}
+{"count":1,"display":true,"id":"katex-support-table/{equation*}/1","macros":{"\\VERT":"|"},"tex":"\\begin{equation*}a = b + c\\end{equation*}"}
+{"count":1,"display":false,"id":"katex-support-table/Eqqcolon/1","macros":{"\\VERT":"|"},"tex":"\\Eqqcolon"}
+{"count":1,"display":false,"id":"katex-support-table/eqqcolon/1","macros":{"\\VERT":"|"},"tex":"\\eqqcolon"}
+{"count":1,"display":false,"id":"katex-support-table/eqsim/1","macros":{"\\VERT":"|"},"tex":"\\eqsim"}
+{"count":1,"display":false,"id":"katex-support-table/eqslantgtr/1","macros":{"\\VERT":"|"},"tex":"\\eqslantgtr"}
+{"count":1,"display":false,"id":"katex-support-table/eqslantless/1","macros":{"\\VERT":"|"},"tex":"\\eqslantless"}
+{"count":1,"display":false,"id":"katex-support-table/equalscolon/1","macros":{"\\VERT":"|"},"tex":"\\equalscolon"}
+{"count":1,"display":false,"id":"katex-support-table/equalscoloncolon/1","macros":{"\\VERT":"|"},"tex":"\\equalscoloncolon"}
+{"count":1,"display":false,"id":"katex-support-table/equiv/1","macros":{"\\VERT":"|"},"tex":"\\equiv"}
+{"count":1,"display":false,"id":"katex-support-table/Eta/1","macros":{"\\VERT":"|"},"tex":"\\Eta"}
+{"count":1,"display":false,"id":"katex-support-table/eta/1","macros":{"\\VERT":"|"},"tex":"\\eta"}
+{"count":1,"display":false,"id":"katex-support-table/eth/1","macros":{"\\VERT":"|"},"tex":"\\eth"}
+{"count":1,"display":false,"id":"katex-support-table/exist/1","macros":{"\\VERT":"|"},"tex":"\\exist"}
+{"count":1,"display":false,"id":"katex-support-table/exists/1","macros":{"\\VERT":"|"},"tex":"\\exists"}
+{"count":1,"display":false,"id":"katex-support-table/exp/1","macros":{"\\VERT":"|"},"tex":"\\exp"}
+{"count":1,"display":false,"id":"katex-support-table/fallingdotseq/1","macros":{"\\VERT":"|"},"tex":"\\fallingdotseq"}
+{"count":1,"display":false,"id":"katex-support-table/fbox/1","macros":{"\\VERT":"|"},"tex":"\\fbox{Hi there!}"}
+{"count":1,"display":false,"id":"katex-support-table/fcolorbox/1","macros":{"\\VERT":"|"},"tex":"\\fcolorbox{red}{aqua}{A}"}
+{"count":1,"display":false,"id":"katex-support-table/Finv/1","macros":{"\\VERT":"|"},"tex":"\\Finv"}
+{"count":1,"display":false,"id":"katex-support-table/flat/1","macros":{"\\VERT":"|"},"tex":"\\flat"}
+{"count":1,"display":false,"id":"katex-support-table/footnotesize/1","macros":{"\\VERT":"|"},"tex":"\\footnotesize footnotesize"}
+{"count":1,"display":false,"id":"katex-support-table/forall/1","macros":{"\\VERT":"|"},"tex":"\\forall"}
+{"count":1,"display":false,"id":"katex-support-table/frac/1","macros":{"\\VERT":"|"},"tex":"\\frac a b"}
+{"count":1,"display":false,"id":"katex-support-table/frak/1","macros":{"\\VERT":"|"},"tex":"\\frak{AaBb}"}
+{"count":1,"display":false,"id":"katex-support-table/frown/1","macros":{"\\VERT":"|"},"tex":"\\frown"}
+{"count":1,"display":false,"id":"katex-support-table/Game/1","macros":{"\\VERT":"|"},"tex":"\\Game"}
+{"count":1,"display":false,"id":"katex-support-table/Gamma/1","macros":{"\\VERT":"|"},"tex":"\\Gamma"}
+{"count":1,"display":false,"id":"katex-support-table/gamma/1","macros":{"\\VERT":"|"},"tex":"\\gamma"}
+{"count":1,"display":true,"id":"katex-support-table/{gather}/1","macros":{"\\VERT":"|"},"tex":"\\begin{gather}a=b\\\\e=b+c\\end{gather}"}
+{"count":1,"display":false,"id":"katex-support-table/{gathered}/1","macros":{"\\VERT":"|"},"tex":"\\begin{gathered}a=b\\\\e=b+c\\end{gathered}"}
+{"count":1,"display":false,"id":"katex-support-table/gcd/1","macros":{"\\VERT":"|"},"tex":"\\gcd"}
+{"count":1,"display":false,"id":"katex-support-table/gdef/1","macros":{"\\VERT":"|"},"tex":"\\gdef\\sqr#1{#1^2} \\sqr{y} + \\sqr{y}"}
+{"count":1,"display":false,"id":"katex-support-table/ge/1","macros":{"\\VERT":"|"},"tex":"\\ge"}
+{"count":1,"display":false,"id":"katex-support-table/genfrac/1","macros":{"\\VERT":"|"},"tex":"\\genfrac ( ] {2pt}{0}a{a+1}"}
+{"count":1,"display":false,"id":"katex-support-table/geq/1","macros":{"\\VERT":"|"},"tex":"\\geq"}
+{"count":1,"display":false,"id":"katex-support-table/geqq/1","macros":{"\\VERT":"|"},"tex":"\\geqq"}
+{"count":1,"display":false,"id":"katex-support-table/geqslant/1","macros":{"\\VERT":"|"},"tex":"\\geqslant"}
+{"count":1,"display":false,"id":"katex-support-table/gets/1","macros":{"\\VERT":"|"},"tex":"\\gets"}
+{"count":1,"display":false,"id":"katex-support-table/gg/1","macros":{"\\VERT":"|"},"tex":"\\gg"}
+{"count":1,"display":false,"id":"katex-support-table/ggg/1","macros":{"\\VERT":"|"},"tex":"\\ggg"}
+{"count":1,"display":false,"id":"katex-support-table/gggtr/1","macros":{"\\VERT":"|"},"tex":"\\gggtr"}
+{"count":1,"display":false,"id":"katex-support-table/gimel/1","macros":{"\\VERT":"|"},"tex":"\\gimel"}
+{"count":1,"display":false,"id":"katex-support-table/global/1","macros":{"\\VERT":"|"},"tex":"\\global\\def\\add#1#2{#1+#2} \\add 2 3"}
+{"count":1,"display":false,"id":"katex-support-table/gnapprox/1","macros":{"\\VERT":"|"},"tex":"\\gnapprox"}
+{"count":1,"display":false,"id":"katex-support-table/gneq/1","macros":{"\\VERT":"|"},"tex":"\\gneq"}
+{"count":1,"display":false,"id":"katex-support-table/gneqq/1","macros":{"\\VERT":"|"},"tex":"\\gneqq"}
+{"count":1,"display":false,"id":"katex-support-table/gnsim/1","macros":{"\\VERT":"|"},"tex":"\\gnsim"}
+{"count":1,"display":false,"id":"katex-support-table/grave/1","macros":{"\\VERT":"|"},"tex":"\\grave{eu}"}
+{"count":1,"display":false,"id":"katex-support-table/gt/1","macros":{"\\VERT":"|"},"tex":"a \\gt b"}
+{"count":1,"display":false,"id":"katex-support-table/gtrdot/1","macros":{"\\VERT":"|"},"tex":"\\gtrdot"}
+{"count":1,"display":false,"id":"katex-support-table/gtrapprox/1","macros":{"\\VERT":"|"},"tex":"\\gtrapprox"}
+{"count":1,"display":false,"id":"katex-support-table/gtreqless/1","macros":{"\\VERT":"|"},"tex":"\\gtreqless"}
+{"count":1,"display":false,"id":"katex-support-table/gtreqqless/1","macros":{"\\VERT":"|"},"tex":"\\gtreqqless"}
+{"count":1,"display":false,"id":"katex-support-table/gtrless/1","macros":{"\\VERT":"|"},"tex":"\\gtrless"}
+{"count":1,"display":false,"id":"katex-support-table/gtrsim/1","macros":{"\\VERT":"|"},"tex":"\\gtrsim"}
+{"count":1,"display":false,"id":"katex-support-table/gvertneqq/1","macros":{"\\VERT":"|"},"tex":"\\gvertneqq"}
+{"count":1,"display":false,"id":"katex-support-table/H/1","macros":{"\\VERT":"|"},"tex":"\\text{\\H{a}}"}
+{"count":1,"display":false,"id":"katex-support-table/Harr/1","macros":{"\\VERT":"|"},"tex":"\\Harr"}
+{"count":1,"display":false,"id":"katex-support-table/hArr/1","macros":{"\\VERT":"|"},"tex":"\\hArr"}
+{"count":1,"display":false,"id":"katex-support-table/harr/1","macros":{"\\VERT":"|"},"tex":"\\harr"}
+{"count":1,"display":false,"id":"katex-support-table/hat/1","macros":{"\\VERT":"|"},"tex":"\\hat{\\theta}"}
+{"count":1,"display":false,"id":"katex-support-table/hbar/1","macros":{"\\VERT":"|"},"tex":"\\hbar"}
+{"count":1,"display":false,"id":"katex-support-table/hbox/1","macros":{"\\VERT":"|"},"tex":"\\hbox{"}
+{"count":2,"display":false,"id":"katex-support-table/hbox/2","macros":{"\\VERT":"|"},"tex":"}"}
+{"count":1,"display":false,"id":"katex-support-table/hdashline/1","macros":{"\\VERT":"|"},"tex":"\\begin{matrix}a&b\\\\ \\hdashline c &d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-support-table/hearts/1","macros":{"\\VERT":"|"},"tex":"\\hearts"}
+{"count":1,"display":false,"id":"katex-support-table/heartsuit/1","macros":{"\\VERT":"|"},"tex":"\\heartsuit"}
+{"count":1,"display":false,"id":"katex-support-table/hline/1","macros":{"\\VERT":"|"},"tex":"\\begin{matrix}a&b\\\\ \\hline c &d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-support-table/hom/1","macros":{"\\VERT":"|"},"tex":"\\hom"}
+{"count":1,"display":false,"id":"katex-support-table/hookleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\hookleftarrow"}
+{"count":1,"display":false,"id":"katex-support-table/hookrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\hookrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/hphantom/1","macros":{"\\VERT":"|"},"tex":"a\\hphantom{bc}d"}
+{"count":1,"display":false,"id":"katex-support-table/href/1","macros":{"\\VERT":"|"},"tex":"\\href{https://katex.org/}{\\KaTeX}"}
+{"count":1,"display":false,"id":"katex-support-table/hskip/1","macros":{"\\VERT":"|"},"tex":"w\\hskip1em i\\hskip2em d"}
+{"count":1,"display":false,"id":"katex-support-table/hslash/1","macros":{"\\VERT":"|"},"tex":"\\hslash"}
+{"count":1,"display":false,"id":"katex-support-table/hspace/1","macros":{"\\VERT":"|"},"tex":"s\\hspace7ex k"}
+{"count":1,"display":false,"id":"katex-support-table/htmlClass/1","macros":{"\\VERT":"|"},"tex":"\\htmlClass{foo}{x}"}
+{"count":1,"display":false,"id":"katex-support-table/htmlData/1","macros":{"\\VERT":"|"},"tex":"\\htmlData{foo=a, bar=b}{x}"}
+{"count":1,"display":false,"id":"katex-support-table/htmlId/1","macros":{"\\VERT":"|"},"tex":"\\htmlId{bar}{x}"}
+{"count":1,"display":false,"id":"katex-support-table/htmlStyle/1","macros":{"\\VERT":"|"},"tex":"\\htmlStyle{color: red;}{x}"}
+{"count":1,"display":false,"id":"katex-support-table/huge/1","macros":{"\\VERT":"|"},"tex":"\\huge huge"}
+{"count":1,"display":false,"id":"katex-support-table/Huge/1","macros":{"\\VERT":"|"},"tex":"\\Huge Huge"}
+{"count":1,"display":false,"id":"katex-support-table/i/1","macros":{"\\VERT":"|"},"tex":"\\text{\\i}"}
+{"count":1,"display":false,"id":"katex-support-table/iff/1","macros":{"\\VERT":"|"},"tex":"A\\iff B"}
+{"count":1,"display":false,"id":"katex-support-table/iiint/1","macros":{"\\VERT":"|"},"tex":"\\iiint"}
+{"count":1,"display":false,"id":"katex-support-table/iint/1","macros":{"\\VERT":"|"},"tex":"\\iint"}
+{"count":1,"display":false,"id":"katex-support-table/Im/1","macros":{"\\VERT":"|"},"tex":"\\Im"}
+{"count":1,"display":false,"id":"katex-support-table/image/1","macros":{"\\VERT":"|"},"tex":"\\image"}
+{"count":1,"display":false,"id":"katex-support-table/imageof/1","macros":{"\\VERT":"|"},"tex":"\\imageof"}
+{"count":1,"display":false,"id":"katex-support-table/imath/1","macros":{"\\VERT":"|"},"tex":"\\imath"}
+{"count":1,"display":false,"id":"katex-support-table/impliedby/1","macros":{"\\VERT":"|"},"tex":"P\\impliedby Q"}
+{"count":1,"display":false,"id":"katex-support-table/implies/1","macros":{"\\VERT":"|"},"tex":"P\\implies Q"}
+{"count":1,"display":false,"id":"katex-support-table/in/1","macros":{"\\VERT":"|"},"tex":"\\in"}
+{"count":1,"display":false,"id":"katex-support-table/includegraphics/1","macros":{"\\VERT":"|"},"tex":"\\includegraphics[height=0.8em, totalheight=0.9em, width=0.9em, alt=KA logo]{https://cdn.kastatic.org/images/apple-touch-icon-57x57-precomposed.new.png}"}
+{"count":1,"display":false,"id":"katex-support-table/inf/1","macros":{"\\VERT":"|"},"tex":"\\inf"}
+{"count":1,"display":false,"id":"katex-support-table/infin/1","macros":{"\\VERT":"|"},"tex":"\\infin"}
+{"count":1,"display":false,"id":"katex-support-table/infty/1","macros":{"\\VERT":"|"},"tex":"\\infty"}
+{"count":1,"display":false,"id":"katex-support-table/injlim/1","macros":{"\\VERT":"|"},"tex":"\\injlim"}
+{"count":1,"display":false,"id":"katex-support-table/int/1","macros":{"\\VERT":"|"},"tex":"\\int"}
+{"count":1,"display":false,"id":"katex-support-table/intercal/1","macros":{"\\VERT":"|"},"tex":"\\intercal"}
+{"count":1,"display":false,"id":"katex-support-table/intop/1","macros":{"\\VERT":"|"},"tex":"\\intop"}
+{"count":1,"display":false,"id":"katex-support-table/Iota/1","macros":{"\\VERT":"|"},"tex":"\\Iota"}
+{"count":1,"display":false,"id":"katex-support-table/iota/1","macros":{"\\VERT":"|"},"tex":"\\iota"}
+{"count":1,"display":false,"id":"katex-support-table/isin/1","macros":{"\\VERT":"|"},"tex":"\\isin"}
+{"count":1,"display":false,"id":"katex-support-table/it/1","macros":{"\\VERT":"|"},"tex":"{\\it AaBb}"}
+{"count":1,"display":false,"id":"katex-support-table/j/1","macros":{"\\VERT":"|"},"tex":"\\text{\\j}"}
+{"count":1,"display":false,"id":"katex-support-table/jmath/1","macros":{"\\VERT":"|"},"tex":"\\jmath"}
+{"count":1,"display":false,"id":"katex-support-table/Join/1","macros":{"\\VERT":"|"},"tex":"\\Join"}
+{"count":1,"display":false,"id":"katex-support-table/Kappa/1","macros":{"\\VERT":"|"},"tex":"\\Kappa"}
+{"count":1,"display":false,"id":"katex-support-table/kappa/1","macros":{"\\VERT":"|"},"tex":"\\kappa"}
+{"count":1,"display":false,"id":"katex-support-table/KaTeX/1","macros":{"\\VERT":"|"},"tex":"\\KaTeX"}
+{"count":1,"display":false,"id":"katex-support-table/ker/1","macros":{"\\VERT":"|"},"tex":"\\ker"}
+{"count":1,"display":false,"id":"katex-support-table/kern/1","macros":{"\\VERT":"|"},"tex":"I\\kern-2.5pt R"}
+{"count":1,"display":false,"id":"katex-support-table/Ket/1","macros":{"\\VERT":"|"},"tex":"\\Ket{\\psi}"}
+{"count":1,"display":false,"id":"katex-support-table/ket/1","macros":{"\\VERT":"|"},"tex":"\\ket{\\psi}"}
+{"count":1,"display":false,"id":"katex-support-table/Lambda/1","macros":{"\\VERT":"|"},"tex":"\\Lambda"}
+{"count":1,"display":false,"id":"katex-support-table/lambda/1","macros":{"\\VERT":"|"},"tex":"\\lambda"}
+{"count":1,"display":false,"id":"katex-support-table/land/1","macros":{"\\VERT":"|"},"tex":"\\land"}
+{"count":1,"display":false,"id":"katex-support-table/lang/1","macros":{"\\VERT":"|"},"tex":"\\lang A\\rangle"}
+{"count":2,"display":false,"id":"katex-support-table/langle/1","macros":{"\\VERT":"|"},"tex":"\\langle A\\rangle"}
+{"count":1,"display":false,"id":"katex-support-table/Larr/1","macros":{"\\VERT":"|"},"tex":"\\Larr"}
+{"count":1,"display":false,"id":"katex-support-table/lArr/1","macros":{"\\VERT":"|"},"tex":"\\lArr"}
+{"count":1,"display":false,"id":"katex-support-table/larr/1","macros":{"\\VERT":"|"},"tex":"\\larr"}
+{"count":1,"display":false,"id":"katex-support-table/large/1","macros":{"\\VERT":"|"},"tex":"\\large large"}
+{"count":1,"display":false,"id":"katex-support-table/Large/1","macros":{"\\VERT":"|"},"tex":"\\Large Large"}
+{"count":1,"display":false,"id":"katex-support-table/LARGE/1","macros":{"\\VERT":"|"},"tex":"\\LARGE LARGE"}
+{"count":1,"display":false,"id":"katex-support-table/LaTeX/1","macros":{"\\VERT":"|"},"tex":"\\LaTeX"}
+{"count":1,"display":false,"id":"katex-support-table/lBrace/1","macros":{"\\VERT":"|"},"tex":"\\lBrace"}
+{"count":1,"display":false,"id":"katex-support-table/lbrace/1","macros":{"\\VERT":"|"},"tex":"\\lbrace"}
+{"count":1,"display":false,"id":"katex-support-table/lbrack/1","macros":{"\\VERT":"|"},"tex":"\\lbrack"}
+{"count":1,"display":false,"id":"katex-support-table/lceil/1","macros":{"\\VERT":"|"},"tex":"\\lceil"}
+{"count":1,"display":false,"id":"katex-support-table/ldotp/1","macros":{"\\VERT":"|"},"tex":"\\ldotp"}
+{"count":1,"display":false,"id":"katex-support-table/ldots/1","macros":{"\\VERT":"|"},"tex":"\\ldots"}
+{"count":1,"display":false,"id":"katex-support-table/le/1","macros":{"\\VERT":"|"},"tex":"\\le"}
+{"count":1,"display":false,"id":"katex-support-table/leadsto/1","macros":{"\\VERT":"|"},"tex":"\\leadsto"}
+{"count":1,"display":false,"id":"katex-support-table/left/1","macros":{"\\VERT":"|"},"tex":"\\left\\lbrace \\dfrac ab \\right."}
+{"count":1,"display":false,"id":"katex-support-table/leftarrow/1","macros":{"\\VERT":"|"},"tex":"\\leftarrow"}
+{"count":1,"display":false,"id":"katex-support-table/Leftarrow/1","macros":{"\\VERT":"|"},"tex":"\\Leftarrow"}
+{"count":1,"display":false,"id":"katex-support-table/leftarrowtail/1","macros":{"\\VERT":"|"},"tex":"\\leftarrowtail"}
+{"count":1,"display":false,"id":"katex-support-table/leftharpoondown/1","macros":{"\\VERT":"|"},"tex":"\\leftharpoondown"}
+{"count":1,"display":false,"id":"katex-support-table/leftharpoonup/1","macros":{"\\VERT":"|"},"tex":"\\leftharpoonup"}
+{"count":1,"display":false,"id":"katex-support-table/leftleftarrows/1","macros":{"\\VERT":"|"},"tex":"\\leftleftarrows"}
+{"count":1,"display":false,"id":"katex-support-table/Leftrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\Leftrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/leftrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\leftrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/leftrightarrows/1","macros":{"\\VERT":"|"},"tex":"\\leftrightarrows"}
+{"count":1,"display":false,"id":"katex-support-table/leftrightharpoons/1","macros":{"\\VERT":"|"},"tex":"\\leftrightharpoons"}
+{"count":1,"display":false,"id":"katex-support-table/leftrightsquigarrow/1","macros":{"\\VERT":"|"},"tex":"\\leftrightsquigarrow"}
+{"count":1,"display":false,"id":"katex-support-table/leftthreetimes/1","macros":{"\\VERT":"|"},"tex":"\\leftthreetimes"}
+{"count":1,"display":false,"id":"katex-support-table/leq/1","macros":{"\\VERT":"|"},"tex":"\\leq"}
+{"count":1,"display":false,"id":"katex-support-table/leqq/1","macros":{"\\VERT":"|"},"tex":"\\leqq"}
+{"count":1,"display":false,"id":"katex-support-table/leqslant/1","macros":{"\\VERT":"|"},"tex":"\\leqslant"}
+{"count":1,"display":false,"id":"katex-support-table/lessapprox/1","macros":{"\\VERT":"|"},"tex":"\\lessapprox"}
+{"count":1,"display":false,"id":"katex-support-table/lessdot/1","macros":{"\\VERT":"|"},"tex":"\\lessdot"}
+{"count":1,"display":false,"id":"katex-support-table/lesseqgtr/1","macros":{"\\VERT":"|"},"tex":"\\lesseqgtr"}
+{"count":1,"display":false,"id":"katex-support-table/lesseqqgtr/1","macros":{"\\VERT":"|"},"tex":"\\lesseqqgtr"}
+{"count":1,"display":false,"id":"katex-support-table/lessgtr/1","macros":{"\\VERT":"|"},"tex":"\\lessgtr"}
+{"count":1,"display":false,"id":"katex-support-table/lesssim/1","macros":{"\\VERT":"|"},"tex":"\\lesssim"}
+{"count":1,"display":false,"id":"katex-support-table/lfloor/1","macros":{"\\VERT":"|"},"tex":"\\lfloor"}
+{"count":1,"display":false,"id":"katex-support-table/lg/1","macros":{"\\VERT":"|"},"tex":"\\lg"}
+{"count":1,"display":false,"id":"katex-support-table/lgroup/1","macros":{"\\VERT":"|"},"tex":"\\lgroup"}
+{"count":1,"display":false,"id":"katex-support-table/lhd/1","macros":{"\\VERT":"|"},"tex":"\\lhd"}
+{"count":1,"display":false,"id":"katex-support-table/lim/1","macros":{"\\VERT":"|"},"tex":"\\lim"}
+{"count":1,"display":false,"id":"katex-support-table/liminf/1","macros":{"\\VERT":"|"},"tex":"\\liminf"}
+{"count":1,"display":false,"id":"katex-support-table/limits/1","macros":{"\\VERT":"|"},"tex":"\\lim\\limits_x"}
+{"count":1,"display":false,"id":"katex-support-table/limsup/1","macros":{"\\VERT":"|"},"tex":"\\limsup"}
+{"count":1,"display":false,"id":"katex-support-table/ll/1","macros":{"\\VERT":"|"},"tex":"\\ll"}
+{"count":1,"display":false,"id":"katex-support-table/llap/1","macros":{"\\VERT":"|"},"tex":"{=}\\llap{/\\,}"}
+{"count":1,"display":false,"id":"katex-support-table/llbracket/1","macros":{"\\VERT":"|"},"tex":"\\llbracket"}
+{"count":1,"display":false,"id":"katex-support-table/llcorner/1","macros":{"\\VERT":"|"},"tex":"\\llcorner"}
+{"count":1,"display":false,"id":"katex-support-table/Lleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\Lleftarrow"}
+{"count":1,"display":false,"id":"katex-support-table/lll/1","macros":{"\\VERT":"|"},"tex":"\\lll"}
+{"count":1,"display":false,"id":"katex-support-table/llless/1","macros":{"\\VERT":"|"},"tex":"\\llless"}
+{"count":1,"display":false,"id":"katex-support-table/lmoustache/1","macros":{"\\VERT":"|"},"tex":"\\lmoustache"}
+{"count":1,"display":false,"id":"katex-support-table/ln/1","macros":{"\\VERT":"|"},"tex":"\\ln"}
+{"count":1,"display":false,"id":"katex-support-table/lnapprox/1","macros":{"\\VERT":"|"},"tex":"\\lnapprox"}
+{"count":1,"display":false,"id":"katex-support-table/lneq/1","macros":{"\\VERT":"|"},"tex":"\\lneq"}
+{"count":1,"display":false,"id":"katex-support-table/lneqq/1","macros":{"\\VERT":"|"},"tex":"\\lneqq"}
+{"count":1,"display":false,"id":"katex-support-table/lnot/1","macros":{"\\VERT":"|"},"tex":"\\lnot"}
+{"count":1,"display":false,"id":"katex-support-table/lnsim/1","macros":{"\\VERT":"|"},"tex":"\\lnsim"}
+{"count":1,"display":false,"id":"katex-support-table/log/1","macros":{"\\VERT":"|"},"tex":"\\log"}
+{"count":1,"display":false,"id":"katex-support-table/Longleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\Longleftarrow"}
+{"count":1,"display":false,"id":"katex-support-table/longleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\longleftarrow"}
+{"count":1,"display":false,"id":"katex-support-table/Longleftrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\Longleftrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/longleftrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\longleftrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/longmapsto/1","macros":{"\\VERT":"|"},"tex":"\\longmapsto"}
+{"count":1,"display":false,"id":"katex-support-table/Longrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\Longrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/longrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\longrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/looparrowleft/1","macros":{"\\VERT":"|"},"tex":"\\looparrowleft"}
+{"count":1,"display":false,"id":"katex-support-table/looparrowright/1","macros":{"\\VERT":"|"},"tex":"\\looparrowright"}
+{"count":1,"display":false,"id":"katex-support-table/lor/1","macros":{"\\VERT":"|"},"tex":"\\lor"}
+{"count":1,"display":false,"id":"katex-support-table/lozenge/1","macros":{"\\VERT":"|"},"tex":"\\lozenge"}
+{"count":1,"display":false,"id":"katex-support-table/lparen/1","macros":{"\\VERT":"|"},"tex":"\\lparen"}
+{"count":1,"display":false,"id":"katex-support-table/Lrarr/1","macros":{"\\VERT":"|"},"tex":"\\Lrarr"}
+{"count":1,"display":false,"id":"katex-support-table/lrArr/1","macros":{"\\VERT":"|"},"tex":"\\lrArr"}
+{"count":1,"display":false,"id":"katex-support-table/lrarr/1","macros":{"\\VERT":"|"},"tex":"\\lrarr"}
+{"count":1,"display":false,"id":"katex-support-table/lrcorner/1","macros":{"\\VERT":"|"},"tex":"\\lrcorner"}
+{"count":1,"display":false,"id":"katex-support-table/lq/1","macros":{"\\VERT":"|"},"tex":"\\lq"}
+{"count":1,"display":false,"id":"katex-support-table/Lsh/1","macros":{"\\VERT":"|"},"tex":"\\Lsh"}
+{"count":1,"display":false,"id":"katex-support-table/lt/1","macros":{"\\VERT":"|"},"tex":"\\lt"}
+{"count":1,"display":false,"id":"katex-support-table/ltimes/1","macros":{"\\VERT":"|"},"tex":"\\ltimes"}
+{"count":1,"display":false,"id":"katex-support-table/lVert/1","macros":{"\\VERT":"|"},"tex":"\\lVert"}
+{"count":1,"display":false,"id":"katex-support-table/lvert/1","macros":{"\\VERT":"|"},"tex":"\\lvert"}
+{"count":1,"display":false,"id":"katex-support-table/lvertneqq/1","macros":{"\\VERT":"|"},"tex":"\\lvertneqq"}
+{"count":1,"display":false,"id":"katex-support-table/maltese/1","macros":{"\\VERT":"|"},"tex":"\\maltese"}
+{"count":1,"display":false,"id":"katex-support-table/mapsfrom/1","macros":{"\\VERT":"|"},"tex":"\\mapsfrom"}
+{"count":1,"display":false,"id":"katex-support-table/mapsto/1","macros":{"\\VERT":"|"},"tex":"\\mapsto"}
+{"count":1,"display":false,"id":"katex-support-table/mathbb/1","macros":{"\\VERT":"|"},"tex":"\\mathbb{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/mathbf/1","macros":{"\\VERT":"|"},"tex":"\\mathbf{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/mathbin/1","macros":{"\\VERT":"|"},"tex":"a\\mathbin{!}b"}
+{"count":1,"display":false,"id":"katex-support-table/mathcal/1","macros":{"\\VERT":"|"},"tex":"\\mathcal{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/mathchoice/1","macros":{"\\VERT":"|"},"tex":"a\\mathchoice{\\,}{\\,\\,}{\\,\\,\\,}{\\,\\,\\,\\,}b"}
+{"count":1,"display":false,"id":"katex-support-table/mathclap/1","macros":{"\\VERT":"|"},"tex":"\\displaystyle\\sum_{\\mathclap{1\\le i\\le n}} x_{i}"}
+{"count":1,"display":false,"id":"katex-support-table/mathclose/1","macros":{"\\VERT":"|"},"tex":"a + (b\\mathclose\\gt + c"}
+{"count":1,"display":false,"id":"katex-support-table/mathellipsis/1","macros":{"\\VERT":"|"},"tex":"\\mathellipsis"}
+{"count":1,"display":false,"id":"katex-support-table/mathfrak/1","macros":{"\\VERT":"|"},"tex":"\\mathfrak{AaBb}"}
+{"count":1,"display":false,"id":"katex-support-table/mathinner/1","macros":{"\\VERT":"|"},"tex":"ab\\mathinner{\\text{inside}}cd"}
+{"count":1,"display":false,"id":"katex-support-table/mathit/1","macros":{"\\VERT":"|"},"tex":"\\mathit{AaBb}"}
+{"count":1,"display":false,"id":"katex-support-table/mathllap/1","macros":{"\\VERT":"|"},"tex":"{=}\\mathllap{/\\,}"}
+{"count":1,"display":false,"id":"katex-support-table/mathnormal/1","macros":{"\\VERT":"|"},"tex":"\\mathnormal{AaBb}"}
+{"count":1,"display":false,"id":"katex-support-table/mathop/1","macros":{"\\VERT":"|"},"tex":"\\mathop{\\star}_a^b"}
+{"count":1,"display":false,"id":"katex-support-table/mathopen/1","macros":{"\\VERT":"|"},"tex":"a + \\mathopen\\lt b) + c"}
+{"count":1,"display":false,"id":"katex-support-table/mathord/1","macros":{"\\VERT":"|"},"tex":"1\\mathord{,}234{,}567"}
+{"count":1,"display":false,"id":"katex-support-table/mathpunct/1","macros":{"\\VERT":"|"},"tex":"A\\mathpunct{-}B"}
+{"count":1,"display":false,"id":"katex-support-table/mathreflectbox/1","macros":{"\\VERT":"|"},"tex":"\\mathreflectbox{x^2}"}
+{"count":1,"display":false,"id":"katex-support-table/mathrel/1","macros":{"\\VERT":"|"},"tex":"a \\mathrel{\\#} b"}
+{"count":1,"display":false,"id":"katex-support-table/mathrlap/1","macros":{"\\VERT":"|"},"tex":"\\mathrlap{\\,/}{=}"}
+{"count":1,"display":false,"id":"katex-support-table/mathring/1","macros":{"\\VERT":"|"},"tex":"\\mathring{a}"}
+{"count":1,"display":false,"id":"katex-support-table/mathrm/1","macros":{"\\VERT":"|"},"tex":"\\mathrm{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/mathscr/1","macros":{"\\VERT":"|"},"tex":"\\mathscr{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/mathsf/1","macros":{"\\VERT":"|"},"tex":"\\mathsf{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/mathsterling/1","macros":{"\\VERT":"|"},"tex":"\\mathsterling"}
+{"count":1,"display":false,"id":"katex-support-table/mathstrut/1","macros":{"\\VERT":"|"},"tex":"\\sqrt{\\mathstrut a}"}
+{"count":1,"display":false,"id":"katex-support-table/mathtt/1","macros":{"\\VERT":"|"},"tex":"\\mathtt{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/{matrix}/1","macros":{"\\VERT":"|"},"tex":"\\begin{matrix}a&b\\\\c&d\\end{matrix}"}
+{"count":1,"display":false,"id":"katex-support-table/{matrix*}/1","macros":{"\\VERT":"|"},"tex":"\\begin{matrix*}[r]0&-1\\\\-1&0\\end{matrix*}"}
+{"count":1,"display":false,"id":"katex-support-table/max/1","macros":{"\\VERT":"|"},"tex":"\\max"}
+{"count":1,"display":false,"id":"katex-support-table/measuredangle/1","macros":{"\\VERT":"|"},"tex":"\\measuredangle"}
+{"count":1,"display":false,"id":"katex-support-table/medspace/1","macros":{"\\VERT":"|"},"tex":"a\\medspace b"}
+{"count":1,"display":false,"id":"katex-support-table/mho/1","macros":{"\\VERT":"|"},"tex":"\\mho"}
+{"count":1,"display":false,"id":"katex-support-table/mid/1","macros":{"\\VERT":"|"},"tex":"\\{x∈ℝ\\mid x>0\\}"}
+{"count":1,"display":false,"id":"katex-support-table/middle/1","macros":{"\\VERT":"|"},"tex":"P\\left(A\\middle\\vert B\\right)"}
+{"count":1,"display":false,"id":"katex-support-table/min/1","macros":{"\\VERT":"|"},"tex":"\\min"}
+{"count":1,"display":false,"id":"katex-support-table/minuscolon/1","macros":{"\\VERT":"|"},"tex":"\\minuscolon"}
+{"count":1,"display":false,"id":"katex-support-table/minuscoloncolon/1","macros":{"\\VERT":"|"},"tex":"\\minuscoloncolon"}
+{"count":1,"display":false,"id":"katex-support-table/minuso/1","macros":{"\\VERT":"|"},"tex":"\\minuso"}
+{"count":1,"display":false,"id":"katex-support-table/mkern/1","macros":{"\\VERT":"|"},"tex":"a\\mkern18mu b"}
+{"count":1,"display":false,"id":"katex-support-table/mod/1","macros":{"\\VERT":"|"},"tex":"3\\equiv 5 \\mod 2"}
+{"count":1,"display":false,"id":"katex-support-table/models/1","macros":{"\\VERT":"|"},"tex":"\\models"}
+{"count":1,"display":false,"id":"katex-support-table/mp/1","macros":{"\\VERT":"|"},"tex":"\\mp"}
+{"count":1,"display":false,"id":"katex-support-table/mskip/1","macros":{"\\VERT":"|"},"tex":"a\\mskip{10mu}b"}
+{"count":1,"display":false,"id":"katex-support-table/Mu/1","macros":{"\\VERT":"|"},"tex":"\\Mu"}
+{"count":1,"display":false,"id":"katex-support-table/mu/1","macros":{"\\VERT":"|"},"tex":"\\mu"}
+{"count":1,"display":false,"id":"katex-support-table/multimap/1","macros":{"\\VERT":"|"},"tex":"\\multimap"}
+{"count":1,"display":false,"id":"katex-support-table/N/1","macros":{"\\VERT":"|"},"tex":"\\N"}
+{"count":1,"display":false,"id":"katex-support-table/nabla/1","macros":{"\\VERT":"|"},"tex":"\\nabla"}
+{"count":1,"display":false,"id":"katex-support-table/natnums/1","macros":{"\\VERT":"|"},"tex":"\\natnums"}
+{"count":1,"display":false,"id":"katex-support-table/natural/1","macros":{"\\VERT":"|"},"tex":"\\natural"}
+{"count":1,"display":false,"id":"katex-support-table/negmedspace/1","macros":{"\\VERT":"|"},"tex":"a\\negmedspace b"}
+{"count":1,"display":false,"id":"katex-support-table/ncong/1","macros":{"\\VERT":"|"},"tex":"\\ncong"}
+{"count":1,"display":false,"id":"katex-support-table/ne/1","macros":{"\\VERT":"|"},"tex":"\\ne"}
+{"count":1,"display":false,"id":"katex-support-table/nearrow/1","macros":{"\\VERT":"|"},"tex":"\\nearrow"}
+{"count":1,"display":false,"id":"katex-support-table/neg/1","macros":{"\\VERT":"|"},"tex":"\\neg"}
+{"count":1,"display":false,"id":"katex-support-table/negthickspace/1","macros":{"\\VERT":"|"},"tex":"a\\negthickspace b"}
+{"count":1,"display":false,"id":"katex-support-table/negthinspace/1","macros":{"\\VERT":"|"},"tex":"a\\negthinspace b"}
+{"count":1,"display":false,"id":"katex-support-table/neq/1","macros":{"\\VERT":"|"},"tex":"\\neq"}
+{"count":1,"display":false,"id":"katex-support-table/newcommand/1","macros":{"\\VERT":"|"},"tex":"\\newcommand\\chk{\\checkmark} \\chk"}
+{"count":1,"display":false,"id":"katex-support-table/newline/1","macros":{"\\VERT":"|"},"tex":"a\\newline b"}
+{"count":1,"display":false,"id":"katex-support-table/nexists/1","macros":{"\\VERT":"|"},"tex":"\\nexists"}
+{"count":1,"display":false,"id":"katex-support-table/ngeq/1","macros":{"\\VERT":"|"},"tex":"\\ngeq"}
+{"count":1,"display":false,"id":"katex-support-table/ngeqq/1","macros":{"\\VERT":"|"},"tex":"\\ngeqq"}
+{"count":1,"display":false,"id":"katex-support-table/ngeqslant/1","macros":{"\\VERT":"|"},"tex":"\\ngeqslant"}
+{"count":1,"display":false,"id":"katex-support-table/ngtr/1","macros":{"\\VERT":"|"},"tex":"\\ngtr"}
+{"count":1,"display":false,"id":"katex-support-table/ni/1","macros":{"\\VERT":"|"},"tex":"\\ni"}
+{"count":1,"display":false,"id":"katex-support-table/nleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\nleftarrow"}
+{"count":1,"display":false,"id":"katex-support-table/nLeftarrow/1","macros":{"\\VERT":"|"},"tex":"\\nLeftarrow"}
+{"count":1,"display":false,"id":"katex-support-table/nLeftrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\nLeftrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/nleftrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\nleftrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/nleq/1","macros":{"\\VERT":"|"},"tex":"\\nleq"}
+{"count":1,"display":false,"id":"katex-support-table/nleqq/1","macros":{"\\VERT":"|"},"tex":"\\nleqq"}
+{"count":1,"display":false,"id":"katex-support-table/nleqslant/1","macros":{"\\VERT":"|"},"tex":"\\nleqslant"}
+{"count":1,"display":false,"id":"katex-support-table/nless/1","macros":{"\\VERT":"|"},"tex":"\\nless"}
+{"count":1,"display":false,"id":"katex-support-table/nmid/1","macros":{"\\VERT":"|"},"tex":"\\nmid"}
+{"count":1,"display":false,"id":"katex-support-table/nobreakspace/1","macros":{"\\VERT":"|"},"tex":"a\\nobreakspace b"}
+{"count":1,"display":false,"id":"katex-support-table/nolimits/1","macros":{"\\VERT":"|"},"tex":"\\lim\\nolimits_x"}
+{"count":1,"display":true,"id":"katex-support-table/nonumber/1","macros":{"\\VERT":"|"},"tex":"\\begin{align}a&=b+c\\nonumber\\\\d+e&=f\\end{align}"}
+{"count":1,"display":false,"id":"katex-support-table/normalsize/1","macros":{"\\VERT":"|"},"tex":"\\normalsize normalsize"}
+{"count":1,"display":false,"id":"katex-support-table/not/1","macros":{"\\VERT":"|"},"tex":"\\not ="}
+{"count":1,"display":true,"id":"katex-support-table/notag/1","macros":{"\\VERT":"|"},"tex":"\\begin{align}a&=b+c\\notag\\\\d+e&=f\\end{align}"}
+{"count":1,"display":false,"id":"katex-support-table/notin/1","macros":{"\\VERT":"|"},"tex":"\\notin"}
+{"count":1,"display":false,"id":"katex-support-table/notni/1","macros":{"\\VERT":"|"},"tex":"\\notni"}
+{"count":1,"display":false,"id":"katex-support-table/nparallel/1","macros":{"\\VERT":"|"},"tex":"\\nparallel"}
+{"count":1,"display":false,"id":"katex-support-table/nprec/1","macros":{"\\VERT":"|"},"tex":"\\nprec"}
+{"count":1,"display":false,"id":"katex-support-table/npreceq/1","macros":{"\\VERT":"|"},"tex":"\\npreceq"}
+{"count":1,"display":false,"id":"katex-support-table/nRightarrow/1","macros":{"\\VERT":"|"},"tex":"\\nRightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/nrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\nrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/nshortmid/1","macros":{"\\VERT":"|"},"tex":"\\nshortmid"}
+{"count":1,"display":false,"id":"katex-support-table/nshortparallel/1","macros":{"\\VERT":"|"},"tex":"\\nshortparallel"}
+{"count":1,"display":false,"id":"katex-support-table/nsim/1","macros":{"\\VERT":"|"},"tex":"\\nsim"}
+{"count":1,"display":false,"id":"katex-support-table/nsubseteq/1","macros":{"\\VERT":"|"},"tex":"\\nsubseteq"}
+{"count":1,"display":false,"id":"katex-support-table/nsubseteqq/1","macros":{"\\VERT":"|"},"tex":"\\nsubseteqq"}
+{"count":1,"display":false,"id":"katex-support-table/nsucc/1","macros":{"\\VERT":"|"},"tex":"\\nsucc"}
+{"count":1,"display":false,"id":"katex-support-table/nsucceq/1","macros":{"\\VERT":"|"},"tex":"\\nsucceq"}
+{"count":1,"display":false,"id":"katex-support-table/nsupseteq/1","macros":{"\\VERT":"|"},"tex":"\\nsupseteq"}
+{"count":1,"display":false,"id":"katex-support-table/nsupseteqq/1","macros":{"\\VERT":"|"},"tex":"\\nsupseteqq"}
+{"count":1,"display":false,"id":"katex-support-table/ntriangleleft/1","macros":{"\\VERT":"|"},"tex":"\\ntriangleleft"}
+{"count":1,"display":false,"id":"katex-support-table/ntrianglelefteq/1","macros":{"\\VERT":"|"},"tex":"\\ntrianglelefteq"}
+{"count":1,"display":false,"id":"katex-support-table/ntriangleright/1","macros":{"\\VERT":"|"},"tex":"\\ntriangleright"}
+{"count":1,"display":false,"id":"katex-support-table/ntrianglerighteq/1","macros":{"\\VERT":"|"},"tex":"\\ntrianglerighteq"}
+{"count":1,"display":false,"id":"katex-support-table/Nu/1","macros":{"\\VERT":"|"},"tex":"\\Nu"}
+{"count":1,"display":false,"id":"katex-support-table/nu/1","macros":{"\\VERT":"|"},"tex":"\\nu"}
+{"count":1,"display":false,"id":"katex-support-table/nVDash/1","macros":{"\\VERT":"|"},"tex":"\\nVDash"}
+{"count":1,"display":false,"id":"katex-support-table/nVdash/1","macros":{"\\VERT":"|"},"tex":"\\nVdash"}
+{"count":1,"display":false,"id":"katex-support-table/nvDash/1","macros":{"\\VERT":"|"},"tex":"\\nvDash"}
+{"count":1,"display":false,"id":"katex-support-table/nvdash/1","macros":{"\\VERT":"|"},"tex":"\\nvdash"}
+{"count":1,"display":false,"id":"katex-support-table/nwarrow/1","macros":{"\\VERT":"|"},"tex":"\\nwarrow"}
+{"count":1,"display":false,"id":"katex-support-table/O/1","macros":{"\\VERT":"|"},"tex":"\\text{\\O}"}
+{"count":1,"display":false,"id":"katex-support-table/o/1","macros":{"\\VERT":"|"},"tex":"\\text{\\o}"}
+{"count":1,"display":false,"id":"katex-support-table/odot/1","macros":{"\\VERT":"|"},"tex":"\\odot"}
+{"count":1,"display":false,"id":"katex-support-table/OE/1","macros":{"\\VERT":"|"},"tex":"\\text{\\OE}"}
+{"count":1,"display":false,"id":"katex-support-table/oe/1","macros":{"\\VERT":"|"},"tex":"\\text{\\oe}"}
+{"count":1,"display":false,"id":"katex-support-table/oiiint/1","macros":{"\\VERT":"|"},"tex":"\\oiiint"}
+{"count":1,"display":false,"id":"katex-support-table/oiint/1","macros":{"\\VERT":"|"},"tex":"\\oiint"}
+{"count":1,"display":false,"id":"katex-support-table/oint/1","macros":{"\\VERT":"|"},"tex":"\\oint"}
+{"count":1,"display":false,"id":"katex-support-table/omega/1","macros":{"\\VERT":"|"},"tex":"\\omega"}
+{"count":1,"display":false,"id":"katex-support-table/Omega/1","macros":{"\\VERT":"|"},"tex":"\\Omega"}
+{"count":1,"display":false,"id":"katex-support-table/Omicron/1","macros":{"\\VERT":"|"},"tex":"\\Omicron"}
+{"count":1,"display":false,"id":"katex-support-table/omicron/1","macros":{"\\VERT":"|"},"tex":"\\omicron"}
+{"count":1,"display":false,"id":"katex-support-table/ominus/1","macros":{"\\VERT":"|"},"tex":"\\ominus"}
+{"count":1,"display":false,"id":"katex-support-table/operatorname/1","macros":{"\\VERT":"|"},"tex":"\\operatorname{asin} x"}
+{"count":1,"display":false,"id":"katex-support-table/operatorname*/1","macros":{"\\VERT":"|"},"tex":"\\operatorname*{asin}\\limits_y x"}
+{"count":1,"display":false,"id":"katex-support-table/operatornamewithlimits/1","macros":{"\\VERT":"|"},"tex":"\\operatornamewithlimits{asin}\\limits_y x"}
+{"count":1,"display":false,"id":"katex-support-table/oplus/1","macros":{"\\VERT":"|"},"tex":"\\oplus"}
+{"count":1,"display":false,"id":"katex-support-table/origof/1","macros":{"\\VERT":"|"},"tex":"\\origof"}
+{"count":1,"display":false,"id":"katex-support-table/oslash/1","macros":{"\\VERT":"|"},"tex":"\\oslash"}
+{"count":1,"display":false,"id":"katex-support-table/otimes/1","macros":{"\\VERT":"|"},"tex":"\\otimes"}
+{"count":1,"display":false,"id":"katex-support-table/over/1","macros":{"\\VERT":"|"},"tex":"{a+1 \\over b+2}+c"}
+{"count":1,"display":false,"id":"katex-support-table/overbrace/1","macros":{"\\VERT":"|"},"tex":"\\overbrace{x+⋯+x}^{n\\text{ times}}"}
+{"count":1,"display":false,"id":"katex-support-table/overbracket/1","macros":{"\\VERT":"|"},"tex":"\\overbracket{x+⋯+x}^{n\\text{ times}}"}
+{"count":1,"display":false,"id":"katex-support-table/overgroup/1","macros":{"\\VERT":"|"},"tex":"\\overgroup{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/overleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\overleftarrow{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/overleftharpoon/1","macros":{"\\VERT":"|"},"tex":"\\overleftharpoon{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/overleftrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\overleftrightarrow{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/overline/1","macros":{"\\VERT":"|"},"tex":"\\overline{\\text{a long argument}}"}
+{"count":1,"display":false,"id":"katex-support-table/overlinesegment/1","macros":{"\\VERT":"|"},"tex":"\\overlinesegment{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/Overrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\Overrightarrow{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/overrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\overrightarrow{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/overrightharpoon/1","macros":{"\\VERT":"|"},"tex":"\\overrightharpoon{ac}"}
+{"count":1,"display":false,"id":"katex-support-table/overset/1","macros":{"\\VERT":"|"},"tex":"\\overset{!}{=}"}
+{"count":1,"display":false,"id":"katex-support-table/owns/1","macros":{"\\VERT":"|"},"tex":"\\owns"}
+{"count":1,"display":false,"id":"katex-support-table/P/1","macros":{"\\VERT":"|"},"tex":"\\text{\\P}"}
+{"count":1,"display":false,"id":"katex-support-table/parallel/1","macros":{"\\VERT":"|"},"tex":"\\parallel"}
+{"count":1,"display":false,"id":"katex-support-table/partial/1","macros":{"\\VERT":"|"},"tex":"\\partial"}
+{"count":1,"display":false,"id":"katex-support-table/perp/1","macros":{"\\VERT":"|"},"tex":"\\perp"}
+{"count":1,"display":false,"id":"katex-support-table/phantom/1","macros":{"\\VERT":"|"},"tex":"\\Gamma^{\\phantom{i}j}_{i\\phantom{j}k}"}
+{"count":1,"display":false,"id":"katex-support-table/phase/1","macros":{"\\VERT":"|"},"tex":"\\phase{-78^\\circ}"}
+{"count":1,"display":false,"id":"katex-support-table/Phi/1","macros":{"\\VERT":"|"},"tex":"\\Phi"}
+{"count":1,"display":false,"id":"katex-support-table/phi/1","macros":{"\\VERT":"|"},"tex":"\\phi"}
+{"count":1,"display":false,"id":"katex-support-table/Pi/1","macros":{"\\VERT":"|"},"tex":"\\Pi"}
+{"count":1,"display":false,"id":"katex-support-table/pi/1","macros":{"\\VERT":"|"},"tex":"\\pi"}
+{"count":1,"display":false,"id":"katex-support-table/pitchfork/1","macros":{"\\VERT":"|"},"tex":"\\pitchfork"}
+{"count":1,"display":false,"id":"katex-support-table/plim/1","macros":{"\\VERT":"|"},"tex":"\\plim"}
+{"count":1,"display":false,"id":"katex-support-table/plusmn/1","macros":{"\\VERT":"|"},"tex":"\\plusmn"}
+{"count":1,"display":false,"id":"katex-support-table/pm/1","macros":{"\\VERT":"|"},"tex":"\\pm"}
+{"count":1,"display":false,"id":"katex-support-table/{pmatrix}/1","macros":{"\\VERT":"|"},"tex":"\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}"}
+{"count":1,"display":false,"id":"katex-support-table/{pmatrix*}/1","macros":{"\\VERT":"|"},"tex":"\\begin{pmatrix*}[r]0&-1\\\\-1&0\\end{pmatrix*}"}
+{"count":1,"display":false,"id":"katex-support-table/pmb/1","macros":{"\\VERT":"|"},"tex":"\\pmb{\\mu}"}
+{"count":1,"display":false,"id":"katex-support-table/pmod/1","macros":{"\\VERT":"|"},"tex":"x\\pmod a"}
+{"count":1,"display":false,"id":"katex-support-table/pod/1","macros":{"\\VERT":"|"},"tex":"x \\pod a"}
+{"count":1,"display":false,"id":"katex-support-table/pounds/1","macros":{"\\VERT":"|"},"tex":"\\pounds"}
+{"count":1,"display":false,"id":"katex-support-table/Pr/1","macros":{"\\VERT":"|"},"tex":"\\Pr"}
+{"count":1,"display":false,"id":"katex-support-table/prec/1","macros":{"\\VERT":"|"},"tex":"\\prec"}
+{"count":1,"display":false,"id":"katex-support-table/precapprox/1","macros":{"\\VERT":"|"},"tex":"\\precapprox"}
+{"count":1,"display":false,"id":"katex-support-table/preccurlyeq/1","macros":{"\\VERT":"|"},"tex":"\\preccurlyeq"}
+{"count":1,"display":false,"id":"katex-support-table/preceq/1","macros":{"\\VERT":"|"},"tex":"\\preceq"}
+{"count":1,"display":false,"id":"katex-support-table/precnapprox/1","macros":{"\\VERT":"|"},"tex":"\\precnapprox"}
+{"count":1,"display":false,"id":"katex-support-table/precneqq/1","macros":{"\\VERT":"|"},"tex":"\\precneqq"}
+{"count":1,"display":false,"id":"katex-support-table/precnsim/1","macros":{"\\VERT":"|"},"tex":"\\precnsim"}
+{"count":1,"display":false,"id":"katex-support-table/precsim/1","macros":{"\\VERT":"|"},"tex":"\\precsim"}
+{"count":1,"display":false,"id":"katex-support-table/prime/1","macros":{"\\VERT":"|"},"tex":"\\prime"}
+{"count":1,"display":false,"id":"katex-support-table/prod/1","macros":{"\\VERT":"|"},"tex":"\\prod"}
+{"count":1,"display":false,"id":"katex-support-table/projlim/1","macros":{"\\VERT":"|"},"tex":"\\projlim"}
+{"count":1,"display":false,"id":"katex-support-table/propto/1","macros":{"\\VERT":"|"},"tex":"\\propto"}
+{"count":1,"display":false,"id":"katex-support-table/providecommand/1","macros":{"\\VERT":"|"},"tex":"\\providecommand\\greet{\\text{Hello}} \\greet"}
+{"count":1,"display":false,"id":"katex-support-table/psi/1","macros":{"\\VERT":"|"},"tex":"\\psi"}
+{"count":1,"display":false,"id":"katex-support-table/Psi/1","macros":{"\\VERT":"|"},"tex":"\\Psi"}
+{"count":1,"display":false,"id":"katex-support-table/pu /1","macros":{"\\VERT":"|"},"tex":"{123~\\mathchoice{\\textstyle\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}{\\frac{\\mathrm{kJ}}{\\mathrm{mol}}}}"}
+{"count":1,"display":false,"id":"katex-support-table/qquad/1","macros":{"\\VERT":"|"},"tex":"a\\qquad\\qquad{b}"}
+{"count":1,"display":false,"id":"katex-support-table/quad/1","macros":{"\\VERT":"|"},"tex":"a\\quad\\quad{b}"}
+{"count":1,"display":false,"id":"katex-support-table/R/1","macros":{"\\VERT":"|"},"tex":"\\R"}
+{"count":1,"display":false,"id":"katex-support-table/r/1","macros":{"\\VERT":"|"},"tex":"\\text{\\r{a}}"}
+{"count":1,"display":false,"id":"katex-support-table/raisebox/1","macros":{"\\VERT":"|"},"tex":"h\\raisebox{2pt}{ighe}r"}
+{"count":1,"display":false,"id":"katex-support-table/rang/1","macros":{"\\VERT":"|"},"tex":"\\langle A\\rang"}
+{"count":1,"display":false,"id":"katex-support-table/Rarr/1","macros":{"\\VERT":"|"},"tex":"\\Rarr"}
+{"count":1,"display":false,"id":"katex-support-table/rArr/1","macros":{"\\VERT":"|"},"tex":"\\rArr"}
+{"count":1,"display":false,"id":"katex-support-table/rarr/1","macros":{"\\VERT":"|"},"tex":"\\rarr"}
+{"count":1,"display":false,"id":"katex-support-table/ratio/1","macros":{"\\VERT":"|"},"tex":"\\ratio"}
+{"count":1,"display":false,"id":"katex-support-table/rBrace/1","macros":{"\\VERT":"|"},"tex":"\\rBrace"}
+{"count":1,"display":false,"id":"katex-support-table/rbrace/1","macros":{"\\VERT":"|"},"tex":"\\rbrace"}
+{"count":1,"display":false,"id":"katex-support-table/rbrack/1","macros":{"\\VERT":"|"},"tex":"\\rbrack"}
+{"count":1,"display":false,"id":"katex-support-table/{rcases}/1","macros":{"\\VERT":"|"},"tex":"\\begin{rcases}a&\\text{if }b\\\\c&\\text{if }d\\end{rcases}"}
+{"count":1,"display":false,"id":"katex-support-table/rceil/1","macros":{"\\VERT":"|"},"tex":"\\rceil"}
+{"count":1,"display":false,"id":"katex-support-table/Re/1","macros":{"\\VERT":"|"},"tex":"\\Re"}
+{"count":1,"display":false,"id":"katex-support-table/real/1","macros":{"\\VERT":"|"},"tex":"\\real"}
+{"count":1,"display":false,"id":"katex-support-table/Reals/1","macros":{"\\VERT":"|"},"tex":"\\Reals"}
+{"count":1,"display":false,"id":"katex-support-table/reals/1","macros":{"\\VERT":"|"},"tex":"\\reals"}
+{"count":1,"display":false,"id":"katex-support-table/reflectbox/1","macros":{"\\VERT":"|"},"tex":"\\reflectbox{"}
+{"count":1,"display":false,"id":"katex-support-table/renewcommand/1","macros":{"\\VERT":"|"},"tex":"\\def\\hail{Hi!}\\renewcommand\\hail{\\text{Ahoy!}} \\hail"}
+{"count":1,"display":false,"id":"katex-support-table/restriction/1","macros":{"\\VERT":"|"},"tex":"\\restriction"}
+{"count":1,"display":false,"id":"katex-support-table/rfloor/1","macros":{"\\VERT":"|"},"tex":"\\rfloor"}
+{"count":1,"display":false,"id":"katex-support-table/rgroup/1","macros":{"\\VERT":"|"},"tex":"\\rgroup"}
+{"count":1,"display":false,"id":"katex-support-table/rhd/1","macros":{"\\VERT":"|"},"tex":"\\rhd"}
+{"count":1,"display":false,"id":"katex-support-table/Rho/1","macros":{"\\VERT":"|"},"tex":"\\Rho"}
+{"count":1,"display":false,"id":"katex-support-table/rho/1","macros":{"\\VERT":"|"},"tex":"\\rho"}
+{"count":1,"display":false,"id":"katex-support-table/right/1","macros":{"\\VERT":"|"},"tex":"\\left.\\dfrac a b\\right)"}
+{"count":1,"display":false,"id":"katex-support-table/Rightarrow/1","macros":{"\\VERT":"|"},"tex":"\\Rightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/rightarrow/1","macros":{"\\VERT":"|"},"tex":"\\rightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/rightarrowtail/1","macros":{"\\VERT":"|"},"tex":"\\rightarrowtail"}
+{"count":1,"display":false,"id":"katex-support-table/rightharpoondown/1","macros":{"\\VERT":"|"},"tex":"\\rightharpoondown"}
+{"count":1,"display":false,"id":"katex-support-table/rightharpoonup/1","macros":{"\\VERT":"|"},"tex":"\\rightharpoonup"}
+{"count":1,"display":false,"id":"katex-support-table/rightleftarrows/1","macros":{"\\VERT":"|"},"tex":"\\rightleftarrows"}
+{"count":1,"display":false,"id":"katex-support-table/rightleftharpoons/1","macros":{"\\VERT":"|"},"tex":"\\rightleftharpoons"}
+{"count":1,"display":false,"id":"katex-support-table/rightrightarrows/1","macros":{"\\VERT":"|"},"tex":"\\rightrightarrows"}
+{"count":1,"display":false,"id":"katex-support-table/rightsquigarrow/1","macros":{"\\VERT":"|"},"tex":"\\rightsquigarrow"}
+{"count":1,"display":false,"id":"katex-support-table/rightthreetimes/1","macros":{"\\VERT":"|"},"tex":"\\rightthreetimes"}
+{"count":1,"display":false,"id":"katex-support-table/risingdotseq/1","macros":{"\\VERT":"|"},"tex":"\\risingdotseq"}
+{"count":1,"display":false,"id":"katex-support-table/rlap/1","macros":{"\\VERT":"|"},"tex":"\\rlap{\\,/}{=}"}
+{"count":1,"display":false,"id":"katex-support-table/rm/1","macros":{"\\VERT":"|"},"tex":"\\rm AaBb12"}
+{"count":1,"display":false,"id":"katex-support-table/rmoustache/1","macros":{"\\VERT":"|"},"tex":"\\rmoustache"}
+{"count":1,"display":false,"id":"katex-support-table/rparen/1","macros":{"\\VERT":"|"},"tex":"\\rparen"}
+{"count":1,"display":false,"id":"katex-support-table/rq/1","macros":{"\\VERT":"|"},"tex":"\\rq"}
+{"count":1,"display":false,"id":"katex-support-table/rrbracket/1","macros":{"\\VERT":"|"},"tex":"\\rrbracket"}
+{"count":1,"display":false,"id":"katex-support-table/Rrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\Rrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/Rsh/1","macros":{"\\VERT":"|"},"tex":"\\Rsh"}
+{"count":1,"display":false,"id":"katex-support-table/rtimes/1","macros":{"\\VERT":"|"},"tex":"\\rtimes"}
+{"count":1,"display":false,"id":"katex-support-table/rule/1","macros":{"\\VERT":"|"},"tex":"x\\rule[6pt]{2ex}{1ex}x"}
+{"count":1,"display":false,"id":"katex-support-table/rVert/1","macros":{"\\VERT":"|"},"tex":"\\rVert"}
+{"count":1,"display":false,"id":"katex-support-table/rvert/1","macros":{"\\VERT":"|"},"tex":"\\rvert"}
+{"count":1,"display":false,"id":"katex-support-table/S/1","macros":{"\\VERT":"|"},"tex":"\\text{\\S}"}
+{"count":1,"display":false,"id":"katex-support-table/scriptscriptstyle/1","macros":{"\\VERT":"|"},"tex":"\\scriptscriptstyle \\frac cd"}
+{"count":1,"display":false,"id":"katex-support-table/scriptsize/1","macros":{"\\VERT":"|"},"tex":"\\scriptsize scriptsize"}
+{"count":1,"display":false,"id":"katex-support-table/scriptstyle/1","macros":{"\\VERT":"|"},"tex":"\\frac ab + {\\scriptstyle \\frac cd}"}
+{"count":1,"display":false,"id":"katex-support-table/sdot/1","macros":{"\\VERT":"|"},"tex":"\\sdot"}
+{"count":1,"display":false,"id":"katex-support-table/searrow/1","macros":{"\\VERT":"|"},"tex":"\\searrow"}
+{"count":1,"display":false,"id":"katex-support-table/sec/1","macros":{"\\VERT":"|"},"tex":"\\sec"}
+{"count":1,"display":false,"id":"katex-support-table/sect/1","macros":{"\\VERT":"|"},"tex":"\\text{\\sect}"}
+{"count":1,"display":false,"id":"katex-support-table/set/1","macros":{"\\VERT":"|"},"tex":"\\set{x\\VERT x<5}"}
+{"count":1,"display":false,"id":"katex-support-table/Set/1","macros":{"\\VERT":"|"},"tex":"\\Set{ x \\VERT x<\\frac 1 2 }"}
+{"count":1,"display":false,"id":"katex-support-table/setminus/1","macros":{"\\VERT":"|"},"tex":"\\setminus"}
+{"count":1,"display":false,"id":"katex-support-table/sf/1","macros":{"\\VERT":"|"},"tex":"\\sf AaBb123"}
+{"count":1,"display":false,"id":"katex-support-table/sharp/1","macros":{"\\VERT":"|"},"tex":"\\sharp"}
+{"count":1,"display":false,"id":"katex-support-table/shortmid/1","macros":{"\\VERT":"|"},"tex":"\\shortmid"}
+{"count":1,"display":false,"id":"katex-support-table/shortparallel/1","macros":{"\\VERT":"|"},"tex":"\\shortparallel"}
+{"count":1,"display":false,"id":"katex-support-table/Sigma/1","macros":{"\\VERT":"|"},"tex":"\\Sigma"}
+{"count":1,"display":false,"id":"katex-support-table/sigma/1","macros":{"\\VERT":"|"},"tex":"\\sigma"}
+{"count":1,"display":false,"id":"katex-support-table/sim/1","macros":{"\\VERT":"|"},"tex":"\\sim"}
+{"count":1,"display":false,"id":"katex-support-table/simcolon/1","macros":{"\\VERT":"|"},"tex":"\\simcolon"}
+{"count":1,"display":false,"id":"katex-support-table/simcoloncolon/1","macros":{"\\VERT":"|"},"tex":"\\simcoloncolon"}
+{"count":1,"display":false,"id":"katex-support-table/simeq/1","macros":{"\\VERT":"|"},"tex":"\\simeq"}
+{"count":1,"display":false,"id":"katex-support-table/sin/1","macros":{"\\VERT":"|"},"tex":"\\sin"}
+{"count":1,"display":false,"id":"katex-support-table/sinh/1","macros":{"\\VERT":"|"},"tex":"\\sinh"}
+{"count":1,"display":false,"id":"katex-support-table/sixptsize/1","macros":{"\\VERT":"|"},"tex":"\\sixptsize sixptsize"}
+{"count":1,"display":false,"id":"katex-support-table/sh/1","macros":{"\\VERT":"|"},"tex":"\\sh"}
+{"count":1,"display":false,"id":"katex-support-table/small/1","macros":{"\\VERT":"|"},"tex":"\\small small"}
+{"count":1,"display":false,"id":"katex-support-table/smallfrown/1","macros":{"\\VERT":"|"},"tex":"\\smallfrown"}
+{"count":1,"display":false,"id":"katex-support-table/smallint/1","macros":{"\\VERT":"|"},"tex":"\\smallint"}
+{"count":1,"display":false,"id":"katex-support-table/{smallmatrix}/1","macros":{"\\VERT":"|"},"tex":"\\begin{smallmatrix} a & b \\\\ c & d \\end{smallmatrix}"}
+{"count":1,"display":false,"id":"katex-support-table/smallsetminus/1","macros":{"\\VERT":"|"},"tex":"\\smallsetminus"}
+{"count":1,"display":false,"id":"katex-support-table/smallsmile/1","macros":{"\\VERT":"|"},"tex":"\\smallsmile"}
+{"count":1,"display":false,"id":"katex-support-table/smash/1","macros":{"\\VERT":"|"},"tex":"\\left(x^{\\smash{2}}\\right)"}
+{"count":1,"display":false,"id":"katex-support-table/smile/1","macros":{"\\VERT":"|"},"tex":"\\smile"}
+{"count":1,"display":false,"id":"katex-support-table/sout/1","macros":{"\\VERT":"|"},"tex":"\\text{\\sout{abc}}"}
+{"count":1,"display":false,"id":"katex-support-table/space/1","macros":{"\\VERT":"|"},"tex":"a\\space b"}
+{"count":1,"display":false,"id":"katex-support-table/spades/1","macros":{"\\VERT":"|"},"tex":"\\spades"}
+{"count":1,"display":false,"id":"katex-support-table/spadesuit/1","macros":{"\\VERT":"|"},"tex":"\\spadesuit"}
+{"count":1,"display":false,"id":"katex-support-table/sphericalangle/1","macros":{"\\VERT":"|"},"tex":"\\sphericalangle"}
+{"count":1,"display":true,"id":"katex-support-table/{split}/1","macros":{"\\VERT":"|"},"tex":"\\begin{equation}\\begin{split}a &=b+c\\\\&=e+f\\end{split}\\end{equation}"}
+{"count":1,"display":false,"id":"katex-support-table/sqcap/1","macros":{"\\VERT":"|"},"tex":"\\sqcap"}
+{"count":1,"display":false,"id":"katex-support-table/sqcup/1","macros":{"\\VERT":"|"},"tex":"\\sqcup"}
+{"count":1,"display":false,"id":"katex-support-table/square/1","macros":{"\\VERT":"|"},"tex":"\\square"}
+{"count":1,"display":false,"id":"katex-support-table/sqrt/1","macros":{"\\VERT":"|"},"tex":"\\sqrt[3]{x}"}
+{"count":1,"display":false,"id":"katex-support-table/sqsubset/1","macros":{"\\VERT":"|"},"tex":"\\sqsubset"}
+{"count":1,"display":false,"id":"katex-support-table/sqsubseteq/1","macros":{"\\VERT":"|"},"tex":"\\sqsubseteq"}
+{"count":1,"display":false,"id":"katex-support-table/sqsupset/1","macros":{"\\VERT":"|"},"tex":"\\sqsupset"}
+{"count":1,"display":false,"id":"katex-support-table/sqsupseteq/1","macros":{"\\VERT":"|"},"tex":"\\sqsupseteq"}
+{"count":1,"display":false,"id":"katex-support-table/ss/1","macros":{"\\VERT":"|"},"tex":"\\text{\\ss}"}
+{"count":1,"display":false,"id":"katex-support-table/stackrel/1","macros":{"\\VERT":"|"},"tex":"\\stackrel{!}{=}"}
+{"count":1,"display":false,"id":"katex-support-table/star/1","macros":{"\\VERT":"|"},"tex":"\\star"}
+{"count":1,"display":false,"id":"katex-support-table/sub/1","macros":{"\\VERT":"|"},"tex":"\\sub"}
+{"count":1,"display":false,"id":"katex-support-table/sube/1","macros":{"\\VERT":"|"},"tex":"\\sube"}
+{"count":1,"display":false,"id":"katex-support-table/Subset/1","macros":{"\\VERT":"|"},"tex":"\\Subset"}
+{"count":1,"display":false,"id":"katex-support-table/subset/1","macros":{"\\VERT":"|"},"tex":"\\subset"}
+{"count":1,"display":false,"id":"katex-support-table/subseteq/1","macros":{"\\VERT":"|"},"tex":"\\subseteq"}
+{"count":1,"display":false,"id":"katex-support-table/subseteqq/1","macros":{"\\VERT":"|"},"tex":"\\subseteqq"}
+{"count":1,"display":false,"id":"katex-support-table/subsetneq/1","macros":{"\\VERT":"|"},"tex":"\\subsetneq"}
+{"count":1,"display":false,"id":"katex-support-table/subsetneqq/1","macros":{"\\VERT":"|"},"tex":"\\subsetneqq"}
+{"count":1,"display":true,"id":"katex-support-table/substack/1","macros":{"\\VERT":"|"},"tex":"\\sum_{\\substack{0<i<m\\\\0<j<n}}"}
+{"count":1,"display":false,"id":"katex-support-table/succ/1","macros":{"\\VERT":"|"},"tex":"\\succ"}
+{"count":1,"display":false,"id":"katex-support-table/succapprox/1","macros":{"\\VERT":"|"},"tex":"\\succapprox"}
+{"count":1,"display":false,"id":"katex-support-table/succcurlyeq/1","macros":{"\\VERT":"|"},"tex":"\\succcurlyeq"}
+{"count":1,"display":false,"id":"katex-support-table/succeq/1","macros":{"\\VERT":"|"},"tex":"\\succeq"}
+{"count":1,"display":false,"id":"katex-support-table/succnapprox/1","macros":{"\\VERT":"|"},"tex":"\\succnapprox"}
+{"count":1,"display":false,"id":"katex-support-table/succneqq/1","macros":{"\\VERT":"|"},"tex":"\\succneqq"}
+{"count":1,"display":false,"id":"katex-support-table/succnsim/1","macros":{"\\VERT":"|"},"tex":"\\succnsim"}
+{"count":1,"display":false,"id":"katex-support-table/succsim/1","macros":{"\\VERT":"|"},"tex":"\\succsim"}
+{"count":1,"display":false,"id":"katex-support-table/sum/1","macros":{"\\VERT":"|"},"tex":"\\sum"}
+{"count":1,"display":false,"id":"katex-support-table/sup/1","macros":{"\\VERT":"|"},"tex":"\\sup"}
+{"count":1,"display":false,"id":"katex-support-table/supe/1","macros":{"\\VERT":"|"},"tex":"\\supe"}
+{"count":1,"display":false,"id":"katex-support-table/Supset/1","macros":{"\\VERT":"|"},"tex":"\\Supset"}
+{"count":1,"display":false,"id":"katex-support-table/supset/1","macros":{"\\VERT":"|"},"tex":"\\supset"}
+{"count":1,"display":false,"id":"katex-support-table/supseteq/1","macros":{"\\VERT":"|"},"tex":"\\supseteq"}
+{"count":1,"display":false,"id":"katex-support-table/supseteqq/1","macros":{"\\VERT":"|"},"tex":"\\supseteqq"}
+{"count":1,"display":false,"id":"katex-support-table/supsetneq/1","macros":{"\\VERT":"|"},"tex":"\\supsetneq"}
+{"count":1,"display":false,"id":"katex-support-table/supsetneqq/1","macros":{"\\VERT":"|"},"tex":"\\supsetneqq"}
+{"count":1,"display":false,"id":"katex-support-table/surd/1","macros":{"\\VERT":"|"},"tex":"\\surd"}
+{"count":1,"display":false,"id":"katex-support-table/swarrow/1","macros":{"\\VERT":"|"},"tex":"\\swarrow"}
+{"count":1,"display":true,"id":"katex-support-table/tag/1","macros":{"\\VERT":"|"},"tex":"\\tag{3.1c} a^2+b^2=c^2"}
+{"count":1,"display":true,"id":"katex-support-table/tag*/1","macros":{"\\VERT":"|"},"tex":"\\tag*{3.1c} a^2+b^2=c^2"}
+{"count":1,"display":false,"id":"katex-support-table/tan/1","macros":{"\\VERT":"|"},"tex":"\\tan"}
+{"count":1,"display":false,"id":"katex-support-table/tanh/1","macros":{"\\VERT":"|"},"tex":"\\tanh"}
+{"count":1,"display":false,"id":"katex-support-table/Tau/1","macros":{"\\VERT":"|"},"tex":"\\Tau"}
+{"count":1,"display":false,"id":"katex-support-table/tau/1","macros":{"\\VERT":"|"},"tex":"\\tau"}
+{"count":1,"display":false,"id":"katex-support-table/tbinom/1","macros":{"\\VERT":"|"},"tex":"\\tbinom n k"}
+{"count":1,"display":false,"id":"katex-support-table/TeX/1","macros":{"\\VERT":"|"},"tex":"\\TeX"}
+{"count":1,"display":false,"id":"katex-support-table/text/1","macros":{"\\VERT":"|"},"tex":"\\text{ yes }\\&\\text{ no }"}
+{"count":1,"display":false,"id":"katex-support-table/textasciitilde/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textasciitilde}"}
+{"count":1,"display":false,"id":"katex-support-table/textasciicircum/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textasciicircum}"}
+{"count":1,"display":false,"id":"katex-support-table/textbackslash/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textbackslash}"}
+{"count":1,"display":false,"id":"katex-support-table/textbar/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textbar}"}
+{"count":1,"display":false,"id":"katex-support-table/textbardbl/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textbardbl}"}
+{"count":1,"display":false,"id":"katex-support-table/textbf/1","macros":{"\\VERT":"|"},"tex":"\\textbf{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/textbraceleft/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textbraceleft}"}
+{"count":1,"display":false,"id":"katex-support-table/textbraceright/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textbraceright}"}
+{"count":1,"display":false,"id":"katex-support-table/textcircled/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textcircled a}"}
+{"count":1,"display":false,"id":"katex-support-table/textcolor/1","macros":{"\\VERT":"|"},"tex":"\\textcolor{blue}{F=ma}"}
+{"count":1,"display":false,"id":"katex-support-table/textdagger/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textdagger}"}
+{"count":1,"display":false,"id":"katex-support-table/textdaggerdbl/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textdaggerdbl}"}
+{"count":1,"display":false,"id":"katex-support-table/textdegree/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textdegree}"}
+{"count":1,"display":false,"id":"katex-support-table/textellipsis/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textellipsis}"}
+{"count":1,"display":false,"id":"katex-support-table/textemdash/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textemdash}"}
+{"count":1,"display":false,"id":"katex-support-table/textendash/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textendash}"}
+{"count":1,"display":false,"id":"katex-support-table/textgreater/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textgreater}"}
+{"count":1,"display":false,"id":"katex-support-table/textit/1","macros":{"\\VERT":"|"},"tex":"\\textit{AaBb}"}
+{"count":1,"display":false,"id":"katex-support-table/textless/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textless}"}
+{"count":1,"display":false,"id":"katex-support-table/textmd/1","macros":{"\\VERT":"|"},"tex":"\\textmd{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/textnormal/1","macros":{"\\VERT":"|"},"tex":"\\textnormal{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/textquotedblleft/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textquotedblleft}"}
+{"count":1,"display":false,"id":"katex-support-table/textquotedblright/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textquotedblright}"}
+{"count":1,"display":false,"id":"katex-support-table/textquoteleft/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textquoteleft}"}
+{"count":1,"display":false,"id":"katex-support-table/textquoteright/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textquoteright}"}
+{"count":1,"display":false,"id":"katex-support-table/textregistered/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textregistered}"}
+{"count":1,"display":false,"id":"katex-support-table/textrm/1","macros":{"\\VERT":"|"},"tex":"\\textrm{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/textsf/1","macros":{"\\VERT":"|"},"tex":"\\textsf{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/textsterling/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textsterling}"}
+{"count":1,"display":false,"id":"katex-support-table/textstyle/1","macros":{"\\VERT":"|"},"tex":"\\textstyle\\sum_0^n"}
+{"count":1,"display":false,"id":"katex-support-table/texttt/1","macros":{"\\VERT":"|"},"tex":"\\texttt{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/textunderscore/1","macros":{"\\VERT":"|"},"tex":"\\text{\\textunderscore}"}
+{"count":1,"display":false,"id":"katex-support-table/textup/1","macros":{"\\VERT":"|"},"tex":"\\textup{AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/tfrac/1","macros":{"\\VERT":"|"},"tex":"\\tfrac ab"}
+{"count":1,"display":false,"id":"katex-support-table/tg/1","macros":{"\\VERT":"|"},"tex":"\\tg"}
+{"count":1,"display":false,"id":"katex-support-table/th/1","macros":{"\\VERT":"|"},"tex":"\\th"}
+{"count":1,"display":false,"id":"katex-support-table/therefore/1","macros":{"\\VERT":"|"},"tex":"\\therefore"}
+{"count":1,"display":false,"id":"katex-support-table/Theta/1","macros":{"\\VERT":"|"},"tex":"\\Theta"}
+{"count":1,"display":false,"id":"katex-support-table/theta/1","macros":{"\\VERT":"|"},"tex":"\\theta"}
+{"count":1,"display":false,"id":"katex-support-table/thetasym/1","macros":{"\\VERT":"|"},"tex":"\\thetasym"}
+{"count":1,"display":false,"id":"katex-support-table/thickapprox/1","macros":{"\\VERT":"|"},"tex":"\\thickapprox"}
+{"count":1,"display":false,"id":"katex-support-table/thicksim/1","macros":{"\\VERT":"|"},"tex":"\\thicksim"}
+{"count":1,"display":false,"id":"katex-support-table/thickspace/1","macros":{"\\VERT":"|"},"tex":"a\\thickspace b"}
+{"count":1,"display":false,"id":"katex-support-table/thinspace/1","macros":{"\\VERT":"|"},"tex":"a\\thinspace b"}
+{"count":1,"display":false,"id":"katex-support-table/tilde/1","macros":{"\\VERT":"|"},"tex":"\\tilde M"}
+{"count":1,"display":false,"id":"katex-support-table/times/1","macros":{"\\VERT":"|"},"tex":"\\times"}
+{"count":1,"display":false,"id":"katex-support-table/tiny/1","macros":{"\\VERT":"|"},"tex":"\\tiny tiny"}
+{"count":1,"display":false,"id":"katex-support-table/to/1","macros":{"\\VERT":"|"},"tex":"\\to"}
+{"count":1,"display":false,"id":"katex-support-table/top/1","macros":{"\\VERT":"|"},"tex":"\\top"}
+{"count":1,"display":false,"id":"katex-support-table/triangle/1","macros":{"\\VERT":"|"},"tex":"\\triangle"}
+{"count":1,"display":false,"id":"katex-support-table/triangledown/1","macros":{"\\VERT":"|"},"tex":"\\triangledown"}
+{"count":1,"display":false,"id":"katex-support-table/triangleleft/1","macros":{"\\VERT":"|"},"tex":"\\triangleleft"}
+{"count":1,"display":false,"id":"katex-support-table/trianglelefteq/1","macros":{"\\VERT":"|"},"tex":"\\trianglelefteq"}
+{"count":1,"display":false,"id":"katex-support-table/triangleq/1","macros":{"\\VERT":"|"},"tex":"\\triangleq"}
+{"count":1,"display":false,"id":"katex-support-table/triangleright/1","macros":{"\\VERT":"|"},"tex":"\\triangleright"}
+{"count":1,"display":false,"id":"katex-support-table/trianglerighteq/1","macros":{"\\VERT":"|"},"tex":"\\trianglerighteq"}
+{"count":1,"display":false,"id":"katex-support-table/tt/1","macros":{"\\VERT":"|"},"tex":"{\\tt AaBb123}"}
+{"count":1,"display":false,"id":"katex-support-table/twoheadleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\twoheadleftarrow"}
+{"count":1,"display":false,"id":"katex-support-table/twoheadrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\twoheadrightarrow"}
+{"count":1,"display":false,"id":"katex-support-table/u/1","macros":{"\\VERT":"|"},"tex":"\\text{\\u{a}}"}
+{"count":1,"display":false,"id":"katex-support-table/Uarr/1","macros":{"\\VERT":"|"},"tex":"\\Uarr"}
+{"count":1,"display":false,"id":"katex-support-table/uArr/1","macros":{"\\VERT":"|"},"tex":"\\uArr"}
+{"count":1,"display":false,"id":"katex-support-table/uarr/1","macros":{"\\VERT":"|"},"tex":"\\uarr"}
+{"count":1,"display":false,"id":"katex-support-table/ulcorner/1","macros":{"\\VERT":"|"},"tex":"\\ulcorner"}
+{"count":1,"display":false,"id":"katex-support-table/underbar/1","macros":{"\\VERT":"|"},"tex":"\\underbar{X}"}
+{"count":1,"display":false,"id":"katex-support-table/underbrace/1","macros":{"\\VERT":"|"},"tex":"\\underbrace{x+⋯+x}_{n\\text{ times}}"}
+{"count":1,"display":false,"id":"katex-support-table/underbracket/1","macros":{"\\VERT":"|"},"tex":"\\underbracket{x+⋯+x}_{n\\text{ times}}"}
+{"count":1,"display":false,"id":"katex-support-table/undergroup/1","macros":{"\\VERT":"|"},"tex":"\\undergroup{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/underleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\underleftarrow{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/underleftrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\underleftrightarrow{AB}"}
+{"count":2,"display":false,"id":"katex-support-table/underrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\underrightarrow{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/underline/1","macros":{"\\VERT":"|"},"tex":"\\underline{\\text{a long argument}}"}
+{"count":1,"display":false,"id":"katex-support-table/underlinesegment/1","macros":{"\\VERT":"|"},"tex":"\\underlinesegment{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/underset/1","macros":{"\\VERT":"|"},"tex":"\\underset{!}{=}"}
+{"count":1,"display":false,"id":"katex-support-table/unlhd/1","macros":{"\\VERT":"|"},"tex":"\\unlhd"}
+{"count":1,"display":false,"id":"katex-support-table/unrhd/1","macros":{"\\VERT":"|"},"tex":"\\unrhd"}
+{"count":1,"display":false,"id":"katex-support-table/Uparrow/1","macros":{"\\VERT":"|"},"tex":"\\Uparrow"}
+{"count":1,"display":false,"id":"katex-support-table/uparrow/1","macros":{"\\VERT":"|"},"tex":"\\uparrow"}
+{"count":1,"display":false,"id":"katex-support-table/Updownarrow/1","macros":{"\\VERT":"|"},"tex":"\\Updownarrow"}
+{"count":1,"display":false,"id":"katex-support-table/updownarrow/1","macros":{"\\VERT":"|"},"tex":"\\updownarrow"}
+{"count":1,"display":false,"id":"katex-support-table/upharpoonleft/1","macros":{"\\VERT":"|"},"tex":"\\upharpoonleft"}
+{"count":1,"display":false,"id":"katex-support-table/upharpoonright/1","macros":{"\\VERT":"|"},"tex":"\\upharpoonright"}
+{"count":1,"display":false,"id":"katex-support-table/uplus/1","macros":{"\\VERT":"|"},"tex":"\\uplus"}
+{"count":1,"display":false,"id":"katex-support-table/Upsilon/1","macros":{"\\VERT":"|"},"tex":"\\Upsilon"}
+{"count":1,"display":false,"id":"katex-support-table/upsilon/1","macros":{"\\VERT":"|"},"tex":"\\upsilon"}
+{"count":1,"display":false,"id":"katex-support-table/upuparrows/1","macros":{"\\VERT":"|"},"tex":"\\upuparrows"}
+{"count":1,"display":false,"id":"katex-support-table/urcorner/1","macros":{"\\VERT":"|"},"tex":"\\urcorner"}
+{"count":1,"display":false,"id":"katex-support-table/url/1","macros":{"\\VERT":"|"},"tex":"\\footnotesize\\url{https://katex.org/}"}
+{"count":1,"display":false,"id":"katex-support-table/utilde/1","macros":{"\\VERT":"|"},"tex":"\\utilde{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/v/1","macros":{"\\VERT":"|"},"tex":"\\text{\\v{a}}"}
+{"count":1,"display":false,"id":"katex-support-table/varDelta/1","macros":{"\\VERT":"|"},"tex":"\\varDelta"}
+{"count":1,"display":false,"id":"katex-support-table/varepsilon/1","macros":{"\\VERT":"|"},"tex":"\\varepsilon"}
+{"count":1,"display":false,"id":"katex-support-table/varGamma/1","macros":{"\\VERT":"|"},"tex":"\\varGamma"}
+{"count":1,"display":false,"id":"katex-support-table/varinjlim/1","macros":{"\\VERT":"|"},"tex":"\\varinjlim"}
+{"count":1,"display":false,"id":"katex-support-table/varkappa/1","macros":{"\\VERT":"|"},"tex":"\\varkappa"}
+{"count":1,"display":false,"id":"katex-support-table/varLambda/1","macros":{"\\VERT":"|"},"tex":"\\varLambda"}
+{"count":1,"display":false,"id":"katex-support-table/varliminf/1","macros":{"\\VERT":"|"},"tex":"\\varliminf"}
+{"count":1,"display":false,"id":"katex-support-table/varlimsup/1","macros":{"\\VERT":"|"},"tex":"\\varlimsup"}
+{"count":1,"display":false,"id":"katex-support-table/varnothing/1","macros":{"\\VERT":"|"},"tex":"\\varnothing"}
+{"count":1,"display":false,"id":"katex-support-table/varOmega/1","macros":{"\\VERT":"|"},"tex":"\\varOmega"}
+{"count":1,"display":false,"id":"katex-support-table/varPhi/1","macros":{"\\VERT":"|"},"tex":"\\varPhi"}
+{"count":1,"display":false,"id":"katex-support-table/varphi/1","macros":{"\\VERT":"|"},"tex":"\\varphi"}
+{"count":1,"display":false,"id":"katex-support-table/varPi/1","macros":{"\\VERT":"|"},"tex":"\\varPi"}
+{"count":1,"display":false,"id":"katex-support-table/varpi/1","macros":{"\\VERT":"|"},"tex":"\\varpi"}
+{"count":1,"display":false,"id":"katex-support-table/varprojlim/1","macros":{"\\VERT":"|"},"tex":"\\varprojlim"}
+{"count":1,"display":false,"id":"katex-support-table/varpropto/1","macros":{"\\VERT":"|"},"tex":"\\varpropto"}
+{"count":1,"display":false,"id":"katex-support-table/varPsi/1","macros":{"\\VERT":"|"},"tex":"\\varPsi"}
+{"count":1,"display":false,"id":"katex-support-table/varrho/1","macros":{"\\VERT":"|"},"tex":"\\varrho"}
+{"count":1,"display":false,"id":"katex-support-table/varSigma/1","macros":{"\\VERT":"|"},"tex":"\\varSigma"}
+{"count":1,"display":false,"id":"katex-support-table/varsigma/1","macros":{"\\VERT":"|"},"tex":"\\varsigma"}
+{"count":1,"display":false,"id":"katex-support-table/varsubsetneq/1","macros":{"\\VERT":"|"},"tex":"\\varsubsetneq"}
+{"count":1,"display":false,"id":"katex-support-table/varsubsetneqq/1","macros":{"\\VERT":"|"},"tex":"\\varsubsetneqq"}
+{"count":1,"display":false,"id":"katex-support-table/varsupsetneq/1","macros":{"\\VERT":"|"},"tex":"\\varsupsetneq"}
+{"count":1,"display":false,"id":"katex-support-table/varsupsetneqq/1","macros":{"\\VERT":"|"},"tex":"\\varsupsetneqq"}
+{"count":1,"display":false,"id":"katex-support-table/varTheta/1","macros":{"\\VERT":"|"},"tex":"\\varTheta"}
+{"count":1,"display":false,"id":"katex-support-table/vartheta/1","macros":{"\\VERT":"|"},"tex":"\\vartheta"}
+{"count":1,"display":false,"id":"katex-support-table/vartriangle/1","macros":{"\\VERT":"|"},"tex":"\\vartriangle"}
+{"count":1,"display":false,"id":"katex-support-table/vartriangleleft/1","macros":{"\\VERT":"|"},"tex":"\\vartriangleleft"}
+{"count":1,"display":false,"id":"katex-support-table/vartriangleright/1","macros":{"\\VERT":"|"},"tex":"\\vartriangleright"}
+{"count":1,"display":false,"id":"katex-support-table/varUpsilon/1","macros":{"\\VERT":"|"},"tex":"\\varUpsilon"}
+{"count":1,"display":false,"id":"katex-support-table/varXi/1","macros":{"\\VERT":"|"},"tex":"\\varXi"}
+{"count":1,"display":false,"id":"katex-support-table/vcentcolon/1","macros":{"\\VERT":"|"},"tex":"\\mathrel{\\vcentcolon =}"}
+{"count":2,"display":false,"id":"katex-support-table/vcenter/1","macros":{"\\VERT":"|"},"tex":"a+\\left(\\vcenter{\\frac{\\frac a b}c}\\right)"}
+{"count":1,"display":false,"id":"katex-support-table/Vdash/1","macros":{"\\VERT":"|"},"tex":"\\Vdash"}
+{"count":1,"display":false,"id":"katex-support-table/vDash/1","macros":{"\\VERT":"|"},"tex":"\\vDash"}
+{"count":1,"display":false,"id":"katex-support-table/vdash/1","macros":{"\\VERT":"|"},"tex":"\\vdash"}
+{"count":1,"display":false,"id":"katex-support-table/vdots/1","macros":{"\\VERT":"|"},"tex":"\\vdots"}
+{"count":1,"display":false,"id":"katex-support-table/vec/1","macros":{"\\VERT":"|"},"tex":"\\vec{F}"}
+{"count":1,"display":false,"id":"katex-support-table/vee/1","macros":{"\\VERT":"|"},"tex":"\\vee"}
+{"count":1,"display":false,"id":"katex-support-table/veebar/1","macros":{"\\VERT":"|"},"tex":"\\veebar"}
+{"count":1,"display":false,"id":"katex-support-table/verb/1","macros":{"\\VERT":"|"},"tex":"\\verb!\\frac a b!"}
+{"count":1,"display":false,"id":"katex-support-table/{Vmatrix}/1","macros":{"\\VERT":"|"},"tex":"\\begin{Vmatrix}a&b\\\\c&d\\end{Vmatrix}"}
+{"count":1,"display":false,"id":"katex-support-table/{Vmatrix*}/1","macros":{"\\VERT":"|"},"tex":"\\begin{Vmatrix*}[r]0&-1\\\\-1&0\\end{Vmatrix*}"}
+{"count":1,"display":false,"id":"katex-support-table/{vmatrix}/1","macros":{"\\VERT":"|"},"tex":"\\begin{vmatrix}a&b\\\\c&d\\end{vmatrix}"}
+{"count":1,"display":false,"id":"katex-support-table/{vmatrix*}/1","macros":{"\\VERT":"|"},"tex":"\\begin{vmatrix*}[r]0&-1\\\\-1&0\\end{vmatrix*}"}
+{"count":1,"display":false,"id":"katex-support-table/vphantom/1","macros":{"\\VERT":"|"},"tex":"\\overline{\\vphantom{M}a}"}
+{"count":1,"display":false,"id":"katex-support-table/Vvdash/1","macros":{"\\VERT":"|"},"tex":"\\Vvdash"}
+{"count":1,"display":false,"id":"katex-support-table/wedge/1","macros":{"\\VERT":"|"},"tex":"\\wedge"}
+{"count":1,"display":false,"id":"katex-support-table/weierp/1","macros":{"\\VERT":"|"},"tex":"\\weierp"}
+{"count":1,"display":false,"id":"katex-support-table/widecheck/1","macros":{"\\VERT":"|"},"tex":"\\widecheck{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/widehat/1","macros":{"\\VERT":"|"},"tex":"\\widehat{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/widetilde/1","macros":{"\\VERT":"|"},"tex":"\\widetilde{AB}"}
+{"count":1,"display":false,"id":"katex-support-table/wp/1","macros":{"\\VERT":"|"},"tex":"\\wp"}
+{"count":1,"display":false,"id":"katex-support-table/wr/1","macros":{"\\VERT":"|"},"tex":"\\wr"}
+{"count":1,"display":false,"id":"katex-support-table/xcancel/1","macros":{"\\VERT":"|"},"tex":"\\xcancel{ABC}"}
+{"count":1,"display":false,"id":"katex-support-table/xdef/1","macros":{"\\VERT":"|"},"tex":"\\def\\foo{a}\\xdef\\fcopy{\\foo}\\def\\foo{}\\fcopy"}
+{"count":1,"display":false,"id":"katex-support-table/Xi/1","macros":{"\\VERT":"|"},"tex":"\\Xi"}
+{"count":1,"display":false,"id":"katex-support-table/xi/1","macros":{"\\VERT":"|"},"tex":"\\xi"}
+{"count":1,"display":false,"id":"katex-support-table/xhookleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\xhookleftarrow{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xhookrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\xhookrightarrow{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xLeftarrow/1","macros":{"\\VERT":"|"},"tex":"\\xLeftarrow{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\xleftarrow{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xleftharpoondown/1","macros":{"\\VERT":"|"},"tex":"\\xleftharpoondown{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xleftharpoonup/1","macros":{"\\VERT":"|"},"tex":"\\xleftharpoonup{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xLeftrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\xLeftrightarrow{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xleftrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\xleftrightarrow{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xleftrightharpoons/1","macros":{"\\VERT":"|"},"tex":"\\xleftrightharpoons{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xlongequal/1","macros":{"\\VERT":"|"},"tex":"\\xlongequal{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xmapsto/1","macros":{"\\VERT":"|"},"tex":"\\xmapsto{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xRightarrow/1","macros":{"\\VERT":"|"},"tex":"\\xRightarrow{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\xrightarrow{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xrightharpoondown/1","macros":{"\\VERT":"|"},"tex":"\\xrightharpoondown{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xrightharpoonup/1","macros":{"\\VERT":"|"},"tex":"\\xrightharpoonup{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xrightleftharpoons/1","macros":{"\\VERT":"|"},"tex":"\\xrightleftharpoons{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xtofrom/1","macros":{"\\VERT":"|"},"tex":"\\xtofrom{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xtwoheadleftarrow/1","macros":{"\\VERT":"|"},"tex":"\\xtwoheadleftarrow{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/xtwoheadrightarrow/1","macros":{"\\VERT":"|"},"tex":"\\xtwoheadrightarrow{abc}"}
+{"count":1,"display":false,"id":"katex-support-table/yen/1","macros":{"\\VERT":"|"},"tex":"\\yen"}
+{"count":1,"display":false,"id":"katex-support-table/Z/1","macros":{"\\VERT":"|"},"tex":"\\Z"}
+{"count":1,"display":false,"id":"katex-support-table/Zeta/1","macros":{"\\VERT":"|"},"tex":"\\Zeta"}
+{"count":1,"display":false,"id":"katex-support-table/zeta/1","macros":{"\\VERT":"|"},"tex":"\\zeta"}
