@@ -3,6 +3,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
 import LeAnTeX
+import LeAnTeXTest.Layout
 
 /-!
 # The differential test and the parity report
@@ -13,12 +14,18 @@ recorded answer (`fixtures/*.jsonl`, written by `tools/record.mjs`): the parse t
 the error (class, raw message, position, length), and the strict-mode warnings. It then builds
 the parity report over KaTeX's name list (`parity/names.tsv`).
 
-* `lake test` (no arguments): fail if a case that matched in the committed baseline
-  (`parity/baseline.tsv`) no longer matches, or if a corpus or fixture is missing.
-* `lake exe leantex-test --update`: rewrite `parity/baseline.tsv`, `parity/REPORT.md` and
-  `parity/names-status.tsv` from the current results.
+It then lays out every formula and compares the box tree with KaTeX's
+(`LeAnTeXTest.Layout`, fixtures in `fixtures/layout/`, report `parity/LAYOUT.md`).
+
+* `lake test` (no arguments): fail if a case that matched in the committed baselines
+  (`parity/baseline.tsv`, `parity/layout-baseline.tsv`) no longer matches, or if a corpus or
+  fixture is missing.
+* `lake exe leantex-test --update`: rewrite the baselines, `parity/REPORT.md`,
+  `parity/LAYOUT.md` and `parity/names-status.tsv` from the current results.
 * `lake exe leantex-test --show ID-PREFIX`: print the cases whose id starts with the prefix that
   do not match, with both answers.
+* `lake exe leantex-test --show-layout ID-PREFIX`: the same for the layout, with the first
+  difference of the trees.
 -/
 
 open LeAnTeX
@@ -304,12 +311,39 @@ def baselineText (results : Array Result) : String :=
   String.join (results.toList.map fun r =>
     s!"{r.corpus}\t{r.case.id}\t{if r.outcome.ok then "ok" else "mismatch"}\n")
 
+/-- Lay out every case of every corpus against the layout fixtures, and print the throughput. -/
+def runLayout (results : Array Result) : IO (Array LayoutTest.LayoutResult) := do
+  let mut out := #[]
+  let t0 ← IO.monoNanosNow
+  for c in (results.map (·.corpus)).toList.eraseDups do
+    let cases := (results.filter (·.corpus == c)).map fun r =>
+      (r.case.id, r.case.tex, r.case.settings)
+    out := out ++ (← LayoutTest.runLayoutCorpus c cases)
+  let t1 ← IO.monoNanosNow
+  IO.println s!"layout test: {out.size} cases in {(t1 - t0).toFloat / 1e9} s"
+  return out
+
+/-- Lines of a baseline file as (corpus, id, status). -/
+def readBaseline (path : System.FilePath) : IO (Array (String × String × String)) := do
+  let lines ← IO.FS.lines path
+  return lines.toList.drop 1 |>.toArray.filterMap fun l => match l.splitOn "\t" with
+    | [c, id, st] => some (c, id, st)
+    | _ => none
+
 /-- Run everything; see the module docstring for the modes. -/
 def main (args : List String) : IO UInt32 := do
   let mut results := #[]
   for c in ← corpora do
     results := results ++ (← runCorpus c)
   match args with
+  | ["--show-layout", pre] =>
+    let lres ← runLayout (results.filter (·.case.id.startsWith pre))
+    for r in lres do
+      if !r.outcome.ok && r.outcome != .notYet then
+        IO.println s!"== {r.id} [{r.outcome.name}]\ntex: {r.tex}\n{r.detail}"
+        IO.println s!"katex: {r.katex.compress}"
+        IO.println s!"lean:  {r.lean.compress}"
+    return 0
   | ["--show", pre] =>
     for r in results do
       if r.case.id.startsWith pre && !r.outcome.ok then
@@ -325,6 +359,11 @@ def main (args : List String) : IO UInt32 := do
       String.join (rows.toList.map fun (k, n, st, u, b) => s!"{k}\t{n}\t{st}\t{u}\t{b}\n"))
     let ok := (results.filter (·.outcome.ok)).size
     IO.println s!"parity: {ok} of {results.size} cases match; report written"
+    let lres ← runLayout results
+    IO.FS.writeFile "parity/LAYOUT.md" (LayoutTest.layoutReport lres 0)
+    IO.FS.writeFile "parity/layout-baseline.tsv" (LayoutTest.layoutBaselineText lres)
+    let same := (lres.filter (·.outcome == .same)).size
+    IO.println s!"layout: {same} of {lres.size} cases laid out as KaTeX does; report written"
     return 0
   | [] =>
     let baseline ← IO.FS.lines "parity/baseline.tsv"
@@ -344,6 +383,22 @@ def main (args : List String) : IO UInt32 := do
       | _ => pure ()
     let ok := (results.filter (·.outcome.ok)).size
     IO.println s!"parity: {ok} of {results.size} cases match KaTeX"
+    -- the layout baseline: a case laid out identically must stay so
+    let lres ← runLayout results
+    let lnow : Std.HashMap String String := Std.HashMap.ofList (lres.toList.map fun r =>
+      (r.corpus ++ "\t" ++ r.id, if r.outcome.ok then "ok" else if r.outcome == .notYet then
+        "not-yet" else "mismatch"))
+    let lpath : System.FilePath := "parity/layout-baseline.tsv"
+    if ← lpath.pathExists then
+      for (c, id, st) in ← readBaseline lpath do
+        if !(← System.FilePath.pathExists s!"corpus/{c}.jsonl") then continue
+        let now := lnow[c ++ "\t" ++ id]?
+        if st == "ok" && now != some "ok" then
+          regressions := regressions.push s!"layout {c}: {id} ({now.getD "missing"})"
+        else if st != "ok" && now == some "ok" then improved := improved + 1
+    else regressions := regressions.push "parity/layout-baseline.tsv is missing"
+    let lsame := (lres.filter (·.outcome == .same)).size
+    IO.println s!"layout: {lsame} of {lres.size} cases laid out as KaTeX does"
     if improved > 0 then
       IO.println s!"{improved} cases match that the baseline lists as mismatched; record them \
         with `lake exe leantex-test --update`"
@@ -354,5 +409,5 @@ def main (args : List String) : IO UInt32 := do
     for r in regressions do IO.eprintln s!"  {r}"
     return 1
   | _ =>
-    IO.eprintln "usage: leantex-test [--update | --show ID-PREFIX]"
+    IO.eprintln "usage: leantex-test [--update | --show ID-PREFIX | --show-layout ID-PREFIX]"
     return 2

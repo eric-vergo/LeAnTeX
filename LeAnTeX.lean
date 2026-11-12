@@ -5,6 +5,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 import LeAnTeX.Parse.Parser
 import LeAnTeX.Parse.NodeJson
 import LeAnTeX.Layout.Build
+import LeAnTeX.Layout.BoxJson
 
 /-!
 # LeAnTeX
