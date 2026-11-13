@@ -11,7 +11,8 @@ For every case of every corpus, LeAnTeX's box tree against KaTeX's (`fixtures/la
 by `tools/record.mjs --layout` from KaTeX's `__renderToHTMLTree`): the same nodes with the same
 kinds, texts, classes, style properties and attributes, and every number (height, depth,
 maxFontSize, italic correction, skew, width, style lengths, numbers in SVG data) within the
-tolerance; and the same strict-mode warnings.
+tolerance; and the same strict-mode warnings. The display list of every tree LeAnTeX lays out
+must keep its invariants (`DisplayList.wellFormed`).
 
 ## Main definitions
 
@@ -229,6 +230,10 @@ def runLayoutCorpus (name : String) (cases : Array (String × String × Settings
       | .ok t => (constructsOf (nodesToJson t)).eraseDups
       | .error _ => []
     let r := layout tex settings
+    -- the display list of every tree LeAnTeX lays out keeps its invariants
+    let displayOk := match r.result with
+      | .ok b => (DisplayList.ofBox b).wellFormed
+      | .error _ => true
     let kw := k.get? "warnings"
     let lw := Json.arr (r.warnings.map Json.str)
     let base : LayoutResult := { corpus := name, id, tex, outcome := .same, constructs }
@@ -251,6 +256,8 @@ def runLayoutCorpus (name : String) (cases : Array (String × String × Settings
       | none, .ok b => { base with outcome := .leanAccepts, lean := b.toJson }
       | none, .error (.unsupported what) => { base with outcome := .notYet, detail := what }
       | none, .error (.katex _) => { base with outcome := .bothReject }
+    let res := if displayOk then res
+      else { res with outcome := .differs, detail := "display list breaks its invariants" }
     out := out.push res
   return out
 

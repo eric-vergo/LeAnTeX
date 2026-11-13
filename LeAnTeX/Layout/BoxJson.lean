@@ -22,6 +22,10 @@ KaTeX's own trees, so that the two can be compared and KaTeX's tree evaluated by
 
 `loc` and a symbol's metric font are not part of the form (KaTeX has neither); `ofJson` leaves
 them unset. A style length reads back as a length when its text is a number followed by `em`.
+
+## References
+
+* KaTeX's `src/domTree.ts` (the node kinds and their fields; MIT licence, see `LICENSE-KaTeX`).
 -/
 
 namespace LeAnTeX

@@ -323,6 +323,23 @@ def main (args : List String) : IO UInt32 := do
       let b ← IO.monoNanosNow
       if (b - a) / 20 > longest.1 then longest := ((b - a) / 20, r.case.id)
     let perSec (k : Nat) (ns : Nat) : Float := k.toFloat / (ns.toFloat / 1e9)
+    for c in (cases.map (·.corpus)).toList.eraseDups do
+      let cs := cases.filter (·.corpus == c)
+      let a ← IO.monoNanosNow
+      for _ in [0:rounds] do
+        for r in cs do
+          match (layout r.case.tex r.case.settings).result with
+          | .ok b => check := check + (DisplayList.ofBox b).width.raw
+          | .error _ => check := check + 1
+      let b ← IO.monoNanosNow
+      for _ in [0:rounds] do
+        for r in cs do
+          match (parse r.case.tex r.case.settings).result with
+          | .ok t => check := check + t.size
+          | .error _ => check := check + 1
+      let e ← IO.monoNanosNow
+      IO.println s!"  {c}: {cs.size} formulas, {perSec (rounds * cs.size) (b - a)} formulas/s \
+        (parse, layout, display list); parse alone {perSec (rounds * cs.size) (e - b)}/s"
     IO.println s!"parse + layout: {n} formulas in {(t1 - t0).toFloat / 1e9} s, \
       {perSec n (t1 - t0)} formulas/s"
     IO.println s!"parse + layout + display list: {perSec n (t2 - t1)} formulas/s ({m} items)"

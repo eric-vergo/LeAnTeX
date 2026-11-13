@@ -25,6 +25,10 @@ stays far inside the 1e-4 em that KaTeX's own output resolves.
 
 Rounding is to the nearest unit with halves away from zero, everywhere (literals, products,
 quotients, `css`), matching JavaScript's `toFixed` and the table generator.
+
+## References
+
+* KaTeX's `src/units.ts` (`makeEm`, MIT licence, see `LICENSE-KaTeX`).
 -/
 
 namespace LeAnTeX

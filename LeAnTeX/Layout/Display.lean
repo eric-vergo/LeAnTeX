@@ -68,6 +68,7 @@ inline flow with margins, the tables of `makeVList`, size changes, fonts, colour
 
 * `Face`, `Item`, `Region`, `Part`, `Line`, `DisplayList`.
 * `DisplayList.ofBox`: the display list of a box tree.
+* `DisplayList.wellFormed`: the invariants, as a check.
 
 ## References
 
@@ -631,6 +632,25 @@ def fuel : Nat := 1 <<< 20
 
 end Display
 
+/-- KaTeX's twenty font faces, by file name. -/
+def Face.katexFaces : List String :=
+  ["AMS-Regular", "Caligraphic-Bold", "Caligraphic-Regular", "Fraktur-Bold", "Fraktur-Regular",
+   "Main-Bold", "Main-BoldItalic", "Main-Italic", "Main-Regular", "Math-BoldItalic",
+   "Math-Italic", "SansSerif-Bold", "SansSerif-Italic", "SansSerif-Regular", "Script-Regular",
+   "Size1-Regular", "Size2-Regular", "Size3-Regular", "Size4-Regular", "Typewriter-Regular"]
+
+/-- Whether a display list keeps the invariants of the module docstring: every glyph in one of
+KaTeX's faces at a positive size, rules and path rectangles of non-negative size, and the lines
+a partition of the items into consecutive ranges. -/
+def DisplayList.wellFormed (d : DisplayList) : Bool :=
+  let itemsOk := d.items.all fun
+    | .glyph f _ _ _ size _ _ _ _ => Face.katexFaces.contains f.name && size > 0
+    | .rule _ _ w h _ _ => w ≥ 0 && h ≥ 0
+    | .path _ _ _ _ _ w h _ _ _ => w ≥ 0 && h ≥ 0
+  let (linesOk, next) := d.lines.foldl (init := (true, 0)) fun (ok, k) ln =>
+    (ok && ln.start == k && ln.start ≤ ln.stop, ln.stop)
+  itemsOk && linesOk && next == d.items.size && !d.lines.isEmpty
+
 /-- The `katex-html` span of a box tree (the `katex` span, or `katex-display` around it). -/
 def Display.htmlOf (b : Box) : Box := Id.run do
   let mut html := b
@@ -649,7 +669,12 @@ def DisplayList.ofBox (b : Box) : DisplayList :=
   let html := Display.htmlOf b
   let l := Display.lay Display.fuel html { align := if display then .center else .left } #[]
     false none
+  -- a box without `katex-html` (KaTeX's error box for a rejected formula) is one line
+  let lines := if l.lines.isEmpty then
+      #[{ start := 0, stop := l.items.size, width := l.width, height := html.height,
+          depth := html.depth }]
+    else l.lines
   { width := l.width, height := html.height, depth := html.depth, items := l.items,
-    regions := l.regions, parts := l.parts, lines := l.lines }
+    regions := l.regions, parts := l.parts, lines }
 
 end LeAnTeX
