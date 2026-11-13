@@ -10,7 +10,8 @@ import LeAnTeX
 Properties of the display list that the browser comparison (`tools/check-display.mjs`) cannot
 run on every `lake test`: mirrored material, display-mode placement of the formula and its tag,
 equation numbers, dashed rules, the boxes and strikes of enclosures. Each check lays out one
-formula and states what its display list must contain.
+formula and states what its display list must contain. Also the round trip of box trees through
+their JSON form.
 
 ## Main definitions
 
@@ -109,6 +110,12 @@ def displayChecks : Array (String × Bool) :=
       (paths cancel).size == 1 && (paths cancel).all (·.2.2.2.2 == "none")),
     ("xcancel: two strokes", (paths xcancel).size == 2),
     ("sout: one rule through the text", (rules sout).size == 1),
+    ("box trees read back from their JSON form unchanged",
+      ["\\frac{a}{b}^2", "\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}", "\\cancel{x+y}",
+        "\\xrightarrow[b]{a}", "\\sqrt[3]{x}"].all fun tex =>
+        match (layout tex).result with
+        | .ok b => (Box.ofJson b.toJson).toJson.compress == b.toJson.compress
+        | .error _ => false),
     ("every check list keeps the invariants",
       [mirror, tagged, taggedLeft, numbered, dashed, hdash, fbox, colorbox, cancel, xcancel,
         sout].all (·.wellFormed))]

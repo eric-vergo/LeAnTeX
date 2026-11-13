@@ -22,6 +22,7 @@ KaTeX's own trees, so that the two can be compared and KaTeX's tree evaluated by
 
 `loc` and a symbol's metric font are not part of the form (KaTeX has neither); `ofJson` leaves
 them unset. A style length reads back as a length when its text is a number followed by `em`.
+Both conversions recurse on the children, by well-founded recursion on the size of the tree.
 
 ## References
 
@@ -49,8 +50,27 @@ def SvgChild.toJson : SvgChild → Json
       (match alt with | some a => #[("alt", .str a)] | none => #[]))
   | .line attrs => .obj #[("k", .str "line"), ("at", pairsJson attrs)]
 
+/-- A child of a box is smaller than the box. -/
+theorem Box.sizeOf_lt_of_mem_children {b c : Box} (h : c ∈ b.children) :
+    sizeOf c < sizeOf b := by
+  have := Array.sizeOf_lt_of_mem h
+  cases b
+  simp only [Box.mk.sizeOf_spec] at *
+  omega
+
+/-- A value inside an array that is the value of a key of an object is smaller than the
+object. -/
+theorem Json.sizeOf_lt_of_mem_obj_arr {kvs : Array (String × Json)} {k : String}
+    {xs : Array Json} {x : Json} (h1 : (k, Json.arr xs) ∈ kvs) (h2 : x ∈ xs) :
+    sizeOf x < sizeOf (Json.obj kvs) := by
+  have := Array.sizeOf_lt_of_mem h1
+  have := Array.sizeOf_lt_of_mem h2
+  simp only [Json.obj.sizeOf_spec, Json.arr.sizeOf_spec, Prod.mk.sizeOf_spec] at *
+  omega
+
 /-- A box tree in the compact JSON form. -/
-partial def Box.toJson (b : Box) : Json :=
+def Box.toJson (b : Box) : Json :=
+  let children := b.children.attach.map fun ⟨c, _⟩ => Box.toJson c
   let common (kvs : Array (String × Json)) : Array (String × Json) := Id.run do
     let cls := b.classes.filter (· != "")
     let mut kvs := kvs
@@ -74,14 +94,15 @@ partial def Box.toJson (b : Box) : Json :=
     let kvs := putNum #[("k", .str "frag")] "h" b.height
     let kvs := putNum kvs "d" b.depth
     let kvs := putNum kvs "m" b.maxFontSize
-    .obj (kvs.push ("ch", .arr (b.children.map Box.toJson)))
+    .obj (kvs.push ("ch", .arr children))
   | .img src alt => .obj (common #[("k", .str "img"), ("src", .str src), ("alt", .str alt)])
   | .span | .anchor =>
     let kvs := common #[("k", .str (if b.kind == .anchor then "a" else "span"))]
     let kvs := match b.width with | some w => kvs.push ("w", w.toJson) | none => kvs
     let kvs := match b.italic with | some i => kvs.push ("i", i.toJson) | none => kvs
-    .obj (if b.children.isEmpty then kvs else
-      kvs.push ("ch", .arr (b.children.map Box.toJson)))
+    .obj (if b.children.isEmpty then kvs else kvs.push ("ch", .arr children))
+termination_by b
+decreasing_by exact Box.sizeOf_lt_of_mem_children ‹_›
 
 /-- A JSON number field as a length (zero when absent). -/
 private def numField (j : Json) (key : String) : Em :=
@@ -98,13 +119,22 @@ private def pairsOf (j : Option Json) : Array (String × String) :=
   | _ => #[]
 
 /-- A box tree from the compact JSON form. -/
-partial def Box.ofJson (j : Json) : Box :=
+def Box.ofJson (j : Json) : Box :=
   let kind := ((j.get? "k").bind Json.getStr?).getD "span"
   let classes := match j.get? "c" with
     | some (.arr xs) => xs.filterMap Json.getStr?
     | _ => #[]
   let style : Css := ⟨(pairsOf (j.get? "st")).map fun (k, v) => (k, CssValue.ofText v)⟩
-  let children := match j.get? "ch" with
+  -- the children, from the first `ch` key, laid out in turn
+  let children : Array Box := match j with
+    | .obj kvs =>
+      match (kvs.attach.find? fun ⟨(k, _), _⟩ => k == "ch") with
+      | some ⟨(k, .arr xs), h1⟩ => xs.attach.map fun ⟨x, h2⟩ =>
+        have : sizeOf x < sizeOf (Json.obj kvs) := Json.sizeOf_lt_of_mem_obj_arr h1 h2
+        Box.ofJson x
+      | _ => #[]
+    | _ => #[]
+  let svgChildren := match j.get? "ch" with
     | some (.arr xs) => xs
     | _ => #[]
   let base : Box := { classes, style, attrs := pairsOf (j.get? "at"),
@@ -116,21 +146,24 @@ partial def Box.ofJson (j : Json) : Box :=
                 italic := some (numField j "i"), skew := numField j "sk",
                 width := some (numField j "w") }
   | "svg" =>
-    let ch := children.filterMap fun c =>
+    let ch := svgChildren.filterMap fun c =>
       match (c.get? "k").bind Json.getStr? with
       | some "path" => some (.path (((c.get? "name").bind Json.getStr?).getD "")
           ((c.get? "alt").bind Json.getStr?))
       | some "line" => some (.line (pairsOf (c.get? "at")))
       | _ => none
     { base with kind := .svg ch }
-  | "frag" => { base with kind := .fragment, children := children.map Box.ofJson }
+  | "frag" => { base with kind := .fragment, children }
   | "img" =>
     { base with kind := .img (((j.get? "src").bind Json.getStr?).getD "")
                   (((j.get? "alt").bind Json.getStr?).getD "") }
   | k =>
     { base with kind := if k == "a" then .anchor else .span,
-                children := children.map Box.ofJson,
+                children,
                 width := ((j.get? "w").bind Json.getNum?).map Em.ofFloat,
                 italic := ((j.get? "i").bind Json.getNum?).map Em.ofFloat }
+
+termination_by sizeOf j
+decreasing_by all_goals assumption
 
 end LeAnTeX
