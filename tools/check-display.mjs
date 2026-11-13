@@ -4,11 +4,13 @@
 // Checks LeAnTeX's display lists against what a browser does with KaTeX's own rendering: each
 // formula of a dump written by `lake exe leantex-display` is rendered with KaTeX (its CSS and
 // fonts) in headless Chromium, and for every character the browser's position (left end of its
-// advance, baseline), face and size, and for every fraction bar its rectangle, are compared
+// advance, baseline), face and size, for every rule its rectangle and for every SVG image its
+// viewport, are compared
 // with the display list's items, in order. Positions are in em of the formula's font size.
 // Formulas with a character KaTeX has no metrics of its own for are left out (the display list
 // advances by KaTeX's stand-in; the browser draws it with a fallback font's own advance), and in
-// display mode the equation tag (KaTeX puts it at the right end of the line).
+// display mode the equation tag (KaTeX puts it at the right end of the line), and formulas
+// with `\reflectbox` (the display list does not mirror glyphs).
 // Prints the worst deviations and a summary.
 //
 // Usage, from the repository root:
@@ -101,11 +103,26 @@ async function measure(batch) {
             const html = d.querySelector(".katex-html");
             const base = html && html.querySelector(".katex-base");
             if (!base) { out.push(null); continue; }
-            const m0 = marker();
-            base.insertBefore(m0, base.firstChild);
-            const r0 = m0.getBoundingClientRect();
-            const x0 = r0.left;
-            const y0 = r0.bottom;
+            // each line's origin: the left end of its first part and its baseline (a line is
+            // broken by a `katex-newline`; the display list's items are relative to their line)
+            const origin = new Map();
+            let lineX = null;
+            for (const part of html.children) {
+                if (part.classList.contains("katex-newline")) {
+                    lineX = null;
+                    continue;
+                }
+                const m = marker();
+                part.insertBefore(m, part.firstChild);
+                const r = m.getBoundingClientRect();
+                if (lineX === null) lineX = r.left;
+                origin.set(part, [lineX, r.bottom]);
+            }
+            const originOf = (el) => {
+                let p = el;
+                while (p && !origin.has(p)) p = p.parentElement;
+                return p ? origin.get(p) : [0, 0];
+            };
             const em = sizePx;
             const glyphs = [];
             const walker = document.createTreeWalker(html, NodeFilter.SHOW_TEXT);
@@ -118,6 +135,11 @@ async function measure(batch) {
                 const mk = marker();
                 parent.insertBefore(mk, t);
                 const baseline = mk.getBoundingClientRect().bottom;
+                // a phantom's text is drawn transparent: the display list has no items for it
+                if (getComputedStyle(parent).color === "rgba(0, 0, 0, 0)") {
+                    mk.remove();
+                    continue;
+                }
                 const face = faceOf(parent);
                 const size = parseFloat(getComputedStyle(parent).fontSize) / em;
                 let i = 0;
@@ -128,6 +150,7 @@ async function measure(batch) {
                         r.setStart(t, i);
                         r.setEnd(t, i + len);
                         const rect = r.getBoundingClientRect();
+                        const [x0, y0] = originOf(parent);
                         glyphs.push([face, ch, (rect.left - x0) / em, (baseline - y0) / em, size]);
                     }
                     i += len;
@@ -135,25 +158,49 @@ async function measure(batch) {
                 mk.remove();
             }
             const rules = [];
-            for (const el of html.querySelectorAll(".frac-line")) {
+            const ruleSel = ".frac-line, .overline-line, .underline-line, .katex-rule";
+            for (const el of html.querySelectorAll(ruleSel)) {
+                if (tag && tag.contains(el)) continue;
                 const rect = el.getBoundingClientRect();
-                const bw = parseFloat(getComputedStyle(el).borderBottomWidth);
-                rules.push([(rect.left - x0) / em, (rect.bottom - bw - y0) / em,
-                    rect.width / em, bw / em]);
+                const cs = getComputedStyle(el);
+                const [x0, y0] = originOf(el);
+                if (el.classList.contains("katex-rule")) {
+                    rules.push([(rect.left - x0) / em, (rect.top - y0) / em, rect.width / em,
+                        rect.height / em]);
+                } else {
+                    const bw = parseFloat(cs.borderBottomWidth);
+                    rules.push([(rect.left - x0) / em, (rect.bottom - bw - y0) / em,
+                        rect.width / em, bw / em]);
+                }
             }
-            // the parts side by side (in display mode `katex-html` is as wide as the page)
+            const svgs = [];
+            for (const el of html.querySelectorAll("svg")) {
+                if (tag && tag.contains(el)) continue;
+                const rect = el.getBoundingClientRect();
+                const [x0, y0] = originOf(el);
+                for (let k = 0; k < el.querySelectorAll("path").length; k++) {
+                    svgs.push([(rect.left - x0) / em, (rect.top - y0) / em, rect.width / em,
+                        rect.height / em]);
+                }
+            }
+            // the widest line (in display mode `katex-html` is as wide as the page)
             let width = 0;
+            let line = 0;
             for (const part of html.children) {
-                if (part !== tag) width += part.getBoundingClientRect().width / em;
+                if (part.classList.contains("katex-newline")) {
+                    width = Math.max(width, line);
+                    line = 0;
+                } else if (part !== tag) line += part.getBoundingClientRect().width / em;
             }
-            out.push({glyphs, rules, width});
+            width = Math.max(width, line);
+            out.push({glyphs, rules, svgs, width});
             d.remove();
         }
         return out;
     }, [batch, sizePx]);
 }
 
-const stats = {noMetrics: 0, formulas: 0, glyphs: 0, rules: 0, countMismatch: 0, faceMismatch: 0,
+const stats = {noMetrics: 0, svgs: 0, worstSvg: 0, formulas: 0, glyphs: 0, rules: 0, countMismatch: 0, faceMismatch: 0,
     worstX: 0, worstY: 0, worstSize: 0, worstRule: 0, worstWidth: 0};
 const deviations = [];
 const xs = [];
@@ -164,19 +211,23 @@ for (let b = 0; b < cases.length; b += BATCH) {
     batch.forEach((c, k) => {
         const m = measured[k];
         if (!m) return;
-        // KaTeX lays out a character without metrics as zero-width, the browser does not
-        if (c.noMetrics) {
+        // KaTeX lays out a character without metrics as zero-width, the browser does not; the
+        // display list does not mirror the material of `\reflectbox`
+        if (c.noMetrics || /reflectbox/.test(c.tex)) {
             stats.noMetrics++;
             return;
         }
         stats.formulas++;
         const inTag = (it) => c.display && c.tagX !== null && it[3] >= c.tagX - 1e-9;
         const ours = c.items.filter((it) => it[0] === "g" && !inTag(it));
-        const ourRules = c.items.filter((it) => it[0] === "r");
-        if (ours.length !== m.glyphs.length || ourRules.length < m.rules.length) {
+        const ourRules = c.items.filter((it) => it[0] === "r" && !inTag(it));
+        const ourSvgs = c.items.filter((it) => it[0] === "p" && !inTag(it));
+        if (ours.length !== m.glyphs.length || ourRules.length !== m.rules.length ||
+            ourSvgs.length !== m.svgs.length) {
             stats.countMismatch++;
             deviations.push({id: c.id, tex: c.tex, what: `glyphs ${ours.length} vs ` +
-                `${m.glyphs.length}, rules ${ourRules.length} vs ${m.rules.length}`, d: Infinity});
+                `${m.glyphs.length}, rules ${ourRules.length} vs ${m.rules.length}, svgs ` +
+                `${ourSvgs.length} vs ${m.svgs.length}`, d: Infinity});
             return;
         }
         let worst = 0;
@@ -200,13 +251,27 @@ for (let b = 0; b < cases.length; b += BATCH) {
                     ` dy ${dy.toFixed(5)}`;
             }
         });
-        // the browser's rules are a subset of ours (ours also has overlines and the like)
+        m.svgs.forEach((r, i) => {
+            const o = ourSvgs[i];
+            stats.svgs++;
+            const d = Math.max(...r.map((v, j) => Math.abs(v - o[j + 1])));
+            stats.worstSvg = Math.max(stats.worstSvg, d);
+            if (d > worst) {
+                worst = d;
+                what = `svg ${i}: ${r.map((v) => v.toFixed(4))} vs ` +
+                    `${o.slice(1).map((v) => v.toFixed(4))}`;
+            }
+        });
         m.rules.forEach((r, i) => {
             const o = ourRules[i];
             stats.rules++;
             const d = Math.max(...r.map((v, j) => Math.abs(v - o[j + 1])));
             stats.worstRule = Math.max(stats.worstRule, d);
-            worst = Math.max(worst, d);
+            if (d > worst) {
+                worst = d;
+                what = `rule ${i}: ${r.map((v) => v.toFixed(4))} vs ` +
+                    `${o.slice(1).map((v) => v.toFixed(4))}`;
+            }
         });
         const dw = Math.abs(m.width - (c.display && c.tagX !== null ? c.tagX : c.width));
         stats.worstWidth = Math.max(stats.worstWidth, dw);
@@ -220,14 +285,15 @@ xs.sort((a, b) => a - b);
 const pct = (p) => xs.length ? xs[Math.min(xs.length - 1, Math.floor(p * xs.length))] : 0;
 deviations.sort((a, b) => b.d - a.d);
 console.log(`font size ${sizePx}px; ${stats.formulas} formulas, ${stats.glyphs} glyphs, ` +
-    `${stats.rules} fraction bars`);
+    `${stats.rules} rules, ${stats.svgs} SVG images`);
 console.log(`left out: ${stats.noMetrics} formulas with a character KaTeX has no metrics of ` +
     `its own for (the browser draws it with a fallback font)`);
 console.log(`glyph count differs: ${stats.countMismatch}; face or character differs: ` +
     `${stats.faceMismatch}`);
 console.log(`worst |dx| ${stats.worstX.toFixed(5)} em (median ${pct(0.5).toFixed(5)}, 99% ` +
     `${pct(0.99).toFixed(5)}), worst |dy| ${stats.worstY.toFixed(5)} em, worst size ` +
-    `${stats.worstSize.toFixed(5)}, worst bar ${stats.worstRule.toFixed(5)} em, worst width ` +
+    `${stats.worstSize.toFixed(5)}, worst rule ${stats.worstRule.toFixed(5)} em, worst SVG ` +
+    `rectangle ${stats.worstSvg.toFixed(5)} em, worst width ` +
     `${stats.worstWidth.toFixed(5)} em`);
 for (const d of deviations.slice(0, show)) {
     console.log(`  ${d.d === Infinity ? "count" : d.d.toFixed(5)}  ${d.id}: ${d.what}  ` +

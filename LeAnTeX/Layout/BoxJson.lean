@@ -93,15 +93,6 @@ private def pairsOf (j : Option Json) : Array (String × String) :=
     | _ => none
   | _ => #[]
 
-/-- A CSS value from its text: a length when it is a number followed by `em`. -/
-def CssValue.ofText (s : String) : CssValue :=
-  if s.endsWith "em" then
-    let num := (s.dropEnd 2).toString
-    match Json.parse num with
-    | .ok (.num x) => .em (Em.ofFloat x)
-    | _ => .str s
-  else .str s
-
 /-- A box tree from the compact JSON form. -/
 partial def Box.ofJson (j : Json) : Box :=
   let kind := ((j.get? "k").bind Json.getStr?).getD "span"

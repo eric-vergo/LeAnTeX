@@ -56,6 +56,28 @@ def CssValue.text : CssValue → String
   | .em x => x.css
   | .str s => s
 
+/-- A decimal number (`-0.5`, `.25`, `3`) as a length in em, rounded to the nearest unit. -/
+def parseDecimal (s : String) : Option Em := Id.run do
+  let (neg, body) := if s.startsWith "-" then (true, (s.drop 1).toString) else (false, s)
+  let parts := body.splitOn "."
+  let (ip, fp) := match parts with
+    | [a] => (a, "")
+    | [a, b] => (a, b)
+    | _ => ("x", "")
+  if (ip.isEmpty && fp.isEmpty) || !(ip ++ fp).all Char.isDigit then return none
+  let digits := (ip ++ fp).foldl (fun n c => n * 10 + (c.toNat - '0'.toNat)) 0
+  let x := Em.ofRatio digits (10 ^ fp.length)
+  return some (if neg then -x else x)
+
+/-- A CSS value from its text: a length when it is a number followed by `em`. -/
+def CssValue.ofText (s : String) : CssValue :=
+  if s.endsWith "em" then
+    let num := (s.dropEnd 2).toString
+    match parseDecimal num with
+    | some x => .em x
+    | none => .str s
+  else .str s
+
 /-- A node's style: CSS properties under KaTeX's camel-case names, in the order set. -/
 structure Css where
   /-- The properties. -/

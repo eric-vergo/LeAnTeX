@@ -5,6 +5,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 import LeAnTeX.Layout.Box
 import LeAnTeX.Layout.Metrics
 import LeAnTeX.Data.FontAdvances
+import LeAnTeX.Data.SvgPaths
 
 /-!
 # The display list
@@ -39,6 +40,9 @@ inline flow with margins, the tables of `makeVList`, size changes, fonts, colour
 * **Paths.** A path is SVG path data with its `viewBox` and `preserveAspectRatio`, drawn into
   the rectangle given (the surd of `\sqrt`, stretchy delimiters and accents). `clip`, when set,
   is the rectangle the image is clipped to.
+* **Shadows.** `\pmb` thickens its material with a copy offset by (0.02 em, 0.01 em) of its
+  font size, drawn first (KaTeX's `text-shadow`, whose 0.04 px blur is left out); those glyphs
+  are marked `shadow`.
 * **Colour.** Every item has the colour it is drawn in (a CSS colour as the formula gave it), or
   none for the surrounding text's colour. Material inside `\phantom` is not drawn and has no
   items.
@@ -51,14 +55,18 @@ inline flow with margins, the tables of `makeVList`, size changes, fonts, colour
 * Every glyph's face is one of KaTeX's twenty font files, and its size is positive.
 * Rules and path rectangles have non-negative width and height.
 * `parts` lists the formula's unbreakable parts (KaTeX's `katex-base` spans) in order, without
-  gaps: a back end that breaks lines may break between them, as a browser does. The equation
-  tag, if any, is the last part, marked as such and placed after the formula; in display mode
-  KaTeX puts it at the right end of the line instead (a back end moves the items from the tag's
-  left end on).
+  gaps on a line: a back end that breaks lines may break between them, as a browser does. The
+  equation tag, if any, is the last part, marked as such and placed after the formula; in
+  display mode KaTeX puts it at the right end of the line instead (a back end moves the items
+  from the tag's left end on).
+* `lines` partitions `items` into the lines that `\\` and `\newline` break the formula into
+  (one line otherwise). Each line's items are relative to that line's own baseline and left
+  end; a back end stacks the lines with the spacing of its surrounding text, as a browser
+  does. `width` is the widest line's.
 
 ## Main definitions
 
-* `Face`, `Item`, `Region`, `DisplayList`.
+* `Face`, `Item`, `Region`, `Part`, `Line`, `DisplayList`.
 * `DisplayList.ofBox`: the display list of a box tree.
 
 ## References
@@ -105,9 +113,10 @@ abbrev SourceRange := Nat × Nat
 /-- A drawing operation. -/
 inductive Item where
   /-- A character of a face at a size, its baseline origin at `(x, y)`; `exact` when KaTeX has
-  the character's own metrics in the face. -/
-  | glyph (face : Face) (char : Char) (x y size : Em) (exact : Bool) (color : Option String)
-      (source : Option SourceRange)
+  the character's own metrics in the face; `shadow` for the offset copy that `\pmb` draws
+  under its material (CSS `text-shadow`). -/
+  | glyph (face : Face) (char : Char) (x y size : Em) (exact shadow : Bool)
+      (color : Option String) (source : Option SourceRange)
   /-- A filled rectangle with its top-left corner at `(x, y)`. -/
   | rule (x y width height : Em) (color : Option String) (source : Option SourceRange)
   /-- SVG path data drawn into the rectangle with top-left corner `(x, y)`. -/
@@ -132,6 +141,34 @@ structure Region where
   source : SourceRange
   deriving Inhabited, Repr
 
+/-- An unbreakable part of a formula (KaTeX's `katex-base` spans) or its equation tag: left end
+and width on its line. -/
+structure Part where
+  /-- Left end. -/
+  x : Em
+  /-- Width. -/
+  width : Em
+  /-- The line it is on. -/
+  line : Nat
+  /-- Whether it is the equation tag. -/
+  tag : Bool
+  deriving Inhabited, Repr
+
+/-- A line of a formula that `\\` or `\newline` breaks: its items (a range of `items`), its
+width, and its height and depth (those of its parts). -/
+structure Line where
+  /-- The first item. -/
+  start : Nat
+  /-- One past the last item. -/
+  stop : Nat
+  /-- Width. -/
+  width : Em
+  /-- Height above the baseline. -/
+  height : Em
+  /-- Depth below the baseline. -/
+  depth : Em
+  deriving Inhabited, Repr
+
 /-- A formula laid out as positioned drawing operations (see the module docstring). -/
 structure DisplayList where
   /-- The advance width. -/
@@ -144,9 +181,19 @@ structure DisplayList where
   items : Array Item := #[]
   /-- The rectangles of the parse nodes, outermost first. -/
   regions : Array Region := #[]
-  /-- The unbreakable parts: left end, width, and whether the part is the equation tag. -/
-  parts : Array (Em × Em × Bool) := #[]
+  /-- The unbreakable parts. -/
+  parts : Array Part := #[]
+  /-- The lines; one unless the formula breaks lines with `\\` or `\newline`. -/
+  lines : Array Line := #[]
   deriving Inhabited
+
+/-- An item moved by `(dx, dy)`. -/
+def Item.shift (dx dy : Em) : Item → Item
+  | .glyph f c x y s e sh col src => .glyph f c (x + dx) (y + dy) s e sh col src
+  | .rule x y w h col src => .rule (x + dx) (y + dy) w h col src
+  | .path d vb par x y w h clip col src =>
+    .path d vb par (x + dx) (y + dy) w h
+      (clip.map fun (cx, cy, cw, ch) => (cx + dx, cy + dy, cw, ch)) col src
 
 namespace Display
 
@@ -187,17 +234,11 @@ structure Laid where
   items : Array Item := #[]
   /-- The regions. -/
   regions : Array Region := #[]
-  /-- The unbreakable parts (only for the formula's top-level spans). -/
-  parts : Array (Em × Em × Bool) := #[]
+  /-- The unbreakable parts (only for the formula's top-level span). -/
+  parts : Array Part := #[]
+  /-- The lines (only for the formula's top-level span). -/
+  lines : Array Line := #[]
   deriving Inhabited
-
-/-- An item moved by `(dx, dy)`. -/
-def Item.shift (dx dy : Em) : Item → Item
-  | .glyph f c x y s e col src => .glyph f c (x + dx) (y + dy) s e col src
-  | .rule x y w h col src => .rule (x + dx) (y + dy) w h col src
-  | .path d vb par x y w h clip col src =>
-    .path d vb par (x + dx) (y + dy) w h
-      (clip.map fun (cx, cy, cw, ch) => (cx + dx, cy + dy, cw, ch)) col src
 
 /-- Items and regions moved by `(dx, dy)`. -/
 def Laid.shift (l : Laid) (dx dy : Em) : Array Item × Array Region :=
@@ -269,7 +310,14 @@ formula. -/
 def styleEm (b : Box) (key : String) (scale : Em) : Option Em :=
   match b.style.get? key with
   | some (.em x) => some (x * scale)
-  | _ => none
+  | some (.str s) => match CssValue.ofText s with
+    | .em x => some (x * scale)
+    | _ => none
+  | none => none
+
+/-- The data of one of KaTeX's named SVG paths. -/
+def svgPathData (name : String) : Option String :=
+  (Data.svgPathList.find? (·.1 == name)).map (·.2)
 
 /-- The advances of the characters of KaTeX's fonts, as the fonts give them, by face name and
 code point. -/
@@ -285,13 +333,16 @@ def advances : Std.HashMap String (Std.HashMap Nat Em) := Id.run do
 /-- The advance of one character of a face, and whether the character is the face's own: the
 font's advance, or the metric width, or for a character the face does not have KaTeX's
 stand-in (the metrics of a look-alike, or of `M` for a character of another script), or
-zero. -/
+zero. A character of KaTeX's metric table that the font does not have is not the face's
+own. -/
 def charWidth (face : Face) (c : Char) : Em × Bool :=
   match (advances[face.name]?).bind (·[c.val.toNat]?) with
   | some w => (w, true)
   | none =>
+    -- a character of the metric table that the font itself lacks is drawn from a fallback
+    let inFont := !(advances.contains face.name)
     match (Metrics.table[face.name]?).bind (·[utf16First c]?) with
-    | some m => (m.width, true)
+    | some m => (m.width, inFont)
     | none => (((charMetrics c.toString face.name .text).map (·.width)).getD 0, false)
 
 /-- Spans that are as wide as their containing block (`width: 100%`) and drawn as a rule from
@@ -299,6 +350,46 @@ their bottom border. -/
 def isFullWidthRule (b : Box) : Bool :=
   ["frac-line", "overline-line", "underline-line", "katex-hline", "katex-hdashline"].any
     b.hasClass
+
+/-- Whether a box holds an SVG image. -/
+def hasSvgChild (b : Box) : Bool := b.children.any (·.kind matches .svg _)
+
+/-- Spans as wide as their containing block (`width: 100%`): the clipping span of a single
+stretchy image or a surd, and the span of a multi-piece image. -/
+def fillsWidth (b : Box) : Bool := b.hasClass "hide-tail" || b.hasClass "katex-stretchy"
+
+/-- An element's `min-width`. -/
+def minWidthOf (b : Box) (scale : Em) : Em :=
+  match b.style.get? "minWidth" with
+  | some (.em x) => x * scale
+  | some (.str s) => match CssValue.ofText s with
+    | .em x => x * scale
+    | _ => 0
+  | none => 0
+
+/-- The left end and width of a piece of a multi-piece stretchy image within the image's width
+(`halfarrow-left`, `brace-center`, …: KaTeX's percentages of the width). -/
+def pieceRect (piece : Box) (w : Em) : Em × Em :=
+  let pct (n : Int) : Em := Em.mk (Em.roundDiv (w.raw * n) 1000)
+  if piece.hasClass "halfarrow-left" then (0, pct 502)
+  else if piece.hasClass "halfarrow-right" then (w - pct 502, pct 502)
+  else if piece.hasClass "brace-left" then (0, pct 251)
+  else if piece.hasClass "brace-center" then (pct 250, pct 500)
+  else if piece.hasClass "brace-right" then (w - pct 251, pct 251)
+  else (0, w)
+
+/-- The paths of the SVG images of a span, drawn into the rectangle given. -/
+def svgItems (b : Box) (x y w h : Em) (clip : Option (Em × Em × Em × Em))
+    (color : Option String) (source : Option SourceRange) : Array Item :=
+  (b.children.filter (·.kind matches .svg _)).flatMap fun svg =>
+    let attr (k : String) := ((svg.attrs.find? (·.1 == k)).map (·.2)).getD ""
+    match svg.kind with
+    | .svg paths => paths.filterMap fun
+      | .path name alt =>
+        some (Item.path ((alt.orElse fun _ => svgPathData name).getD name) (attr "viewBox")
+          (attr "preserveAspectRatio") x y w h clip color source)
+      | .line _ => none
+    | _ => #[]
 
 /-- Place children side by side, each at its left margin, from `x = 0`. -/
 def flow (laid : Array Laid) : Laid := Id.run do
@@ -340,7 +431,8 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
     -- positioned elements: `top`, `left` move the drawing, not the flow
     let dx := (styleEm b "left" scale).getD 0
     let dy := ((styleEm b "top" scale).getD 0) -
-      ((styleEm b "verticalAlign" scale).getD 0)
+      ((styleEm b "verticalAlign" scale).getD 0) -
+      (if b.hasClass "katex-rule" then 0 else (styleEm b "bottom" scale).getD 0)
     let region (w : Em) : Array Region := match sourceOf b.loc with
       | some src =>
         if b.isFragment then #[]
@@ -353,12 +445,14 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
                regions := region l.width ++ rs }
     match b.kind with
     | .symbol text _ =>
-      let mut x : Em := 0
+      -- a symbol with a style is a span: `padding-left` (the radicand of `\sqrt`) comes first
+      let padL := (styleEm b "paddingLeft" scale).getD 0
+      let mut x : Em := padL
       let mut items := #[]
       for c in text.toList do
         let (w, exact) := charWidth face c
         if visible && c != '\u200b' then
-          items := items.push (.glyph face c x 0 scale exact color source)
+          items := items.push (.glyph face c x 0 scale exact false color source)
         x := x + w * scale
       -- KaTeX writes the italic correction as `margin-right`, before the node's own style
       let italic := b.italicOr0
@@ -377,25 +471,32 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
         let h := (styleEm b "borderBottomWidth" scale).getD 0
         let items := if visible then #[Item.rule 0 (-h) w h color source] else #[]
         return finish { width := w, items }
-      -- an SVG image fills its span (or, when the span sets no width, the containing block)
-      if let some svg := b.children.find? (fun c => match c.kind with
-          | .svg _ => true
-          | _ => false) then
-        let w := ((styleEm b "width" scale).orElse fun _ => cb).getD 0
+      if b.hasClass "katex-rule" then
+        -- an empty inline block whose borders are the rule, raised by `bottom`
+        let w := (styleEm b "borderRightWidth" scale).getD 0
+        let h := (styleEm b "borderTopWidth" scale).getD 0
+        let up := (styleEm b "bottom" scale).getD 0
+        let items := if visible then #[Item.rule 0 (-h - up) w h color source] else #[]
+        return finish { width := w, items }
+      if hasSvgChild b then
+        -- a span with an SVG image as wide as its containing block (`svg { width: 100% }`)
+        let w := (styleEm b "width" scale).getD
+          (if fillsWidth b then max (cb.getD 0) (minWidthOf b scale) else 0)
+        let iw := if fillsWidth b || (styleEm b "width" scale).isSome then w else cb.getD 0
         let h := (styleEm b "height" scale).getD 0
-        let attr (k : String) := ((svg.attrs.find? (·.1 == k)).map (·.2)).getD ""
-        let clip := if b.hasClass "hide-tail" then some ((0 : Em), -h, w, h) else none
-        let items := match svg.kind with
-          | .svg paths => paths.filterMap fun p => match p with
-            | .path name alt =>
-              if visible then
-                some (Item.path (alt.getD name) (attr "viewBox")
-                  (attr "preserveAspectRatio") 0 (-h) w h clip color source)
-              else none
-            | .line _ => none
-          | _ => #[]
-        let width := (styleEm b "width" scale).getD 0
-        return finish { width, items }
+        let clip := if b.hasClass "hide-tail" then some ((0 : Em), -h, iw, h) else none
+        let items := if visible then svgItems b 0 (-h) iw h clip color source else #[]
+        return finish { width := w, items }
+      if b.hasClass "katex-stretchy" then
+        -- the pieces of a stretchy image, each clipped to its share of the width
+        let w := max (cb.getD 0) (minWidthOf b scale)
+        let mut items := #[]
+        for piece in b.children do
+          let h := (styleEm piece "height" scale).getD 0
+          let (px, pw) := pieceRect piece w
+          let clip := some (px, -h, pw, h)
+          if visible then items := items ++ svgItems piece px (-h) pw h clip color source
+        return finish { width := w, items }
       if b.hasClass "vlist-t" then
         -- the first row's `vlist` cell holds the elements; the second row only the depth
         let some row := b.children[0]? | return finish {}
@@ -414,17 +515,18 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
           let l := lay fuel elem wctx w.classes inMult none
           -- the elements of a vertical list are inline blocks, never narrower than nothing
           let l := { l with width := max 0 l.width }
-          let full := isFullWidthRule elem
-          let lw := if full then 0 else l.marginLeft + l.width + l.marginRight
+          -- an element as wide as the list adds only its least width
+          let lw := if isFullWidthRule elem || fillsWidth elem then minWidthOf elem scale
+            else l.marginLeft + l.width + l.marginRight
           cellWidth := max cellWidth (lw + wml + wmr)
           laidOut := laidOut.push (w, elem, l, wml, wmr, top + pstrut)
-        -- second pass: place them, re-laying the full-width ones at the cell's width
+        -- second pass: place them, re-laying those that depend on the cell's width
         let mut items := #[]
         let mut regions := #[]
         for (w, elem, l0, wml, wmr, baseline) in laidOut do
           let inner := cellWidth - wml - wmr
           let wctx := if w.hasClass "svg-align" then { ctx with align := .left } else ctx
-          let l := if isFullWidthRule elem || elem.children.any (·.kind matches .svg _) then
+          let l := if isFullWidthRule elem || fillsWidth elem || hasSvgChild elem then
               lay fuel elem wctx w.classes inMult (some inner)
             else l0
           let l := { l with width := max 0 l.width }
@@ -437,6 +539,21 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
           items := items ++ is
           regions := regions ++ rs
         return finish { width := cellWidth, items, regions }
+      if b.hasClass "llap" || b.hasClass "rlap" || b.hasClass "clap" then
+        -- no width; the absolutely placed `katex-inner` ends (llap), starts (rlap) or is
+        -- centred (clap) at the left end
+        let mut items := #[]
+        let mut regions := #[]
+        for c in b.children do
+          if c.hasClass "katex-inner" then
+            let l := lay fuel c ctx b.classes inMult cb
+            let w := l.marginLeft + l.width + l.marginRight
+            let off := if b.hasClass "llap" then -w
+              else if b.hasClass "clap" then -Em.mk (Em.roundDiv w.raw 2) else 0
+            let (is, rs) := l.shift (off + l.marginLeft) 0
+            items := items ++ is
+            regions := regions ++ rs
+        return finish { width := 0, items, regions }
       -- inline flow; text-align for the rows of a fraction and the tables of limits
       let mut laid := #[]
       for c in b.children do
@@ -450,23 +567,64 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
           else childCtx
         laid := laid.push (lay fuel c childCtx b.classes inMult cb)
       let fl := flow laid
-      -- `katex-base` is an inline block as wide as its content, never narrower than nothing
+      let padL := (styleEm b "paddingLeft" scale).getD 0
+      let contentWidth := padL + fl.width
+      -- inline blocks are never narrower than nothing, nor than their `min-width`
       let width := (styleEm b "width" scale).getD
-        (if b.hasClass "katex-base" then max 0 fl.width else fl.width)
-      let parts := if b.hasClass "katex-base" then #[] else
-        Id.run do
-          -- the top-level spans of `katex-html` are the unbreakable parts
-          if !b.hasClass "katex-html" then return #[]
-          let mut x : Em := 0
-          let mut out := #[]
-          for (c, l) in b.children.zip laid do
-            x := x + l.marginLeft
-            if c.hasClass "katex-base" || c.hasClass "katex-tag" then
-              out := out.push (x, l.width, c.hasClass "katex-tag")
-            x := x + l.width + l.marginRight
-          return out
-      let l := finish { fl with width }
-      return { l with parts }
+        (if b.hasClass "katex-base" then max 0 contentWidth else contentWidth)
+      let width := if b.hasClass "katex-thinbox" then 0
+        else if b.hasClass "accent-body" && !b.hasClass "accent-full" then 0
+        else if b.style.get? "minWidth" |>.isSome then max width (minWidthOf b scale)
+        else width
+      -- the index of a root sits 5 mu right and overlaps the surd by 10 mu
+      let (ml, mr) := if b.hasClass "katex-root" && parentClasses.contains "sqrt" then
+          (Em.ofRatio 5 18 * scale, Em.ofRatio (-10) 18 * scale)
+        else (ml, mr)
+      let (items, regions) := ({ fl with } : Laid).shift padL 0
+      -- `\pmb`'s shadow: a copy of the glyphs, offset, painted first
+      let items := match b.style.get? "textShadow" with
+        | some _ =>
+          let shadow := items.filterMap fun
+            | .glyph f c x y sz e _ col src =>
+              some (Item.glyph f c (x + 0.02 * scale) (y + 0.01 * scale) sz e true col src)
+            | _ => none
+          shadow ++ items
+        | none => items
+      if b.hasClass "katex-html" then
+        -- the top-level spans are the unbreakable parts; a `katex-newline` starts a new line,
+        -- whose items are relative to its own baseline and left end
+        let mut x : Em := 0
+        let mut line := 0
+        let mut items := #[]
+        let mut regions := #[]
+        let mut parts := #[]
+        let mut lines := #[]
+        let mut start := 0
+        let mut lh : Em := 0
+        let mut ld : Em := 0
+        for (c, l) in b.children.zip laid do
+          if c.hasClass "katex-newline" then
+            lines := lines.push { start, stop := items.size, width := x, height := lh, depth := ld }
+            start := items.size
+            x := 0
+            lh := 0
+            ld := 0
+            line := line + 1
+            continue
+          x := x + l.marginLeft
+          let (is, rs) := l.shift x 0
+          items := items ++ is
+          regions := regions ++ rs
+          if c.hasClass "katex-base" || c.hasClass "katex-tag" then
+            parts := parts.push { x, width := l.width, line, tag := c.hasClass "katex-tag" }
+          lh := max lh (c.height * scale)
+          ld := max ld (c.depth * scale)
+          x := x + l.width + l.marginRight
+        lines := lines.push { start, stop := items.size, width := x, height := lh, depth := ld }
+        let width := lines.foldl (fun m (ln : Line) => max m ln.width) 0
+        return { width, items, regions, parts, lines }
+      let l := finish { width, items, regions }
+      return { l with marginLeft := ml, marginRight := mr }
 
 /-- The nesting depth the evaluation follows. -/
 def fuel : Nat := 1 <<< 20
@@ -492,6 +650,6 @@ def DisplayList.ofBox (b : Box) : DisplayList :=
   let l := Display.lay Display.fuel html { align := if display then .center else .left } #[]
     false none
   { width := l.width, height := html.height, depth := html.depth, items := l.items,
-    regions := l.regions, parts := l.parts }
+    regions := l.regions, parts := l.parts, lines := l.lines }
 
 end LeAnTeX
