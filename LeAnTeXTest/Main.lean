@@ -5,6 +5,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 import LeAnTeX
 import LeAnTeXTest.Layout
 import LeAnTeXTest.Cases
+import LeAnTeXTest.DisplayChecks
 
 /-!
 # The differential test and the parity report
@@ -414,6 +415,11 @@ def main (args : List String) : IO UInt32 := do
     else regressions := regressions.push "parity/layout-baseline.tsv is missing"
     let lsame := (lres.filter (·.outcome == .same)).size
     IO.println s!"layout: {lsame} of {lres.size} cases laid out as KaTeX does"
+    -- the display-list checks
+    let failed := DisplayChecks.displayChecks.filter (!·.2)
+    for (name, _) in failed do regressions := regressions.push s!"display list: {name}"
+    IO.println s!"display list: {DisplayChecks.displayChecks.size - failed.size} of \
+      {DisplayChecks.displayChecks.size} checks hold"
     if improved > 0 then
       IO.println s!"{improved} cases match that the baseline lists as mismatched; record them \
         with `lake exe leantex-test --update`"
