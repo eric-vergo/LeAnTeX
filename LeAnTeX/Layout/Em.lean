@@ -6,14 +6,14 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 /-!
 # Fixed-point lengths
 
-`Em` is a length in em as an integer number of 2⁻¹⁶ em, TeX's scaled-point idea applied to the
-em: the layout computes with it instead of floating point so that its results are exact,
-reproducible on every platform, and open to proof.
+`Em` is a length as an integer number of TeX's scaled points: 2⁻¹⁶ pt, at KaTeX's ten points
+to the em 1/655360 em. The layout computes with it instead of floating point so that its
+results are exact, reproducible on every platform, and open to proof.
 
-KaTeX computes in JavaScript doubles and writes its CSS lengths rounded to 1e-4 em; its metric
-tables have five decimals. A unit of 2⁻¹⁶ em (about 1.5e-5 em) rounds each input by at most
-7.6e-6 em, and every product or quotient by at most half a unit, so a layout of a few hundred
-operations stays well inside the 1e-4 em that KaTeX's own output resolves.
+KaTeX computes in JavaScript doubles and writes its CSS lengths rounded to 1e-4 em; its tables
+have at most five decimals. A scaled point (about 1.5e-6 em) rounds each input by at most
+7.6e-7 em and every product or quotient by at most half a unit, so even a deeply nested layout
+stays far inside the 1e-4 em that KaTeX's own output resolves.
 
 ## Main definitions
 
@@ -29,16 +29,16 @@ quotients, `css`), matching JavaScript's `toFixed` and the table generator.
 
 namespace LeAnTeX
 
-/-- A length in em, as a multiple of 2⁻¹⁶ em. -/
+/-- A length in em, as a whole number of scaled points (1/655360 em). -/
 structure Em where
-  /-- The length in units of 2⁻¹⁶ em. -/
+  /-- The length in scaled points. -/
   raw : Int
   deriving BEq, DecidableEq, Hashable, Inhabited, Repr
 
 namespace Em
 
-/-- The number of units in one em. -/
-def unit : Nat := 65536
+/-- The number of scaled points in one em: 2¹⁶ to the point, ten points to the em. -/
+def unit : Nat := 655360
 
 /-- `a / b` rounded to the nearest integer, halves away from zero; `0` when `b = 0`. -/
 def roundDiv (a b : Int) : Int :=

@@ -17,6 +17,7 @@ The metrics of KaTeX's glyphs and TeX's font parameters, looked up as KaTeX does
 ## Main definitions
 
 * `CharMetrics`: a glyph's depth, height, italic correction, skew and width.
+* `CharMetrics.exactFloat`: a table value as the double KaTeX computes with.
 * `charMetrics`: KaTeX's `getCharacterMetrics`.
 * `FontParams`, `fontParams`: TeX's σ and ξ parameters for a size (KaTeX's `getGlobalMetrics`).
 
@@ -35,7 +36,9 @@ namespace LeAnTeX
 
 open Std
 
-/-- The metrics of one glyph, in em of its font size. -/
+/-- The metrics of one glyph, in em of its font size. `exact` keeps the table's values
+(depth, height, italic, skew, width in 1e-5 em), for the few places where the layout must
+reproduce a decision KaTeX takes on its floating-point value. -/
 structure CharMetrics where
   /-- Depth below the baseline. -/
   depth : Em
@@ -47,7 +50,14 @@ structure CharMetrics where
   skew : Em
   /-- Advance width. -/
   width : Em
+  /-- The table's values in 1e-5 em: depth, height, italic, skew, width. -/
+  exact : Array Int := #[]
   deriving Inhabited, BEq, Repr
+
+/-- A table value (`0` depth, `1` height, `2` italic, `3` skew, `4` width) as the double
+JavaScript reads from KaTeX's table. -/
+def CharMetrics.exactFloat (m : CharMetrics) (i : Nat) : Float :=
+  Float.ofInt (m.exact[i]?.getD 0) / 100000
 
 namespace Metrics
 
@@ -57,8 +67,9 @@ def table : HashMap String (HashMap Nat CharMetrics) := Id.run do
   for (font, flat) in Data.fontMetricTables do
     let mut m : HashMap Nat CharMetrics := {}
     for i in [0:flat.size / 6] do
-      let g := fun k => Em.mk flat[6 * i + k]!
-      m := m.insert flat[6 * i]!.toNat ⟨g 1, g 2, g 3, g 4, g 5⟩
+      let g := fun k => Em.ofRatio flat[6 * i + k]! 100000
+      m := m.insert flat[6 * i]!.toNat
+        ⟨g 1, g 2, g 3, g 4, g 5, (flat.extract (6 * i + 1) (6 * i + 6))⟩
     out := out.insert font m
   return out
 
@@ -166,7 +177,7 @@ namespace Metrics
 def paramsAt (i : Nat) : FontParams :=
   let get (key : String) : Em :=
     match Data.fontParamList.find? (·.1 == key) with
-    | some (_, a, b, c) => ⟨if i == 0 then a else if i == 1 then b else c⟩
+    | some (_, a, b, c) => Em.ofRatio (if i == 0 then a else if i == 1 then b else c) 100000
     | none => 0
   { slant := get "slant", xHeight := get "xHeight", quad := get "quad", num1 := get "num1",
     num2 := get "num2", num3 := get "num3", denom1 := get "denom1", denom2 := get "denom2",

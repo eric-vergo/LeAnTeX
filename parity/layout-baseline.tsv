@@ -34,8 +34,8 @@ blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/32	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/33	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/34	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/35	ok
-blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/36	mismatch
-blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/37	mismatch
+blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/36	ok
+blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/37	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/38	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/39	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/40	ok
@@ -90,7 +90,7 @@ blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/88	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/89	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/90	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/91	ok
-blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/92	mismatch
+blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/92	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/93	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/94	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/95	ok
@@ -185,7 +185,7 @@ blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/3	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/4	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/5	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/6	ok
-blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/7	mismatch
+blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/7	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/8	not-yet
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/9	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/10	ok
@@ -197,16 +197,16 @@ blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/15	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/16	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/17	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/18	ok
-blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/19	mismatch
+blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/19	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/20	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/21	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/22	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/23	ok
-blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/24	mismatch
-blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/25	mismatch
+blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/24	ok
+blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/25	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/26	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/27	ok
-blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/28	mismatch
+blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/28	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/29	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/30	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/31	ok
@@ -214,7 +214,7 @@ blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/32	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/33	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/34	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/35	ok
-blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/36	mismatch
+blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/36	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/37	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/38	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/39	ok
@@ -304,7 +304,7 @@ blueprint-noperthedron	noperthedron/The-reduction/8	ok
 blueprint-noperthedron	noperthedron/The-reduction/9	ok
 blueprint-noperthedron	noperthedron/The-reduction/10	ok
 blueprint-noperthedron	noperthedron/The-reduction/11	ok
-blueprint-noperthedron	noperthedron/The-reduction/12	mismatch
+blueprint-noperthedron	noperthedron/The-reduction/12	ok
 blueprint-noperthedron	noperthedron/The-reduction/13	ok
 blueprint-noperthedron	noperthedron/The-reduction/14	ok
 blueprint-noperthedron	noperthedron/The-reduction/15	ok
@@ -356,9 +356,9 @@ blueprint-noperthedron	noperthedron/The-reduction/60	ok
 blueprint-noperthedron	noperthedron/The-reduction/61	ok
 blueprint-noperthedron	noperthedron/The-reduction/62	ok
 blueprint-noperthedron	noperthedron/The-reduction/63	ok
-blueprint-noperthedron	noperthedron/The-reduction/64	mismatch
+blueprint-noperthedron	noperthedron/The-reduction/64	ok
 blueprint-noperthedron	noperthedron/The-reduction/65	not-yet
-blueprint-noperthedron	noperthedron/The-reduction/66	mismatch
+blueprint-noperthedron	noperthedron/The-reduction/66	ok
 blueprint-noperthedron	noperthedron/The-reduction/67	ok
 blueprint-noperthedron	noperthedron/The-reduction/68	ok
 blueprint-noperthedron	noperthedron/The-reduction/69	ok
@@ -387,7 +387,7 @@ blueprint-noperthedron	noperthedron/The-reduction/91	ok
 blueprint-noperthedron	noperthedron/The-reduction/92	ok
 blueprint-noperthedron	noperthedron/The-reduction/93	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/1	ok
-blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/2	mismatch
+blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/2	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/3	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/4	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/5	ok
@@ -398,12 +398,12 @@ blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/9	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/10	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/11	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/12	ok
-blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/13	mismatch
+blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/13	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/14	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/15	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/16	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/17	ok
-blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/18	mismatch
+blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/18	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/19	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/20	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/21	ok
@@ -434,20 +434,20 @@ blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/45	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/46	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/47	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/48	ok
-blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/49	mismatch
+blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/49	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/50	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/51	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/52	ok
-blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/53	mismatch
+blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/53	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/54	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/55	ok
-blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/56	mismatch
+blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/56	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/57	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/58	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/59	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/60	ok
 blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/61	ok
-blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/62	mismatch
+blueprint-rokicki	rokicki/Binary-expansions-of-rational-numbers/62	ok
 blueprint-rokicki	rokicki/Introduction/1	ok
 blueprint-rokicki	rokicki/Introduction/2	ok
 blueprint-rokicki	rokicki/Introduction/3	ok
@@ -459,14 +459,14 @@ blueprint-rokicki	rokicki/Introduction/8	ok
 blueprint-rokicki	rokicki/Introduction/9	ok
 blueprint-rokicki	rokicki/Introduction/10	ok
 blueprint-rokicki	rokicki/Introduction/11	ok
-blueprint-rokicki	rokicki/Introduction/12	mismatch
+blueprint-rokicki	rokicki/Introduction/12	ok
 blueprint-rokicki	rokicki/Introduction/13	ok
 blueprint-rokicki	rokicki/Introduction/Reading-guide/1	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/1	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/2	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/3	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/4	ok
-blueprint-rokicki	rokicki/Introduction/Strategy/5	mismatch
+blueprint-rokicki	rokicki/Introduction/Strategy/5	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/6	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/7	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/8	ok
@@ -477,24 +477,24 @@ blueprint-rokicki	rokicki/Introduction/Strategy/12	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/13	not-yet
 blueprint-rokicki	rokicki/Introduction/Strategy/14	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/15	not-yet
-blueprint-rokicki	rokicki/Introduction/Strategy/16	mismatch
-blueprint-rokicki	rokicki/Introduction/Strategy/17	mismatch
+blueprint-rokicki	rokicki/Introduction/Strategy/16	ok
+blueprint-rokicki	rokicki/Introduction/Strategy/17	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/18	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/19	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/20	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/21	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/22	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/23	ok
-blueprint-rokicki	rokicki/Introduction/Strategy/24	mismatch
+blueprint-rokicki	rokicki/Introduction/Strategy/24	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/25	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/26	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/27	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/28	ok
-blueprint-rokicki	rokicki/Introduction/Strategy/29	mismatch
+blueprint-rokicki	rokicki/Introduction/Strategy/29	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/30	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/31	ok
 blueprint-rokicki	rokicki/Introduction/Strategy/32	ok
-blueprint-rokicki	rokicki/Introduction/Strategy/33	mismatch
+blueprint-rokicki	rokicki/Introduction/Strategy/33	ok
 blueprint-rokicki	rokicki/Introduction/The-formal-statement/1	ok
 blueprint-rokicki	rokicki/Introduction/The-formal-statement/2	ok
 blueprint-rokicki	rokicki/Introduction/The-formal-statement/3	ok
@@ -505,20 +505,20 @@ blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Eventually-periodi
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/2	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/3	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/4	not-yet
-blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/5	mismatch
+blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/5	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/6	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/7	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/8	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Eventually-periodic-sequences/9	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/1	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/2	ok
-blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/3	mismatch
+blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/3	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/4	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/5	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/6	ok
-blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/7	mismatch
+blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/7	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/8	ok
-blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/9	mismatch
+blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/9	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/Summation-by-parts/10	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/1	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/2	ok
@@ -526,7 +526,7 @@ blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/3	
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/4	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/5	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/6	not-yet
-blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/7	mismatch
+blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/7	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/8	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/9	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/10	ok
@@ -542,12 +542,12 @@ blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/19
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/20	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/21	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/22	ok
-blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/23	mismatch
+blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/23	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/24	ok
-blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/25	mismatch
+blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/25	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/26	ok
-blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/27	mismatch
-blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/28	mismatch
+blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/27	ok
+blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/28	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/29	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/30	ok
 blueprint-rokicki	rokicki/Partial-sums-and-summation-by-parts/The-Abel-series/31	ok
@@ -560,18 +560,18 @@ blueprint-rokicki	rokicki/Rokickis-constant/6	ok
 blueprint-rokicki	rokicki/Rokickis-constant/7	ok
 blueprint-rokicki	rokicki/Rokickis-constant/8	ok
 blueprint-rokicki	rokicki/Rokickis-constant/9	ok
-blueprint-rokicki	rokicki/Rokickis-constant/10	mismatch
+blueprint-rokicki	rokicki/Rokickis-constant/10	ok
 blueprint-rokicki	rokicki/Rokickis-constant/11	ok
 blueprint-rokicki	rokicki/Rokickis-constant/12	not-yet
 blueprint-rokicki	rokicki/Rokickis-constant/13	ok
 blueprint-rokicki	rokicki/Rokickis-constant/14	ok
-blueprint-rokicki	rokicki/Rokickis-constant/15	mismatch
+blueprint-rokicki	rokicki/Rokickis-constant/15	ok
 blueprint-rokicki	rokicki/Rokickis-constant/16	ok
 blueprint-rokicki	rokicki/Rokickis-constant/17	ok
 blueprint-rokicki	rokicki/Rokickis-constant/18	ok
 blueprint-rokicki	rokicki/Rokickis-constant/19	ok
 blueprint-rokicki	rokicki/Rokickis-constant/20	ok
-blueprint-rokicki	rokicki/Rokickis-constant/21	mismatch
+blueprint-rokicki	rokicki/Rokickis-constant/21	ok
 blueprint-rokicki	rokicki/Rokickis-constant/22	ok
 blueprint-rokicki	rokicki/Rokickis-constant/23	ok
 blueprint-rokicki	rokicki/Rokickis-constant/24	ok
@@ -583,7 +583,7 @@ blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analyt
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/4	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/5	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/6	ok
-blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/7	mismatch
+blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/7	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/8	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/9	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/10	ok
@@ -594,19 +594,19 @@ blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analyt
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/15	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/16	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/17	ok
-blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/18	mismatch
+blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/18	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/19	ok
-blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/20	mismatch
+blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Analytic-properties-of-the-prime-power-part/20	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/1	ok
-blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/2	mismatch
+blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/2	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/3	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/4	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/5	ok
-blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/6	mismatch
+blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/6	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/7	ok
-blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/8	mismatch
-blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/9	mismatch
-blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/10	mismatch
+blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/8	ok
+blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/9	ok
+blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/Sums-over-the-odd-primes/10	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/1	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/2	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/3	ok
@@ -620,9 +620,9 @@ blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Eu
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/11	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/12	not-yet
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/13	ok
-blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/14	mismatch
+blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/14	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/15	not-yet
-blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/16	mismatch
+blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/16	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/17	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/18	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-Euler-product/19	ok
@@ -643,7 +643,7 @@ blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-ch
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-character/6	ok
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-character/7	not-yet
 blueprint-rokicki	rokicki/The-character-modulo-four-and-the-Euler-product/The-character/8	ok
-blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/1	mismatch
+blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/1	ok
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/2	ok
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/3	ok
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/4	ok
@@ -661,7 +661,7 @@ blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-bounded-case/7	ok
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/1	ok
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/2	not-yet
-blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/3	mismatch
+blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/3	ok
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/4	ok
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/5	ok
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/6	ok
@@ -669,7 +669,7 @@ blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/8	ok
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/9	ok
 blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/10	ok
-blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/11	mismatch
+blueprint-rokicki	rokicki/The-character-sums-are-neither-bounded-nor-linear/The-linear-case/11	ok
 blueprint-rokicki	rokicki/The-main-theorem/1	not-yet
 blueprint-rokicki	rokicki/The-main-theorem/2	ok
 blueprint-rokicki	rokicki/The-main-theorem/3	ok
@@ -1445,109 +1445,109 @@ katex-names	katex-names/function/\mathchoice/1	ok
 katex-names	katex-names/function/\mathchoice/2	ok
 katex-names	katex-names/function/\mathchoice/3	ok
 katex-names	katex-names/function/\mathchoice/4	ok
-katex-names	katex-names/function/\coprod/1	mismatch
-katex-names	katex-names/function/\coprod/2	mismatch
-katex-names	katex-names/function/\coprod/3	mismatch
+katex-names	katex-names/function/\coprod/1	ok
+katex-names	katex-names/function/\coprod/2	ok
+katex-names	katex-names/function/\coprod/3	ok
 katex-names	katex-names/function/\coprod/4	ok
-katex-names	katex-names/function/\bigvee/1	mismatch
-katex-names	katex-names/function/\bigvee/2	mismatch
-katex-names	katex-names/function/\bigvee/3	mismatch
+katex-names	katex-names/function/\bigvee/1	ok
+katex-names	katex-names/function/\bigvee/2	ok
+katex-names	katex-names/function/\bigvee/3	ok
 katex-names	katex-names/function/\bigvee/4	ok
-katex-names	katex-names/function/\bigwedge/1	mismatch
-katex-names	katex-names/function/\bigwedge/2	mismatch
-katex-names	katex-names/function/\bigwedge/3	mismatch
+katex-names	katex-names/function/\bigwedge/1	ok
+katex-names	katex-names/function/\bigwedge/2	ok
+katex-names	katex-names/function/\bigwedge/3	ok
 katex-names	katex-names/function/\bigwedge/4	ok
-katex-names	katex-names/function/\biguplus/1	mismatch
-katex-names	katex-names/function/\biguplus/2	mismatch
-katex-names	katex-names/function/\biguplus/3	mismatch
+katex-names	katex-names/function/\biguplus/1	ok
+katex-names	katex-names/function/\biguplus/2	ok
+katex-names	katex-names/function/\biguplus/3	ok
 katex-names	katex-names/function/\biguplus/4	ok
-katex-names	katex-names/function/\bigcap/1	mismatch
-katex-names	katex-names/function/\bigcap/2	mismatch
-katex-names	katex-names/function/\bigcap/3	mismatch
+katex-names	katex-names/function/\bigcap/1	ok
+katex-names	katex-names/function/\bigcap/2	ok
+katex-names	katex-names/function/\bigcap/3	ok
 katex-names	katex-names/function/\bigcap/4	ok
-katex-names	katex-names/function/\bigcup/1	mismatch
-katex-names	katex-names/function/\bigcup/2	mismatch
-katex-names	katex-names/function/\bigcup/3	mismatch
+katex-names	katex-names/function/\bigcup/1	ok
+katex-names	katex-names/function/\bigcup/2	ok
+katex-names	katex-names/function/\bigcup/3	ok
 katex-names	katex-names/function/\bigcup/4	ok
 katex-names	katex-names/function/\intop/1	ok
 katex-names	katex-names/function/\intop/2	ok
 katex-names	katex-names/function/\intop/3	ok
 katex-names	katex-names/function/\intop/4	ok
-katex-names	katex-names/function/\prod/1	mismatch
-katex-names	katex-names/function/\prod/2	mismatch
-katex-names	katex-names/function/\prod/3	mismatch
+katex-names	katex-names/function/\prod/1	ok
+katex-names	katex-names/function/\prod/2	ok
+katex-names	katex-names/function/\prod/3	ok
 katex-names	katex-names/function/\prod/4	ok
-katex-names	katex-names/function/\sum/1	mismatch
-katex-names	katex-names/function/\sum/2	mismatch
-katex-names	katex-names/function/\sum/3	mismatch
+katex-names	katex-names/function/\sum/1	ok
+katex-names	katex-names/function/\sum/2	ok
+katex-names	katex-names/function/\sum/3	ok
 katex-names	katex-names/function/\sum/4	ok
-katex-names	katex-names/function/\bigotimes/1	mismatch
-katex-names	katex-names/function/\bigotimes/2	mismatch
-katex-names	katex-names/function/\bigotimes/3	mismatch
+katex-names	katex-names/function/\bigotimes/1	ok
+katex-names	katex-names/function/\bigotimes/2	ok
+katex-names	katex-names/function/\bigotimes/3	ok
 katex-names	katex-names/function/\bigotimes/4	ok
-katex-names	katex-names/function/\bigoplus/1	mismatch
-katex-names	katex-names/function/\bigoplus/2	mismatch
-katex-names	katex-names/function/\bigoplus/3	mismatch
+katex-names	katex-names/function/\bigoplus/1	ok
+katex-names	katex-names/function/\bigoplus/2	ok
+katex-names	katex-names/function/\bigoplus/3	ok
 katex-names	katex-names/function/\bigoplus/4	ok
-katex-names	katex-names/function/\bigodot/1	mismatch
-katex-names	katex-names/function/\bigodot/2	mismatch
-katex-names	katex-names/function/\bigodot/3	mismatch
+katex-names	katex-names/function/\bigodot/1	ok
+katex-names	katex-names/function/\bigodot/2	ok
+katex-names	katex-names/function/\bigodot/3	ok
 katex-names	katex-names/function/\bigodot/4	ok
-katex-names	katex-names/function/\bigsqcup/1	mismatch
-katex-names	katex-names/function/\bigsqcup/2	mismatch
-katex-names	katex-names/function/\bigsqcup/3	mismatch
+katex-names	katex-names/function/\bigsqcup/1	ok
+katex-names	katex-names/function/\bigsqcup/2	ok
+katex-names	katex-names/function/\bigsqcup/3	ok
 katex-names	katex-names/function/\bigsqcup/4	ok
 katex-names	katex-names/function/\smallint/1	ok
 katex-names	katex-names/function/\smallint/2	ok
 katex-names	katex-names/function/\smallint/3	ok
 katex-names	katex-names/function/\smallint/4	ok
-katex-names	katex-names/function/∏/1	mismatch
-katex-names	katex-names/function/∏/2	mismatch
-katex-names	katex-names/function/∏/3	mismatch
+katex-names	katex-names/function/∏/1	ok
+katex-names	katex-names/function/∏/2	ok
+katex-names	katex-names/function/∏/3	ok
 katex-names	katex-names/function/∏/4	ok
-katex-names	katex-names/function/∐/1	mismatch
-katex-names	katex-names/function/∐/2	mismatch
-katex-names	katex-names/function/∐/3	mismatch
+katex-names	katex-names/function/∐/1	ok
+katex-names	katex-names/function/∐/2	ok
+katex-names	katex-names/function/∐/3	ok
 katex-names	katex-names/function/∐/4	ok
-katex-names	katex-names/function/∑/1	mismatch
-katex-names	katex-names/function/∑/2	mismatch
-katex-names	katex-names/function/∑/3	mismatch
+katex-names	katex-names/function/∑/1	ok
+katex-names	katex-names/function/∑/2	ok
+katex-names	katex-names/function/∑/3	ok
 katex-names	katex-names/function/∑/4	ok
-katex-names	katex-names/function/⋀/1	mismatch
-katex-names	katex-names/function/⋀/2	mismatch
-katex-names	katex-names/function/⋀/3	mismatch
+katex-names	katex-names/function/⋀/1	ok
+katex-names	katex-names/function/⋀/2	ok
+katex-names	katex-names/function/⋀/3	ok
 katex-names	katex-names/function/⋀/4	ok
-katex-names	katex-names/function/⋁/1	mismatch
-katex-names	katex-names/function/⋁/2	mismatch
-katex-names	katex-names/function/⋁/3	mismatch
+katex-names	katex-names/function/⋁/1	ok
+katex-names	katex-names/function/⋁/2	ok
+katex-names	katex-names/function/⋁/3	ok
 katex-names	katex-names/function/⋁/4	ok
-katex-names	katex-names/function/⋂/1	mismatch
-katex-names	katex-names/function/⋂/2	mismatch
-katex-names	katex-names/function/⋂/3	mismatch
+katex-names	katex-names/function/⋂/1	ok
+katex-names	katex-names/function/⋂/2	ok
+katex-names	katex-names/function/⋂/3	ok
 katex-names	katex-names/function/⋂/4	ok
-katex-names	katex-names/function/⋃/1	mismatch
-katex-names	katex-names/function/⋃/2	mismatch
-katex-names	katex-names/function/⋃/3	mismatch
+katex-names	katex-names/function/⋃/1	ok
+katex-names	katex-names/function/⋃/2	ok
+katex-names	katex-names/function/⋃/3	ok
 katex-names	katex-names/function/⋃/4	ok
-katex-names	katex-names/function/⨀/1	mismatch
-katex-names	katex-names/function/⨀/2	mismatch
-katex-names	katex-names/function/⨀/3	mismatch
+katex-names	katex-names/function/⨀/1	ok
+katex-names	katex-names/function/⨀/2	ok
+katex-names	katex-names/function/⨀/3	ok
 katex-names	katex-names/function/⨀/4	ok
-katex-names	katex-names/function/⨁/1	mismatch
-katex-names	katex-names/function/⨁/2	mismatch
-katex-names	katex-names/function/⨁/3	mismatch
+katex-names	katex-names/function/⨁/1	ok
+katex-names	katex-names/function/⨁/2	ok
+katex-names	katex-names/function/⨁/3	ok
 katex-names	katex-names/function/⨁/4	ok
-katex-names	katex-names/function/⨂/1	mismatch
-katex-names	katex-names/function/⨂/2	mismatch
-katex-names	katex-names/function/⨂/3	mismatch
+katex-names	katex-names/function/⨂/1	ok
+katex-names	katex-names/function/⨂/2	ok
+katex-names	katex-names/function/⨂/3	ok
 katex-names	katex-names/function/⨂/4	ok
-katex-names	katex-names/function/⨄/1	mismatch
-katex-names	katex-names/function/⨄/2	mismatch
-katex-names	katex-names/function/⨄/3	mismatch
+katex-names	katex-names/function/⨄/1	ok
+katex-names	katex-names/function/⨄/2	ok
+katex-names	katex-names/function/⨄/3	ok
 katex-names	katex-names/function/⨄/4	ok
-katex-names	katex-names/function/⨆/1	mismatch
-katex-names	katex-names/function/⨆/2	mismatch
-katex-names	katex-names/function/⨆/3	mismatch
+katex-names	katex-names/function/⨆/1	ok
+katex-names	katex-names/function/⨆/2	ok
+katex-names	katex-names/function/⨆/3	ok
 katex-names	katex-names/function/⨆/4	ok
 katex-names	katex-names/function/\mathop/1	ok
 katex-names	katex-names/function/\mathop/2	ok
@@ -5685,13 +5685,13 @@ katex-names	katex-names/symbol-math/ℎ/2	ok
 katex-names	katex-names/symbol-math/ℎ/3	ok
 katex-names	katex-names/symbol-math/𝐀/1	ok
 katex-names	katex-names/symbol-math/𝐀/2	ok
-katex-names	katex-names/symbol-math/𝐀/3	mismatch
+katex-names	katex-names/symbol-math/𝐀/3	ok
 katex-names	katex-names/symbol-math/𝐴/1	ok
 katex-names	katex-names/symbol-math/𝐴/2	ok
 katex-names	katex-names/symbol-math/𝐴/3	ok
 katex-names	katex-names/symbol-math/𝑨/1	ok
 katex-names	katex-names/symbol-math/𝑨/2	ok
-katex-names	katex-names/symbol-math/𝑨/3	mismatch
+katex-names	katex-names/symbol-math/𝑨/3	ok
 katex-names	katex-names/symbol-math/𝔄/1	ok
 katex-names	katex-names/symbol-math/𝔄/2	ok
 katex-names	katex-names/symbol-math/𝔄/3	ok
@@ -5718,13 +5718,13 @@ katex-names	katex-names/symbol-math/𝒜/2	ok
 katex-names	katex-names/symbol-math/𝒜/3	ok
 katex-names	katex-names/symbol-math/𝐁/1	ok
 katex-names	katex-names/symbol-math/𝐁/2	ok
-katex-names	katex-names/symbol-math/𝐁/3	mismatch
+katex-names	katex-names/symbol-math/𝐁/3	ok
 katex-names	katex-names/symbol-math/𝐵/1	ok
 katex-names	katex-names/symbol-math/𝐵/2	ok
 katex-names	katex-names/symbol-math/𝐵/3	ok
 katex-names	katex-names/symbol-math/𝑩/1	ok
 katex-names	katex-names/symbol-math/𝑩/2	ok
-katex-names	katex-names/symbol-math/𝑩/3	mismatch
+katex-names	katex-names/symbol-math/𝑩/3	ok
 katex-names	katex-names/symbol-math/𝔅/1	ok
 katex-names	katex-names/symbol-math/𝔅/2	ok
 katex-names	katex-names/symbol-math/𝔅/3	ok
@@ -5751,13 +5751,13 @@ katex-names	katex-names/symbol-math/𝒝/2	ok
 katex-names	katex-names/symbol-math/𝒝/3	ok
 katex-names	katex-names/symbol-math/𝐂/1	ok
 katex-names	katex-names/symbol-math/𝐂/2	ok
-katex-names	katex-names/symbol-math/𝐂/3	mismatch
+katex-names	katex-names/symbol-math/𝐂/3	ok
 katex-names	katex-names/symbol-math/𝐶/1	ok
 katex-names	katex-names/symbol-math/𝐶/2	ok
 katex-names	katex-names/symbol-math/𝐶/3	ok
 katex-names	katex-names/symbol-math/𝑪/1	ok
 katex-names	katex-names/symbol-math/𝑪/2	ok
-katex-names	katex-names/symbol-math/𝑪/3	mismatch
+katex-names	katex-names/symbol-math/𝑪/3	ok
 katex-names	katex-names/symbol-math/𝔆/1	ok
 katex-names	katex-names/symbol-math/𝔆/2	ok
 katex-names	katex-names/symbol-math/𝔆/3	ok
@@ -5784,13 +5784,13 @@ katex-names	katex-names/symbol-math/𝒞/2	ok
 katex-names	katex-names/symbol-math/𝒞/3	ok
 katex-names	katex-names/symbol-math/𝐃/1	ok
 katex-names	katex-names/symbol-math/𝐃/2	ok
-katex-names	katex-names/symbol-math/𝐃/3	mismatch
+katex-names	katex-names/symbol-math/𝐃/3	ok
 katex-names	katex-names/symbol-math/𝐷/1	ok
 katex-names	katex-names/symbol-math/𝐷/2	ok
 katex-names	katex-names/symbol-math/𝐷/3	ok
 katex-names	katex-names/symbol-math/𝑫/1	ok
 katex-names	katex-names/symbol-math/𝑫/2	ok
-katex-names	katex-names/symbol-math/𝑫/3	mismatch
+katex-names	katex-names/symbol-math/𝑫/3	ok
 katex-names	katex-names/symbol-math/𝔇/1	ok
 katex-names	katex-names/symbol-math/𝔇/2	ok
 katex-names	katex-names/symbol-math/𝔇/3	ok
@@ -5817,13 +5817,13 @@ katex-names	katex-names/symbol-math/𝒟/2	ok
 katex-names	katex-names/symbol-math/𝒟/3	ok
 katex-names	katex-names/symbol-math/𝐄/1	ok
 katex-names	katex-names/symbol-math/𝐄/2	ok
-katex-names	katex-names/symbol-math/𝐄/3	mismatch
+katex-names	katex-names/symbol-math/𝐄/3	ok
 katex-names	katex-names/symbol-math/𝐸/1	ok
 katex-names	katex-names/symbol-math/𝐸/2	ok
 katex-names	katex-names/symbol-math/𝐸/3	ok
 katex-names	katex-names/symbol-math/𝑬/1	ok
 katex-names	katex-names/symbol-math/𝑬/2	ok
-katex-names	katex-names/symbol-math/𝑬/3	mismatch
+katex-names	katex-names/symbol-math/𝑬/3	ok
 katex-names	katex-names/symbol-math/𝔈/1	ok
 katex-names	katex-names/symbol-math/𝔈/2	ok
 katex-names	katex-names/symbol-math/𝔈/3	ok
@@ -5850,13 +5850,13 @@ katex-names	katex-names/symbol-math/𝒠/2	ok
 katex-names	katex-names/symbol-math/𝒠/3	ok
 katex-names	katex-names/symbol-math/𝐅/1	ok
 katex-names	katex-names/symbol-math/𝐅/2	ok
-katex-names	katex-names/symbol-math/𝐅/3	mismatch
+katex-names	katex-names/symbol-math/𝐅/3	ok
 katex-names	katex-names/symbol-math/𝐹/1	ok
 katex-names	katex-names/symbol-math/𝐹/2	ok
 katex-names	katex-names/symbol-math/𝐹/3	ok
 katex-names	katex-names/symbol-math/𝑭/1	ok
 katex-names	katex-names/symbol-math/𝑭/2	ok
-katex-names	katex-names/symbol-math/𝑭/3	mismatch
+katex-names	katex-names/symbol-math/𝑭/3	ok
 katex-names	katex-names/symbol-math/𝔉/1	ok
 katex-names	katex-names/symbol-math/𝔉/2	ok
 katex-names	katex-names/symbol-math/𝔉/3	ok
@@ -5883,13 +5883,13 @@ katex-names	katex-names/symbol-math/𝒡/2	ok
 katex-names	katex-names/symbol-math/𝒡/3	ok
 katex-names	katex-names/symbol-math/𝐆/1	ok
 katex-names	katex-names/symbol-math/𝐆/2	ok
-katex-names	katex-names/symbol-math/𝐆/3	mismatch
+katex-names	katex-names/symbol-math/𝐆/3	ok
 katex-names	katex-names/symbol-math/𝐺/1	ok
 katex-names	katex-names/symbol-math/𝐺/2	ok
 katex-names	katex-names/symbol-math/𝐺/3	ok
 katex-names	katex-names/symbol-math/𝑮/1	ok
 katex-names	katex-names/symbol-math/𝑮/2	ok
-katex-names	katex-names/symbol-math/𝑮/3	mismatch
+katex-names	katex-names/symbol-math/𝑮/3	ok
 katex-names	katex-names/symbol-math/𝔊/1	ok
 katex-names	katex-names/symbol-math/𝔊/2	ok
 katex-names	katex-names/symbol-math/𝔊/3	ok
@@ -5916,13 +5916,13 @@ katex-names	katex-names/symbol-math/𝒢/2	ok
 katex-names	katex-names/symbol-math/𝒢/3	ok
 katex-names	katex-names/symbol-math/𝐇/1	ok
 katex-names	katex-names/symbol-math/𝐇/2	ok
-katex-names	katex-names/symbol-math/𝐇/3	mismatch
+katex-names	katex-names/symbol-math/𝐇/3	ok
 katex-names	katex-names/symbol-math/𝐻/1	ok
 katex-names	katex-names/symbol-math/𝐻/2	ok
 katex-names	katex-names/symbol-math/𝐻/3	ok
 katex-names	katex-names/symbol-math/𝑯/1	ok
 katex-names	katex-names/symbol-math/𝑯/2	ok
-katex-names	katex-names/symbol-math/𝑯/3	mismatch
+katex-names	katex-names/symbol-math/𝑯/3	ok
 katex-names	katex-names/symbol-math/𝔋/1	ok
 katex-names	katex-names/symbol-math/𝔋/2	ok
 katex-names	katex-names/symbol-math/𝔋/3	ok
@@ -5949,13 +5949,13 @@ katex-names	katex-names/symbol-math/𝒣/2	ok
 katex-names	katex-names/symbol-math/𝒣/3	ok
 katex-names	katex-names/symbol-math/𝐈/1	ok
 katex-names	katex-names/symbol-math/𝐈/2	ok
-katex-names	katex-names/symbol-math/𝐈/3	mismatch
+katex-names	katex-names/symbol-math/𝐈/3	ok
 katex-names	katex-names/symbol-math/𝐼/1	ok
 katex-names	katex-names/symbol-math/𝐼/2	ok
 katex-names	katex-names/symbol-math/𝐼/3	ok
 katex-names	katex-names/symbol-math/𝑰/1	ok
 katex-names	katex-names/symbol-math/𝑰/2	ok
-katex-names	katex-names/symbol-math/𝑰/3	mismatch
+katex-names	katex-names/symbol-math/𝑰/3	ok
 katex-names	katex-names/symbol-math/𝔌/1	ok
 katex-names	katex-names/symbol-math/𝔌/2	ok
 katex-names	katex-names/symbol-math/𝔌/3	ok
@@ -5982,13 +5982,13 @@ katex-names	katex-names/symbol-math/𝒤/2	ok
 katex-names	katex-names/symbol-math/𝒤/3	ok
 katex-names	katex-names/symbol-math/𝐉/1	ok
 katex-names	katex-names/symbol-math/𝐉/2	ok
-katex-names	katex-names/symbol-math/𝐉/3	mismatch
+katex-names	katex-names/symbol-math/𝐉/3	ok
 katex-names	katex-names/symbol-math/𝐽/1	ok
 katex-names	katex-names/symbol-math/𝐽/2	ok
 katex-names	katex-names/symbol-math/𝐽/3	ok
 katex-names	katex-names/symbol-math/𝑱/1	ok
 katex-names	katex-names/symbol-math/𝑱/2	ok
-katex-names	katex-names/symbol-math/𝑱/3	mismatch
+katex-names	katex-names/symbol-math/𝑱/3	ok
 katex-names	katex-names/symbol-math/𝔍/1	ok
 katex-names	katex-names/symbol-math/𝔍/2	ok
 katex-names	katex-names/symbol-math/𝔍/3	ok
@@ -6015,13 +6015,13 @@ katex-names	katex-names/symbol-math/𝒥/2	ok
 katex-names	katex-names/symbol-math/𝒥/3	ok
 katex-names	katex-names/symbol-math/𝐊/1	ok
 katex-names	katex-names/symbol-math/𝐊/2	ok
-katex-names	katex-names/symbol-math/𝐊/3	mismatch
+katex-names	katex-names/symbol-math/𝐊/3	ok
 katex-names	katex-names/symbol-math/𝐾/1	ok
 katex-names	katex-names/symbol-math/𝐾/2	ok
 katex-names	katex-names/symbol-math/𝐾/3	ok
 katex-names	katex-names/symbol-math/𝑲/1	ok
 katex-names	katex-names/symbol-math/𝑲/2	ok
-katex-names	katex-names/symbol-math/𝑲/3	mismatch
+katex-names	katex-names/symbol-math/𝑲/3	ok
 katex-names	katex-names/symbol-math/𝔎/1	ok
 katex-names	katex-names/symbol-math/𝔎/2	ok
 katex-names	katex-names/symbol-math/𝔎/3	ok
@@ -6048,13 +6048,13 @@ katex-names	katex-names/symbol-math/𝒦/2	ok
 katex-names	katex-names/symbol-math/𝒦/3	ok
 katex-names	katex-names/symbol-math/𝐋/1	ok
 katex-names	katex-names/symbol-math/𝐋/2	ok
-katex-names	katex-names/symbol-math/𝐋/3	mismatch
+katex-names	katex-names/symbol-math/𝐋/3	ok
 katex-names	katex-names/symbol-math/𝐿/1	ok
 katex-names	katex-names/symbol-math/𝐿/2	ok
 katex-names	katex-names/symbol-math/𝐿/3	ok
 katex-names	katex-names/symbol-math/𝑳/1	ok
 katex-names	katex-names/symbol-math/𝑳/2	ok
-katex-names	katex-names/symbol-math/𝑳/3	mismatch
+katex-names	katex-names/symbol-math/𝑳/3	ok
 katex-names	katex-names/symbol-math/𝔏/1	ok
 katex-names	katex-names/symbol-math/𝔏/2	ok
 katex-names	katex-names/symbol-math/𝔏/3	ok
@@ -6081,13 +6081,13 @@ katex-names	katex-names/symbol-math/𝒧/2	ok
 katex-names	katex-names/symbol-math/𝒧/3	ok
 katex-names	katex-names/symbol-math/𝐌/1	ok
 katex-names	katex-names/symbol-math/𝐌/2	ok
-katex-names	katex-names/symbol-math/𝐌/3	mismatch
+katex-names	katex-names/symbol-math/𝐌/3	ok
 katex-names	katex-names/symbol-math/𝑀/1	ok
 katex-names	katex-names/symbol-math/𝑀/2	ok
 katex-names	katex-names/symbol-math/𝑀/3	ok
 katex-names	katex-names/symbol-math/𝑴/1	ok
 katex-names	katex-names/symbol-math/𝑴/2	ok
-katex-names	katex-names/symbol-math/𝑴/3	mismatch
+katex-names	katex-names/symbol-math/𝑴/3	ok
 katex-names	katex-names/symbol-math/𝔐/1	ok
 katex-names	katex-names/symbol-math/𝔐/2	ok
 katex-names	katex-names/symbol-math/𝔐/3	ok
@@ -6114,13 +6114,13 @@ katex-names	katex-names/symbol-math/𝒨/2	ok
 katex-names	katex-names/symbol-math/𝒨/3	ok
 katex-names	katex-names/symbol-math/𝐍/1	ok
 katex-names	katex-names/symbol-math/𝐍/2	ok
-katex-names	katex-names/symbol-math/𝐍/3	mismatch
+katex-names	katex-names/symbol-math/𝐍/3	ok
 katex-names	katex-names/symbol-math/𝑁/1	ok
 katex-names	katex-names/symbol-math/𝑁/2	ok
 katex-names	katex-names/symbol-math/𝑁/3	ok
 katex-names	katex-names/symbol-math/𝑵/1	ok
 katex-names	katex-names/symbol-math/𝑵/2	ok
-katex-names	katex-names/symbol-math/𝑵/3	mismatch
+katex-names	katex-names/symbol-math/𝑵/3	ok
 katex-names	katex-names/symbol-math/𝔑/1	ok
 katex-names	katex-names/symbol-math/𝔑/2	ok
 katex-names	katex-names/symbol-math/𝔑/3	ok
@@ -6147,13 +6147,13 @@ katex-names	katex-names/symbol-math/𝒩/2	ok
 katex-names	katex-names/symbol-math/𝒩/3	ok
 katex-names	katex-names/symbol-math/𝐎/1	ok
 katex-names	katex-names/symbol-math/𝐎/2	ok
-katex-names	katex-names/symbol-math/𝐎/3	mismatch
+katex-names	katex-names/symbol-math/𝐎/3	ok
 katex-names	katex-names/symbol-math/𝑂/1	ok
 katex-names	katex-names/symbol-math/𝑂/2	ok
 katex-names	katex-names/symbol-math/𝑂/3	ok
 katex-names	katex-names/symbol-math/𝑶/1	ok
 katex-names	katex-names/symbol-math/𝑶/2	ok
-katex-names	katex-names/symbol-math/𝑶/3	mismatch
+katex-names	katex-names/symbol-math/𝑶/3	ok
 katex-names	katex-names/symbol-math/𝔒/1	ok
 katex-names	katex-names/symbol-math/𝔒/2	ok
 katex-names	katex-names/symbol-math/𝔒/3	ok
@@ -6180,13 +6180,13 @@ katex-names	katex-names/symbol-math/𝒪/2	ok
 katex-names	katex-names/symbol-math/𝒪/3	ok
 katex-names	katex-names/symbol-math/𝐏/1	ok
 katex-names	katex-names/symbol-math/𝐏/2	ok
-katex-names	katex-names/symbol-math/𝐏/3	mismatch
+katex-names	katex-names/symbol-math/𝐏/3	ok
 katex-names	katex-names/symbol-math/𝑃/1	ok
 katex-names	katex-names/symbol-math/𝑃/2	ok
 katex-names	katex-names/symbol-math/𝑃/3	ok
 katex-names	katex-names/symbol-math/𝑷/1	ok
 katex-names	katex-names/symbol-math/𝑷/2	ok
-katex-names	katex-names/symbol-math/𝑷/3	mismatch
+katex-names	katex-names/symbol-math/𝑷/3	ok
 katex-names	katex-names/symbol-math/𝔓/1	ok
 katex-names	katex-names/symbol-math/𝔓/2	ok
 katex-names	katex-names/symbol-math/𝔓/3	ok
@@ -6211,15 +6211,15 @@ katex-names	katex-names/symbol-math/𝕇/3	ok
 katex-names	katex-names/symbol-math/𝒫/1	ok
 katex-names	katex-names/symbol-math/𝒫/2	ok
 katex-names	katex-names/symbol-math/𝒫/3	ok
-katex-names	katex-names/symbol-math/𝐐/1	mismatch
+katex-names	katex-names/symbol-math/𝐐/1	ok
 katex-names	katex-names/symbol-math/𝐐/2	ok
-katex-names	katex-names/symbol-math/𝐐/3	mismatch
+katex-names	katex-names/symbol-math/𝐐/3	ok
 katex-names	katex-names/symbol-math/𝑄/1	ok
 katex-names	katex-names/symbol-math/𝑄/2	ok
 katex-names	katex-names/symbol-math/𝑄/3	ok
-katex-names	katex-names/symbol-math/𝑸/1	mismatch
+katex-names	katex-names/symbol-math/𝑸/1	ok
 katex-names	katex-names/symbol-math/𝑸/2	ok
-katex-names	katex-names/symbol-math/𝑸/3	mismatch
+katex-names	katex-names/symbol-math/𝑸/3	ok
 katex-names	katex-names/symbol-math/𝔔/1	ok
 katex-names	katex-names/symbol-math/𝔔/2	ok
 katex-names	katex-names/symbol-math/𝔔/3	ok
@@ -6246,13 +6246,13 @@ katex-names	katex-names/symbol-math/𝒬/2	ok
 katex-names	katex-names/symbol-math/𝒬/3	ok
 katex-names	katex-names/symbol-math/𝐑/1	ok
 katex-names	katex-names/symbol-math/𝐑/2	ok
-katex-names	katex-names/symbol-math/𝐑/3	mismatch
+katex-names	katex-names/symbol-math/𝐑/3	ok
 katex-names	katex-names/symbol-math/𝑅/1	ok
 katex-names	katex-names/symbol-math/𝑅/2	ok
 katex-names	katex-names/symbol-math/𝑅/3	ok
 katex-names	katex-names/symbol-math/𝑹/1	ok
 katex-names	katex-names/symbol-math/𝑹/2	ok
-katex-names	katex-names/symbol-math/𝑹/3	mismatch
+katex-names	katex-names/symbol-math/𝑹/3	ok
 katex-names	katex-names/symbol-math/𝔕/1	ok
 katex-names	katex-names/symbol-math/𝔕/2	ok
 katex-names	katex-names/symbol-math/𝔕/3	ok
@@ -6279,13 +6279,13 @@ katex-names	katex-names/symbol-math/𝒭/2	ok
 katex-names	katex-names/symbol-math/𝒭/3	ok
 katex-names	katex-names/symbol-math/𝐒/1	ok
 katex-names	katex-names/symbol-math/𝐒/2	ok
-katex-names	katex-names/symbol-math/𝐒/3	mismatch
+katex-names	katex-names/symbol-math/𝐒/3	ok
 katex-names	katex-names/symbol-math/𝑆/1	ok
 katex-names	katex-names/symbol-math/𝑆/2	ok
 katex-names	katex-names/symbol-math/𝑆/3	ok
 katex-names	katex-names/symbol-math/𝑺/1	ok
 katex-names	katex-names/symbol-math/𝑺/2	ok
-katex-names	katex-names/symbol-math/𝑺/3	mismatch
+katex-names	katex-names/symbol-math/𝑺/3	ok
 katex-names	katex-names/symbol-math/𝔖/1	ok
 katex-names	katex-names/symbol-math/𝔖/2	ok
 katex-names	katex-names/symbol-math/𝔖/3	ok
@@ -6312,13 +6312,13 @@ katex-names	katex-names/symbol-math/𝒮/2	ok
 katex-names	katex-names/symbol-math/𝒮/3	ok
 katex-names	katex-names/symbol-math/𝐓/1	ok
 katex-names	katex-names/symbol-math/𝐓/2	ok
-katex-names	katex-names/symbol-math/𝐓/3	mismatch
+katex-names	katex-names/symbol-math/𝐓/3	ok
 katex-names	katex-names/symbol-math/𝑇/1	ok
 katex-names	katex-names/symbol-math/𝑇/2	ok
 katex-names	katex-names/symbol-math/𝑇/3	ok
 katex-names	katex-names/symbol-math/𝑻/1	ok
 katex-names	katex-names/symbol-math/𝑻/2	ok
-katex-names	katex-names/symbol-math/𝑻/3	mismatch
+katex-names	katex-names/symbol-math/𝑻/3	ok
 katex-names	katex-names/symbol-math/𝔗/1	ok
 katex-names	katex-names/symbol-math/𝔗/2	ok
 katex-names	katex-names/symbol-math/𝔗/3	ok
@@ -6345,13 +6345,13 @@ katex-names	katex-names/symbol-math/𝒯/2	ok
 katex-names	katex-names/symbol-math/𝒯/3	ok
 katex-names	katex-names/symbol-math/𝐔/1	ok
 katex-names	katex-names/symbol-math/𝐔/2	ok
-katex-names	katex-names/symbol-math/𝐔/3	mismatch
+katex-names	katex-names/symbol-math/𝐔/3	ok
 katex-names	katex-names/symbol-math/𝑈/1	ok
 katex-names	katex-names/symbol-math/𝑈/2	ok
 katex-names	katex-names/symbol-math/𝑈/3	ok
 katex-names	katex-names/symbol-math/𝑼/1	ok
 katex-names	katex-names/symbol-math/𝑼/2	ok
-katex-names	katex-names/symbol-math/𝑼/3	mismatch
+katex-names	katex-names/symbol-math/𝑼/3	ok
 katex-names	katex-names/symbol-math/𝔘/1	ok
 katex-names	katex-names/symbol-math/𝔘/2	ok
 katex-names	katex-names/symbol-math/𝔘/3	ok
@@ -6378,13 +6378,13 @@ katex-names	katex-names/symbol-math/𝒰/2	ok
 katex-names	katex-names/symbol-math/𝒰/3	ok
 katex-names	katex-names/symbol-math/𝐕/1	ok
 katex-names	katex-names/symbol-math/𝐕/2	ok
-katex-names	katex-names/symbol-math/𝐕/3	mismatch
+katex-names	katex-names/symbol-math/𝐕/3	ok
 katex-names	katex-names/symbol-math/𝑉/1	ok
 katex-names	katex-names/symbol-math/𝑉/2	ok
 katex-names	katex-names/symbol-math/𝑉/3	ok
 katex-names	katex-names/symbol-math/𝑽/1	ok
 katex-names	katex-names/symbol-math/𝑽/2	ok
-katex-names	katex-names/symbol-math/𝑽/3	mismatch
+katex-names	katex-names/symbol-math/𝑽/3	ok
 katex-names	katex-names/symbol-math/𝔙/1	ok
 katex-names	katex-names/symbol-math/𝔙/2	ok
 katex-names	katex-names/symbol-math/𝔙/3	ok
@@ -6411,13 +6411,13 @@ katex-names	katex-names/symbol-math/𝒱/2	ok
 katex-names	katex-names/symbol-math/𝒱/3	ok
 katex-names	katex-names/symbol-math/𝐖/1	ok
 katex-names	katex-names/symbol-math/𝐖/2	ok
-katex-names	katex-names/symbol-math/𝐖/3	mismatch
+katex-names	katex-names/symbol-math/𝐖/3	ok
 katex-names	katex-names/symbol-math/𝑊/1	ok
 katex-names	katex-names/symbol-math/𝑊/2	ok
 katex-names	katex-names/symbol-math/𝑊/3	ok
 katex-names	katex-names/symbol-math/𝑾/1	ok
 katex-names	katex-names/symbol-math/𝑾/2	ok
-katex-names	katex-names/symbol-math/𝑾/3	mismatch
+katex-names	katex-names/symbol-math/𝑾/3	ok
 katex-names	katex-names/symbol-math/𝔚/1	ok
 katex-names	katex-names/symbol-math/𝔚/2	ok
 katex-names	katex-names/symbol-math/𝔚/3	ok
@@ -6444,13 +6444,13 @@ katex-names	katex-names/symbol-math/𝒲/2	ok
 katex-names	katex-names/symbol-math/𝒲/3	ok
 katex-names	katex-names/symbol-math/𝐗/1	ok
 katex-names	katex-names/symbol-math/𝐗/2	ok
-katex-names	katex-names/symbol-math/𝐗/3	mismatch
+katex-names	katex-names/symbol-math/𝐗/3	ok
 katex-names	katex-names/symbol-math/𝑋/1	ok
 katex-names	katex-names/symbol-math/𝑋/2	ok
 katex-names	katex-names/symbol-math/𝑋/3	ok
 katex-names	katex-names/symbol-math/𝑿/1	ok
 katex-names	katex-names/symbol-math/𝑿/2	ok
-katex-names	katex-names/symbol-math/𝑿/3	mismatch
+katex-names	katex-names/symbol-math/𝑿/3	ok
 katex-names	katex-names/symbol-math/𝔛/1	ok
 katex-names	katex-names/symbol-math/𝔛/2	ok
 katex-names	katex-names/symbol-math/𝔛/3	ok
@@ -6477,13 +6477,13 @@ katex-names	katex-names/symbol-math/𝒳/2	ok
 katex-names	katex-names/symbol-math/𝒳/3	ok
 katex-names	katex-names/symbol-math/𝐘/1	ok
 katex-names	katex-names/symbol-math/𝐘/2	ok
-katex-names	katex-names/symbol-math/𝐘/3	mismatch
+katex-names	katex-names/symbol-math/𝐘/3	ok
 katex-names	katex-names/symbol-math/𝑌/1	ok
 katex-names	katex-names/symbol-math/𝑌/2	ok
 katex-names	katex-names/symbol-math/𝑌/3	ok
 katex-names	katex-names/symbol-math/𝒀/1	ok
 katex-names	katex-names/symbol-math/𝒀/2	ok
-katex-names	katex-names/symbol-math/𝒀/3	mismatch
+katex-names	katex-names/symbol-math/𝒀/3	ok
 katex-names	katex-names/symbol-math/𝔜/1	ok
 katex-names	katex-names/symbol-math/𝔜/2	ok
 katex-names	katex-names/symbol-math/𝔜/3	ok
@@ -6510,13 +6510,13 @@ katex-names	katex-names/symbol-math/𝒴/2	ok
 katex-names	katex-names/symbol-math/𝒴/3	ok
 katex-names	katex-names/symbol-math/𝐙/1	ok
 katex-names	katex-names/symbol-math/𝐙/2	ok
-katex-names	katex-names/symbol-math/𝐙/3	mismatch
+katex-names	katex-names/symbol-math/𝐙/3	ok
 katex-names	katex-names/symbol-math/𝑍/1	ok
 katex-names	katex-names/symbol-math/𝑍/2	ok
 katex-names	katex-names/symbol-math/𝑍/3	ok
 katex-names	katex-names/symbol-math/𝒁/1	ok
 katex-names	katex-names/symbol-math/𝒁/2	ok
-katex-names	katex-names/symbol-math/𝒁/3	mismatch
+katex-names	katex-names/symbol-math/𝒁/3	ok
 katex-names	katex-names/symbol-math/𝔝/1	ok
 katex-names	katex-names/symbol-math/𝔝/2	ok
 katex-names	katex-names/symbol-math/𝔝/3	ok
@@ -8099,11 +8099,11 @@ katex-names	katex-names/symbol-text/𝕇/1	ok
 katex-names	katex-names/symbol-text/𝕇/2	ok
 katex-names	katex-names/symbol-text/𝒫/1	ok
 katex-names	katex-names/symbol-text/𝒫/2	ok
-katex-names	katex-names/symbol-text/𝐐/1	mismatch
+katex-names	katex-names/symbol-text/𝐐/1	ok
 katex-names	katex-names/symbol-text/𝐐/2	ok
 katex-names	katex-names/symbol-text/𝑄/1	ok
 katex-names	katex-names/symbol-text/𝑄/2	ok
-katex-names	katex-names/symbol-text/𝑸/1	mismatch
+katex-names	katex-names/symbol-text/𝑸/1	ok
 katex-names	katex-names/symbol-text/𝑸/2	ok
 katex-names	katex-names/symbol-text/𝔔/1	ok
 katex-names	katex-names/symbol-text/𝔔/2	ok
@@ -8926,7 +8926,7 @@ katex-screenshots	katex-screenshots/LeftRight	not-yet
 katex-screenshots	katex-screenshots/LeftRightListStyling	not-yet
 katex-screenshots	katex-screenshots/LeftRightMiddle	not-yet
 katex-screenshots	katex-screenshots/LeftRightStyleSizing	not-yet
-katex-screenshots	katex-screenshots/LimitControls	mismatch
+katex-screenshots	katex-screenshots/LimitControls	ok
 katex-screenshots	katex-screenshots/LineBreak	not-yet
 katex-screenshots	katex-screenshots/LowerAccent	not-yet
 katex-screenshots	katex-screenshots/Mapsfrom	not-yet
@@ -8952,7 +8952,7 @@ katex-screenshots	katex-screenshots/ModScript	not-yet
 katex-screenshots	katex-screenshots/ModSpacing	not-yet
 katex-screenshots	katex-screenshots/NegativeSpaceBetweenRel	ok
 katex-screenshots	katex-screenshots/NegativeSpace	not-yet
-katex-screenshots	katex-screenshots/NestedFractions	mismatch
+katex-screenshots	katex-screenshots/NestedFractions	ok
 katex-screenshots	katex-screenshots/NewLine	not-yet
 katex-screenshots	katex-screenshots/Not	not-yet
 katex-screenshots	katex-screenshots/NullDelimiterInteraction	not-yet
@@ -9050,14 +9050,14 @@ katex-spec	katex-spec/katex > A subscript and superscript parser > should skip \
 katex-spec	katex-spec/katex > A parser with limit controls > should fail when the limit control is not preceded by an op node/1	ok
 katex-spec	katex-spec/katex > A parser with limit controls > should fail when the limit control is not preceded by an op node/2	ok
 katex-spec	katex-spec/katex > A parser with limit controls > should fail when the limit control is not preceded by an op node/3	ok
-katex-spec	katex-spec/katex > A parser with limit controls > should parse when the limit control directly follows an op node/1	mismatch
-katex-spec	katex-spec/katex > A parser with limit controls > should parse when the limit control directly follows an op node/2	mismatch
-katex-spec	katex-spec/katex > A parser with limit controls > should parse when the limit control is in the sup/sub area of an op node/1	mismatch
-katex-spec	katex-spec/katex > A parser with limit controls > should parse when the limit control is in the sup/sub area of an op node/2	mismatch
-katex-spec	katex-spec/katex > A parser with limit controls > should parse when the limit control is in the sup/sub area of an op node/3	mismatch
-katex-spec	katex-spec/katex > A parser with limit controls > should allow multiple limit controls in the sup/sub area of an op node/1	mismatch
-katex-spec	katex-spec/katex > A parser with limit controls > should allow multiple limit controls in the sup/sub area of an op node/2	mismatch
-katex-spec	katex-spec/katex > A parser with limit controls > should allow multiple limit controls in the sup/sub area of an op node/3	mismatch
+katex-spec	katex-spec/katex > A parser with limit controls > should parse when the limit control directly follows an op node/1	ok
+katex-spec	katex-spec/katex > A parser with limit controls > should parse when the limit control directly follows an op node/2	ok
+katex-spec	katex-spec/katex > A parser with limit controls > should parse when the limit control is in the sup/sub area of an op node/1	ok
+katex-spec	katex-spec/katex > A parser with limit controls > should parse when the limit control is in the sup/sub area of an op node/2	ok
+katex-spec	katex-spec/katex > A parser with limit controls > should parse when the limit control is in the sup/sub area of an op node/3	ok
+katex-spec	katex-spec/katex > A parser with limit controls > should allow multiple limit controls in the sup/sub area of an op node/1	ok
+katex-spec	katex-spec/katex > A parser with limit controls > should allow multiple limit controls in the sup/sub area of an op node/2	ok
+katex-spec	katex-spec/katex > A parser with limit controls > should allow multiple limit controls in the sup/sub area of an op node/3	ok
 katex-spec	katex-spec/katex > A group parser > should not fail/1	ok
 katex-spec	katex-spec/katex > A \begingroup...\endgroup parser > should not fail/1	ok
 katex-spec	katex-spec/katex > A \begingroup...\endgroup parser > should fail when it is mismatched/1	ok
@@ -9300,18 +9300,18 @@ katex-spec	katex-spec/katex > A TeX-compliant parser > should succeed when there
 katex-spec	katex-spec/katex > A TeX-compliant parser > should succeed when there are braces around the \left/\right/3	not-yet
 katex-spec	katex-spec/katex > A TeX-compliant parser > should succeed when there are braces around the \left/\right/4	not-yet
 katex-spec	katex-spec/katex > A TeX-compliant parser > should succeed when there are braces around the \left/\right/5	not-yet
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/1	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/2	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/3	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/4	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/5	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/6	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/7	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/8	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/9	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/10	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/11	mismatch
-katex-spec	katex-spec/katex > An op symbol builder > should not fail/12	mismatch
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/1	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/2	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/3	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/4	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/5	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/6	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/7	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/8	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/9	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/10	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/11	ok
+katex-spec	katex-spec/katex > An op symbol builder > should not fail/12	ok
 katex-spec	katex-spec/katex > An op symbol builder > should not fail/13	ok
 katex-spec	katex-spec/katex > An op symbol builder > should not fail/14	ok
 katex-spec	katex-spec/katex > A style change parser > should not fail/1	ok
@@ -9559,10 +9559,10 @@ katex-spec	katex-spec/katex > The CD environment > should fail if the character 
 katex-spec	katex-spec/katex > The CD environment > should fail if an arrow does not have its final character./1	ok
 katex-spec	katex-spec/katex > The CD environment > should fail if an arrow does not have its final character./2	ok
 katex-spec	katex-spec/katex > The CD environment > should fail without an \\end./1	ok
-katex-spec	katex-spec/katex > operatorname support > should not fail/1	mismatch
-katex-spec	katex-spec/katex > operatorname support > should not fail/2	mismatch
-katex-spec	katex-spec/katex > operatorname support > should not fail/3	mismatch
-katex-spec	katex-spec/katex > operatorname support > should not fail/4	mismatch
+katex-spec	katex-spec/katex > operatorname support > should not fail/1	ok
+katex-spec	katex-spec/katex > operatorname support > should not fail/2	ok
+katex-spec	katex-spec/katex > operatorname support > should not fail/3	ok
+katex-spec	katex-spec/katex > operatorname support > should not fail/4	ok
 katex-spec	katex-spec/katex > operatorname support > should not fail/5	ok
 katex-spec	katex-spec/katex > href and url commands > should parse its input/1	not-yet
 katex-spec	katex-spec/katex > href and url commands > should parse its input/2	not-yet
@@ -9585,15 +9585,15 @@ katex-spec	katex-spec/katex > href and url commands > should not allow unbalance
 katex-spec	katex-spec/katex > href and url commands > should not allow unbalanced brace(s) in url/4	ok
 katex-spec	katex-spec/katex > href and url commands > should allow comments after URLs/1	ok
 katex-spec	katex-spec/katex > A raw text parser > should return null for a omitted optional string/1	ok
-katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should still parse on unrecognized control sequences/1	mismatch
-katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in superscripts and subscripts/1	mismatch
-katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in superscripts and subscripts/2	mismatch
-katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in superscripts and subscripts/3	mismatch
-katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in fractions/1	mismatch
-katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in fractions/2	mismatch
+katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should still parse on unrecognized control sequences/1	ok
+katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in superscripts and subscripts/1	ok
+katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in superscripts and subscripts/2	ok
+katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in superscripts and subscripts/3	ok
+katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in fractions/1	ok
+katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in fractions/2	ok
 katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in square roots/1	not-yet
 katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in square roots/2	not-yet
-katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in text boxes/1	mismatch
+katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in text boxes/1	ok
 katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in environment names/1	ok
 katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in environment names/2	ok
 katex-spec	katex-spec/katex > A parser that does not throw on unsupported commands > should allow unrecognized controls sequences anywhere, including > in environment names/3	ok
@@ -9927,7 +9927,7 @@ katex-spec	katex-spec/katex > Unicode accents > should parse accented i's and j'
 katex-spec	katex-spec/katex > Unicode > should parse negated relations/1	not-yet
 katex-spec	katex-spec/katex > Unicode > should build relations/1	not-yet
 katex-spec	katex-spec/katex > Unicode > should parse relations/1	ok
-katex-spec	katex-spec/katex > Unicode > should build big operators/1	mismatch
+katex-spec	katex-spec/katex > Unicode > should build big operators/1	ok
 katex-spec	katex-spec/katex > Unicode > should build more relations/1	not-yet
 katex-spec	katex-spec/katex > Unicode > should parse symbols/1	not-yet
 katex-spec	katex-spec/katex > Unicode > should parse symbols/2	not-yet
@@ -9960,11 +9960,11 @@ katex-spec	katex-spec/katex > The maxExpand setting > should count correctly wit
 katex-spec	katex-spec/katex > The \mathchoice function > should render as if there is nothing other in display math/1	not-yet
 katex-spec	katex-spec/katex > The \mathchoice function > should render as if there is nothing other in display math/2	ok
 katex-spec	katex-spec/katex > The \mathchoice function > should render as if there is nothing other in text/1	not-yet
-katex-spec	katex-spec/katex > The \mathchoice function > should render as if there is nothing other in text/2	mismatch
+katex-spec	katex-spec/katex > The \mathchoice function > should render as if there is nothing other in text/2	ok
 katex-spec	katex-spec/katex > The \mathchoice function > should render as if there is nothing other in scriptstyle/1	not-yet
-katex-spec	katex-spec/katex > The \mathchoice function > should render as if there is nothing other in scriptstyle/2	mismatch
+katex-spec	katex-spec/katex > The \mathchoice function > should render as if there is nothing other in scriptstyle/2	ok
 katex-spec	katex-spec/katex > The \mathchoice function > should render  as if there is nothing other in scriptscriptstyle/1	not-yet
-katex-spec	katex-spec/katex > The \mathchoice function > should render  as if there is nothing other in scriptscriptstyle/2	mismatch
+katex-spec	katex-spec/katex > The \mathchoice function > should render  as if there is nothing other in scriptscriptstyle/2	ok
 katex-spec	katex-spec/katex > Newlines via \\ and \newline > should build \\ without the optional argument and \newline the same/1	not-yet
 katex-spec	katex-spec/katex > Newlines via \\ and \newline > should build \\ without the optional argument and \newline the same/2	not-yet
 katex-spec	katex-spec/katex > Newlines via \\ and \newline > should not allow \newline to scan for an optional size argument/1	not-yet
@@ -9972,8 +9972,8 @@ katex-spec	katex-spec/katex > Newlines via \\ and \newline > should not allow \c
 katex-spec	katex-spec/katex > Symbols > should parse \text{\i\j}/1	ok
 katex-spec	katex-spec/katex > Symbols > should parse spacing functions in math or text mode/1	ok
 katex-spec	katex-spec/katex > Symbols > should build \minuso/1	not-yet
-katex-spec	katex-spec/katex > Symbols > should render ligature commands like their unicode characters/1	mismatch
-katex-spec	katex-spec/katex > Symbols > should render ligature commands like their unicode characters/2	mismatch
+katex-spec	katex-spec/katex > Symbols > should render ligature commands like their unicode characters/1	ok
+katex-spec	katex-spec/katex > Symbols > should render ligature commands like their unicode characters/2	ok
 katex-spec	katex-spec/katex > strict setting > should allow unicode text when not strict/1	not-yet
 katex-spec	katex-spec/katex > strict setting > should allow unicode text when not strict/2	ok
 katex-spec	katex-spec/katex > strict setting > should allow unicode text when not strict/3	not-yet
@@ -10254,9 +10254,9 @@ katex-support-table	katex-support-table/between/1	ok
 katex-support-table	katex-support-table/bf/1	ok
 katex-support-table	katex-support-table/big/1	not-yet
 katex-support-table	katex-support-table/Big/1	not-yet
-katex-support-table	katex-support-table/bigcap/1	mismatch
+katex-support-table	katex-support-table/bigcap/1	ok
 katex-support-table	katex-support-table/bigcirc/1	ok
-katex-support-table	katex-support-table/bigcup/1	mismatch
+katex-support-table	katex-support-table/bigcup/1	ok
 katex-support-table	katex-support-table/bigg/1	not-yet
 katex-support-table	katex-support-table/Bigg/1	not-yet
 katex-support-table	katex-support-table/biggl/1	not-yet
@@ -10269,18 +10269,18 @@ katex-support-table	katex-support-table/bigl/1	not-yet
 katex-support-table	katex-support-table/Bigl/1	not-yet
 katex-support-table	katex-support-table/bigm/1	not-yet
 katex-support-table	katex-support-table/Bigm/1	not-yet
-katex-support-table	katex-support-table/bigodot/1	mismatch
-katex-support-table	katex-support-table/bigoplus/1	mismatch
-katex-support-table	katex-support-table/bigotimes/1	mismatch
+katex-support-table	katex-support-table/bigodot/1	ok
+katex-support-table	katex-support-table/bigoplus/1	ok
+katex-support-table	katex-support-table/bigotimes/1	ok
 katex-support-table	katex-support-table/bigr/1	not-yet
 katex-support-table	katex-support-table/Bigr/1	not-yet
-katex-support-table	katex-support-table/bigsqcup/1	mismatch
+katex-support-table	katex-support-table/bigsqcup/1	ok
 katex-support-table	katex-support-table/bigstar/1	ok
 katex-support-table	katex-support-table/bigtriangledown/1	ok
 katex-support-table	katex-support-table/bigtriangleup/1	ok
-katex-support-table	katex-support-table/biguplus/1	mismatch
-katex-support-table	katex-support-table/bigvee/1	mismatch
-katex-support-table	katex-support-table/bigwedge/1	mismatch
+katex-support-table	katex-support-table/biguplus/1	ok
+katex-support-table	katex-support-table/bigvee/1	ok
+katex-support-table	katex-support-table/bigwedge/1	ok
 katex-support-table	katex-support-table/binom/1	ok
 katex-support-table	katex-support-table/blacklozenge/1	ok
 katex-support-table	katex-support-table/blacksquare/1	ok
@@ -10367,7 +10367,7 @@ katex-support-table	katex-support-table/colorbox/1	not-yet
 katex-support-table	katex-support-table/complement/1	ok
 katex-support-table	katex-support-table/Complex/1	ok
 katex-support-table	katex-support-table/cong/1	ok
-katex-support-table	katex-support-table/coprod/1	mismatch
+katex-support-table	katex-support-table/coprod/1	ok
 katex-support-table	katex-support-table/copyright/1	not-yet
 katex-support-table	katex-support-table/cos/1	ok
 katex-support-table	katex-support-table/cosec/1	ok
@@ -10835,7 +10835,7 @@ katex-support-table	katex-support-table/precneqq/1	ok
 katex-support-table	katex-support-table/precnsim/1	ok
 katex-support-table	katex-support-table/precsim/1	ok
 katex-support-table	katex-support-table/prime/1	ok
-katex-support-table	katex-support-table/prod/1	mismatch
+katex-support-table	katex-support-table/prod/1	ok
 katex-support-table	katex-support-table/projlim/1	ok
 katex-support-table	katex-support-table/propto/1	ok
 katex-support-table	katex-support-table/providecommand/1	ok
@@ -10960,7 +10960,7 @@ katex-support-table	katex-support-table/succnapprox/1	ok
 katex-support-table	katex-support-table/succneqq/1	ok
 katex-support-table	katex-support-table/succnsim/1	ok
 katex-support-table	katex-support-table/succsim/1	ok
-katex-support-table	katex-support-table/sum/1	mismatch
+katex-support-table	katex-support-table/sum/1	ok
 katex-support-table	katex-support-table/sup/1	ok
 katex-support-table	katex-support-table/supe/1	ok
 katex-support-table	katex-support-table/Supset/1	ok
@@ -11009,7 +11009,7 @@ katex-support-table	katex-support-table/textregistered/1	not-yet
 katex-support-table	katex-support-table/textrm/1	ok
 katex-support-table	katex-support-table/textsf/1	ok
 katex-support-table	katex-support-table/textsterling/1	ok
-katex-support-table	katex-support-table/textstyle/1	mismatch
+katex-support-table	katex-support-table/textstyle/1	ok
 katex-support-table	katex-support-table/texttt/1	ok
 katex-support-table	katex-support-table/textunderscore/1	ok
 katex-support-table	katex-support-table/textup/1	ok
@@ -11158,19 +11158,19 @@ mathlib	mathlib/Mathlib/Algebra/AddConstMap/Basic.lean:21	not-yet
 mathlib	mathlib/Mathlib/Algebra/Algebra/Operations.lean:860	ok
 mathlib	mathlib/Mathlib/Algebra/Category/ModuleCat/Differentials/Presheaf.lean:24	ok
 mathlib	mathlib/Mathlib/Algebra/Category/ModuleCat/EnoughInjectives.lean:14	ok
-mathlib	mathlib/Mathlib/Algebra/ContinuedFractions/Basic.lean:95	mismatch
-mathlib	mathlib/Mathlib/Algebra/ContinuedFractions/Basic.lean:171	mismatch
-mathlib	mathlib/Mathlib/Algebra/ContinuedFractions/ConvergentsEquiv.lean:24	mismatch
+mathlib	mathlib/Mathlib/Algebra/ContinuedFractions/Basic.lean:95	ok
+mathlib	mathlib/Mathlib/Algebra/ContinuedFractions/Basic.lean:171	ok
+mathlib	mathlib/Mathlib/Algebra/ContinuedFractions/ConvergentsEquiv.lean:24	ok
 mathlib	mathlib/Mathlib/Algebra/ContinuedFractions/Euler.lean:48	ok
 mathlib	mathlib/Mathlib/Algebra/ContinuedFractions/Euler.lean:220	ok
 mathlib	mathlib/Mathlib/Algebra/ContinuedFractions/Euler.lean:231	ok
 mathlib	mathlib/Mathlib/Algebra/DualNumber.lean:44	ok
 mathlib	mathlib/Mathlib/Algebra/DualNumber.lean:44#2	ok
 mathlib	mathlib/Mathlib/Algebra/DualNumber.lean:49	ok
-mathlib	mathlib/Mathlib/Algebra/Field/GeomSum.lean:14	mismatch
-mathlib	mathlib/Mathlib/Algebra/Field/GeomSum.lean:15	mismatch
-mathlib	mathlib/Mathlib/Algebra/Field/GeomSum.lean:19	mismatch
-mathlib	mathlib/Mathlib/Algebra/Field/GeomSum.lean:20	mismatch
+mathlib	mathlib/Mathlib/Algebra/Field/GeomSum.lean:14	ok
+mathlib	mathlib/Mathlib/Algebra/Field/GeomSum.lean:15	ok
+mathlib	mathlib/Mathlib/Algebra/Field/GeomSum.lean:19	ok
+mathlib	mathlib/Mathlib/Algebra/Field/GeomSum.lean:20	ok
 mathlib	mathlib/Mathlib/Algebra/Group/Action/Defs.lean:625	ok
 mathlib	mathlib/Mathlib/Algebra/Group/Units/Defs.lean:27	ok
 mathlib	mathlib/Mathlib/Algebra/Jordan/Basic.lean:51	ok
@@ -11193,14 +11193,14 @@ mathlib	mathlib/Mathlib/Algebra/Polynomial/Eval/Degree.lean:72	ok
 mathlib	mathlib/Mathlib/Algebra/Polynomial/FieldDivision.lean:20	ok
 mathlib	mathlib/Mathlib/Algebra/Polynomial/Laurent.lean:18	ok
 mathlib	mathlib/Mathlib/Algebra/Polynomial/Module/AEval.lean:34	ok
-mathlib	mathlib/Mathlib/Algebra/Polynomial/Splits.lean:332	mismatch
+mathlib	mathlib/Mathlib/Algebra/Polynomial/Splits.lean:332	ok
 mathlib	mathlib/Mathlib/Algebra/Polynomial/SumIteratedDerivative.lean:59	ok
 mathlib	mathlib/Mathlib/Algebra/QuadraticAlgebra/Defs.lean:40	ok
 mathlib	mathlib/Mathlib/Algebra/Quaternion.lean:24	not-yet
 mathlib	mathlib/Mathlib/Algebra/Quaternion.lean:25	ok
 mathlib	mathlib/Mathlib/Algebra/Quaternion.lean:61	ok
 mathlib	mathlib/Mathlib/Algebra/Ring/CentroidHom.lean:20	ok
-mathlib	mathlib/Mathlib/Algebra/Ring/GeomSum.lean:76	mismatch
+mathlib	mathlib/Mathlib/Algebra/Ring/GeomSum.lean:76	ok
 mathlib	mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:16	ok
 mathlib	mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:18	ok
 mathlib	mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:20	ok
@@ -11212,7 +11212,7 @@ mathlib	mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:81	ok
 mathlib	mathlib/Mathlib/Algebra/Symmetrized.lean:15	ok
 mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:549	not-yet
 mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:554	ok
-mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:633	mismatch
+mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:633	ok
 mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:634	ok
 mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:684	ok
 mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:684#2	ok
@@ -11220,7 +11220,7 @@ mathlib	mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/VariableChange.lean:53	n
 mathlib	mathlib/Mathlib/AlgebraicGeometry/Spec.lean:12	ok
 mathlib	mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:101	ok
 mathlib	mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:101#2	ok
-mathlib	mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:102	mismatch
+mathlib	mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:102	ok
 mathlib	mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:102#2	ok
 mathlib	mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:102#3	ok
 mathlib	mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:103	ok
@@ -11251,12 +11251,12 @@ mathlib	mathlib/Mathlib/Analysis/Analytic/Binomial.lean:20	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Binomial.lean:24	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Binomial.lean:24#2	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/ChangeOrigin.lean:15	not-yet
-mathlib	mathlib/Mathlib/Analysis/Analytic/ChangeOrigin.lean:20	mismatch
+mathlib	mathlib/Mathlib/Analysis/Analytic/ChangeOrigin.lean:20	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:299	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:309	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:316	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:324	not-yet
-mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:345	mismatch
+mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:345	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:348	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:352	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:353	ok
@@ -11330,15 +11330,15 @@ mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:112	ok
 mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:113	ok
 mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:119	ok
 mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:124	ok
-mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:130	mismatch
+mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:130	ok
 mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:137	not-yet
 mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:181	not-yet
-mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:374	mismatch
-mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:422	mismatch
-mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:436	mismatch
-mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:491	mismatch
-mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:527	mismatch
-mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:567	mismatch
+mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:374	ok
+mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:422	ok
+mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:436	ok
+mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:491	ok
+mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:527	ok
+mathlib	mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean:567	ok
 mathlib	mathlib/Mathlib/Analysis/Complex/Polynomial/GaussLucas.lean:55	ok
 mathlib	mathlib/Mathlib/Analysis/Complex/RemovableSingularity.lean:17	ok
 mathlib	mathlib/Mathlib/Analysis/Complex/UpperHalfPlane/Manifold.lean:161	ok
@@ -11368,17 +11368,17 @@ mathlib	mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:37#2	ok
 mathlib	mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:37#3	ok
 mathlib	mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:37#4	ok
 mathlib	mathlib/Mathlib/Analysis/InnerProductSpace/OfNorm.lean:37#5	ok
-mathlib	mathlib/Mathlib/Analysis/InnerProductSpace/PiL2.lean:21	mismatch
+mathlib	mathlib/Mathlib/Analysis/InnerProductSpace/PiL2.lean:21	ok
 mathlib	mathlib/Mathlib/Analysis/InnerProductSpace/ProdL2.lean:14	ok
 mathlib	mathlib/Mathlib/Analysis/Matrix/Normed.lean:33	ok
 mathlib	mathlib/Mathlib/Analysis/Matrix/Normed.lean:223	ok
-mathlib	mathlib/Mathlib/Analysis/Matrix/Normed.lean:225	mismatch
+mathlib	mathlib/Mathlib/Analysis/Matrix/Normed.lean:225	ok
 mathlib	mathlib/Mathlib/Analysis/Matrix/Normed.lean:498	not-yet
 mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:28	ok
-mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:29	mismatch
-mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:30	mismatch
+mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:29	ok
+mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:30	ok
 mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:33	ok
-mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:51	mismatch
+mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:51	ok
 mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:62	ok
 mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:63	ok
 mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:74	ok
@@ -11388,7 +11388,7 @@ mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:83	ok
 mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:89	not-yet
 mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:92	ok
 mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:96	ok
-mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:97	mismatch
+mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:97	ok
 mathlib	mathlib/Mathlib/Analysis/MeanInequalities.lean:97#2	ok
 mathlib	mathlib/Mathlib/Analysis/MeanInequalitiesPow.lean:23	ok
 mathlib	mathlib/Mathlib/Analysis/MeanInequalitiesPow.lean:24	not-yet
@@ -11404,7 +11404,7 @@ mathlib	mathlib/Mathlib/Analysis/Normed/Lp/PiLp.lean:23	not-yet
 mathlib	mathlib/Mathlib/Analysis/Normed/Lp/PiLp.lean:44	not-yet
 mathlib	mathlib/Mathlib/Analysis/Normed/Lp/PiLp.lean:53	not-yet
 mathlib	mathlib/Mathlib/Analysis/Normed/Lp/ProdLp.lean:18	not-yet
-mathlib	mathlib/Mathlib/Analysis/Normed/Module/Alternating/Curry.lean:34	mismatch
+mathlib	mathlib/Mathlib/Analysis/Normed/Module/Alternating/Curry.lean:34	ok
 mathlib	mathlib/Mathlib/Analysis/Normed/Module/Alternating/Uncurry/Fin.lean:176	not-yet
 mathlib	mathlib/Mathlib/Analysis/Normed/Module/Alternating/Uncurry/Fin.lean:182	not-yet
 mathlib	mathlib/Mathlib/Analysis/Normed/Module/Alternating/Uncurry/Fin.lean:182#2	not-yet
@@ -11495,12 +11495,12 @@ mathlib	mathlib/Mathlib/CategoryTheory/Limits/Shapes/Equalizers.lean:15	ok
 mathlib	mathlib/Mathlib/CategoryTheory/Sites/Descent/IsPrestack.lean:119	ok
 mathlib	mathlib/Mathlib/CategoryTheory/Subobject/Basic.lean:729	ok
 mathlib	mathlib/Mathlib/Combinatorics/Additive/CauchyDavenport.lean:194	ok
-mathlib	mathlib/Mathlib/Combinatorics/Colex.lean:25	mismatch
+mathlib	mathlib/Mathlib/Combinatorics/Colex.lean:25	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:206	ok
-mathlib	mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:207	mismatch
+mathlib	mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:207	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:207#2	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:208	ok
-mathlib	mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:208#2	mismatch
+mathlib	mathlib/Mathlib/Combinatorics/Enumerative/DoubleCounting.lean:208#2	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:14	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:15	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Partition/GenFun.lean:15#2	ok
@@ -11529,8 +11529,8 @@ mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Basic.lean:16	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/EulerFunction.lean:17	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/EulerFunction.lean:19	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/EulerFunction.lean:21	ok
-mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/EulerFunction.lean:85	mismatch
-mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/PowerSeries.lean:79	mismatch
+mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/EulerFunction.lean:85	ok
+mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/PowerSeries.lean:79	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:41	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:45	ok
 mathlib	mathlib/Mathlib/Combinatorics/Enumerative/Pentagonal/Ring.lean:51	ok
@@ -11551,10 +11551,10 @@ mathlib	mathlib/Mathlib/Combinatorics/SimpleGraph/LapMatrix.lean:173	ok
 mathlib	mathlib/Mathlib/Combinatorics/SimpleGraph/LapMatrix.lean:174	ok
 mathlib	mathlib/Mathlib/Combinatorics/SimpleGraph/LapMatrix.lean:175	ok
 mathlib	mathlib/Mathlib/Computability/AkraBazzi/SumTransform.lean:25	ok
-mathlib	mathlib/Mathlib/Computability/AkraBazzi/SumTransform.lean:27	mismatch
+mathlib	mathlib/Mathlib/Computability/AkraBazzi/SumTransform.lean:27	ok
 mathlib	mathlib/Mathlib/Computability/PartrecCode.lean:32	ok
-mathlib	mathlib/Mathlib/Data/DFinsupp/Defs.lean:795	mismatch
-mathlib	mathlib/Mathlib/Data/DFinsupp/Defs.lean:795#2	mismatch
+mathlib	mathlib/Mathlib/Data/DFinsupp/Defs.lean:795	ok
+mathlib	mathlib/Mathlib/Data/DFinsupp/Defs.lean:795#2	ok
 mathlib	mathlib/Mathlib/Data/Finset/Card.lean:150	ok
 mathlib	mathlib/Mathlib/Data/Finset/Card.lean:150#2	ok
 mathlib	mathlib/Mathlib/Data/Nat/MaxPowDiv.lean:30	ok
@@ -11582,7 +11582,7 @@ mathlib	mathlib/Mathlib/FieldTheory/Galois/Basic.lean:147	ok
 mathlib	mathlib/Mathlib/FieldTheory/Galois/Basic.lean:148	ok
 mathlib	mathlib/Mathlib/FieldTheory/Galois/Basic.lean:598	ok
 mathlib	mathlib/Mathlib/FieldTheory/IsAlgClosed/AlgebraicClosure.lean:21	ok
-mathlib	mathlib/Mathlib/FieldTheory/IsAlgClosed/AlgebraicClosure.lean:23	mismatch
+mathlib	mathlib/Mathlib/FieldTheory/IsAlgClosed/AlgebraicClosure.lean:23	ok
 mathlib	mathlib/Mathlib/FieldTheory/IsAlgClosed/AlgebraicClosure.lean:46	ok
 mathlib	mathlib/Mathlib/FieldTheory/IsAlgClosed/AlgebraicClosure.lean:78	ok
 mathlib	mathlib/Mathlib/FieldTheory/PurelyInseparable/Tower.lean:20	ok
@@ -11714,10 +11714,10 @@ mathlib	mathlib/Mathlib/LinearAlgebra/Contraction.lean:170	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/CrossProduct.lean:15	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/Dimension/Free.lean:41	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/Dual/Basis.lean:14	ok
-mathlib	mathlib/Mathlib/LinearAlgebra/Dual/Basis.lean:272	mismatch
+mathlib	mathlib/Mathlib/LinearAlgebra/Dual/Basis.lean:272	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/Dual/Defs.lean:345	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:400	ok
-mathlib	mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:401	mismatch
+mathlib	mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:401	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:402	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:639	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/Dual/Lemmas.lean:651	ok
@@ -11776,29 +11776,29 @@ mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Graded/External.lean:101	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Graded/External.lean:101#2	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Graded/Internal.lean:43	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:15	ok
-mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:16	mismatch
-mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:20	mismatch
+mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:16	ok
+mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:20	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:22	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:22#2	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:23	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:24	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:25	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:26	ok
-mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:29	mismatch
-mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:30	mismatch
+mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:29	ok
+mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:30	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:35	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:40	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:41	ok
 mathlib	mathlib/Mathlib/LinearAlgebra/TensorProduct/Vanishing.lean:42	ok
-mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:16	mismatch
-mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:27	mismatch
+mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:16	ok
+mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:27	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:30	not-yet
-mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:433	mismatch
+mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:433	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:635	not-yet
-mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:746	mismatch
+mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:746	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleIntegral.lean:746#2	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/CircleTransform.lean:14	ok
-mathlib	mathlib/Mathlib/MeasureTheory/Integral/CurveIntegral/Basic.lean:21	mismatch
+mathlib	mathlib/Mathlib/MeasureTheory/Integral/CurveIntegral/Basic.lean:21	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/IntegralEqImproper.lean:1432	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean:43	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/IntervalIntegral/Basic.lean:43#2	ok
@@ -11822,15 +11822,15 @@ mathlib	mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:19	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:28	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:28#2	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:28#3	ok
-mathlib	mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:36	mismatch
+mathlib	mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:36	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Integral/TorusIntegral.lean:79	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Measure/OpenPos.lean:247	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Measure/OpenPos.lean:248	ok
 mathlib	mathlib/Mathlib/MeasureTheory/Measure/OpenPos.lean:248#2	ok
 mathlib	mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:63	ok
 mathlib	mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:64	ok
-mathlib	mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:65	mismatch
-mathlib	mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:72	mismatch
+mathlib	mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:65	ok
+mathlib	mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:72	ok
 mathlib	mathlib/Mathlib/MeasureTheory/VectorMeasure/Decomposition/Hahn.lean:86	ok
 mathlib	mathlib/Mathlib/ModelTheory/Order.lean:173	ok
 mathlib	mathlib/Mathlib/ModelTheory/Order.lean:178	ok
@@ -11841,13 +11841,13 @@ mathlib	mathlib/Mathlib/NumberTheory/ADEInequality.lean:74	ok
 mathlib	mathlib/Mathlib/NumberTheory/ADEInequality.lean:82	ok
 mathlib	mathlib/Mathlib/NumberTheory/ADEInequality.lean:90	ok
 mathlib	mathlib/Mathlib/NumberTheory/ADEInequality.lean:98	ok
-mathlib	mathlib/Mathlib/NumberTheory/ArithmeticFunction/Misc.lean:52	mismatch
+mathlib	mathlib/Mathlib/NumberTheory/ArithmeticFunction/Misc.lean:52	ok
 mathlib	mathlib/Mathlib/NumberTheory/Bernoulli.lean:24	ok
 mathlib	mathlib/Mathlib/NumberTheory/Bernoulli.lean:26	ok
 mathlib	mathlib/Mathlib/NumberTheory/Bernoulli.lean:27	ok
 mathlib	mathlib/Mathlib/NumberTheory/Bernoulli.lean:29	ok
 mathlib	mathlib/Mathlib/NumberTheory/Bernoulli.lean:31	ok
-mathlib	mathlib/Mathlib/NumberTheory/Bernoulli.lean:37	mismatch
+mathlib	mathlib/Mathlib/NumberTheory/Bernoulli.lean:37	ok
 mathlib	mathlib/Mathlib/NumberTheory/Bernoulli.lean:42	ok
 mathlib	mathlib/Mathlib/NumberTheory/Bernoulli.lean:42#2	ok
 mathlib	mathlib/Mathlib/NumberTheory/Bernoulli.lean:48	ok
@@ -11863,7 +11863,7 @@ mathlib	mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:19	ok
 mathlib	mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:20	ok
 mathlib	mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:21	ok
 mathlib	mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:29	ok
-mathlib	mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:255	mismatch
+mathlib	mathlib/Mathlib/NumberTheory/BernoulliPolynomials.lean:255	ok
 mathlib	mathlib/Mathlib/NumberTheory/Chebyshev.lean:845	ok
 mathlib	mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:16	ok
 mathlib	mathlib/Mathlib/NumberTheory/DiophantineApproximation/Basic.lean:17	ok
@@ -11893,11 +11893,11 @@ mathlib	mathlib/Mathlib/NumberTheory/ModularForms/Derivative.lean:224#2	ok
 mathlib	mathlib/Mathlib/NumberTheory/ModularForms/JacobiTheta/OneVariable.lean:15	ok
 mathlib	mathlib/Mathlib/NumberTheory/ModularForms/JacobiTheta/TwoVariable.lean:19	ok
 mathlib	mathlib/Mathlib/NumberTheory/ModularForms/JacobiTheta/TwoVariable.lean:26	ok
-mathlib	mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:18	mismatch
-mathlib	mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:53	mismatch
-mathlib	mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:77	mismatch
+mathlib	mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:18	ok
+mathlib	mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:53	ok
+mathlib	mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:77	ok
 mathlib	mathlib/Mathlib/NumberTheory/NumberField/DirichletDensity.lean:81	ok
-mathlib	mathlib/Mathlib/NumberTheory/NumberField/InfiniteAdeleRing.lean:106	mismatch
+mathlib	mathlib/Mathlib/NumberTheory/NumberField/InfiniteAdeleRing.lean:106	ok
 mathlib	mathlib/Mathlib/NumberTheory/Pell.lean:17	ok
 mathlib	mathlib/Mathlib/NumberTheory/Pell.lean:18	ok
 mathlib	mathlib/Mathlib/NumberTheory/Pell.lean:22	ok
@@ -12004,7 +12004,7 @@ mathlib	mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:175	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:175#2	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:176	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:176#2	ok
-mathlib	mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:177	mismatch
+mathlib	mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:177	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:181	not-yet
 mathlib	mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:186	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/BorelCantelli.lean:187	ok
@@ -12059,8 +12059,8 @@ mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:91#2	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:92	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:97	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:98	ok
-mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:99	mismatch
-mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:101	mismatch
+mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:99	ok
+mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:101	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:102	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:103	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:104	ok
@@ -12092,7 +12092,7 @@ mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.l
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:18	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:19	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:20	ok
-mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:23	mismatch
+mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:23	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:24	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:25	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupCohomology/Basic.lean:30	ok
@@ -12123,13 +12123,13 @@ mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lea
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:31#2	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:32	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:41	ok
-mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:43	mismatch
+mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:43	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:43#2	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:45	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:47	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Homological/GroupHomology/Basic.lean:152	ok
 mathlib	mathlib/Mathlib/RepresentationTheory/Induced.lean:14	ok
-mathlib	mathlib/Mathlib/RepresentationTheory/Maschke.lean:52	mismatch
+mathlib	mathlib/Mathlib/RepresentationTheory/Maschke.lean:52	ok
 mathlib	mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:15	ok
 mathlib	mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:16	ok
 mathlib	mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:18	not-yet
@@ -12140,7 +12140,7 @@ mathlib	mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:47	ok
 mathlib	mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:48	ok
 mathlib	mathlib/Mathlib/RingTheory/DedekindDomain/SelmerGroup.lean:50	ok
 mathlib	mathlib/Mathlib/RingTheory/Finiteness/Finsupp.lean:151	ok
-mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:15	mismatch
+mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:15	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:18	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:20	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:30	ok
@@ -12159,13 +12159,13 @@ mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:42	not-yet
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:43	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:44	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:44#2	ok
-mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:67	mismatch
+mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:67	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:91	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:91#2	ok
-mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:92	mismatch
+mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:92	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:108	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:108#2	ok
-mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:109	mismatch
+mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:109	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:109#2	ok
 mathlib	mathlib/Mathlib/RingTheory/Flat/EquationalCriterion.lean:217	ok
 mathlib	mathlib/Mathlib/RingTheory/FormalGroup/Basic.lean:58	ok
@@ -12180,15 +12180,15 @@ mathlib	mathlib/Mathlib/RingTheory/Kaehler/JacobiZariski.lean:38	ok
 mathlib	mathlib/Mathlib/RingTheory/Kaehler/JacobiZariski.lean:541	ok
 mathlib	mathlib/Mathlib/RingTheory/Kaehler/JacobiZariski.lean:549	ok
 mathlib	mathlib/Mathlib/RingTheory/Kaehler/JacobiZariski.lean:556	ok
-mathlib	mathlib/Mathlib/RingTheory/LocalProperties/IntegrallyClosed.lean:56	mismatch
+mathlib	mathlib/Mathlib/RingTheory/LocalProperties/IntegrallyClosed.lean:56	ok
 mathlib	mathlib/Mathlib/RingTheory/LocalProperties/IntegrallyClosed.lean:56#2	ok
 mathlib	mathlib/Mathlib/RingTheory/LocalProperties/IntegrallyClosed.lean:57	ok
 mathlib	mathlib/Mathlib/RingTheory/Localization/AtPrime/Basic.lean:149	ok
-mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:20	mismatch
+mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:20	ok
 mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:20#2	ok
-mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:28	mismatch
+mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:28	ok
 mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:28#2	ok
-mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:42	mismatch
+mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:42	ok
 mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:53	ok
 mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:53#2	ok
 mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/IrreducibleQuadratic.lean:53#3	ok
@@ -12210,7 +12210,7 @@ mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/MonomialOrder.lean:1166	ok
 mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean:135	ok
 mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean:136	ok
 mathlib	mathlib/Mathlib/RingTheory/MvPolynomial/Symmetric/FundamentalTheorem.lean:136#2	ok
-mathlib	mathlib/Mathlib/RingTheory/MvPowerSeries/Trunc.lean:183	mismatch
+mathlib	mathlib/Mathlib/RingTheory/MvPowerSeries/Trunc.lean:183	ok
 mathlib	mathlib/Mathlib/RingTheory/Norm/Transitivity.lean:199	ok
 mathlib	mathlib/Mathlib/RingTheory/Perfectoid/BDeRham.lean:12	ok
 mathlib	mathlib/Mathlib/RingTheory/Perfectoid/BDeRham.lean:12#2	ok
@@ -12227,7 +12227,7 @@ mathlib	mathlib/Mathlib/RingTheory/Polynomial/Quotient.lean:59	ok
 mathlib	mathlib/Mathlib/RingTheory/PowerSeries/Exp.lean:123	ok
 mathlib	mathlib/Mathlib/RingTheory/PowerSeries/Exp.lean:150	ok
 mathlib	mathlib/Mathlib/RingTheory/PowerSeries/Exp.lean:154	ok
-mathlib	mathlib/Mathlib/RingTheory/PowerSeries/Exp.lean:165	mismatch
+mathlib	mathlib/Mathlib/RingTheory/PowerSeries/Exp.lean:165	ok
 mathlib	mathlib/Mathlib/RingTheory/RootsOfUnity/Lemmas.lean:16	ok
 mathlib	mathlib/Mathlib/RingTheory/Spectrum/Prime/LTSeries.lean:16	ok
 mathlib	mathlib/Mathlib/RingTheory/Spectrum/Prime/LTSeries.lean:16#2	ok

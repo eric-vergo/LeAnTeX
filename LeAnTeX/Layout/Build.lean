@@ -177,14 +177,28 @@ structure LayoutResult where
   /-- The warnings. -/
   warnings : Array Warning
 
-/-- Parse and lay out a formula. -/
+/-- The formula's source in the error colour, with the error as its title, as KaTeX shows a
+formula it rejects when `throwOnError` is off (`renderError`). -/
+def renderError (input : String) (e : KError) (s : Settings) : Box :=
+  let span := makeSpan #["katex-error"] #[newSymbol input "" 0 0 0 0 0 #[]]
+  { span with attrs := #[("title", "ParseError: " ++ e.message),
+                         ("style", "color:" ++ s.errorColor)] }
+
+/-- Parse and lay out a formula. A `ParseError` gives `renderError`'s box when `throwOnError` is
+off, as in KaTeX. -/
 def layout (input : String) (settings : Settings := {}) : LayoutResult :=
   let p := parse input settings
+  let fail (e : BuildError) (ws : Array Warning) : LayoutResult :=
+    match e with
+    | .katex e@(.parse ..) =>
+      if settings.throwOnError then { result := .error (.katex e), warnings := ws }
+      else { result := .ok (renderError input e settings), warnings := ws }
+    | e => { result := .error e, warnings := ws }
   match p.result with
-  | .error e => { result := .error (.katex e), warnings := p.warnings }
+  | .error e => fail (.katex e) p.warnings
   | .ok tree =>
     match (buildHTMLTree tree settings).run p.warnings with
     | .ok (b, ws) => { result := .ok b, warnings := ws }
-    | .error e => { result := .error e, warnings := p.warnings }
+    | .error e => fail e p.warnings
 
 end LeAnTeX

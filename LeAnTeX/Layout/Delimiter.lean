@@ -31,7 +31,7 @@ namespace LeAnTeX
 def jsInt (n : Int) : String := toString n
 
 /-- A length in em as JavaScript prints it: the shortest decimal (at most five decimals here,
-which a 2⁻¹⁶ em length never needs more than to be read back). -/
+enough for the SVG numbers KaTeX writes, which have at most two). -/
 def jsNumber (x : Em) : String := x.decimal 5
 
 /-- The metrics of a delimiter's glyph in a font; KaTeX fails if there are none (`getMetrics`). -/

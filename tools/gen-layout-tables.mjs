@@ -4,8 +4,8 @@
 // Generates the layout tables of LeAnTeX from KaTeX's own sources: the per-glyph font metrics
 // (`fontMetricsData.js`), TeX's font parameters σ and ξ for the three size classes and the
 // characters KaTeX measures with the metrics of a look-alike (`fontMetrics.ts`), and the static
-// SVG paths (`svgGeometry.ts`). Lengths are written as integers in units of 2^-16 em, the fixed
-// point the layout computes in, rounded to the nearest unit (halves away from zero).
+// SVG paths (`svgGeometry.ts`). Lengths are written exactly, as integers in units of 1e-5 em
+// (KaTeX's tables have at most five decimals); the layout converts them to its fixed point.
 //
 // Usage (from the repository root; KATEX = a checkout of KaTeX's source at the pinned tag,
 // default $KATEX_SOURCE, else .cache/katex-0.19.1):
@@ -29,9 +29,10 @@ const {path: svgPaths} = await import(src("svgGeometry.ts"));
 const HEADER = "/-\nReleased under Apache 2.0 license as described in the file LICENSE.\n" +
     "Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)\n-/\n";
 
-// A length in em as an integer number of 2^-16 em, halves rounded away from zero.
-function fixed(x) {
-    const r = Math.round(Math.abs(x) * 65536);
+// A length in em as an exact integer number of 1e-5 em (the tables have at most five decimals).
+function decimal5(x) {
+    const r = Math.round(Math.abs(x) * 1e5);
+    if (Math.abs(r / 1e5 - Math.abs(x)) > 1e-12) throw new Error("more than five decimals: " + x);
     return x < 0 ? -r : r;
 }
 
@@ -59,11 +60,11 @@ function writeLean(rel, title, summary, body) {
     let glyphs = 0;
     for (const [i, font] of fonts.entries()) {
         const rows = Object.entries(metricMap[font])
-            .map(([code, m]) => [Number(code), ...m.map(fixed)])
+            .map(([code, m]) => [Number(code), ...m.map(decimal5)])
             .sort((a, b) => a[0] - b[0]);
         glyphs += rows.length;
         body += `/-- The metrics of \`${font}\`: for each glyph its UTF-16 code unit, depth, ` +
-            "height,\nitalic correction, skew and width, in 2⁻¹⁶ em. -/\n" +
+            "height,\nitalic correction, skew and width, in 1e-5 em. -/\n" +
             `def metrics${i} : Array Int := #[\n` +
             rows.map((r) => "  " + r.join(", ")).join(",\n") + "\n]\n\n";
     }
@@ -85,7 +86,7 @@ function writeLean(rel, title, summary, body) {
     const classes = [6, 3, 1].map((s) => getGlobalMetrics(s));
     const keys = Object.keys(classes[0]).filter((k) => k !== "cssEmPerMu");
     const params = keys.map((k) =>
-        `  (${lit(k)}, ${classes.map((c) => fixed(c[k])).join(", ")})`);
+        `  (${lit(k)}, ${classes.map((c) => decimal5(c[k])).join(", ")})`);
     // `extraCharacterMap` is not exported; it is read from the source text.
     const text = readFileSync(join(katexDir, "src", "fontMetrics.ts"), "utf8");
     const block = text.slice(text.indexOf("const extraCharacterMap"));
@@ -99,7 +100,7 @@ function writeLean(rel, title, summary, body) {
         "`fontMetrics.ts`; and the\ncharacters KaTeX measures with the metrics of a look-alike " +
         "(`extraCharacterMap`).\n",
         "namespace LeAnTeX.Data\n\n" +
-        "/-- Each parameter's value at text, script and scriptscript size, in 2⁻¹⁶ em. -/\n" +
+        "/-- Each parameter's value at text, script and scriptscript size, in 1e-5 em. -/\n" +
         "def fontParamList : Array (String × Int × Int × Int) := #[\n" + params.join(",\n") +
         "\n]\n\n" +
         "/-- Characters without metrics of their own and the look-alike whose metrics they " +

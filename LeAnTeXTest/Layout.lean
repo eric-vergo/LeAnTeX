@@ -95,56 +95,78 @@ def tokens (s : String) : Array (Sum String Float) := Id.run do
   if !text.isEmpty then out := out.push (.inl text)
   return out
 
-/-- Compare two strings with the numbers in them within `tol` (scaled by 1000 for SVG data,
-whose unit is 1/1000 em): `none` when they agree, with the largest deviation. -/
-def stringDiff (a b : String) (svg : Bool) : Option Float :=
+/-- The largest deviations found in a comparison: of the unrounded numbers (heights, depths,
+widths, …), of CSS lengths (which KaTeX rounds to 1e-4 em), and of the numbers in SVG data (in
+SVG units, 1/1000 em, which KaTeX rounds to integers). -/
+structure Deviation where
+  /-- Unrounded numbers, in em. -/
+  raw : Float := 0
+  /-- CSS lengths, in em. -/
+  css : Float := 0
+  /-- SVG data, in SVG units. -/
+  svg : Float := 0
+  deriving Inhabited
+
+/-- The larger of two deviations, field by field. -/
+def Deviation.max (a b : Deviation) : Deviation :=
+  ⟨Max.max a.raw b.raw, Max.max a.css b.css, Max.max a.svg b.svg⟩
+
+/-- Whether a deviation is within the tolerances: `tolerance` for unrounded numbers, one unit of
+KaTeX's rounding for CSS lengths (two correct values a hair apart can round to neighbouring
+four-decimal strings) and for SVG data. -/
+def Deviation.ok (d : Deviation) : Bool :=
+  d.raw ≤ tolerance && d.css ≤ 1e-4 + 1e-9 && d.svg ≤ 1 + 1e-9
+
+/-- Compare two strings with the numbers in them: `none` when the texts between the numbers
+differ, else the largest difference of the numbers. -/
+def stringDiff (a b : String) : Option Float :=
   if a == b then some 0
   else
     let ta := tokens a
     let tb := tokens b
     if ta.size != tb.size then none
     else
-      let scale := if svg then 1000.0 else 1.0
       (ta.zip tb).foldl (init := some 0) fun acc (x, y) =>
         acc.bind fun m => match x, y with
           | .inl p, .inl q => if p == q then some m else none
-          | .inr p, .inr q => some (max m ((p - q).abs / scale))
+          | .inr p, .inr q => some (max m (p - q).abs)
           | _, _ => none
 
 /-- The first structural difference of two trees in JSON form (`.error path`), or the largest
-numeric deviation (`.ok d`). -/
+deviations (`.ok d`). Inside an `svg` node strings are SVG data; elsewhere a string with a
+number in it is a CSS value. -/
 partial def treeDiff (k l : Json) (path : String := "") (svg : Bool := false) :
-    Except String Float :=
+    Except String Deviation :=
   match k, l with
-  | .num a, .num b => .ok (a - b).abs
-  | .str a, .str b => match stringDiff a b svg with
-    | some d => .ok d
+  | .num a, .num b => .ok { raw := (a - b).abs }
+  | .str a, .str b => match stringDiff a b with
+    | some d => .ok (if svg && !a.endsWith "em" then { svg := d } else { css := d })
     | none => .error s!"{path}: {Json.quote a} vs {Json.quote b}"
   | .arr a, .arr b =>
     if a.size != b.size then .error s!"{path}: {a.size} vs {b.size} elements"
     else Id.run do
-      let mut m := 0.0
+      let mut m : Deviation := {}
       for h : i in [0:a.size] do
         match treeDiff a[i] (b[i]?.getD .null) s!"{path}[{i}]" svg with
-        | .ok d => m := max m d
+        | .ok d => m := m.max d
         | .error e => return .error e
       return .ok m
   | .obj a, .obj b => do
     let keys := (a.map (·.1) ++ b.map (·.1)).toList.eraseDups
     let svg := svg || ((k.get? "k").bind Json.getStr?) == some "svg"
-    let mut m := 0.0
+    let mut m : Deviation := {}
     for key in keys do
       match k.get? key, l.get? key with
-      | some x, some y => m := max m (← treeDiff x y s!"{path}.{key}" svg)
+      | some x, some y => m := m.max (← treeDiff x y s!"{path}.{key}" svg)
       -- an absent number is zero
-      | some (.num x), none => m := max m x.abs
-      | none, some (.num y) => m := max m y.abs
+      | some (.num x), none => m := m.max { raw := x.abs }
+      | none, some (.num y) => m := m.max { raw := y.abs }
       | some x, none => throw s!"{path}.{key}: KaTeX has {x.compress.take 80}, LeAnTeX none"
       | none, some y => throw s!"{path}.{key}: LeAnTeX has {y.compress.take 80}, KaTeX none"
       | none, none => pure ()
     return m
-  | .bool a, .bool b => if a == b then .ok 0 else .error s!"{path}: booleans"
-  | .null, .null => .ok 0
+  | .bool a, .bool b => if a == b then .ok {} else .error s!"{path}: booleans"
+  | .null, .null => .ok {}
   | _, _ => .error s!"{path}: {k.compress.take 60} vs {l.compress.take 60}"
 
 /-- The result of one case. -/
@@ -157,8 +179,8 @@ structure LayoutResult where
   tex : String
   /-- How it compares. -/
   outcome : LayoutOutcome
-  /-- The largest numeric deviation of a matching tree. -/
-  deviation : Float := 0
+  /-- The largest deviations of a matching tree. -/
+  deviation : Deviation := {}
   /-- What differs, or what is not laid out yet. -/
   detail : String := ""
   /-- The parse node types of the formula. -/
@@ -213,8 +235,9 @@ def runLayoutCorpus (name : String) (cases : Array (String × String × Settings
         let lb := b.toJson
         match treeDiff kb lb with
         | .ok d =>
-          if d > tolerance then
-            { base with outcome := .differs, deviation := d, detail := s!"deviation {d}",
+          if !d.ok then
+            { base with outcome := .differs, deviation := d,
+                        detail := s!"deviation {d.raw} em, CSS {d.css} em, SVG {d.svg}",
                         katex := kb, lean := lb }
           else if !(kw.map (·.sameAs lw)).getD false then
             { base with outcome := .warningsDiffer, deviation := d, katex := kb, lean := lb }
@@ -229,6 +252,22 @@ def runLayoutCorpus (name : String) (cases : Array (String × String × Settings
     out := out.push res
   return out
 
+/-- A small float in scientific notation with two significant digits (`1.5e-05`). -/
+def fmtSci (x : Float) : String := Id.run do
+  if x == 0 then return "0"
+  let mut e : Int := 0
+  let mut m := x
+  for _ in [0:40] do
+    if m < 1 then
+      m := m * 10
+      e := e - 1
+    else if m ≥ 10 then
+      m := m / 10
+      e := e + 1
+    else break
+  let r := (m * 10).round / 10
+  return s!"{(toString r).take 3}e{e}"
+
 /-- The baseline: per case, `ok`, `not-yet` or `mismatch`. -/
 def layoutBaselineText (results : Array LayoutResult) : String :=
   "# corpus\tcase id\tlayout status (written by lake exe leantex-test --update)\n" ++
@@ -241,14 +280,19 @@ def layoutBaselineText (results : Array LayoutResult) : String :=
 def layoutReport (results : Array LayoutResult) (seconds : Float) : String := Id.run do
   let laidOut := results.filter fun r => r.outcome == .same || r.outcome == .differs ||
     r.outcome == .warningsDiffer || r.outcome == .leanRejects
-  let worst := (results.filter (·.outcome == .same)).foldl (fun m r => max m r.deviation) 0
+  let worst : Deviation :=
+    (results.filter (·.outcome == .same)).foldl (fun m r => m.max r.deviation) {}
   let mut s := "# Layout parity report\n\n" ++
     "Generated by `lake exe leantex-test --update`; do not edit by hand. LeAnTeX's box tree " ++
     "against KaTeX 0.19.1's (`__renderToHTMLTree`, recorded in `fixtures/layout/`): every " ++
     "node with its kind, text, classes, style properties and attributes, and every number " ++
-    s!"(heights, depths, widths, shifts, kerns, struts, SVG data) within {tolerance} em " ++
-    "(KaTeX's own CSS is rounded to 1e-4 em), and the strict-mode warnings.\n\n" ++
-    s!"Largest deviation on an identical tree: {worst} em.\n\n" ++
+    "(heights, depths, widths, shifts, kerns, struts, SVG data) within the tolerance, and " ++
+    "the strict-mode warnings. The tolerance: 1e-4 em for the unrounded numbers; for CSS " ++
+    "lengths, which KaTeX rounds to four decimals, one unit of that rounding (1e-4 em); for " ++
+    "the numbers in SVG data, which KaTeX rounds to whole SVG units, one unit (1/1000 em)." ++
+    "\n\nLargest deviation on an identical tree: " ++
+    s!"{fmtSci worst.raw} em in an unrounded number, {fmtSci worst.css} em in a CSS length, " ++
+    s!"{worst.svg} SVG units in SVG data.\n\n" ++
     "## Corpora\n\n| Corpus | Cases | KaTeX lays out | Identical | Differs | Not yet in " ++
     "scope | Both reject |\n|---|---:|---:|---:|---:|---:|---:|\n"
   let names := (results.map (·.corpus)).toList.eraseDups

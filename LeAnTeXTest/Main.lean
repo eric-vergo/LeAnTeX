@@ -336,6 +336,12 @@ def main (args : List String) : IO UInt32 := do
   for c in ← corpora do
     results := results ++ (← runCorpus c)
   match args with
+  | ["--worst-layout"] =>
+    let lres ← runLayout results
+    let sorted := (lres.filter (·.outcome == .same)).qsort (·.deviation.raw > ·.deviation.raw)
+    for r in sorted.extract 0 10 do
+      IO.println s!"{r.deviation.raw} {r.deviation.css} {r.id}: {r.tex.take 80}"
+    return 0
   | ["--show-layout", pre] =>
     let lres ← runLayout (results.filter (·.case.id.startsWith pre))
     for r in lres do

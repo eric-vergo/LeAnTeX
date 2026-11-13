@@ -150,9 +150,7 @@ function layoutAnswer(c) {
     console.log = () => {};
     let out;
     try {
-        const s = settingsOf(c);
-        s.throwOnError = true;
-        out = {box: boxJson(katex.__renderToHTMLTree(c.tex, s))};
+        out = {box: boxJson(katex.__renderToHTMLTree(c.tex, settingsOf(c)))};
     } catch (e) {
         out = {error: {kind: e instanceof katex.ParseError ? "ParseError" : (e?.name ?? "Error"),
             message: String(e?.message ?? e).toWellFormed()}};

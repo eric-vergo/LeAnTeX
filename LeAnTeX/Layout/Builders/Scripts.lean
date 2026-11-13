@@ -88,6 +88,14 @@ def assembleSupSub (ctx : BuildCtx) (base : Box) (supGroup subGroup : Option Nod
     parts := #[spacer] ++ parts
   return makeSpan #["mop", "op-limits"] parts (some o)
 
+/-- The font of a large operator symbol: Size2 in display style, else Size1. -/
+def opFont (large : Bool) : String := if large then "Size2-Regular" else "Size1-Regular"
+
+/-- The symbol drawn for an operator: `\oiint` and `\oiiint` are drawn as `\iint` and
+`\iiint` with an oval over them. -/
+def symName (name : String) : String :=
+  if name == "\\oiint" then "\\iint" else if name == "\\oiiint" then "\\iiint" else name
+
 /-- A large operator (TeXbook rule 13): a symbol from Size1 (text) or Size2 (display) centred on
 the axis, a name in roman, or a body; with limits when `hasLimits` (KaTeX's `op` builder). -/
 def buildOp (ctx : BuildCtx) (mode : Mode) (symbol : Bool) (name : Option String)
@@ -99,10 +107,7 @@ def buildOp (ctx : BuildCtx) (mode : Mode) (symbol : Bool) (name : Option String
   let isOiint := name0 == "\\oiint" || name0 == "\\oiiint"
   let mut base : Box := {}
   if symbol then
-    let fontName := if large then "Size2-Regular" else "Size1-Regular"
-    let symName := if name0 == "\\oiint" then "\\iint"
-      else if name0 == "\\oiiint" then "\\iiint" else name0
-    base ← makeSymbol symName fontName .math o
+    base ← makeSymbol (symName name0) (opFont large) .math o
       #["mop", "op-symbol", if large then "large-op" else "small-op"]
     if isOiint then
       let symbolItalic := base.italic
@@ -125,13 +130,21 @@ def buildOp (ctx : BuildCtx) (mode : Mode) (symbol : Bool) (name : Option String
     base := makeSpan #["mop"] output (some o)
   let mut baseShift : Em := 0
   let mut slant : Em := 0
+  -- whether KaTeX's floating-point shift is non-zero: it moves the symbol (even by `0em`) only
+  -- then; the symbol's height and depth are the table's, so the double is reproduced exactly
+  let mut shifted := false
   if (base.isSymbol || isOiint) && suppressBaseShift != some true then
     baseShift := Em.mk (Em.roundDiv (base.height - base.depth).raw 2) - o.fontMetrics.axisHeight
     slant := base.italicOr0
+    shifted := baseShift != 0
+    if symbol && !isOiint then
+      if let some m := charMetrics (← lookupSymbol (symName name0) (opFont large) .math).1
+          (opFont large) .math then
+        shifted := (m.exactFloat 1 - m.exactFloat 0) / 2 - 0.25 != 0
   if hasLimits then
     assembleSupSub ctx base supGroup subGroup o style slant baseShift
   else
-    if baseShift != 0 then
+    if shifted then
       base := (base.setStyleStr "position" "relative").setStyle "top" baseShift
     return base
 
