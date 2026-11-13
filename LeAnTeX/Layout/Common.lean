@@ -401,7 +401,7 @@ def makeVList (p : VListParam) : BuildM Box := do
   let rows :=
     if minPos < 0 then
       let depthStrut := (makeSpan #["vlist"] #[makeSpan]).setStyle "height" (-minPos)
-      let topStrut := makeSpan #["vlist-s"] #[newSymbol "​" "" 0 0 0 0 0 #[]]
+      let topStrut := makeSpan #["vlist-s"] #[newSymbol "\u200b" "" 0 0 0 0 0 #[]]
       #[makeSpan #["vlist-r"] #[vlist, topStrut], makeSpan #["vlist-r"] #[depthStrut]]
     else #[makeSpan #["vlist-r"] #[vlist]]
   let vtable := makeSpan #["vlist-t"] rows

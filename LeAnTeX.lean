@@ -6,6 +6,7 @@ import LeAnTeX.Parse.Parser
 import LeAnTeX.Parse.NodeJson
 import LeAnTeX.Layout.Build
 import LeAnTeX.Layout.BoxJson
+import LeAnTeX.Layout.Display
 
 /-!
 # LeAnTeX

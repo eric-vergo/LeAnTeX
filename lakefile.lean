@@ -8,7 +8,8 @@ import Lake
 # LeAnTeX's package
 
 The library `LeAnTeX` (imports `Init` and `Std` only) and the test executable that `lake test`
-runs: it checks the parser against the recorded KaTeX fixtures and the committed parity report.
+runs: it checks the parser and the layout against the recorded KaTeX fixtures and the committed
+baselines. `leantex-display` prints display lists for the browser comparison.
 -/
 
 open Lake DSL
@@ -20,6 +21,10 @@ package leantex where
 lean_lib LeAnTeX
 
 lean_lib LeAnTeXTest
+
+/-- Display lists as JSON, for the browser comparison of `tools/check-display.mjs`. -/
+lean_exe «leantex-display» where
+  root := `LeAnTeXTest.DisplayDump
 
 /-- The test driver: `lake test` runs it from the repository root. -/
 @[test_driver]
