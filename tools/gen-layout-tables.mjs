@@ -17,7 +17,8 @@ import {writeFileSync, readFileSync} from "node:fs";
 import {join, resolve} from "node:path";
 import {pathToFileURL} from "node:url";
 
-const katexDir = resolve(process.argv[2] ?? process.env.KATEX_SOURCE ?? ".cache/katex-0.19.1");
+const katexDir = resolve(process.argv[2] ?? process.env.KATEX_SOURCE ??
+    ".cache/katex-0.19.1");
 const src = (p) => pathToFileURL(join(katexDir, "src", p)).href;
 const pkg = JSON.parse(readFileSync(join(katexDir, "package.json"), "utf8"));
 const KATEX_VERSION = pkg.version;

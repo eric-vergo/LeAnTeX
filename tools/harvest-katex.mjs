@@ -10,7 +10,7 @@
 //                                   docs/support_table.md.
 // The spec files are run under a minimal stand-in for Jest that records the inputs of the
 // matchers instead of checking them. Usage, from the repository root (KATEX = a checkout of
-// KaTeX's source at the pinned tag):
+// KaTeX's source at the pinned tag, default $KATEX_SOURCE, else .cache/katex-0.19.1):
 //   node --experimental-strip-types --no-warnings --import ./tools/ts-register.mjs \
 //        tools/harvest-katex.mjs KATEX
 
@@ -18,7 +18,8 @@ import {readFileSync, writeFileSync} from "node:fs";
 import {join, resolve} from "node:path";
 import {pathToFileURL} from "node:url";
 
-const katexDir = resolve(process.argv[2] ?? "");
+const katexDir = resolve(process.argv[2] ?? process.env.KATEX_SOURCE ??
+    ".cache/katex-0.19.1");
 const outDir = resolve(process.argv[3] ?? ".");
 const version = JSON.parse(readFileSync(join(katexDir, "package.json"), "utf8")).version;
 const LICENSE = "MIT (KaTeX, see LICENSE-KaTeX)";

@@ -6,7 +6,8 @@
 // symbols, the Unicode tables) and writes them as Lean source under LeAnTeX/Data/, plus the
 // list of every KaTeX name with its kind (parity/names.tsv) that the parity report is built on.
 //
-// Usage (from the repository root, KATEX = a checkout of KaTeX's source at the pinned tag):
+// Usage (from the repository root, KATEX = a checkout of KaTeX's source at the pinned tag,
+// default $KATEX_SOURCE, else .cache/katex-0.19.1):
 //   node --experimental-strip-types --no-warnings --import ./tools/ts-register.mjs \
 //        tools/gen-tables.mjs KATEX
 // Re-run after upgrading KaTeX; `git diff` of the output then shows what changed.
@@ -15,7 +16,8 @@ import {writeFileSync, mkdirSync, readFileSync} from "node:fs";
 import {join, resolve} from "node:path";
 import {pathToFileURL} from "node:url";
 
-const katexDir = resolve(process.argv[2] ?? "");
+const katexDir = resolve(process.argv[2] ?? process.env.KATEX_SOURCE ??
+    ".cache/katex-0.19.1");
 const outDir = resolve(process.argv[3] ?? ".");
 const src = (p) => pathToFileURL(join(katexDir, "src", p)).href;
 
