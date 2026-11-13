@@ -9,9 +9,10 @@ import LeAnTeXTest.Cases
 
 `lake exe leantex-display CORPUS…` lays out every formula of the corpora and prints one JSON
 line per formula LeAnTeX lays out: the id, the formula, the display flag, whether a character
-has no metrics of its own, where the equation tag starts, the width, height and depth, and the items (`["g", face, char, x, y, size, exact]` (`"s"` for a shadow glyph), `["r", x, y, width, height]`,
-`["p", x, y, width, height]`). `tools/check-display.mjs` compares them with the positions a
-browser gives KaTeX's rendering.
+has no metrics of its own, where the equation tag starts, the width, height and depth, the items
+(`["g", face, char, x, y, size, exact]`, `"s"` for a shadow glyph, `["r", x, y, width, height]`,
+`["p", x, y, width, height]`) and the item ranges of the lines. `tools/check-display.mjs`
+compares them with the positions a browser gives KaTeX's rendering.
 -/
 
 open LeAnTeX

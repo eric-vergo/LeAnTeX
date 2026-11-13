@@ -290,6 +290,44 @@ def main (args : List String) : IO UInt32 := do
   for c in ← corpora do
     results := results ++ (← runCorpus c)
   match args with
+  | ["--bench"] =>
+    -- parse and layout, and the display list, of every formula KaTeX lays out, several times
+    let cases := results.filter (·.case.tex.length > 0)
+    let rounds := 5
+    let mut n := 0
+    -- results feed a checksum, so that no layout is optimised away
+    let mut check : Int := 0
+    let mut longest : Nat × String := (0, "")
+    let t0 ← IO.monoNanosNow
+    for _ in [0:rounds] do
+      for r in cases do
+        n := n + 1
+        match (layout r.case.tex r.case.settings).result with
+        | .ok b => check := check + b.height.raw
+        | .error _ => check := check + 1
+    let t1 ← IO.monoNanosNow
+    let mut m := 0
+    for _ in [0:rounds] do
+      for r in cases do
+        match (layout r.case.tex r.case.settings).result with
+        | .ok b => m := m + (DisplayList.ofBox b).items.size
+        | .error _ => pure ()
+    let t2 ← IO.monoNanosNow
+    -- the slowest single formula laid out
+    for r in cases do
+      let a ← IO.monoNanosNow
+      for _ in [0:20] do
+        match (layout r.case.tex r.case.settings).result with
+        | .ok b => check := check + b.depth.raw
+        | .error _ => check := check - 1
+      let b ← IO.monoNanosNow
+      if (b - a) / 20 > longest.1 then longest := ((b - a) / 20, r.case.id)
+    let perSec (k : Nat) (ns : Nat) : Float := k.toFloat / (ns.toFloat / 1e9)
+    IO.println s!"parse + layout: {n} formulas in {(t1 - t0).toFloat / 1e9} s, \
+      {perSec n (t1 - t0)} formulas/s"
+    IO.println s!"parse + layout + display list: {perSec n (t2 - t1)} formulas/s ({m} items)"
+    IO.println s!"slowest formula: {longest.1.toFloat / 1e3} µs ({longest.2}); checksum {check}"
+    return 0
   | ["--worst-layout"] =>
     let lres ← runLayout results
     let sorted := (lres.filter (·.outcome == .same)).qsort (·.deviation.raw > ·.deviation.raw)
@@ -363,9 +401,10 @@ def main (args : List String) : IO UInt32 := do
       IO.println s!"{improved} cases match that the baseline lists as mismatched; record them \
         with `lake exe leantex-test --update`"
     if regressions.isEmpty then
-      IO.println "no regression against parity/baseline.tsv"
+      IO.println "no regression against parity/baseline.tsv and parity/layout-baseline.tsv"
       return 0
-    IO.eprintln s!"{regressions.size} regressions against parity/baseline.tsv:"
+    IO.eprintln s!"{regressions.size} regressions against parity/baseline.tsv and \
+      parity/layout-baseline.tsv:"
     for r in regressions do IO.eprintln s!"  {r}"
     return 1
   | _ =>

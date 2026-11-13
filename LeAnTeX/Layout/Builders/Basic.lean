@@ -115,11 +115,13 @@ def buildText (ctx : BuildCtx) (body : Array Node) (font : Option String) (o : O
   return makeSpan #["mord", "text"] (← ctx.expr body o' .yes) (some o')
 
 /-- `\mathrel` and the other class commands. -/
-def buildMclass (ctx : BuildCtx) (mclass : String) (body : Array Node) (o : Options) : BuildM Box := do
+def buildMclass (ctx : BuildCtx) (mclass : String) (body : Array Node) (o : Options) :
+    BuildM Box := do
   return makeSpan #[mclass] (← ctx.expr body o .yes) (some o)
 
 /-- `\color` and `\textcolor`: the body in the colour, as part of the surrounding list. -/
-def buildColor (ctx : BuildCtx) (color : String) (body : Array Node) (o : Options) : BuildM Box := do
+def buildColor (ctx : BuildCtx) (color : String) (body : Array Node) (o : Options) :
+    BuildM Box := do
   return makeFragment (← ctx.expr body (o.withColor color) .no)
 
 /-- `\kern` and the other explicit spaces. -/

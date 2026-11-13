@@ -200,6 +200,8 @@ partial def constructsOf (j : Json) : List String :=
       | some (.str "atom") => match j.get? "family" with
         | some (.str f) => ["atom:" ++ f]
         | _ => ["atom"]
+      -- the column specifications of an array are not parse nodes
+      | some (.str "align") | some (.str "separator") => []
       | some (.str t) => [t]
       | _ => []
     here ++ (kvs.toList.map fun (_, v) => constructsOf v).flatten

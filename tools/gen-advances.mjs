@@ -106,7 +106,7 @@ FACES.forEach(([name], i) => {
         `def advances${i} : Array Nat := #[\n`;
     const pieces = rows.map(([cp, w]) => `${cp}, ${w}`);
     const lines = [];
-    for (let k = 0; k < pieces.length; k += 8) lines.push("  " + pieces.slice(k, k + 8).join(", "));
+    for (let k = 0; k < pieces.length; k += 6) lines.push("  " + pieces.slice(k, k + 6).join(", "));
     body += lines.join(",\n") + "\n]\n\n";
 });
 body += "/-- KaTeX's faces with their advance tables. -/\n" +

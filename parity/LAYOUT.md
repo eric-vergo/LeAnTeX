@@ -34,7 +34,6 @@ For each parse node type (atoms by class), the formulas KaTeX lays out that cont
 |---|---:|---:|---:|---:|
 | `accent` | 248 | 241 | 0 | 7 |
 | `accentUnder` | 38 | 36 | 0 | 2 |
-| `align` | 200 | 0 | 0 | 200 |
 | `array` | 210 | 0 | 0 | 210 |
 | `atom:bin` | 1310 | 1220 | 0 | 90 |
 | `atom:close` | 1069 | 1042 | 0 | 27 |
@@ -72,7 +71,6 @@ For each parse node type (atoms by class), the formulas KaTeX lays out that cont
 | `raisebox` | 43 | 42 | 0 | 1 |
 | `reflectbox` | 21 | 19 | 0 | 2 |
 | `rule` | 21 | 19 | 0 | 2 |
-| `separator` | 1 | 0 | 0 | 1 |
 | `sizing` | 107 | 102 | 0 | 5 |
 | `smash` | 33 | 33 | 0 | 0 |
 | `spacing` | 908 | 875 | 0 | 33 |

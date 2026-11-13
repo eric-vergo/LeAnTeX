@@ -260,7 +260,8 @@ def buildExpressionWith (ctx : BuildCtx) (expression : Array Node) (o : Options)
     (surrounding.1.getD "leftmost") (surrounding.2.getD "rightmost")
 
 /-- A node laid out in `o`, or an empty span for a missing node. -/
-def BuildCtx.groupOpt (ctx : BuildCtx) (n : Option Node) (o : Options) (base : Option Options := none) :
+def BuildCtx.groupOpt (ctx : BuildCtx) (n : Option Node) (o : Options)
+    (base : Option Options := none) :
     BuildM Box :=
   match n with
   | some n => ctx.group n o base

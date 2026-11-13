@@ -75,7 +75,8 @@ def newSymbol (text font : String) (height depth italic skew width : Em)
     (classes : Array String) : Box := Id.run do
   let mut classes := classes
   if let some c := text.toList.head? then
-    if let some s := scriptFromCodepoint (utf16First c) then classes := classes.push (s ++ "_fallback")
+    if let some s := scriptFromCodepoint (utf16First c) then
+      classes := classes.push (s ++ "_fallback")
   let text := match text with
     | "î" => "ı̂" | "ï" => "ı̈" | "í" => "ı́"
     | "ì" => "ı̀" | t => t
