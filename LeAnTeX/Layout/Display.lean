@@ -244,6 +244,64 @@ structure Ctx where
   fleqn : Bool := false
   deriving Inhabited
 
+/-- Positioned elements as a tree of placements: moving or mirroring a piece records the
+transformation, which is applied once when the tree is flattened, so placing a piece costs the
+same whatever its size. -/
+inductive Placed (α : Type) where
+  /-- Elements in the piece's own coordinates. -/
+  | leaf (xs : Array α)
+  /-- A piece moved by `(dx, dy)`. -/
+  | moved (dx dy : Em) (t : Placed α)
+  /-- A piece reflected in the vertical line `x = axis`. -/
+  | mirrored (axis : Em) (t : Placed α)
+  /-- Pieces in order. -/
+  | cat (ts : Array (Placed α))
+  deriving Inhabited
+
+/-- An element that can be placed by `x ↦ ±x + dx`, `y ↦ y + dy`. -/
+class Placeable (α : Type) where
+  /-- The element under the map; `reflected` for the sign `-`. -/
+  place : Bool → Em → Em → α → α
+
+instance : Placeable Item where
+  place reflected dx dy it :=
+    if !reflected then it.shift dx dy else match it with
+    | .glyph f c x y s e sh col src => .glyph f c (dx - x) (y + dy) s e sh col src
+    | .rule x y w h col src => .rule (dx - x - w) (y + dy) w h col src
+    | .path d vb par x y w h clip col src =>
+      .path d vb par (dx - x - w) (y + dy) w h
+        (clip.map fun (cx, cy, cw, ch) => (dx - cx - cw, cy + dy, cw, ch)) col src
+
+instance : Placeable Region where
+  place reflected dx dy r :=
+    { r with x := if reflected then dx - r.x - r.width else r.x + dx, y := r.y + dy }
+
+/-- The elements of a placement tree in order, placed, each with whether it is reflected;
+`fuel` bounds the depth. -/
+def Placed.flattenInto {α : Type} [Placeable α] : Nat → Placed α → Bool → Em → Em →
+    Array (α × Bool) → Array (α × Bool)
+  | 0, _, _, _, _, acc => acc
+  | fuel + 1, t, refl, tx, ty, acc =>
+    match t with
+    | .leaf xs => xs.foldl (init := acc) fun acc a => acc.push (Placeable.place refl tx ty a, refl)
+    | .moved dx dy t => flattenInto fuel t refl (if refl then tx - dx else tx + dx) (ty + dy) acc
+    | .mirrored a t => flattenInto fuel t (!refl) (if refl then tx - 2 * a else tx + 2 * a) ty acc
+    | .cat ts => ts.foldl (init := acc) fun acc t => flattenInto fuel t refl tx ty acc
+
+/-- The elements of a placement tree, placed, with whether each is reflected. -/
+def Placed.flatten {α : Type} [Placeable α] (t : Placed α) : Array (α × Bool) :=
+  t.flattenInto (1 <<< 20) false 0 0 #[]
+
+/-- The leaves' elements kept or changed by `f`, in their pieces' coordinates; `fuel` bounds the
+depth. -/
+def Placed.filterMapLeaves {α : Type} (f : α → Option α) : Nat → Placed α → Placed α
+  | 0, t => t
+  | fuel + 1, t => match t with
+    | .leaf xs => .leaf (xs.filterMap f)
+    | .moved dx dy t => .moved dx dy (filterMapLeaves f fuel t)
+    | .mirrored a t => .mirrored a (filterMapLeaves f fuel t)
+    | .cat ts => .cat (ts.map (filterMapLeaves f fuel))
+
 /-- A laid-out element: its advance width (margins excluded), its left and right margins, and
 its items and regions relative to its own baseline origin. -/
 structure Laid where
@@ -253,11 +311,13 @@ structure Laid where
   marginLeft : Em := 0
   /-- Right margin. -/
   marginRight : Em := 0
-  /-- The items, each with whether it is drawn mirrored (inside an odd number of
-  `\reflectbox`es). -/
-  items : Array (Item × Bool) := #[]
+  /-- The items. -/
+  items : Placed Item := .leaf #[]
   /-- The regions. -/
-  regions : Array Region := #[]
+  regions : Placed Region := .leaf #[]
+  /-- For the formula's top-level span: the items placed, each with whether it is drawn
+  mirrored (inside an odd number of `\reflectbox`es), and the regions placed. -/
+  flat : Array (Item × Bool) × Array Region := (#[], #[])
   /-- The unbreakable parts (only for the formula's top-level span). -/
   parts : Array Part := #[]
   /-- The lines (only for the formula's top-level span). -/
@@ -265,22 +325,11 @@ structure Laid where
   deriving Inhabited
 
 /-- Items and regions moved by `(dx, dy)`. -/
-def Laid.shift (l : Laid) (dx dy : Em) : Array (Item × Bool) × Array Region :=
-  (l.items.map fun (it, f) => (it.shift dx dy, f),
-   l.regions.map fun r => { r with x := r.x + dx, y := r.y + dy })
+def Laid.shift (l : Laid) (dx dy : Em) : Placed Item × Placed Region :=
+  (.moved dx dy l.items, .moved dx dy l.regions)
 
-/-- Unmirrored items. -/
-def plain (items : Array Item) : Array (Item × Bool) := items.map (·, false)
-
-/-- An item reflected in the vertical line `x = axis` (CSS `transform: scaleX(-1)`): a rule or
-a path rectangle moves to the mirror position; a glyph's origin moves to the mirror of its
-origin, and the glyph, like a path, is then drawn mirrored. -/
-def _root_.LeAnTeX.Item.reflect (axis : Em) : Item → Item
-  | .glyph f c x y s e sh col src => .glyph f c (2 * axis - x) y s e sh col src
-  | .rule x y w h col src => .rule (2 * axis - x - w) y w h col src
-  | .path d vb par x y w h clip col src =>
-    .path d vb par (2 * axis - x - w) y w h
-      (clip.map fun (cx, cy, cw, ch) => (2 * axis - cx - cw, cy, cw, ch)) col src
+/-- Items as a placement tree. -/
+def plain (items : Array Item) : Placed Item := .leaf items
 
 /-- The source range of a location. -/
 def sourceOf : OLoc → Option SourceRange
@@ -322,15 +371,24 @@ def fontRules : Array (String × Option String × Option Bool × Option Bool) :=
   ("mathitsf", some "SansSerif", none, some true),
   ("textitsf", some "SansSerif", none, some true), ("mainrm", some "Main", none, some false)]
 
+/-- The position of each class in `fontRules` (the last, for a class listed twice). -/
+def fontRuleIndex : Std.HashMap String Nat := Id.run do
+  let mut m := {}
+  for h : i in [0:fontRules.size] do
+    m := m.insert fontRules[i].1 i
+  return m
+
 /-- The face of an element from its classes and its parent's face and classes. -/
 def faceOf (classes parentClasses : Array String) (inMult : Bool) (parent : Face) : Face :=
   Id.run do
     let mut f := parent
-    for (c, fam, w, s) in fontRules do
-      if classes.contains c then
-        if let some x := fam then f := { f with family := x }
-        if let some x := w then f := { f with bold := x }
-        if let some x := s then f := { f with italic := x }
+    -- the font rules of the element's classes, applied in the style sheet's order
+    let matched := (classes.filterMap fun c => fontRuleIndex[c]?).qsort (· < ·)
+    for i in matched do
+      let some (_, fam, w, s) := fontRules[i]? | continue
+      if let some x := fam then f := { f with family := x }
+      if let some x := w then f := { f with bold := x }
+      if let some x := s then f := { f with italic := x }
     -- rules with two or more classes (higher specificity) come last
     if classes.contains "delimsizing" then
       for n in [1:5] do
@@ -548,10 +606,10 @@ def flow (laid : Array Laid) : Laid := Id.run do
   for l in laid do
     x := x + l.marginLeft
     let (is, rs) := l.shift x 0
-    items := items ++ is
-    regions := regions ++ rs
+    items := items.push is
+    regions := regions.push rs
     x := x + l.width + l.marginRight
-  return { width := x, items, regions }
+  return { width := x, items := .cat items, regions := .cat regions }
 
 /-- The formula's top-level span (`katex-html`) from its laid-out children: the children are
 its unbreakable parts, and a `katex-newline` starts a new line, whose items are relative to its
@@ -583,8 +641,8 @@ def layHtml (b : Box) (laid : Array Laid) (ctx : Ctx) : Laid := Id.run do
     for (c, l) in body do
       x := x + l.marginLeft
       let (is, rs) := l.shift x 0
-      items := items ++ is
-      regions := regions ++ rs
+      items := is.flattenInto (1 <<< 20) false 0 0 items
+      regions := regions ++ (rs.flatten.map (·.1))
       if c.hasClass "katex-base" || isTag c then
         parts := parts.push { x, width := l.width, line := k, tag := isTag c }
       lh := max lh (c.height * ctx.scale)
@@ -598,15 +656,15 @@ def layHtml (b : Box) (laid : Array Laid) (ctx : Ctx) : Laid := Id.run do
         let tw := l.marginLeft + l.width + l.marginRight
         let tx := if ctx.leqno then (if ctx.fleqn then indent else 0) else w - tw
         let (is, rs) := l.shift (tx + l.marginLeft) 0
-        items := items ++ is
-        regions := regions ++ rs
+        items := is.flattenInto (1 <<< 20) false 0 0 items
+        regions := regions ++ (rs.flatten.map (·.1))
         parts := parts.push { x := tx + l.marginLeft, width := l.width, line := k, tag := true }
         lh := max lh (c.height * ctx.scale)
         ld := max ld (c.depth * ctx.scale)
       lineWidth := max x w
     lines := lines.push { start, stop := items.size, width := lineWidth, height := lh, depth := ld }
   let width := lines.foldl (fun m (ln : Line) => max m ln.width) 0
-  return { width, items, regions, parts, lines }
+  return { width, flat := (items, regions), parts, lines }
 
 /-- Lay out a box in its parent's context; `inMult` tells whether it is inside a stacked
 delimiter's `delimsizing mult` span (whose pieces take their face from the parent's class);
@@ -651,7 +709,7 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
     let finish (l : Laid) : Laid :=
       let (is, rs) := l.shift dx dy
       { l with marginLeft := ml, marginRight := mr, items := is,
-               regions := region l.width ++ rs }
+               regions := .cat #[.leaf (region l.width), rs] }
     match b.kind with
     | .symbol text _ =>
       -- a symbol with a style or a padding class is a span: its padding comes first
@@ -661,16 +719,15 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
         let (w, exact) := charWidth face c
         -- a space has no ink (and a browser drops one that starts or ends a box)
         if visible && c != '\u200b' && c != ' ' then
-          items := items.push (Item.glyph face c x 0 scale exact false color source, false)
+          items := items.push (Item.glyph face c x 0 scale exact false color source)
         x := x + w * scale
       x := x + padR
       -- KaTeX writes the italic correction as `margin-right`, before the node's own style
       let italic := b.italicOr0
       let mr := if b.style.get? "marginRight" |>.isSome then mr
         else if italic > 0 then italic * scale else 0
-      let (is, _) := ({ items } : Laid).shift dx dy
-      return { width := x, marginLeft := ml, marginRight := mr, items := is,
-               regions := region x }
+      return { width := x, marginLeft := ml, marginRight := mr, items := .moved dx dy (.leaf items),
+               regions := .leaf (region x) }
     | .svg _ => return {}
     | .img .. => return finish { width := (styleEm b "width" scale).getD 0 }
     | _ =>
@@ -765,9 +822,9 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
             | .center => Em.mk (Em.roundDiv (inner - lineWidth).raw 2)
             | .right => inner - lineWidth
           let (is, rs) := l.shift (wml + offset + l.marginLeft) baseline
-          items := items ++ is
-          regions := regions ++ rs
-        return finish { width := cellWidth, items, regions }
+          items := items.push is
+          regions := regions.push rs
+        return finish { width := cellWidth, items := .cat items, regions := .cat regions }
       if b.hasClass "llap" || b.hasClass "rlap" || b.hasClass "clap" then
         -- no width; the absolutely placed `katex-inner` ends (llap), starts (rlap) or is
         -- centred (clap) at the left end
@@ -780,9 +837,9 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
             let off := if b.hasClass "llap" then -w
               else if b.hasClass "clap" then -Em.mk (Em.roundDiv w.raw 2) else 0
             let (is, rs) := l.shift (off + l.marginLeft) 0
-            items := items ++ is
-            regions := regions ++ rs
-        return finish { width := 0, items, regions }
+            items := items.push is
+            regions := regions.push rs
+        return finish { width := 0, items := .cat items, regions := .cat regions }
       -- inline flow; text-align for the rows of a fraction and the tables of limits
       let mut laid := #[]
       for c in b.children do
@@ -812,9 +869,9 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
       let (ml, mr) := if b.hasClass "katex-root" && parentClasses.contains "sqrt" then
           (Em.ofRatio 5 18 * scale, Em.ofRatio (-10) 18 * scale)
         else (ml, mr)
-      let (items, regions) := ({ fl with } : Laid).shift padL 0
-      let mut items := items
-      let mut regions := regions
+      let (flowItems, flowRegions) := ({ fl with } : Laid).shift padL 0
+      let mut items := flowItems
+      let mut regions := flowRegions
       if b.hasClass "cd-vert-arrow" then
         -- the children in document order: the arrow in the flow; a label's near edge 0.3 em
         -- from the arrow's middle, the bottom of its line box `bottom` above the arrow's
@@ -822,16 +879,16 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
         -- line box reaches 0.35 em below its baseline (KaTeX's fonts' descent with half the
         -- leading of `line-height: 1.2`), or as deep as its material, which KaTeX's `bottom`
         -- of `0.8 em - depth` gives.
-        items := #[]
-        regions := #[]
+        let mut is : Array (Placed Item) := #[]
+        let mut rs : Array (Placed Region) := #[]
         let mut x := padL
         let mid := Em.mk (Em.roundDiv width.raw 2)
         for (c, l) in b.children.zip laid do
           let lw := l.marginLeft + l.width + l.marginRight
           if !isLabel c then
-            let (is, rs) := l.shift (x + l.marginLeft) 0
-            items := items ++ is
-            regions := regions ++ rs
+            let (i, r) := l.shift (x + l.marginLeft) 0
+            is := is.push i
+            rs := rs.push r
             x := x + lw
             continue
           let ls := match sizingFactor c.classes with
@@ -842,27 +899,25 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
             | some (.em e) => (0.8 - e) * scale
             | _ => 0
           let lineDepth := max (0.35 * ls) materialDepth
-          let (is, rs) := l.shift (lx + l.marginLeft) (b.depth * scale - lineDepth)
-          items := items ++ is
-          regions := regions ++ rs
+          let (i, r) := l.shift (lx + l.marginLeft) (b.depth * scale - lineDepth)
+          is := is.push i
+          rs := rs.push r
+        items := .cat is
+        regions := .cat rs
       -- `\pmb`'s shadow: a copy of the glyphs, offset, painted first
-      let shadowed := match b.style.get? "textShadow" with
-        | some _ =>
-          let shadow := items.filterMap fun
-            | (.glyph f c x y sz e _ col src, fl) =>
-              some (Item.glyph f c (x + 0.02 * scale) (y + 0.01 * scale) sz e true col src, fl)
-            | _ => none
-          shadow ++ items
-        | none => items
+      if b.style.get? "textShadow" |>.isSome then
+        let shadow := Placed.filterMapLeaves (fun
+          | .glyph f c x y sz e _ col src => some (Item.glyph f c x y sz e true col src)
+          | _ => none) (1 <<< 20) items
+        items := .cat #[.moved (0.02 * scale) (0.01 * scale) shadow, items]
       -- `\reflectbox` mirrors its material about its middle
-      let (mirroredItems, mirroredRegions) := if b.hasClass "reflectbox" then
-          let axis := Em.mk (Em.roundDiv width.raw 2)
-          (shadowed.map fun (it, f) => (it.reflect axis, !f),
-           regions.map fun r => { r with x := 2 * axis - r.x - r.width })
-        else (shadowed, regions)
+      if b.hasClass "reflectbox" then
+        let axis := Em.mk (Em.roundDiv width.raw 2)
+        items := .mirrored axis items
+        regions := .mirrored axis regions
       if b.hasClass "katex-html" then
         return layHtml b laid ctx
-      let l := finish { width, items := mirroredItems, regions := mirroredRegions }
+      let l := finish { width, items, regions }
       return { l with marginLeft := ml, marginRight := mr }
 
 /-- The nesting depth the evaluation follows. -/
@@ -901,12 +956,18 @@ def Display.htmlOf (b : Box) : Box := Id.run do
     | none => break
   return html
 
+/-- Whether a box tree has an automatic equation number; `fuel` bounds the depth. -/
+def Display.hasEqnNum : Nat → Box → Bool
+  | 0, _ => false
+  | fuel + 1, b => b.hasClass "eqn-num" || b.children.any (hasEqnNum fuel)
+
 /-- The automatic equation numbers of a box tree written out: each empty `eqn-num` span gets
 the text `(n)` that KaTeX's style sheet generates for it, numbered from `next` in document
 order; `fuel` bounds the depth. -/
 def Display.numberEquations : Nat → Box → StateM Nat Box
   | 0, b => pure b
   | fuel + 1, b => do
+    if !hasEqnNum fuel b then return b
     if b.hasClass "eqn-num" && b.children.isEmpty then
       let n ← modifyGet fun n => (n, n + 1)
       let text : Box := { kind := .symbol s!"({n})" "Main-Regular" }
@@ -941,11 +1002,14 @@ def DisplayList.ofBox (b : Box) (opts : DisplayOptions := {}) : DisplayList :=
     { align, lineWidth, leqno := b.hasClass "leqno", fleqn := b.hasClass "fleqn" }
   let l := Display.lay Display.fuel html ctx #[] false none
   -- a box without `katex-html` (KaTeX's error box for a rejected formula) is one line
+  let (items, regions) := if l.lines.isEmpty then
+      (l.items.flatten, l.regions.flatten.map (·.1))
+    else l.flat
   let lines := if l.lines.isEmpty then
-      #[{ start := 0, stop := l.items.size, width := l.width, height := html.height,
+      #[{ start := 0, stop := items.size, width := l.width, height := html.height,
           depth := html.depth }]
     else l.lines
-  { width := l.width, height := html.height, depth := html.depth, items := l.items.map (·.1),
-    regions := l.regions, parts := l.parts, lines, mirrored := Display.runs (l.items.map (·.2)) }
+  { width := l.width, height := html.height, depth := html.depth, items := items.map (·.1),
+    regions, parts := l.parts, lines, mirrored := Display.runs (items.map (·.2)) }
 
 end LeAnTeX

@@ -22,6 +22,8 @@ It then lays out every formula and compares the box tree with KaTeX's
 * `lake test` (no arguments): fail if a case that matched in the committed baselines
   (`parity/baseline.tsv`, `parity/layout-baseline.tsv`) no longer matches, or if a corpus or
   fixture is missing.
+* `lake exe leantex-test --bench`, `--bench-matrix`: the speed over the corpora, and of a
+  10 × 10 matrix.
 * `lake exe leantex-test --update`: rewrite the baselines, `parity/REPORT.md`,
   `parity/LAYOUT.md` and `parity/names-status.tsv` from the current results.
 * `lake exe leantex-test --show ID-PREFIX`: print the cases whose id starts with the prefix that
@@ -285,8 +287,48 @@ def readBaseline (path : System.FilePath) : IO (Array (String × String × Strin
     | [c, id, st] => some (c, id, st)
     | _ => none
 
+/-- Parse, lay out and draw an `n × n` matrix of subscripted entries `reps` times, each stage
+timed on its own; the times per formula in µs. -/
+def benchMatrixOf (n reps : Nat) : IO (Float × Float × Float × Int) := do
+  let row (i : Nat) : String :=
+    " & ".intercalate ((List.range n).map fun j => s!"a_\{{i + 1}{j + 1}}")
+  let matrix := "\\begin{pmatrix}" ++ " \\\\ ".intercalate ((List.range n).map row) ++
+    "\\end{pmatrix}"
+  -- results feed a checksum, so that no stage is optimised away
+  let mut check : Int := 0
+  let a ← IO.monoNanosNow
+  for _ in [0:reps] do
+    match (parse matrix).result with
+    | .ok t => check := check + t.size
+    | .error _ => check := check - 1
+  let b ← IO.monoNanosNow
+  let mut box : Box := {}
+  for _ in [0:reps] do
+    match (layout matrix).result with
+    | .ok bx =>
+      check := check + bx.height.raw
+      box := bx
+    | .error _ => check := check - 1
+  let c ← IO.monoNanosNow
+  for _ in [0:reps] do
+    check := check + (DisplayList.ofBox box).items.size
+  let d ← IO.monoNanosNow
+  let us (ns : Nat) : Float := ns.toFloat / reps.toFloat / 1e3
+  return (us (b - a), us (c - b), us (d - c), check)
+
+/-- The worst case of the performance budget, a 10 × 10 matrix, with 5 × 5 and 20 × 20 to show
+how the time grows. -/
+def benchMatrix : IO Unit := do
+  for (n, reps) in [(5, 2000), (10, 500), (20, 100)] do
+    let (p, l, d, check) ← benchMatrixOf n reps
+    IO.println s!"{n} × {n} matrix: parse {p} µs, parse + layout {l} µs, display list {d} µs \
+      (checksum {check})"
+
 /-- Run everything; see the module docstring for the modes. -/
 def main (args : List String) : IO UInt32 := do
+  if args == ["--bench-matrix"] then
+    benchMatrix
+    return 0
   let mut results := #[]
   for c in ← corpora do
     results := results ++ (← runCorpus c)
@@ -345,6 +387,7 @@ def main (args : List String) : IO UInt32 := do
       {perSec n (t1 - t0)} formulas/s"
     IO.println s!"parse + layout + display list: {perSec n (t2 - t1)} formulas/s ({m} items)"
     IO.println s!"slowest formula: {longest.1.toFloat / 1e3} µs ({longest.2}); checksum {check}"
+    benchMatrix
     return 0
   | ["--worst-layout"] =>
     let lres ← runLayout results
