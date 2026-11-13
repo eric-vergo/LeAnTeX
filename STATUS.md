@@ -5,63 +5,55 @@ Resume notes for the work in progress. Updated after every step.
 ## State
 
 - Parser (done): 12,272 of 12,272 corpus cases match KaTeX 0.19.1 (trees, errors, warnings).
-- Layout core (done for the constructs below; `docs/layout.md`):
-  - `LeAnTeX/Layout/Em.lean`: lengths as integer scaled points (2⁻¹⁶ pt, 1/655360 em).
-  - Generated tables: `LeAnTeX/Data/FontMetrics.lean`, `FontParams.lean`, `SvgPaths.lean`
-    (`tools/gen-layout-tables.mjs`, from KaTeX's source), `FontAdvances.lean`
-    (`tools/gen-advances.mjs`, from KaTeX's fonts in headless Chromium).
-  - Box tree (`Layout/Box.lean`, KaTeX's `domTree`), `Options`, `buildCommon`
-    (`Layout/Common.lean`), `buildExpression` with spacing (`Layout/Html.lean`), delimiters
-    (`Layout/Delimiter.lean`), stretchy images (`Layout/Stretchy.lean`), builders
-    (`Layout/Builders/`), `buildHTML` and the entry point `layout` (`Layout/Build.lean`).
-  - Display list (`Layout/Display.lean`, `docs/display-list.md`): glyphs, rules, paths,
-    regions, parts, lines; invariants checked on every formula by `lake test`.
-  - Laid out: symbols of every kind and font, spacing, groups, styles, sizes, math and text
-    fonts, `\text…`, classes, colour, kerns, scripts, large operators and limits,
-    `\operatorname`, fractions and generalised fractions, sized delimiters, `\left…\right`,
-    `\middle`, accents (with scripts), under-accents, wide accents, `\sqrt`, phantoms, smash,
-    laps, rules, over/underline, raisebox, vcenter, mathchoice, hbox, pmb, verb, reflectbox,
-    `\html…`, href, images, line breaks.
-  - Not yet (the next stage): arrays and environments, `\xrightarrow` and friends, enclosures
-    (`\boxed`, `\cancel`, …), horizontal braces, `{CD}`.
-- Layout parity (`parity/LAYOUT.md`): 10,868 of 12,272 cases identical to KaTeX, 0 differ,
-  374 not yet in scope, 1,030 rejected by both. Largest deviation 1.3e-5 em.
-- Display list against Chromium (`tools/check-display.mjs`, 10,721 formulas): glyph x within
-  0.002 em (99 % within 0.0004), baseline within 0.0002 em, width within 0.002 em, SVG
-  viewports within 0.0006 em, rules within 0.0025 em (border pixel snapping at 400 px).
-- Speed (`lake exe leantex-test --bench`): 45,000 formulas/s parse + layout over all corpora,
-  28,000/s with the display list; per corpus from 5,200/s (blueprint formulas with macro
-  preludes, mostly parsing) to 53,000/s; slowest formula about 0.55 ms.
-- Gates: `lake build --wfail` and `lake test` green; IDEiL's style checker run read-only with
-  `--root` on this tree: 0 violations.
+- Layout (done, `docs/layout.md`): every parse node type KaTeX builds is laid out, arrays and
+  environments (`Layout/Builders/Array.lean`), `{CD}`, enclosures, extensible arrows and
+  horizontal braces (`Layout/Builders/Enclose.lean`) included.
+- Layout parity (`parity/LAYOUT.md`): 11,242 of 12,272 cases identical to KaTeX, 0 differ,
+  none out of scope, 1,030 rejected by both. Largest deviation 1.3e-5 em.
+- Display list (`Layout/Display.lean`, `docs/display-list.md`): glyphs, rules (dashed rules as
+  runs of dashes, box borders and backgrounds), paths (strokes of `\cancel` as outlines),
+  regions, parts, lines; mirrored ranges for `\reflectbox`; `DisplayOptions` (line width for
+  display mode: centring and the tag at the end of the line; first equation number); equation
+  numbers written out. Placement trees (`Placed`) instead of copying items at every level.
+  Invariants checked on every formula and 19 feature checks (`LeAnTeXTest/DisplayChecks.lean`)
+  by `lake test`.
+- Display list against Chromium (`tools/check-display.mjs`, 11,100 formulas, 49,234 glyphs,
+  719 rules, 648 SVG images): no count, face or character differs; glyph x within 0.0049 em
+  (99 % within 0.0003), baseline within 0.0002 em, rules and SVG viewports within 0.01 em
+  (one-pixel least width of array rules, pixel rounding of borders).
+- Box tree JSON (`Layout/BoxJson.lean`): total, by well-founded recursion. `partial` remains in
+  the parse stage, `Json.lean` and `Parse/NodeJson.lean` (`docs/layout.md`, *Termination*).
+- Speed, 10 × 10 matrix (`lake exe leantex-test --bench-matrix`), in processor cycles on one
+  core of an Apple M2 Ultra under a load average of about 75 (wall-clock times were not
+  usable): parse 2.4 M cycles, parse + layout 4.7 M, display list 3.6 M; about 0.7 ms, 1.3 ms
+  and 1.0 ms at 3.5 GHz. The budget of 1 ms for laying out this formula is met by the layout
+  alone (about 0.6 ms) but not with parsing included. To re-measure on a quiet machine.
+- Notices: every module derived from KaTeX names its sources under *References* and has a row
+  in `THIRD-PARTY.md`; `LICENSE-KaTeX` holds KaTeX's MIT notice; the font-advance table states
+  the fonts' SIL Open Font License 1.1 (Reserved Font Names `KaTeX_*`).
+- Gates: `lake build --wfail` and `lake test` green; a Lean style checker (100 columns,
+  headers, naming) run read-only on this tree: 0 violations.
 
 ## Next
 
-1. Layout rest: arrays and environments, extensible arrows, enclosures, braces, `{CD}`.
-2. Possible speed-ups if a back end needs them: metric lookups keyed by font index instead of
-   name, the spacing walk.
+1. Back ends (outside this repository's layout work).
+2. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
+   tests (`Box.hasClass`) and style lookups.
 
 ## Open questions for the owner
 
-1. The Noperthedron blueprint corpus: the blueprint repository states no licence (the
-   formalisation it wraps is Apache-2.0). The corpus (and its two fixtures) are kept local and
-   ignored by git until the owner says whether they may be committed.
-2. `corpus/blueprint-rokicki.jsonl` names its source repository (the owner's own) and commit in
-   its first line; whether that may stay once this repository is public.
-3. The package name `leantex`, library and namespace `LeAnTeX`, and the licence wording of
-   `THIRD-PARTY.md` are the obvious defaults, not decided by the owner.
-4. Lengths are TeX scaled points (2⁻¹⁶ pt = 1/655360 em) rather than 2⁻¹⁶ em: the coarser unit
-   left 5e-5 em of rounding on nested scripts; scaled points leave 1.3e-5 em. Default taken.
-5. The display list advances glyphs by the fonts' own widths (as browsers do), measured from
-   KaTeX's fonts by `tools/gen-advances.mjs` in headless Chromium; KaTeX's metric widths differ
-   by up to 5e-4 em (more for `\iint`, `\iiint`). Default taken.
-6. KaTeX's font files state the SIL Open Font License 1.1 (Design Science and Khan Academy,
-   Reserved Font Names `KaTeX_*`), not MIT. LeAnTeX ships no font; `FontAdvances.lean` holds
-   advance widths measured from them, recorded with the OFL notice in `THIRD-PARTY.md`.
-   Whether that table is acceptable as is (default) or should come from KaTeX's MIT metric
-   tables only.
-7. The layout fixtures (`fixtures/layout/`, about 13 MB) are committed so that `lake test`
-   needs no KaTeX; alternatively they could be regenerated on demand. Default: committed.
+1. The Apache `LICENSE` file had the appendix's copyright template filled in with a name; it
+   was restored to the template (`Copyright [yyyy] [name of copyright owner]`), following the
+   preference for no copyright lines. Default taken.
+2. Dashed rules: LeAnTeX's own dash pattern (dashes three times the thickness, gaps at least
+   twice); browsers each have theirs. Default taken.
+3. Lengths are TeX scaled points (2⁻¹⁶ pt = 1/655360 em) rather than 2⁻¹⁶ em; the display list
+   advances glyphs by the fonts' own widths. Defaults taken earlier.
+4. The layout fixtures (`fixtures/layout/`, about 13 MB) are committed so that `lake test`
+   needs no KaTeX. Default: committed.
+
+Decided: package `leantex`, namespace `LeAnTeX`; the Noperthedron corpus stays local and
+ignored by git; the Rokicki corpus keeps its attribution line.
 
 ## How to resume
 
@@ -70,3 +62,5 @@ Resume notes for the work in progress. Updated after every step.
 - Reference renderer: a built `katex.min.js` 0.19.1 (with `katex.min.css` and `fonts/` for the
   browser tools), passed to `tools/record.mjs`, `tools/check-display.mjs`,
   `tools/gen-advances.mjs`; Playwright from `$PLAYWRIGHT_MODULE`.
+- Browser check: `lake exe leantex-display CORPUS… > dump.jsonl`, then
+  `node tools/check-display.mjs KATEX_DIST dump.jsonl` (`--detail ID` for one case).

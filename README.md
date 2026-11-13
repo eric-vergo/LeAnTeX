@@ -4,17 +4,17 @@ A TeX math renderer in pure Lean 4, ported from [KaTeX](https://katex.org). It d
 Lean's `Init` and `Std` only, so it can be used from any Lean program, including code that may
 not import the `Lean` package.
 
-The goal is KaTeX parity in math mode: the same formulas accepted, the same errors for the
-others, and (in later stages) the same boxes, glyphs and positions, laid out to a neutral
-display list that drawing back ends consume.
+It aims at KaTeX parity in math mode: the same formulas accepted, the same errors for the
+others, the same boxes, glyphs and positions, laid out to a neutral display list that drawing
+back ends consume.
 
 ## Status
 
 | Stage | State |
 |---|---|
 | Lexer, macro expander, parser of KaTeX 0.19.1's whole function list, KaTeX's error messages | done: every case of every corpus parses to KaTeX's tree or fails with KaTeX's error ([parity report](parity/REPORT.md)) |
-| Layout to KaTeX's box tree: symbols and fonts, spacing, styles and sizes, scripts, fractions, large operators, delimiters and `\left…\right`, accents, roots, colour, text, phantoms, kerns, rules | done: every corpus formula in scope gets KaTeX's box tree; arrays, extensible arrows, enclosures and braces not yet ([layout parity report](parity/LAYOUT.md)) |
-| Display list (positioned glyphs, rules, paths) | done ([definition](docs/display-list.md)); checked against KaTeX in a browser |
+| Layout to KaTeX's box tree: every construct, from symbols, scripts and fractions to arrays and environments, `{CD}`, enclosures, extensible arrows and braces | done: every corpus formula KaTeX lays out gets KaTeX's box tree ([layout parity report](parity/LAYOUT.md)) |
+| Display list (positioned glyphs, rules, paths; mirrored material, display-mode placement, equation numbers) | done ([definition](docs/display-list.md)); checked against KaTeX in a browser |
 | Back ends | not started |
 
 ## Use
@@ -48,10 +48,11 @@ lake test
 KaTeX's answer recorded in `fixtures/`: the parse tree (as JSON, with source positions), or the
 error (class, message, position, length), and the warnings. It then lays every formula out and
 compares the box tree with KaTeX's, recorded in `fixtures/layout/` (`docs/layout.md` gives the
-tolerances). It fails if a case that matched in `parity/baseline.tsv` or
-`parity/layout-baseline.tsv` no longer does. `lake exe leantex-test --update` rewrites the
+tolerances), checks the display list's invariants on every formula and its features on chosen
+ones. It fails if a case that matched in `parity/baseline.tsv` or `parity/layout-baseline.tsv`
+no longer does, or a display-list check fails. `lake exe leantex-test --update` rewrites the
 baselines and the reports; `--show PREFIX` and `--show-layout PREFIX` print the mismatched cases
-whose id starts with `PREFIX`.
+whose id starts with `PREFIX`; `--bench` and `--bench-matrix` time the stages.
 
 The corpora: KaTeX's own parser and error tests (`katex-spec`), its screenshot cases, the examples
 of its support table, a few formulas per KaTeX name (`katex-names`), the formulas of Mathlib's doc

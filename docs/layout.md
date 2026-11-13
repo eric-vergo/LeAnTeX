@@ -35,12 +35,13 @@ by evaluating the subset of KaTeX's style sheet (`katex.scss`) the trees use.
 | `Layout/Builders/Scripts.lean` | `op`, `operatorname`, `supsub`, `genfrac`, `utils/assembleSupSub`, `staticSvg` |
 | `Layout/Builders/Misc.lean` | `mathchoice`, `htmlmathml`, `lap`, `smash`, `phantom`, `rule`, `overline`, `underline`, `raisebox`, `vcenter`, `hbox`, `pmb`, `verb`, `reflectbox`, `html`, `href`, `includegraphics`, `delimsizing` |
 | `Layout/Builders/Accents.lean` | `accent`, `accentunder`, `sqrt`, `cr`, `makeSqrtImage`, `sqrtPath` |
+| `Layout/Builders/Array.lean` | the `array` builder of `environments/array.ts` (every tabular environment), `cdlabel`, `cdlabelparent` |
+| `Layout/Builders/Enclose.lean` | `enclose`, `xArrow`, `horizBrace` (with the note a script puts beyond the brace), `stretchyEnclose`, `phasePath` |
 | `Layout/Build.lean` | the dispatch, `buildGroup`, `buildHTML`, `buildTree`, `renderError` |
 | `Layout/Display.lean` | `katex.scss` (as evaluated by a browser) |
 
-Constructs not laid out yet fail with `BuildError.unsupported` and the parse node type: arrays
-and environments, `\xrightarrow` and the other extensible arrows, `\boxed`, `\cancel` and the
-other enclosures, horizontal braces, `{CD}`.
+Every parse node type KaTeX builds is laid out. `BuildError.unsupported` remains in the
+interface for constructs a later KaTeX version may add; no corpus formula raises it.
 
 ### Where KaTeX mutates
 
@@ -54,9 +55,15 @@ changes deepest first (`Layout/Html.lean`).
 
 The builders call back into one function, `buildGroupF` (`Layout/Build.lean`), through a
 context; it is structurally recursive on a depth bound, so the layout is a total function
-without `partial`. The display-list evaluation (`Display.lay`) is structurally recursive on a
-depth bound too. The JSON conversion of box trees (`Layout/BoxJson.lean`) and the test
-harness use `partial` (they are not part of the layout's semantics).
+without `partial`. The display-list evaluation (`Display.lay`, the placement trees it builds)
+is structurally recursive on a depth bound too, and the JSON conversions of box trees
+(`Layout/BoxJson.lean`) are defined by well-founded recursion on the tree's size.
+
+`partial` remains in the parse stage and its helpers: the lexer, the macro expander and the
+parser (`Parse/`) recurse as KaTeX's do, and terminate because every step consumes a token or
+counts an expansion against `maxExpand`, an argument not written down as a measure; the JSON
+printer and reader (`Json.lean`) and the parse tree's JSON form (`Parse/NodeJson.lean`) recurse
+on values of nested types; and the test harness.
 
 ## Numbers
 
@@ -86,7 +93,7 @@ attributes exactly; numbers within the tolerance:
   measured).
 
 The report (`parity/LAYOUT.md`) gives per corpus and per construct the cases laid out
-identically, those that differ and those not yet in scope; `parity/layout-baseline.tsv` holds
+identically, those that differ and those not yet in scope (none); `parity/layout-baseline.tsv` holds
 the status of every case, and `lake test` fails if a case laid out identically stops being so.
 `lake exe leantex-test --show-layout PREFIX` prints the differences of the cases with that
 prefix; `--worst-layout` the cases with the largest deviations.
@@ -104,3 +111,14 @@ PLAYWRIGHT_MODULE=path/to/playwright node tools/check-display.mjs KATEX_DIST dum
 # KaTeX's box trees
 node tools/record.mjs --layout path/to/katex.min.js
 ```
+
+## Speed
+
+`lake exe leantex-test --bench` times parsing, layout and the display list over the corpora;
+`--bench-matrix` times each stage on its own for an `n × n` matrix of subscripted entries
+(`\begin{pmatrix}a_{11} & … \end{pmatrix}`, n = 5, 10, 20; the time grows with the number of
+cells). For the 10 × 10 matrix, counted in processor cycles on one core of the reference
+machine (Apple M2 Ultra) because the wall-clock times of a loaded machine are not usable:
+parsing 2.4 million cycles, parsing and layout 4.7 million, the display list 3.6 million; at
+the core's 3.5 GHz about 0.7 ms, 1.3 ms and 1.0 ms. The layout itself is about 0.6 ms of the
+1.3 ms; most of the parse time goes to macro and symbol lookups.

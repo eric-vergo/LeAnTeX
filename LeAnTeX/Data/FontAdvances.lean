@@ -12,7 +12,9 @@ The advance width of 2159 characters of KaTeX's twenty font faces, as the fonts 
 
 ## References
 
-* KaTeX's fonts (MIT licence, see `LICENSE-KaTeX`): <https://github.com/KaTeX/KaTeX>.
+* KaTeX's fonts, version 0.19.1 (Design Science and Khan Academy, SIL Open Font License 1.1,
+  Reserved Font Names `KaTeX_*`; see `THIRD-PARTY.md`): <https://github.com/KaTeX/KaTeX>.
+  This file holds numbers measured from them, no font data.
 -/
 
 namespace LeAnTeX.Data

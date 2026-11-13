@@ -36,10 +36,12 @@ inline flow with margins, the tables of `makeVList`, size changes, fonts, colour
   out with no width): a back end draws it with a fallback font, and its advance, here KaTeX's
   stand-in, is only an estimate.
 * **Rules.** A rule is a filled rectangle: top-left corner, width and height (fraction bars,
-  overlines, the rules of `\rule`).
+  overlines, `\rule`, the rules of arrays, `\sout`, the borders and backgrounds of boxes). A
+  dashed rule is a run of rules (`dashRules`).
 * **Paths.** A path is SVG path data with its `viewBox` and `preserveAspectRatio`, drawn into
-  the rectangle given (the surd of `\sqrt`, stretchy delimiters and accents). `clip`, when set,
-  is the rectangle the image is clipped to.
+  the rectangle given (the surd of `\sqrt`, stretchy delimiters, accents, arrows and braces, the
+  strokes of `\cancel` as outlines). `clip`, when set, is the rectangle the image is clipped
+  to.
 * **Shadows.** `\pmb` thickens its material with a copy offset by (0.02 em, 0.01 em) of its
   font size, drawn first (KaTeX's `text-shadow`, whose 0.04 px blur is left out); those glyphs
   are marked `shadow`.
@@ -56,9 +58,11 @@ inline flow with margins, the tables of `makeVList`, size changes, fonts, colour
 * Rules and path rectangles have non-negative width and height.
 * `parts` lists the formula's unbreakable parts (KaTeX's `katex-base` spans) in order, without
   gaps on a line: a back end that breaks lines may break between them, as a browser does. The
-  equation tag, if any, is the last part, marked as such and placed after the formula; in
-  display mode KaTeX puts it at the right end of the line instead (a back end moves the items
-  from the tag's left end on).
+  equation tag, if any, is the last part, marked as such: placed after the formula, or, for a
+  display-mode formula given a line width (`DisplayOptions`), at the end of the line, the
+  formula centred in it.
+* `mirrored` lists the items drawn mirrored by `\reflectbox`, as disjoint ranges in order; their
+  positions are the mirrored ones.
 * `lines` partitions `items` into the lines that `\\` and `\newline` break the formula into
   (one line otherwise). Each line's items are relative to that line's own baseline and left
   end; a back end stacks the lines with the spacing of its surrounding text, as a browser
@@ -66,14 +70,23 @@ inline flow with margins, the tables of `makeVList`, size changes, fonts, colour
 
 ## Main definitions
 
-* `Face`, `Item`, `Region`, `Part`, `Line`, `DisplayList`.
+* `Face`, `Item`, `Region`, `Part`, `Line`, `DisplayList`, `DisplayOptions`.
 * `DisplayList.ofBox`: the display list of a box tree.
+
+## Implementation notes
+
+`Display.lay` evaluates the style sheet on the box tree; the items and regions of a laid-out
+element are kept as a placement tree (`Placed`) whose moves and reflections are applied once,
+at the end, so that placing an element does not copy its items. Automatic equation numbers are
+written into the tree before the evaluation (`Display.numberEquations`).
 * `DisplayList.wellFormed`: the invariants, as a check.
 
 ## References
 
-* KaTeX's `src/styles/katex.scss`, `src/buildCommon.ts` (`makeVList`) and KaTeX's fonts
-  (`LeAnTeX.Data.FontAdvances`) (MIT licence, see `LICENSE-KaTeX`).
+* KaTeX's `src/styles/katex.scss` and `src/buildCommon.ts` (`makeVList`) (MIT licence, see
+  `LICENSE-KaTeX`).
+* The advances of KaTeX's fonts, `LeAnTeX.Data.FontAdvances` (measured from fonts under the SIL
+  Open Font License 1.1; see `THIRD-PARTY.md`).
 -/
 
 namespace LeAnTeX

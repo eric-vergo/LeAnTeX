@@ -117,6 +117,9 @@ writeFileSync("LeAnTeX/Data/FontAdvances.lean", HEADER + "\n/-!\n# The advances 
     `The advance width of ${total} characters of KaTeX's twenty font faces, as the fonts give ` +
     "them\n(KaTeX's metric tables give TeX's widths, which differ slightly). Measured from " +
     "KaTeX's fonts by\n`tools/gen-advances.mjs`; do not edit by hand.\n\n## References\n\n" +
-    "* KaTeX's fonts (MIT licence, see `LICENSE-KaTeX`): <https://github.com/KaTeX/KaTeX>.\n-/\n\n" +
+    "* KaTeX's fonts, version 0.19.1 (Design Science and Khan Academy, SIL Open Font License " +
+    "1.1,\n  Reserved Font Names `KaTeX_*`; see `THIRD-PARTY.md`): " +
+    "<https://github.com/KaTeX/KaTeX>.\n  This file holds numbers measured from them, no font " +
+    "data.\n-/\n\n" +
     body);
 console.log(`advances of ${total} characters in ${FACES.length} faces written`);

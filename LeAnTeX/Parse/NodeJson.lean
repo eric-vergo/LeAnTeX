@@ -16,6 +16,11 @@ printed as `null`, and every location as `[start, end]` in UTF-16 code units.
 
 * `Node.toJson`, `nodesToJson`: a node or a list of nodes.
 * `KError.toJson`: an error in the harness's form.
+
+## References
+
+* KaTeX's `src/types/nodes.ts` (the node types and their fields; MIT licence, see
+  `LICENSE-KaTeX`).
 -/
 
 namespace LeAnTeX
