@@ -8,14 +8,14 @@ Largest deviation on an identical tree: 1.3e-5 em in an unrounded number, 1.0e-4
 
 | Corpus | Cases | KaTeX lays out | Identical | Differs | Not yet in scope | Both reject |
 |---|---:|---:|---:|---:|---:|---:|
-| blueprint-noperthedron | 387 | 387 | 378 | 0 | 9 | 0 |
+| blueprint-noperthedron | 387 | 387 | 387 | 0 | 0 | 0 |
 | blueprint-rokicki | 287 | 287 | 287 | 0 | 0 | 0 |
-| katex-names | 8202 | 7491 | 7366 | 0 | 125 | 711 |
-| katex-screenshots | 123 | 122 | 69 | 0 | 53 | 1 |
-| katex-spec | 1160 | 852 | 748 | 0 | 104 | 308 |
-| katex-support-table | 993 | 987 | 915 | 0 | 72 | 6 |
-| mathlib | 1120 | 1116 | 1105 | 0 | 11 | 4 |
-| all | 12272 | 11242 | 10868 | 0 | 374 | 1030 |
+| katex-names | 8202 | 7491 | 7491 | 0 | 0 | 711 |
+| katex-screenshots | 123 | 122 | 122 | 0 | 0 | 1 |
+| katex-spec | 1160 | 852 | 852 | 0 | 0 | 308 |
+| katex-support-table | 993 | 987 | 987 | 0 | 0 | 6 |
+| mathlib | 1120 | 1116 | 1116 | 0 | 0 | 4 |
+| all | 12272 | 11242 | 11242 | 0 | 0 | 1030 |
 
 ## Mismatches by kind
 
@@ -32,68 +32,60 @@ For each parse node type (atoms by class), the formulas KaTeX lays out that cont
 
 | Construct | Formulas | Identical | Differs | Not yet in scope |
 |---|---:|---:|---:|---:|
-| `accent` | 248 | 241 | 0 | 7 |
-| `accentUnder` | 38 | 36 | 0 | 2 |
-| `array` | 210 | 0 | 0 | 210 |
-| `atom:bin` | 1310 | 1220 | 0 | 90 |
-| `atom:close` | 1069 | 1042 | 0 | 27 |
-| `atom:inner` | 148 | 137 | 0 | 11 |
-| `atom:open` | 1038 | 1014 | 0 | 24 |
-| `atom:punct` | 436 | 419 | 0 | 17 |
-| `atom:rel` | 3069 | 3009 | 0 | 60 |
-| `cdlabel` | 3 | 0 | 0 | 3 |
-| `cdlabelparent` | 3 | 0 | 0 | 3 |
-| `color` | 175 | 170 | 0 | 5 |
-| `cr` | 73 | 69 | 0 | 4 |
-| `delimsizing` | 59 | 53 | 0 | 6 |
-| `enclose` | 74 | 0 | 0 | 74 |
-| `font` | 517 | 504 | 0 | 13 |
-| `genfrac` | 273 | 252 | 0 | 21 |
+| `accent` | 248 | 248 | 0 | 0 |
+| `accentUnder` | 38 | 38 | 0 | 0 |
+| `array` | 210 | 210 | 0 | 0 |
+| `atom:bin` | 1310 | 1310 | 0 | 0 |
+| `atom:close` | 1069 | 1069 | 0 | 0 |
+| `atom:inner` | 148 | 148 | 0 | 0 |
+| `atom:open` | 1038 | 1038 | 0 | 0 |
+| `atom:punct` | 436 | 436 | 0 | 0 |
+| `atom:rel` | 3069 | 3069 | 0 | 0 |
+| `cdlabel` | 3 | 3 | 0 | 0 |
+| `cdlabelparent` | 3 | 3 | 0 | 0 |
+| `color` | 175 | 175 | 0 | 0 |
+| `cr` | 73 | 73 | 0 | 0 |
+| `delimsizing` | 59 | 59 | 0 | 0 |
+| `enclose` | 74 | 74 | 0 | 0 |
+| `font` | 517 | 517 | 0 | 0 |
+| `genfrac` | 273 | 273 | 0 | 0 |
 | `hbox` | 4 | 4 | 0 | 0 |
-| `horizBrace` | 24 | 0 | 0 | 24 |
+| `horizBrace` | 24 | 24 | 0 | 0 |
 | `href` | 15 | 15 | 0 | 0 |
 | `html` | 6 | 6 | 0 | 0 |
-| `htmlmathml` | 407 | 397 | 0 | 10 |
+| `htmlmathml` | 407 | 407 | 0 | 0 |
 | `includegraphics` | 1 | 1 | 0 | 0 |
-| `kern` | 551 | 516 | 0 | 35 |
-| `lap` | 110 | 105 | 0 | 5 |
-| `leftright` | 156 | 82 | 0 | 74 |
-| `mathchoice` | 57 | 53 | 0 | 4 |
-| `mathord` | 7504 | 7189 | 0 | 315 |
-| `mclass` | 382 | 367 | 0 | 15 |
-| `middle` | 15 | 14 | 0 | 1 |
-| `op` | 880 | 860 | 0 | 20 |
-| `operatorname` | 141 | 139 | 0 | 2 |
-| `ordgroup` | 3637 | 3266 | 0 | 371 |
+| `kern` | 551 | 551 | 0 | 0 |
+| `lap` | 110 | 110 | 0 | 0 |
+| `leftright` | 156 | 156 | 0 | 0 |
+| `mathchoice` | 57 | 57 | 0 | 0 |
+| `mathord` | 7504 | 7504 | 0 | 0 |
+| `mclass` | 382 | 382 | 0 | 0 |
+| `middle` | 15 | 15 | 0 | 0 |
+| `op` | 880 | 880 | 0 | 0 |
+| `operatorname` | 141 | 141 | 0 | 0 |
+| `ordgroup` | 3637 | 3637 | 0 | 0 |
 | `overline` | 16 | 16 | 0 | 0 |
-| `phantom` | 16 | 15 | 0 | 1 |
+| `phantom` | 16 | 16 | 0 | 0 |
 | `pmb` | 12 | 12 | 0 | 0 |
-| `raisebox` | 43 | 42 | 0 | 1 |
-| `reflectbox` | 21 | 19 | 0 | 2 |
-| `rule` | 21 | 19 | 0 | 2 |
-| `sizing` | 107 | 102 | 0 | 5 |
+| `raisebox` | 43 | 43 | 0 | 0 |
+| `reflectbox` | 21 | 21 | 0 | 0 |
+| `rule` | 21 | 21 | 0 | 0 |
+| `sizing` | 107 | 107 | 0 | 0 |
 | `smash` | 33 | 33 | 0 | 0 |
-| `spacing` | 908 | 875 | 0 | 33 |
-| `sqrt` | 55 | 49 | 0 | 6 |
-| `styling` | 393 | 142 | 0 | 251 |
-| `supsub` | 1423 | 1344 | 0 | 79 |
+| `spacing` | 908 | 908 | 0 | 0 |
+| `sqrt` | 55 | 55 | 0 | 0 |
+| `styling` | 393 | 393 | 0 | 0 |
+| `supsub` | 1423 | 1423 | 0 | 0 |
 | `tag` | 9 | 9 | 0 | 0 |
-| `text` | 1910 | 1872 | 0 | 38 |
-| `textord` | 4361 | 4198 | 0 | 163 |
-| `underline` | 18 | 16 | 0 | 2 |
+| `text` | 1910 | 1910 | 0 | 0 |
+| `textord` | 4361 | 4361 | 0 | 0 |
+| `underline` | 18 | 18 | 0 | 0 |
 | `vcenter` | 5 | 5 | 0 | 0 |
-| `verb` | 2 | 1 | 0 | 1 |
+| `verb` | 2 | 2 | 0 | 0 |
 | `vphantom` | 10 | 10 | 0 | 0 |
-| `xArrow` | 76 | 0 | 0 | 76 |
+| `xArrow` | 76 | 76 | 0 | 0 |
 
 ## Not yet in scope
 
-The first construct LeAnTeX does not lay out, by number of formulas it stops.
-
-| Construct | Formulas |
-|---|---:|
-| `array` | 210 |
-| `enclose` | 71 |
-| `xArrow` | 70 |
-| `horizBrace` | 13 |
-| `horizBrace with scripts` | 10 |
+None: LeAnTeX lays out every construct of every formula KaTeX lays out.

@@ -179,8 +179,6 @@ def buildSupsub (ctx : BuildCtx) (valueBase valueSup valueSub : Option Node) (o 
   | some (.operatorname _ _ body alwaysHandle limits _) =>
     if alwaysHandle && (o.style.size == MathStyle.display.size || limits) then
       return ← buildOperatorname ctx body valueSup valueSub true o
-  | some (.horizBrace _ _ _ isOver _) =>
-    if valueSub.isNone == isOver then throwUnsupported "horizBrace with scripts"
   | _ => pure ()
   let base ← ctx.groupOpt valueBase o
   let fm := o.fontMetrics

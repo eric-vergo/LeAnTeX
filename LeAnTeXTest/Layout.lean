@@ -341,10 +341,14 @@ def layoutReport (results : Array LayoutResult) (seconds : Float) : String := Id
   for r in results do
     if r.outcome == .notYet then blocks := blocks.insert r.detail (blocks.getD r.detail 0 + 1)
   let bl := blocks.toList.toArray.qsort (fun a b => a.2 > b.2 || (a.2 == b.2 && a.1 < b.1))
-  s := s ++ "\n## Not yet in scope\n\nThe first construct LeAnTeX does not lay out, by number " ++
-    "of formulas it stops.\n\n| Construct | Formulas |\n|---|---:|\n"
-  for (k, n) in bl do
-    s := s ++ s!"| `{k}` | {n} |\n"
+  s := s ++ "\n## Not yet in scope\n\n"
+  if bl.isEmpty then
+    s := s ++ "None: LeAnTeX lays out every construct of every formula KaTeX lays out.\n"
+  else
+    s := s ++ "The first construct LeAnTeX does not lay out, by number of formulas it stops." ++
+      "\n\n| Construct | Formulas |\n|---|---:|\n"
+    for (k, n) in bl do
+      s := s ++ s!"| `{k}` | {n} |\n"
   let bad := results.filter fun r => !r.outcome.ok && r.outcome != .notYet
   if !bad.isEmpty then
     s := s ++ "\n## Mismatched cases\n\n| Case | Kind | Detail |\n|---|---|---|\n"

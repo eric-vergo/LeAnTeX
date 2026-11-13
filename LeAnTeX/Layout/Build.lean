@@ -6,6 +6,8 @@ import LeAnTeX.Layout.Builders.Basic
 import LeAnTeX.Layout.Builders.Scripts
 import LeAnTeX.Layout.Builders.Misc
 import LeAnTeX.Layout.Builders.Accents
+import LeAnTeX.Layout.Builders.Array
+import LeAnTeX.Layout.Builders.Enclose
 import LeAnTeX.Parse.Parser
 
 /-!
@@ -51,6 +53,11 @@ def buildNode (ctx : BuildCtx) (n : Node) (o : Options) : BuildM Box := do
       buildAccent ctx mode label (isStretchy.getD false) (isShifty.getD false) b (some (sup, sub))
         o
     else buildSupsub ctx (some (.accent mode .absent label isStretchy isShifty b)) sup sub o
+  | .supsub _ _ (some b@(.horizBrace _ _ label isOver base)) sup sub =>
+    -- an over-brace with a superscript or an under-brace with a subscript takes it as a note
+    if sub.isNone == isOver then
+      buildHorizBrace ctx label isOver base (if sup.isSome then sup else sub) sup.isSome o
+    else buildSupsub ctx (some b) sup sub o
   | .supsub _ _ base sup sub => buildSupsub ctx base sup sub o
   | .accent mode _ label isStretchy isShifty base =>
     buildAccent ctx mode label (isStretchy.getD false) (isShifty.getD false) base none o
@@ -86,10 +93,18 @@ def buildNode (ctx : BuildCtx) (n : Node) (o : Options) : BuildM Box := do
   | .middle mode _ delim => buildMiddle mode delim o
   | .leftright mode _ body left right rightColor =>
     buildLeftright ctx mode body left right rightColor o
+  | .array _ _ colSeparationType hskip addJot cols arraystretch body rowGaps hLines tags _ =>
+    buildArray ctx colSeparationType hskip addJot (cols.getD #[]) arraystretch body rowGaps
+      hLines tags o
+  | .cdlabel _ _ side label => buildCdLabel ctx side label o
+  | .cdlabelparent _ _ fragment => buildCdLabelParent ctx fragment o
+  | .enclose _ _ label backgroundColor borderColor body =>
+    buildEnclose ctx label backgroundColor borderColor body o
+  | .xArrow _ _ label body below => buildXArrow ctx label body below o
+  | .horizBrace _ _ label isOver base => buildHorizBrace ctx label isOver base none false o
   | .raw .. | .size .. | .url .. | .colorToken .. | .internal .. | .environment ..
-  | .«infix» .. | .leftrightRight .. | .cdlabel .. | .cdlabelparent .. | .tag .. =>
+  | .«infix» .. | .leftrightRight .. | .tag .. =>
     throwParse s!"Got group of unknown type: '{n.type}'"
-  | n => throwUnsupported n.type
 
 /-- Give a box (and the children of a fragment) the source range of the node it was built
 for, unless it has one. -/

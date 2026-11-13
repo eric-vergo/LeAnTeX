@@ -104,7 +104,7 @@ blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/102	ok
 blueprint-noperthedron	noperthedron/Boxes-and-leaf-certificates/103	ok
 blueprint-noperthedron	noperthedron/Cayley-coordinates/1	ok
 blueprint-noperthedron	noperthedron/Cayley-coordinates/2	ok
-blueprint-noperthedron	noperthedron/Cayley-coordinates/3	not-yet
+blueprint-noperthedron	noperthedron/Cayley-coordinates/3	ok
 blueprint-noperthedron	noperthedron/Cayley-coordinates/4	ok
 blueprint-noperthedron	noperthedron/Cayley-coordinates/5	ok
 blueprint-noperthedron	noperthedron/Cayley-coordinates/6	ok
@@ -186,13 +186,13 @@ blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/4	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/5	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/6	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/7	ok
-blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/8	not-yet
+blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/8	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/9	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/10	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/11	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/12	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/13	ok
-blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/14	not-yet
+blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/14	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/15	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/16	ok
 blueprint-noperthedron	noperthedron/Lower-bounds-of-polynomials/17	ok
@@ -256,16 +256,16 @@ blueprint-noperthedron	noperthedron/Rupert-pairs/27	ok
 blueprint-noperthedron	noperthedron/Rupert-pairs/28	ok
 blueprint-noperthedron	noperthedron/Rupert-pairs/29	ok
 blueprint-noperthedron	noperthedron/The-Noperthedron/1	ok
-blueprint-noperthedron	noperthedron/The-Noperthedron/2	not-yet
-blueprint-noperthedron	noperthedron/The-Noperthedron/3	not-yet
+blueprint-noperthedron	noperthedron/The-Noperthedron/2	ok
+blueprint-noperthedron	noperthedron/The-Noperthedron/3	ok
 blueprint-noperthedron	noperthedron/The-Noperthedron/4	ok
 blueprint-noperthedron	noperthedron/The-Noperthedron/5	ok
 blueprint-noperthedron	noperthedron/The-Noperthedron/6	ok
 blueprint-noperthedron	noperthedron/The-Noperthedron/7	ok
 blueprint-noperthedron	noperthedron/The-Noperthedron/8	ok
 blueprint-noperthedron	noperthedron/The-Noperthedron/9	ok
-blueprint-noperthedron	noperthedron/The-Noperthedron/10	not-yet
-blueprint-noperthedron	noperthedron/The-Noperthedron/11	not-yet
+blueprint-noperthedron	noperthedron/The-Noperthedron/10	ok
+blueprint-noperthedron	noperthedron/The-Noperthedron/11	ok
 blueprint-noperthedron	noperthedron/The-Noperthedron/12	ok
 blueprint-noperthedron	noperthedron/The-Noperthedron/13	ok
 blueprint-noperthedron	noperthedron/The-Noperthedron/14	ok
@@ -332,7 +332,7 @@ blueprint-noperthedron	noperthedron/The-reduction/36	ok
 blueprint-noperthedron	noperthedron/The-reduction/37	ok
 blueprint-noperthedron	noperthedron/The-reduction/38	ok
 blueprint-noperthedron	noperthedron/The-reduction/39	ok
-blueprint-noperthedron	noperthedron/The-reduction/40	not-yet
+blueprint-noperthedron	noperthedron/The-reduction/40	ok
 blueprint-noperthedron	noperthedron/The-reduction/41	ok
 blueprint-noperthedron	noperthedron/The-reduction/42	ok
 blueprint-noperthedron	noperthedron/The-reduction/43	ok
@@ -357,7 +357,7 @@ blueprint-noperthedron	noperthedron/The-reduction/61	ok
 blueprint-noperthedron	noperthedron/The-reduction/62	ok
 blueprint-noperthedron	noperthedron/The-reduction/63	ok
 blueprint-noperthedron	noperthedron/The-reduction/64	ok
-blueprint-noperthedron	noperthedron/The-reduction/65	not-yet
+blueprint-noperthedron	noperthedron/The-reduction/65	ok
 blueprint-noperthedron	noperthedron/The-reduction/66	ok
 blueprint-noperthedron	noperthedron/The-reduction/67	ok
 blueprint-noperthedron	noperthedron/The-reduction/68	ok
@@ -838,92 +838,92 @@ katex-names	katex-names/function/\utilde/2	ok
 katex-names	katex-names/function/\utilde/3	ok
 katex-names	katex-names/function/\utilde/4	ok
 katex-names	katex-names/function/\xleftarrow/1	ok
-katex-names	katex-names/function/\xleftarrow/2	not-yet
-katex-names	katex-names/function/\xleftarrow/3	not-yet
+katex-names	katex-names/function/\xleftarrow/2	ok
+katex-names	katex-names/function/\xleftarrow/3	ok
 katex-names	katex-names/function/\xleftarrow/4	ok
 katex-names	katex-names/function/\xrightarrow/1	ok
-katex-names	katex-names/function/\xrightarrow/2	not-yet
-katex-names	katex-names/function/\xrightarrow/3	not-yet
+katex-names	katex-names/function/\xrightarrow/2	ok
+katex-names	katex-names/function/\xrightarrow/3	ok
 katex-names	katex-names/function/\xrightarrow/4	ok
 katex-names	katex-names/function/\xLeftarrow/1	ok
-katex-names	katex-names/function/\xLeftarrow/2	not-yet
-katex-names	katex-names/function/\xLeftarrow/3	not-yet
+katex-names	katex-names/function/\xLeftarrow/2	ok
+katex-names	katex-names/function/\xLeftarrow/3	ok
 katex-names	katex-names/function/\xLeftarrow/4	ok
 katex-names	katex-names/function/\xRightarrow/1	ok
-katex-names	katex-names/function/\xRightarrow/2	not-yet
-katex-names	katex-names/function/\xRightarrow/3	not-yet
+katex-names	katex-names/function/\xRightarrow/2	ok
+katex-names	katex-names/function/\xRightarrow/3	ok
 katex-names	katex-names/function/\xRightarrow/4	ok
 katex-names	katex-names/function/\xleftrightarrow/1	ok
-katex-names	katex-names/function/\xleftrightarrow/2	not-yet
-katex-names	katex-names/function/\xleftrightarrow/3	not-yet
+katex-names	katex-names/function/\xleftrightarrow/2	ok
+katex-names	katex-names/function/\xleftrightarrow/3	ok
 katex-names	katex-names/function/\xleftrightarrow/4	ok
 katex-names	katex-names/function/\xLeftrightarrow/1	ok
-katex-names	katex-names/function/\xLeftrightarrow/2	not-yet
-katex-names	katex-names/function/\xLeftrightarrow/3	not-yet
+katex-names	katex-names/function/\xLeftrightarrow/2	ok
+katex-names	katex-names/function/\xLeftrightarrow/3	ok
 katex-names	katex-names/function/\xLeftrightarrow/4	ok
 katex-names	katex-names/function/\xhookleftarrow/1	ok
-katex-names	katex-names/function/\xhookleftarrow/2	not-yet
-katex-names	katex-names/function/\xhookleftarrow/3	not-yet
+katex-names	katex-names/function/\xhookleftarrow/2	ok
+katex-names	katex-names/function/\xhookleftarrow/3	ok
 katex-names	katex-names/function/\xhookleftarrow/4	ok
 katex-names	katex-names/function/\xhookrightarrow/1	ok
-katex-names	katex-names/function/\xhookrightarrow/2	not-yet
-katex-names	katex-names/function/\xhookrightarrow/3	not-yet
+katex-names	katex-names/function/\xhookrightarrow/2	ok
+katex-names	katex-names/function/\xhookrightarrow/3	ok
 katex-names	katex-names/function/\xhookrightarrow/4	ok
 katex-names	katex-names/function/\xmapsto/1	ok
-katex-names	katex-names/function/\xmapsto/2	not-yet
-katex-names	katex-names/function/\xmapsto/3	not-yet
+katex-names	katex-names/function/\xmapsto/2	ok
+katex-names	katex-names/function/\xmapsto/3	ok
 katex-names	katex-names/function/\xmapsto/4	ok
 katex-names	katex-names/function/\xrightharpoondown/1	ok
-katex-names	katex-names/function/\xrightharpoondown/2	not-yet
-katex-names	katex-names/function/\xrightharpoondown/3	not-yet
+katex-names	katex-names/function/\xrightharpoondown/2	ok
+katex-names	katex-names/function/\xrightharpoondown/3	ok
 katex-names	katex-names/function/\xrightharpoondown/4	ok
 katex-names	katex-names/function/\xrightharpoonup/1	ok
-katex-names	katex-names/function/\xrightharpoonup/2	not-yet
-katex-names	katex-names/function/\xrightharpoonup/3	not-yet
+katex-names	katex-names/function/\xrightharpoonup/2	ok
+katex-names	katex-names/function/\xrightharpoonup/3	ok
 katex-names	katex-names/function/\xrightharpoonup/4	ok
 katex-names	katex-names/function/\xleftharpoondown/1	ok
-katex-names	katex-names/function/\xleftharpoondown/2	not-yet
-katex-names	katex-names/function/\xleftharpoondown/3	not-yet
+katex-names	katex-names/function/\xleftharpoondown/2	ok
+katex-names	katex-names/function/\xleftharpoondown/3	ok
 katex-names	katex-names/function/\xleftharpoondown/4	ok
 katex-names	katex-names/function/\xleftharpoonup/1	ok
-katex-names	katex-names/function/\xleftharpoonup/2	not-yet
-katex-names	katex-names/function/\xleftharpoonup/3	not-yet
+katex-names	katex-names/function/\xleftharpoonup/2	ok
+katex-names	katex-names/function/\xleftharpoonup/3	ok
 katex-names	katex-names/function/\xleftharpoonup/4	ok
 katex-names	katex-names/function/\xrightleftharpoons/1	ok
-katex-names	katex-names/function/\xrightleftharpoons/2	not-yet
-katex-names	katex-names/function/\xrightleftharpoons/3	not-yet
+katex-names	katex-names/function/\xrightleftharpoons/2	ok
+katex-names	katex-names/function/\xrightleftharpoons/3	ok
 katex-names	katex-names/function/\xrightleftharpoons/4	ok
 katex-names	katex-names/function/\xleftrightharpoons/1	ok
-katex-names	katex-names/function/\xleftrightharpoons/2	not-yet
-katex-names	katex-names/function/\xleftrightharpoons/3	not-yet
+katex-names	katex-names/function/\xleftrightharpoons/2	ok
+katex-names	katex-names/function/\xleftrightharpoons/3	ok
 katex-names	katex-names/function/\xleftrightharpoons/4	ok
 katex-names	katex-names/function/\xlongequal/1	ok
-katex-names	katex-names/function/\xlongequal/2	not-yet
-katex-names	katex-names/function/\xlongequal/3	not-yet
+katex-names	katex-names/function/\xlongequal/2	ok
+katex-names	katex-names/function/\xlongequal/3	ok
 katex-names	katex-names/function/\xlongequal/4	ok
 katex-names	katex-names/function/\xtwoheadrightarrow/1	ok
-katex-names	katex-names/function/\xtwoheadrightarrow/2	not-yet
-katex-names	katex-names/function/\xtwoheadrightarrow/3	not-yet
+katex-names	katex-names/function/\xtwoheadrightarrow/2	ok
+katex-names	katex-names/function/\xtwoheadrightarrow/3	ok
 katex-names	katex-names/function/\xtwoheadrightarrow/4	ok
 katex-names	katex-names/function/\xtwoheadleftarrow/1	ok
-katex-names	katex-names/function/\xtwoheadleftarrow/2	not-yet
-katex-names	katex-names/function/\xtwoheadleftarrow/3	not-yet
+katex-names	katex-names/function/\xtwoheadleftarrow/2	ok
+katex-names	katex-names/function/\xtwoheadleftarrow/3	ok
 katex-names	katex-names/function/\xtwoheadleftarrow/4	ok
 katex-names	katex-names/function/\xtofrom/1	ok
-katex-names	katex-names/function/\xtofrom/2	not-yet
-katex-names	katex-names/function/\xtofrom/3	not-yet
+katex-names	katex-names/function/\xtofrom/2	ok
+katex-names	katex-names/function/\xtofrom/3	ok
 katex-names	katex-names/function/\xtofrom/4	ok
 katex-names	katex-names/function/\xrightleftarrows/1	ok
-katex-names	katex-names/function/\xrightleftarrows/2	not-yet
-katex-names	katex-names/function/\xrightleftarrows/3	not-yet
+katex-names	katex-names/function/\xrightleftarrows/2	ok
+katex-names	katex-names/function/\xrightleftarrows/3	ok
 katex-names	katex-names/function/\xrightleftarrows/4	ok
 katex-names	katex-names/function/\xrightequilibrium/1	ok
-katex-names	katex-names/function/\xrightequilibrium/2	not-yet
-katex-names	katex-names/function/\xrightequilibrium/3	not-yet
+katex-names	katex-names/function/\xrightequilibrium/2	ok
+katex-names	katex-names/function/\xrightequilibrium/3	ok
 katex-names	katex-names/function/\xrightequilibrium/4	ok
 katex-names	katex-names/function/\xleftequilibrium/1	ok
-katex-names	katex-names/function/\xleftequilibrium/2	not-yet
-katex-names	katex-names/function/\xleftequilibrium/3	not-yet
+katex-names	katex-names/function/\xleftequilibrium/2	ok
+katex-names	katex-names/function/\xleftequilibrium/3	ok
 katex-names	katex-names/function/\xleftequilibrium/4	ok
 katex-names	katex-names/function/\\cdrightarrow/1	ok
 katex-names	katex-names/function/\\cdrightarrow/2	ok
@@ -1134,40 +1134,40 @@ katex-names	katex-names/function/\middle/2	ok
 katex-names	katex-names/function/\middle/3	ok
 katex-names	katex-names/function/\middle/4	ok
 katex-names	katex-names/function/\colorbox/1	ok
-katex-names	katex-names/function/\colorbox/2	not-yet
+katex-names	katex-names/function/\colorbox/2	ok
 katex-names	katex-names/function/\colorbox/3	ok
 katex-names	katex-names/function/\colorbox/4	ok
 katex-names	katex-names/function/\fcolorbox/1	ok
-katex-names	katex-names/function/\fcolorbox/2	not-yet
+katex-names	katex-names/function/\fcolorbox/2	ok
 katex-names	katex-names/function/\fcolorbox/3	ok
 katex-names	katex-names/function/\fcolorbox/4	ok
 katex-names	katex-names/function/\fbox/1	ok
-katex-names	katex-names/function/\fbox/2	not-yet
-katex-names	katex-names/function/\fbox/3	not-yet
-katex-names	katex-names/function/\fbox/4	not-yet
+katex-names	katex-names/function/\fbox/2	ok
+katex-names	katex-names/function/\fbox/3	ok
+katex-names	katex-names/function/\fbox/4	ok
 katex-names	katex-names/function/\cancel/1	ok
-katex-names	katex-names/function/\cancel/2	not-yet
-katex-names	katex-names/function/\cancel/3	not-yet
+katex-names	katex-names/function/\cancel/2	ok
+katex-names	katex-names/function/\cancel/3	ok
 katex-names	katex-names/function/\cancel/4	ok
 katex-names	katex-names/function/\bcancel/1	ok
-katex-names	katex-names/function/\bcancel/2	not-yet
-katex-names	katex-names/function/\bcancel/3	not-yet
+katex-names	katex-names/function/\bcancel/2	ok
+katex-names	katex-names/function/\bcancel/3	ok
 katex-names	katex-names/function/\bcancel/4	ok
 katex-names	katex-names/function/\xcancel/1	ok
-katex-names	katex-names/function/\xcancel/2	not-yet
-katex-names	katex-names/function/\xcancel/3	not-yet
+katex-names	katex-names/function/\xcancel/2	ok
+katex-names	katex-names/function/\xcancel/3	ok
 katex-names	katex-names/function/\xcancel/4	ok
 katex-names	katex-names/function/\phase/1	ok
-katex-names	katex-names/function/\phase/2	not-yet
-katex-names	katex-names/function/\phase/3	not-yet
+katex-names	katex-names/function/\phase/2	ok
+katex-names	katex-names/function/\phase/3	ok
 katex-names	katex-names/function/\phase/4	ok
 katex-names	katex-names/function/\sout/1	ok
-katex-names	katex-names/function/\sout/2	not-yet
-katex-names	katex-names/function/\sout/3	not-yet
-katex-names	katex-names/function/\sout/4	not-yet
+katex-names	katex-names/function/\sout/2	ok
+katex-names	katex-names/function/\sout/3	ok
+katex-names	katex-names/function/\sout/4	ok
 katex-names	katex-names/function/\angl/1	ok
-katex-names	katex-names/function/\angl/2	not-yet
-katex-names	katex-names/function/\angl/3	not-yet
+katex-names	katex-names/function/\angl/2	ok
+katex-names	katex-names/function/\angl/3	ok
 katex-names	katex-names/function/\angl/4	ok
 katex-names	katex-names/function/\hline/1	ok
 katex-names	katex-names/function/\hline/2	ok
@@ -1346,20 +1346,20 @@ katex-names	katex-names/function/\\abovefrac/2	ok
 katex-names	katex-names/function/\\abovefrac/3	ok
 katex-names	katex-names/function/\\abovefrac/4	ok
 katex-names	katex-names/function/\overbrace/1	ok
-katex-names	katex-names/function/\overbrace/2	not-yet
-katex-names	katex-names/function/\overbrace/3	not-yet
+katex-names	katex-names/function/\overbrace/2	ok
+katex-names	katex-names/function/\overbrace/3	ok
 katex-names	katex-names/function/\overbrace/4	ok
 katex-names	katex-names/function/\underbrace/1	ok
-katex-names	katex-names/function/\underbrace/2	not-yet
-katex-names	katex-names/function/\underbrace/3	not-yet
+katex-names	katex-names/function/\underbrace/2	ok
+katex-names	katex-names/function/\underbrace/3	ok
 katex-names	katex-names/function/\underbrace/4	ok
 katex-names	katex-names/function/\overbracket/1	ok
-katex-names	katex-names/function/\overbracket/2	not-yet
-katex-names	katex-names/function/\overbracket/3	not-yet
+katex-names	katex-names/function/\overbracket/2	ok
+katex-names	katex-names/function/\overbracket/3	ok
 katex-names	katex-names/function/\overbracket/4	ok
 katex-names	katex-names/function/\underbracket/1	ok
-katex-names	katex-names/function/\underbracket/2	not-yet
-katex-names	katex-names/function/\underbracket/3	not-yet
+katex-names	katex-names/function/\underbracket/2	ok
+katex-names	katex-names/function/\underbracket/3	ok
 katex-names	katex-names/function/\underbracket/4	ok
 katex-names	katex-names/function/\href/1	ok
 katex-names	katex-names/function/\href/2	ok
@@ -1921,60 +1921,60 @@ katex-names	katex-names/function/\verb/1	ok
 katex-names	katex-names/function/\verb/2	ok
 katex-names	katex-names/function/\verb/3	ok
 katex-names	katex-names/function/\verb/4	ok
-katex-names	katex-names/environment/array/1	not-yet
-katex-names	katex-names/environment/array/2	not-yet
-katex-names	katex-names/environment/darray/1	not-yet
-katex-names	katex-names/environment/darray/2	not-yet
-katex-names	katex-names/environment/matrix/1	not-yet
-katex-names	katex-names/environment/matrix/2	not-yet
-katex-names	katex-names/environment/pmatrix/1	not-yet
-katex-names	katex-names/environment/pmatrix/2	not-yet
-katex-names	katex-names/environment/bmatrix/1	not-yet
-katex-names	katex-names/environment/bmatrix/2	not-yet
-katex-names	katex-names/environment/Bmatrix/1	not-yet
-katex-names	katex-names/environment/Bmatrix/2	not-yet
-katex-names	katex-names/environment/vmatrix/1	not-yet
-katex-names	katex-names/environment/vmatrix/2	not-yet
-katex-names	katex-names/environment/Vmatrix/1	not-yet
-katex-names	katex-names/environment/Vmatrix/2	not-yet
-katex-names	katex-names/environment/matrix*/1	not-yet
-katex-names	katex-names/environment/matrix*/2	not-yet
-katex-names	katex-names/environment/pmatrix*/1	not-yet
-katex-names	katex-names/environment/pmatrix*/2	not-yet
-katex-names	katex-names/environment/bmatrix*/1	not-yet
-katex-names	katex-names/environment/bmatrix*/2	not-yet
-katex-names	katex-names/environment/Bmatrix*/1	not-yet
-katex-names	katex-names/environment/Bmatrix*/2	not-yet
-katex-names	katex-names/environment/vmatrix*/1	not-yet
-katex-names	katex-names/environment/vmatrix*/2	not-yet
-katex-names	katex-names/environment/Vmatrix*/1	not-yet
-katex-names	katex-names/environment/Vmatrix*/2	not-yet
-katex-names	katex-names/environment/smallmatrix/1	not-yet
-katex-names	katex-names/environment/smallmatrix/2	not-yet
+katex-names	katex-names/environment/array/1	ok
+katex-names	katex-names/environment/array/2	ok
+katex-names	katex-names/environment/darray/1	ok
+katex-names	katex-names/environment/darray/2	ok
+katex-names	katex-names/environment/matrix/1	ok
+katex-names	katex-names/environment/matrix/2	ok
+katex-names	katex-names/environment/pmatrix/1	ok
+katex-names	katex-names/environment/pmatrix/2	ok
+katex-names	katex-names/environment/bmatrix/1	ok
+katex-names	katex-names/environment/bmatrix/2	ok
+katex-names	katex-names/environment/Bmatrix/1	ok
+katex-names	katex-names/environment/Bmatrix/2	ok
+katex-names	katex-names/environment/vmatrix/1	ok
+katex-names	katex-names/environment/vmatrix/2	ok
+katex-names	katex-names/environment/Vmatrix/1	ok
+katex-names	katex-names/environment/Vmatrix/2	ok
+katex-names	katex-names/environment/matrix*/1	ok
+katex-names	katex-names/environment/matrix*/2	ok
+katex-names	katex-names/environment/pmatrix*/1	ok
+katex-names	katex-names/environment/pmatrix*/2	ok
+katex-names	katex-names/environment/bmatrix*/1	ok
+katex-names	katex-names/environment/bmatrix*/2	ok
+katex-names	katex-names/environment/Bmatrix*/1	ok
+katex-names	katex-names/environment/Bmatrix*/2	ok
+katex-names	katex-names/environment/vmatrix*/1	ok
+katex-names	katex-names/environment/vmatrix*/2	ok
+katex-names	katex-names/environment/Vmatrix*/1	ok
+katex-names	katex-names/environment/Vmatrix*/2	ok
+katex-names	katex-names/environment/smallmatrix/1	ok
+katex-names	katex-names/environment/smallmatrix/2	ok
 katex-names	katex-names/environment/subarray/1	ok
 katex-names	katex-names/environment/subarray/2	ok
-katex-names	katex-names/environment/cases/1	not-yet
-katex-names	katex-names/environment/cases/2	not-yet
-katex-names	katex-names/environment/dcases/1	not-yet
-katex-names	katex-names/environment/dcases/2	not-yet
-katex-names	katex-names/environment/rcases/1	not-yet
-katex-names	katex-names/environment/rcases/2	not-yet
-katex-names	katex-names/environment/drcases/1	not-yet
-katex-names	katex-names/environment/drcases/2	not-yet
+katex-names	katex-names/environment/cases/1	ok
+katex-names	katex-names/environment/cases/2	ok
+katex-names	katex-names/environment/dcases/1	ok
+katex-names	katex-names/environment/dcases/2	ok
+katex-names	katex-names/environment/rcases/1	ok
+katex-names	katex-names/environment/rcases/2	ok
+katex-names	katex-names/environment/drcases/1	ok
+katex-names	katex-names/environment/drcases/2	ok
 katex-names	katex-names/environment/align/1	ok
-katex-names	katex-names/environment/align/2	not-yet
+katex-names	katex-names/environment/align/2	ok
 katex-names	katex-names/environment/align*/1	ok
-katex-names	katex-names/environment/align*/2	not-yet
-katex-names	katex-names/environment/aligned/1	not-yet
-katex-names	katex-names/environment/aligned/2	not-yet
+katex-names	katex-names/environment/align*/2	ok
+katex-names	katex-names/environment/aligned/1	ok
+katex-names	katex-names/environment/aligned/2	ok
 katex-names	katex-names/environment/split/1	ok
-katex-names	katex-names/environment/split/2	not-yet
-katex-names	katex-names/environment/gathered/1	not-yet
-katex-names	katex-names/environment/gathered/2	not-yet
+katex-names	katex-names/environment/split/2	ok
+katex-names	katex-names/environment/gathered/1	ok
+katex-names	katex-names/environment/gathered/2	ok
 katex-names	katex-names/environment/gather/1	ok
-katex-names	katex-names/environment/gather/2	not-yet
+katex-names	katex-names/environment/gather/2	ok
 katex-names	katex-names/environment/gather*/1	ok
-katex-names	katex-names/environment/gather*/2	not-yet
+katex-names	katex-names/environment/gather*/2	ok
 katex-names	katex-names/environment/alignat/1	ok
 katex-names	katex-names/environment/alignat/2	ok
 katex-names	katex-names/environment/alignat*/1	ok
@@ -1986,7 +1986,7 @@ katex-names	katex-names/environment/equation/2	ok
 katex-names	katex-names/environment/equation*/1	ok
 katex-names	katex-names/environment/equation*/2	ok
 katex-names	katex-names/environment/CD/1	ok
-katex-names	katex-names/environment/CD/2	not-yet
+katex-names	katex-names/environment/CD/2	ok
 katex-names	katex-names/macro/\nonumber/1	ok
 katex-names	katex-names/macro/\nonumber/2	ok
 katex-names	katex-names/macro/\nonumber/3	ok
@@ -2201,14 +2201,14 @@ katex-names	katex-names/macro/\varOmega/1	ok
 katex-names	katex-names/macro/\varOmega/2	ok
 katex-names	katex-names/macro/\varOmega/3	ok
 katex-names	katex-names/macro/\substack/1	ok
-katex-names	katex-names/macro/\substack/2	not-yet
-katex-names	katex-names/macro/\substack/3	not-yet
+katex-names	katex-names/macro/\substack/2	ok
+katex-names	katex-names/macro/\substack/3	ok
 katex-names	katex-names/macro/\colon/1	ok
 katex-names	katex-names/macro/\colon/2	ok
 katex-names	katex-names/macro/\colon/3	ok
 katex-names	katex-names/macro/\boxed/1	ok
-katex-names	katex-names/macro/\boxed/2	not-yet
-katex-names	katex-names/macro/\boxed/3	not-yet
+katex-names	katex-names/macro/\boxed/2	ok
+katex-names	katex-names/macro/\boxed/3	ok
 katex-names	katex-names/macro/\iff/1	ok
 katex-names	katex-names/macro/\iff/2	ok
 katex-names	katex-names/macro/\iff/3	ok
@@ -2773,9 +2773,9 @@ katex-names	katex-names/macro/\Set/3	ok
 katex-names	katex-names/macro/\set/1	ok
 katex-names	katex-names/macro/\set/2	ok
 katex-names	katex-names/macro/\set/3	ok
-katex-names	katex-names/macro/\angln/1	not-yet
-katex-names	katex-names/macro/\angln/2	not-yet
-katex-names	katex-names/macro/\angln/3	not-yet
+katex-names	katex-names/macro/\angln/1	ok
+katex-names	katex-names/macro/\angln/2	ok
+katex-names	katex-names/macro/\angln/3	ok
 katex-names	katex-names/macro/\blue/1	ok
 katex-names	katex-names/macro/\blue/2	ok
 katex-names	katex-names/macro/\blue/3	ok
@@ -8876,50 +8876,50 @@ katex-names	katex-names/symbol-text/Þ/2	ok
 katex-names	katex-names/symbol-text/þ/1	ok
 katex-names	katex-names/symbol-text/þ/2	ok
 katex-screenshots	katex-screenshots/Accents	ok
-katex-screenshots	katex-screenshots/AccentsText	not-yet
-katex-screenshots	katex-screenshots/Align	not-yet
-katex-screenshots	katex-screenshots/Aligned	not-yet
-katex-screenshots	katex-screenshots/Alignedat	not-yet
-katex-screenshots	katex-screenshots/Arrays	not-yet
-katex-screenshots	katex-screenshots/ArrayMode	not-yet
-katex-screenshots	katex-screenshots/ArrayType	not-yet
-katex-screenshots	katex-screenshots/ArrayRemoveEmptyLine	not-yet
+katex-screenshots	katex-screenshots/AccentsText	ok
+katex-screenshots	katex-screenshots/Align	ok
+katex-screenshots	katex-screenshots/Aligned	ok
+katex-screenshots	katex-screenshots/Alignedat	ok
+katex-screenshots	katex-screenshots/Arrays	ok
+katex-screenshots	katex-screenshots/ArrayMode	ok
+katex-screenshots	katex-screenshots/ArrayType	ok
+katex-screenshots	katex-screenshots/ArrayRemoveEmptyLine	ok
 katex-screenshots	katex-screenshots/Baseline	ok
 katex-screenshots	katex-screenshots/BasicTest	ok
-katex-screenshots	katex-screenshots/BinCancellation	not-yet
+katex-screenshots	katex-screenshots/BinCancellation	ok
 katex-screenshots	katex-screenshots/BinomTest	ok
 katex-screenshots	katex-screenshots/BoldSpacing	ok
 katex-screenshots	katex-screenshots/BoldSymbol	ok
-katex-screenshots	katex-screenshots/Boxed	not-yet
-katex-screenshots	katex-screenshots/Cases	not-yet
-katex-screenshots	katex-screenshots/CD	not-yet
+katex-screenshots	katex-screenshots/Boxed	ok
+katex-screenshots	katex-screenshots/Cases	ok
+katex-screenshots	katex-screenshots/CD	ok
 katex-screenshots	katex-screenshots/Colors	ok
 katex-screenshots	katex-screenshots/ColorSpacing	ok
-katex-screenshots	katex-screenshots/Colorbox	not-yet
-katex-screenshots	katex-screenshots/DashesAndQuotes	not-yet
+katex-screenshots	katex-screenshots/Colorbox	ok
+katex-screenshots	katex-screenshots/DashesAndQuotes	ok
 katex-screenshots	katex-screenshots/DeepFontSizing	ok
-katex-screenshots	katex-screenshots/DelimiterSizing	not-yet
+katex-screenshots	katex-screenshots/DelimiterSizing	ok
 katex-screenshots	katex-screenshots/DisplayMode	ok
 katex-screenshots	katex-screenshots/DisplayStyle	ok
-katex-screenshots	katex-screenshots/Dots	not-yet
-katex-screenshots	katex-screenshots/Equation	not-yet
+katex-screenshots	katex-screenshots/Dots	ok
+katex-screenshots	katex-screenshots/Equation	ok
 katex-screenshots	katex-screenshots/Exponents	ok
-katex-screenshots	katex-screenshots/ExtensibleArrows	not-yet
-katex-screenshots	katex-screenshots/FractionTest	not-yet
+katex-screenshots	katex-screenshots/ExtensibleArrows	ok
+katex-screenshots	katex-screenshots/FractionTest	ok
 katex-screenshots	katex-screenshots/Functions	ok
-katex-screenshots	katex-screenshots/Gather	not-yet
-katex-screenshots	katex-screenshots/Gathered	not-yet
+katex-screenshots	katex-screenshots/Gather	ok
+katex-screenshots	katex-screenshots/Gathered	ok
 katex-screenshots	katex-screenshots/GreekLetters	ok
 katex-screenshots	katex-screenshots/GreekUnicode	ok
 katex-screenshots	katex-screenshots/GroupMacros	ok
-katex-screenshots	katex-screenshots/HorizontalBraces	not-yet
-katex-screenshots	katex-screenshots/HorizontalBrackets	not-yet
+katex-screenshots	katex-screenshots/HorizontalBraces	ok
+katex-screenshots	katex-screenshots/HorizontalBrackets	ok
 katex-screenshots	katex-screenshots/HTML	ok
-katex-screenshots	katex-screenshots/Includegraphics	not-yet
-katex-screenshots	katex-screenshots/Integrands	not-yet
+katex-screenshots	katex-screenshots/Includegraphics	ok
+katex-screenshots	katex-screenshots/Integrands	ok
 katex-screenshots	katex-screenshots/KaTeX	ok
 katex-screenshots	katex-screenshots/Kern	ok
-katex-screenshots	katex-screenshots/Lap	not-yet
+katex-screenshots	katex-screenshots/Lap	ok
 katex-screenshots	katex-screenshots/LargeRuleNumerator	ok
 katex-screenshots	katex-screenshots/LaTeX	ok
 katex-screenshots	katex-screenshots/LeftRight	ok
@@ -8928,8 +8928,8 @@ katex-screenshots	katex-screenshots/LeftRightMiddle	ok
 katex-screenshots	katex-screenshots/LeftRightStyleSizing	ok
 katex-screenshots	katex-screenshots/LimitControls	ok
 katex-screenshots	katex-screenshots/LineBreak	ok
-katex-screenshots	katex-screenshots/LowerAccent	not-yet
-katex-screenshots	katex-screenshots/Mapsfrom	not-yet
+katex-screenshots	katex-screenshots/LowerAccent	ok
+katex-screenshots	katex-screenshots/Mapsfrom	ok
 katex-screenshots	katex-screenshots/MathAtom	ok
 katex-screenshots	katex-screenshots/MathAtom2	ok
 katex-screenshots	katex-screenshots/MathChoice	ok
@@ -8945,58 +8945,58 @@ katex-screenshots	katex-screenshots/MathRm	ok
 katex-screenshots	katex-screenshots/MathSf	ok
 katex-screenshots	katex-screenshots/MathSfIt	ok
 katex-screenshots	katex-screenshots/MathScr	ok
-katex-screenshots	katex-screenshots/MathtoolsMatrix	not-yet
+katex-screenshots	katex-screenshots/MathtoolsMatrix	ok
 katex-screenshots	katex-screenshots/MathTt	ok
-katex-screenshots	katex-screenshots/Mod	not-yet
-katex-screenshots	katex-screenshots/ModScript	not-yet
-katex-screenshots	katex-screenshots/ModSpacing	not-yet
+katex-screenshots	katex-screenshots/Mod	ok
+katex-screenshots	katex-screenshots/ModScript	ok
+katex-screenshots	katex-screenshots/ModSpacing	ok
 katex-screenshots	katex-screenshots/NegativeSpaceBetweenRel	ok
-katex-screenshots	katex-screenshots/NegativeSpace	not-yet
+katex-screenshots	katex-screenshots/NegativeSpace	ok
 katex-screenshots	katex-screenshots/NestedFractions	ok
-katex-screenshots	katex-screenshots/NewLine	not-yet
-katex-screenshots	katex-screenshots/Not	not-yet
+katex-screenshots	katex-screenshots/NewLine	ok
+katex-screenshots	katex-screenshots/Not	ok
 katex-screenshots	katex-screenshots/NullDelimiterInteraction	ok
-katex-screenshots	katex-screenshots/OldFont	not-yet
-katex-screenshots	katex-screenshots/OperatorName	not-yet
-katex-screenshots	katex-screenshots/OpLimits	not-yet
+katex-screenshots	katex-screenshots/OldFont	ok
+katex-screenshots	katex-screenshots/OperatorName	ok
+katex-screenshots	katex-screenshots/OpLimits	ok
 katex-screenshots	katex-screenshots/OverUnderline	ok
-katex-screenshots	katex-screenshots/OverUnderset	not-yet
+katex-screenshots	katex-screenshots/OverUnderset	ok
 katex-screenshots	katex-screenshots/Phantom	ok
-katex-screenshots	katex-screenshots/Phase	not-yet
+katex-screenshots	katex-screenshots/Phase	ok
 katex-screenshots	katex-screenshots/Pmb	ok
 katex-screenshots	katex-screenshots/PrimeSpacing	ok
 katex-screenshots	katex-screenshots/PrimeSuper	ok
-katex-screenshots	katex-screenshots/ReactionArrows	not-yet
-katex-screenshots	katex-screenshots/Reflectbox	not-yet
-katex-screenshots	katex-screenshots/RelativeUnits	not-yet
+katex-screenshots	katex-screenshots/ReactionArrows	ok
+katex-screenshots	katex-screenshots/Reflectbox	ok
+katex-screenshots	katex-screenshots/RelativeUnits	ok
 katex-screenshots	katex-screenshots/RlapBug	ok
 katex-screenshots	katex-screenshots/Rule	ok
 katex-screenshots	katex-screenshots/SizingBaseline	ok
 katex-screenshots	katex-screenshots/Sizing	ok
 katex-screenshots	katex-screenshots/Smash	ok
-katex-screenshots	katex-screenshots/Spacing	not-yet
+katex-screenshots	katex-screenshots/Spacing	ok
 katex-screenshots	katex-screenshots/Sqrt	ok
-katex-screenshots	katex-screenshots/SqrtRoot	not-yet
+katex-screenshots	katex-screenshots/SqrtRoot	ok
 katex-screenshots	katex-screenshots/StackRel	ok
-katex-screenshots	katex-screenshots/StretchyAccent	not-yet
+katex-screenshots	katex-screenshots/StretchyAccent	ok
 katex-screenshots	katex-screenshots/StretchyAccentColor	ok
-katex-screenshots	katex-screenshots/StrikeThrough	not-yet
-katex-screenshots	katex-screenshots/StrikeThroughColor	not-yet
+katex-screenshots	katex-screenshots/StrikeThrough	ok
+katex-screenshots	katex-screenshots/StrikeThroughColor	ok
 katex-screenshots	katex-screenshots/StyleSpacing	ok
 katex-screenshots	katex-screenshots/StyleSwitching	ok
 katex-screenshots	katex-screenshots/SupSubCharacterBox	ok
 katex-screenshots	katex-screenshots/SupSubHorizSpacing	ok
 katex-screenshots	katex-screenshots/SupSubLeftAlignReset	ok
 katex-screenshots	katex-screenshots/SupSubOffsets	ok
-katex-screenshots	katex-screenshots/SurrogatePairs	not-yet
-katex-screenshots	katex-screenshots/SvgReset	not-yet
+katex-screenshots	katex-screenshots/SurrogatePairs	ok
+katex-screenshots	katex-screenshots/SvgReset	ok
 katex-screenshots	katex-screenshots/Symbols1	ok
 katex-screenshots	katex-screenshots/Tag	ok
 katex-screenshots	katex-screenshots/Text	ok
-katex-screenshots	katex-screenshots/Unicode	not-yet
-katex-screenshots	katex-screenshots/Units	not-yet
+katex-screenshots	katex-screenshots/Unicode	ok
+katex-screenshots	katex-screenshots/Units	ok
 katex-screenshots	katex-screenshots/UnsupportedCmds	ok
-katex-screenshots	katex-screenshots/Verb	not-yet
+katex-screenshots	katex-screenshots/Verb	ok
 katex-screenshots	katex-screenshots/VerticalSpacing	ok
 katex-spec	katex-spec/katex > A parser > should not fail on an empty string/1	ok
 katex-spec	katex-spec/katex > A parser > should ignore whitespace/1	ok
@@ -9210,31 +9210,31 @@ katex-spec	katex-spec/katex > left/right builder > should build "\left\langle \r
 katex-spec	katex-spec/katex > left/right builder > should build "\left\langle \right\rangle" like "\left⟨ \right⟩"/2	ok
 katex-spec	katex-spec/katex > left/right builder > should build "\left\lparen \right\rparen" like "\left( \right)"/1	ok
 katex-spec	katex-spec/katex > left/right builder > should build "\left\lparen \right\rparen" like "\left( \right)"/2	ok
-katex-spec	katex-spec/katex > A begin/end parser > should parse a simple environment/1	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should parse an environment with argument/1	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should parse and build an empty environment/1	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should parse and build an empty environment/2	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should parse an environment with hlines/1	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should parse an environment with hlines/2	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should parse an environment with hlines/3	not-yet
+katex-spec	katex-spec/katex > A begin/end parser > should parse a simple environment/1	ok
+katex-spec	katex-spec/katex > A begin/end parser > should parse an environment with argument/1	ok
+katex-spec	katex-spec/katex > A begin/end parser > should parse and build an empty environment/1	ok
+katex-spec	katex-spec/katex > A begin/end parser > should parse and build an empty environment/2	ok
+katex-spec	katex-spec/katex > A begin/end parser > should parse an environment with hlines/1	ok
+katex-spec	katex-spec/katex > A begin/end parser > should parse an environment with hlines/2	ok
+katex-spec	katex-spec/katex > A begin/end parser > should parse an environment with hlines/3	ok
 katex-spec	katex-spec/katex > A begin/end parser > should forbid hlines outside array environment/1	ok
 katex-spec	katex-spec/katex > A begin/end parser > should error when name is mismatched/1	ok
 katex-spec	katex-spec/katex > A begin/end parser > should error when commands are mismatched/1	ok
 katex-spec	katex-spec/katex > A begin/end parser > should error when end is missing/1	ok
 katex-spec	katex-spec/katex > A begin/end parser > should error when braces are mismatched/1	ok
-katex-spec	katex-spec/katex > A begin/end parser > should cooperate with infix notation/1	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should nest/1	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should allow \cr and \\ as a line terminator/1	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should not allow \cr to scan for an optional size argument/1	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should not treat [ after space as optional argument to \\/1	not-yet
+katex-spec	katex-spec/katex > A begin/end parser > should cooperate with infix notation/1	ok
+katex-spec	katex-spec/katex > A begin/end parser > should nest/1	ok
+katex-spec	katex-spec/katex > A begin/end parser > should allow \cr and \\ as a line terminator/1	ok
+katex-spec	katex-spec/katex > A begin/end parser > should not allow \cr to scan for an optional size argument/1	ok
+katex-spec	katex-spec/katex > A begin/end parser > should not treat [ after space as optional argument to \\/1	ok
 katex-spec	katex-spec/katex > A begin/end parser > should not treat [ after space as optional argument to \\/2	ok
-katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./1	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./2	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./3	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./4	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./5	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./6	not-yet
-katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./7	not-yet
+katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./1	ok
+katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./2	ok
+katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./3	ok
+katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./4	ok
+katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./5	ok
+katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./6	ok
+katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./7	ok
 katex-spec	katex-spec/katex > A begin/end parser > should allow an optional argument in {matrix*} and company./8	ok
 katex-spec	katex-spec/katex > A sqrt parser > should parse square roots/1	ok
 katex-spec	katex-spec/katex > A sqrt parser > should error when there is no group/1	ok
@@ -9371,7 +9371,7 @@ katex-spec	katex-spec/katex > A comment parser > should parse comments in size a
 katex-spec	katex-spec/katex > A comment parser > should parse comments in size and color groups/3	ok
 katex-spec	katex-spec/katex > A comment parser > should parse comments before an expression/1	ok
 katex-spec	katex-spec/katex > A comment parser > should parse comments before an expression/2	ok
-katex-spec	katex-spec/katex > A comment parser > should parse comments before and between \hline/1	not-yet
+katex-spec	katex-spec/katex > A comment parser > should parse comments before and between \hline/1	ok
 katex-spec	katex-spec/katex > A comment parser > should parse comments in the macro definition/1	ok
 katex-spec	katex-spec/katex > A comment parser > should parse comments in the macro definition/2	ok
 katex-spec	katex-spec/katex > A comment parser > should not expand nor ignore spaces after a command sequence in a comment/1	ok
@@ -9418,63 +9418,63 @@ katex-spec	katex-spec/katex > An under-accent parser > should not fail/3	ok
 katex-spec	katex-spec/katex > An under-accent parser > should not fail/4	ok
 katex-spec	katex-spec/katex > An under-accent builder > should not fail/3	ok
 katex-spec	katex-spec/katex > An under-accent builder > should not fail/4	ok
-katex-spec	katex-spec/katex > An extensible arrow parser > should not fail/1	not-yet
-katex-spec	katex-spec/katex > An extensible arrow parser > should not fail/2	not-yet
-katex-spec	katex-spec/katex > An extensible arrow parser > should not fail/3	not-yet
-katex-spec	katex-spec/katex > An extensible arrow parser > should not fail/4	not-yet
-katex-spec	katex-spec/katex > An extensible arrow parser > should not fail/5	not-yet
-katex-spec	katex-spec/katex > An extensible arrow builder > should not fail/3	not-yet
-katex-spec	katex-spec/katex > An extensible arrow builder > should not fail/4	not-yet
-katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/1	not-yet
-katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/2	not-yet
-katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/3	not-yet
-katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/4	not-yet
-katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/5	not-yet
-katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/6	not-yet
-katex-spec	katex-spec/katex > A horizontal bracket parser > should not fail/1	not-yet
-katex-spec	katex-spec/katex > A horizontal bracket parser > should not fail/2	not-yet
-katex-spec	katex-spec/katex > A boxed parser > should not fail/1	not-yet
-katex-spec	katex-spec/katex > A boxed parser > should not fail/2	not-yet
-katex-spec	katex-spec/katex > A boxed parser > should not fail/3	not-yet
-katex-spec	katex-spec/katex > A boxed parser > should not fail/4	not-yet
-katex-spec	katex-spec/katex > A boxed builder > should not fail/3	not-yet
-katex-spec	katex-spec/katex > A boxed builder > should not fail/4	not-yet
+katex-spec	katex-spec/katex > An extensible arrow parser > should not fail/1	ok
+katex-spec	katex-spec/katex > An extensible arrow parser > should not fail/2	ok
+katex-spec	katex-spec/katex > An extensible arrow parser > should not fail/3	ok
+katex-spec	katex-spec/katex > An extensible arrow parser > should not fail/4	ok
+katex-spec	katex-spec/katex > An extensible arrow parser > should not fail/5	ok
+katex-spec	katex-spec/katex > An extensible arrow builder > should not fail/3	ok
+katex-spec	katex-spec/katex > An extensible arrow builder > should not fail/4	ok
+katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/1	ok
+katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/2	ok
+katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/3	ok
+katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/4	ok
+katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/5	ok
+katex-spec	katex-spec/katex > A horizontal brace parser > should not fail/6	ok
+katex-spec	katex-spec/katex > A horizontal bracket parser > should not fail/1	ok
+katex-spec	katex-spec/katex > A horizontal bracket parser > should not fail/2	ok
+katex-spec	katex-spec/katex > A boxed parser > should not fail/1	ok
+katex-spec	katex-spec/katex > A boxed parser > should not fail/2	ok
+katex-spec	katex-spec/katex > A boxed parser > should not fail/3	ok
+katex-spec	katex-spec/katex > A boxed parser > should not fail/4	ok
+katex-spec	katex-spec/katex > A boxed builder > should not fail/3	ok
+katex-spec	katex-spec/katex > A boxed builder > should not fail/4	ok
 katex-spec	katex-spec/katex > An fbox parser, unlike a boxed parser, > should fail when given math/1	ok
-katex-spec	katex-spec/katex > A colorbox parser > should not fail, given a text argument/1	not-yet
-katex-spec	katex-spec/katex > A colorbox parser > should not fail, given a text argument/2	not-yet
-katex-spec	katex-spec/katex > A colorbox parser > should not fail, given a text argument/3	not-yet
+katex-spec	katex-spec/katex > A colorbox parser > should not fail, given a text argument/1	ok
+katex-spec	katex-spec/katex > A colorbox parser > should not fail, given a text argument/2	ok
+katex-spec	katex-spec/katex > A colorbox parser > should not fail, given a text argument/3	ok
 katex-spec	katex-spec/katex > A colorbox parser > should fail, given a math argument/1	ok
 katex-spec	katex-spec/katex > A colorbox parser > should fail, given a math argument/2	ok
-katex-spec	katex-spec/katex > A colorbox parser > should parse a color/2	not-yet
-katex-spec	katex-spec/katex > A colorbox parser > should parse a color/3	not-yet
-katex-spec	katex-spec/katex > A colorbox builder > should not fail/2	not-yet
-katex-spec	katex-spec/katex > An fcolorbox parser > should not fail, given a text argument/1	not-yet
-katex-spec	katex-spec/katex > An fcolorbox parser > should not fail, given a text argument/2	not-yet
-katex-spec	katex-spec/katex > An fcolorbox parser > should not fail, given a text argument/3	not-yet
+katex-spec	katex-spec/katex > A colorbox parser > should parse a color/2	ok
+katex-spec	katex-spec/katex > A colorbox parser > should parse a color/3	ok
+katex-spec	katex-spec/katex > A colorbox builder > should not fail/2	ok
+katex-spec	katex-spec/katex > An fcolorbox parser > should not fail, given a text argument/1	ok
+katex-spec	katex-spec/katex > An fcolorbox parser > should not fail, given a text argument/2	ok
+katex-spec	katex-spec/katex > An fcolorbox parser > should not fail, given a text argument/3	ok
 katex-spec	katex-spec/katex > An fcolorbox parser > should fail, given a math argument/1	ok
 katex-spec	katex-spec/katex > An fcolorbox parser > should fail, given a math argument/2	ok
-katex-spec	katex-spec/katex > An fcolorbox parser > should parse a color/2	not-yet
-katex-spec	katex-spec/katex > An fcolorbox parser > should parse a color/3	not-yet
-katex-spec	katex-spec/katex > A fcolorbox builder > should not fail/2	not-yet
-katex-spec	katex-spec/katex > A strike-through parser > should not fail/1	not-yet
-katex-spec	katex-spec/katex > A strike-through parser > should not fail/2	not-yet
-katex-spec	katex-spec/katex > A strike-through parser > should not fail/3	not-yet
-katex-spec	katex-spec/katex > A strike-through parser > should not fail/4	not-yet
-katex-spec	katex-spec/katex > A strike-through builder > should not fail/3	not-yet
-katex-spec	katex-spec/katex > A strike-through builder > should not fail/4	not-yet
-katex-spec	katex-spec/katex > A strike-through builder > should not fail/5	not-yet
-katex-spec	katex-spec/katex > A strike-through builder > should not fail/6	not-yet
-katex-spec	katex-spec/katex > A strike-through builder > should not fail/7	not-yet
-katex-spec	katex-spec/katex > A strike-through builder > should not fail/8	not-yet
-katex-spec	katex-spec/katex > A strike-through builder > should not fail/9	not-yet
+katex-spec	katex-spec/katex > An fcolorbox parser > should parse a color/2	ok
+katex-spec	katex-spec/katex > An fcolorbox parser > should parse a color/3	ok
+katex-spec	katex-spec/katex > A fcolorbox builder > should not fail/2	ok
+katex-spec	katex-spec/katex > A strike-through parser > should not fail/1	ok
+katex-spec	katex-spec/katex > A strike-through parser > should not fail/2	ok
+katex-spec	katex-spec/katex > A strike-through parser > should not fail/3	ok
+katex-spec	katex-spec/katex > A strike-through parser > should not fail/4	ok
+katex-spec	katex-spec/katex > A strike-through builder > should not fail/3	ok
+katex-spec	katex-spec/katex > A strike-through builder > should not fail/4	ok
+katex-spec	katex-spec/katex > A strike-through builder > should not fail/5	ok
+katex-spec	katex-spec/katex > A strike-through builder > should not fail/6	ok
+katex-spec	katex-spec/katex > A strike-through builder > should not fail/7	ok
+katex-spec	katex-spec/katex > A strike-through builder > should not fail/8	ok
+katex-spec	katex-spec/katex > A strike-through builder > should not fail/9	ok
 katex-spec	katex-spec/katex > A \sout parser > should fail in math mode with strict settings/1	ok
-katex-spec	katex-spec/katex > A actuarial angle parser > should not fail in math mode/1	not-yet
+katex-spec	katex-spec/katex > A actuarial angle parser > should not fail in math mode/1	ok
 katex-spec	katex-spec/katex > A actuarial angle parser > should fail in text mode/1	ok
-katex-spec	katex-spec/katex > A actuarial angle builder > should not fail/2	not-yet
-katex-spec	katex-spec/katex > A actuarial angle builder > should not fail/3	not-yet
-katex-spec	katex-spec/katex > A actuarial angle builder > should not fail/4	not-yet
+katex-spec	katex-spec/katex > A actuarial angle builder > should not fail/2	ok
+katex-spec	katex-spec/katex > A actuarial angle builder > should not fail/3	ok
+katex-spec	katex-spec/katex > A actuarial angle builder > should not fail/4	ok
 katex-spec	katex-spec/katex > \phase > should fail in text mode/1	ok
-katex-spec	katex-spec/katex > \phase > should not fail in math mode/1	not-yet
+katex-spec	katex-spec/katex > \phase > should not fail in math mode/1	ok
 katex-spec	katex-spec/katex > A phantom parser > should not fail/1	ok
 katex-spec	katex-spec/katex > A phantom parser > should not fail/2	ok
 katex-spec	katex-spec/katex > A phantom parser > should not fail/3	ok
@@ -9512,15 +9512,15 @@ katex-spec	katex-spec/katex > An optional argument parser > should fail when the
 katex-spec	katex-spec/katex > An optional argument parser > should not work if the optional argument isn't closed/1	ok
 katex-spec	katex-spec/katex > A subarray environment > should accept only a single alignment character/1	ok
 katex-spec	katex-spec/katex > A subarray environment > should accept only a single alignment character/2	ok
-katex-spec	katex-spec/katex > A subarray environment > should accept only a single alignment character/3	not-yet
-katex-spec	katex-spec/katex > A substack function > should build/1	not-yet
-katex-spec	katex-spec/katex > A substack function > should accommodate macros in the argument/1	not-yet
-katex-spec	katex-spec/katex > A substack function > should accommodate an empty argument/1	not-yet
-katex-spec	katex-spec/katex > A smallmatrix environment > should build/1	not-yet
-katex-spec	katex-spec/katex > A cases environment > should parse its input/1	not-yet
-katex-spec	katex-spec/katex > An rcases environment > should build/1	not-yet
-katex-spec	katex-spec/katex > An aligned environment > should parse its input/1	not-yet
-katex-spec	katex-spec/katex > An aligned environment > should allow cells in brackets/1	not-yet
+katex-spec	katex-spec/katex > A subarray environment > should accept only a single alignment character/3	ok
+katex-spec	katex-spec/katex > A substack function > should build/1	ok
+katex-spec	katex-spec/katex > A substack function > should accommodate macros in the argument/1	ok
+katex-spec	katex-spec/katex > A substack function > should accommodate an empty argument/1	ok
+katex-spec	katex-spec/katex > A smallmatrix environment > should build/1	ok
+katex-spec	katex-spec/katex > A cases environment > should parse its input/1	ok
+katex-spec	katex-spec/katex > An rcases environment > should build/1	ok
+katex-spec	katex-spec/katex > An aligned environment > should parse its input/1	ok
+katex-spec	katex-spec/katex > An aligned environment > should allow cells in brackets/1	ok
 katex-spec	katex-spec/katex > An aligned environment > should forbid cells in brackets without space/1	ok
 katex-spec	katex-spec/katex > AMS environments > should fail outside display mode/1	ok
 katex-spec	katex-spec/katex > AMS environments > should fail outside display mode/2	ok
@@ -9531,25 +9531,25 @@ katex-spec	katex-spec/katex > AMS environments > should fail outside display mod
 katex-spec	katex-spec/katex > AMS environments > should fail outside display mode/7	ok
 katex-spec	katex-spec/katex > AMS environments > should fail outside display mode/8	ok
 katex-spec	katex-spec/katex > AMS environments > should fail outside display mode/9	ok
-katex-spec	katex-spec/katex > AMS environments > should build if in display mode/1	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build if in display mode/2	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build if in display mode/3	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build if in display mode/4	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build if in display mode/5	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build if in display mode/6	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build if in display mode/7	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build if in display mode/8	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build if in display mode/9	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build if in display mode/10	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build an empty environment/1	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build an empty environment/2	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build an empty environment/3	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build an empty environment/4	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build an empty environment/5	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build an empty environment/6	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build an empty environment/7	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build an empty environment/8	not-yet
-katex-spec	katex-spec/katex > AMS environments > should build an empty environment/9	not-yet
+katex-spec	katex-spec/katex > AMS environments > should build if in display mode/1	ok
+katex-spec	katex-spec/katex > AMS environments > should build if in display mode/2	ok
+katex-spec	katex-spec/katex > AMS environments > should build if in display mode/3	ok
+katex-spec	katex-spec/katex > AMS environments > should build if in display mode/4	ok
+katex-spec	katex-spec/katex > AMS environments > should build if in display mode/5	ok
+katex-spec	katex-spec/katex > AMS environments > should build if in display mode/6	ok
+katex-spec	katex-spec/katex > AMS environments > should build if in display mode/7	ok
+katex-spec	katex-spec/katex > AMS environments > should build if in display mode/8	ok
+katex-spec	katex-spec/katex > AMS environments > should build if in display mode/9	ok
+katex-spec	katex-spec/katex > AMS environments > should build if in display mode/10	ok
+katex-spec	katex-spec/katex > AMS environments > should build an empty environment/1	ok
+katex-spec	katex-spec/katex > AMS environments > should build an empty environment/2	ok
+katex-spec	katex-spec/katex > AMS environments > should build an empty environment/3	ok
+katex-spec	katex-spec/katex > AMS environments > should build an empty environment/4	ok
+katex-spec	katex-spec/katex > AMS environments > should build an empty environment/5	ok
+katex-spec	katex-spec/katex > AMS environments > should build an empty environment/6	ok
+katex-spec	katex-spec/katex > AMS environments > should build an empty environment/7	ok
+katex-spec	katex-spec/katex > AMS environments > should build an empty environment/8	ok
+katex-spec	katex-spec/katex > AMS environments > should build an empty environment/9	ok
 katex-spec	katex-spec/katex > AMS environments > {equation} should fail if argument contains two rows./1	ok
 katex-spec	katex-spec/katex > AMS environments > {equation} should fail if argument contains two columns./1	ok
 katex-spec	katex-spec/katex > AMS environments > {split} should fail if argument contains three columns./1	ok
@@ -9786,10 +9786,10 @@ katex-spec	katex-spec/katex > A macro expander > \textbf arguments do generate g
 katex-spec	katex-spec/katex > A macro expander > \textbf arguments do generate groups/2	ok
 katex-spec	katex-spec/katex > A macro expander > \sqrt optional arguments generate groups/1	ok
 katex-spec	katex-spec/katex > A macro expander > \sqrt optional arguments generate groups/2	ok
-katex-spec	katex-spec/katex > A macro expander > array cells generate groups/1	not-yet
-katex-spec	katex-spec/katex > A macro expander > array cells generate groups/2	not-yet
-katex-spec	katex-spec/katex > A macro expander > array cells generate groups/3	not-yet
-katex-spec	katex-spec/katex > A macro expander > array cells generate groups/4	not-yet
+katex-spec	katex-spec/katex > A macro expander > array cells generate groups/1	ok
+katex-spec	katex-spec/katex > A macro expander > array cells generate groups/2	ok
+katex-spec	katex-spec/katex > A macro expander > array cells generate groups/3	ok
+katex-spec	katex-spec/katex > A macro expander > array cells generate groups/4	ok
 katex-spec	katex-spec/katex > A macro expander > \gdef changes settings.macros/1	ok
 katex-spec	katex-spec/katex > A macro expander > \def doesn't change settings.macros/1	ok
 katex-spec	katex-spec/katex > A macro expander > \def doesn't change settings.macros on error/1	ok
@@ -9888,9 +9888,9 @@ katex-spec	katex-spec/katex > A macro expander > should expand \Set as expected/
 katex-spec	katex-spec/katex > \tag support > should fail outside display mode/1	ok
 katex-spec	katex-spec/katex > \tag support > should fail with multiple tags/1	ok
 katex-spec	katex-spec/katex > \tag support > should fail with multiple tags in one row/1	ok
-katex-spec	katex-spec/katex > \tag support > should work with one tag per row/1	not-yet
-katex-spec	katex-spec/katex > \tag support > should work with \nonumber/\notag/1	not-yet
-katex-spec	katex-spec/katex > \tag support > should work with \nonumber/\notag/2	not-yet
+katex-spec	katex-spec/katex > \tag support > should work with one tag per row/1	ok
+katex-spec	katex-spec/katex > \tag support > should work with \nonumber/\notag/1	ok
+katex-spec	katex-spec/katex > \tag support > should work with \nonumber/\notag/2	ok
 katex-spec	katex-spec/katex > \tag support > should build/1	ok
 katex-spec	katex-spec/katex > \tag support > should ignore location of \tag/2	ok
 katex-spec	katex-spec/katex > \tag support > should handle \tag* like \tag/2	ok
@@ -10163,7 +10163,7 @@ katex-support-table	katex-support-table/\!/1	ok
 katex-support-table	katex-support-table/#/1	ok
 katex-support-table	katex-support-table/\#/1	ok
 katex-support-table	katex-support-table/\%/1	ok
-katex-support-table	katex-support-table/&/1	not-yet
+katex-support-table	katex-support-table/&/1	ok
 katex-support-table	katex-support-table/\&/1	ok
 katex-support-table	katex-support-table/'/1	ok
 katex-support-table	katex-support-table/\'/1	ok
@@ -10193,7 +10193,7 @@ katex-support-table	katex-support-table/&#124;/1	ok
 katex-support-table	katex-support-table/\&#124;/1	ok
 katex-support-table	katex-support-table/~/1	ok
 katex-support-table	katex-support-table/\~/1	ok
-katex-support-table	katex-support-table/\\ /1	not-yet
+katex-support-table	katex-support-table/\\ /1	ok
 katex-support-table	katex-support-table/^/1	ok
 katex-support-table	katex-support-table/\^/1	ok
 katex-support-table	katex-support-table/AA/1	ok
@@ -10205,18 +10205,18 @@ katex-support-table	katex-support-table/ae/1	ok
 katex-support-table	katex-support-table/alef/1	ok
 katex-support-table	katex-support-table/alefsym/1	ok
 katex-support-table	katex-support-table/aleph/1	ok
-katex-support-table	katex-support-table/{align}/1	not-yet
-katex-support-table	katex-support-table/{align*}/1	not-yet
-katex-support-table	katex-support-table/{aligned}/1	not-yet
-katex-support-table	katex-support-table/{alignat}/1	not-yet
-katex-support-table	katex-support-table/{alignat*}/1	not-yet
-katex-support-table	katex-support-table/{alignedat}/1	not-yet
+katex-support-table	katex-support-table/{align}/1	ok
+katex-support-table	katex-support-table/{align*}/1	ok
+katex-support-table	katex-support-table/{aligned}/1	ok
+katex-support-table	katex-support-table/{alignat}/1	ok
+katex-support-table	katex-support-table/{alignat*}/1	ok
+katex-support-table	katex-support-table/{alignedat}/1	ok
 katex-support-table	katex-support-table/Alpha/1	ok
 katex-support-table	katex-support-table/alpha/1	ok
 katex-support-table	katex-support-table/amalg/1	ok
 katex-support-table	katex-support-table/And/1	ok
-katex-support-table	katex-support-table/angl/1	not-yet
-katex-support-table	katex-support-table/angln/1	not-yet
+katex-support-table	katex-support-table/angl/1	ok
+katex-support-table	katex-support-table/angln/1	ok
 katex-support-table	katex-support-table/angle/1	ok
 katex-support-table	katex-support-table/approx/1	ok
 katex-support-table	katex-support-table/approxeq/1	ok
@@ -10230,8 +10230,8 @@ katex-support-table	katex-support-table/arctg/1	ok
 katex-support-table	katex-support-table/arg/1	ok
 katex-support-table	katex-support-table/argmax/1	ok
 katex-support-table	katex-support-table/argmin/1	ok
-katex-support-table	katex-support-table/{array}/1	not-yet
-katex-support-table	katex-support-table/arraystretch/1	not-yet
+katex-support-table	katex-support-table/{array}/1	ok
+katex-support-table	katex-support-table/arraystretch/1	ok
 katex-support-table	katex-support-table/ast/1	ok
 katex-support-table	katex-support-table/asymp/1	ok
 katex-support-table	katex-support-table/atop/1	ok
@@ -10244,7 +10244,7 @@ katex-support-table	katex-support-table/bar/1	ok
 katex-support-table	katex-support-table/barwedge/1	ok
 katex-support-table	katex-support-table/Bbb/1	ok
 katex-support-table	katex-support-table/Bbbk/1	ok
-katex-support-table	katex-support-table/bcancel/1	not-yet
+katex-support-table	katex-support-table/bcancel/1	ok
 katex-support-table	katex-support-table/because/1	ok
 katex-support-table	katex-support-table/begingroup/1	ok
 katex-support-table	katex-support-table/Beta/1	ok
@@ -10289,10 +10289,10 @@ katex-support-table	katex-support-table/blacktriangledown/1	ok
 katex-support-table	katex-support-table/blacktriangleleft/1	ok
 katex-support-table	katex-support-table/blacktriangleright/1	ok
 katex-support-table	katex-support-table/bm/1	ok
-katex-support-table	katex-support-table/{Bmatrix}/1	not-yet
-katex-support-table	katex-support-table/{Bmatrix*}/1	not-yet
-katex-support-table	katex-support-table/{bmatrix}/1	not-yet
-katex-support-table	katex-support-table/{bmatrix*}/1	not-yet
+katex-support-table	katex-support-table/{Bmatrix}/1	ok
+katex-support-table	katex-support-table/{Bmatrix*}/1	ok
+katex-support-table	katex-support-table/{bmatrix}/1	ok
+katex-support-table	katex-support-table/{bmatrix*}/1	ok
 katex-support-table	katex-support-table/bmod/1	ok
 katex-support-table	katex-support-table/bold/1	ok
 katex-support-table	katex-support-table/boldsymbol/1	ok
@@ -10300,7 +10300,7 @@ katex-support-table	katex-support-table/bot/1	ok
 katex-support-table	katex-support-table/bowtie/1	ok
 katex-support-table	katex-support-table/Box/1	ok
 katex-support-table	katex-support-table/boxdot/1	ok
-katex-support-table	katex-support-table/boxed/1	not-yet
+katex-support-table	katex-support-table/boxed/1	ok
 katex-support-table	katex-support-table/boxminus/1	ok
 katex-support-table	katex-support-table/boxplus/1	ok
 katex-support-table	katex-support-table/boxtimes/1	ok
@@ -10316,11 +10316,11 @@ katex-support-table	katex-support-table/bullet/1	ok
 katex-support-table	katex-support-table/Bumpeq/1	ok
 katex-support-table	katex-support-table/bumpeq/1	ok
 katex-support-table	katex-support-table/cal/1	ok
-katex-support-table	katex-support-table/cancel/1	not-yet
+katex-support-table	katex-support-table/cancel/1	ok
 katex-support-table	katex-support-table/Cap/1	ok
 katex-support-table	katex-support-table/cap/1	ok
-katex-support-table	katex-support-table/{cases}/1	not-yet
-katex-support-table	katex-support-table/{CD}/1	not-yet
+katex-support-table	katex-support-table/{cases}/1	ok
+katex-support-table	katex-support-table/{CD}/1	ok
 katex-support-table	katex-support-table/cdot/1	ok
 katex-support-table	katex-support-table/cdotp/1	ok
 katex-support-table	katex-support-table/cdots/1	ok
@@ -10363,7 +10363,7 @@ katex-support-table	katex-support-table/colonminus/1	ok
 katex-support-table	katex-support-table/Colonsim/1	ok
 katex-support-table	katex-support-table/colonsim/1	ok
 katex-support-table	katex-support-table/color/1	ok
-katex-support-table	katex-support-table/colorbox/1	not-yet
+katex-support-table	katex-support-table/colorbox/1	ok
 katex-support-table	katex-support-table/complement/1	ok
 katex-support-table	katex-support-table/Complex/1	ok
 katex-support-table	katex-support-table/cong/1	ok
@@ -10398,7 +10398,7 @@ katex-support-table	katex-support-table/dashrightarrow/1	ok
 katex-support-table	katex-support-table/dashv/1	ok
 katex-support-table	katex-support-table/dbinom/1	ok
 katex-support-table	katex-support-table/dblcolon/1	ok
-katex-support-table	katex-support-table/{dcases}/1	not-yet
+katex-support-table	katex-support-table/{dcases}/1	ok
 katex-support-table	katex-support-table/ddag/1	ok
 katex-support-table	katex-support-table/ddagger/1	ok
 katex-support-table	katex-support-table/ddddot/1	ok
@@ -10442,7 +10442,7 @@ katex-support-table	katex-support-table/downarrow/1	ok
 katex-support-table	katex-support-table/downdownarrows/1	ok
 katex-support-table	katex-support-table/downharpoonleft/1	ok
 katex-support-table	katex-support-table/downharpoonright/1	ok
-katex-support-table	katex-support-table/{drcases}/1	not-yet
+katex-support-table	katex-support-table/{drcases}/1	ok
 katex-support-table	katex-support-table/edef/1	ok
 katex-support-table	katex-support-table/ell/1	ok
 katex-support-table	katex-support-table/emph/1	ok
@@ -10455,8 +10455,8 @@ katex-support-table	katex-support-table/epsilon/1	ok
 katex-support-table	katex-support-table/eqcirc/1	ok
 katex-support-table	katex-support-table/Eqcolon/1	ok
 katex-support-table	katex-support-table/eqcolon/1	ok
-katex-support-table	katex-support-table/{equation}/1	not-yet
-katex-support-table	katex-support-table/{equation*}/1	not-yet
+katex-support-table	katex-support-table/{equation}/1	ok
+katex-support-table	katex-support-table/{equation*}/1	ok
 katex-support-table	katex-support-table/Eqqcolon/1	ok
 katex-support-table	katex-support-table/eqqcolon/1	ok
 katex-support-table	katex-support-table/eqsim/1	ok
@@ -10472,8 +10472,8 @@ katex-support-table	katex-support-table/exist/1	ok
 katex-support-table	katex-support-table/exists/1	ok
 katex-support-table	katex-support-table/exp/1	ok
 katex-support-table	katex-support-table/fallingdotseq/1	ok
-katex-support-table	katex-support-table/fbox/1	not-yet
-katex-support-table	katex-support-table/fcolorbox/1	not-yet
+katex-support-table	katex-support-table/fbox/1	ok
+katex-support-table	katex-support-table/fcolorbox/1	ok
 katex-support-table	katex-support-table/Finv/1	ok
 katex-support-table	katex-support-table/flat/1	ok
 katex-support-table	katex-support-table/footnotesize/1	ok
@@ -10484,8 +10484,8 @@ katex-support-table	katex-support-table/frown/1	ok
 katex-support-table	katex-support-table/Game/1	ok
 katex-support-table	katex-support-table/Gamma/1	ok
 katex-support-table	katex-support-table/gamma/1	ok
-katex-support-table	katex-support-table/{gather}/1	not-yet
-katex-support-table	katex-support-table/{gathered}/1	not-yet
+katex-support-table	katex-support-table/{gather}/1	ok
+katex-support-table	katex-support-table/{gathered}/1	ok
 katex-support-table	katex-support-table/gcd/1	ok
 katex-support-table	katex-support-table/gdef/1	ok
 katex-support-table	katex-support-table/ge/1	ok
@@ -10520,10 +10520,10 @@ katex-support-table	katex-support-table/hat/1	ok
 katex-support-table	katex-support-table/hbar/1	ok
 katex-support-table	katex-support-table/hbox/1	ok
 katex-support-table	katex-support-table/hbox/2	ok
-katex-support-table	katex-support-table/hdashline/1	not-yet
+katex-support-table	katex-support-table/hdashline/1	ok
 katex-support-table	katex-support-table/hearts/1	ok
 katex-support-table	katex-support-table/heartsuit/1	ok
-katex-support-table	katex-support-table/hline/1	not-yet
+katex-support-table	katex-support-table/hline/1	ok
 katex-support-table	katex-support-table/hom/1	ok
 katex-support-table	katex-support-table/hookleftarrow/1	ok
 katex-support-table	katex-support-table/hookrightarrow/1	ok
@@ -10689,8 +10689,8 @@ katex-support-table	katex-support-table/mathsf/1	ok
 katex-support-table	katex-support-table/mathsterling/1	ok
 katex-support-table	katex-support-table/mathstrut/1	ok
 katex-support-table	katex-support-table/mathtt/1	ok
-katex-support-table	katex-support-table/{matrix}/1	not-yet
-katex-support-table	katex-support-table/{matrix*}/1	not-yet
+katex-support-table	katex-support-table/{matrix}/1	ok
+katex-support-table	katex-support-table/{matrix*}/1	ok
 katex-support-table	katex-support-table/max/1	ok
 katex-support-table	katex-support-table/measuredangle/1	ok
 katex-support-table	katex-support-table/medspace/1	ok
@@ -10740,10 +10740,10 @@ katex-support-table	katex-support-table/nless/1	ok
 katex-support-table	katex-support-table/nmid/1	ok
 katex-support-table	katex-support-table/nobreakspace/1	ok
 katex-support-table	katex-support-table/nolimits/1	ok
-katex-support-table	katex-support-table/nonumber/1	not-yet
+katex-support-table	katex-support-table/nonumber/1	ok
 katex-support-table	katex-support-table/normalsize/1	ok
 katex-support-table	katex-support-table/not/1	ok
-katex-support-table	katex-support-table/notag/1	not-yet
+katex-support-table	katex-support-table/notag/1	ok
 katex-support-table	katex-support-table/notin/1	ok
 katex-support-table	katex-support-table/notni/1	ok
 katex-support-table	katex-support-table/nparallel/1	ok
@@ -10792,8 +10792,8 @@ katex-support-table	katex-support-table/origof/1	ok
 katex-support-table	katex-support-table/oslash/1	ok
 katex-support-table	katex-support-table/otimes/1	ok
 katex-support-table	katex-support-table/over/1	ok
-katex-support-table	katex-support-table/overbrace/1	not-yet
-katex-support-table	katex-support-table/overbracket/1	not-yet
+katex-support-table	katex-support-table/overbrace/1	ok
+katex-support-table	katex-support-table/overbracket/1	ok
 katex-support-table	katex-support-table/overgroup/1	ok
 katex-support-table	katex-support-table/overleftarrow/1	ok
 katex-support-table	katex-support-table/overleftharpoon/1	ok
@@ -10810,7 +10810,7 @@ katex-support-table	katex-support-table/parallel/1	ok
 katex-support-table	katex-support-table/partial/1	ok
 katex-support-table	katex-support-table/perp/1	ok
 katex-support-table	katex-support-table/phantom/1	ok
-katex-support-table	katex-support-table/phase/1	not-yet
+katex-support-table	katex-support-table/phase/1	ok
 katex-support-table	katex-support-table/Phi/1	ok
 katex-support-table	katex-support-table/phi/1	ok
 katex-support-table	katex-support-table/Pi/1	ok
@@ -10819,8 +10819,8 @@ katex-support-table	katex-support-table/pitchfork/1	ok
 katex-support-table	katex-support-table/plim/1	ok
 katex-support-table	katex-support-table/plusmn/1	ok
 katex-support-table	katex-support-table/pm/1	ok
-katex-support-table	katex-support-table/{pmatrix}/1	not-yet
-katex-support-table	katex-support-table/{pmatrix*}/1	not-yet
+katex-support-table	katex-support-table/{pmatrix}/1	ok
+katex-support-table	katex-support-table/{pmatrix*}/1	ok
 katex-support-table	katex-support-table/pmb/1	ok
 katex-support-table	katex-support-table/pmod/1	ok
 katex-support-table	katex-support-table/pod/1	ok
@@ -10855,7 +10855,7 @@ katex-support-table	katex-support-table/ratio/1	ok
 katex-support-table	katex-support-table/rBrace/1	ok
 katex-support-table	katex-support-table/rbrace/1	ok
 katex-support-table	katex-support-table/rbrack/1	ok
-katex-support-table	katex-support-table/{rcases}/1	not-yet
+katex-support-table	katex-support-table/{rcases}/1	ok
 katex-support-table	katex-support-table/rceil/1	ok
 katex-support-table	katex-support-table/Re/1	ok
 katex-support-table	katex-support-table/real/1	ok
@@ -10921,17 +10921,17 @@ katex-support-table	katex-support-table/sh/1	ok
 katex-support-table	katex-support-table/small/1	ok
 katex-support-table	katex-support-table/smallfrown/1	ok
 katex-support-table	katex-support-table/smallint/1	ok
-katex-support-table	katex-support-table/{smallmatrix}/1	not-yet
+katex-support-table	katex-support-table/{smallmatrix}/1	ok
 katex-support-table	katex-support-table/smallsetminus/1	ok
 katex-support-table	katex-support-table/smallsmile/1	ok
 katex-support-table	katex-support-table/smash/1	ok
 katex-support-table	katex-support-table/smile/1	ok
-katex-support-table	katex-support-table/sout/1	not-yet
+katex-support-table	katex-support-table/sout/1	ok
 katex-support-table	katex-support-table/space/1	ok
 katex-support-table	katex-support-table/spades/1	ok
 katex-support-table	katex-support-table/spadesuit/1	ok
 katex-support-table	katex-support-table/sphericalangle/1	ok
-katex-support-table	katex-support-table/{split}/1	not-yet
+katex-support-table	katex-support-table/{split}/1	ok
 katex-support-table	katex-support-table/sqcap/1	ok
 katex-support-table	katex-support-table/sqcup/1	ok
 katex-support-table	katex-support-table/square/1	ok
@@ -10951,7 +10951,7 @@ katex-support-table	katex-support-table/subseteq/1	ok
 katex-support-table	katex-support-table/subseteqq/1	ok
 katex-support-table	katex-support-table/subsetneq/1	ok
 katex-support-table	katex-support-table/subsetneqq/1	ok
-katex-support-table	katex-support-table/substack/1	not-yet
+katex-support-table	katex-support-table/substack/1	ok
 katex-support-table	katex-support-table/succ/1	ok
 katex-support-table	katex-support-table/succapprox/1	ok
 katex-support-table	katex-support-table/succcurlyeq/1	ok
@@ -11045,8 +11045,8 @@ katex-support-table	katex-support-table/uArr/1	ok
 katex-support-table	katex-support-table/uarr/1	ok
 katex-support-table	katex-support-table/ulcorner/1	ok
 katex-support-table	katex-support-table/underbar/1	ok
-katex-support-table	katex-support-table/underbrace/1	not-yet
-katex-support-table	katex-support-table/underbracket/1	not-yet
+katex-support-table	katex-support-table/underbrace/1	ok
+katex-support-table	katex-support-table/underbracket/1	ok
 katex-support-table	katex-support-table/undergroup/1	ok
 katex-support-table	katex-support-table/underleftarrow/1	ok
 katex-support-table	katex-support-table/underleftrightarrow/1	ok
@@ -11111,10 +11111,10 @@ katex-support-table	katex-support-table/vec/1	ok
 katex-support-table	katex-support-table/vee/1	ok
 katex-support-table	katex-support-table/veebar/1	ok
 katex-support-table	katex-support-table/verb/1	ok
-katex-support-table	katex-support-table/{Vmatrix}/1	not-yet
-katex-support-table	katex-support-table/{Vmatrix*}/1	not-yet
-katex-support-table	katex-support-table/{vmatrix}/1	not-yet
-katex-support-table	katex-support-table/{vmatrix*}/1	not-yet
+katex-support-table	katex-support-table/{Vmatrix}/1	ok
+katex-support-table	katex-support-table/{Vmatrix*}/1	ok
+katex-support-table	katex-support-table/{vmatrix}/1	ok
+katex-support-table	katex-support-table/{vmatrix*}/1	ok
 katex-support-table	katex-support-table/vphantom/1	ok
 katex-support-table	katex-support-table/Vvdash/1	ok
 katex-support-table	katex-support-table/wedge/1	ok
@@ -11124,29 +11124,29 @@ katex-support-table	katex-support-table/widehat/1	ok
 katex-support-table	katex-support-table/widetilde/1	ok
 katex-support-table	katex-support-table/wp/1	ok
 katex-support-table	katex-support-table/wr/1	ok
-katex-support-table	katex-support-table/xcancel/1	not-yet
+katex-support-table	katex-support-table/xcancel/1	ok
 katex-support-table	katex-support-table/xdef/1	ok
 katex-support-table	katex-support-table/Xi/1	ok
 katex-support-table	katex-support-table/xi/1	ok
-katex-support-table	katex-support-table/xhookleftarrow/1	not-yet
-katex-support-table	katex-support-table/xhookrightarrow/1	not-yet
-katex-support-table	katex-support-table/xLeftarrow/1	not-yet
-katex-support-table	katex-support-table/xleftarrow/1	not-yet
-katex-support-table	katex-support-table/xleftharpoondown/1	not-yet
-katex-support-table	katex-support-table/xleftharpoonup/1	not-yet
-katex-support-table	katex-support-table/xLeftrightarrow/1	not-yet
-katex-support-table	katex-support-table/xleftrightarrow/1	not-yet
-katex-support-table	katex-support-table/xleftrightharpoons/1	not-yet
-katex-support-table	katex-support-table/xlongequal/1	not-yet
-katex-support-table	katex-support-table/xmapsto/1	not-yet
-katex-support-table	katex-support-table/xRightarrow/1	not-yet
-katex-support-table	katex-support-table/xrightarrow/1	not-yet
-katex-support-table	katex-support-table/xrightharpoondown/1	not-yet
-katex-support-table	katex-support-table/xrightharpoonup/1	not-yet
-katex-support-table	katex-support-table/xrightleftharpoons/1	not-yet
-katex-support-table	katex-support-table/xtofrom/1	not-yet
-katex-support-table	katex-support-table/xtwoheadleftarrow/1	not-yet
-katex-support-table	katex-support-table/xtwoheadrightarrow/1	not-yet
+katex-support-table	katex-support-table/xhookleftarrow/1	ok
+katex-support-table	katex-support-table/xhookrightarrow/1	ok
+katex-support-table	katex-support-table/xLeftarrow/1	ok
+katex-support-table	katex-support-table/xleftarrow/1	ok
+katex-support-table	katex-support-table/xleftharpoondown/1	ok
+katex-support-table	katex-support-table/xleftharpoonup/1	ok
+katex-support-table	katex-support-table/xLeftrightarrow/1	ok
+katex-support-table	katex-support-table/xleftrightarrow/1	ok
+katex-support-table	katex-support-table/xleftrightharpoons/1	ok
+katex-support-table	katex-support-table/xlongequal/1	ok
+katex-support-table	katex-support-table/xmapsto/1	ok
+katex-support-table	katex-support-table/xRightarrow/1	ok
+katex-support-table	katex-support-table/xrightarrow/1	ok
+katex-support-table	katex-support-table/xrightharpoondown/1	ok
+katex-support-table	katex-support-table/xrightharpoonup/1	ok
+katex-support-table	katex-support-table/xrightleftharpoons/1	ok
+katex-support-table	katex-support-table/xtofrom/1	ok
+katex-support-table	katex-support-table/xtwoheadleftarrow/1	ok
+katex-support-table	katex-support-table/xtwoheadrightarrow/1	ok
 katex-support-table	katex-support-table/yen/1	ok
 katex-support-table	katex-support-table/Z/1	ok
 katex-support-table	katex-support-table/Zeta/1	ok
@@ -11174,8 +11174,8 @@ mathlib	mathlib/Mathlib/Algebra/Field/GeomSum.lean:20	ok
 mathlib	mathlib/Mathlib/Algebra/Group/Action/Defs.lean:625	ok
 mathlib	mathlib/Mathlib/Algebra/Group/Units/Defs.lean:27	ok
 mathlib	mathlib/Mathlib/Algebra/Jordan/Basic.lean:51	ok
-mathlib	mathlib/Mathlib/Algebra/Lie/Classical.lean:47	not-yet
-mathlib	mathlib/Mathlib/Algebra/Lie/SerreConstruction.lean:18	not-yet
+mathlib	mathlib/Mathlib/Algebra/Lie/Classical.lean:47	ok
+mathlib	mathlib/Mathlib/Algebra/Lie/SerreConstruction.lean:18	ok
 mathlib	mathlib/Mathlib/Algebra/Module/Submodule/Map.lean:619	ok
 mathlib	mathlib/Mathlib/Algebra/Module/Torsion/PrimaryComponent.lean:15	ok
 mathlib	mathlib/Mathlib/Algebra/Module/Torsion/PrimaryComponent.lean:18	ok
@@ -11210,13 +11210,13 @@ mathlib	mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:70	ok
 mathlib	mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:70#2	ok
 mathlib	mathlib/Mathlib/Algebra/SkewPolynomial/Basic.lean:81	ok
 mathlib	mathlib/Mathlib/Algebra/Symmetrized.lean:15	ok
-mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:549	not-yet
+mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:549	ok
 mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:554	ok
 mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:633	ok
 mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:634	ok
 mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:684	ok
 mathlib	mathlib/Mathlib/Algebra/TrivSqZeroExt/Basic.lean:684#2	ok
-mathlib	mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/VariableChange.lean:53	not-yet
+mathlib	mathlib/Mathlib/AlgebraicGeometry/EllipticCurve/VariableChange.lean:53	ok
 mathlib	mathlib/Mathlib/AlgebraicGeometry/Spec.lean:12	ok
 mathlib	mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:101	ok
 mathlib	mathlib/Mathlib/AlgebraicGeometry/StructureSheaf.lean:101#2	ok
@@ -11255,7 +11255,7 @@ mathlib	mathlib/Mathlib/Analysis/Analytic/ChangeOrigin.lean:20	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:299	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:309	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:316	ok
-mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:324	not-yet
+mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:324	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:345	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:348	ok
 mathlib	mathlib/Mathlib/Analysis/Analytic/Inverse.lean:352	ok
@@ -11411,10 +11411,10 @@ mathlib	mathlib/Mathlib/Analysis/Normed/Module/Alternating/Uncurry/Fin.lean:182#
 mathlib	mathlib/Mathlib/Analysis/Normed/Module/MStructure.lean:18	ok
 mathlib	mathlib/Mathlib/Analysis/Normed/Module/MStructure.lean:21	ok
 mathlib	mathlib/Mathlib/Analysis/Normed/Module/WeakDual.lean:196	ok
-mathlib	mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Basic.lean:29	not-yet
-mathlib	mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Basic.lean:172	not-yet
-mathlib	mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Open.lean:42	not-yet
-mathlib	mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Open.lean:44	not-yet
+mathlib	mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Basic.lean:29	ok
+mathlib	mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Basic.lean:172	ok
+mathlib	mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Open.lean:42	ok
+mathlib	mathlib/Mathlib/Analysis/Normed/Operator/Fredholm/Open.lean:44	ok
 mathlib	mathlib/Mathlib/Analysis/ODE/ExistUnique.lean:189	ok
 mathlib	mathlib/Mathlib/Analysis/ODE/PicardLindelof.lean:32	ok
 mathlib	mathlib/Mathlib/Analysis/ODE/PicardLindelof.lean:364	ok
@@ -11481,7 +11481,7 @@ mathlib	mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean:85	ok
 mathlib	mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean:87	ok
 mathlib	mathlib/Mathlib/Analysis/SpecificLimits/Normed.lean:90	ok
 mathlib	mathlib/Mathlib/Basic/ExistsUnique.lean:151	ok
-mathlib	mathlib/Mathlib/Basic/Real/Sign.lean:18	not-yet
+mathlib	mathlib/Mathlib/Basic/Real/Sign.lean:18	ok
 mathlib	mathlib/Mathlib/Basic/Sign/Defs.lean:19	ok
 mathlib	mathlib/Mathlib/CategoryTheory/Adjunction/AdjointFunctorTheorems.lean:26	ok
 mathlib	mathlib/Mathlib/CategoryTheory/InducedCategory.lean:16	ok
@@ -12065,7 +12065,7 @@ mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:102	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:103	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:104	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:105	ok
-mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:110	not-yet
+mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:110	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:121	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:122	ok
 mathlib	mathlib/Mathlib/Probability/Martingale/Upcrossing.lean:122#2	ok
