@@ -2,8 +2,7 @@
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
-import LeAnTeX.Layout.Em
-import LeAnTeX.Parse.Base
+import LeAnTeX.Layout.Options
 
 /-!
 # The box tree
@@ -35,6 +34,7 @@ The layout keeps KaTeX's conventions:
 
 `loc` (the source range of the parse node a box was built for) and a symbol's `font` (the
 metric font KaTeX measured it in) are LeAnTeX's additions; KaTeX's tree has neither.
+`middle` is KaTeX's own marker on a `\middle` delimiter, which the markup does not show.
 
 ## References
 
@@ -138,6 +138,9 @@ structure Box where
   width : Option Em := none
   /-- The source range of the parse node the box was built for. -/
   loc : OLoc := .absent
+  /-- For a `\middle` delimiter, the delimiter and the options it was built in: the enclosing
+  `\left … \right` rebuilds it at the height of its contents (KaTeX's `isMiddle`). -/
+  middle : Option (String × Options) := none
   deriving Inhabited
 
 namespace Box

@@ -4,6 +4,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
 import LeAnTeX.Layout.Builders.Basic
 import LeAnTeX.Layout.Builders.Scripts
+import LeAnTeX.Layout.Builders.Misc
 import LeAnTeX.Parse.Parser
 
 /-!
@@ -50,6 +51,30 @@ def buildNode (ctx : BuildCtx) (n : Node) (o : Options) : BuildM Box := do
   | .operatorname _ _ body _ _ _ => buildOperatorname ctx body none none false o
   | .genfrac mode _ continued numer denom hasBarLine leftDelim rightDelim barSize =>
     buildGenfrac ctx mode continued numer denom hasBarLine leftDelim rightDelim barSize o
+  | .mathchoice _ _ display text script scriptscript =>
+    buildMathchoice ctx display text script scriptscript o
+  | .htmlmathml _ _ html _ => buildHtmlmathml ctx html o
+  | .lap _ _ alignment body => buildLap ctx alignment body o
+  | .smash _ _ body smashHeight smashDepth => buildSmash ctx body smashHeight smashDepth o
+  | .phantom _ _ body => buildPhantom ctx body o
+  | .vphantom _ _ body => buildVphantom ctx body o
+  | .rule _ _ shift width height => buildRule shift width height o
+  | .overline _ _ body => buildOverline ctx body o
+  | .underline _ _ body => buildUnderline ctx body o
+  | .raisebox _ _ dy body => buildRaisebox ctx dy body o
+  | .vcenter _ _ body => buildVcenter ctx body o
+  | .hbox _ _ body => buildHbox ctx body o
+  | .pmb _ _ mclass body => buildPmb ctx mclass body o
+  | .verb mode _ body star => buildVerb mode body star o
+  | .reflectbox _ _ body => buildReflectbox ctx body o
+  | .html _ _ attributes body => buildHtml ctx attributes body o
+  | .href _ _ href body => buildHref ctx href body o
+  | .includegraphics _ _ alt width height totalheight src =>
+    buildIncludegraphics alt width height totalheight src o
+  | .delimsizing mode _ size mclass delim => buildDelimsizing mode size mclass delim o
+  | .middle mode _ delim => buildMiddle mode delim o
+  | .leftright mode _ body left right rightColor =>
+    buildLeftright ctx mode body left right rightColor o
   | .raw .. | .size .. | .url .. | .colorToken .. | .internal .. | .environment ..
   | .«infix» .. | .leftrightRight .. | .cdlabel .. | .cdlabelparent .. | .tag .. =>
     throwParse s!"Got group of unknown type: '{n.type}'"
