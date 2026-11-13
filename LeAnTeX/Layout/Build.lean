@@ -5,6 +5,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 import LeAnTeX.Layout.Builders.Basic
 import LeAnTeX.Layout.Builders.Scripts
 import LeAnTeX.Layout.Builders.Misc
+import LeAnTeX.Layout.Builders.Accents
 import LeAnTeX.Parse.Parser
 
 /-!
@@ -45,7 +46,17 @@ def buildNode (ctx : BuildCtx) (n : Node) (o : Options) : BuildM Box := do
   | .mclass _ _ mclass body _ => buildMclass ctx mclass body o
   | .color _ _ color body => buildColor ctx color body o
   | .kern _ _ dimension => buildKern dimension o
+  | .supsub _ _ (some (.accent mode _ label isStretchy isShifty b)) sup sub =>
+    if isCharacterBox b then
+      buildAccent ctx mode label (isStretchy.getD false) (isShifty.getD false) b (some (sup, sub))
+        o
+    else buildSupsub ctx (some (.accent mode .absent label isStretchy isShifty b)) sup sub o
   | .supsub _ _ base sup sub => buildSupsub ctx base sup sub o
+  | .accent mode _ label isStretchy isShifty base =>
+    buildAccent ctx mode label (isStretchy.getD false) (isShifty.getD false) base none o
+  | .accentUnder _ _ label base => buildAccentUnder ctx label base o
+  | .sqrt _ _ body index => buildSqrt ctx body index o
+  | .cr _ _ newLine size => buildCr newLine size o
   | .op mode _ _ _ suppress _ symbol name body =>
     buildOp ctx mode symbol name body suppress none none false o
   | .operatorname _ _ body _ _ _ => buildOperatorname ctx body none none false o

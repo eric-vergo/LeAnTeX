@@ -167,7 +167,9 @@ def buildOperatorname (ctx : BuildCtx) (body : Array Node) (supGroup subGroup : 
   else return base
 
 /-- A nucleus with scripts (TeXbook rules 17–18): the scripts in a vertical list beside the
-nucleus, or, for an operator with limits in display style, the operator's own layout. -/
+nucleus, or, for an operator with limits in display style, the operator's own layout. (An
+accented single character takes its scripts in the accent's builder, which the dispatch calls
+directly.) -/
 def buildSupsub (ctx : BuildCtx) (valueBase valueSup valueSub : Option Node) (o : Options) :
     BuildM Box := do
   match valueBase with
@@ -177,8 +179,6 @@ def buildSupsub (ctx : BuildCtx) (valueBase valueSup valueSub : Option Node) (o 
   | some (.operatorname _ _ body alwaysHandle limits _) =>
     if alwaysHandle && (o.style.size == MathStyle.display.size || limits) then
       return ← buildOperatorname ctx body valueSup valueSub true o
-  | some (.accent _ _ _ _ _ b) =>
-    if isCharacterBox b then throwUnsupported "accent with scripts"
   | some (.horizBrace _ _ _ isOver _) =>
     if valueSub.isNone == isOver then throwUnsupported "horizBrace with scripts"
   | _ => pure ()
