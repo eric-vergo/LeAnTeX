@@ -28,6 +28,13 @@ def dl (tex : String) (display : Bool := false) (opts : DisplayOptions := {}) : 
   | .ok b => DisplayList.ofBox b opts
   | .error _ => {}
 
+/-- The display list of a formula laid out with `maxSize` em, or an empty one when it is not
+laid out. -/
+def dlMax (tex : String) (maxSize : Option Float) : DisplayList :=
+  match (layout tex { maxSize }).result with
+  | .ok b => DisplayList.ofBox b
+  | .error _ => {}
+
 /-- The glyphs of a display list: character and origin. -/
 def glyphs (d : DisplayList) : Array (Char × Em × Em) :=
   d.items.filterMap fun
@@ -129,6 +136,20 @@ def displayChecks : Array (String × Bool) :=
     ("a face's own characters ignore the fallback advance",
       let fb : DisplayOptions := { fallbackAdvance := fun _ _ => some 3 }
       (dl "x+y" (opts := fb)).width == (dl "x+y").width),
+    ("maxSize: a rule's height is cut to it",
+      match rules (dlMax "\\rule{1pt}{100000em}" (some 10)) with
+      | #[(_, _, _, h, _)] => h == Em.ofInt 10
+      | _ => false),
+    ("maxSize: a space is cut to it, the formula's width with it",
+      let (cut, whole) := (dlMax "a\\hspace{1000em}b" (some 5), dlMax "a\\hspace{1000em}b" none)
+      match xOf cut 'a', xOf cut 'b' with
+      | some xa, some xb => xb - xa ≤ Em.ofInt 6 && whole.width > Em.ofInt 1000 && cut.wellFormed
+      | _, _ => false),
+    ("maxSize: none, an infinite and a negative one",
+      let h (d : DisplayList) : Em := match rules d with | #[(_, _, _, h, _)] => h | _ => 0
+      h (dlMax "\\rule{1pt}{50em}" none) == Em.ofInt 50 &&
+        h (dlMax "\\rule{1pt}{50em}" (some (1 / 0))) == Em.ofInt 50 &&
+        h (dlMax "\\rule{1pt}{50em}" (some (-3))) == 0),
     ("every check list keeps the invariants",
       [mirror, tagged, taggedLeft, numbered, dashed, hdash, fbox, colorbox, cancel, xcancel,
         sout].all (·.wellFormed))]

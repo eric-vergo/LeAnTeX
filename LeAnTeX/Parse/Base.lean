@@ -187,6 +187,11 @@ structure Settings where
   trust : Bool := false
   /-- The limit on macro expansions. -/
   maxExpand : Nat := 1000
+  /-- The largest size a user may give, in em (`maxSize`): every size written in the formula
+  (`\rule`, `\hspace`, `\kern`, a row gap, …) is cut to it, as `calculateSize` cuts it; a
+  negative one counts as 0, as in KaTeX's `Settings`. `none` (KaTeX's default, `Infinity`) and an
+  infinite one: no limit. -/
+  maxSize : Option Float := none
   /-- Definitions at top level are global (`globalGroup`). -/
   globalGroup : Bool := false
   deriving Inhabited

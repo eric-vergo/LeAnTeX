@@ -207,7 +207,9 @@ def buildHTML (tree : Array Node) (o : Options) : BuildM Box := do
 
 /-- The layout options of a formula's settings (`optionsFromSettings`). -/
 def optionsOfSettings (s : Settings) : Options :=
-  { style := if s.displayMode then MathStyle.display else MathStyle.text, strict := s.strict }
+  { style := if s.displayMode then MathStyle.display else MathStyle.text, strict := s.strict,
+    maxSize := s.maxSize.bind fun m =>
+      if m.isNaN || m ≤ 0 then some 0 else if m.isInf then none else some (Em.ofFloat m) }
 
 /-- The whole box tree of a parse tree: the `katex` span, wrapped in `katex-display` in display
 mode (`buildHTMLTree`). -/

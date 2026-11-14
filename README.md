@@ -32,8 +32,8 @@ import LeAnTeX
 ```
 
 `LeAnTeX.parse` takes `LeAnTeX.Settings` (display mode, user macros, `strict`, `trust`,
-`throwOnError`, …) with KaTeX's defaults, and returns the parse tree or the error, plus the
-strict-mode warnings KaTeX would print. `LeAnTeX.layout` parses and lays the formula out into
+`throwOnError`, `maxSize`, …) with KaTeX's defaults, and returns the parse tree or the error,
+plus the strict-mode warnings KaTeX would print. `LeAnTeX.layout` parses and lays the formula out into
 KaTeX's box tree (`docs/layout.md`); `DisplayList.ofBox` turns that into positioned glyphs,
 rules and paths for a drawing back end (`docs/display-list.md`).
 
