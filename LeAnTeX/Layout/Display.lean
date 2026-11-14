@@ -33,8 +33,9 @@ inline flow with margins, the tables of `makeVList`, size changes, fonts, colour
   `\iint`, by more). `exact` is false for a
   character KaTeX has no metrics for in that face (characters of other scripts, which KaTeX
   measures as an `M` and leaves to the browser's fallback fonts, and a few symbols KaTeX lays
-  out with no width): a back end draws it with a fallback font, and its advance, here KaTeX's
-  stand-in, is only an estimate.
+  out with no width): a back end draws it with a fallback font, and its advance is KaTeX's
+  stand-in, an estimate, unless the back end gives the fallback font's own
+  (`DisplayOptions.fallbackAdvance`), as a browser lays the glyph out with it.
 * **Rules.** A rule is a filled rectangle: top-left corner, width and height (fraction bars,
   overlines, `\rule`, the rules of arrays, `\sout`, the borders and backgrounds of boxes). A
   dashed rule is a run of rules (`dashRules`).
@@ -215,6 +216,10 @@ structure DisplayOptions where
   lineWidth : Option Em := none
   /-- The number of the first automatically numbered equation (KaTeX's CSS counter). -/
   firstEquationNumber : Nat := 1
+  /-- The advance, in em of the glyph's font size, of a character a face does not have
+  (`charWidth`'s second component `false`) as the font a back end draws it with in its place
+  gives it (a browser's fallback font); `none` keeps KaTeX's stand-in. The glyph stays inexact. -/
+  fallbackAdvance : String → Char → Option Em := fun _ _ => none
   deriving Inhabited
 
 /-- An item moved by `(dx, dy)`. -/
@@ -255,6 +260,8 @@ structure Ctx where
   leqno : Bool := false
   /-- Display mode: the formula flush left, indented 2 em (`fleqn`). -/
   fleqn : Bool := false
+  /-- The advances of characters a face does not have (`DisplayOptions.fallbackAdvance`). -/
+  fallbackAdvance : String → Char → Option Em := fun _ _ => none
   deriving Inhabited
 
 /-- Positioned elements as a tree of placements: moving or mirroring a piece records the
@@ -730,6 +737,8 @@ def lay : Nat → Box → Ctx → Array String → Bool → Option Em → Laid
       let mut items := #[]
       for c in text.toList do
         let (w, exact) := charWidth face c
+        -- a character the face does not have: the advance of the font that draws it, when known
+        let w := if exact then w else (ctx.fallbackAdvance face.name c).getD w
         -- a space has no ink (and a browser drops one that starts or ends a box)
         if visible && c != '\u200b' && c != ' ' then
           items := items.push (Item.glyph face c x 0 scale exact false color source)
@@ -1012,7 +1021,8 @@ def DisplayList.ofBox (b : Box) (opts : DisplayOptions := {}) : DisplayList :=
   let align : Display.Align := if display then .center else .left
   let lineWidth := if display then opts.lineWidth else none
   let ctx : Display.Ctx :=
-    { align, lineWidth, leqno := b.hasClass "leqno", fleqn := b.hasClass "fleqn" }
+    { align, lineWidth, leqno := b.hasClass "leqno", fleqn := b.hasClass "fleqn",
+      fallbackAdvance := opts.fallbackAdvance }
   let l := Display.lay Display.fuel html ctx #[] false none
   -- a box without `katex-html` (KaTeX's error box for a rejected formula) is one line
   let (items, regions) := if l.lines.isEmpty then

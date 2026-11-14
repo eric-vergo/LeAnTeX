@@ -30,7 +30,8 @@ Face := { family : String, bold italic : Bool }      -- Face.name = "Main-Regula
 Region := { x y width height depth : Em, source : Nat × Nat }
 Part := { x width : Em, line : Nat, tag : Bool }
 Line := { start stop : Nat, width height depth : Em }
-DisplayOptions := { lineWidth : Option Em := none, firstEquationNumber : Nat := 1 }
+DisplayOptions := { lineWidth : Option Em := none, firstEquationNumber : Nat := 1,
+                   fallbackAdvance : String → Char → Option Em := fun _ _ => none }
 Em := an integer number of TeX scaled points (1/655360 em)
 ```
 
@@ -57,7 +58,9 @@ Em := an integer number of TeX scaled points (1/655360 em)
   browser uses them. `exact` is false for a character KaTeX has no metrics of its own for in
   that face (characters of other scripts, which KaTeX measures as an `M` and leaves to the
   browser's fallback fonts, and a few symbols): draw it with a fallback font; its advance is an
-  estimate. Spaces have no item (their advance is kept).
+  estimate unless the back end gives the advance of the font it draws the character with
+  (`DisplayOptions.fallbackAdvance`, in em of the glyph's font size), which the layout then uses
+  as a browser does. Spaces have no item (their advance is kept).
 - **Shadows.** `\pmb` thickens its material with a copy offset by (0.02 em, 0.01 em) of its font
   size, drawn first; those glyphs have `shadow` set (KaTeX's CSS `text-shadow`; its 0.04 px blur
   is left out).

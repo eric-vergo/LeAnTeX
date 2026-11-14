@@ -116,6 +116,19 @@ def displayChecks : Array (String × Bool) :=
         match (layout tex).result with
         | .ok b => (Box.ofJson b.toJson).toJson.compress == b.toJson.compress
         | .error _ => false),
+    ("a character a face does not have: the fallback font's advance moves what follows",
+      let fb : DisplayOptions := { fallbackAdvance := fun _ c => if c == '日' then some 1 else none }
+      let (a, b) := (dl "\\text{日}x", dl "\\text{日}x" (opts := fb))
+      match xOf a 'x', xOf b 'x', a.items[0]?, b.items[0]? with
+      | some xa, some xb, some (Item.glyph f '日' _ _ _ false ..), some (Item.glyph _ _ _ _ _ false ..) =>
+        xb - xa == 1 - (Display.charWidth f '日').1
+      | _, _, _, _ => false),
+    ("a character a face does not have: the fallback advance widens what holds it",
+      let fb : DisplayOptions := { fallbackAdvance := fun _ c => if c == '日' then some 1 else none }
+      (dl "\\sqrt{\\text{日}}" (opts := fb)).width > (dl "\\sqrt{\\text{日}}").width),
+    ("a face's own characters ignore the fallback advance",
+      let fb : DisplayOptions := { fallbackAdvance := fun _ _ => some 3 }
+      (dl "x+y" (opts := fb)).width == (dl "x+y").width),
     ("every check list keeps the invariants",
       [mirror, tagged, taggedLeft, numbered, dashed, hdash, fbox, colorbox, cancel, xcancel,
         sout].all (·.wellFormed))]

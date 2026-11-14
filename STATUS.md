@@ -14,8 +14,10 @@ Resume notes for the work in progress. Updated after every step.
   runs of dashes, box borders and backgrounds), paths (strokes of `\cancel` as outlines),
   regions, parts, lines; mirrored ranges for `\reflectbox`; `DisplayOptions` (line width for
   display mode: centring and the tag at the end of the line; first equation number); equation
-  numbers written out. Placement trees (`Placed`) instead of copying items at every level.
-  Invariants checked on every formula and 19 feature checks (`LeAnTeXTest/DisplayChecks.lean`)
+  numbers written out; `DisplayOptions.fallbackAdvance` takes a back end's advances for
+  characters a face does not have (the font that draws them in their place), as a browser lays
+  them out. Placement trees (`Placed`) instead of copying items at every level.
+  Invariants checked on every formula and 22 feature checks (`LeAnTeXTest/DisplayChecks.lean`)
   by `lake test`.
 - Display list against Chromium (`tools/check-display.mjs`, 11,100 formulas, 49,234 glyphs,
   719 rules, 648 SVG images): no count, face or character differs; glyph x within 0.0049 em
