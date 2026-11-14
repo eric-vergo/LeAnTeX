@@ -153,6 +153,14 @@ def countExpansion (n : Nat) : M Unit := do
   if s.expansionCount + n > s.settings.maxExpand then
     perr "Too many expansions: infinite loop or need to increase maxExpand setting"
 
+/-- Count `n` tokens produced by an expansion; an error past `maxTokens`. -/
+def countTokens (n : Nat) : M Unit := do
+  let s ← get
+  set { s with tokenCount := s.tokenCount + n }
+  if let some mx := s.settings.maxTokens then
+    if s.tokenCount + n > mx then
+      perr s!"Too many tokens: the macros expand to more than {mx} tokens (maxTokens setting)"
+
 /-- Whether a command has a meaning: a macro, a function, a symbol or an implicit command. -/
 def isDefined (name : String) : M Bool := do
   return (← get).macros.has name || Tables.functions.contains name ||
@@ -315,6 +323,7 @@ partial def expandOnce (expandableOnly : Bool := false) : M (Option Nat) := do
             else perrAt "Not a valid argument number" tok
           | _ => perrAt "Not a valid argument number" tok
       i := i - 1
+  countTokens tokens.size
   pushTokens tokens
   return some tokens.size
 

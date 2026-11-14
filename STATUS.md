@@ -17,14 +17,16 @@ Resume notes for the work in progress. Updated after every step.
   numbers written out; `DisplayOptions.fallbackAdvance` takes a back end's advances for
   characters a face does not have (the font that draws them in their place), as a browser lays
   them out. Placement trees (`Placed`) instead of copying items at every level.
-  Invariants checked on every formula and 25 feature checks (`LeAnTeXTest/DisplayChecks.lean`)
+  Invariants checked on every formula and 26 feature checks (`LeAnTeXTest/DisplayChecks.lean`)
   by `lake test`.
 - Display list against Chromium (`tools/check-display.mjs`, 11,100 formulas, 49,234 glyphs,
   719 rules, 648 SVG images): no count, face or character differs; glyph x within 0.0049 em
   (99 % within 0.0003), baseline within 0.0002 em, rules and SVG viewports within 0.01 em
   (one-pixel least width of array rules, pixel rounding of borders).
 - Settings: KaTeX's `maxSize` (`Settings.maxSize`, in em; `none` by default, as KaTeX's
-  `Infinity`): every size a formula writes is cut to it in `calculateSize`, as in KaTeX.
+  `Infinity`): every size a formula writes is cut to it in `calculateSize`, as in KaTeX. LeAnTeX's
+  own `maxTokens` (`none` by default: KaTeX has no such limit) bounds the tokens all macro
+  expansions produce together, an error past it, so a formula's cost stays linear in its source.
 - Box tree JSON (`Layout/BoxJson.lean`): total, by well-founded recursion. `partial` remains in
   the parse stage, `Json.lean` and `Parse/NodeJson.lean` (`docs/layout.md`, *Termination*).
 - Speed, 10 × 10 matrix (`lake exe leantex-test --bench-matrix`), in processor cycles on one

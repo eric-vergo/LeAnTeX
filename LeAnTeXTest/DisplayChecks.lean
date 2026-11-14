@@ -150,6 +150,15 @@ def displayChecks : Array (String × Bool) :=
       h (dlMax "\\rule{1pt}{50em}" none) == Em.ofInt 50 &&
         h (dlMax "\\rule{1pt}{50em}" (some (1 / 0))) == Em.ofInt 50 &&
         h (dlMax "\\rule{1pt}{50em}" (some (-3))) == 0),
+    ("maxTokens: a macro bomb past it is an error, within it laid out; none: no limit",
+      let bomb := "\\def\\a{xxxxxxxxxx}\\def\\b{\\a\\a\\a\\a\\a\\a\\a\\a\\a\\a}\\b\\b\\b"
+      let res (mt : Option Nat) := (layout bomb { maxTokens := mt }).result
+      (match res (some 100) with
+        | .error (.katex e) => e.message.startsWith "KaTeX parse error: Too many tokens"
+        | _ => false) &&
+      (match res (some 1000), res none with
+        | .ok _, .ok b => (DisplayList.ofBox b).items.size == 300
+        | _, _ => false)),
     ("every check list keeps the invariants",
       [mirror, tagged, taggedLeft, numbered, dashed, hdash, fbox, colorbox, cancel, xcancel,
         sout].all (·.wellFormed))]

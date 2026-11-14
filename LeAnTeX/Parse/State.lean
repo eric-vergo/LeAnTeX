@@ -138,6 +138,8 @@ structure State where
   macros : Namespace := {}
   /-- Expansions so far, against `Settings.maxExpand`. -/
   expansionCount : Nat := 0
+  /-- Tokens the expansions produced so far, against `Settings.maxTokens`. -/
+  tokenCount : Nat := 0
   /-- The current mode. -/
   mode : Mode := .math
   /-- The nesting depth of `\left`, for `\middle`. -/

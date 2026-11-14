@@ -187,6 +187,11 @@ structure Settings where
   trust : Bool := false
   /-- The limit on macro expansions. -/
   maxExpand : Nat := 1000
+  /-- The limit on the tokens all macro expansions produce together: LeAnTeX's own setting, not
+  KaTeX's (`maxExpand` counts expansions, so a few hundred of a long macro make a formula of
+  hundreds of thousands of tokens, whose cost grows with the square of its source). Past it, an
+  error (`Too many tokens: …`). `none` (the default, as in KaTeX): no limit. -/
+  maxTokens : Option Nat := none
   /-- The largest size a user may give, in em (`maxSize`): every size written in the formula
   (`\rule`, `\hspace`, `\kern`, a row gap, …) is cut to it, as `calculateSize` cuts it; a
   negative one counts as 0, as in KaTeX's `Settings`. `none` (KaTeX's default, `Infinity`) and an
