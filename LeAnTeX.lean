@@ -7,9 +7,13 @@ import LeAnTeX.Parse.NodeJson
 import LeAnTeX.Layout.Build
 import LeAnTeX.Layout.BoxJson
 import LeAnTeX.Layout.Display
+import LeAnTeX.Path
+import LeAnTeX.OpenType
+import LeAnTeX.OpenType.Display
 
 /-!
 # LeAnTeX
 
-A TeX math renderer in pure Lean, ported from KaTeX.
+A TeX math renderer in pure Lean, ported from KaTeX, and the start of its text mode: an
+OpenType font reader (`LeAnTeX.OpenType`).
 -/

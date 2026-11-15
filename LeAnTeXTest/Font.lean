@@ -3,6 +3,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
 import LeAnTeX.OpenType
+import LeAnTeX.OpenType.Display
 import LeAnTeX.Json
 import LeAnTeXTest.Cases
 
@@ -371,7 +372,18 @@ def unitChecks : IO (Array (String × Bool)) := do
     ("controlBounds", sq.controlBounds == some ⟨0, 0, 3, 3⟩),
     ("a font collection is refused",
       (Font.read (ByteArray.mk #[0x74, 0x74, 0x63, 0x66, 0, 1, 0, 0])).toOption.isNone),
-    ("an empty file is refused", (Font.read ByteArray.empty).toOption.isNone)]
+    ("an empty file is refused", (Font.read ByteArray.empty).toOption.isNone),
+    ("fixedText", [0, 65536, -98304, 1, 65536 * 7 + 16384].map fixedText ==
+      ["0", "1", "-1.5", "0.0000152587890625", "7.25"]),
+    ("glyph path data, y down",
+      (cff.glyphPathData (g cff 'A')).toOption.join.map (·.1) ==
+        some "M0 0 L300 0 L300 -700 L600 -700 L600 0 L0 0 Z"),
+    ("glyph item in its box",
+      match cff.glyphItem (g cff 'A') 1 0 1 with
+      | .ok (some (.path _ vb _ x y w h ..)) =>
+        vb == "0 -700 600 700" && x == 1 && y == -(0.7 : Em) && w == (0.6 : Em) &&
+          h == (0.7 : Em)
+      | _ => false)]
 
 /-- Runs the font tests; prints a summary and returns the failures. -/
 def run (fuzzCount : Nat := 400) : IO (Array String) := do
