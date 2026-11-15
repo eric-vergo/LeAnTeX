@@ -118,4 +118,10 @@ def NumberStyle.format? (st : NumberStyle) (n : Int) : Option String :=
       else if n == 0 then some "" else none
   | .fnsymbol => if n == 0 then some "" else fnSymbols[n.toNat - 1]?
 
+/-- The previous pass's answer for a reference, if there is a label of that key: its text, or
+its page when `page`. -/
+def lookupRef (refs : Std.HashMap String (String × String)) (key : String) (page : Bool) :
+    Option String :=
+  refs[key]?.map fun (t, p) => if page then p else t
+
 end LeAnTeX.Doc

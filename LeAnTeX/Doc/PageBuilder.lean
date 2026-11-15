@@ -498,7 +498,7 @@ def Builder.placeFloat (b : Builder) (p : PageParams) (i : Nat) : Builder := Id.
       let fl := { fl with colNum := fl.colNum - 1,
                           textFloatsHeight := fl.textFloatsHeight + f.size +
                             2 * fp.inTextSep.width }
-      let here := #[VNode.penalty 0, .glue fp.inTextSep 0, f.box, .penalty 0,
+      let here := #[VNode.penalty 0, .glue fp.inTextSep 0, .mark "@float", f.box, .penalty 0,
         .glue fp.inTextSep 0, .penalty 10000]
       return restart b fl here
     match Builder.startPage.topOrBottom p fl f i req with
@@ -612,10 +612,31 @@ def Builder.step (b : Builder) (p : PageParams) : Option Builder := do
     | .penalty _ => return b.contribute n
     | _ => return { b.contribute n with hs := b.hs.add n }
 
-/-- Builds the pages of a contribution list (`items` in order): TeX's page builder run until
-the list is used up, the last page cut at the end as `\end` cuts it (a page with material left
-is cut with a forced break). The pages in order, or an error when the step cap is reached. -/
-def buildPages (items : Array VNode) (p : PageParams) :
+/-- The boxes of a list in order, by their sizes (width, height, depth), without the boxes of
+floats set here (each follows a `@float` mark) and without the material of insertions. -/
+def boxSizes (items : Array VNode) : Array (Int × Int × Int) := Id.run do
+  let mut out := #[]
+  let mut skip := false
+  for n in items do
+    match n with
+    | .mark "@float" => skip := true
+    | .hbox .. | .vbox .. | .rule .. =>
+      if skip then skip := false else out := out.push (n.extent, n.height, n.depth)
+    | _ => pure ()
+  return out
+
+/-- The boxes of every page in order (see `boxSizes`). -/
+def pagesBoxSizes (pages : Array PageOut) : Array (Int × Int × Int) :=
+  pages.foldl (init := #[]) fun acc p => acc ++ boxSizes p.items
+
+/-- Whether the pages hold exactly the boxes of the input, each once, in order: the page
+builder cuts the list, adding only `\topskip` glue and discarding only glue, kerns and
+penalties (`buildPages_boxes` states it). -/
+def pagesPartition (items : Array VNode) (pages : Array PageOut) : Bool :=
+  pagesBoxSizes pages == boxSizes items
+
+/-- The page builder's loop (see `buildPages`). -/
+def buildPagesCore (items : Array VNode) (p : PageParams) :
     Except String (Array PageOut) := Id.run do
   let mut b : Builder := ({ contrib := items.reverse } : Builder).startPage p #[]
   for _ in [0:p.maxSteps] do
@@ -627,5 +648,18 @@ def buildPages (items : Array VNode) (p : PageParams) :
       -- the end of the document: what is left forces a page
       b := { b with contrib := #[.penalty (-10000)] }
   return .error "page builder: too many steps"
+
+/-- Builds the pages of a contribution list (`items` in order): TeX's page builder run until
+the list is used up, the last page cut at the end as `\end` cuts it (a page with material left
+is cut with a forced break). The pages in order, or an error when the step cap is reached.
+The result is checked before it is returned: the pages hold the list's boxes, each once, in
+order (`pagesPartition`, `buildPages_boxes`). -/
+def buildPages (items : Array VNode) (p : PageParams) :
+    Except String (Array PageOut) :=
+  match buildPagesCore items p with
+  | .ok pages =>
+    if pagesPartition items pages then .ok pages
+    else .error "page builder: the pages do not hold the list's boxes"
+  | .error e => .error e
 
 end LeAnTeX.Doc

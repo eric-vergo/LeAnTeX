@@ -203,8 +203,8 @@ def label (at_ : Tok) : M Unit := do
 /-- The previous pass's answer for a key: its text (`page` false) or page; `??` and a warning
 when there is none. -/
 def refText (key : String) (page : Bool) : M String := do
-  match (← docSt).refs[key]? with
-  | some (txt, pg) => return if page then pg else txt
+  match lookupRef (← docSt).refs key page with
+  | some s => return s
   | none =>
     modifyDoc fun d => { d with undefinedRefs := d.undefinedRefs.push key }
     return "??"

@@ -214,6 +214,35 @@ def documents : IO (Array String) := do
       if ← System.FilePath.pathExists s!"fixtures/doc/{n}.json" then out := out.push n
   return out.qsort (· < ·)
 
+/-- Mutated documents: from every corpus document, `n` sources with characters deleted,
+duplicated or replaced by TeX's special characters, or cut short (a fixed linear congruential
+generator, so every run is the same). Each must end in pages or a clean error; returns how
+many gave pages and how many errors. -/
+def fuzz (resolve : FontResolver) (n : Nat) : IO (Nat × Nat) := do
+  let specials := "{}\\$&#^_%~[]*@ \nabcx01".toList.toArray
+  let mut seed : Nat := 20251115
+  let mut ok := 0
+  let mut err := 0
+  let cfg : Text.Settings := { maxTokens := 200000, maxExpansions := 20000 }
+  for name in ← documents do
+    let src := (← IO.FS.readFile s!"corpus/doc/{name}.tex").toList.toArray
+    for _ in [0:n] do
+      let mut cs := src
+      for _ in [0:3] do
+        seed := (seed * 1103515245 + 12345) % 2147483648
+        let pos := seed % (cs.size + 1)
+        seed := (seed * 1103515245 + 12345) % 2147483648
+        let c := specials[seed % specials.size]!
+        match seed % 4 with
+        | 0 => cs := cs.eraseIdxIfInBounds pos
+        | 1 => cs := cs.insertIdxIfInBounds pos c
+        | 2 => cs := cs.setIfInBounds pos c
+        | _ => cs := cs.extract 0 (pos + cs.size / 2)
+      match typesetDocument (String.ofList cs.toList) resolve cfg (maxPasses := 2) with
+      | .ok _ => ok := ok + 1
+      | .error _ => err := err + 1
+  return (ok, err)
+
 /-- The feature a document exercises, from its name. -/
 def feature (name : String) : String :=
   let pre := (name.splitOn "-").headD name
@@ -252,6 +281,9 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
   let near := outs.foldl (init := 0) (· + ·.nearLines)
   IO.println s!"  documents: {agree.size} of {outs.size} agree with LuaLaTeX; lines at the same \
     place {same} of {lines}, within 1 pt {near}"
+  if show?.isNone then
+    let (fok, ferr) ← fuzz resolve 6
+    IO.println s!"  mutated documents: {fok + ferr} ended ({fok} with pages, {ferr} with an error)"
   let mut fails := #[]
   for b in baseline do
     match outs.find? (·.name == b) with

@@ -15,6 +15,7 @@ import LeAnTeX.Doc.Commands
 import LeAnTeX.Doc.Environments
 import LeAnTeX.Doc.Output
 import LeAnTeX.Doc.Front
+import LeAnTeX.Doc.Proofs
 
 /-!
 # The document layer
