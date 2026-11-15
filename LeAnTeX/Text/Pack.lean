@@ -97,32 +97,36 @@ def measure (nodes : Array HNode) : Int × Array Int × Array Int × Int × Int 
       | _ => (max h n.height, max d n.depth)
     (w + n.width, st, sh, h, d)
 
+/-- `pruneFrom` with at most `fuel` steps. -/
+def pruneGo (items : Array HNode) (stop : Nat) : Nat → Nat → Nat
+  | 0, k => k
+  | fuel + 1, k =>
+    if k ≥ stop then k
+    else match items[k]? with
+      | some n => if n.discardable then pruneGo items stop fuel (k + 1) else k
+      | none => k
+
 /-- The first index at or after `j` that holds a node a line keeps at its start, stopping at
 `stop` (the next break) and at the list's end: TeX's pruning after a break. -/
-def pruneFrom (items : Array HNode) (j stop : Nat) : Nat := Id.run do
-  let mut k := j
-  for _ in [j:items.size] do
-    if k ≥ stop then break
-    match items[k]? with
-    | some n => if n.discardable then k := k + 1 else break
-    | none => break
-  return k
+def pruneFrom (items : Array HNode) (j stop : Nat) : Nat := pruneGo items stop items.size j
 
-/-- Per line, the range of input nodes it holds before its break (`start`, `stop` with `stop`
-the break's index), given the breaks in increasing order: a line starts after the previous
+/-- Where the line after a break at node `b` starts, the next break being at `next`: after the
 break, past the nodes pruned there (none after a discretionary with a `post` text). -/
-def lineRanges (items : Array HNode) (breaks : Array Nat) : Array (Nat × Nat) := Id.run do
-  let mut out := #[]
-  let mut start := 0
-  for h : k in [0:breaks.size] do
-    let b := breaks[k]
-    out := out.push (start, b)
-    let next := breaks[k + 1]?.getD items.size
-    start := match items[b]? with
-      | some (.disc _ _ po _ _) => if po.isEmpty then pruneFrom items (b + 1) next else b + 1
-      | some (.glue ..) | some (.penalty _) | some (.kern ..) => pruneFrom items (b + 1) next
-      | _ => b + 1
-  return out
+def nextStart (items : Array HNode) (b next : Nat) : Nat :=
+  match items[b]? with
+  | some (.disc _ _ po _ _) => if po.isEmpty then pruneFrom items (b + 1) next else b + 1
+  | some (.glue ..) | some (.penalty _) | some (.kern ..) => pruneFrom items (b + 1) next
+  | _ => b + 1
+
+/-- Per line, the range of input nodes it holds (`start`, `stop`, `stop` the index of its
+break), given the breaks in increasing order: the first line starts at 0, each later one where
+`nextStart` puts it. -/
+def lineRanges (items : Array HNode) (breaks : Array Nat) : Array (Nat × Nat) :=
+  Array.ofFn fun (k : Fin breaks.size) =>
+    (match k.val with
+      | 0 => 0
+      | j + 1 => nextStart items (breaks[j]?.getD 0) breaks[k],
+     breaks[k])
 
 /-- The lines of a paragraph broken at `breaks` (from `breakParagraph`), with their glue set to
 their lengths. -/

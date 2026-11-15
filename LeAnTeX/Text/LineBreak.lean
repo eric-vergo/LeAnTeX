@@ -48,7 +48,8 @@ material (a document layer's concern), and math nodes (a formula is an unbreakab
 ## Main definitions
 
 * `Params`: the parameters, with LaTeX's defaults.
-* `breakParagraph`: the breaks, the demerits and the pass that found them.
+* `breakParagraph`: the breaks, the demerits and the pass that found them, checked
+  (`checkBreaks`) before they are returned.
 * `legalBreak`: whether an index of a list is a legal breakpoint.
 
 ## Implementation notes
@@ -484,12 +485,22 @@ def best (looseness : Int) (act : Array Active) : Active × Bool := Id.run do
 
 end LineBreak
 
+/-- Whether a list of numbers is strictly increasing. -/
+def increasing : List Nat → Bool
+  | a :: b :: t => a < b && increasing (b :: t)
+  | _ => true
+
+/-- The checks `breakParagraph` makes of its result before returning it: every break a legal
+breakpoint of `items` or the end, the breaks increasing, the last at the end. -/
+def checkBreaks (items : Array HNode) (r : Breaks) : Except BreakError Breaks :=
+  if r.breaks.all (fun b => b.pos == items.size || legalBreak items b.pos) &&
+      increasing (r.breaks.toList.map (·.pos)) && (r.breaks.back?.map (·.pos)) == some items.size
+  then .ok r
+  else .error (.badParameter "internal: the breaks found are not a breaking of the list")
+
 open LineBreak in
-/-- Breaks a paragraph into lines as TeX does (see the module docstring). `items` is the
-paragraph's horizontal list, normally ending with `\penalty10000` and `\parfillskip`. The
-result's breaks are legal breakpoints of `items` (`legalBreak`) or the end, in increasing
-order; an error for an input beyond the caps or a malformed discretionary. -/
-def breakParagraph (items : Array HNode) (p : Params := {}) : Except BreakError Breaks := do
+/-- The line breaker before its result is checked (`breakParagraph`). -/
+def breakParagraphCore (items : Array HNode) (p : Params := {}) : Except BreakError Breaks := do
   if items.size > p.maxNodes then throw (.tooManyNodes items.size)
   let mut warnings := #[]
   let mut nodes := #[]
@@ -539,9 +550,15 @@ def breakParagraph (items : Array HNode) (p : Params := {}) : Except BreakError 
         result := some { breaks := chain s a, demerits := a.total, pass := num, warnings }
         break
   match result with
-  | some r =>
-    if r.breaks.all fun b => b.pos == nodes.size || legalBreak nodes b.pos then return r
-    throw (.badParameter "internal: an illegal break")
+  | some r => return r
   | none => throw (.badParameter "internal: no pass reached the end")
+
+/-- Breaks a paragraph into lines as TeX does (see the module docstring). `items` is the
+paragraph's horizontal list, normally ending with `\penalty10000` and `\parfillskip`. The
+result's breaks are legal breakpoints of `items` (`legalBreak`) or the end, in increasing order,
+the last at the end (`checkBreaks`, proved in `LeAnTeX.Text.Proofs`); an error for an input
+beyond the caps or a malformed discretionary. -/
+def breakParagraph (items : Array HNode) (p : Params := {}) : Except BreakError Breaks :=
+  (breakParagraphCore items p).bind (checkBreaks items)
 
 end LeAnTeX.Text
