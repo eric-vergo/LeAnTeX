@@ -202,12 +202,15 @@ def typesetDocument (src : String) (resolve : FontResolver) (cfg : LeAnTeX.Text.
     (maxPasses : Nat := 4) : Except TypesetError DocResult := do
   if src.length > cfg.maxSource then
     throw { message := s!"source too long: more than {cfg.maxSource} characters" }
+  let prepared ← match prepareVerbatim src with
+    | .ok s => pure s
+    | .error e => throw { message := e }
   let mut refs : Std.HashMap String (String × String) := {}
   let mut prevToc : Array (TocEntry × String) := #[]
   let mut last : Option (Array Page × St) := none
   let mut passes := 0
   for _ in [0:max 1 maxPasses] do
-    let st : St := { input := (tokenize src).reverse, groups := #[{}] }
+    let st : St := { input := (tokenize prepared).reverse, groups := #[{}] }
     let (pages, s) ← ((pass refs prevToc).run (cfg, resolve)).run st
     passes := passes + 1
     if !s.doc.documentMode then

@@ -2,7 +2,7 @@
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
-import LeAnTeX.Doc.Tables
+import LeAnTeX.Doc.Blocks
 
 /-!
 # The document layer's commands: environments and the dispatcher
@@ -133,6 +133,34 @@ where
     if ← beginListEnv at_ name then
       setEnd #[csT "leantex@endlist" at_]
       return true
+    let d ← docSt
+    if let some e := d.environments[name]? then
+      beginUserEnv at_ e
+      setEnd e.end_
+      return true
+    if let some th := d.theorems[name]? then
+      beginTheorem at_ th
+      setEnd #[csT "leantex@endlist" at_]
+      return true
+    if name == "proof" then
+      beginProof at_
+      setEnd #[csT "leantex@qed" at_, csT "leantex@endlist" at_]
+      return true
+    if ["equation", "equation*", "displaymath", "align", "align*", "gather", "gather*",
+        "multline", "multline*", "flalign", "flalign*"].contains name then
+      equationEnv at_ name
+      return true
+    if name == "abstract" then
+      let p := at_.pos
+      let lb := Tok.char '{' 1 p
+      let rb := Tok.char '}' 2 p
+      inject at_ (#[csT "small" at_, csT "begin" at_, lb] ++ textToks at_ "center" ++
+        #[rb, lb, csT "bfseries" at_] ++ textToks at_ "Abstract" ++ #[csT "vspace" at_, lb] ++
+        textToks at_ "-.5em" ++ #[rb, csT "vspace" at_, lb] ++ textToks at_ "0pt" ++
+        #[rb, rb, csT "end" at_, lb] ++ textToks at_ "center" ++ #[rb, csT "begin" at_, lb] ++
+        textToks at_ "quotation" ++ #[rb])
+      setEnd (#[csT "end" at_, lb] ++ textToks at_ "quotation" ++ #[rb])
+      return true
     if name == "tabular" then
       beginTabular at_
       setEnd #[csT "leantex@endtabular" at_]
@@ -164,8 +192,20 @@ def endEnv (at_ : Tok) : M Unit := do
   match d.envs.back? with
   | none => failAt at_ s!"\\end\{{name}} without \\begin"
   | some e =>
-    if e.name != name then failAt at_ s!"\\begin\{{e.name}} ended by \\end\{{name}}"
-    inject at_ (e.end_ ++ #[csT "leantex@endenv" at_])
+    if e.name != name then
+      -- an environment whose own beginning opened others: its end code closes them first
+      -- (LaTeX runs the end code before it checks the name)
+      match (List.range d.envs.size).reverse.find?
+          (fun i => (d.envs[i]?.map EnvFrame.name) == some name) with
+      | some i =>
+        let code := (d.envs[i]?.map EnvFrame.end_).getD #[]
+        if code.isEmpty then failAt at_ s!"\\begin\{{e.name}} ended by \\end\{{name}}"
+        modifyDoc fun d => { d with envs := d.envs.modify i fun f => { f with end_ := #[] } }
+        let p := at_.pos
+        inject at_ (code ++ #[csT "end" at_, Tok.char '{' 1 p] ++ textToks at_ name ++
+          #[Tok.char '}' 2 p])
+      | none => failAt at_ s!"\\begin\{{e.name}} ended by \\end\{{name}}"
+    else inject at_ (e.end_ ++ #[csT "leantex@endenv" at_])
 
 /-- LaTeX's script size (`\sf@size`) for a text size: the defaults of its math sizes. -/
 def scriptSize (size : Int) : Int :=
@@ -199,20 +239,28 @@ def strutDepth (baseline : Int) : Int := texTimes baseline 0 19661
 and the article class's `\@makefntext`): in the footnote size, `\interlinepenalty` 100, the
 full column width, the mark flush right in a box 1.8 em wide, a strut of `\footnotesep` at the
 start and of the strut's depth at the end. -/
-def footnote (at_ : Tok) : M Unit := do
-  let opt ← readOptional?
+def footnote (at_ : Tok) (thanks : Bool := false) : M Unit := do
+  let opt ← if thanks then pure none else readOptional?
   let body ← readArg at_
   match opt with
   | some n =>
     let v := ((tokText n).trimAscii.toString.toInt?).getD 0
     modifyDoc fun d => { d with counters := d.counters.set "footnote" v }
   | none => stepCounter at_ "footnote"
-  let mark ← theCounter at_ "footnote"
+  let mark ← if thanks then do
+      let v := (← docSt).counters.value "footnote"
+      pure (if v == 1 then "∗" else (NumberStyle.fnsymbol.format? v).getD "?")
+    else theCounter at_ "footnote"
   let size := (← vars).key.size
   startParagraph
   push (.penalty 10000)
   let sf := (← get).sf
-  push (← superscriptBox mark size)
+  let mb ← superscriptBox mark size
+  -- a title's mark takes no width (LaTeX's `\rlap`)
+  push (if thanks then match mb with
+      | .box _ h d s c => .box 0 h d s c
+      | b => b
+    else mb)
   modify fun s => { s with sf }
   let cp ← classP
   let some fs ← classSize "footnotesize" | failAt at_ "internal: no footnote size"
@@ -308,6 +356,86 @@ def docCommand (t : Tok) (name : String) : M Bool := do
     push (.glue { stretch := 65536, stretchOrder := 2 } 100)
   | "leantex@tocline" => tocLine t
   | "footnote" => footnote t
+  | "thanks" => footnote t (thanks := true)
+  | "newenvironment" => newEnvironment t false
+  | "renewenvironment" => newEnvironment t true
+  | "newtheorem" => newTheorem t
+  | "theoremstyle" =>
+    let st ← readWord t
+    modifyDoc fun d => { d with theoremStyle := st }
+  | "leantex@qed" | "qed" => qed t
+  | "leantex@null" =>
+    if (← get).hmode then push (.box 0 0 0 0 #[]) else appendV (.hbox 0 0 0 0 #[] {})
+  | "\uE001" =>
+    startParagraph
+    let txt := unhex (← readWord t)
+    beginGroup t
+    verbText txt
+    endGroup t
+  | "\uE000" =>
+    let txt := unhex (← readWord t)
+    endParagraph
+    beginGroup t
+    beginList t id (trivial := true)
+    modifyVars fun v => { v with parIndent := 0, parFillSkip := flushGlue, parSkip := {},
+                                 p := { v.p with leftSkip := {}, rightSkip := {} } }
+    let ls := (txt.splitOn "\n").toArray
+    for h : k in [0:ls.size] do
+      if k == 0 then
+        item t
+        flushRun
+      else
+        modify fun s => { s with noIndent := true }
+        startParagraph
+      verbText ls[k]
+      if ls[k].isEmpty then push (.box 0 0 0 0 #[])
+      endParagraph
+    endList t
+    endGroup t
+    modifyDoc fun d => { d with endPe := true }
+  | "'" | "`" | "^" | "\"" | "~" | "=" | "." | "u" | "v" | "H" | "c" | "r" | "k" =>
+    accent t name
+  | "i" | "j" | "aa" | "AA" | "ae" | "AE" | "oe" | "OE" | "o" | "O" | "ss" | "l" | "L" =>
+    addChar ((specialLetter? name).getD '?')
+  | "hrule" =>
+    let (w, h, dp) ← ruleSpec t none none none
+    endParagraph
+    pushV (.rule w (h.getD 26214) (dp.getD 0))
+    modify fun s => { s with vPrev := ignoreDepth }
+  | "vrule" =>
+    let size := (← vars).key.size
+    let (w, h, dp) ← ruleSpec t none none none
+    startParagraph
+    push (.rule (w.getD 26214) (h.getD (size * 3 / 4)) (dp.getD (size / 4)))
+  | "newlength" =>
+    let some (.cs reg _) := (← readArg t).toList.find? (!·.isSpace)
+      | failAt t "Missing length register"
+    if (← docSt).lengths.contains reg || (← dimenOf reg).isSome then
+      failAt t s!"\\{reg} already defined"
+    modifyDoc fun d => { d with lengths := d.lengths.insert reg {} }
+  | "addtolength" => addToLength t false
+  | "setlength" =>
+    let saved := (← get).input
+    let arg ← readArg t
+    let some (.cs reg _) := arg.toList.find? (!·.isSpace) | unread #[t]; return false
+    modify fun s => { s with input := saved }
+    if !(← docSt).lengths.contains reg then return false
+    addToLength t true
+  | "title" => let a ← readArg t; modifyDoc fun d => { d with title := a }
+  | "author" => let a ← readArg t; modifyDoc fun d => { d with author := a }
+  | "date" => let a ← readArg t; modifyDoc fun d => { d with date := some a }
+  | "today" =>
+    let (cfg, _) ← read
+    inject t (textToks t cfg.today)
+  | "and" =>
+    let p := t.pos
+    inject t (#[csT "end" t, .char '{' 1 p] ++ textToks t "tabular" ++ #[.char '}' 2 p,
+      csT "hskip" t] ++ textToks t "1em plus .17fil" ++ #[csT "begin" t, .char '{' 1 p] ++
+      textToks t "tabular" ++ #[.char '}' 2 p] ++ textToks t "[t]" ++ #[.char '{' 1 p] ++
+      textToks t "c" ++ #[.char '}' 2 p])
+  | "maketitle" => makeTitle t
+  | "leantex@endtitle" =>
+    modifyDoc fun d => { d with inTitle := false, counters := d.counters.set "footnote" 0 }
   | "leantex@supmark" =>
     let txt ← readWord t
     push (← superscriptBox txt (← vars).key.size)

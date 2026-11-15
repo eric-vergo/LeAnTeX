@@ -319,6 +319,8 @@ structure DocState where
   anchors : Nat := 0
   /-- User lengths (`\newlength`) and LaTeX's layout lengths, as glue. -/
   lengths : Std.HashMap String Glue := {}
+  /-- Whether the title block is being set (`\thanks` marks are symbols there). -/
+  inTitle : Bool := false
   /-- The tables being built, innermost last. -/
   tables : Array Table := #[]
   /-- The counter steps, in order: the counter and its printed value after the step. -/

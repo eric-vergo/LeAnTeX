@@ -4,40 +4,40 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 
 | Feature | Documents agreeing | Lines at the same place | Within 1 pt |
 |---|---|---|---|
-| structure | 8 / 15 | 332 / 419 | 332 |
-| environments | 2 / 11 | 30 / 87 | 30 |
+| structure | 13 / 15 | 390 / 419 | 390 |
+| environments | 6 / 11 | 56 / 87 | 56 |
 | combined | 1 / 2 | 30 / 82 | 30 |
 | lists | 3 / 3 | 23 / 23 | 23 |
-| floats | 2 / 5 | 111 / 115 | 115 |
+| floats | 4 / 5 | 114 / 115 | 115 |
 | footnotes | 2 / 2 | 81 / 81 | 81 |
 | page breaking | 6 / 7 | 296 / 312 | 296 |
-| tables | 0 / 2 | 7 / 23 | 13 |
+| tables | 1 / 2 | 13 / 23 | 13 |
 
 ## Per document
 
 | Document | Agrees | Lines same | First difference |
 |---|---|---|---|
-| abstract | no | 0 / 15 | error: Undefined control sequence \title at 41 |
-| accents | no | 0 / 3 | error: Undefined control sequence \' at 44 |
-| align | no | 0 / 15 | error: Environment align undefined at 78 |
-| article | no | 0 / 52 | error: Undefined control sequence \newtheorem at 83 |
+| abstract | yes | 15 / 15 |  |
+| accents | yes | 3 / 3 |  |
+| align | no | 1 / 15 | page 1: 8 lines, LuaLaTeX 15 |
+| article | no | 0 / 52 | error: Undefined control sequence \includegraphics at 1922 |
 | center | yes | 7 / 7 |  |
 | counters | yes | 4 / 4 |  |
 | description | yes | 5 / 5 |  |
 | emph | yes | 3 / 3 |  |
 | enumerate | yes | 8 / 8 |  |
-| equation | no | 0 / 13 | error: Environment equation undefined at 399 |
+| equation | no | 5 / 13 | page 1: 12 lines, LuaLaTeX 13 |
 | float-bottom | no | 13 / 14 | page 1 line 13: (16494428, 44117141) 'Figure 1: At the bottom.', LuaLaTeX (16494428, 44117157) 'Figure 1: At the bottom.' (dy -16) |
-| float-default | no | 49 / 50 | page 2 line 1: (18990366, 8786408) '1', LuaLaTeX (18990365, 8786408) '1' (dy 0) |
-| float-here | no | 15 / 17 | page 1 line 10: (18972016, 20856353) 'a', LuaLaTeX (18972015, 20856353) 'a' (dy 0) |
+| float-default | yes | 50 / 50 |  |
+| float-here | yes | 17 / 17 |  |
 | float-page | yes | 19 / 19 |  |
 | float-top | yes | 15 / 15 |  |
 | footnotes | yes | 14 / 14 |  |
 | footnotes-pages | yes | 67 / 67 |  |
 | itemize | yes | 10 / 10 |  |
-| lengths | no | 0 / 18 | error: Undefined control sequence \addtolength at 706 |
+| lengths | yes | 18 / 18 |  |
 | mixed | yes | 30 / 30 |  |
-| newenvironment | no | 0 / 3 | error: Undefined control sequence \newenvironment at 41 |
+| newenvironment | yes | 3 / 3 |  |
 | newpage | yes | 21 / 21 |  |
 | nopagebreak | yes | 47 / 47 |  |
 | options-11pt | yes | 16 / 16 |  |
@@ -47,20 +47,20 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | pages-long | yes | 71 / 71 |  |
 | pagestyle-empty | yes | 46 / 46 |  |
 | quote | no | 20 / 23 | page 1 line 14: (10437918, 20661534) 'Vertical space between paragraphs and ar', LuaLaTeX (10437918, 20661534) 'Vertical space between paragraphs and ar' (dy 0) |
-| refs | no | 0 / 31 | error: Environment equation undefined at 170 |
-| rules | no | 0 / 3 | error: Undefined control sequence \hrule at 147 |
+| refs | no | 2 / 31 | page 1: 30 lines, LuaLaTeX 31 |
+| rules | yes | 3 / 3 |  |
 | sections-basic | yes | 15 / 15 |  |
 | sections-levels | yes | 14 / 14 |  |
 | sections-pages | yes | 86 / 86 |  |
 | skips | no | 4 / 20 | page 1: 22 lines, LuaLaTeX 20 |
-| tabular | no | 7 / 13 | page 1 line 3: (14008976, 8760194) 'right', LuaLaTeX (14008977, 8760194) 'right' (dy 0) |
+| tabular | yes | 13 / 13 |  |
 | tabular-multi | no | 0 / 10 | page 1: 9 lines, LuaLaTeX 10 |
-| theorem | no | 0 / 6 | error: Undefined control sequence \newtheorem at 41 |
-| theorem-amsthm | no | 0 / 6 | error: Undefined control sequence \newtheorem at 61 |
+| theorem | yes | 6 / 6 |  |
+| theorem-amsthm | no | 3 / 6 | page 1 line 3: (8799518, 11742936) 'Proof. Clear from the construction.', LuaLaTeX (8799518, 11611864) 'Proof. Clear from the construction.' (dy 131072) |
 | thispagestyle | yes | 46 / 46 |  |
-| title | no | 0 / 15 | error: Undefined control sequence \title at 41 |
-| title-thanks | no | 0 / 8 | error: Undefined control sequence \title at 41 |
-| toc | no | 19 / 19 | contents: 5 entries, LuaLaTeX 0 |
-| toc-pages | no | 91 / 91 | contents: 5 entries, LuaLaTeX 0 |
-| verbatim | no | 0 / 5 | error: Undefined control sequence \verb at 48 |
+| title | yes | 15 / 15 |  |
+| title-thanks | no | 8 / 8 | counter steps: 1, LuaLaTeX 1 |
+| toc | yes | 19 / 19 |  |
+| toc-pages | yes | 91 / 91 |  |
+| verbatim | no | 2 / 5 | page 1 line 2: (8799518, 10306846) 'def f(x):', LuaLaTeX (8799518, 10175774) 'def f(x):' (dy 131072) |
 | widows | yes | 61 / 61 |  |

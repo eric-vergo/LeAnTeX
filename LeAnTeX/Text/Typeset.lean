@@ -127,6 +127,8 @@ structure Settings where
   patterns : Patterns := Patterns.english
   /-- Whether to hyphenate at all. -/
   hyphenate : Bool := true
+  /-- What `\today` prints (a document's output must not depend on the clock). -/
+  today : String := "January 1, 2000"
   /-- The settings for formulas; the text's macros are added to them. -/
   math : LeAnTeX.Settings := {}
 
@@ -524,6 +526,7 @@ def readInt (at_ : Tok) : M Int := do
 /-- The length of the internal dimension named by a control sequence, if it is one. -/
 def dimenOf (name : String) : M (Option Int) := do
   let v ← vars
+  if let some g := (← get).doc.lengths[name]? then return some g.width
   return match name with
     | "hsize" | "textwidth" | "linewidth" | "columnwidth" => some v.p.hsize
     | "parindent" => some v.parIndent

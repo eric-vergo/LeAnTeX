@@ -267,6 +267,7 @@ def startClass : M Unit := do
     parIndent := cp.parIndent
     aboveDisplaySkip := cp.displaySkip, belowDisplaySkip := cp.displaySkip
     belowDisplayShortSkip := cp.belowShortSkip }
+  modifyDoc fun d => { d with lengths := d.lengths.insert "labelsep" { width := cp.labelSep } }
 
 /-- `\documentclass[options]{article}`. -/
 def documentClass (at_ : Tok) : M Unit := do
