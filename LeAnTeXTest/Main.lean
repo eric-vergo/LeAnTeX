@@ -332,12 +332,12 @@ def benchMatrix : IO Unit := do
     IO.println s!"{n} × {n} matrix: parse {p} µs, parse + layout {l} µs, display list {d} µs \
       (checksum {check})"
 
-/-- Run everything; see the module docstring for the modes. -/
 /-- The text-mode checks and the font reader's: their failures. -/
 def textChecks : IO (Array String) := do
   return (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++
     (← FrontChecks.run) ++ (← TypesetChecks.run) ++ (← FontTest.run)
 
+/-- Run everything; see the module docstring for the modes. -/
 def main (args : List String) : IO UInt32 := do
   if args == ["--bench-matrix"] then
     benchMatrix
