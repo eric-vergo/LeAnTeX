@@ -53,6 +53,7 @@
 <path id="g0-42" d="M180 -3C257 -3 308 -2 333 0L333 -39L304 -39C268 -39 246 -41 239 -46C232 -51 228 -63 228 -81L228 -602C228 -620 232 -631 239 -636C246 -641 268 -644 304 -644L333 -644L333 -683C308 -681 257 -680 181 -680C104 -680 53 -681 28 -683L28 -644L57 -644C93 -644 115 -641 122 -636C129 -631 133 -620 133 -602L133 -81C133 -63 129 -51 122 -46C115 -41 93 -39 57 -39L28 -39L28 0C53 -2 104 -3 180 -3Z"/>
 <path id="g0-14" d="M11 -187L276 -187L276 -245L11 -245Z"/>
 </defs>
+<defs><image id="leantex-img1" width="1" height="1" preserveAspectRatio="none" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAANUlEQVR42mM4gQNo4ACkqmcYtWDUgiFgAbUMwqV+1IJRC4aCBaNFxagFoxaM1gejFoxaAAQAC8SgTAaCbh4AAAAASUVORK5CYII="/></defs>
 <use xlink:href="#g0-49" transform="matrix(0.01 0 0 0.01 149.27 135.27)"/>
 <use xlink:href="#g0-66" transform="matrix(0.01 0 0 0.01 155.8 135.27)"/>
 <use xlink:href="#g0-72" transform="matrix(0.01 0 0 0.01 160.8 135.27)"/>
@@ -393,7 +394,7 @@
 <use xlink:href="#g0-85" transform="matrix(0.01 0 0 0.01 332.855 252.58)"/>
 <use xlink:href="#g0-84" transform="matrix(0.01 0 0 0.01 336.745 252.58)"/>
 <use xlink:href="#g0-15" transform="matrix(0.01 0 0 0.01 340.685 252.58)"/>
-<image x="249.864" y="276.8" width="113.811" height="113.811" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAANUlEQVR42mM4gQNo4ACkqmcYtWDUgiFgAbUMwqV+1IJRC4aCBaNFxagFoxaM1gejFoxaAAQAC8SgTAaCbh4AAAAASUVORK5CYII="/>
+<use xlink:href="#leantex-img1" transform="matrix(113.811 0 0 113.811 249.864 276.8)"/>
 <use xlink:href="#g0-39" transform="matrix(0.01 0 0 0.01 262.78 412.611)"/>
 <use xlink:href="#g0-74" transform="matrix(0.01 0 0 0.01 269.31 412.611)"/>
 <use xlink:href="#g0-72" transform="matrix(0.01 0 0 0.01 272.09 412.611)"/>

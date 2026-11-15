@@ -11,9 +11,14 @@ float-page
 float-top
 footnotes
 footnotes-pages
+footnotes-split
 itemize
 lengths
+linebreak
+lists-deep
+lists-mixed
 mixed
+mixed-floats
 newenvironment
 newpage
 nopagebreak
@@ -23,9 +28,11 @@ options-12pt-a4
 options-a4
 pages-long
 pagestyle-empty
+quote-nested
 rules
 sections-basic
 sections-levels
+sections-numbered
 sections-pages
 skips
 tabular
@@ -34,6 +41,7 @@ theorem-amsthm
 thispagestyle
 title
 toc
+toc-none
 toc-pages
 verbatim
 widows

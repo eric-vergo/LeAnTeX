@@ -187,7 +187,12 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
     let ft := fixtureToc fx
     let ot := r.toc.filter (·.1 ≤ 3)
     let ft := ft.filter (·.1 ≤ 3)
-    let ot := if (src.splitOn "\\tableofcontents").length > 1 then ot else #[]
+    -- the contents are compared when the document prints them: without `\tableofcontents`
+    -- they are not part of the output (and the recorded entries depend on whether LaTeX's
+    -- auxiliary file was written with them in the run the recorder read)
+    let printsToc := (src.splitOn "\\tableofcontents").length > 1
+    let ot := if printsToc then ot else #[]
+    let ft := if printsToc then ft else #[]
     if ft.size != ot.size then
       o := o.add s!"contents: {ot.size} entries, LuaLaTeX {ft.size}"
     for ((l, n, p), (l', n', _, p')) in ft.zip ot do
