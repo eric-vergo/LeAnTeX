@@ -39,7 +39,7 @@ def render (fonts : Fonts) (src : String) (opts : RenderOptions := {}) :
   let dl ← if opts.math then
       match (LeAnTeX.layout src { displayMode := true }).result with
       | .ok b =>
-        let dl := DisplayList.ofBox b
+        let dl := DisplayList.ofBox b { fallbackAdvance := fonts.set.fallbackAdvance }
         pure { dl with formulas := #[⟨0, dl.items.size, 0, 0, dl.width, dl.height, dl.depth,
           src, true⟩] }
       | .error (.katex e) => throw (((e.position.map (·.1)).getD 0), e.message)

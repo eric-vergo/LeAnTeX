@@ -151,8 +151,53 @@ def inkCentre (fs : FontSet) (it : Item) : Option Int := do
   let r ← fs.resolve face c
   let f ← fs.fonts[r.font]?
   let b ← (f.bounds r.glyph).toOption.join
-  let mid : Int := (b.xMin + b.xMax) / 2 + fs.shift face c * 65536
+  let mid : Int := (b.xMin + b.xMax) / 2 + (fs.placement face c).dx * 65536
   return x.raw + mid * size.raw / (65536 * (f.unitsPerEm : Int))
+
+/-- The vertical extent of the ink of the glyph a back end draws for a glyph item, in scaled
+points of the em above the item's baseline (lowest, highest), with its placement. -/
+def inkHeight (fs : FontSet) (it : Item) : Option (Int × Int) := do
+  let .glyph face c _ _ size .. := it | none
+  let r ← fs.resolve face c
+  let f ← fs.fonts[r.font]?
+  let b ← (f.bounds r.glyph).toOption.join
+  let pl := fs.placement face c
+  let em := fun (v : Int) => v * size.raw / (65536 * (f.unitsPerEm : Int))
+  let y := fun (v : Int) => em (v * pl.yScale / 1000 + pl.dy * 65536)
+  return (y b.yMin, y b.yMax)
+
+/-- The display list of the KaTeX-compatible layout of `src` with the back end's advances for
+characters KaTeX's fonts lack, as `render` makes it. -/
+def mathList (fs : FontSet) (src : String) : Array Item :=
+  match (LeAnTeX.layout src).result with
+  | .error _ => #[]
+  | .ok b => (DisplayList.ofBox b { fallbackAdvance := fs.fallbackAdvance }).items
+
+/-- The glyph items for `c` in the display list of `src`. -/
+def glyphsFor (fs : FontSet) (src : String) (c : Char) : Array Item :=
+  (mathList fs src).filter fun | .glyph _ c' .. => c' == c | _ => false
+
+/-- Checks of the glyphs the sweep against KaTeX's drawing found misplaced: `\surd` stands on
+the baseline as KaTeX's does (its ink from at most 0.25 em below to at least 0.7 em above),
+the short bars are at most half an em tall, and a symbol KaTeX's fonts lack (`\origof`) gets
+its glyph's room (the next glyph starts at least 0.9 em further on). -/
+def placementChecks (fs : FontSet) : Array (String × Bool) :=
+  let em := fun (n d : Int) => n * (Em.unit : Int) / d
+  let surd := (glyphsFor fs "\\surd" (Char.ofNat 0x221A))[0]?.bind (inkHeight fs)
+  let short := ["\\shortmid", "\\shortparallel", "\\nshortmid", "\\nshortparallel"].all
+    fun src => match ((mathList fs src).filter (· matches .glyph ..))[0]?.bind (inkHeight fs) with
+      | some (lo, hi) => hi - lo ≤ em 1 2
+      | none => false
+  let items := mathList fs "a\\origof b"
+  let xs := items.filterMap fun | .glyph _ c x .. => some (c, x.raw) | _ => none
+  let origof := match xs.toList with
+    | [_, (_, x1), (_, x2)] => x2 - x1 ≥ em 9 10
+    | _ => false
+  #[("placement: \\surd stands on the baseline", match surd with
+      | some (lo, hi) => lo ≥ -em 1 4 && hi ≥ em 7 10
+      | none => false),
+    ("placement: the short bars are short", short),
+    ("placement: \\origof gets the room of its glyph", origof)]
 
 /-- Whether, in the items, the ink of every glyph for `c` is centred within 0.08 em of the ink
 of the glyph after it (`\not`'s slash over its relation), and there is one. -/
@@ -215,7 +260,7 @@ def run (update : Bool := false) : IO (Array String) := do
   let (fonts, missing) ← Fonts.load "fonts/newcomputermodern"
   if !missing.isEmpty then return missing.map (s!"fonts: " ++ ·)
   let g ← goldens fonts update
-  let mut cs := checks fonts ++ privateUseChecks fonts.set
+  let mut cs := checks fonts ++ privateUseChecks fonts.set ++ placementChecks fonts.set
   for src in ["a\\ne b", "a\\not< b"] do
     if let some ok ← texOverlays fonts.set src (Char.ofNat 0x0338) then
       cs := cs.push (s!"not: the TeX-rule layout's slash of {src} is centred on the relation", ok)

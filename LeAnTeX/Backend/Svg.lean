@@ -223,11 +223,14 @@ def pictureParts (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) :
         let s := sp size
         let upem : Int := ((fs.fonts[r.font]?).map (·.unitsPerEm)).getD 1000
         let (dx, dy) := if shadow then (Em.roundDiv (s * 2) 100, Em.roundDiv s 100) else (0, 0)
-        let dx := dx + Em.roundDiv (fs.shift face c * s) upem
+        let pl := fs.placement face c
+        let dx := dx + Em.roundDiv (pl.dx * s) upem
+        let dy := dy - Em.roundDiv (pl.dy * s) upem
         let k := fixed s (65536 * upem) 6
+        let ky := fixed (s * pl.yScale) (65536 * upem * 1000) 6
         let a := if mirroredAt dl i then "-" ++ k else k
         let c := fixed (-(face.slant * s)) (1000 * 65536 * upem) 6
-        let m := s!"{a} 0 {c} {k} {ptText (lx + sp x + dx)} {ptText (ly + sp y + dy)}"
+        let m := s!"{a} 0 {c} {ky} {ptText (lx + sp x + dx)} {ptText (ly + sp y + dy)}"
         body := body.push (.inl { ref := id, matrix := m, fill := col })
       | .rule x y w h col _ =>
         body := body.push (.inr s!"<rect{attr "x" (ptText (lx + sp x))}\

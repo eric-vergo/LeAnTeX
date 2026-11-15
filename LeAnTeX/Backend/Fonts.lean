@@ -32,6 +32,12 @@ needs, for each, a font and a glyph index. `FontSet.resolve` gives them:
   own glyphs of them, the dotless `ı` and `ȷ` of math italic as the mathematical italic ones.
   The math font's own private-use characters are other glyphs, so KaTeX's are never looked up
   as they are.
+* A few glyphs sit elsewhere in New Computer Modern than in KaTeX's fonts and are placed
+  where KaTeX's are (`placement`): `\surd`'s radical, which hangs below the baseline, and the
+  short bars of `\shortmid` and its relatives, which the math font has only at full height.
+* A character KaTeX's fonts lack takes the advance of the glyph that draws it
+  (`fallbackAdvance`, for `DisplayOptions.fallbackAdvance`), as a browser's fallback font
+  would give it.
 * A character the chosen font lacks is looked up in the math font, then in the main text font;
   a glyph no font has is not drawn.
 
@@ -40,7 +46,7 @@ glyphs differ from KaTeX's in places (`docs/back-ends.md`), while their position
 
 ## Main definitions
 
-* `FontSet`, `GlyphRef`, `FontSet.resolve`.
+* `FontSet`, `GlyphRef`, `FontSet.resolve`, `FontSet.placement`, `FontSet.fallbackAdvance`.
 * `mathAlphanumeric`: KaTeX's face and character to the Unicode mathematical character.
 * `FontSet.load`: fonts read from files.
 -/
@@ -228,14 +234,54 @@ def resolve (face : Face) (c : Char) : Option GlyphRef :=
         | some m => (fs.glyphIn font m).orElse fun _ => fs.glyphWithFallback font c
         | none => fs.glyphWithFallback font c
 
-/-- How far right of the display list's position the glyph `resolve` gives for `face` and `c`
-is drawn, in the units of the font it is in: 0 but for KaTeX's `\not` slash
-(`privateUse`). -/
-def shift (face : Face) (c : Char) : Int :=
-  match face.font, privateUse face.katexName c, fs.resolve face c with
-  | none, some (_, _, dx), some r =>
-    dx * (((fs.fonts[r.font]?).map (·.unitsPerEm)).getD 1000 : Nat) / 1000
-  | _, _, _ => 0
+/-- How the glyph `resolve` gives for `face` and `c` is placed against the display list's
+glyph item: moved right by `dx` and up by `dy` (in the units of its font) and scaled
+vertically by `yScale` thousandths about the baseline before it is moved
+(`FontSet.placement`). -/
+structure Placement where
+  /-- The shift right, in font units. -/
+  dx : Int := 0
+  /-- The shift up, in font units. -/
+  dy : Int := 0
+  /-- The vertical scale, in thousandths. -/
+  yScale : Nat := 1000
+  deriving BEq, Inhabited, Repr
+
+/-- The placement of the glyph `resolve` gives for `face` and `c`: the identity but for the
+glyphs New Computer Modern draws elsewhere than KaTeX's fonts do (in thousandths of an em):
+`\not`'s slash (`privateUse`), `\surd`, whose radical hangs below the baseline in the math
+font (raised 0.76 em to KaTeX's place), and the short bars of `\shortmid`, `\shortparallel`
+and their negations, which the math font has only at full height (scaled to KaTeX's height,
+0.452 of it, and raised 0.092 em). -/
+def placement (face : Face) (c : Char) : Placement :=
+  let units := fun (v : Int) =>
+    v * ((((fs.resolve face c).bind (fs.fonts[·.font]?)).map (·.unitsPerEm)).getD 1000 : Nat) /
+      1000
+  if face.font.isSome then {}
+  else
+    let name := face.katexName
+    match name, c.toNat with
+    | "Main-Regular", 0xE020 | "Main-Bold", 0xE020 =>
+      match privateUse name c with
+      | some (_, _, dx) => { dx := units dx }
+      | none => {}
+    | "Main-Regular", 0x221A => { dy := units 760 }
+    | "AMS-Regular", 0x2223 | "AMS-Regular", 0x2225 | "AMS-Regular", 0xE006
+    | "AMS-Regular", 0xE007 => { dy := units 92, yScale := 452 }
+    | _, _ => {}
+
+/-- The advance, in em of the glyph's size, of a character KaTeX's face `name` does not have,
+as the font `resolve` draws it with gives it (`LeAnTeX.DisplayOptions.fallbackAdvance`): a
+browser lays such a character out with its fallback font, and this back end draws it with that
+glyph, so the layout leaves the glyph's own room for it. -/
+def fallbackAdvance (name : String) (c : Char) : Option Em := do
+  let family := (name.splitOn "-").headD name
+  let style := ((name.splitOn "-").drop 1).headD "Regular"
+  let face : Face := { family, bold := (style.splitOn "Bold").length > 1,
+                       italic := (style.splitOn "Italic").length > 1 }
+  let r ← fs.resolve face c
+  let f ← fs.fonts[r.font]?
+  return Em.ofRatio (f.advance r.glyph) f.unitsPerEm
 
 /-- The font set over the fonts read from the files `names` in `dir`, each under its file name;
 a file missing or unreadable is left out, with the reason in the second component. -/
