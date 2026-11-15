@@ -164,13 +164,13 @@ partial def Lexer.lex (lx : Lexer) (strict : Strict) :
     return ({ text := "EOF", loc := .at ⟨lx.src, lx.u16, lx.u16⟩ }, lx, none)
   match matchAt lx.chars lx.pos with
   | none =>
-    let c := lx.chars[lx.pos]!
+    let some c := lx.chars[lx.pos]? | throw (.parse "Unexpected end of input" .absent)
     throw (.parse s!"Unexpected character: '{c}'" (.at ⟨lx.src, lx.u16, lx.u16 + 1⟩))
   | some (e, text) =>
     let u16 := lx.u16 + sliceU16 lx.chars lx.pos e
     if lx.catcode text == some 14 then
       -- a comment: skip to the character after the next newline, or to the end
-      match (List.range (lx.chars.size - e)).find? (fun k => lx.chars[e + k]! == '\n') with
+      match (List.range (lx.chars.size - e)).find? (fun k => lx.chars[e + k]? == some '\n') with
       | some k =>
         let e' := e + k + 1
         Lexer.lex { lx with pos := e', u16 := u16 + sliceU16 lx.chars e e' } strict

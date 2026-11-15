@@ -39,7 +39,7 @@ def parseSymbol : M (Option Node) := do
   let strict := (← settings).strict
   let cs := text.toList
   -- `\verb` with its delimiters (the lexer guarantees they match)
-  if text.startsWith "\\verb" && cs.length > 5 && !(cs[5]!.isAlpha) then
+  if text.startsWith "\\verb" && cs.length > 5 && !((cs.getD 5 ' ').isAlpha) then
     consume
     let mut arg := cs.drop 5
     let star := arg.head? == some '*'
@@ -122,12 +122,13 @@ partial def handleInfixNodes (body : Array Node) : M (Array Node) := do
   let mut overIndex : Option Nat := none
   let mut funcName := ""
   for i in [0:body.size] do
-    if let .infix _ _ rw _ tok := body[i]! then
+    if let some (.infix _ _ rw _ tok) := body[i]? then
       if overIndex.isSome then
         perrLoc "only one infix operator per group" (tok.map (·.loc) |>.getD .absent)
       overIndex := some i
       funcName := rw
   let some oi := overIndex | return body
+  let some middle := body[oi]? | ierr "internal: infix index out of range"
   let mode ← curMode
   let wrap (ns : Array Node) : Node :=
     if h : ns.size = 1 then
@@ -138,7 +139,7 @@ partial def handleInfixNodes (body : Array Node) : M (Array Node) := do
   let numer := wrap (body.extract 0 oi)
   let denom := wrap (body.extract (oi + 1) body.size)
   let node ← if funcName == "\\\\abovefrac" then
-      callFunction funcName #[numer, body[oi]!, denom] #[] none none
+      callFunction funcName #[numer, middle, denom] #[] none none
     else callFunction funcName #[numer, denom] #[] none none
   return #[node]
 
@@ -343,7 +344,7 @@ partial def mkOps (_ : Unit) : Ops where
 
 /-- The handler of `\begin` and `\end` (KaTeX's `environment.ts`). -/
 partial def beginHandler (c : Ctx) (args : Array Node) : M Node := do
-  let nameGroup := args[0]!
+  let nameGroup ← argAt args 0
   unless nameGroup matches .ordgroup .. do perrLoc "Invalid environment name" nameGroup.loc
   let envName ← assertCharacterGroup nameGroup
     "Environment name should contain only text characters and spaces" true

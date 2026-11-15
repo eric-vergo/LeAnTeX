@@ -80,30 +80,33 @@ partial def parseStringGroup (optional : Bool) : M (Option Token) := do
   consume
   return some { argToken with text := str }
 
+/-- The character at an index, or NUL past the end (callers test the index first). -/
+private def chAt (cs : Array Char) (i : Nat) : Char := cs.getD i '\x00'
+
 /-- Whether `s` is a size as `parseRegexGroup` accepts it: `^[-+]? *(?:$|\d+|\d+\.\d*|\.\d*)
 *[a-z]{0,2} *$`. -/
 def isSizePrefix (s : String) : Bool := Id.run do
   let cs := s.toList.toArray
   let n := cs.size
   let mut i := 0
-  if i < n && (cs[i]! == '-' || cs[i]! == '+') then i := i + 1
-  while i < n && cs[i]! == ' ' do i := i + 1
+  if i < n && ((chAt cs i) == '-' || (chAt cs i) == '+') then i := i + 1
+  while i < n && (chAt cs i) == ' ' do i := i + 1
   if i == n then return true
-  if cs[i]!.isDigit then
-    while i < n && cs[i]!.isDigit do i := i + 1
-    if i < n && cs[i]! == '.' then
+  if (chAt cs i).isDigit then
+    while i < n && (chAt cs i).isDigit do i := i + 1
+    if i < n && (chAt cs i) == '.' then
       i := i + 1
-      while i < n && cs[i]!.isDigit do i := i + 1
-  else if cs[i]! == '.' then
+      while i < n && (chAt cs i).isDigit do i := i + 1
+  else if (chAt cs i) == '.' then
     i := i + 1
-    while i < n && cs[i]!.isDigit do i := i + 1
+    while i < n && (chAt cs i).isDigit do i := i + 1
   else return false
-  while i < n && cs[i]! == ' ' do i := i + 1
+  while i < n && (chAt cs i) == ' ' do i := i + 1
   let mut k := 0
-  while i < n && k < 2 && cs[i]! ≥ 'a' && cs[i]! ≤ 'z' do
+  while i < n && k < 2 && (chAt cs i) ≥ 'a' && (chAt cs i) ≤ 'z' do
     i := i + 1
     k := k + 1
-  while i < n && cs[i]! == ' ' do i := i + 1
+  while i < n && (chAt cs i) == ' ' do i := i + 1
   return i == n
 
 /-- The first match of `([-+]?) *(\d+(?:\.\d*)?|\.\d+) *([a-z]{2})` in `s`: sign, magnitude
@@ -115,23 +118,24 @@ def matchSize (s : String) : Option (String × String × String) := Id.run do
   for start in [0:n] do
     let mut i := start
     let mut sign := ""
-    if cs[i]! == '-' || cs[i]! == '+' then
-      sign := cs[i]!.toString
+    if (chAt cs i) == '-' || (chAt cs i) == '+' then
+      sign := (chAt cs i).toString
       i := i + 1
-    while i < n && cs[i]! == ' ' do i := i + 1
+    while i < n && (chAt cs i) == ' ' do i := i + 1
     let m0 := i
-    if i < n && cs[i]!.isDigit then
-      while i < n && cs[i]!.isDigit do i := i + 1
-      if i < n && cs[i]! == '.' then
+    if i < n && (chAt cs i).isDigit then
+      while i < n && (chAt cs i).isDigit do i := i + 1
+      if i < n && (chAt cs i) == '.' then
         i := i + 1
-        while i < n && cs[i]!.isDigit do i := i + 1
-    else if i + 1 < n && cs[i]! == '.' && cs[i + 1]!.isDigit then
+        while i < n && (chAt cs i).isDigit do i := i + 1
+    else if i + 1 < n && (chAt cs i) == '.' && (chAt cs (i + 1)).isDigit then
       i := i + 1
-      while i < n && cs[i]!.isDigit do i := i + 1
+      while i < n && (chAt cs i).isDigit do i := i + 1
     else continue
     let m1 := i
-    while i < n && cs[i]! == ' ' do i := i + 1
-    if i + 1 < n && cs[i]! ≥ 'a' && cs[i]! ≤ 'z' && cs[i + 1]! ≥ 'a' && cs[i + 1]! ≤ 'z' then
+    while i < n && (chAt cs i) == ' ' do i := i + 1
+    if i + 1 < n && 'a' ≤ chAt cs i && chAt cs i ≤ 'z' && 'a' ≤ chAt cs (i + 1) &&
+        chAt cs (i + 1) ≤ 'z' then
       return some (sign, str m0 m1, str i (i + 2))
   return none
 
@@ -244,7 +248,7 @@ def protocolFromUrl (url : String) : Option String := Id.run do
   let mut i := 0
   let n := cs.length
   while i < n do
-    let c := cs[i]!
+    let c := (cs.getD i (Char.ofNat 0))
     if c == '\\' || c == '/' || c == '#' || c == '?' then return "_relative"
     let rest := lower.drop i
     if c == ':' then
@@ -344,6 +348,13 @@ structure Ops where
 
 /-- A function handler. -/
 abbrev Handler := Ops → Ctx → Array Node → Array (Option Node) → M Node
+
+/-- The argument at an index of a handler's argument array; the parser passes as many arguments as
+the function's specification declares, so a missing one is an internal error. -/
+def argAt (args : Array Node) (i : Nat) : M Node :=
+  match args[i]? with
+  | some a => pure a
+  | none => ierr s!"internal: missing argument {i}"
 
 /-- What an environment handler receives. -/
 structure EnvCtx where

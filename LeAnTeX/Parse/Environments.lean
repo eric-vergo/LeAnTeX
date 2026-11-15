@@ -205,8 +205,10 @@ private def alignedHandler (ops : Ops) (ctx : EnvCtx) (args : Array Node) : M No
   if let some a@(Node.ordgroup ..) := args[0]? then
     let message := "Number of columns should be a positive integer"
     let s ← assertCharacterGroup a message
-    if s.isEmpty || !s.all Char.isDigit || s.toNat! < 1 then perrLoc message a.loc
-    numMaths := s.toNat!
+    if s.isEmpty || !s.all Char.isDigit then perrLoc message a.loc
+    let some n := s.toNat? | perrLoc message a.loc
+    if n < 1 then perrLoc message a.loc
+    numMaths := n
     numCols := numMaths * 2
   let isAligned := numCols == 0
   let mut body' := #[]
@@ -214,14 +216,15 @@ private def alignedHandler (ops : Ops) (ctx : EnvCtx) (args : Array Node) : M No
     let mut row := row
     let mut i := 1
     while i < row.size do
-      match row[i]! with
-      | .styling sm sl ss sr sb =>
+      match row[i]? with
+      | some (.styling sm sl ss sr sb) =>
         match sb[0]? with
         | some (Node.ordgroup om ol ob os) =>
-          row := row.set! i (.styling sm sl ss sr
-            (sb.set! 0 (.ordgroup om ol (#[Node.emptyGroup ctx.mode] ++ ob) os)))
+          row := row.setIfInBounds i (.styling sm sl ss sr
+            (sb.setIfInBounds 0 (.ordgroup om ol (#[Node.emptyGroup ctx.mode] ++ ob) os)))
         | n => wrongNode "ordgroup" n
-      | n => wrongNode "styling" (some n)
+      | some n => wrongNode "styling" (some n)
+      | none => pure ()
       i := i + 2
     if !isAligned then
       let curMaths := row.size.toFloat / 2
@@ -265,11 +268,11 @@ def parseCD (ops : Ops) : M Node := do
   let mut row : Array Node := #[]
   let mut body : Array (Array Node) := #[]
   for i in [0:parsedRows.size] do
-    let rowNodes := parsedRows[i]!
+    let rowNodes := parsedRows.getD i #[]
     let mut cell := newCell
     let mut j := 0
     while j < rowNodes.size do
-      let nj := rowNodes[j]!
+      let some nj := rowNodes[j]? | break
       if !(isStartOfArrow nj) then
         cell := pushCell cell nj
       else
@@ -286,7 +289,7 @@ def parseCD (ops : Ops) : M Node := do
             let mut inLabel := true
             let mut k := j + 1
             while k < rowNodes.size do
-              let nk := rowNodes[k]!
+              let some nk := rowNodes[k]? | break
               if isLabelEnd nk arrowChar then
                 inLabel := false
                 j := k
@@ -297,9 +300,10 @@ def parseCD (ops : Ops) : M Node := do
               k := k + 1
             if inLabel then
               perrLoc s!"Missing a {arrowChar} character to complete a CD arrow."
-                rowNodes[j]!.loc
-        else perrLoc "Expected one of \"<>AV=|.\" after @" rowNodes[j]!.loc
-        let lab (k : Nat) : Node := .ordgroup .math .absent labels[k]! none
+                (rowNodes[j]?.map (·.loc) |>.getD .absent)
+        else
+          perrLoc "Expected one of \"<>AV=|.\" after @" (rowNodes[j]?.map (·.loc) |>.getD .absent)
+        let lab (k : Nat) : Node := .ordgroup .math .absent (labels.getD k #[]) none
         let arrow ← cdArrow arrowChar (lab 0) (lab 1)
         row := row.push (.styling .math .absent "display" (some true) #[arrow])
         cell := newCell
@@ -311,7 +315,7 @@ def parseCD (ops : Ops) : M Node := do
   body := body.push row
   endGroup
   endGroup
-  let ncols := body[0]!.size
+  let ncols := (body[0]?.map (·.size)).getD 0
   let cols := (List.replicate ncols (AlignSpec.align "c" (some 0.25) (some 0.25))).toArray
   return .array .math .absent (some "CD") none (some true) (some cols) 1.0 body #[none]
     ((List.replicate (body.size + 1) #[]).toArray) none none
@@ -346,7 +350,7 @@ where
 def environmentHandler (key : String) : Option EnvHandler :=
   match key with
   | "array" => some fun ops ctx args _ => do
-    let cols ← colSpecs args[0]! "lcr" true
+    let cols ← colSpecs (← argAt args 0) "lcr" true
     parseArray ops { cols := some cols, hskipBeforeAndAfter := some true,
                      maxNumCols := some cols.size } (dCellStyle ctx.envName)
   | "matrix" => some fun ops ctx _ _ => do
@@ -386,12 +390,12 @@ def environmentHandler (key : String) : Option EnvHandler :=
       return .array m l (some "small") hs aj cols st body gaps hl tags lq
     | r => return r
   | "subarray" => some fun ops _ args _ => do
-    let cols ← colSpecs args[0]! "lc" false
+    let cols ← colSpecs (← argAt args 0) "lc" false
     if cols.size > 1 then perr "{subarray} can contain only one column"
     let res ← parseArray ops { cols := some cols, hskipBeforeAndAfter := some false,
                                arraystretch := some 0.5 } "script"
     if let .array _ _ _ _ _ _ _ body .. := res then
-      if body.size > 0 && body[0]!.size > 1 then perr "{subarray} can contain only one column"
+      if (body[0]?.map (·.size)).getD 0 > 1 then perr "{subarray} can contain only one column"
     return res
   | "cases" => some fun ops ctx _ _ => do
     let cols := #[.align "l" (some 0) (some 1.0), .align "l" (some 0) (some 0)]

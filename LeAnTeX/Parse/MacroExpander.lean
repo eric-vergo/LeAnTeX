@@ -87,12 +87,12 @@ partial def consumeArg (delims : Option (Array String) := none) :
       depth := depth - 1
       if depth == -1 then perrAt "Extra }" tok
     else if tok.text == "EOF" then
-      let expected := if isDelimited then ds[matched]! else "}"
+      let expected := if isDelimited then ds.getD matched "" else "}"
       perrAt ("Unexpected end of input in a macro argument, expected '" ++ expected ++ "'") tok
     let mut matched := matched
     let mut tokens := tokens
     if isDelimited then
-      let d := ds[matched]!
+      let d := ds.getD matched ""
       if (depth == 0 || (depth == 1 && d == "{")) && tok.text == d then
         matched := matched + 1
         if matched == ds.size then
@@ -114,12 +114,12 @@ def consumeArgs (numArgs : Nat) (delimiters : Option (Array (Array String)) := n
   if let some ds := delimiters then
     if ds.size != numArgs + 1 then
       perr "The length of delimiters doesn't match the number of args!"
-    for d in ds[0]! do
+    for d in ds.getD 0 #[] do
       let tok ← popToken
       if d != tok.text then perrAt "Use of the macro doesn't match its definition" tok
   let mut args := #[]
   for i in [0:numArgs] do
-    let (ts, _, _) ← consumeArg (delimiters.map (·[i + 1]!))
+    let (ts, _, _) ← consumeArg (delimiters.map (·.getD (i + 1) #[]))
     args := args.push ts
   return args
 
@@ -307,18 +307,18 @@ partial def expandOnce (expandableOnly : Bool := false) : M (Option Nat) := do
   if e.numArgs > 0 then
     let mut i : Int := tokens.size - 1
     while i ≥ 0 do
-      let tok := tokens[i.toNat]!
+      let some tok := tokens[i.toNat]? | ierr "internal: macro body index out of range"
       if tok.text == "#" then
         if i == 0 then perrAt "Incomplete placeholder at end of macro body" tok
         i := i - 1
-        let tok := tokens[i.toNat]!
+        let some tok := tokens[i.toNat]? | ierr "internal: macro body index out of range"
         if tok.text == "#" then
           tokens := tokens.extract 0 (i.toNat + 1) ++ tokens.extract (i.toNat + 2) tokens.size
         else
           match tok.text.toList with
           | [c] =>
             if c ≥ '1' && c ≤ '9' then
-              let arg := args[c.toNat - '1'.toNat]!
+              let arg := args[c.toNat - '1'.toNat]?.getD #[]
               tokens := tokens.extract 0 i.toNat ++ arg ++ tokens.extract (i.toNat + 2) tokens.size
             else perrAt "Not a valid argument number" tok
           | _ => perrAt "Not a valid argument number" tok
@@ -376,8 +376,8 @@ partial def runBraketMid (one double : Bool) (middle middleDouble : Array Token)
 /-- `\newcommand`, `\renewcommand` and `\providecommand`. -/
 partial def newcommand (existsOK nonexistsOK skipIfExists : Bool) : M NativeResult := do
   let (arg, _, _) ← consumeArg
-  if arg.size != 1 then perr "\\newcommand's first argument must be a macro name"
-  let name := arg[0]!.text
+  let #[nameTok] := arg | perr "\\newcommand's first argument must be a macro name"
+  let name := nameTok.text
   let ex ← isDefined name
   if ex && !existsOK then
     perr s!"\\newcommand\{{name}} attempting to redefine {name}; use \\renewcommand"
@@ -386,7 +386,7 @@ partial def newcommand (existsOK nonexistsOK skipIfExists : Bool) : M NativeResu
   let mut numArgs := 0
   let (arg, _, _) ← consumeArg
   let mut arg := arg
-  if arg.size == 1 && arg[0]!.text == "[" then
+  if arg.size == 1 && arg[0]?.map (·.text) == some "[" then
     let mut argText := ""
     let mut tok ← expandNextToken
     while tok.text != "]" && tok.text != "EOF" do
@@ -395,7 +395,8 @@ partial def newcommand (existsOK nonexistsOK skipIfExists : Bool) : M NativeResu
     let trimmed := (argText.toList.dropWhile isJsSpace).reverse.dropWhile isJsSpace |>.reverse
     if trimmed.isEmpty || !trimmed.all Char.isDigit then
       perr s!"Invalid number of arguments: {argText}"
-    numArgs := (String.ofList trimmed).toNat!
+    let some n := (String.ofList trimmed).toNat? | perr s!"Invalid number of arguments: {argText}"
+    numArgs := n
     let (a, _, _) ← consumeArg
     arg := a
   if !(ex && skipIfExists) then
@@ -417,21 +418,21 @@ partial def runNative (name : String) : M NativeResult := do
     return .exp { tokens := #[t], numArgs := 0 }
   | "\\@firstoftwo" =>
     let args ← consumeArgs 2
-    return .exp { tokens := args[0]!, numArgs := 0 }
+    return .exp { tokens := args.getD 0 #[], numArgs := 0 }
   | "\\@secondoftwo" =>
     let args ← consumeArgs 2
-    return .exp { tokens := args[1]!, numArgs := 0 }
+    return .exp { tokens := args.getD 1 #[], numArgs := 0 }
   | "\\@ifnextchar" =>
     let args ← consumeArgs 3
     consumeSpaces
     let next ← future
-    if args[0]!.size == 1 && args[0]![0]!.text == next.text then
-      return .exp { tokens := args[1]!, numArgs := 0 }
-    else return .exp { tokens := args[2]!, numArgs := 0 }
+    if (args.getD 0 #[]).map (·.text) == #[next.text] then
+      return .exp { tokens := args.getD 1 #[], numArgs := 0 }
+    else return .exp { tokens := args.getD 2 #[], numArgs := 0 }
   | "\\TextOrMath" =>
     let args ← consumeArgs 2
     let mode := (← get).mode
-    return .exp { tokens := if mode == .text then args[0]! else args[1]!, numArgs := 0 }
+    return .exp { tokens := args.getD (if mode == .text then 0 else 1) #[], numArgs := 0 }
   | "\\char" =>
     let mut token ← popToken
     let mut base : Option Nat := none
