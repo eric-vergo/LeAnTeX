@@ -1,6 +1,6 @@
 # Status
 
-Resume notes for the work in progress. Updated after every step.
+What LeAnTeX does today, and what comes next.
 
 ## State
 
@@ -57,26 +57,18 @@ Resume notes for the work in progress. Updated after every step.
 3. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
    tests (`Box.hasClass`) and style lookups.
 
-## Open questions for the owner
+## Choices made
 
-1. The Apache `LICENSE` file had the appendix's copyright template filled in with a name; it
-   was restored to the template (`Copyright [yyyy] [name of copyright owner]`), following the
-   preference for no copyright lines. Default taken.
-2. Dashed rules: LeAnTeX's own dash pattern (dashes three times the thickness, gaps at least
-   twice); browsers each have theirs. Default taken.
-3. Lengths are TeX scaled points (2⁻¹⁶ pt = 1/655360 em) rather than 2⁻¹⁶ em; the display list
-   advances glyphs by the fonts' own widths. Defaults taken earlier.
-4. The layout fixtures (`fixtures/layout/`, about 13 MB) are committed so that `lake test`
-   needs no KaTeX. Default: committed.
-5. The text fixtures (`fixtures/text/`, about 2.9 MB) and the fontTools references
-   (`fixtures/font/`, about 2.1 MB) are committed likewise; the Latin Modern fonts are not (the
-   tests read them from TeX Live). Default taken.
-6. Contour starts of TrueType glyphs follow fontTools (the first on-curve point). Default.
+1. Dashed rules use LeAnTeX's own dash pattern (dashes three times the thickness, gaps at least
+   twice); browsers each have theirs.
+2. Lengths are TeX scaled points (2⁻¹⁶ pt = 1/655360 em); the display list advances glyphs by
+   the fonts' own widths.
+3. The layout fixtures (`fixtures/layout/`), the text fixtures (`fixtures/text/`) and the
+   fontTools references (`fixtures/font/`) are committed, so that `lake test` needs neither KaTeX
+   nor TeX; the Latin Modern fonts are not (the tests read them from TeX Live when present).
+4. Contour starts of TrueType glyphs follow fontTools (the first on-curve point).
 
-Decided: package `leantex`, namespace `LeAnTeX`; the Noperthedron corpus stays local and
-ignored by git; the Rokicki corpus keeps its attribution line.
-
-## How to resume
+## Reference tools
 
 - KaTeX 0.19.1 source: a checkout of tag `v0.19.1` (the generators take its path, default
   `$KATEX_SOURCE` or `.cache/katex-0.19.1`, which git ignores).

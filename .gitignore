@@ -1,8 +1,8 @@
 .lake/
-# The Noperthedron blueprint corpus: its licence is not stated upstream, so it stays local
-# until the owner decides (see STATUS.md).
+# Local corpora that are not redistributed.
 corpus/blueprint-noperthedron.jsonl
 fixtures/blueprint-noperthedron.jsonl
 fixtures/layout/blueprint-noperthedron.jsonl
 # A checkout of KaTeX's source for the table generators (tools/gen-*.mjs).
 .cache/
+.DS_Store
