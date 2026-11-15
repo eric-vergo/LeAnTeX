@@ -60,10 +60,14 @@ def parseArgs : List String → Args → Option Args
   | f :: r, a => if f.startsWith "--" then none else parseArgs r { a with files := a.files ++ [f] }
 
 /-- The images of a document in `dir`: every file the source names that is a regular file
-inside `dir` (its real path under `dir`'s), read whole up to 16 MiB. -/
+inside `dir` (its real path under `dir`'s), read whole up to `Settings.maxImage` bytes each and
+`Settings.maxImagesTotal` together (a file named twice is read once; the files past the total
+are left out, so the typesetter reports them). -/
 def loadImages (dir : System.FilePath) (src : String) : IO (Std.HashMap String ByteArray) := do
   let root ← IO.FS.realPath dir
   let mut out : Std.HashMap String ByteArray := {}
+  let mut total := 0
+  let cfg : Text.Settings := {}
   for piece in (src.splitOn "\\includegraphics").drop 1 do
     let after := (piece.splitOn "{").drop 1
     let some p := after.head? | continue
@@ -73,10 +77,18 @@ def loadImages (dir : System.FilePath) (src : String) : IO (Std.HashMap String B
     if !(← f.pathExists) then continue
     let real ← IO.FS.realPath f
     if !(real.toString.startsWith (root.toString ++ "/")) then continue
-    if (← real.metadata).byteSize > 16777216 then continue
-    if (← real.metadata).type != .file then continue
-    out := out.insert p (← IO.FS.readBinFile real)
+    let md ← real.metadata
+    if md.type != .file || md.byteSize.toNat > cfg.maxImage then continue
+    if total + md.byteSize.toNat > cfg.maxImagesTotal then continue
+    let bytes ← IO.FS.readBinFile real
+    total := total + bytes.size
+    out := out.insert p bytes
   return out
+
+/-- The most bytes the files of one document may have together (512 MiB): the text of a document
+is bounded by the typesetter's caps and each image is written once per file, so this is a last
+guard, refused before anything is written. -/
+def maxOutputBytes : Nat := 512 * 1024 * 1024
 
 /-- Typesets a document into a directory (see the module docstring). -/
 def renderDocument (fonts : Fonts) (a : Args) (src out : String) : IO UInt32 := do
@@ -88,18 +100,25 @@ def renderDocument (fonts : Fonts) (a : Args) (src out : String) : IO UInt32 := 
   match Doc.typesetDocument source fonts.resolver cfg,
       Doc.typesetDocument source fonts.resolver { cfg with continuous := true } with
   | .ok r, .ok web =>
-    IO.FS.createDirAll out
     let pages := svgPages fonts.set r title
-    for h : k in [0:pages.size] do
-      IO.FS.writeFile (System.FilePath.mk out / s!"page-{k + 1}.svg") pages[k]
-    IO.FS.writeFile (System.FilePath.mk out / "document.svg") (svgCombined fonts.set r title)
+    let combined := svgCombined fonts.set r title
     let fontUrl := a.fontUrl.getD a.fonts
     let (html, css) := htmlPages fonts.set r
       { fontUrl, title, externalStyles := a.externalCss, styleUrl := "document.css" }
-    IO.FS.writeFile (System.FilePath.mk out / "document.html") html
-    if a.externalCss then IO.FS.writeFile (System.FilePath.mk out / "document.css") css
     let (wh, wc) := htmlPages fonts.set web
       { fontUrl, title, externalStyles := a.externalCss, styleUrl := "web.css" }
+    let total := pages.foldl (· + ·.utf8ByteSize) 0 + combined.utf8ByteSize + html.utf8ByteSize +
+      css.utf8ByteSize + wh.utf8ByteSize + wc.utf8ByteSize
+    if total > maxOutputBytes then
+      IO.eprintln s!"{src}: error: the output would have {total} bytes, more than \
+        {maxOutputBytes}"
+      return 1
+    IO.FS.createDirAll out
+    for h : k in [0:pages.size] do
+      IO.FS.writeFile (System.FilePath.mk out / s!"page-{k + 1}.svg") pages[k]
+    IO.FS.writeFile (System.FilePath.mk out / "document.svg") combined
+    IO.FS.writeFile (System.FilePath.mk out / "document.html") html
+    if a.externalCss then IO.FS.writeFile (System.FilePath.mk out / "document.css") css
     IO.FS.writeFile (System.FilePath.mk out / "web.html") wh
     if a.externalCss then IO.FS.writeFile (System.FilePath.mk out / "web.css") wc
     for w in r.warnings do IO.eprintln s!"{src}: warning: {w}"

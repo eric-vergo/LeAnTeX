@@ -45,7 +45,7 @@ def scaleItem (k : Int) (dx dy : Int) : Item → Item
   | .path d vb par x y w h clip col src =>
     .path d vb par (sc x + ⟨dx⟩) (sc y + ⟨dy⟩) (sc w) (sc h)
       (clip.map fun (cx, cy, cw, ch) => (sc cx + ⟨dx⟩, sc cy + ⟨dy⟩, sc cw, sc ch)) col src
-  | .image h x y w ht => .image h (sc x + ⟨dx⟩) (sc y + ⟨dy⟩) (sc w) (sc ht)
+  | .image i h x y w ht => .image i h (sc x + ⟨dx⟩) (sc y + ⟨dy⟩) (sc w) (sc ht)
 where
   /-- A length scaled. -/
   sc (e : Em) : Em := ⟨Em.roundDiv (e.raw * k) Em.unit⟩
@@ -147,7 +147,8 @@ def _root_.LeAnTeX.DisplayList.textForm (dl : DisplayList) : String := Id.run do
     | .rule x y w h col _ => s!"  rule {x.raw} {y.raw} {w.raw} {h.raw}{colorText col}"
     | .path data vb _ x y w h _ col _ =>
       s!"  path {x.raw} {y.raw} {w.raw} {h.raw} viewBox {vb} d {data}{colorText col}"
-    | .image href x y w h => s!"  image {x.raw} {y.raw} {w.raw} {h.raw} {href.length} bytes"
+    | .image i href x y w h =>
+      s!"  image {i} {x.raw} {y.raw} {w.raw} {h.raw} {href.length} bytes"
   let whole : LeAnTeX.Line :=
     { start := 0, stop := dl.items.size, width := dl.width, height := dl.height,
       depth := dl.depth }

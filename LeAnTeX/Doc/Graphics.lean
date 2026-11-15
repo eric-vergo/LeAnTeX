@@ -10,19 +10,23 @@ import LeAnTeX.Doc.Commands
 `\includegraphics[keys]{path}` (with the `graphicx` package): a PNG or SVG file as a box in
 the paragraph, its bottom on the baseline.
 
-* **Paths are untrusted.** A path must be relative, without `..` segments, of letters,
-  digits, `.`, `_`, `-` and `/` only, at most 255 characters; the caller's `Settings.images`
+* **Paths are untrusted.** A path must be relative, without `..`, `.` or empty segments (so
+  each file has one spelling), of letters, digits, `.`, `_`, `-` and `/` only, at most 255
+  characters; the caller's `Settings.images`
   decides which files exist (the renderer reads them inside one directory and refuses links
-  that leave it). Files larger than `Settings.maxImage` are refused.
+  that leave it). Files larger than `Settings.maxImage` are refused, and so is a document whose
+  distinct images together have more than `Settings.maxImagesTotal` bytes.
 * **Natural size**: a PNG's pixels as big points (72 per inch, as LuaTeX takes a PNG without
   a resolution; a `pHYs` resolution is not read), an SVG's `width` and `height` on its root
   element (in `px` at 96 per inch, `pt`, `bp`, `mm`, `cm`, `in`, or no unit as `px`), else
   its `viewBox`'s.
 * **Keys**: `width`, `height` (one keeps the aspect ratio; both stretch it), `scale`; other
   keys are an error.
-* **Output**: an image item (`Item.image`) holding the file as a `data:` URL (`image/png` or
-  `image/svg+xml`, base64), which the SVG and HTML back ends draw with `<image>`. The SVG file
-  is drawn as an image, so its scripts never run in the document.
+* **Output**: an image item (`Item.image`) with the image's id in the document and the file as
+  a `data:` URL (`image/png` or `image/svg+xml`, base64). Each file is read and encoded once per
+  document, and every use shares the id and the string; the SVG and HTML back ends write the
+  data once per output file, as an `<image>` in `<defs>`, and draw each use with `<use>`. The
+  SVG file is drawn as an image, so its scripts never run in the document.
 -/
 
 namespace LeAnTeX.Text.Typeset
@@ -33,7 +37,7 @@ open LeAnTeX.Doc
 def safeImagePath (p : String) : Bool :=
   p.length > 0 && p.length ≤ 255 && !p.startsWith "/" &&
     p.all (fun c => c.isAlphanum || c == '.' || c == '_' || c == '-' || c == '/') &&
-    !((p.splitOn "/").any fun seg => seg == ".." || seg == "")
+    !((p.splitOn "/").any fun seg => seg == ".." || seg == "." || seg == "")
 
 /-- Base64 of bytes (RFC 4648, with padding). -/
 def base64 (b : ByteArray) : String := Id.run do
@@ -114,15 +118,27 @@ def includeGraphics (at_ : Tok) : M Unit := do
   let path ← readWord at_
   if !safeImagePath path then failAt at_ s!"Image path not allowed: {path.take 80}"
   let (cfg, _) ← read
-  let some bytes := cfg.images path | failAt at_ s!"File '{path}' not found"
-  if bytes.size > cfg.maxImage then failAt at_ s!"Image '{path}' too large"
-  let (kind, nat) ← match pngSize bytes with
-    | some (w, h) =>
-      let bp := fun (n : Nat) => ((n * 7227 * 65536 / 7200 : Nat) : Int)
-      pure ("image/png", bp w, bp h)
-    | none => match svgSize bytes with
-      | some (w, h) => pure ("image/svg+xml", w, h)
-      | none => failAt at_ s!"Image '{path}' is neither a PNG nor an SVG with a size"
+  let (id, href, nat) ← match (← docSt).images[path]? with
+    | some (id, href, w, h) => pure (id, href, w, h)
+    | none =>
+      let some bytes := cfg.images path | failAt at_ s!"File '{path}' not found"
+      if bytes.size > cfg.maxImage then failAt at_ s!"Image '{path}' too large"
+      let total := (← docSt).imageBytes + bytes.size
+      if total > cfg.maxImagesTotal then
+        failAt at_ s!"Images too large: the document's images have more than \
+          {cfg.maxImagesTotal} bytes"
+      let (kind, nat) ← match pngSize bytes with
+        | some (w, h) =>
+          let bp := fun (n : Nat) => ((n * 7227 * 65536 / 7200 : Nat) : Int)
+          pure ("image/png", bp w, bp h)
+        | none => match svgSize bytes with
+          | some (w, h) => pure ("image/svg+xml", w, h)
+          | none => failAt at_ s!"Image '{path}' is neither a PNG nor an SVG with a size"
+      let id := s!"img{(← docSt).images.size + 1}"
+      let href := s!"data:{kind};base64," ++ base64 bytes
+      modifyDoc fun d => { d with images := d.images.insert path (id, href, nat.1, nat.2),
+                                  imageBytes := total }
+      pure (id, href, nat)
   let (nw, nh) := nat
   let mut w : Option Int := none
   let mut h : Option Int := none
@@ -156,9 +172,9 @@ def includeGraphics (at_ : Tok) : M Unit := do
     | none, none, some (n, d) => (nw * n / d, nh * n / d)
     | none, none, none => (nw, nh)
   if fw > 1073741823 || fh > 1073741823 then failAt at_ "Image too large"
-  let href := s!"data:{kind};base64," ++ base64 bytes
   let dl : DisplayList :=
-    { width := ⟨fw⟩, height := ⟨fh⟩, depth := 0, items := #[.image href 0 ⟨-fh⟩ ⟨fw⟩ ⟨fh⟩] }
+    { width := ⟨fw⟩, height := ⟨fh⟩, depth := 0,
+      items := #[.image id href 0 ⟨-fh⟩ ⟨fw⟩ ⟨fh⟩] }
   startParagraph
   push (.math fw fh 0 dl (Em.unit : Int))
 

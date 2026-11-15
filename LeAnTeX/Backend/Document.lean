@@ -123,14 +123,17 @@ def svgCombined (fs : FontSet) (r : DocResult) (title : String := "") : String :
   let mut out := #[s!"<svg xmlns=\"http://www.w3.org/2000/svg\" \
     viewBox=\"0 0 {ptText w} {ptText (max 0 (h - pageGap))}\" width=\"{bpText w}pt\" \
     height=\"{bpText (max 0 (h - pageGap))}pt\">",
-    s!"<title>{escape title}</title><desc>Typeset by LeAnTeX</desc>"]
+    s!"<title>{escape title}</title><desc>Typeset by LeAnTeX</desc>",
+    -- every image once, however many pages use it
+    imageDefs (r.pages.map (pageDisplayList r.fonts)) ({} : SvgOptions).imagePrefix]
   let mut y : Int := 0
   for h : k in [0:r.pages.size] do
     let p := r.pages[k]
     out := out.push s!"<rect x=\"0\" y=\"{ptText y}\" width=\"{ptText p.width}\" \
       height=\"{ptText p.height}\" fill=\"#fff\" stroke=\"#999\" stroke-width=\"0.5\"/>"
     let el := svgElement fs (pageDisplayList r.fonts p)
-      { padding := 0, title := s!"page {p.text}", idPrefix := s!"p{k}g" }
+      { padding := 0, title := s!"page {p.text}", idPrefix := s!"p{k}g",
+        writeImageDefs := false }
     out := out.push (el.replace "<svg xmlns=\"http://www.w3.org/2000/svg\""
       s!"<svg y=\"{ptText y}\" xmlns=\"http://www.w3.org/2000/svg\"")
     y := y + p.height + pageGap
@@ -176,13 +179,17 @@ def htmlPages (fs : FontSet) (r : DocResult) (o : HtmlDocOptions := {}) : String
   let mut sheets : Array String := #[]
   for h : k in [0:r.pages.size] do
     let p := r.pages[k]
-    let opts : HtmlOptions := { fontUrl := o.fontUrl, idPrefix := s!"ltx{k}" }
+    let opts : HtmlOptions :=
+      { fontUrl := o.fontUrl, idPrefix := s!"ltx{k}", writeImageDefs := false }
     let (frag, fonts) := htmlFragment fs (pageDisplayList r.fonts p) opts
     sheets := sheets.push (htmlStyleSheet fonts opts)
     body := body.push s!"<section class=\"ltx-page\" aria-label=\"Page {escape p.text}\">\
       {frag}</section>"
   let base := ".ltx-page { background: #fff; color: #000; margin: 18pt auto; \
     box-shadow: 0 0 4pt #999; width: fit-content; }\n" ++ "\n".intercalate sheets.toList
+  -- every image once for the whole page, however many sheets use it
+  let defs := imageDefs (r.pages.map (pageDisplayList r.fonts)) ({} : HtmlOptions).imagePrefix
+  if !defs.isEmpty then body := #[hiddenSvg defs] ++ body
   let bodyText := "\n".intercalate body.toList
   let (bodyText, extra) := if o.externalStyles then externalizeStyles bodyText "ltxs"
     else (bodyText, "")

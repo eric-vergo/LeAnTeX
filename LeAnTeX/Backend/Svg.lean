@@ -64,6 +64,12 @@ structure SvgOptions where
   color : Option String := none
   /-- The prefix of the glyph definitions' ids, for pictures that share a page. -/
   idPrefix : String := "g"
+  /-- The prefix of the images' ids (`imageDefs`); pictures that share a page share it, so an
+  image used in several of them is written once. -/
+  imagePrefix : String := "leantex-"
+  /-- Whether the element writes the definitions of the images it uses; `false` when the page
+  writes them once for all its pictures (`imageDefs`). -/
+  writeImageDefs : Bool := true
   deriving Inhabited
 
 /-- A glyph drawn: the id of its definition, its transformation (`a b c d e f` of SVG's
@@ -138,6 +144,17 @@ private def mirroredAt (dl : DisplayList) (i : Nat) : Bool :=
 
 /-- An attribute ` name="value"` with the value escaped. -/
 private def attr (name value : String) : String := s!" {name}=\"{escape value}\""
+
+/-- An attribute whose value is written as it is when it has only characters that need no
+escape in an attribute (ASCII letters, digits, `+ / = : ; , . -`), as a `data:` URL in base64
+has, and escaped otherwise: the same text as `attr` in either case, without building the
+escaped copy of a value of many megabytes. -/
+private def plainAttr (name value : String) : String :=
+  let plain := value.foldl (init := true) fun ok (c : Char) =>
+    ok && ((c.isAlphanum && c.toNat < 128) || "+/=:;,.-".contains c)
+  if plain then
+    s!" {name}=\"{value}\""
+  else attr name value
 
 /-- The `fill` attribute of an item's colour, if CSS can read it. -/
 private def fillAttr (c : Option String) : String :=
@@ -218,10 +235,11 @@ def pictureParts (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) :
           | some c => s!"<g{attr "fill" c}>{el}</g>"
           | none => el
         body := body.push (.inr el)
-      | .image href x y w h =>
-        body := body.push (.inr s!"<image{attr "x" (ptText (lx + sp x))}\
-          {attr "y" (ptText (ly + sp y))}{attr "width" (ptText (sp w))}\
-          {attr "height" (ptText (sp h))}{attr "href" href}/>")
+      | .image id _ x y w h =>
+        let m := s!"matrix({ptText (sp w)} 0 0 {ptText (sp h)} {ptText (lx + sp x)} \
+          {ptText (ly + sp y)})"
+        body := body.push (.inr s!"<use{attr "xlink:href" ("#" ++ opts.imagePrefix ++ id)}\
+          {attr "transform" m}/>")
   -- the definitions of the glyphs that have outlines
   let mut defs : Array (String × String) := #[]
   for r in order do
@@ -240,6 +258,21 @@ def picture (fs : FontSet) (dl : DisplayList) (opts : SvgOptions := {}) : SvgPic
   let (box, defs, body) := pictureParts fs dl opts
   SvgPicture.ofParts box defs body
 
+/-- The definitions of the images the display lists use, each once (by its id), as a `<defs>`
+element of unit-size `<image>`s that `<use>` scales into place; empty if there are none. -/
+def imageDefs (dls : Array DisplayList) (imagePrefix : String := "leantex-") : String :=
+  Id.run do
+  let mut seen : Std.HashSet String := {}
+  let mut out : Array String := #[]
+  for dl in dls do
+    for it in dl.items do
+      if let .image id href .. := it then
+        if !seen.contains id then
+          seen := seen.insert id
+          out := out.push s!"<image{attr "id" (imagePrefix ++ id)} width=\"1\" height=\"1\" \
+            preserveAspectRatio=\"none\"{plainAttr "href" href}/>"
+  return if out.isEmpty then "" else "<defs>" ++ String.join out.toList ++ "</defs>"
+
 /-- The picture as an `<svg>` element (for a page that holds several, give each its own
 `SvgOptions.idPrefix`). -/
 def svgElement (fs : FontSet) (dl : DisplayList) (opts : SvgOptions := {}) : String := Id.run do
@@ -255,6 +288,9 @@ def svgElement (fs : FontSet) (dl : DisplayList) (opts : SvgOptions := {}) : Str
     out := out.push "<defs>"
     for (id, d) in p.defs do out := out.push s!"<path{attr "id" id}{attr "d" d}/>"
     out := out.push "</defs>"
+  if opts.writeImageDefs then
+    let d := imageDefs #[dl] opts.imagePrefix
+    if !d.isEmpty then out := out.push d
   for e in p.body do
     out := out.push <| match e with
       | .inl u => s!"<use{attr "xlink:href" ("#" ++ u.ref)}\

@@ -138,6 +138,9 @@ structure Settings where
   images : String → Option ByteArray := fun _ => none
   /-- The most bytes an image may have. -/
   maxImage : Nat := 16777216
+  /-- The most bytes the distinct images of a document may have together (each file counted
+  once, however often it is included). -/
+  maxImagesTotal : Nat := 33554432
   /-- A document is set on one continuous page (no page breaks, floats where they are given):
   the web view of the HTML back end. -/
   continuous : Bool := false

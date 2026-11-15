@@ -58,6 +58,11 @@ structure HtmlOptions where
   /-- The prefix of ids and classes the fragment's pictures use, for pages that hold several
   fragments. -/
   idPrefix : String := "ltx"
+  /-- The prefix of the images' ids; the fragments of one page share it. -/
+  imagePrefix : String := "ltx-i-"
+  /-- Whether the fragment writes the definitions of its images (once, in a hidden `<svg>`);
+  `false` when the page writes them once for all its fragments. -/
+  writeImageDefs : Bool := true
   deriving Inhabited
 
 /-- A run of text: its font's name, size (sp), slant, small capitals, colour, position (sp, in
@@ -178,6 +183,11 @@ def htmlStyleSheet (fonts : Array String) (opts : HtmlOptions := {}) : String :=
       clip-path: inset(50%); white-space: nowrap; }"]
   return "\n".intercalate out.toList
 
+/-- An `<svg>` of no size that holds definitions for the pictures of a page. -/
+def hiddenSvg (defs : String) : String :=
+  "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"0\" height=\"0\" aria-hidden=\"true\">" ++
+    defs ++ "</svg>"
+
 /-- The display list as an HTML fragment (a `div`) and the fonts it uses (for
 `htmlStyleSheet`): see the module docstring. -/
 def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
@@ -193,6 +203,9 @@ def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
   let mut out : Array String := #[]
   out := out.push s!"<div class=\"{escape p}\" style=\"width:{bpText (sp dl.width)}pt;\
     height:{bpText bottom}pt\">"
+  if opts.writeImageDefs then
+    let d := imageDefs #[dl] opts.imagePrefix
+    if !d.isEmpty then out := out.push (hiddenSvg d)
   for r in runs do
     let fi := (fonts.idxOf? r.font).getD 0
     let mut style := s!"left:{bpText r.x}pt;top:{bpText r.y}pt;font-size:{bpText r.size}pt"
@@ -212,7 +225,8 @@ def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
         items := (dl.items.extract f.start f.stop).map (Item.shift (-f.x) (-f.y)) }
     let pad := 2 * 65536
     let svg := svgElement fs sub
-      { em, padding := pad, title := f.source, desc := "Formula", idPrefix := s!"{p}-f{k}-" }
+      { em, padding := pad, title := f.source, desc := "Formula", idPrefix := s!"{p}-f{k}-",
+        imagePrefix := opts.imagePrefix, writeImageDefs := false }
     let left := lx + sp f.x - pad
     let ftop := top + ly + sp f.y - sp f.height - pad
     let svg := svg.replace "<svg xmlns=\"http://www.w3.org/2000/svg\""
@@ -231,7 +245,9 @@ def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
       { width := line.width, height := line.height, depth := line.depth,
         items := idx.filterMap (dl.items[·]?) }
     let pad := 2 * 65536
-    let svg := svgElement fs sub { em, padding := pad, desc := "", idPrefix := s!"{p}-l{k}-" }
+    let svg := svgElement fs sub
+      { em, padding := pad, desc := "", idPrefix := s!"{p}-l{k}-",
+        imagePrefix := opts.imagePrefix, writeImageDefs := false }
     let left := lx - pad
     let ltop := top + ly - sp line.height - pad
     out := out.push (svg.replace "<svg xmlns=\"http://www.w3.org/2000/svg\""

@@ -297,6 +297,11 @@ structure DocState where
   environments : Std.HashMap String EnvDef := {}
   /-- The theorem environments. -/
   theorems : Std.HashMap String TheoremDef := {}
+  /-- The images read so far, by path: the id, the `data:` URL, and the natural width and
+  height in sp. Each file is read and encoded once, however often it is included. -/
+  images : Std.HashMap String (String × String × Int × Int) := {}
+  /-- The bytes of the distinct images read so far (against `Settings.maxImagesTotal`). -/
+  imageBytes : Nat := 0
   /-- The current theorem style (`\theoremstyle`). -/
   theoremStyle : String := "plain"
   /-- The floats, by index. -/
