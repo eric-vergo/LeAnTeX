@@ -4,10 +4,11 @@
 % Prints the article class's layout parameters (lengths, penalties, list parameters per level,
 % the size commands with their baselines) to the log as PARAM, LIST and SIZE lines, for
 % fixtures/doc/class/params-*.txt: input it after \documentclass[<options>]{article} and grep
-% the log for those lines. The document layer's defaults (LeAnTeX.Doc.Class) are checked
-% against them.
+% the log for those lines (SP lines give dimensions in sp). LeAnTeX.Doc.Class takes its values
+% from them.
 \makeatletter
-\def\P#1{\typeout{PARAM \string#1=\the#1}}
+\makeatletter
+\def\P#1{\typeout{PARAM \string#1=\the#1}}\def\D#1{\typeout{SP \string#1=\number\dimexpr#1\relax}}
 \def\S#1{\begingroup#1\typeout{SIZE \string#1=\f@size/\the\baselineskip}\endgroup}
 \AtBeginDocument{%
 \P\textwidth\P\textheight\P\oddsidemargin\P\evensidemargin\P\topmargin\P\headheight\P\headsep\P\footskip\P\topskip\P\maxdepth\P\parindent\P\parskip\P\baselineskip\P\lineskip\P\lineskiplimit
@@ -23,6 +24,7 @@
 \typeout{PARAM topfraction=\topfraction}\typeout{PARAM bottomfraction=\bottomfraction}\typeout{PARAM textfraction=\textfraction}\typeout{PARAM floatpagefraction=\floatpagefraction}
 \P\pagewidth\P\pageheight\P\paperwidth\P\paperheight\P\hoffset\P\voffset
 \P\fboxsep\P\fboxrule\P\marginparwidth\P\columnsep
+\D\textwidth\D\textheight\D\oddsidemargin\D\topmargin\D\leftmargini\D\leftmarginii\D\leftmarginiii\D\leftmarginiv\D\leftmarginv\D\labelsep\D\paperwidth\D\paperheight\D\footnotesep\D\marginparwidth
 \@listi\typeout{LIST 1}\P\topsep\P\partopsep\P\itemsep\P\parsep\P\leftmargin\P\labelwidth
 \@listii\typeout{LIST 2}\P\topsep\P\partopsep\P\itemsep\P\parsep\P\leftmargin\P\labelwidth
 \@listiii\typeout{LIST 3}\P\topsep\P\partopsep\P\itemsep\P\parsep\P\leftmargin\P\labelwidth
