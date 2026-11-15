@@ -253,8 +253,8 @@ def svgElement (fs : FontSet) (dl : DisplayList) (opts : SvgOptions := {}) : Str
     out := out.push "</defs>"
   for e in p.body do
     out := out.push <| match e with
-      | .inl u => s!"<use{attr "xlink:href" ("#" ++ u.ref)}{attr "transform" s!"matrix({u.matrix})"}\
-          {fillAttr u.fill}/>"
+      | .inl u => s!"<use{attr "xlink:href" ("#" ++ u.ref)}\
+          {attr "transform" s!"matrix({u.matrix})"}{fillAttr u.fill}/>"
       | .inr s => s
   out := out.push "</svg>"
   return "\n".intercalate out.toList

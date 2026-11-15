@@ -61,7 +61,8 @@ def goldens (fonts : Fonts) (update : Bool) : IO (Array String) := do
         | .error (p, m) => s!"error at {p}: {m}\n"
       let gold := path.withExtension ext
       n := n + 1
-      if (render fonts src opts).toOption != some out then fails := fails.push s!"{gold}: not deterministic"
+      if (render fonts src opts).toOption != some out then
+        fails := fails.push s!"{gold}: not deterministic"
       fails := fails ++ structure_ gold.toString out
       if update then IO.FS.writeFile gold out
       else
