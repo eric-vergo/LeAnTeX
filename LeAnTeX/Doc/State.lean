@@ -87,7 +87,7 @@ structure ListLevel where
   /-- The counter `\item` steps, if any. -/
   counter : Option String := none
   /-- How a label is set: 0 flush right in `\labelwidth` (`\hfil` before it), 1 as
-  `description` sets it (bold, at its natural width). -/
+  `description` sets it (`\labelsep` of space, then bold, at its natural width). -/
   labelStyle : Nat := 0
   /-- Whether the list is a trivial list (`center`, `quote`'s skips only, no items). -/
   trivial : Bool := false

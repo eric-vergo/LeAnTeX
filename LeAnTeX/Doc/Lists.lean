@@ -147,7 +147,11 @@ def item (at_ : Tok) : M Unit := do
   let lb := Tok.char '{' 1 p
   let rb := Tok.char '}' 2 p
   let dim := fun (v : Int) => textToks at_ s!"{v}sp "
-  let made := if l.naturalLabel then #[lb] ++ label ++ #[rb]
+  -- `description`'s `\descriptionlabel`: `\hspace\labelsep\normalfont\bfseries` and the label
+  let made := if l.labelStyle == 1 then
+      #[lb, csT "hskip" at_] ++ dim l.labelSep ++ #[csT "normalfont" at_, csT "bfseries" at_] ++
+        label ++ #[rb]
+    else if l.naturalLabel then #[lb] ++ label ++ #[rb]
     else #[csT "leantex@labelbox" at_, lb] ++ dim l.labelWidth ++ #[rb, lb] ++ label ++ #[rb]
   -- the item's paragraph starts with the label box (no indentation)
   modify fun s => { s with noIndent := true }
