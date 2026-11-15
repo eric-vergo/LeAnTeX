@@ -56,7 +56,8 @@ def checkCorpus (name : String) : IO (Nat × Array String) := do
       let kinds := breaks.all fun b => b ≥ 0 && match (jat (items[b.toNat]?.getD .null) 0).getStr?
         with | some "glue" | some "d" | some "p" | some "k" => true | _ => false
       let last := breaks.back? == some ((items.size : Int) - 1)
-      let widths := lines.all fun l => (l.get? "width").bind jint? == hsize
+      let shaped := (c.get? "hangindent").isSome || (c.get? "parshape").isSome
+      let widths := lines.all fun l => shaped || (l.get? "width").bind jint? == hsize
       if lines.isEmpty || !ascending || !kinds || !last || !widths then
         fails := fails.push s!"{id}: line breaks incoherent"
     | some "word" =>

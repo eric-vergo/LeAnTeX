@@ -60,17 +60,24 @@ def paramsOf (j : Json) : Params :=
     looseness := i "looseness", linePenalty := i "linepenalty", adjDemerits := i "adjdemerits",
     doubleHyphenDemerits := i "doublehyphendemerits",
     finalHyphenDemerits := i "finalhyphendemerits", emergencyStretch := i "emergencystretch",
-    leftSkip := g "leftskip", rightSkip := g "rightskip" }
+    leftSkip := g "leftskip", rightSkip := g "rightskip", hangIndent := i "hangindent"
+    hangAfter := if (j.get? "hangafter").isSome then i "hangafter" else 1 }
 
 /-- Whether a glue ratio is TeX's: the fixture's nine significant digits identify a 32-bit
 float, so the ratio must be that float exactly. -/
 def sameRatio (a b : Float) : Bool := a == b.toFloat32.toFloat
 
-/-- The differences between `breakParagraph` and TeX on one fixture paragraph. -/
-def checkOne (r : Json) : Array String := Id.run do
+/-- A corpus case's `\parshape` (indentation and length in pt per line), in sp. -/
+def parShapeOf (c : Json) : Array (Int × Int) :=
+  let sp := fun (j : Json) => ((j.getNum?.getD 0) * 65536).round.toInt64.toInt
+  (((c.get? "parshape").bind Json.getArr?).getD #[]).map fun e => (sp (jat e 0), sp (jat e 1))
+
+/-- The differences between `breakParagraph` and TeX on one fixture paragraph (`c` its corpus
+case). -/
+def checkOne (c r : Json) : Array String := Id.run do
   let id := ((r.get? "id").bind Json.getStr?).getD "?"
   let items := nodesOf 8 (((r.get? "items").bind Json.getArr?).getD #[])
-  let p := paramsOf ((r.get? "params").getD .null)
+  let p := { paramsOf ((r.get? "params").getD .null) with parShape := parShapeOf c }
   let lines := ((r.get? "lines").bind Json.getArr?).getD #[]
   match breakParagraph items p with
   | .error e => return #[s!"{id}: {e.message}"]
@@ -88,7 +95,8 @@ def checkOne (r : Json) : Array String := Id.run do
         let num := fun k => ((t.get? k).bind jint?).getD 0
         let ratio := ((t.get? "glueSet").bind Json.getNum?).getD 0
         if l.natural != num "natural" || (l.glue.sign : Int) != num "glueSign" ||
-            l.glue.order != orderOf (num "glueOrder") || !sameRatio l.glue.ratio ratio then
+            l.glue.order != orderOf (num "glueOrder") || !sameRatio l.glue.ratio ratio ||
+            l.width != num "width" || l.indent != num "shift" then
           out := out.push s!"{id}: line ending at {num "break"}: natural {l.natural}, glue \
             {l.glue.sign}/{l.glue.order}/{l.glue.ratio}; TeX's {num "natural"}, \
             {num "glueSign"}/{num "glueOrder"}/{ratio}"
@@ -97,11 +105,12 @@ def checkOne (r : Json) : Array String := Id.run do
 /-- Runs the comparison over every fixture paragraph; prints a summary, returns failures. -/
 def run : IO (Array String) := do
   let fixture ← readJsonLines "fixtures/text/paragraphs.jsonl"
-  let cases := fixture.filter fun r => (r.get? "items").isSome
-  let fails := cases.map checkOne
+  let corpus ← readJsonLines "corpus/text/paragraphs.jsonl"
+  let cases := (corpus.zip fixture).filter fun (_, r) => (r.get? "items").isSome
+  let fails := cases.map fun (c, r) => checkOne c r
   let bad := (fails.filter (!·.isEmpty)).size
   IO.println s!"  line breaker: {cases.size - bad} of {cases.size} paragraphs broken as TeX \
-    breaks them (breaks, demerits, natural widths, glue)"
+    breaks them (breaks, demerits, line lengths and shifts, natural widths, glue)"
   return fails.foldl (· ++ ·) #[]
 
 end LineBreakChecks

@@ -141,6 +141,10 @@ def paragraphs():
         ("finalhyphen-0", {"finalhyphendemerits": 0}),
         ("parindent-15", {"parindent": 15}),
         ("parfillskip-0", {"parfillskip": "0pt"}),
+        ("hang-after-2", {"hangindent": 30, "hangafter": 2}),
+        ("hang-first-3", {"hangindent": 30, "hangafter": -3}),
+        ("hang-right-2", {"hangindent": -30, "hangafter": -2}),
+        ("parshape-3", {"parshape": [[0, 100], [20, 80], [40, 120]]}),
     ]
     for name, extra in variants:
         for w in [160, 250, 345]:

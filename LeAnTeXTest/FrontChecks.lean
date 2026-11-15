@@ -74,7 +74,12 @@ def sourceOf (c : Json) : String := Id.run do
   for k in ["tolerance", "pretolerance", "looseness", "linepenalty", "hyphenpenalty",
       "exhyphenpenalty", "adjdemerits", "doublehyphendemerits", "finalhyphendemerits"] do
     if let some v := (c.get? k).bind jint? then s := s ++ s!"\\{k}={v} "
-  for k in ["parindent", "emergencystretch"] do
+  if let some v := (c.get? "hangafter").bind jint? then s := s ++ s!"\\hangafter={v} "
+  if let some sh := (c.get? "parshape").bind Json.getArr? then
+    s := s ++ s!"\\parshape {sh.size} "
+    for e in sh do
+      s := s ++ s!"{ptText ((jat e 0).getNum?.getD 0)} {ptText ((jat e 1).getNum?.getD 0)} "
+  for k in ["parindent", "emergencystretch", "hangindent"] do
     if let some v := num k then s := s ++ s!"\\{k}={ptText v} "
   for k in ["leftskip", "rightskip", "parfillskip"] do
     if let some v := (c.get? k).bind Json.getStr? then s := s ++ s!"\\{k}={v}\\relax "

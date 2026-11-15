@@ -105,12 +105,12 @@ end
 
 local function params()
   local p = {}
-  for _, k in ipairs { "hsize", "parindent", "emergencystretch" } do
+  for _, k in ipairs { "hsize", "parindent", "emergencystretch", "hangindent" } do
     p[#p + 1] = { k, tex.get(k) }
   end
   for _, k in ipairs { "tolerance", "pretolerance", "looseness", "linepenalty", "hyphenpenalty",
       "exhyphenpenalty", "adjdemerits", "doublehyphendemerits", "finalhyphendemerits",
-      "lefthyphenmin", "righthyphenmin", "uchyph", "language" } do
+      "lefthyphenmin", "righthyphenmin", "uchyph", "language", "hangafter" } do
     p[#p + 1] = { k, tex.get(k) }
   end
   for _, k in ipairs { "leftskip", "rightskip", "parfillskip" } do
@@ -157,7 +157,7 @@ luatexbase.add_to_callback("post_linebreak_filter", function(head)
       lines[#lines + 1] = obj {
         { "break", last }, { "width", l.width }, { "natural", natural },
         { "glueSign", l.glue_sign }, { "glueOrder", l.glue_order },
-        { "glueSet", l.glue_set } }
+        { "glueSet", l.glue_set }, { "shift", l.shift } }
     end
   end
   current.lines = lines
@@ -226,8 +226,8 @@ local function material(case)
 end
 
 local intParams = { "tolerance", "pretolerance", "looseness", "linepenalty", "hyphenpenalty",
-  "exhyphenpenalty", "adjdemerits", "doublehyphendemerits", "finalhyphendemerits" }
-local dimParams = { "parindent", "emergencystretch" }
+  "exhyphenpenalty", "adjdemerits", "doublehyphendemerits", "finalhyphendemerits", "hangafter" }
+local dimParams = { "parindent", "emergencystretch", "hangindent" }
 local glueParams = { "leftskip", "rightskip", "parfillskip" }
 
 local function paragraph(case)
@@ -256,6 +256,18 @@ local function paragraph(case)
         if not g then error("bad " .. k) end
         tex.sprint(string.format("\\%s=%s\\relax ", k, g))
       end
+    end
+    if case.parshape ~= nil then
+      local shape = case.parshape
+      if type(shape) ~= "table" or #shape == 0 or #shape > 50 then error("bad parshape") end
+      local spec = { string.format("\\parshape %d ", #shape) }
+      for _, e in ipairs(shape) do
+        if type(e) ~= "table" or not isDim(e[1]) or not isDim(e[2]) then
+          error("bad parshape")
+        end
+        spec[#spec + 1] = string.format("%gpt %gpt ", e[1], e[2])
+      end
+      tex.sprint(table.concat(spec) .. "\\relax ")
     end
     tex.sprint("\\leavevmode ")
     material(case)

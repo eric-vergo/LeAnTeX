@@ -41,8 +41,9 @@ TeX's interline glue.
   `\hangindent` (dimensions); `\tolerance`, `\pretolerance`, `\looseness`, `\linepenalty`,
   `\hyphenpenalty`, `\exhyphenpenalty`, `\adjdemerits`, `\doublehyphendemerits`,
   `\finalhyphendemerits`, `\hangafter`, `\lefthyphenmin`, `\righthyphenmin` (integers);
-  `\leftskip`, `\rightskip`, `\parfillskip`, `\baselineskip`, `\parskip` (glue); assigned as
-  TeX assigns them (`\tolerance=500`) or with `\setlength`. Local to groups, as in TeX.
+  `\leftskip`, `\rightskip`, `\parfillskip`, `\baselineskip`, `\parskip` (glue), and
+  `\parshape`; assigned as TeX assigns them (`\tolerance=500`) or with `\setlength`. Local to
+  groups, as in TeX; the paragraph shape is reset after each paragraph.
 * Escaped characters `\%`, `\&`, `\#`, `\$`, `\_`, `\{`, `\}`, and `\textbackslash`.
 
 Everything else is an error naming the command: environments, lists and sectioning,
@@ -650,6 +651,8 @@ def endParagraph : M Unit := do
   if let some (.glue ..) := items.back? then items := items.pop
   items := items.push (.penalty 10000) |>.push (.glue v.parFillSkip 15)
   set { s with hmode := false, hlist := #[], paragraphs := s.paragraphs.push items }
+  -- TeX resets the paragraph shape after every paragraph
+  modifyVars fun x => { x with p := { x.p with hangIndent := 0, hangAfter := 1, parShape := #[] } }
   match breakParagraph items v.p with
   | .error e => fail s!"paragraph: {e.message}"
   | .ok r =>
@@ -913,7 +916,7 @@ where
   isBuiltin (name : String) : Bool :=
     (fontDecl name {}).isSome || (textFontCommand name).isSome || isIntParam name ||
       isGlueParam name || isDimenParam name ||
-      ["par", "noindent", "indent", "hbox", "mbox", "hspace", "vspace", "hfill", "hfil", "hss",
+      ["par", "parshape", "noindent", "indent", "hbox", "mbox", "hspace", "vspace", "hfill", "hfil", "hss",
         "quad", "qquad", "enspace", "newline", "penalty", "kern", "hskip", "nobreak", "break",
         "allowbreak", "relax", "newcommand", "renewcommand", "providecommand", "def",
         "setlength", "fontsize", "selectfont", "textbackslash"].contains name
@@ -1040,6 +1043,16 @@ def command (t : Tok) (name : String) : M Unit := do
   | "renewcommand" => newCommand t 1
   | "providecommand" => newCommand t 2
   | "def" => defMacro t
+  | "parshape" =>
+    skipEquals
+    let n ← readInt t
+    if n < 0 || n > 10000 then failAt t "Bad \\parshape count"
+    let mut shape := #[]
+    for _ in [0:n.toNat] do
+      let (i, _) ← readDimen t
+      let (l, _) ← readDimen t
+      shape := shape.push (i, l)
+    modifyVars fun x => { x with p := { x.p with parShape := shape } }
   | "setlength" =>
     let some (.cs reg _) := (← readArg t).toList.find? (!·.isSpace)
       | failAt t "\\setlength needs a length register"
