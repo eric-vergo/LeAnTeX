@@ -101,8 +101,89 @@ def endEnvGroup (at_ : Tok) : M Unit := do
   if let some e := e then
     if isListEnv e.name then modifyDoc fun d => { d with endPe := true }
 
-/-- Closes a group: a nested vertical list or a box that began with it is finished. -/
-def closeGroup (at_ : Tok) : M Unit := endGroup at_
+/-- LaTeX's script size (`\sf@size`) for a text size: the defaults of its math sizes. -/
+def scriptSize (size : Int) : Int :=
+  let pt := fun (x : Nat) => (x * 65536 / 100 : Nat)
+  let table : List (Nat × Nat) := [(500, 500), (600, 500), (700, 500), (800, 600), (900, 600),
+    (1000, 700), (1095, 800), (1200, 800), (1440, 1000), (1728, 1200), (2074, 1440),
+    (2488, 2074)]
+  match table.find? (fun (t, _) => (pt t : Int) ≥ size - 655) with
+  | some (_, s) => (pt s : Int)
+  | none => size * 7 / 10
+
+/-- A superscript mark (LaTeX's `\@textsuperscript`, a formula's superscript of a box): `text`
+in the normal font at the script size of `size`, raised by the superscript shift of the math
+fonts at `size` (`\fontdimen13` of the symbol font, 0.412892 em). -/
+def superscriptBox (text : String) (size : Int) : M HNode := do
+  let tf ← fontFor { size := scriptSize size }
+  let g := tf.shape text.toList.toArray
+  let (w, _, _, h, d) := measure g
+  -- TeX's superscript shift in text style: `\fontdimen14` (sup2) of the symbol font of the
+  -- size: Computer Modern's cmsy10 (scaled for 10 pt and above) and cmsy8
+  let sup2 : Int := if size ≤ 8 * 65536 then 352917 else if size < 10 * 65536 then 357900
+    else 362892
+  let shift := (size * sup2 + 500000) / 1000000
+  return .box w (h + shift) (max 0 (d - shift)) 0 #[.box w h d (-shift) g]
+
+/-- The depth of LaTeX's `\strutbox` at a `\baselineskip`: 0.3 of it. -/
+def strutDepth (baseline : Int) : Int := texTimes baseline 0 19661
+
+/-- `\footnote[n]{text}`: the counter stepped (or set), the mark in the text after a
+`\nobreak` (the space factor kept), and the text as an insertion (LaTeX's `\@footnotetext`
+and the article class's `\@makefntext`): in the footnote size, `\interlinepenalty` 100, the
+full column width, the mark flush right in a box 1.8 em wide, a strut of `\footnotesep` at the
+start and of the strut's depth at the end. -/
+def footnote (at_ : Tok) : M Unit := do
+  let opt ← readOptional?
+  let body ← readArg at_
+  match opt with
+  | some n =>
+    let v := ((tokText n).trimAscii.toString.toInt?).getD 0
+    modifyDoc fun d => { d with counters := d.counters.set "footnote" v }
+  | none => stepCounter at_ "footnote"
+  let mark ← theCounter at_ "footnote"
+  let size := (← vars).key.size
+  startParagraph
+  push (.penalty 10000)
+  let sf := (← get).sf
+  push (← superscriptBox mark size)
+  modify fun s => { s with sf }
+  let cp ← classP
+  let some fs ← classSize "footnotesize" | failAt at_ "internal: no footnote size"
+  beginGroup at_
+  openFrame .footnote
+  modifyDoc fun d => { d with currentLabel := mark }
+  modifyVars fun v =>
+    { v with
+      key := { family := .roman, bold := false, shape := .upright, size := fs.size },
+      baselineSkip := { width := fs.baseline }, interlinePenalty := 100,
+      p := { v.p with hsize := cp.textWidth, leftSkip := {}, rightSkip := {} },
+      lineWidth := none, totalLeftMargin := 0, parFillSkip := flushGlue, crPar := false }
+  let p := at_.pos
+  let lb := Tok.char '{' 1 p
+  let rb := Tok.char '}' 2 p
+  inject at_ (#[csT "parindent" at_] ++ textToks at_ "1em " ++ #[csT "noindent" at_,
+    csT "hbox" at_] ++ textToks at_ "to 1.8em" ++ #[lb, csT "hss" at_,
+    csT "leantex@supmark" at_, lb] ++ textToks at_ mark ++ #[rb, rb,
+    csT "leantex@strut" at_, lb] ++ textToks at_ s!"{cp.footnoteSep}" ++ #[rb] ++
+    #[csT "leantex@ignorespaces" at_] ++ body ++
+    #[csT "leantex@finalstrut" at_, rb])
+
+/-- Closes a group: a nested vertical list or a box that began with it is finished; a
+footnote's list becomes its insertion. -/
+def closeGroup (at_ : Tok) : M Unit := do
+  let s ← get
+  if let some fr := s.nest.back? then
+    if fr.depth == s.groups.size then
+      let v ← vars
+      let cp ← classP
+      if let some (kind, content) ← closeFrame then
+        match kind with
+        | .footnote =>
+          adjustV (.ins 254 content { width := cp.footnoteSep }
+            (strutDepth v.baselineSkip.width) 20000)
+        | _ => pure ()
+  endGroup at_
 
 /-- An alignment tab `&` (only inside a table). -/
 def alignTab (at_ : Tok) : M Unit := failAt at_ "Misplaced alignment tab character &"
@@ -148,6 +229,22 @@ def docCommand (t : Tok) (name : String) : M Bool := do
     startParagraph
     push (.glue { stretch := 65536, stretchOrder := 2 } 100)
   | "leantex@tocline" => tocLine t
+  | "footnote" => footnote t
+  | "leantex@supmark" =>
+    let txt ← readWord t
+    push (← superscriptBox txt (← vars).key.size)
+  | "leantex@strut" =>
+    let h := ((← readWord t).toInt?).getD 0
+    startParagraph
+    push (.rule 0 h 0)
+  | "leantex@finalstrut" =>
+    if (← get).hmode then
+      flushRun
+      modify fun s => { s with hlist := match s.hlist.back? with
+                               | some (.glue ..) => s.hlist.pop
+                               | _ => s.hlist }
+      push (.penalty 10000)
+      push (.rule 0 0 (strutDepth (← vars).baselineSkip.width))
   | "item" => item t
   | "leantex@labelbox" => labelBox t
   | "leantex@fitlast" => fitLast t

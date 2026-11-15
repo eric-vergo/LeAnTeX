@@ -264,6 +264,11 @@ structure Outer where
   noIndent : Bool
   /-- The boxes being built outside. -/
   boxes : Array BoxFrame
+  /-- The document layer's paragraph flags outside (after a heading, an item's label, after
+  an environment). -/
+  flags : Bool × Bool × Bool × Option HNode × Bool
+  /-- The paragraph flags of the paragraph outside. -/
+  par : Bool × Bool × Bool
   deriving Inhabited
 
 /-- A nested vertical list being built: what for, the group depth it closes with, and what it
@@ -1056,6 +1061,43 @@ def beginBox (at_ : Tok) (target : Option Int := none) : M Unit := do
       { depth := s.groups.size, outer := s.hlist, sf := s.sf, wasVertical, target }
     hlist := #[] }
 
+/-! ### Nested vertical lists -/
+
+/-- Starts a nested vertical list (TeX's internal vertical mode) for `kind`, closed with the
+current group: what is being built outside is saved and a new list begins. -/
+def openFrame (kind : LeAnTeX.Doc.FrameKind) : M Unit := do
+  flushRun
+  let s ← get
+  let d := s.doc
+  let outer : Outer :=
+    { vlist := s.vlist, vPrev := s.vPrev, hmode := s.hmode, hlist := s.hlist, run := s.run,
+      runKey := s.runKey, sf := s.sf, adjust := s.adjust, noIndent := s.noIndent,
+      boxes := s.boxes, flags := (d.afterHeading, d.noBreak, d.inLabel, d.labelBox, d.endPe),
+      par := (s.afterDisplay, s.noClub, s.clubMax) }
+  set { s with nest := s.nest.push { kind, depth := s.groups.size, outer },
+               vlist := #[], vPrev := LeAnTeX.Doc.ignoreDepth, hmode := false, hlist := #[],
+               run := #[], adjust := #[], noIndent := false, boxes := #[],
+               afterDisplay := false, noClub := false, clubMax := false,
+               doc := { d with afterHeading := false, noBreak := false, inLabel := false,
+                               labelBox := none, endPe := false } }
+
+/-- Ends the innermost nested vertical list: its paragraph ended, its items returned with its
+kind, and the state outside restored. -/
+def closeFrame : M (Option (LeAnTeX.Doc.FrameKind × Array LeAnTeX.Doc.VNode)) := do
+  let some fr := (← get).nest.back? | return none
+  endParagraph
+  let s ← get
+  let o := fr.outer
+  let (ah, nb, il, lbx, ep) := o.flags
+  let (ad, nc, cm) := o.par
+  set { s with nest := s.nest.pop, vlist := o.vlist, vPrev := o.vPrev, hmode := o.hmode,
+               hlist := o.hlist, run := o.run, runKey := o.runKey, sf := o.sf,
+               adjust := o.adjust, noIndent := o.noIndent, boxes := o.boxes,
+               afterDisplay := ad, noClub := nc, clubMax := cm,
+               doc := { s.doc with afterHeading := ah, noBreak := nb, inLabel := il,
+                                   labelBox := lbx, endPe := ep } }
+  return some (fr.kind, s.vlist)
+
 /-! ### Commands -/
 
 /-- The font key after a declaration, if `name` is one. -/
@@ -1314,7 +1356,7 @@ def textCommand (t : Tok) (name : String) : M Unit := do
     if (← get).hmode then
       flushRun
       modify fun s => { s with hlist := match s.hlist.back? with
-        | some (.glue ..) => s.hlist.pop | _ => s.hlist }
+                               | some (.glue ..) => s.hlist.pop | _ => s.hlist }
       push (.glue { stretch := 65536, stretchOrder := 1 } 0)
       push (.penalty (-10000))
   | "hspace" =>
