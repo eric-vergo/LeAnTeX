@@ -20,19 +20,22 @@ program, every chain of larger characters and every extensible recipe, every sca
 form; a file that fails is an error, every query on a font read returns. Sizes are scaled as
 TeX scales them (`store_scaled`), so the widths are TeX's at every size, design size or not.
 
-**The metric files are not part of this library.** Their licences were looked for in the TeX
-Live installation the tests run against: TeX Live's catalogue names Knuth's licence for the
-Computer Modern fonts and the SIL Open Font License for the AMS fonts, but the installation
-holds no statement of the terms beside the metric files (its documentation tree is not
-installed; the METAFONT sources say only that they must not be changed under the same name).
-Redistribution of data derived from them is not clearly allowed by what is there, so nothing
-derived from the metric files is committed: a program reads them at run time from a TeX
-installation (`LeAnTeX.TeXMath.readTfmDirs`, `leantex-render --document --tfm DIR`, in the
+**The metric files are not part of this library.** The terms known for them: Knuth's statement
+for Computer Modern (the fonts may be used freely and must not be changed under the same names;
+TeX Live's catalogue calls it Knuth's licence), and the SIL Open Font License that the catalogue
+names for the AMS fonts. No formal licence text accompanies the metric files in the TeX Live
+installation the tests run against (its documentation tree is not installed; the METAFONT
+sources say only that the fonts must not be changed under the same names). The files are not
+committed: a program reads them at run time from a TeX installation (`LeAnTeX.TeXMath.readTfmDirs`, `leantex-render --document --tfm DIR`, in the
 tests `LEANTEX_TFM_DIRS`, by default the directories of `/usr/local/texlive/*`); without one,
 formulas are laid out by the KaTeX-compatible layout, and `lake test` skips the comparisons
 below and the baselined documents that have formulas, each with a note. The committed
-recordings of TeX's output (`fixtures/math-box/`, the boxes and node lists TeX made) are TeX's
-typeset results, as the document fixtures are.
+recordings of TeX's output (`fixtures/math-box/`) are LuaLaTeX's typeset results for the
+corpus's formulas: each formula's box and its whole node list, which holds for every character
+the font, the size, the slot and the width, height and depth TeX set it at, and the kerns, glue
+and boxes between them. They are the numbers any DVI or PDF file made with these fonts carries,
+and for the characters the formulas use they are the metric files' own dimensions at those
+sizes; they hold no ligature or kern program, no parameters and no italic corrections.
 
 The OpenType text fonts are a family of their own in LaTeX's setup with `fontspec`: `\mathrm`,
 `\operatorname`, `\mathbf`, `\mathit`, `\mathsf`, `\mathtt` and `\text` use New Computer Modern,
@@ -108,11 +111,17 @@ amsmath's macros build them, read from their sources and checked against the rec
   `\smash`.
 
 Refused, and laid out by the KaTeX-compatible layout instead (each listed in
-`parity/MATHBOX.md` with its reason): `\over`, `\atop`, `\choose` and their relatives (the tree
+`parity/MATHBOX.md` with its reason; in a document every such formula is counted, and the
+document's warnings give the number with the offsets and reasons of the first three, which
+`leantex-render --document` prints and `parity/DOC.md` reports): `\over`, `\atop`, `\choose` and their relatives (the tree
 does not tell them from `\frac`), glue with `plus` or `minus`, arrays with rules, row gaps or
 script-style cells (`smallmatrix`, `\substack`, `aligned`, `gathered`), extensible arrows,
 `\overbrace`, `\overrightarrow`, `\boldsymbol`, `\notin`, `\iint` with explicit limits,
-`\cong`, `\models`, `\hbar`, `\ddots`, `\varvdots`, raw boxes and rules, size commands. The
+`\cong`, `\models`, `\hbar`, `\ddots`, `\varvdots`, raw boxes and rules, size commands; and a
+formula past the layout's work budget (a million steps: an inline formula of some ten thousand
+atoms or more). Set by the KaTeX-compatible layout, an inline formula is one box, which no line
+break enters: a formula of 16,000 atoms is one line far wider than the page, with the
+warning. The
 parser's tree cannot tell `\mkern3mu` from `\,` (nor 4mu, 5mu from `\:`, `\;`): they are read
 as the glue, whose width is the same.
 

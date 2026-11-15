@@ -97,7 +97,7 @@ the files themselves.
 | `fixtures/font/lm*.jsonl`, `latinmodern-math.jsonl` | numbers read from the Latin Modern fonts by fontTools (metrics, names, character maps, boxes, outline hashes; no outlines) | the Latin Modern fonts of TeX Live (GUST Font License, the LaTeX Project Public License 1.3c with a request to rename modified fonts) |
 | `fixtures/font/leantex-test-*` | two small fonts drawn by `tools/test-fonts.py`, and their references | Apache-2.0 (this repository) |
 
-| `fixtures/math-box/boxes-*pt.jsonl` | the boxes TeX makes for this repository's formulas (`corpus/math-box/formulas.tsv`) with their whole node lists (characters by font name and slot with the dimensions TeX set them at, boxes, glue, kerns), recorded by `tools/math-box-reference.sh` | LuaLaTeX of TeX Live 2025 as above: TeX's typeset output, as a DVI or PDF file records it; no metric file and no table of a font's metrics |
+| `fixtures/math-box/boxes-*pt.jsonl` | LuaLaTeX's typeset output for this repository's formulas (`corpus/math-box/formulas.tsv`), recorded by `tools/math-box-reference.sh`: for each formula its box (width, height, depth) and its whole node list, which holds for every character the font's name, the size, the slot and the width, height and depth TeX set it at, and the kerns, glue and boxes between them | LuaLaTeX of TeX Live 2025 as above. These are the same numbers any DVI or PDF file made with these fonts carries; for the characters that occur in the formulas they are also the metric files' own widths, heights and depths at those sizes. The files are not a copy of a metric file: they hold no ligature or kern program, no parameters, no italic corrections, and only the slots the formulas use |
 | `fixtures/math-codes/codes.tsv`, `corpus/math-codes/names.txt` | how LaTeX with `amsmath` and `amssymb` defines each math command and character the parser knows (`\meaning`, `\mathcode`, `\delcode`), recorded by `tools/math-codes.sh` | LuaLaTeX of TeX Live 2025: the LaTeX kernel's `fontmath.ltx` and `latex.ltx`, `amsmath`, `amsfonts`, `amssymb` (LaTeX Project Public License 1.3c); the macro texts are the packages' own definitions as TeX prints them, kept as test data |
 
 LeAnTeX contains no Latin Modern font file; the font tests read the fonts from a TeX
@@ -114,14 +114,18 @@ those fonts and the hyphenation points the patterns give, not the fonts.
 | `LeAnTeX/TeXMath/Setup.lean` | LaTeX's math sizes and the metric file chosen for each family and size | facts of `fontmath.ltx` (`\DeclareMathSizes`) and the font definition files `ot1cmr.fd`, `omlcmm.fd`, `omscmsy.fd`, `omxcmex.fd`, `umsa.fd`, `umsb.fd`, `ueuf.fd`, `amsmath.sty`, `amsfonts.sty` (LPPL 1.3c) |
 | `LeAnTeX/TeXMath/Data/Glyphs.lean` | the Unicode character of each slot of the Computer Modern, AMS and Euler metric fonts | facts of the font encodings (OT1, OML, OMS, OMX, the AMS and Euler layouts), established from the METAFONT sources and AFM files of TeX Live's `cm` and `amsfonts` packages, `amssymb.sty` and `unicode-math-table.tex` (LPPL); a list of correspondences, no font data |
 
-**The metric files themselves are not included**, nor anything derived from them: the Computer
-Modern fonts' metric files (`cmr`, `cmmi`, `cmsy`, `cmex`, `cmbx`, `cmmib`, `cmbsy`; TeX
-Live's catalogue: Knuth's licence) and the AMS and Euler fonts' (`cmex7`–`cmex9`, `msam`,
-`msbm`, `eufm`, `eufb`; TeX Live's catalogue: SIL Open Font License). The TeX installation the
-tests run against holds no statement of the terms beside the metric files, so redistributing
-data derived from them was not established as allowed; the layout reads them at run time from a
-TeX installation the user has (`docs/math-boxes.md`). Formulas laid out by this layout are drawn
-with New Computer Modern Math (*Fonts: New Computer Modern* above).
+**The metric files themselves are not included**: the Computer Modern fonts' metric files
+(`cmr`, `cmmi`, `cmsy`, `cmex`, `cmbx`, `cmmib`, `cmbsy`) and the AMS and Euler fonts'
+(`cmex7`–`cmex9`, `msam`, `msbm`, `eufm`, `eufb`) are read at run time from a TeX installation
+the user has (`docs/math-boxes.md`). The terms known for them: for Computer Modern, Knuth's
+statement that the fonts may be used freely and must not be changed under the same names (TeX
+Live's catalogue lists it as Knuth's licence); for the AMS and Euler fonts, TeX Live's catalogue
+names the SIL Open Font License. No formal licence text accompanies the metric files in the TeX
+Live installation the tests run against. What the repository does hold of their numbers is in
+the recorded typeset output of `fixtures/math-box/` (above): the width, height and depth of
+each character a recorded formula uses, at the sizes it was set at, as TeX's output carries
+them. Formulas laid out by this layout are drawn with New Computer Modern Math (*Fonts: New
+Computer Modern* above).
 
 ## Hyphenation patterns
 

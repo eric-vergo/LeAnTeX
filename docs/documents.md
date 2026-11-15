@@ -4,8 +4,8 @@ LeAnTeX's document layer typesets whole LaTeX documents of the `article` class i
 LaTeX does: TeX's vertical lists and page builder, LaTeX's output routine with its floats and
 footnotes, sectioning, counters, cross-references, the table of contents, lists, theorems,
 tables and figures. It is checked against LuaLaTeX line by line, to the scaled point, on 97
-documents it was developed with and on 20 held-out documents it was not (see *Agreement with
-LuaLaTeX*: the second figure is the one to go by).
+documents it was developed with and on two held-out sets it was not (see *Agreement with
+LuaLaTeX*: the second held-out set is the figure to go by).
 
 ```lean
 import LeAnTeX
@@ -119,21 +119,24 @@ Three sets, which must be read together:
 | reference documents: the 72 written to cover the features, the math ones included (tuned on) | 72 / 72 | 1667 / 1667 | 1667 | 17 / 17 |
 | regression documents: 15, one or more per difference fixed | 15 / 15 | 143 / 143 | 143 | 3 / 3 |
 | fresh documents: 10 written without reading this library | 7 / 10 | 367 / 398 | 367 | 10 / 10 |
-| **held-out documents: 20 written without reading this library, not tuned to** | **9 / 20** | **398 / 469** | **405** | **3 / 3** |
-| **second held-out set: 10 written blind after the first set was run** | **5 / 10** | **374 / 400** | **375** | **10 / 10** |
+| first held-out set: 20 written without reading this library (8 / 20 when first run blind) | 9 / 20 | 398 / 469 | 405 | 3 / 3 |
+| **second held-out set: 10 written blind after the first set was run, run once, never tuned to** | **5 / 10** | **374 / 400** | **375** | **10 / 10** |
 
-The first held-out set was run once with the TeX-rule layout (8 / 20, 397 lines); a defect it
-showed (a doubled thin space after `\cdots` before punctuation) was then fixed, and the second
-set (`corpus/doc-heldout-2/`, `tools/doc-reference.sh --held-out-2`) was written blind and run
-once after that.
+The first held-out set gave 8 / 20 (397 lines) when it was first run blind with the TeX-rule
+layout. Since then one defect it showed (a doubled thin space after `\cdots` before
+punctuation) was fixed, which made a ninth document agree, and four of its fixtures
+(`held-01`, `held-04`, `held-10`, `held-15`) were re-recorded after a fix to the recorder (it
+had kept the counter steps amsmath makes while measuring): its present figure is not a blind
+one. The second set (`corpus/doc-heldout-2/`, `tools/doc-reference.sh --held-out-2`) was
+written blind after that, run once, and nothing was changed for it.
 
 The figures are with the Computer Modern metric files installed (the TeX-rule math layout,
 `docs/math-boxes.md`); without them formulas are set by the KaTeX-compatible layout and the
 documents with formulas differ as they did before it: the held-out set then gave 0 / 20, 190 of
 469 lines and 355 within 1 pt.
 
-The held-out set (`corpus/doc-heldout/`, `bash tools/doc-reference.sh --held-out`) is the honest
-measure of the layer on documents it was not shaped by: short mathematical articles with
+The held-out sets (`corpus/doc-heldout/`, `bash tools/doc-reference.sh --held-out`, and the
+second) measure the layer on documents it was not written from, the second one blind: short mathematical articles with
 prose, lists, theorems and proofs, inline and displayed formulas, tables, footnotes and
 references, written from a list of the supported features only. `lake test` reports it and
 requires nothing of it. Before the changes listed below the same set gave 0 / 20, 156 of 469
@@ -207,7 +210,9 @@ agree since and its regression document:
 
 Formulas are set by the TeX-rule layout when the Computer Modern metric files are installed
 (`docs/math-boxes.md`), inline formulas breaking after relations and binary operations as in
-TeX; a formula that layout refuses is one box of the KaTeX-compatible layout.
+TeX; a formula that layout refuses is one box of the KaTeX-compatible layout, and the document's
+warnings count such formulas and give the offsets of the first three (`DocResult.mathFallbacks`;
+`parity/DOC.md` lists them for the corpus).
 
 ## amsmath's alignments
 

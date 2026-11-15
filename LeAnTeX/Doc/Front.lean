@@ -104,8 +104,9 @@ def typeset (src : String) (resolve : FontResolver) (cfg : Settings := {})
     throw { message := s!"source too long: more than {cfg.maxSource} characters" }
   let st : St := { input := (tokenize src).reverse, groups := #[init] }
   let ((), s) ← (process.run (cfg, resolve)).run st
-  return { fonts := s.fonts, lines := s.lines, width := s.width, warnings := s.warnings
-           paragraphs := s.paragraphs }
+  return { fonts := s.fonts, lines := s.lines, width := s.width,
+           warnings := s.warnings ++ (fallbackWarning s.mathFallbacks).toArray
+           paragraphs := s.paragraphs, mathFallbacks := s.mathFallbacks }
 
 end LeAnTeX.Text
 
@@ -133,6 +134,10 @@ structure DocResult where
   warnings : Array String
   /-- The records of `\leantexprobe` (`LeAnTeX.Text.Settings.probes`), in order. -/
   probes : Array String := #[]
+  /-- The formulas the TeX-rule layout refused although its fonts were there, set by the
+  KaTeX-compatible layout instead: the offset in the source and the reason (the last pass's;
+  the warnings count them too). -/
+  mathFallbacks : Array (Nat × String) := #[]
   deriving Inhabited
 
 /-- The pages of a pass: the main vertical list through the page builder and the output
@@ -241,9 +246,10 @@ def typesetDocument (src : String) (resolve : FontResolver) (cfg : LeAnTeX.Text.
     pages, fonts := s.fonts, passes,
     labels := s.doc.labels.map fun (k, t) => (k, t, pageOf k)
     toc := s.doc.toc.map fun e => (e.level, e.number, tokText e.title, pageOf e.anchor)
-    steps := s.doc.steps, probes := s.doc.probes
+    steps := s.doc.steps, probes := s.doc.probes, mathFallbacks := s.mathFallbacks
     warnings := s.warnings ++ s.doc.warnings ++
-      (s.doc.undefinedRefs.map fun k => s!"Reference '{k}' undefined") }
+      (s.doc.undefinedRefs.map fun k => s!"Reference '{k}' undefined") ++
+      (fallbackWarning s.mathFallbacks).toArray }
 where
   /-- Whether two passes gave the same references. -/
   sameRefs (a b : Std.HashMap String (String × String)) : Bool :=

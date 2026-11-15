@@ -222,6 +222,25 @@ structure Document where
   paragraphs : Array (Array HNode) := #[]
   /-- Warnings (overfull lines, glue made finite). -/
   warnings : Array String := #[]
+  /-- The formulas the TeX-rule layout refused although its fonts were there
+  (`Typeset.St.mathFallbacks`). -/
+  mathFallbacks : Array (Nat × String) := #[]
+
+/-- The most fallbacks `fallbackWarning` names one by one. -/
+def maxFallbacksNamed : Nat := 3
+
+/-- The warning for formulas the TeX-rule layout refused and the KaTeX-compatible layout set
+instead: how many, and the offsets and reasons of the first `maxFallbacksNamed`. `none` when
+there are none. -/
+def fallbackWarning (fs : Array (Nat × String)) : Option String :=
+  if fs.isEmpty then none
+  else
+    let named := (fs.extract 0 maxFallbacksNamed).toList.map fun (p, why) =>
+      s!"at character {p} ({why})"
+    let more := if fs.size > maxFallbacksNamed then ", …" else ""
+    let n := if fs.size == 1 then "1 formula" else s!"{fs.size} formulas"
+    some s!"{n} set by the KaTeX-compatible layout, which the TeX-rule layout refused: \
+      {", ".intercalate named}{more}"
 
 namespace Typeset
 
@@ -348,6 +367,9 @@ structure St where
   preDisplay : Int := -1073741823
   /-- The math families made for each text size (the TeX-rule layout's fonts). -/
   mathFams : Std.HashMap Int LeAnTeX.TeXMath.Families := {}
+  /-- The formulas the TeX-rule layout refused although its fonts were there, each set by the
+  KaTeX-compatible layout instead: the offset of the formula in the source and the reason. -/
+  mathFallbacks : Array (Nat × String) := #[]
 
 /-- The front end's monad. -/
 abbrev M := ReaderT (Settings × FontResolver) (StateT St (Except TypesetError))
@@ -944,8 +966,10 @@ def mathFamilies : M (Option LeAnTeX.TeXMath.Families) := do
 /-- A formula laid out by the TeX-rule layout at the current size, as TeX's `mlist_to_hlist`
 makes it (in display style for a displayed one; `penalties` for one in a paragraph): its
 list and the families, or `none` when it is not built so (no metric files, or a construct the
-layout refuses). -/
-def texFormula (src : String) (display penalties : Bool) :
+layout refuses). A formula the layout refuses although the metric files are there (a
+construct it does not build, or one past its work budget or nesting cap) is recorded in
+`St.mathFallbacks` with the token `at_`'s offset. -/
+def texFormula (at_ : Tok) (src : String) (display penalties : Bool) :
     M (Option (Array LeAnTeX.TeXMath.Node × LeAnTeX.TeXMath.Families)) := do
   let some fs ← mathFamilies | return none
   let (cfg, resolve) ← read
@@ -953,7 +977,12 @@ def texFormula (src : String) (display penalties : Bool) :
   let size := v.key.size
   let macros := cfg.math.macros ++ (← mathMacros)
   let settings := { cfg.math with displayMode := display, macros }
-  let .ok tree := LeAnTeX.TeXMath.parseForTeX src settings display | return none
+  let note := fun (why : String) =>
+    modify fun (s : St) => { s with mathFallbacks := s.mathFallbacks.push (at_.pos, why) }
+  let tree ← match LeAnTeX.TeXMath.parseForTeX src settings display with
+    | .ok t => pure (some t)
+    | .error e => do note (toString e); pure none
+  let some tree := tree | return none
   let tf : Option TextFont := (resolve { size }).map fun i => { info := i, size, index := 0 }
   let bskip := v.baselineSkip.width
   let ctx : LeAnTeX.TeXMath.FrontCtx :=
@@ -969,7 +998,7 @@ def texFormula (src : String) (display penalties : Bool) :
     LeAnTeX.TeXMath.mlistToHlist LeAnTeX.TeXMath.maxNesting l style penalties
   match (run.run env).run {} with
   | .ok (h, _) => return some (h, fs)
-  | .error _ => return none
+  | .error e => note e; return none
 
 /-- A part of a formula drawn as one unbreakable node: its list's display list in em of the
 size, with the formula's record (`source` empty for a part after the first). -/
@@ -980,12 +1009,10 @@ def mathChunk (fs : LeAnTeX.TeXMath.Families) (l : Array LeAnTeX.TeXMath.Node) (
   let whole : Formula := ⟨0, dl.items.size, 0, 0, dl.width, dl.height, dl.depth, src, display⟩
   .math b.width b.height b.depth { dl with formulas := #[whole] } size
 
-/-- Lays out a formula at the current size as one node (or an error): by the TeX-rule layout
-when it builds the formula, else by the KaTeX-compatible one. -/
-def formula (at_ : Tok) (src : String) (display : Bool) : M HNode := do
+/-- Lays out a formula at the current size as one node by the KaTeX-compatible layout (or an
+error). -/
+def katexFormula (at_ : Tok) (src : String) (display : Bool) : M HNode := do
   let size := (← vars).key.size
-  if let some (h, fs) ← texFormula src display false then
-    return mathChunk fs h size src display
   let (cfg, _) ← read
   let settings := { cfg.math with
     displayMode := display, macros := cfg.math.macros ++ (← mathMacros) }
@@ -1003,18 +1030,28 @@ def formula (at_ : Tok) (src : String) (display : Bool) : M HNode := do
     let sc := fun (e : Em) => Em.roundDiv (e.raw * size) Em.unit
     return .math (sc dl.width) (sc dl.height) (sc dl.depth) dl size
 
+/-- Lays out a formula at the current size as one node (or an error): by the TeX-rule layout
+when it builds the formula, else by the KaTeX-compatible one. -/
+def formula (at_ : Tok) (src : String) (display : Bool) : M HNode := do
+  let size := (← vars).key.size
+  if let some (h, fs) ← texFormula at_ src display false then
+    return mathChunk fs h size src display
+  katexFormula at_ src display
+
 /-- An inline formula appended to the horizontal list. Laid out by the TeX-rule layout, it is
 TeX's list of the formula between its math nodes: the math nodes become explicit kerns of 0 (a
 line may break after the formula's end before glue, as TeX's math node allows), glue and
 penalties stay themselves, with a `\nobreak` before each glue (TeX does not break at glue
 inside a formula), and the material between them is drawn as unbreakable parts. A line may so
 break at the penalties after relations and binary operations (in a paragraph; not in a box).
-Laid out by the KaTeX-compatible layout, it is one box. The space factor becomes 1000. -/
+Laid out by the KaTeX-compatible layout (no metric files, or a formula the TeX-rule layout
+refuses, such as one past its work budget: about ten thousand atoms), it is one box, which no
+line break enters, however wide. The space factor becomes 1000. -/
 def inlineFormula (at_ : Tok) (src : String) : M Unit := do
   let size := (← vars).key.size
   let penalties := (← get).hmode && (← get).boxes.isEmpty
-  match ← texFormula src false penalties with
-  | none => push (← formula at_ src false)
+  match ← texFormula at_ src false penalties with
+  | none => push (← katexFormula at_ src false)
   | some (h, fs) =>
     push (.kern 0 .explicit)
     let mut part : Array LeAnTeX.TeXMath.Node := #[]

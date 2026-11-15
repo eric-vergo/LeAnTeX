@@ -81,11 +81,12 @@ What LeAnTeX does today, and what comes next.
   bibliographies (`thebibliography`, `\bibitem`, `\cite`). Against LuaLaTeX
   (`tools/doc-reference.sh`, `parity/DOC.md`), line by line to the sp: the 87 reference and
   regression documents all agree, 1,810 of 1,810 lines; ten fresh documents written without
-  reading the source 7 agree, 367 of 398 lines; **twenty held-out documents, written without
-  reading the source and not tuned to: 9 agree in full, 398 of 469 lines at the place to the
-  sp, 405 within 1 pt, page breaks 3 of 3** (before the TeX-rule layout: none, 190 and 355);
-  a second held-out set of ten, written blind after the first was run and a defect it showed
-  was fixed: 5 agree, 374 of 400 lines, 375 within 1 pt, page breaks 10 of 10.
+  reading the source 7 agree, 367 of 398 lines; **a second held-out set of ten, written blind
+  after the first was run, run once and never tuned to: 5 agree, 374 of 400 lines, 375 within
+  1 pt, page breaks 10 of 10**; the first held-out set of twenty, written the same way: 8 agreed
+  when it was first run blind with the TeX-rule layout, 9 agree now (398 of 469 lines, 405
+  within 1 pt, page breaks 3 of 3) after a defect it showed was fixed and four of its fixtures
+  were re-recorded for a fix to the recorder (before the TeX-rule layout: none, 190 and 355).
   List parameters probed against LuaLaTeX at every level for three sizes
   (`tools/list-params.sh`). Paged SVG and HTML (`leantex-render --document`),
   `examples/article/`. Theorems: the pages hold the vertical list's boxes, counters,

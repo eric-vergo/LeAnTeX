@@ -370,8 +370,9 @@ def main (args : List String) : IO UInt32 := do
     for f in fails do IO.println s!"FAIL {f}"
     return if fails.isEmpty then 0 else 1
   if args == ["--doc"] then
-    let _ ← DocChecks.run false
-    return 0
+    let fails ← DocChecks.run false
+    for f in fails do IO.println s!"FAIL {f}"
+    return if fails.isEmpty then 0 else 1
   if args == ["--update-doc"] then
     let _ ← DocChecks.run true
     let _ ← TeXMathChecks.run true

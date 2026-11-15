@@ -12,7 +12,7 @@
 #
 # Usage, from the repository root:  bash tools/doc-reference.sh [--held-out | --held-out-2] [name …]
 # With --held-out the documents are corpus/doc-heldout/<name>.tex and the fixtures go to
-# fixtures/doc-heldout/ (the held-out set, which the layer is not tuned to); --held-out-2 does
+# fixtures/doc-heldout/ (the first held-out set); --held-out-2 does
 # the same for the second held-out set, corpus/doc-heldout-2/ and fixtures/doc-heldout-2/.
 # Needs a TeX Live with LuaLaTeX (TEXBIN, default the directory of `lualatex` on PATH or
 # /Library/TeX/texbin). TeX's caches go to a fresh temporary directory, removed at the end;

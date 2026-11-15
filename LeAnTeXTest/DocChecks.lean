@@ -95,6 +95,9 @@ structure Outcome where
   /-- Page breaks at LuaLaTeX's place: the page after the break begins with LuaLaTeX's first
   line. -/
   sameBreaks : Nat := 0
+  /-- The formulas the TeX-rule layout refused (set by the KaTeX-compatible layout although the
+  metric files were there): the offset in the source and the reason. -/
+  fallbacks : Array (Nat × String) := #[]
   deriving Inhabited
 
 /-- The outcome with one more difference. -/
@@ -188,7 +191,8 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
   match typesetDocument src resolve cfg with
   | .error e => return { name, diffs := #[s!"error: {e.message} at {e.pos}"], lines := total }
   | .ok r =>
-    let mut o : Outcome := { name, lines := total, breaks := theirs.size - 1 }
+    let mut o : Outcome :=
+      { name, lines := total, breaks := theirs.size - 1, fallbacks := r.mathFallbacks }
     for i in [1:theirs.size] do
       let first := ((theirs[i]!.get? "lines").bind Json.getArr?).bind (·[0]?)
       let tt := norm (((first.bind (·.get? "text")).bind Json.getStr?).getD "")
@@ -292,6 +296,26 @@ def fuzz (resolve : FontResolver) (n : Nat) : IO (Nat × Nat) := do
       | .error _ => err := err + 1
   return (ok, err)
 
+/-- A text as a cell of the report's Markdown tables: control characters (a fixture's text
+may hold the bytes of a font's own encoding) written as `\u{…}` escapes, and `|` escaped. -/
+def reportCell (s : String) : String :=
+  s.foldl (init := "") fun out c =>
+    if c == '|' then out ++ "\\|"
+    else if c.toNat < 0x20 || c.toNat == 0x7F then
+      out ++ "\\u{" ++ String.ofList (Nat.toDigits 16 c.toNat) ++ "}"
+    else out.push c
+
+/-- Whether a text has a control character other than a line feed (`parity/DOC.md` must not). -/
+def hasControl (s : String) : Bool :=
+  s.any fun c => c != '\n' && (c.toNat < 0x20 || c.toNat == 0x7F)
+
+/-- The formulas the TeX-rule layout refused in some outcomes: their number and the first
+few, as document and offset. -/
+def fallbackSummary (outs : Array Outcome) : String :=
+  let all := outs.toList.flatMap fun o => o.fallbacks.toList.map fun (p, _) => s!"{o.name}@{p}"
+  let first := ", ".intercalate (all.take 5)
+  if all.isEmpty then "none" else s!"{all.length} ({first}{if all.length > 5 then ", …" else ""})"
+
 /-- The feature a document exercises, from its name. -/
 def feature (name : String) : String :=
   let pre := (name.splitOn "-").headD name
@@ -393,9 +417,10 @@ def totalsRow (label : String) (outs : Array Outcome) : String :=
   let (a, n, same, lines, near, sb, b) := totals outs
   s!"| {label} | {a} / {n} | {same} / {lines} | {near} | {sb} / {b} |\n"
 
-/-- The held-out documents (`corpus/doc-heldout/`, or the second set `corpus/doc-heldout-2/`):
-written without reading this library and not tuned to; their agreement is reported, never
-required. -/
+/-- The held-out documents (`corpus/doc-heldout/`, or the second set `corpus/doc-heldout-2/`),
+written without reading this library; their agreement is reported, never required. The first
+set has been run many times since it was written (see `docs/documents.md`); the second was run
+once and never tuned to. -/
 def heldOut (resolve : FontResolver) (set : String := "doc-heldout") : IO (Array Outcome) := do
   let mut outs := #[]
   for n in ← documents set do outs := outs.push (← compare n resolve)
@@ -484,6 +509,8 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
   let near := outs.foldl (init := 0) (· + ·.nearLines)
   IO.println s!"  documents: {agree.size} of {outs.size} agree with LuaLaTeX; lines at the same \
     place {same} of {lines}, within 1 pt {near}"
+  IO.println s!"  formulas the TeX-rule layout refused (set by the KaTeX-compatible layout): \
+    {fallbackSummary outs}"
   if show?.isNone then IO.println s!"  {← MathBoxChecks.run update}"
   -- the held-out set is skipped with LEANTEX_SKIP_HELDOUT (while the layer is being worked on)
   let skipHeld := (← IO.getEnv "LEANTEX_SKIP_HELDOUT").isSome
@@ -491,16 +518,36 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
   if !held.isEmpty then
     let (a, n, hs, hl, hn, hb, hbt) := totals held
     IO.println s!"  held-out documents (reported, not required): {a} of {n} agree; lines at the \
-      same place {hs} of {hl}, within 1 pt {hn}; page breaks {hb} of {hbt}"
+      same place {hs} of {hl}, within 1 pt {hn}; page breaks {hb} of {hbt}; formulas the \
+      TeX-rule layout refused: {fallbackSummary held}"
   let held2 ← if show?.isNone && !skipHeld then heldOut resolve "doc-heldout-2" else pure #[]
   if !held2.isEmpty then
     let (a, n, hs, hl, hn, hb, hbt) := totals held2
     IO.println s!"  second held-out set (reported, not required): {a} of {n} agree; lines at \
-      the same place {hs} of {hl}, within 1 pt {hn}; page breaks {hb} of {hbt}"
+      the same place {hs} of {hl}, within 1 pt {hn}; page breaks {hb} of {hbt}; formulas the \
+      TeX-rule layout refused: {fallbackSummary held2}"
   if show?.isNone then
     let (fok, ferr) ← fuzz resolve 6
     IO.println s!"  mutated documents: {fok + ferr} ended ({fok} with pages, {ferr} with an error)"
   let mut fails := #[]
+  -- a formula past the TeX-rule layout's work budget (16000 atoms) is set by the
+  -- KaTeX-compatible layout as one box, which no line break enters, with a warning naming it
+  let tfms ← MathBoxChecks.mathTfms
+  if show?.isNone && tfms.contains "cmmi10" then
+    let src := "\\documentclass{article}\\begin{document}$" ++
+      "+".intercalate (List.replicate 16000 "a") ++ "$\\end{document}"
+    match typesetDocument src resolve { mathTfms := tfms } with
+    | .ok r =>
+      let says := fun (w t : String) => (w.splitOn t).length > 1
+      let warned := r.warnings.any fun w =>
+        says w "1 formula set by the KaTeX-compatible layout" && says w "at character 39" &&
+          says w "work budget"
+      if r.mathFallbacks.size == 1 && warned && r.pages.size == 1 then
+        IO.println "  a formula of 16000 atoms: one box by the KaTeX-compatible layout, warned"
+      else
+        fails := fails.push s!"a formula of 16000 atoms: {r.mathFallbacks.size} fallbacks, \
+          {r.pages.size} pages, warnings {r.warnings}"
+    | .error e => fails := fails.push s!"a formula of 16000 atoms: {e.message}"
   -- the example article's pages, byte for byte (`examples/article/`)
   if show?.isNone then
     let (fonts, missing) ← LeAnTeX.Backend.Fonts.load "fonts/newcomputermodern"
@@ -542,15 +589,22 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
       counter steps are LuaLaTeX's. A page break is at LuaLaTeX's place when the page after it \
       begins with LuaLaTeX's line. The reference documents were written to cover the \
       features and the layer was tuned on them; the fresh and the held-out documents were \
-      written by someone who had not read this library, and the held-out ones are not tuned \
-      to: they are the honest measure.\n\n| Set | Documents agreeing | Lines at the same \
-      place | Within 1 pt | Page breaks |\n|---|---|---|---|---|\n"
+      written by someone who had not read this library. The first held-out set agreed in 8 \
+      of 20 documents when it was first run blind with the TeX-rule layout; one defect it \
+      showed was fixed after that and four of its fixtures were re-recorded after a fix to the \
+      recorder, so its figure below is no longer a blind one. The second held-out set was \
+      written blind after that, run once and never tuned to: it is the honest measure.\n\n\
+      | Set | Documents agreeing | Lines at the same place | Within 1 pt | Page breaks |\n\
+      |---|---|---|---|---|\n"
     let fresh := outs.filter (·.name.startsWith "fresh-")
     md := md ++ totalsRow "reference documents (tuned on)" (outs.filter
       (!·.name.startsWith "fresh-")) ++ totalsRow "fresh documents (written blind)" fresh ++
-      totalsRow "**held-out documents (written blind, not tuned to)**" held ++
+      totalsRow "first held-out set (written blind; 8 / 20 when first run)" held ++
       (if held2.isEmpty then "" else
-        totalsRow "**second held-out set (written blind after the first was run)**" held2)
+        totalsRow "**second held-out set (written blind, run once, not tuned to)**" held2)
+    let refusedAll := fallbackSummary (outs ++ held ++ held2)
+    md := md ++ s!"\nFormulas the TeX-rule layout refused although the metric files were \
+      there, set by the KaTeX-compatible layout instead: {refusedAll}.\n"
     md := md ++ "\n| Feature | Documents agreeing | Lines at the same place | Within 1 pt | \
       Page breaks |\n|---|---|---|---|---|\n"
     let feats := (outs.map (feature ·.name)).toList.eraseDups
@@ -558,11 +612,17 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
       md := md ++ totalsRow f (outs.filter (feature ·.name == f))
     md := md ++ "\n## Per document\n\n| Document | Agrees | Lines same | First difference |\n\
       |---|---|---|---|\n"
-    for o in outs ++ held do
-      let first := (o.diffs[0]?.getD "").replace "|" "\\|"
+    for o in outs ++ held ++ held2 do
+      let first := reportCell (o.diffs[0]?.getD "")
       md := md ++ s!"| {o.name} | {if o.diffs.isEmpty then "yes" else "no"} | \
         {o.sameLines} / {o.lines} | {first} |\n"
     IO.FS.writeFile "parity/DOC.md" md
+  -- the report holds no control characters (they are escaped where it is written)
+  if reportCell "a\u0000b\u0015|c" != "a\\u{0}b\\u{15}\\|c" then
+    fails := fails.push "report: a control character is not escaped in a table cell"
+  if ← System.FilePath.pathExists "parity/DOC.md" then
+    if hasControl (← IO.FS.readFile "parity/DOC.md") then
+      fails := fails.push "parity/DOC.md has a control character"
   return fails
 
 end DocChecks
