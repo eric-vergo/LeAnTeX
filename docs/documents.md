@@ -55,6 +55,7 @@ given). `examples/article/article.tex` and `examples/article/` show the result.
   positions `[t]`, `[c]`, `[b]`.
 * **Floats**: `figure`, `table` (and starred) with `[htbp]`, `\caption`; `\includegraphics` of PNG
   and SVG files with `width`, `height`, `scale`.
+* **Line breaks**: `\linebreak[n]`, `\nolinebreak[n]` (LaTeX's penalties), `\newline`, `\\`.
 * **Pages**: `\newpage`, `\clearpage`, `\pagebreak[n]`, `\nopagebreak[n]`, `\vfill`, `\vskip`,
   `\vspace`, `\smallskip`, `\medskip`, `\bigskip`, `\addvspace`; `\pagestyle` and
   `\thispagestyle` with `plain` (centred page number in the foot) and `empty`.

@@ -554,6 +554,21 @@ def docCommand (t : Tok) (name : String) : M Bool := do
     else
       endParagraph
       addPenaltyAlways (-(breakPenalty n))
+  | "linebreak" | "nolinebreak" =>
+    -- LaTeX's `\@no@lnbk`: the last glue taken off, the penalty, the glue put back after it
+    -- and the spaces that follow ignored; an error between paragraphs
+    let n ← readPriority t
+    if !(← get).hmode then failAt t s!"\\{name}: there's no line here to end"
+    flushRun
+    let saved := match (← get).hlist.back? with
+      | some (.glue g st) => some (g, st)
+      | _ => none
+    if saved.isSome then modify fun s => { s with hlist := s.hlist.pop }
+    let pen := breakPenalty n
+    push (.penalty (if name == "linebreak" then -pen else pen))
+    if let some (g, st) := saved then
+      push (.glue g st)
+      inject t #[csT "leantex@ignorespaces" t]
   | "nopagebreak" =>
     let n ← readPriority t
     if (← get).hmode then adjustV (.penalty (breakPenalty n))
