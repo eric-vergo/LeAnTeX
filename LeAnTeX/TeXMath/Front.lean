@@ -411,6 +411,13 @@ def arrayBox (cols : Array Column) (cells : Array (Array (Array Node))) (sep sh 
     rows := rows.push (hpack line)
   return vpack rows
 
+/-- Whether a node of the parser's tree is one of the dots commands. -/
+def isDots (n : LeAnTeX.Node) : Bool :=
+  match n with
+  | .sym _ _ _ t => ["\\ldots", "\\@ldots", "\\mathellipsis", "…", "\\cdots", "\\@cdots",
+      "⋯"].contains t
+  | _ => false
+
 mutual
 
 /-- The math list of a node. -/
@@ -617,7 +624,16 @@ partial def convNode' (n : LeAnTeX.Node) : FM (Array Noad) := do
 /-- The math list of a list of nodes. -/
 partial def convList (l : Array LeAnTeX.Node) : FM (Array Noad) := do
   let mut out : Array Noad := #[]
-  for n in l do out := out ++ (← convNode n)
+  let mut skip := false
+  for h : i in [0:l.size] do
+    if skip then skip := false; continue
+    let n := l[i]
+    out := out ++ (← convNode n)
+    -- after a dots command the parser's tree may hold its own thin space (`\kern3mu`) before
+    -- punctuation; amsmath's decision (`FrontCtx.dots`, already applied) replaces it
+    if isDots n then
+      if let some (.kern _ _ m) := l[i + 1]? then
+        if m.unit == "mu" && m.number == 3 then skip := true
   return out
 
 /-- A script as a field. -/
@@ -689,9 +705,11 @@ def texMacros (display : Bool) : Array (String × String) := #[
   ("\\ne", "\\@not="), ("\\neq", "\\@not="), ("\\not", "\\@not"), ("\\mbox", "\\hbox{#1}")]
 
 /-- The dots commands of a source in order, each with whether amsmath sets a thin space after
-it: `\cdots`, `\dotsb`, `\dotsm`, `\dotsi`, `\dotso` and `\dots` (amsmath's `\extrap@`) when
-the next token is `,`, `;`, `.`, the end of the formula or a closing delimiter (`\extra@`);
-`\dotsc` only before `;`, `.`, the end or a closing delimiter; `\ldots` never. -/
+it: `\cdots`, `\dotsb`, `\dotsm`, `\dotso` before `,`, `;`, `.` (`\extrap@`), the end of the
+formula or a closing delimiter (`\extra@`'s `\rightdelim@`); `\dotsc` before `;`, `.`, the
+end or a closing delimiter; `\dots` none before a comma or a binary operation or relation
+(amsmath's `\mdots@` takes `\dotsc` or `\@cdots` there), else as `\dotso@` (the end or a
+closing delimiter only); `\ldots` and `\dotsi` never. -/
 def dotsInSource (src : String) : Array Bool := Id.run do
   let cs := src.toList.toArray
   let mut out : Array Bool := #[]
@@ -709,15 +727,17 @@ def dotsInSource (src : String) : Array Bool := Id.run do
         for _ in [0:cs.size] do
           if (cs[k]?.map Char.isWhitespace).getD false then k := k + 1 else break
         let rest := String.ofList (cs.extract k cs.size).toList
-        let closing := rest.isEmpty || ["\\right", ")", "]", "\\}", "\\rangle", "|", "\\|",
-          "\\rvert", "\\rVert", "\\rbrace", "\\rfloor", "\\rceil", "}"].any
-          (fun (p : String) => rest.startsWith p)
         let punct := rest.startsWith "," || rest.startsWith ";" || rest.startsWith "."
+        let closingChar := rest.isEmpty || [")", "]", "\\}", "\\rangle", "\\rbrace",
+          "\\rbrack", "\\rfloor", "\\rceil", "\\right", "\\bigr", "\\Bigr", "\\biggr",
+          "\\Biggr"].any (fun (p : String) => rest.startsWith p)
+        let binNext := ["+", "-", "=", "<", ">", "*", "/", "\\cdot", "\\times", "\\le",
+          "\\ge", "\\ne", "\\not", "\\to"].any (fun (p : String) => rest.startsWith p)
         let thin := match name with
           | "ldots" | "mathellipsis" | "dotsi" => false
-          | "dotsc" => closing || rest.startsWith ";" || rest.startsWith "."
-          | "dots" => if rest.startsWith "," then false else closing || punct
-          | _ => closing || punct
+          | "dotsc" => closingChar || rest.startsWith ";" || rest.startsWith "."
+          | "dots" => if rest.startsWith "," || binNext then false else closingChar
+          | _ => closingChar || punct
         out := out.push thin
       i := max j (i + 1)
     else i := i + 1

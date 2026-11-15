@@ -52,11 +52,11 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/MathBoxChecks.lean
 | gen-delim (display) | 1230 | 1230 | 1230 | 1230 | 1230 | 1095 | 1 |
 | gen-font (text) | 339 | 327 | 327 | 335 | 339 | 327 | 0 |
 | gen-font (display) | 339 | 327 | 327 | 335 | 339 | 327 | 0 |
-| gen-misc (text) | 978 | 819 | 821 | 835 | 882 | 672 | 4 |
-| gen-misc (display) | 978 | 819 | 821 | 841 | 879 | 672 | 4 |
+| gen-misc (text) | 990 | 831 | 833 | 847 | 894 | 684 | 4 |
+| gen-misc (display) | 990 | 831 | 833 | 853 | 891 | 684 | 4 |
 | doc (text) | 222 | 222 | 222 | 222 | 222 | 222 | 0 |
 | doc (display) | 222 | 222 | 222 | 222 | 222 | 222 | 0 |
-| **all** | 12726 | 12150 | 12142 | 12308 | 12435 | 11256 | 10 |
+| **all** | 12750 | 12174 | 12166 | 12332 | 12459 | 11280 | 10 |
 
 ## Boxes that are not TeX's
 

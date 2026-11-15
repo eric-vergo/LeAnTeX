@@ -2119,3 +2119,7 @@ doc	\sum_{k=0}^{m} \frac{1}{k+1}
 doc	\int_a^b g
 doc	\int_0^\infty e^{-x}
 doc	x^2+y^2
+gen-misc	a+\cdots.
+gen-misc	x_1,\dots;
+gen-misc	1,2,\ldots.
+gen-misc	\left(a,\dots\right)

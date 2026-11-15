@@ -160,7 +160,9 @@ def printedValue (v : String) : String := Id.run do
 
 /-- The directory of a document's source and fixture: `doc`, or `doc-heldout` for the held-out
 documents (`held-…`). -/
-def setOf (name : String) : String := if name.startsWith "held-" then "doc-heldout" else "doc"
+def setOf (name : String) : String :=
+  if name.startsWith "held-" then "doc-heldout"
+  else if name.startsWith "blind-" then "doc-heldout-2" else "doc"
 
 /-- Compares one document with its fixture. -/
 def compare (name : String) (resolve : FontResolver) : IO Outcome := do
@@ -384,11 +386,12 @@ def totalsRow (label : String) (outs : Array Outcome) : String :=
   let (a, n, same, lines, near, sb, b) := totals outs
   s!"| {label} | {a} / {n} | {same} / {lines} | {near} | {sb} / {b} |\n"
 
-/-- The held-out documents (`corpus/doc-heldout/`): written without reading this library and
-not tuned to; their agreement is reported, never required. -/
-def heldOut (resolve : FontResolver) : IO (Array Outcome) := do
+/-- The held-out documents (`corpus/doc-heldout/`, or the second set `corpus/doc-heldout-2/`):
+written without reading this library and not tuned to; their agreement is reported, never
+required. -/
+def heldOut (resolve : FontResolver) (set : String := "doc-heldout") : IO (Array Outcome) := do
   let mut outs := #[]
-  for n in ← documents "doc-heldout" do outs := outs.push (← compare n resolve)
+  for n in ← documents set do outs := outs.push (← compare n resolve)
   return outs
 
 /-- One line per document of a set: whether it agrees, its lines and its first difference
@@ -482,6 +485,11 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
     let (a, n, hs, hl, hn, hb, hbt) := totals held
     IO.println s!"  held-out documents (reported, not required): {a} of {n} agree; lines at the \
       same place {hs} of {hl}, within 1 pt {hn}; page breaks {hb} of {hbt}"
+  let held2 ← if show?.isNone && !skipHeld then heldOut resolve "doc-heldout-2" else pure #[]
+  if !held2.isEmpty then
+    let (a, n, hs, hl, hn, hb, hbt) := totals held2
+    IO.println s!"  second held-out set (reported, not required): {a} of {n} agree; lines at \
+      the same place {hs} of {hl}, within 1 pt {hn}; page breaks {hb} of {hbt}"
   if show?.isNone then
     let (fok, ferr) ← fuzz resolve 6
     IO.println s!"  mutated documents: {fok + ferr} ended ({fok} with pages, {ferr} with an error)"
@@ -523,7 +531,9 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
     let fresh := outs.filter (·.name.startsWith "fresh-")
     md := md ++ totalsRow "reference documents (tuned on)" (outs.filter
       (!·.name.startsWith "fresh-")) ++ totalsRow "fresh documents (written blind)" fresh ++
-      totalsRow "**held-out documents (written blind, not tuned to)**" held
+      totalsRow "**held-out documents (written blind, not tuned to)**" held ++
+      (if held2.isEmpty then "" else
+        totalsRow "**second held-out set (written blind after the first was run)**" held2)
     md := md ++ "\n| Feature | Documents agreeing | Lines at the same place | Within 1 pt | \
       Page breaks |\n|---|---|---|---|---|\n"
     let feats := (outs.map (feature ·.name)).toList.eraseDups
