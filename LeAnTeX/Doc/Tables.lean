@@ -131,12 +131,16 @@ def startCell (at_ : Tok) : M Unit := do
   modifyTable fun t => { t with depth, pcell := col.align == 'p', touched := false }
   if col.align == 'p' then
     let (sh, _) ← arrayStrut
+    let (em, _) ← fontUnits
     openFrame (.parbox col.width 't')
+    -- LaTeX's `\@startpbox`: `\@arrayparboxrestore` (no indentation, no `\parskip`, no margins,
+    -- `\sloppy`), the first line with the array strut's height
     modifyVars fun v =>
       { v with
-        p := { v.p with hsize := col.width, leftSkip := {}, rightSkip := {}, parShape := #[] },
-        lineWidth := none, totalLeftMargin := 0, parFillSkip := flushGlue,
-        crPar := false }
+        p := { v.p with hsize := col.width, leftSkip := {}, rightSkip := {}, parShape := #[],
+                        tolerance := 9999, emergencyStretch := 3 * em },
+        lineWidth := none, totalLeftMargin := 0, parFillSkip := flushGlue, parIndent := 0,
+        parSkip := {}, crPar := false }
     inject at_ (#[csT "leantex@strut" at_, Tok.char '{' 1 at_.pos] ++ textToks at_ s!"{sh}" ++
       #[Tok.char '}' 2 at_.pos, csT "leantex@ignorespaces" at_])
   else
@@ -281,6 +285,8 @@ def cellBox (c : Column) (cell : Cell) (colW : Int) (isFirst : Bool) (rowH rowD 
   let body := match c.align with
     | 'c' => #[fil, HNode.glue { width := 1 } 0] ++ cell.content ++ #[fil]
     | 'r' => #[fil, HNode.glue { width := 1 } 0] ++ cell.content
+    -- a `p` cell's `\vtop` is followed by `\hfil`
+    | 'p' => cell.content ++ #[fil]
     -- LaTeX's columns have `\hskip 1sp` beside the material (as LuaLaTeX's widths show)
     | _ => #[HNode.glue { width := 1 } 0] ++ cell.content ++
       #[.glue { stretch := 65536, stretchOrder := 2 } 0]
