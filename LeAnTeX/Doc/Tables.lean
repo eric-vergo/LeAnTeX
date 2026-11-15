@@ -277,9 +277,9 @@ def cellBox (c : Column) (cell : Cell) (colW : Int) (isFirst : Bool) (rowH rowD 
     .rule rule rowH rowD, .glue { width := -(rule - half) } 0]).toArray.flatten
   let fil : HNode := .glue { stretch := 65536, stretchOrder := 1 } 0
   let body := match c.align with
-    | 'c' => #[fil] ++ cell.content ++ #[fil]
-    | 'r' => #[fil] ++ cell.content
-    -- LaTeX's `l` column: `\hskip 1sp` before the material and `\hfill` after it
+    | 'c' => #[fil, HNode.glue { width := 1 } 0] ++ cell.content ++ #[fil]
+    | 'r' => #[fil, HNode.glue { width := 1 } 0] ++ cell.content
+    -- LaTeX's columns have `\hskip 1sp` beside the material (as LuaLaTeX's widths show)
     | _ => #[HNode.glue { width := 1 } 0] ++ cell.content ++
       #[.glue { stretch := 65536, stretchOrder := 2 } 0]
   let (nat, st, shr, _, _) := measure body
@@ -317,7 +317,7 @@ def endTabular (at_ : Tok) : M Unit := do
       for c in cs do
         if c.span == 1 && c.own.isNone then
           if let some col := t.cols[j]? then
-            if col.align != 'p' then widths := widths.modify j (max · c.width)
+            if col.align != 'p' then widths := widths.modify j (max · (c.width + 1))
         j := j + c.span
   for r in rows do
     if let .cells cs _ := r then
@@ -327,7 +327,7 @@ def endTabular (at_ : Tok) : M Unit := do
           let own := c.own.getD (t.cols[j]?.getD {})
           let avail := (List.range c.span).foldl (init := (0 : Int)) fun acc k =>
             acc + widths.getD (j + k) 0 + colExtra (t.cols[j + k]?.getD {}) (j + k == 0) sep rule
-          let need := c.width + colExtra own (j == 0) sep rule
+          let need := c.width + (if own.align == 'p' then 0 else 1) + colExtra own (j == 0) sep rule
           if need > avail then
             widths := widths.modify (j + c.span - 1) (· + (need - avail))
         j := j + c.span

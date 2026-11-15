@@ -125,6 +125,7 @@ def fixtureToc (j : Json) : Array (Nat × String × String) := Id.run do
   for l in ((j.get? "labels").bind Json.getArr?).getD #[] ++
       ((j.get? "toc").bind Json.getArr?).getD #[] do
     let some s := l.getStr? | continue
+    let s := if s.startsWith "{" then (s.drop 1).toString else s
     if !(s.startsWith "\\contentsline") then continue
     let g := fixtureLabels.groups s
     let level := match (g[0]?.getD "").trimAscii.toString with

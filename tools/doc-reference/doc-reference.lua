@@ -231,8 +231,9 @@ function leantexFinish(path, banner, job)
   local labels, toc = {}, {}
   for _, l in ipairs(readLines(job .. ".aux")) do
     if l:match("^\\newlabel") then labels[#labels + 1] = l end
+    local entry = l:match("^\\@writefile{toc}(.*)$")
+    if entry then toc[#toc + 1] = entry end
   end
-  for _, l in ipairs(readLines(job .. ".toc")) do toc[#toc + 1] = l end
   local f = assert(io.open(path, "w"))
   f:write(encode(obj {
     { "meta", obj { { "engine", banner }, { "format", tex.formatname or "" } } },
