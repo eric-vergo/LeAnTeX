@@ -18,13 +18,20 @@ step of every ligature and kern program, every next-larger character and extensi
 (their characters must exist), and the form of every scaled number (first byte 0 or 255). A
 file that fails a check is a `TfmError`, never a panic. Chains of larger characters are
 followed at most 256 steps, and ligature programs at most their length, so every query on a
-font returns.
+font returns; the queries that walk a program also return the steps they walked, for a
+caller that charges them to a budget.
+
+`Tfm.read` also refuses a font whose ligatures would not end, as `tftopl`'s check for an
+infinite ligature loop does: for every pair a program names, the ligatures that math's rule 14
+applies to the pair (and to what they make) are followed, and a pair still making ligatures
+after `maxLigChain` steps is refused (`Tfm.ligaturesEnd`).
 
 ## Main definitions
 
 * `Tfm`, `Tfm.read`: the file's tables, unscaled.
 * `TfmFont`, `Tfm.at`: the font at a size, its numbers in sp as TeX scales them.
 * `TfmFont.char?`, `TfmFont.ligKern`, `TfmFont.param`.
+* `Tfm.endlessLigature?`: the check that a font's ligatures end.
 
 ## Implementation notes
 
@@ -146,6 +153,92 @@ private def fix (w : Nat × Nat × Nat × Nat) (what : String) : Except TfmError
   else if a == 255 then .ok (v - 16777216)
   else .error ⟨s!"{what} out of range"⟩
 
+/-- The entry of a character code, if the font has it. -/
+def entry? (t : Tfm) (c : Nat) : Option CharEntry :=
+  if c < t.bc || c > t.ec then none else (t.chars[c - t.bc]?).join
+
+/-- The first step of a character's ligature and kern program, after TeX's restart for a
+program whose first step's `skip_byte` exceeds 128. -/
+def ligStart (t : Tfm) (c : Nat) : Option Nat := do
+  let e ← t.entry? c
+  let .lig start := e.tag | none
+  let s ← t.ligKern[start]?
+  if s.skip > 128 then some (256 * s.op + s.rem) else some start
+
+/-- The first step of the program from step `start` that satisfies `p`, not past the program's
+last step, with the number of steps walked to find it or to give up (at most the number of
+steps in the file, plus one). -/
+def findStep (t : Tfm) (start : Nat) (p : LigStep → Bool) : Option LigStep × Nat := Id.run do
+  let mut k := start
+  let mut walked := 0
+  for _ in [0:t.ligKern.size + 1] do
+    walked := walked + 1
+    let some s := t.ligKern[k]? | return (none, walked)
+    if p s then return (some s, walked)
+    if s.skip ≥ 128 then return (none, walked)
+    k := k + s.skip + 1
+  return (none, walked)
+
+/-- The step of `left`'s program for `right` (TeX's search of the program for the character to
+the right), with the steps walked. -/
+def ligStep (t : Tfm) (left right : Nat) : Option LigStep × Nat :=
+  match t.ligStart left with
+  | none => (none, 1)
+  | some start => t.findStep start fun s => s.next == right && s.skip ≤ 128
+
+/-- The most ligature steps rule 14 takes on one pair of characters before a font is
+refused (`Tfm.ligaturesEnd`), and before the layout gives up on one atom. -/
+def maxLigChain : Nat := 256
+
+/-- Whether the ligatures math's rule 14 makes from the pair `(x, y)` end within `maxLigChain`
+steps, with the steps walked in the programs. The characters after `y` are those the
+ligatures inserted (a stack, the next one last); a ligature `=:` that takes the character
+after the pair when there is none ends, as a formula's end does. -/
+def ligaturesEnd (t : Tfm) (x y : Nat) : Bool × Nat := Id.run do
+  let mut x := x
+  let mut y := y
+  let mut after : Array Nat := #[]
+  let mut walked := 0
+  for _ in [0:maxLigChain] do
+    let (s, n) := t.ligStep x y
+    walked := walked + n
+    let some s := s | return (true, walked)
+    if s.op ≥ 128 then return (true, walked)
+    match s.op with
+    | 0 =>
+      x := s.rem
+      match after.back? with
+      | some z => y := z; after := after.pop
+      | none => return (true, walked)
+    | 1 => x := s.rem
+    | 2 => y := s.rem
+    | 3 => after := after.push y; y := s.rem
+    | _ => return (true, walked)
+  return (false, walked)
+
+/-- The most program steps the check of a font's ligatures walks before it refuses the font
+as too costly to check; no font in use comes near it. -/
+def maxLigCheckWork : Nat := 4000000
+
+/-- A pair of characters (`x`, and a character its program names) whose ligatures do not end,
+if the font has one (also when checking the font's programs would walk more than
+`maxLigCheckWork` steps). -/
+def endlessLigature? (t : Tfm) : Option (Nat × Nat) := Id.run do
+  let mut work := 0
+  for x in [t.bc:t.ec + 1] do
+    let some start := t.ligStart x | continue
+    let mut k := start
+    for _ in [0:t.ligKern.size + 1] do
+      let some s := t.ligKern[k]? | break
+      if s.skip ≤ 128 && s.op < 128 then
+        let (ok, n) := t.ligaturesEnd x s.next
+        work := work + n
+        if !ok || work > maxLigCheckWork then return some (x, s.next)
+      work := work + 1
+      if s.skip ≥ 128 then break
+      k := k + s.skip + 1
+  return none
+
 /-- Reads and checks a metric file (see the module docstring for the checks). -/
 def read (b : ByteArray) : Except TfmError Tfm := do
   if b.size < 24 then throw ⟨"file shorter than its header"⟩
@@ -251,12 +344,11 @@ def read (b : ByteArray) : Except TfmError Tfm := do
             if p ≠ 0 && !exists_ p then throw ⟨s!"character {bc + k}: recipe piece absent"⟩
       | .none => pure ()
     | none => pure ()
-  return { checksum, designSize, bc, ec, chars, widths, heights, depths, italics, ligKern,
-           kerns, recipes, params }
-
-/-- The entry of a character code, if the font has it. -/
-def entry? (t : Tfm) (c : Nat) : Option CharEntry :=
-  if c < t.bc || c > t.ec then none else (t.chars[c - t.bc]?).join
+  let t : Tfm := { checksum, designSize, bc, ec, chars, widths, heights, depths, italics,
+                   ligKern, kerns, recipes, params }
+  if let some (x, y) := t.endlessLigature? then
+    throw ⟨s!"the ligatures of characters {x} and {y} do not end"⟩
+  return t
 
 end Tfm
 
@@ -358,44 +450,38 @@ def param (f : TfmFont) (n : Nat) : Int := if n == 0 then 0 else f.params.getD (
 /-- The number of parameters. -/
 def paramCount (f : TfmFont) : Nat := f.params.size
 
-/-- The first step of a character's ligature and kern program, after TeX's restart for a
-program whose first step's `skip_byte` exceeds 128. -/
-def ligStart (f : TfmFont) (c : Nat) : Option Nat := do
-  let e ← f.tfm.entry? c
-  let .lig start := e.tag | none
-  let s ← f.tfm.ligKern[start]?
-  if s.skip > 128 then some (256 * s.op + s.rem) else some start
+/-- What the program of `left` does before `right`, with the program steps walked (at most
+the program's length): the first step for `right` that is not past the program's last
+step. -/
+def ligKernSteps (f : TfmFont) (left right : Nat) : LigKern × Nat :=
+  match f.tfm.ligStep left right with
+  | (none, n) => (.none, n)
+  | (some s, n) =>
+    if s.op ≥ 128 then (.kern (f.kerns.getD (256 * (s.op - 128) + s.rem) 0), n)
+    else (.lig s.op s.rem, n)
 
-/-- What the program of `left` does before `right`: the first step for `right` that is not
-past the program's last step. At most the program's length in steps. -/
-def ligKern (f : TfmFont) (left right : Nat) : LigKern := Id.run do
-  let some start := f.ligStart left | return .none
-  let mut k := start
-  for _ in [0:f.tfm.ligKern.size + 1] do
-    let some s := f.tfm.ligKern[k]? | return .none
-    if s.next == right && s.skip ≤ 128 then
-      if s.op ≥ 128 then return .kern (f.kerns.getD (256 * (s.op - 128) + s.rem) 0)
-      else return .lig s.op s.rem
-    if s.skip ≥ 128 then return .none
-    k := k + s.skip + 1
-  return .none
+/-- What the program of `left` does before `right` (`ligKernSteps` without the count). -/
+def ligKern (f : TfmFont) (left right : Nat) : LigKern := (f.ligKernSteps left right).1
 
-/-- The kern of `left`'s program before the skew character (TeX's skew of an accent): the
-first step naming the skew character decides; a ligature step there gives 0. -/
-def skew (f : TfmFont) (left : Nat) : Int :=
+/-- The kern of `left`'s program before the skew character (TeX's skew of an accent), with the
+program steps walked: the first step naming the skew character decides; a ligature step there
+gives 0. -/
+def skewSteps (f : TfmFont) (left : Nat) : Int × Nat :=
   match f.skewChar with
-  | none => 0
-  | some sc => Id.run do
-    let some start := f.ligStart left | return 0
-    let mut k := start
-    for _ in [0:f.tfm.ligKern.size + 1] do
-      let some s := f.tfm.ligKern[k]? | return 0
-      if s.next == sc then
-        if s.op ≥ 128 && s.skip ≤ 128 then return f.kerns.getD (256 * (s.op - 128) + s.rem) 0
-        return 0
-      if s.skip ≥ 128 then return 0
-      k := k + s.skip + 1
-    return 0
+  | none => (0, 0)
+  | some sc =>
+    match f.tfm.ligStart left with
+    | none => (0, 1)
+    | some start =>
+      match f.tfm.findStep start (·.next == sc) with
+      | (some s, n) =>
+        if s.op ≥ 128 && s.skip ≤ 128 then (f.kerns.getD (256 * (s.op - 128) + s.rem) 0, n)
+        else (0, n)
+      | (none, n) => (0, n)
+
+/-- The kern of `left`'s program before the skew character (`skewSteps` without the
+count). -/
+def skew (f : TfmFont) (left : Nat) : Int := (f.skewSteps left).1
 
 /-- The extensible recipe of a character, if it has one. -/
 def recipe? (f : TfmFont) (c : Nat) : Option Recipe := do

@@ -4,6 +4,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
 import LeAnTeX
 import LeAnTeXTest.MathBoxChecks
+import LeAnTeXTest.TfmSynth
 
 /-!
 # Tests of the TeX-rule math layout
@@ -16,9 +17,12 @@ import LeAnTeXTest.MathBoxChecks
 * **Fuzzing**: mutated copies of the built file and of the installed `cmmi10`, `cmsy10` and
   `cmex10` (bytes changed, lengths set to extreme values, files cut short) each read to a font
   or to an error, and every query on a font read returning.
+* **Ligatures that never end**: metric files built here (`LeAnTeXTest.TfmSynth`) whose
+  ligature programs insert or replace without end are refused by the reader, those that end
+  are read, and a font past the reader's check stops the layout at its cap.
 * **Hostile formulas** through the TeX-rule layout (deep nesting, `\mathchoice` and
   `\sqrt[n]` that multiply the work, huge delimiters): each ends in a list or an error
-  naming a cap, within the work budget.
+  naming a cap, within the work budget; every result is looked at and counted.
 * **Formula boxes**: every box `parity/mathbox-baseline.tsv` lists as TeX's to the sp still is
   (when the metric files are installed).
 * **Documents**: a narrow paragraph's formula breaks after a relation.
@@ -106,7 +110,13 @@ def readerChecks : List (String × Bool) :=
    ("an empty file is refused", refused ByteArray.empty),
    ("a size of 2048pt is refused", (match Tfm.read testTfm with
       | .ok t => (t.at "test" (some (2048 * 65536))).toOption.isNone
-      | .error _ => false))]
+      | .error _ => false)),
+   ("ligatures that insert without end (|=:|) are refused",
+      refused (LeAnTeXTest.TfmSynth.ligFont 3)),
+   ("ligatures that replace without end (=:| and |=:) are refused",
+      refused (LeAnTeXTest.TfmSynth.ligFont 1) && refused (LeAnTeXTest.TfmSynth.ligFont 2)),
+   ("ligatures that end (=:, =:|>, |=:|>) are read",
+      [0, 5, 7].all fun op => !refused (LeAnTeXTest.TfmSynth.ligFont op))]
 
 /-- A deterministic pseudo-random sequence (a linear congruential generator). -/
 def lcg (s : UInt64) : UInt64 := s * 6364136223846793005 + 1442695040888963407
@@ -180,15 +190,50 @@ def hostile : List String :=
    String.join (List.replicate 300 "x^{") ++ "y" ++ String.join (List.replicate 300 "}"),
    "\\Bigg(" ++ String.join (List.replicate 2000 "x+") ++ "\\Bigg)"]
 
-/-- Runs the hostile formulas: those that ended (with a list or an error), of all. -/
-def runHostile : IO (Nat × Nat) := do
-  let .ok m ← MathBoxChecks.fontSet | return (0, 0)
-  let .ok fs := m.families 655360 | return (0, 0)
-  let mut ended := 0
+/-- What the hostile formulas gave: lists, errors, and the errors that do not name a cap
+(each formula's result is looked at, so none is left uncomputed). -/
+structure HostileRun where
+  /-- Formulas laid out to a list. -/
+  lists : Nat := 0
+  /-- Formulas that ended in an error. -/
+  errors : Nat := 0
+  /-- The errors that name no cap. -/
+  stray : Array String := #[]
+  /-- The nodes of all the lists. -/
+  nodes : Nat := 0
+
+/-- Whether an error of the TeX-rule layout names one of its caps. -/
+def namesCap (e : String) : Bool :=
+  ["work budget", "nesting", "too deep", "too costly", "too large", "do not end"].any
+    fun c => (e.splitOn c).length > 1
+
+/-- Runs the hostile formulas through the TeX-rule layout (none without metric files). -/
+def runHostile : IO (Option HostileRun) := do
+  let .ok m ← MathBoxChecks.fontSet | return none
+  let .ok fs := m.families 655360 | return none
+  let mut r : HostileRun := {}
   for src in hostile do
-    let _ := MathBoxChecks.texLayout m fs 10 src false
-    ended := ended + 1
-  return (ended, hostile.length)
+    match MathBoxChecks.texLayout m fs 10 src false with
+    | .ok l => r := { r with lists := r.lists + 1, nodes := r.nodes + l.size }
+    | .error e =>
+      r := { r with errors := r.errors + 1 }
+      if !namesCap e then r := { r with stray := r.stray.push e }
+  return some r
+
+/-- A font whose ligatures never end, past the reader's check (its program replaced after
+reading): laying out `aa` with it must stop at the layout's own cap. `none` when it does. -/
+def endlessLayout : Option String :=
+  match Tfm.read (LeAnTeXTest.TfmSynth.ligFont 0) with
+  | .error e => some s!"the font whose ligatures end is refused: {e}"
+  | .ok t =>
+    let t := { t with ligKern := #[{ skip := 128, next := 97, op := 3, rem := 97 }] }
+    let m : MathFontSet := { tfms := mathTfmNames.foldl (fun acc n => acc.insert n t) {} }
+    match m.families 655360 with
+    | .error e => some s!"families: {e}"
+    | .ok fs =>
+      match MathBoxChecks.texLayout m fs 10 "aa" false with
+      | .error e => if (e.splitOn "do not end").length > 1 then none else some e
+      | .ok l => some s!"laid out to {l.size} nodes"
 
 /-- The boxes `parity/mathbox-baseline.tsv` lists as TeX's that no longer are, or `none`
 without metric files. With `update` the file is rewritten from the current boxes. -/
@@ -215,8 +260,17 @@ def run (update : Bool := false) : IO (Array String) := do
     {readerChecks.length} checks hold"
   let (r, x, sum) ← fuzz 1500
   IO.println s!"  metric file fuzz: 1500 mutants, {r} read, {x} refused (checksum {sum})"
-  let (ended, total) ← runHostile
-  IO.println s!"  TeX-rule layout, hostile formulas: {ended} of {total} ended"
+  match ← runHostile with
+  | none => IO.println "  TeX-rule layout, hostile formulas: skipped (no metric files)"
+  | some h =>
+    for e in h.stray do fails := fails.push s!"hostile formula: an error naming no cap: {e}"
+    if h.lists + h.errors != hostile.length then
+      fails := fails.push "hostile formulas: a result is missing"
+    IO.println s!"  TeX-rule layout, hostile formulas: {h.lists} laid out ({h.nodes} nodes), \
+      {h.errors} stopped at a cap, of {hostile.length}"
+  match endlessLayout with
+  | none => IO.println "  TeX-rule layout, endless ligatures: stopped at the cap"
+  | some e => fails := fails.push s!"endless ligatures: {e}"
   match ← baselineRegressions update with
   | none => IO.println "  formula box baseline: skipped (no metric files)"
   | some regs =>

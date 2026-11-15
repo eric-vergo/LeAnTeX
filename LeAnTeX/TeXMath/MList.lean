@@ -527,7 +527,10 @@ def makeAccent (rec : Rec) (nuc sup sub : Field) (fam code : Nat) (style : Style
   let s ← match nuc with
     | .mathChar nf nc | .textChar nf nc => do
       match ← fetch nf nc cs with
-      | some (_, g, _) => pure (g.skew nc)
+      | some (_, g, _) =>
+        let (k, walked) := g.skewSteps nc
+        charge walked
+        pure k
       | none => pure 0
     | _ => pure 0
   let mut x ← cleanBox rec nuc style.cramped
@@ -567,11 +570,20 @@ def makeAccent (rec : Rec) (nuc sup sub : Field) (fam code : Nat) (style : Style
 /-- The first pass's rule 14 on the ord atom at `i` of `l`: while its nucleus is a character
 followed by an atom whose nucleus is a character of the same family, the font's ligature or
 kern for the pair is applied. Returns the list and whether the atom's nucleus became a text
-character. -/
+character.
+
+Every round, every program step walked and every atom inserted is charged to the budget, and
+one atom takes at most `Tfm.maxLigChain` rounds that do not take the next atom into a
+ligature: past that its ligatures do not end (a font `Tfm.read` accepts never gets there) and
+the formula is an error. -/
 def ligatureRule (l : Array Noad) (i : Nat) (style : Style) : M (Array Noad) := do
   let mut l := l
+  let mut rounds := 0
   for _ in [0:(← get).budget + 1] do
     charge
+    if rounds ≥ Tfm.maxLigChain then
+      throw s!"the ligatures of a character do not end (more than {Tfm.maxLigChain} steps)"
+    rounds := rounds + 1
     let .atom .ord (.mathChar fam c) .empty .empty lim := l[i]?.getD default | return l
     let next := l[i + 1]?
     let some (.atom pk (.mathChar pf pc) psup psub plim) := next | return l
@@ -579,17 +591,21 @@ def ligatureRule (l : Array Noad) (i : Nat) (style : Style) : M (Array Noad) := 
       return l
     l := l.setIfInBounds i (.atom .ord (.textChar fam c) .empty .empty lim)
     let (_, f) ← famFont fam style.size
-    match f.ligKern c pc with
+    let (lk, walked) := f.ligKernSteps c pc
+    charge walked
+    match lk with
     | .none => return l
-    | .kern k => return l.insertIdxIfInBounds (i + 1) (.kern k false)
+    | .kern k => charge; return l.insertIdxIfInBounds (i + 1) (.kern k false)
     | .lig op ch =>
       match op with
       | 1 | 5 => l := l.setIfInBounds i (.atom .ord (.textChar fam ch) .empty .empty lim)
       | 2 | 6 => l := l.setIfInBounds (i + 1) (.atom pk (.mathChar pf ch) psup psub plim)
       | 3 | 7 | 11 =>
+        charge
         let r : Field := if op < 11 then .mathChar fam ch else .textChar fam ch
         l := l.insertIdxIfInBounds (i + 1) (.atom .ord r .empty .empty)
       | _ =>
+        rounds := rounds - 1
         l := (l.setIfInBounds i (.atom .ord (.textChar fam ch) psup psub lim)).eraseIdxIfInBounds
           (i + 1)
       if op > 3 then return l

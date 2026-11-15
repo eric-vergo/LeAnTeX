@@ -73,10 +73,14 @@ def char? : MathFont → Nat → Option CharMetrics
         some { width := f.scale (f.info.font.advance g), height := f.scale h,
                depth := f.scale d, italic := italicOf f g, tag := .none }
 
+/-- The ligature or kern between two characters of the font (none for an OpenType font), with
+the program steps walked to find it. -/
+def ligKernSteps : MathFont → Nat → Nat → LigKern × Nat
+  | tfm f, l, r => f.ligKernSteps l r
+  | otf _, _, _ => (.none, 1)
+
 /-- The ligature or kern between two characters of the font (none for an OpenType font). -/
-def ligKern : MathFont → Nat → Nat → LigKern
-  | tfm f, l, r => f.ligKern l r
-  | otf _, _, _ => .none
+def ligKern (f : MathFont) (l r : Nat) : LigKern := (f.ligKernSteps l r).1
 
 /-- `\fontdimen n`: a metric file's parameter; for an OpenType font the interword space
 (`n = 2`, which is not 0, as TeX's rule for text fonts in formulas needs) and the x-height
@@ -92,10 +96,14 @@ def paramCount : MathFont → Nat
   | tfm f => f.paramCount
   | otf _ => 7
 
+/-- The kern before the font's skew character (0 for an OpenType font), with the program
+steps walked to find it. -/
+def skewSteps : MathFont → Nat → Int × Nat
+  | tfm f, c => f.skewSteps c
+  | otf _, _ => (0, 1)
+
 /-- The kern before the font's skew character (0 for an OpenType font). -/
-def skew : MathFont → Nat → Int
-  | tfm f, c => f.skew c
-  | otf _, _ => 0
+def skew (f : MathFont) (c : Nat) : Int := (f.skewSteps c).1
 
 /-- The extensible recipe of a character (none for an OpenType font). -/
 def recipe? : MathFont → Nat → Option Recipe

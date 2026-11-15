@@ -4,6 +4,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
 import LeAnTeX
 import LeAnTeXTest.JsonParse
+import LeAnTeXTest.TfmSynth
 
 /-!
 # Bounded work on hostile sources
@@ -197,6 +198,13 @@ def cases : Array Case := #[
         "\\includegraphics{a.png}\\includegraphics{b.png}\\includegraphics{c.png}" ++
         "\\end{document}").toUTF8)],
     expect := "not found", maxRss := 300 <<< 20 },
+  { name := "TeX-rule layout: metric files whose ligatures never end are refused, not run",
+    exe := "leantex-render",
+    args := #["--document", "--fonts", fontDir, "--tfm", "@/endless", "@/aa.tex", "@/o6"],
+    files := fun _ => (TeXMath.mathTfmNames.map fun n =>
+        ("endless/" ++ n ++ ".tfm", LeAnTeXTest.TfmSynth.ligFont 3)).toArray.push
+      ("aa.tex", "\\documentclass{article}\\begin{document}$aa$\\end{document}".toUTF8),
+    expect := "do not end", maxUserMs := 15000 },
   { name := "messages: control and bidirectional characters of the source are printed escaped",
     exe := "leantex-typeset", args := #["--test-fonts", "@/ctrl.tex"],
     files := fun _ => #[("ctrl.tex", "ctrl \u001b[31m $x\u000B\u202E$".toUTF8)],
@@ -211,7 +219,9 @@ def ioChecks : IO (Array (String × Bool)) := do
   let mut r : Array (String × Bool) := #[]
   try
     for c in cases do
-      for (f, b) in c.files () do IO.FS.writeBinFile (scratch / f) b
+      for (f, b) in c.files () do
+        if let some d := (scratch / f).parent then IO.FS.createDirAll d
+        IO.FS.writeBinFile (scratch / f) b
       let args := c.args.map fun a =>
         if a.startsWith "@/" then (scratch / (a.drop 2).toString).toString else a
       let run ← runLimited c.exe args 120 240000 scratch
