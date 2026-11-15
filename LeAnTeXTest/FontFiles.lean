@@ -10,7 +10,8 @@ import LeAnTeX.OpenType
 `fonts/MANIFEST.tsv` lists every file of `fonts/newcomputermodern/` with its size, SHA-256 and
 licence. The check reads every file, compares its size and hash with the manifest (so a font
 that was modified, renamed or added is caught), refuses the files the manifest's licence rule
-leaves out (`NewCM10-Regular`, `NewCMUncial*`, `NewCM*Devanagari*`, under another licence),
+leaves out (`NewCM10-Regular`, `NewCMUncial*`, `NewCM*Devanagari*`, under another licence)
+anywhere in the repository,
 and reads every glyph of every font with the OpenType reader.
 
 ## Main definitions
@@ -77,6 +78,25 @@ def excluded (name : String) : Bool :=
   name == "NewCM10-Regular.otf" || name.startsWith "NewCMUncial" ||
     (name.startsWith "NewCM" && (name.splitOn "Devanagari").length > 1)
 
+/-- The files below `root` whose name `excluded` refuses, skipping the build folder `.lake` and
+the version control folder `.git` (at most 64 levels and 200000 entries are visited). -/
+def excludedAnywhere (root : System.FilePath) : IO (Array String) := do
+  let mut out := #[]
+  let mut todo : Array (System.FilePath × Nat) := #[(root, 0)]
+  let mut seen := 0
+  for _ in [0:200000] do
+    let some (d, depth) := todo.back? | break
+    todo := todo.pop
+    if depth > 64 then continue
+    for e in ← d.readDir do
+      seen := seen + 1
+      if e.fileName == ".lake" || e.fileName == ".git" then continue
+      let md ← e.path.symlinkMetadata
+      if md.type == .dir then todo := todo.push (e.path, depth + 1)
+      else if excluded e.fileName then out := out.push e.path.toString
+    if seen > 200000 then break
+  return out
+
 /-- Runs the check; prints a summary, returns the failures. -/
 def run : IO (Array String) := do
   let dir : System.FilePath := "fonts/newcomputermodern"
@@ -107,6 +127,9 @@ def run : IO (Array String) := do
     | _ => fails := fails.push s!"manifest row: {row}"
   for e in ← dir.readDir do
     if !listed.contains e.fileName then fails := fails.push s!"{e.fileName}: not in the manifest"
+  -- an excluded file is refused wherever it is in the repository, not only among the fonts
+  for p in ← excludedAnywhere "." do
+    fails := fails.push s!"{p}: excluded by its licence"
   IO.println s!"  font files: {listed.size} files as the manifest lists them, {glyphs} glyphs \
     read ({fails.size} failures)"
   return fails

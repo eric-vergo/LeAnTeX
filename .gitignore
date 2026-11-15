@@ -6,3 +6,4 @@ fixtures/layout/blueprint-noperthedron.jsonl
 # A checkout of KaTeX's source for the table generators (tools/gen-*.mjs).
 .cache/
 .DS_Store
+tools/__pycache__/
