@@ -22,41 +22,38 @@ print as `?` here, after a warning from the caller).
 
 namespace LeAnTeX.Doc
 
-/-- The table of counters, by name. -/
-abbrev Counters := Std.HashMap String Counter
-
 namespace Counters
 
 /-- The value of a counter (0 for one not defined). -/
-def value (cs : Counters) (name : String) : Int := ((cs.get? name).map (·.value)).getD 0
+def value (cs : Counters) (name : String) : Int := ((cs.table.get? name).map (·.value)).getD 0
 
 /-- Defines a counter at 0, reset by `within` when that is given and defined. -/
 def newCounter (cs : Counters) (name : String) (within : Option String := none) : Counters :=
-  let cs := cs.insert name {}
+  let cs : Counters := { table := cs.table.insert name {} }
   match within with
   | some w =>
-    match cs.get? w with
-    | some c => cs.insert w { c with resets := c.resets.push name }
+    match cs.table.get? w with
+    | some c => { table := cs.table.insert w { c with resets := c.resets.push name } }
     | none => cs
   | none => cs
 
 /-- Sets a counter (LaTeX's `\setcounter`); the counters within it are not changed. -/
 def set (cs : Counters) (name : String) (v : Int) : Counters :=
-  match cs.get? name with
-  | some c => cs.insert name { c with value := v }
+  match cs.table.get? name with
+  | some c => { table := cs.table.insert name { c with value := v } }
   | none => cs
 
 /-- Adds to a counter (LaTeX's `\addtocounter`). -/
 def add (cs : Counters) (name : String) (v : Int) : Counters :=
-  match cs.get? name with
-  | some c => cs.insert name { c with value := c.value + v }
+  match cs.table.get? name with
+  | some c => { table := cs.table.insert name { c with value := c.value + v } }
   | none => cs
 
 /-- Resets the counters within `name` to zero, and those within them, `fuel` levels deep. -/
 def resetWithin (cs : Counters) (name : String) : Nat → Counters
   | 0 => cs
   | fuel + 1 =>
-    match cs.get? name with
+    match cs.table.get? name with
     | some c => c.resets.foldl (init := cs) fun acc r =>
         (acc.set r 0).resetWithin r fuel
     | none => cs

@@ -11,6 +11,7 @@ import LeAnTeX.Path
 import LeAnTeX.OpenType
 import LeAnTeX.OpenType.Display
 import LeAnTeX.Text
+import LeAnTeX.Doc
 import LeAnTeX.Backend
 
 /-!

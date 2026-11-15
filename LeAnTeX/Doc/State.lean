@@ -37,6 +37,12 @@ structure Counter where
   resets : Array String := #[]
   deriving Inhabited, Repr
 
+/-- The table of counters, by name. -/
+structure Counters where
+  /-- The counters. -/
+  table : Std.HashMap String Counter := {}
+  deriving Inhabited
+
 /-- What a nested vertical list (TeX's internal vertical mode) is built for. -/
 inductive FrameKind where
   /-- A footnote's text: an insertion at the place of the mark. -/
@@ -169,7 +175,7 @@ structure DocState where
   /-- The packages loaded. -/
   packages : Array String := #[]
   /-- The counters. -/
-  counters : Std.HashMap String Counter := {}
+  counters : Counters := {}
   /-- How each counter is printed (`\the<name>`'s body), by name. -/
   counterFormats : Std.HashMap String (Array Tok) := {}
   /-- `\@currentlabel`: what a `\label` records. -/
@@ -223,6 +229,8 @@ structure DocState where
   anchors : Nat := 0
   /-- User lengths (`\newlength`) and LaTeX's layout lengths, as glue. -/
   lengths : Std.HashMap String Glue := {}
+  /-- The counter steps, in order: the counter and its printed value after the step. -/
+  steps : Array (String × String) := #[]
   /-- Warnings of the document layer (undefined references, unknown packages). -/
   warnings : Array String := #[]
   deriving Inhabited

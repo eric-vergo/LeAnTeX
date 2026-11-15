@@ -236,6 +236,8 @@ structure BoxFrame where
   sf : Nat
   /-- Whether the box began in vertical mode (it then starts a paragraph). -/
   wasVertical : Bool
+  /-- The width it is set to (`\hbox to`), if not its natural width. -/
+  target : Option Int := none
 
 /-- What a nested vertical list saves of the list around it: TeX's semantic nest, one level. -/
 structure Outer where
@@ -523,6 +525,8 @@ def dimenOf (name : String) : M (Option Int) := do
     | "parskip" => some v.parSkip.width
     | "leftskip" => some v.p.leftSkip.width
     | "rightskip" => some v.p.rightSkip.width
+    | "lineskip" => some v.lineSkip.width
+    | "lineskiplimit" => some v.lineSkipLimit
     | "fill" => some 0
     | _ => none
 
@@ -538,6 +542,13 @@ def fontUnits : M (Int × Int) := do
       if h > 0 then Em.roundDiv (h * key.size) info.font.unitsPerEm else em / 2
     | none => em / 2
   return (em, ex)
+
+/-- A length `v` times a decimal factor `whole + f / 65536` as TeX computes it for a factor
+before an internal length or an `em` or `ex` unit (`nx_plus_y(whole, v, xn_over_d(v, f,
+65536))`: the fraction's part truncated toward zero). -/
+def texTimes (v : Int) (whole f : Nat) : Int :=
+  let fracPart := if v ≥ 0 then v * f / 65536 else -((-v) * f / 65536)
+  v * whole + fracPart
 
 /-- Reads a dimension (TeX's `scan_dimen`): a decimal number and a unit, or an internal
 dimension, with an optional factor before it (`0.5\textwidth`). With `infinite`, `fil`,
@@ -564,7 +575,7 @@ def readDimen (at_ : Tok) (infinite : Bool := false) : M (Int × Nat) := do
   match ← nextNonSpace? with
   | some u@(.cs name _) =>
     match ← dimenOf name with
-    | some v => return (sign (Em.roundDiv (v * ((whole * 65536 + f : Nat) : Int)) 65536), 0)
+    | some v => return (sign (texTimes v whole f), 0)
     | none => unread #[u]
   | some u => unread #[u]
   | none => pure ()
@@ -576,7 +587,7 @@ def readDimen (at_ : Tok) (infinite : Bool := false) : M (Int × Nat) := do
       skipOneSpace
       return (sign ((whole * 65536 + f : Nat) : Int), order)
   let (em, ex) ← fontUnits
-  let times := fun (u : Int) => sign (Em.roundDiv (u * ((whole * 65536 + f : Nat) : Int)) 65536)
+  let times := fun (u : Int) => sign (texTimes u whole f)
   if ← keyword "em" then skipOneSpace; return (times em, 0)
   if ← keyword "ex" then skipOneSpace; return (times ex, 0)
   let _ ← keyword "true"
@@ -979,6 +990,25 @@ def displayFormula (at_ : Tok) (src : String) (eqno : Option HNode := none)
 
 /-! ### Groups and boxes -/
 
+/-- A list's glue fixed at the sizes a setting gives it (TeX's `hlist_out` arithmetic): each
+glue becomes glue of its set width, so the list keeps its look as a box's content at its
+natural width. -/
+def freezeGlue (nodes : Array HNode) (g : GlueSet) : Array HNode := Id.run do
+  if g.sign == 0 then return nodes
+  let glues := nodes.filterMap fun n => match n with
+    | .glue gl _ => some gl
+    | _ => none
+  let sizes := LeAnTeX.Doc.glueSizes g glues
+  let mut out := #[]
+  let mut k := 0
+  for n in nodes do
+    match n with
+    | .glue _ st =>
+      out := out.push (.glue { width := sizes.getD k 0 } st)
+      k := k + 1
+    | n => out := out.push n
+  return out
+
 /-- Opens a group. -/
 def beginGroup (at_ : Tok) : M Unit := do
   let (cfg, _) ← read
@@ -996,7 +1026,10 @@ def endGroup (at_ : Tok) : M Unit := do
       flushRun
       let s ← get
       let content := s.hlist
-      let (w, _, _, h, d) := measure content
+      let (w, st, sh, h, d) := measure content
+      let (w, content) := match fr.target with
+        | some tw => (tw, freezeGlue content (hpackGlue w tw st sh))
+        | none => (w, content)
       set { s with
         boxes := s.boxes.pop, hlist := fr.outer.push (.box w h d 0 content), sf := 1000,
         groups := s.groups.pop }
@@ -1006,7 +1039,7 @@ def endGroup (at_ : Tok) : M Unit := do
   modify fun s => { s with groups := s.groups.pop }
 
 /-- Begins `\hbox{…}`: reads `{` and starts a list inside it. -/
-def beginBox (at_ : Tok) : M Unit := do
+def beginBox (at_ : Tok) (target : Option Int := none) : M Unit := do
   match ← nextNonSpace? with
   | some t =>
     if !t.isBegin then failAt t "A <box> was supposed to be here (missing {)"
@@ -1016,7 +1049,8 @@ def beginBox (at_ : Tok) : M Unit := do
   flushRun
   beginGroup at_
   modify fun s => { s with
-    boxes := s.boxes.push { depth := s.groups.size, outer := s.hlist, sf := s.sf, wasVertical }
+    boxes := s.boxes.push
+      { depth := s.groups.size, outer := s.hlist, sf := s.sf, wasVertical, target }
     hlist := #[] }
 
 /-! ### Commands -/
@@ -1077,6 +1111,13 @@ def setInt (name : String) (v : Int) : M Bool := do
     | "exhyphenpenalty" => some fun x => { x with exHyphenPenalty := v }
     | "lefthyphenmin" => some fun x => { x with leftHyphenMin := max 1 v }
     | "righthyphenmin" => some fun x => { x with rightHyphenMin := max 1 v }
+    | "interlinepenalty" => some fun x => { x with interlinePenalty := v }
+    | "clubpenalty" => some fun x => { x with clubPenalty := v }
+    | "widowpenalty" => some fun x => { x with widowPenalty := v }
+    | "displaywidowpenalty" => some fun x => { x with displayWidowPenalty := v }
+    | "brokenpenalty" => some fun x => { x with brokenPenalty := v }
+    | "predisplaypenalty" => some fun x => { x with preDisplayPenalty := v }
+    | "postdisplaypenalty" => some fun x => { x with postDisplayPenalty := v }
     | _ => none
   match f with
   | some f => modifyVars f; return true
@@ -1086,7 +1127,9 @@ def setInt (name : String) (v : Int) : M Bool := do
 def isIntParam (name : String) : Bool :=
   ["tolerance", "pretolerance", "looseness", "linepenalty", "adjdemerits",
     "doublehyphendemerits", "finalhyphendemerits", "hangafter", "hyphenpenalty",
-    "exhyphenpenalty", "lefthyphenmin", "righthyphenmin"].contains name
+    "exhyphenpenalty", "lefthyphenmin", "righthyphenmin", "interlinepenalty", "clubpenalty",
+    "widowpenalty", "displaywidowpenalty", "brokenpenalty", "predisplaypenalty",
+    "postdisplaypenalty"].contains name
 
 /-- Assigns a glue or dimension parameter (a dimension takes the glue's width). -/
 def setGlue (name : String) (g : Glue) : M Bool := do
@@ -1101,6 +1144,12 @@ def setGlue (name : String) (g : Glue) : M Bool := do
     | "parfillskip" => some fun x => { x with parFillSkip := g }
     | "baselineskip" => some fun x => { x with baselineSkip := g }
     | "parskip" => some fun x => { x with parSkip := g }
+    | "lineskip" => some fun x => { x with lineSkip := g }
+    | "lineskiplimit" => some fun x => { x with lineSkipLimit := g.width }
+    | "abovedisplayskip" => some fun x => { x with aboveDisplaySkip := g }
+    | "belowdisplayskip" => some fun x => { x with belowDisplaySkip := g }
+    | "abovedisplayshortskip" => some fun x => { x with aboveDisplayShortSkip := g }
+    | "belowdisplayshortskip" => some fun x => { x with belowDisplayShortSkip := g }
     | _ => none
   match f with
   | some f => modifyVars f; return true
@@ -1108,12 +1157,14 @@ def setGlue (name : String) (g : Glue) : M Bool := do
 
 /-- Whether `name` is a glue parameter (its value may have `plus` and `minus`). -/
 def isGlueParam (name : String) : Bool :=
-  ["leftskip", "rightskip", "parfillskip", "baselineskip", "parskip"].contains name
+  ["leftskip", "rightskip", "parfillskip", "baselineskip", "parskip", "lineskip",
+    "abovedisplayskip", "belowdisplayskip", "abovedisplayshortskip",
+    "belowdisplayshortskip"].contains name
 
 /-- Whether `name` is a dimension parameter. -/
 def isDimenParam (name : String) : Bool :=
   ["hsize", "textwidth", "linewidth", "columnwidth", "parindent", "emergencystretch",
-    "hangindent"].contains name
+    "hangindent", "lineskiplimit"].contains name
 
 /-- Reads the name of a macro being defined: `\name` or `{\name}`. -/
 def readMacroName (at_ : Tok) : M String := do
@@ -1212,8 +1263,9 @@ def addSpace (sf : Option Nat := none) : M Unit := do
   let f := sf.getD (← get).sf
   modify fun s => { s with hlist := s.hlist.push (.glue (tf.space f) 13) }
 
-/-- Carries out a control sequence. -/
-def command (t : Tok) (name : String) : M Unit := do
+/-- Carries out a control sequence of the text layer (the document layer's dispatcher,
+`LeAnTeX.Text.Typeset.command`, calls it for the names it does not handle itself). -/
+def textCommand (t : Tok) (name : String) : M Unit := do
   let v ← vars
   if let some m := v.macros[name]? then expandMacro t m; return
   if let some k := fontDecl name v.key then
@@ -1247,7 +1299,12 @@ def command (t : Tok) (name : String) : M Unit := do
     if !(← get).hmode then modify fun s => { s with noIndent := true }
   | "indent" =>
     if (← get).hmode then push (.box v.parIndent 0 0 0 #[]) else startParagraph
-  | "hbox" | "mbox" => beginBox t
+  | "hbox" =>
+    if ← keyword "to" then
+      let (w, _) ← readDimen t
+      beginBox t (some w)
+    else beginBox t
+  | "mbox" => beginBox t
   | "\\" | "newline" =>
     let _ ← readStar
     let _ ← readOptional?
@@ -1331,63 +1388,15 @@ def command (t : Tok) (name : String) : M Unit := do
   | "textbackslash" => addChar '\\'
   | _ => failAt t s!"Undefined control sequence \\{name}"
 
-/-- Carries out one token. -/
-def step (t : Tok) : M Unit :=
-  match t with
-  | .cs name _ => command t name
-  | .char c cat _ =>
-    match cat with
-    | 1 => beginGroup t
-    | 2 => endGroup t
-    | 3 => do
-      match ← next? with
-      | some u@(.char '$' 3 _) =>
-        let _ := u
-        displayFormula t (← readFormula t (·.isChar '$' 3) true)
-      | some u =>
-        unread #[u]
-        startParagraph
-        push (← formula t (← readFormula t (·.isChar '$' 3) false) false)
-        modify fun s => { s with sf := 1000 }
-      | none => failAt t "Missing $ inserted (formula not closed)"
-    | 10 => addSpace
-    | 13 => do
-      startParagraph
-      push (.penalty 10000)
-      addSpace (some 1000)
-    | 4 => failAt t "Misplaced alignment tab character &"
-    | 6 => failAt t "You can't use the macro parameter character # here"
-    | 7 | 8 => failAt t s!"Missing $ inserted ({c} is for formulas)"
-    | _ => addChar c
-  | .param _ => fail "internal: a parameter outside a macro body"
-
-/-- Reads and carries out every token, then ends the last paragraph. -/
-def process : M Unit := do
-  let (cfg, _) ← read
-  let fuel := (← get).input.size + cfg.maxTokens + 2
-  for _ in [0:fuel] do
-    match ← next? with
-    | none => break
-    | some t => step t
-  if !(← get).input.isEmpty then fail "internal: the token budget ran out"
-  if !(← get).boxes.isEmpty then fail "Missing } inserted (a box is not closed)"
-  endParagraph
-  if (← get).groups.size > 1 then fail "Missing } inserted (a group is not closed)"
+/-- The control sequences `command` carries out itself (besides macros, font declarations and
+parameters). -/
+def basicNames : Array String :=
+  #[" ", "#", "$", "%", "&", "(", ",", "-", "/", "[", "\\", "_", "allowbreak", "break",
+    "def", "enspace", "fontsize", "hbox", "hfil", "hfill", "hskip", "hspace", "hss",
+    "indent", "kern", "mbox", "newcommand", "newline", "nobreak", "noindent", "par",
+    "parshape", "penalty", "providecommand", "qquad", "quad", "relax", "renewcommand",
+    "selectfont", "setlength", "textbackslash", "vspace", "{", "}"]
 
 end Typeset
-
-open Typeset in
-/-- Typesets LaTeX source (see the module docstring): the lines of its paragraphs and
-formulas with their positions, the fonts named by `resolve`. `init` holds the starting
-parameters (LaTeX's ten-point article class by default). An error for source the front end
-does not understand or that exceeds a cap of `cfg`. -/
-def typeset (src : String) (resolve : FontResolver) (cfg : Settings := {})
-    (init : Vars := {}) : Except TypesetError Document := do
-  if src.length > cfg.maxSource then
-    throw { message := s!"source too long: more than {cfg.maxSource} characters" }
-  let st : St := { input := (tokenize src).reverse, groups := #[init] }
-  let ((), s) ← (process.run (cfg, resolve)).run st
-  return { fonts := s.fonts, lines := s.lines, width := s.width, warnings := s.warnings
-           paragraphs := s.paragraphs }
 
 end LeAnTeX.Text

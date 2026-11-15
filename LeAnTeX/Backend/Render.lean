@@ -5,6 +5,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 import LeAnTeX.Backend.Html
 import LeAnTeX.Backend.Setup
 import LeAnTeX.Text.Output
+import LeAnTeX.Doc.Front
 
 /-!
 # From source to SVG or HTML
