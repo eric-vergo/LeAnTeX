@@ -701,11 +701,11 @@ def flushRun : M Unit := do
   -- a monospaced font has neither TeX's ligatures nor hyphenation (LaTeX's typewriter
   -- families load it without them and set no hyphen character)
   let cs := if tf.info.mono then s.run else texLigatures s.run
-  -- the words LuaTeX hyphenates: runs of letters that start the list, follow a glue or a
-  -- box, or follow a character that is not a letter (other than an explicit hyphen); not
-  -- those right after a penalty, a kern or a discretionary
+  -- the words LuaTeX hyphenates: runs of letters that start the list, follow a glue, a box
+  -- or a rule (a strut), or follow a character that is not a letter (other than an explicit
+  -- hyphen); not those right after a penalty, a kern or a discretionary
   let before := match s.hlist.back? with
-    | none | some (.glue ..) | some (.box ..) => true
+    | none | some (.glue ..) | some (.box ..) | some (.rule ..) => true
     | _ => false
   let mut words : Array (Nat × Nat) := #[]
   if cfg.hyphenate && !tf.info.mono then
