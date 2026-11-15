@@ -38,11 +38,17 @@ open Std
 
 /-- The innermost group of a node through one-element groups, colours and fonts
 (KaTeX's `getBaseElem`). -/
-partial def getBaseElem : Node → Node
+def getBaseElem : Node → Node
   | n@(.ordgroup _ _ body _) => if h : body.size = 1 then getBaseElem body[0] else n
   | n@(.color _ _ _ body) => if h : body.size = 1 then getBaseElem body[0] else n
   | .font _ _ _ body => getBaseElem body
   | n => n
+termination_by n => sizeOf n
+decreasing_by
+  all_goals simp_wf
+  all_goals first
+    | (have := Array.sizeOf_getElem body 0 (by omega); omega)
+    | omega
 
 /-- Whether a node is a single character, for TeX's character-box rules (KaTeX's
 `isCharacterBox`). -/

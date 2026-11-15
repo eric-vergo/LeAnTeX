@@ -62,8 +62,9 @@ is structurally recursive on a depth bound too, and the JSON conversions of box 
 `partial` remains in the parse stage and its helpers: the lexer, the macro expander and the
 parser (`Parse/`) recurse as KaTeX's do, and terminate because every step consumes a token or
 counts an expansion against `maxExpand`, an argument not written down as a measure; the JSON
-printer and reader (`Json.lean`) and the parse tree's JSON form (`Parse/NodeJson.lean`) recurse
-on values of nested types; and the test harness.
+printer (`Json.lean`) and the parse tree's JSON form (`Parse/NodeJson.lean`) recurse on values
+of nested types; and the test harness (with the reader of the fixtures' JSON). `getBaseElem`
+is defined by well-founded recursion on the node's size.
 
 ## Numbers
 

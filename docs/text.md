@@ -128,9 +128,15 @@ The defaults are LaTeX's article class at ten points: `\hsize` 345 pt, `\parinde
 
 Source is untrusted. The front end caps the source length, the tokens all macro expansions
 produce together (`Settings.maxTokens`), the number of expansions and the nesting of groups
-and boxes; past a cap the result is an error, never a hang. The line breaker caps the nodes and
-the active breakpoints (`Params.maxNodes`, `Params.maxActive`). There is no `partial`
-definition: every loop has a bound from its input. The tests run 900 mutated sources and 400
+and boxes; past a cap the result is an error, never a hang. The line breaker caps the nodes,
+the active breakpoints and its steps (`Params.maxNodes`, `Params.maxActive`, `Params.maxWork`
+per paragraph, `Settings.maxBreakWork` over the document), so a paragraph costs at most
+`maxWork` steps plus a constant per node whatever its parameters. Hyphenating and shaping a
+word is linear in its length (LuaTeX hyphenates words of any length, and so does this layer). A
+formula in the text is parsed with the math parser's caps (`maxExpand`, and `maxTokens`, 20000
+tokens by default). The modules of the text layer (`LeAnTeX/Text/`) have no `partial`
+definition: every loop has a bound from its input. (The math parser it calls for formulas
+recurses as KaTeX's does; see `docs/layout.md`, *Termination*.) The tests run 900 mutated sources and 400
 random horizontal lists, each ending in a result or a clean error.
 
 ## Proved and tested

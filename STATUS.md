@@ -25,8 +25,9 @@ What LeAnTeX does today, and what comes next.
   (one-pixel least width of array rules, pixel rounding of borders).
 - Settings: KaTeX's `maxSize` (`Settings.maxSize`, in em; `none` by default, as KaTeX's
   `Infinity`): every size a formula writes is cut to it in `calculateSize`, as in KaTeX. LeAnTeX's
-  own `maxTokens` (`none` by default: KaTeX has no such limit) bounds the tokens all macro
-  expansions produce together, an error past it, so a formula's cost stays linear in its source.
+  own `maxTokens` (20000 by default, `defaultMaxTokens`; KaTeX has no such limit) bounds the
+  tokens all macro expansions produce together, an error past it, so a formula's cost stays
+  linear in its source.
 - Box tree JSON (`Layout/BoxJson.lean`): total, by well-founded recursion. `partial` remains in
   the parse stage, `Json.lean` and `Parse/NodeJson.lean` (`docs/layout.md`, *Termination*).
 - Speed, 10 × 10 matrix (`lake exe leantex-test --bench-matrix`), in processor cycles on one
