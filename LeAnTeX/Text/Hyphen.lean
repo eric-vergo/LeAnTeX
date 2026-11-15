@@ -117,7 +117,8 @@ def points (ps : Patterns) (word : String) (left := 2) (right := 3) : Array Nat 
   let raw := match ps.exceptions[w]? with
     | some pts => pts
     | none => ps.patternPoints w
-  raw.filter fun k => left ≤ k && k + right ≤ word.length
+  let n := word.length
+  raw.filter fun k => left ≤ k && k + right ≤ n
 
 /-- `word` with `-` at each of its hyphenation points. -/
 def hyphenate (ps : Patterns) (word : String) (left := 2) (right := 3) : String := Id.run do

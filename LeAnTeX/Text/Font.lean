@@ -190,7 +190,9 @@ def kernBetween (a b : Array Char) : Int :=
 /-- A run of characters as glyphs, kerns and discretionaries, with a discretionary at each of
 the given hyphenation points (`k` for a point after the `k`th character), whose penalty is
 `penalty`. A point inside a ligature takes the ligature's characters into its discretionary; a
-point whose ligature overlaps an earlier point's is left out. -/
+point whose ligature overlaps an earlier point's is left out. `points` must increase. Work:
+linear in the length of the run (each kern is found from at most 8 characters on each side
+of its point beyond the current syllable). -/
 def shapeRun (cs : Array Char) (points : Array Nat) (penalty : Int) : Array HNode := Id.run do
   if points.isEmpty then return t.shape cs
   let cl := t.clusters cs
@@ -201,18 +203,25 @@ def shapeRun (cs : Array Char) (points : Array Nat) (penalty : Int) : Array HNod
     bounds := bounds.push off; off := off + chs.size
   bounds := bounds.push cs.size
   let hyphen := #['-']
+  -- a ligature spans at most 8 characters, so the first glyph after an offset is decided by the
+  -- 8 characters from there: kerns are found in such a window, not in the rest of the run
+  let window := fun (i : Nat) => cs.extract i (min cs.size (i + 8))
   let mut out := #[]
   let mut from_ := 0
+  -- `bounds[bi]` is the last cluster start at or before the current point (points increase)
+  let mut bi := 0
   for p in points do
     if p ≤ from_ || p ≥ cs.size then continue
     -- the cluster boundaries around the point
-    let a := (bounds.filter (· ≤ p)).back?.getD 0
-    let b := (bounds.filter (· ≥ p))[0]?.getD cs.size
+    for _ in [bi:bounds.size] do
+      if (bounds[bi + 1]?.getD (cs.size + 1)) ≤ p then bi := bi + 1 else break
+    let a := bounds[bi]?.getD 0
+    let b := if a == p then p else bounds[bi + 1]?.getD cs.size
     if a < from_ then continue
     let left := cs.extract from_ a
     if a == p then
       out := out ++ t.shape left
-      let k := t.kernBetween (cs.extract from_ p) (cs.extract p (cs.size))
+      let k := t.kernBetween (cs.extract from_ p) (window p)
       let rep := if k != 0 then #[HNode.kern k .font] else #[]
       out := out.push (.disc penalty (t.shape hyphen) #[] rep .syllable)
       from_ := p
@@ -222,7 +231,7 @@ def shapeRun (cs : Array Char) (points : Array Nat) (penalty : Int) : Array HNod
       if !left.isEmpty && k != 0 then out := out.push (.kern k .font)
       out := out.push (.disc penalty (t.shape (cs.extract a p ++ hyphen))
         (t.shape (cs.extract p b)) (t.shape (cs.extract a b)) .syllable)
-      let k2 := t.kernBetween (cs.extract a b) (cs.extract b cs.size)
+      let k2 := t.kernBetween (cs.extract a b) (window b)
       if b < cs.size && k2 != 0 then out := out.push (.kern k2 .font)
       from_ := b
   return out ++ t.shape (cs.extract from_ cs.size)

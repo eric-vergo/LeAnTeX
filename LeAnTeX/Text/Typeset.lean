@@ -50,8 +50,10 @@ TeX's interline glue.
 Everything else is an error naming the command: environments, lists and sectioning,
 counters, references, floats, tables, accents (`\'e`), `\vadjust`, `\vbox`, and TeX's
 programming primitives. Source is untrusted: the source length, the number of tokens all
-macro expansions produce together (`Settings.maxTokens`), the number of expansions and the
-nesting of groups and boxes are capped, and past a cap the result is an error, never a hang.
+macro expansions produce together (`Settings.maxTokens`), the number of expansions, the
+nesting of groups and boxes, and the steps of the line breaker (per paragraph and over the
+document, `Settings.maxBreakWork`) are capped, and past a cap the result is an error naming the
+cap, never a hang.
 
 ## Main definitions
 
@@ -123,6 +125,9 @@ structure Settings where
   maxExpansions : Nat := 100000
   /-- The deepest nesting of groups and boxes. -/
   maxDepth : Nat := 200
+  /-- The most steps the line breaker may take over all paragraphs together (each paragraph is
+  also held to `LeAnTeX.Text.Params.maxWork`). -/
+  maxBreakWork : Nat := 100000000
   /-- The hyphenation patterns (`Patterns.english`, LaTeX's default). -/
   patterns : Patterns := Patterns.english
   /-- Whether to hyphenate at all. -/
@@ -299,6 +304,8 @@ structure St where
   input : Array Tok
   /-- Tokens the expansions produced. -/
   produced : Nat := 0
+  /-- Steps the line breaker took over all paragraphs so far. -/
+  breakWork : Nat := 0
   /-- Expansions done. -/
   expansions : Nat := 0
   /-- The group stack; the last is current. -/
@@ -704,18 +711,23 @@ def flushRun : M Unit := do
       else i := i + 1
   -- explicit hyphens split the run into parts
   let mut out := #[]
-  let parts := splitHyphens cs
+  let parts := (splitHyphens cs).toArray
   let mut off := 0
-  for h : k in [0:parts.length] do
+  -- the words are in order and inside one part each, so one pass over them serves all parts
+  let mut wi := 0
+  for h : k in [0:parts.size] do
     let part := parts[k].toArray
     let mut points := #[]
-    for (i, j) in words do
+    for _ in [wi:words.size] do
+      let some (i, j) := words[wi]? | break
+      if i ≥ off + part.size then break
+      wi := wi + 1
       if off ≤ i && j ≤ off + part.size then
         let w := String.ofList (cs.extract i j).toList
         for p in cfg.patterns.points w v.leftHyphenMin.toNat v.rightHyphenMin.toNat do
           points := points.push (i - off + p)
     out := out ++ tf.shapeRun part points v.hyphenPenalty
-    if k + 1 < parts.length then
+    if k + 1 < parts.size then
       let hy := tf.shape #['-']
       out := out.push (.disc v.exHyphenPenalty hy #[] hy .automatic)
     off := off + part.size + 1
@@ -849,10 +861,19 @@ def endParagraph (display : Bool := false) : M Unit := do
       | some w => { v.p with parShape := #[(v.totalLeftMargin, w)] }
       | none => v.p
     else v.p
+  let (cfg, _) ← read
+  let left := cfg.maxBreakWork - min cfg.maxBreakWork (← get).breakWork
+  let p := { p with maxWork := min p.maxWork left }
   match breakParagraph items p with
+  | .error (.tooMuchWork n) =>
+    if n < cfg.maxBreakWork && n == left then
+      fail s!"paragraph: the document's paragraphs are too costly to break: more than \
+        {cfg.maxBreakWork} steps"
+    else fail s!"paragraph: {(BreakError.tooMuchWork n).message}"
   | .error e => fail s!"paragraph: {e.message}"
   | .ok r =>
-    modify fun s => { s with warnings := s.warnings ++ r.warnings, width := v.p.hsize }
+    modify fun s => { s with warnings := s.warnings ++ r.warnings, width := v.p.hsize,
+                             breakWork := s.breakWork + r.work }
     let ls := setLines items p r.breaks
     let ranges := lineRanges items (r.breaks.map (·.pos))
     let noClub := (← get).noClub

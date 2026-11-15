@@ -60,10 +60,13 @@ of the material before the place where its line starts, and a line's totals are 
 of two prefix sums: the same integers, so the same badness. The active list is an array in TeX's
 order, and new breakpoints are inserted where TeX inserts them, so ties are resolved as in TeX.
 
-Work is bounded: the input may have at most `Params.maxNodes` nodes and the active list at most
-`Params.maxActive` breakpoints; beyond either `breakParagraph` returns an error. Each pass
-visits every node once and, at a legal breakpoint, every active breakpoint at most a fixed
-number of times.
+Work is bounded: the input may have at most `Params.maxNodes` nodes, the active list at most
+`Params.maxActive` breakpoints, and all passes together at most `Params.maxWork` steps (a visit
+of an active breakpoint, or an insertion or removal counted at the length of the list); beyond
+any of them `breakParagraph` returns an error naming the limit. So the work of a paragraph is
+at most `maxWork` plus a constant times its number of nodes, whatever its parameters: without
+the step budget a paragraph with `\tolerance=10000` and a wide `\hsize` keeps thousands of
+breakpoints active and its work grows with their product.
 
 ## References
 
@@ -112,6 +115,10 @@ structure Params where
   maxNodes : Nat := 1000000
   /-- The most active breakpoints at any time. -/
   maxActive : Nat := 20000
+  /-- The most steps all passes together may take: a step is a visit of an active breakpoint at
+  a legal breakpoint, and inserting or removing an active breakpoint counts as many steps as the
+  active list is long. -/
+  maxWork : Nat := 20000000
   deriving Inhabited, Repr
 
 /-- Why a paragraph could not be broken. -/
@@ -120,6 +127,8 @@ inductive BreakError where
   | tooManyNodes (n : Nat)
   /-- More active breakpoints than `Params.maxActive`. -/
   | tooManyActive
+  /-- More steps than `Params.maxWork`. -/
+  | tooMuchWork (limit : Nat)
   /-- A discretionary's text holds a node other than a glyph, kern, box or rule. -/
   | improperDiscretionary (index : Nat)
   /-- A glue order above 3, or a `\parshape` entry with a negative length. -/
@@ -130,6 +139,7 @@ inductive BreakError where
 def BreakError.message : BreakError → String
   | .tooManyNodes n => s!"paragraph too long: {n} nodes"
   | .tooManyActive => "too many active breakpoints"
+  | .tooMuchWork n => s!"paragraph too costly to break: more than {n} steps"
   | .improperDiscretionary i => s!"improper discretionary list at node {i}"
   | .badParameter w => s!"bad parameter: {w}"
 
@@ -153,6 +163,8 @@ structure Breaks where
   pass : Nat
   /-- Notes for the user: glue with infinite shrink made finite, as TeX does. -/
   warnings : Array String
+  /-- The steps all passes took (see `Params.maxWork`). -/
+  work : Nat := 0
   deriving Inhabited
 
 /-- TeX's `inf_bad`. -/
@@ -292,6 +304,8 @@ structure State where
   minimum : Int := awfulBad
   /-- Whether the active list outgrew its cap. -/
   overflow : Bool := false
+  /-- The steps taken so far (see `Params.maxWork`). -/
+  work : Nat := 0
   deriving Inhabited
 
 /-- What a pass knows besides its state. -/
@@ -362,7 +376,7 @@ def createActive (ps : Pass) (s : State) (j pos : Nat) (hyph : Bool) (start : To
         let a : Active :=
           { line := s.bestPlLine[fc]?.getD 0 + 1, fitness := fc, hyphenated := hyph,
             total := m, passive := some q, start }
-        s := { s with act := s.act.insertIdxIfInBounds j a }
+        s := { s with act := s.act.insertIdxIfInBounds j a, work := s.work + s.act.size }
         j := j + 1
     s := { s with minimal := s.minimal.set! fc awfulBad }
   return ({ s with minimum := awfulBad }, j)
@@ -380,6 +394,7 @@ def tryBreak (ps : Pass) (s : State) (pi : Int) (hyph : Bool) (pos : Nat) (atEnd
   let mut lineWidth : Int := 0
   let fuel := 8 * (s.act.size + 2)
   for _ in [0:fuel] do
+    s := { s with work := s.work + 1 }
     let atLast := j ≥ s.act.size
     let l := (s.act[j]?.map (·.line)).getD 0
     if atLast || l > oldL then
@@ -418,19 +433,20 @@ def tryBreak (ps : Pass) (s : State) (pi : Int) (hyph : Bool) (pos : Nat) (atEnd
           bestPlLine := s.bestPlLine.set! fc l
           minimum := min s.minimum d }
     if stays then j := j + 1
-    else s := { s with act := s.act.eraseIdxIfInBounds j }
+    else s := { s with act := s.act.eraseIdxIfInBounds j, work := s.work + s.act.size }
   return s
 
-/-- The outcome of one pass: the active list after the final break, if the pass reached the end
-of the paragraph with breakpoints left. -/
-def runPass (ps : Pass) (items : Array HNode) (prefixes : Array Totals) (hyphenate : Bool) :
-    Except BreakError (Option State) := Id.run do
+/-- The outcome of one pass: the steps taken so far (starting from `work`, the steps of the
+earlier passes), and the active list after the final break if the pass reached the end of the
+paragraph with breakpoints left. -/
+def runPass (ps : Pass) (items : Array HNode) (prefixes : Array Totals) (hyphenate : Bool)
+    (work : Nat := 0) : Except BreakError (Nat × Option State) := Id.run do
   let n := items.size
   let pre := fun (i : Nat) => prefixes[i]?.getD default
   let initial : Active :=
     { line := ps.p.prevGraf + 1, fitness := 2, hyphenated := false, total := 0,
       passive := none, start := {} }
-  let mut s : State := { act := #[initial] }
+  let mut s : State := { act := #[initial], work }
   let mut prevBreakable := false
   for i in [0:n] do
     if s.act.isEmpty then break
@@ -446,11 +462,13 @@ def runPass (ps : Pass) (items : Array HNode) (prefixes : Array Totals) (hyphena
         let pen := match node with | .penalty p => p | _ => 0
         s := tryBreak ps s pen false i false (pre i) (pre (firstKept items i))
       if s.overflow then return .error .tooManyActive
+      if s.work > ps.p.maxWork then return .error (.tooMuchWork ps.p.maxWork)
     prevBreakable := precedesBreak node
-  if s.act.isEmpty then return .ok none
+  if s.act.isEmpty then return .ok (s.work, none)
   s := tryBreak ps s (-10000) true n true (pre n) (pre n)
   if s.overflow then return .error .tooManyActive
-  return .ok (if s.act.isEmpty then none else some s)
+  if s.work > ps.p.maxWork then return .error (.tooMuchWork ps.p.maxWork)
+  return .ok (s.work, if s.act.isEmpty then none else some s)
 
 /-- The breaks of an active breakpoint, from the start of the paragraph. -/
 def chain (s : State) (a : Active) : Array Break := Id.run do
@@ -541,13 +559,16 @@ def breakParagraphCore (items : Array HNode) (p : Params := {}) : Except BreakEr
   let passes := (if p.pretolerance ≥ 0 then #[(1, mk bg p.pretolerance false, false)] else #[])
     ++ #[(2, second, true)] ++ (if p.emergencyStretch > 0 then #[(3, third, true)] else #[])
   let mut result : Option Breaks := none
+  let mut work := 0
   for (num, ps, hyphenate) in passes do
-    match ← runPass ps nodes prefixes hyphenate with
+    let (w, r) ← runPass ps nodes prefixes hyphenate work
+    work := w
+    match r with
     | none => pure ()
     | some s =>
       let (a, met) := best p.looseness s.act
       if met || ps.final then
-        result := some { breaks := chain s a, demerits := a.total, pass := num, warnings }
+        result := some { breaks := chain s a, demerits := a.total, pass := num, warnings, work }
         break
   match result with
   | some r => return r
