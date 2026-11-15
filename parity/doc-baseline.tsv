@@ -3,7 +3,12 @@ counters
 description
 emph
 enumerate
+float-page
+float-top
+footnotes
+footnotes-pages
 itemize
+mixed
 newpage
 nopagebreak
 options-11pt

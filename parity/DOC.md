@@ -6,10 +6,10 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 |---|---|---|---|
 | structure | 8 / 15 | 332 / 419 | 332 |
 | environments | 2 / 11 | 30 / 87 | 30 |
-| combined | 0 / 2 | 0 / 82 | 0 |
+| combined | 1 / 2 | 30 / 82 | 30 |
 | lists | 3 / 3 | 23 / 23 | 23 |
-| floats | 0 / 5 | 0 / 115 | 0 |
-| footnotes | 0 / 2 | 0 / 81 | 0 |
+| floats | 2 / 5 | 47 / 115 | 48 |
+| footnotes | 2 / 2 | 81 / 81 | 81 |
 | page breaking | 6 / 7 | 296 / 312 | 296 |
 | tables | 0 / 2 | 0 / 23 | 0 |
 
@@ -27,16 +27,16 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | emph | yes | 3 / 3 |  |
 | enumerate | yes | 8 / 8 |  |
 | equation | no | 0 / 13 | error: Environment equation undefined at 399 |
-| float-bottom | no | 0 / 14 | error: Environment figure undefined at 378 |
-| float-default | no | 0 / 50 | error: Environment figure undefined at 958 |
-| float-here | no | 0 / 17 | error: Environment figure undefined at 378 |
-| float-page | no | 0 / 19 | error: Environment figure undefined at 378 |
-| float-top | no | 0 / 15 | error: Environment figure undefined at 378 |
-| footnotes | no | 0 / 14 | error: Undefined control sequence \footnote at 58 |
-| footnotes-pages | no | 0 / 67 | error: Undefined control sequence \footnote at 377 |
+| float-bottom | no | 13 / 14 | page 1 line 13: (16494428, 44117141) 'Figure 1: At the bottom.', LuaLaTeX (16494428, 44117157) 'Figure 1: At the bottom.' (dy -16) |
+| float-default | no | 0 / 50 | error: Environment tabular undefined at 3220 |
+| float-here | no | 0 / 17 | error: Environment tabular undefined at 743 |
+| float-page | yes | 19 / 19 |  |
+| float-top | yes | 15 / 15 |  |
+| footnotes | yes | 14 / 14 |  |
+| footnotes-pages | yes | 67 / 67 |  |
 | itemize | yes | 10 / 10 |  |
 | lengths | no | 0 / 18 | error: Undefined control sequence \addtolength at 706 |
-| mixed | no | 0 / 30 | error: Undefined control sequence \footnote at 448 |
+| mixed | yes | 30 / 30 |  |
 | newenvironment | no | 0 / 3 | error: Undefined control sequence \newenvironment at 41 |
 | newpage | yes | 21 / 21 |  |
 | nopagebreak | yes | 47 / 47 |  |
@@ -48,7 +48,7 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | pagestyle-empty | yes | 46 / 46 |  |
 | quote | no | 20 / 23 | page 1 line 14: (10437918, 20661534) 'Vertical space between paragraphs and ar', LuaLaTeX (10437918, 20661534) 'Vertical space between paragraphs and ar' (dy 0) |
 | refs | no | 0 / 31 | error: Environment equation undefined at 170 |
-| rules | no | 0 / 3 | error: Undefined control sequence \rule at 48 |
+| rules | no | 0 / 3 | error: Undefined control sequence \hrule at 147 |
 | sections-basic | yes | 15 / 15 |  |
 | sections-levels | yes | 14 / 14 |  |
 | sections-pages | yes | 86 / 86 |  |

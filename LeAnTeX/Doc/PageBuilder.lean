@@ -27,9 +27,8 @@ the best break and handed to the output, and what follows goes back to the contr
   `\dimen`; otherwise it is split (TeX's `vert_break` at the height that is left) and the rest
   goes to the next page, and later insertions of that class wait for the next page.
 * **Labels** (`VNode.label`) and marks are kept on the page where they fall.
-* **Floats** (`VNode.float`) are handed to the caller's `onFloat`, which may change the page's
-  goal (top and bottom floats take room), give items to contribute in the float's place (a
-  float set here) or defer it; this is how LaTeX's output routine sees a float.
+* **Floats** (`VNode.float`) are placed as LaTeX's output routine places them (its
+  `\@addtocurcol`, `\@startcolumn`, `\@tryfcolumn` and `\@doclearpage`, see `placeFloat`).
 
 Every length is an integer of sp, so the arithmetic is TeX's exactly. The work is bounded: each
 step either moves an item from the contributions to the page or discards it, or cuts a page
@@ -67,6 +66,79 @@ structure InsertClass where
   /-- `\dimen n`. -/
   dimen : Int
 
+/-- A float as the page builder sees it: its box (a vertical box), the placements it allows
+(`h`, `t`, `b`, `p`), and its type (`figure`, `table`): floats of one type keep their order. -/
+structure FloatSpec where
+  /-- The box. -/
+  box : VNode
+  /-- `h` allowed. -/
+  here : Bool := false
+  /-- `t` allowed. -/
+  top : Bool := true
+  /-- `b` allowed. -/
+  bottom : Bool := true
+  /-- `p` allowed. -/
+  page : Bool := true
+  /-- The type. -/
+  kind : String := "figure"
+  deriving Inhabited
+
+/-- The height a float takes (its box's height and depth). -/
+def FloatSpec.size (f : FloatSpec) : Int := f.box.height + f.box.depth
+
+/-- LaTeX's float parameters (the article class's values by default; fractions in
+thousandths). -/
+structure FloatParams where
+  /-- `\floatsep`. -/
+  floatSep : Glue := { width := 12 * 65536, stretch := 2 * 65536, shrink := 2 * 65536 }
+  /-- `\textfloatsep`. -/
+  textFloatSep : Glue := { width := 20 * 65536, stretch := 2 * 65536, shrink := 4 * 65536 }
+  /-- `\intextsep`. -/
+  inTextSep : Glue := { width := 12 * 65536, stretch := 2 * 65536, shrink := 2 * 65536 }
+  /-- `\@fpsep`. -/
+  fpSep : Glue := { width := 8 * 65536, stretch := 2 * 65536, stretchOrder := 1 }
+  /-- `topnumber`. -/
+  topNumber : Nat := 2
+  /-- `bottomnumber`. -/
+  bottomNumber : Nat := 1
+  /-- `totalnumber`. -/
+  totalNumber : Nat := 3
+  /-- `\topfraction`. -/
+  topFraction : Int := 700
+  /-- `\bottomfraction`. -/
+  bottomFraction : Int := 300
+  /-- `\textfraction`. -/
+  textFraction : Int := 200
+  /-- `\floatpagefraction`. -/
+  floatPageFraction : Int := 500
+  deriving Inhabited
+
+/-- LaTeX's float bookkeeping for the current page (`\@colroom`, `\@toproom`, `\@botroom`,
+`\@topnum`, `\@botnum`, `\@colnum`, `\@textfloatsheight`, `\@toplist`, `\@botlist`,
+`\@deferlist`). -/
+structure FloatSt where
+  /-- The room for text and floats. -/
+  colRoom : Int := 0
+  /-- The room left for top floats. -/
+  topRoom : Int := 0
+  /-- The room left for bottom floats. -/
+  botRoom : Int := 0
+  /-- Top floats still allowed. -/
+  topNum : Nat := 0
+  /-- Bottom floats still allowed. -/
+  botNum : Nat := 0
+  /-- Floats still allowed on the page. -/
+  colNum : Nat := 0
+  /-- The height of the floats set here. -/
+  textFloatsHeight : Int := 0
+  /-- The top floats. -/
+  top : Array Nat := #[]
+  /-- The bottom floats. -/
+  bot : Array Nat := #[]
+  /-- The deferred floats, in order. -/
+  deferred : Array Nat := #[]
+  deriving Inhabited
+
 /-- The page builder's parameters. -/
 structure PageParams where
   /-- `\vsize`: the height of the page's text. -/
@@ -79,6 +151,10 @@ structure PageParams where
   inserts : Nat → Option InsertClass := fun _ => none
   /-- The most steps the builder takes (each moves, discards or cuts). -/
   maxSteps : Nat := 10000000
+  /-- The floats, by index. -/
+  floats : Array FloatSpec := #[]
+  /-- The float parameters. -/
+  fp : FloatParams := {}
 
 /-- The badness of stretching or shrinking `t` by total `s` (TeX's `badness`, the line
 breaker's). -/
@@ -195,16 +271,13 @@ structure PageOut where
   inserts : Array (Nat × Array VNode) := #[]
   /-- `\outputpenalty`. -/
   penalty : Int := 10000
+  /-- The top floats. -/
+  top : Array Nat := #[]
+  /-- The bottom floats. -/
+  bottom : Array Nat := #[]
+  /-- For a page of floats only: its floats. -/
+  floatPage : Array Nat := #[]
   deriving Inhabited
-
-/-- What a float handler answers for a float met on the page: items to contribute in its place
-(a float set here; they are put at the front of the contributions), and the new page goal (a
-float at the top or bottom of the page takes its room). -/
-structure FloatAnswer where
-  /-- Items to contribute in the float's place. -/
-  here : Array VNode := #[]
-  /-- The page goal after the float. -/
-  goal : Int
 
 /-- An insertion class's record on the current page (TeX's `page_ins` records): the class, the
 height its material takes so far, whether it was split, the index in the page of the last
@@ -253,6 +326,10 @@ structure Builder where
   records : Array InsRecord := #[]
   /-- The pages cut so far. -/
   pages : Array PageOut := #[]
+  /-- The page's `\vsize` (the text height less the room the page's floats take). -/
+  vsize : Int := 0
+  /-- The floats' bookkeeping. -/
+  fl : FloatSt := {}
   deriving Inhabited
 
 namespace Builder
@@ -265,7 +342,7 @@ def peek2 (b : Builder) : Option VNode := b.contrib[b.contrib.size - 2]?
 
 /-- Starts a page's specifications (TeX's `freeze_page_specs`). -/
 def freeze (b : Builder) (p : PageParams) : Builder :=
-  { b with started := true, goal := p.vsize, maxDepth := p.maxDepth, hs := {},
+  { b with started := true, goal := b.vsize, maxDepth := p.maxDepth, hs := {},
            least := awfulBad, best := none }
 
 /-- Takes the next contribution onto the page, with the depth limit (TeX's `contribute`). -/
@@ -334,6 +411,112 @@ def insert (b : Builder) (p : PageParams) (n : VNode) : Builder := Id.run do
 
 end Builder
 
+/-- A fraction in thousandths of a length (LaTeX's `\topfraction\textheight`). -/
+def fracOf (k x : Int) : Int := x * k / 1000
+
+/-- Starts a page's float bookkeeping (LaTeX's `\@startcolumn`): a page of floats is made
+from the deferred floats while they fill at least `\floatpagefraction` of it (`\@tryfcolumn`);
+then the deferred floats go to the top or bottom of the new page where they fit, in order, a
+float waiting behind an earlier one of its type. -/
+def Builder.startPage (b : Builder) (p : PageParams) (deferred : Array Nat) : Builder := Id.run do
+  let fp := p.fp
+  let mut b := b
+  let mut deferred := deferred
+  for _ in [0:deferred.size + 1] do
+    let (taken, rest, total) := takeFloatPage p deferred false
+    if taken.isEmpty || total < fracOf fp.floatPageFraction p.vsize then break
+    b := { b with pages := b.pages.push { items := #[], size := p.vsize, floatPage := taken } }
+    deferred := rest
+  let mut fl : FloatSt :=
+    { colRoom := p.vsize, topRoom := fracOf fp.topFraction p.vsize,
+      botRoom := fracOf fp.bottomFraction p.vsize, topNum := fp.topNumber,
+      botNum := fp.bottomNumber, colNum := fp.totalNumber }
+  for i in deferred do
+    let some f := p.floats[i]? | continue
+    let req := fracOf fp.textFraction p.vsize + f.size
+    let blocked := fl.deferred.any fun j => (p.floats[j]?.map FloatSpec.kind) == some f.kind
+    if fl.colRoom > req && fl.colNum > 0 && !blocked then
+      match topOrBottom p fl f i req with
+      | some fl' => fl := fl'
+      | none => fl := { fl with deferred := fl.deferred.push i }
+    else fl := { fl with deferred := fl.deferred.push i }
+  return { b with fl, vsize := fl.colRoom }
+where
+  /-- A float at the top or the bottom of the page if it may go there and fits (LaTeX's
+  `\@addtotoporbot`): the new bookkeeping. -/
+  topOrBottom (p : PageParams) (fl : FloatSt) (f : FloatSpec) (i : Nat) (req : Int) :
+      Option FloatSt :=
+    let fp := p.fp
+    let tsep := if fl.top.isEmpty then fp.textFloatSep.width else fp.floatSep.width
+    let bsep := if fl.bot.isEmpty then fp.textFloatSep.width else fp.floatSep.width
+    if f.top && fl.topNum > 0 && f.size ≤ fl.topRoom && fl.colRoom ≥ req + tsep then
+      some { fl with top := fl.top.push i, topNum := fl.topNum - 1, colNum := fl.colNum - 1,
+                     topRoom := fl.topRoom - f.size - fp.floatSep.width,
+                     colRoom := fl.colRoom - f.size - tsep }
+    else if f.bottom && fl.botNum > 0 && f.size ≤ fl.botRoom && fl.colRoom ≥ req + bsep then
+      some { fl with bot := fl.bot.push i, botNum := fl.botNum - 1, colNum := fl.colNum - 1,
+                     botRoom := fl.botRoom - f.size - fp.floatSep.width,
+                     colRoom := fl.colRoom - f.size - bsep }
+    else none
+  /-- The floats of a page of floats from the deferred ones (in order; with `force` every
+  float may go, else only those that allow `p`), the ones left, and the height they fill. -/
+  takeFloatPage (p : PageParams) (deferred : Array Nat) (force : Bool) :
+      Array Nat × Array Nat × Int := Id.run do
+    let mut taken := #[]
+    let mut rest := #[]
+    let mut total : Int := 0
+    for i in deferred do
+      let some f := p.floats[i]? | continue
+      let blocked := rest.any fun j => (p.floats[j]?.map FloatSpec.kind) == some f.kind
+      let add := if taken.isEmpty then f.size else f.size + p.fp.fpSep.width
+      if (f.page || force) && !blocked && total + add ≤ p.vsize then
+        taken := taken.push i
+        total := total + add
+      else rest := rest.push i
+    if force && taken.isEmpty then
+      if let some i := rest[0]? then return (#[i], rest.extract 1 rest.size, 0)
+    return (taken, rest, total)
+
+/-- A float met on the page (LaTeX's `\@addtocurcol`): set here (with `\intextsep` above and
+below) when `h` allows it and the page has room; else at the top or bottom of the page; else
+deferred. A float of a type that has deferred floats is deferred too. When the page's room
+changes, the page so far goes back to the contributions to be built again with the new goal,
+as LaTeX's output routine gives it back. -/
+def Builder.placeFloat (b : Builder) (p : PageParams) (i : Nat) : Builder := Id.run do
+  let fp := p.fp
+  let b := { b with contrib := b.contrib.pop }
+  let some f := p.floats[i]? | return b
+  let fl := b.fl
+  let textMin := fracOf fp.textFraction p.vsize + fl.textFloatsHeight
+  let req := max b.hs.total textMin + f.size
+  let blocked := fl.deferred.any fun j => (p.floats[j]?.map FloatSpec.kind) == some f.kind
+  let restart := fun (b : Builder) (fl : FloatSt) (here : Array VNode) =>
+    ({ contrib := b.contrib ++ here.reverse ++ b.page.reverse, pages := b.pages, fl,
+       vsize := fl.colRoom } : Builder)
+  if fl.colRoom > req && fl.colNum > 0 && !blocked then
+    if f.here && fl.colRoom > req + fp.inTextSep.width then
+      let fl := { fl with colNum := fl.colNum - 1,
+                          textFloatsHeight := fl.textFloatsHeight + f.size +
+                            2 * fp.inTextSep.width }
+      let here := #[VNode.penalty 0, .glue fp.inTextSep 0, f.box, .penalty 0,
+        .glue fp.inTextSep 0, .penalty 10000]
+      return restart b fl here
+    match Builder.startPage.topOrBottom p fl f i req with
+    | some fl => return restart b fl #[]
+    | none => pure ()
+  return { b with fl := { fl with deferred := fl.deferred.push i } }
+
+/-- Puts out every deferred float on pages of floats (LaTeX's `\clearpage`). -/
+def Builder.flushFloats (b : Builder) (p : PageParams) : Builder := Id.run do
+  let mut b := b
+  let mut deferred := b.fl.deferred
+  for _ in [0:deferred.size + 1] do
+    if deferred.isEmpty then break
+    let (taken, rest, _) := Builder.startPage.takeFloatPage p deferred true
+    b := { b with pages := b.pages.push { items := #[], size := p.vsize, floatPage := taken } }
+    deferred := rest
+  return { b with fl := { b.fl with deferred := #[] } }
+
 /-- Cuts the page at the best break (TeX's `fire_up`): the page's items before it, the
 insertions that go on the page (split ones cut, the rest of them and later ones of their
 class kept for the next page), and the contributions after it: the held insertions, then the
@@ -378,14 +561,15 @@ def Builder.fire (b : Builder) (p : PageParams) : Builder := Id.run do
     if acc.contains c then acc else acc.push c
   let merged := classes.map fun c =>
     (c, ins.foldl (init := #[]) fun acc (c', m) => if c' == c then acc ++ m else acc)
-  let page : PageOut := { items, size := b.bestSize, inserts := merged, penalty }
-  let _ := p
-  return { contrib := contrib ++ held.reverse, pages := b.pages.push page }
+  let page : PageOut :=
+    { items, size := b.bestSize, inserts := merged, penalty, top := b.fl.top,
+      bottom := b.fl.bot }
+  let nb : Builder := { contrib := contrib ++ held.reverse, pages := b.pages.push page }
+  return nb.startPage p b.fl.deferred
 
 /-- One step of the page builder on the next contribution (TeX's `build_page` loop body);
-`onFloat` answers for floats. `none` when there is nothing left. -/
-def Builder.step (b : Builder) (p : PageParams)
-    (onFloat : Builder → Nat → Builder × FloatAnswer) : Option Builder := do
+`none` when there is nothing left. -/
+def Builder.step (b : Builder) (p : PageParams) : Option Builder := do
   let n ← b.peek
   match n with
   | .hbox .. | .vbox .. | .rule .. =>
@@ -399,12 +583,17 @@ def Builder.step (b : Builder) (p : PageParams)
     let b := { b with hs := { b.hs with total := b.hs.total + b.hs.depth + n.height,
                                         depth := n.depth } }
     return b.contribute n
+  | .mark "@pagedepth" =>
+    -- `\vskip -\pagedepth` (LaTeX's `\newpage`): the depth of the page's last box, as far
+    -- as `\maxdepth` lets it count
+    let g := VNode.glue { width := if b.boxThere then -b.hs.depth else 0 } 0
+    return { b with contrib := b.contrib.pop.push g }
+  | .mark "@clearpage" =>
+    if !b.page.isEmpty then return b.contribute n
+    return { b with contrib := b.contrib.pop }.flushFloats p
   | .label _ | .mark _ => return b.contribute n
   | .ins .. => return b.insert p n
-  | .float i =>
-    let (b, ans) := onFloat b i
-    let b := { b with contrib := b.contrib.pop ++ ans.here.reverse, goal := ans.goal }
-    return b
+  | .float i => return b.placeFloat p i
   | .glue .. | .kern _ | .penalty _ =>
     if !b.boxThere then return { b with contrib := b.contrib.pop }
     let pi? : Option Int := match n with
@@ -426,15 +615,15 @@ def Builder.step (b : Builder) (p : PageParams)
 /-- Builds the pages of a contribution list (`items` in order): TeX's page builder run until
 the list is used up, the last page cut at the end as `\end` cuts it (a page with material left
 is cut with a forced break). The pages in order, or an error when the step cap is reached. -/
-def buildPages (items : Array VNode) (p : PageParams)
-    (onFloat : Builder → Nat → Builder × FloatAnswer := fun b _ => (b, { goal := b.goal })) :
+def buildPages (items : Array VNode) (p : PageParams) :
     Except String (Array PageOut) := Id.run do
-  let mut b : Builder := { contrib := items.reverse }
+  let mut b : Builder := ({ contrib := items.reverse } : Builder).startPage p #[]
   for _ in [0:p.maxSteps] do
-    match b.step p onFloat with
+    match b.step p with
     | some b' => b := b'
     | none =>
-      if b.page.isEmpty || !b.boxThere then return .ok b.pages
+      if b.page.isEmpty || !b.boxThere then
+        return .ok (if b.fl.deferred.isEmpty then b.pages else (b.flushFloats p).pages)
       -- the end of the document: what is left forces a page
       b := { b with contrib := #[.penalty (-10000)] }
   return .error "page builder: too many steps"

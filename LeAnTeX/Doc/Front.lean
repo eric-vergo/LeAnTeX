@@ -140,17 +140,26 @@ def makePages (vlist : Array VNode) : Typeset.M (Array Page) := do
   let d ← docSt
   let cp := classParams d.options
   let fn : InsertClass := { skip := cp.footinsSkip, dimen := 37890286 }
+  let boxes := d.floats.map fun f => f.box.toNode
+  let specs := (d.floats.zip boxes).map fun (f, b) =>
+    let has := fun (c : Char) => f.placement.contains c
+    ({ box := b, here := has 'h', top := has 't', bottom := has 'b', page := has 'p',
+       kind := f.kind } : FloatSpec)
+  let fparams : FloatParams :=
+    { floatSep := cp.floatSep, textFloatSep := cp.textFloatSep, inTextSep := cp.inTextSep,
+      fpSep := cp.fpSep }
   let pp : PageParams :=
     { vsize := cp.textHeight, maxDepth := cp.maxDepth, topSkip := { width := cp.topSkip },
-      inserts := fun n => if n == 254 then some fn else none }
+      inserts := fun n => if n == 254 then some fn else none, floats := specs, fp := fparams }
   let outs ← match buildPages vlist pp with
     | .ok o => pure o
     | .error e => fail e
   let mut pages := #[]
   let mut number : Int := 1
   for o in outs do
-    let body := makeColumn cp o cp.textWidth
-    let anchors := anchorsOf o.items 64 ++
+    let body := makeColumn cp o cp.textWidth boxes
+    let fl := (o.top ++ o.bottom ++ o.floatPage).filterMap fun i => boxes[i]?
+    let anchors := anchorsOf o.items 64 ++ anchorsOf fl 64 ++
       (o.inserts.foldl (init := #[]) fun acc (_, m) => acc ++ anchorsOf m 64)
     let style := match d.thisPageStyles.find? (fun (k, _) => anchors.contains k) with
       | some (_, st) => st

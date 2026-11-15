@@ -72,27 +72,40 @@ def footnoteRule (colWidth : Int) : Array VNode :=
   #[.kern (-3 * 65536), .rule (some (colWidth * 2 / 5)) 26214 0, .kern 170394]
 
 /-- The column of a page (see the module docstring): its items, footnotes and floats, packed
-to `textHeight`. `top` and `bottom` are the float boxes placed there. -/
-def makeColumn (cp : ClassParams) (p : PageOut) (colWidth : Int)
-    (top bottom : Array VBox := #[]) : VBox := Id.run do
+to `textHeight`; the boxes of the floats by index. A page of floats only is its floats between
+`\@fptop` and `\@fpbot`, `\@fpsep` between them. -/
+def makeColumn (cp : ClassParams) (p : PageOut) (colWidth : Int) (floats : Array VNode) :
+    VBox := Id.run do
+  let box := fun (i : Nat) => floats[i]?.getD (.kern 0)
+  let fil : Glue := { stretch := 65536, stretchOrder := 1 }
+  if !p.floatPage.isEmpty then
+    let back : Glue :=
+      { cp.fpSep with width := -cp.fpSep.width, stretch := -cp.fpSep.stretch }
+    let mut items : Array VNode := #[.glue fil 0, .glue back 0]
+    for i in p.floatPage do
+      items := items.push (.glue cp.fpSep 0) |>.push (box i)
+    items := items.push (.glue fil 0)
+    return vpack items (some cp.textHeight)
   let mut items := p.items
   match p.inserts.find? (·.1 == footnoteClass) with
   | some (_, fn) =>
     if !fn.isEmpty then
       items := items.push (.glue cp.footinsSkip 0) ++ footnoteRule colWidth ++ fn
   | none => pure ()
-  if !top.isEmpty then
+  let negSep : Glue :=
+    { cp.floatSep with
+      width := -cp.floatSep.width, stretch := -cp.floatSep.stretch,
+      shrink := -cp.floatSep.shrink }
+  if !p.top.isEmpty then
     let mut pre := #[]
-    for h : i in [0:top.size] do
-      pre := pre.push (top[i].toNode)
-      pre := pre.push (.glue (if i + 1 == top.size then cp.textFloatSep else cp.floatSep) 0)
-    items := pre ++ items
-  if !bottom.isEmpty then
+    for i in p.top do
+      pre := pre.push (box i) |>.push (.glue cp.floatSep 0)
+    items := pre ++ #[.glue negSep 0, .glue cp.textFloatSep 0] ++ items
+  if !p.bottom.isEmpty then
     let mut post := #[VNode.glue cp.textFloatSep 0]
-    for h : i in [0:bottom.size] do
-      if i > 0 then post := post.push (.glue cp.floatSep 0)
-      post := post.push (bottom[i].toNode)
-    items := items ++ post
+    for i in p.bottom do
+      post := post.push (box i) |>.push (.glue cp.floatSep 0)
+    items := items ++ post.push (.glue negSep 0)
   let dp := (vmeasure items).depth
   items := items.push (.glue { width := -dp } 0)
   items := items.push (.glue { stretch := 7, stretchOrder := 1 } 0)

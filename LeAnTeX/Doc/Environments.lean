@@ -37,14 +37,79 @@ def readPriority (at_ : Tok) : M Nat := do
     | none => failAt at_ "Bad \\pagebreak priority"
   | none => return 4
 
-/-- `\newpage`: the paragraph ended, `\vskip -\prevdepth`, `\vfil`, a forced break. -/
+/-- `\newpage`: the paragraph ended, `\vskip -\pagedepth` (the page's last depth, as LuaLaTeX
+shows it), `\vfil`, a forced break. -/
 def newPage : M Unit := do
   endParagraph
-  let s ← get
-  if s.vPrev > ignoreDepth then pushV (.glue { width := -s.vPrev } 0)
+  pushV (.mark "@pagedepth")
   pushV (.glue { stretch := 65536, stretchOrder := 1 } 0)
   pushV (.penalty (-10000))
   modify fun s => { s with vPrev := ignoreDepth }
+
+/-- `\begin{figure}[placement]` (and `table`): a nested vertical list for the float's body,
+in the normal size and font, the full column width. -/
+def beginFloat (at_ : Tok) (kind : String) : M Unit := do
+  let opt ← readOptional?
+  let placement := match opt with
+    | some ts => (tokText ts).trimAscii.toString
+    | none => "tbp"
+  let placement := if placement.isEmpty then "tbp" else placement
+  for c in placement.toList do
+    if !"htbpH!".contains c then failAt at_ s!"Unknown float option '{c}'"
+  let idx := (← docSt).floats.size
+  modifyDoc fun d => { d with floats := d.floats.push { kind, placement } }
+  openFrame (.float idx)
+  let cp ← classP
+  let normal := (cp.sizes.find? (·.name == "normalsize")).getD ⟨"normalsize", 655360, 786432⟩
+  modifyVars fun v =>
+    { v with
+      key := { family := .roman, bold := false, shape := .upright, size := normal.size },
+      baselineSkip := { width := normal.baseline },
+      p := { v.p with hsize := cp.textWidth, leftSkip := {}, rightSkip := {} },
+      lineWidth := none, totalLeftMargin := 0, parFillSkip := flushGlue, crPar := false,
+      parIndent := cp.parIndent }
+  modifyDoc fun d => { d with noBreak := true }
+
+/-- `\caption[short]{text}`: the float's counter stepped, `\abovecaptionskip`, then "Figure
+n: text" centred on a line of its own when it fits, else as a paragraph, then
+`\belowcaptionskip`. -/
+def caption (at_ : Tok) : M Unit := do
+  let _ ← readOptional?
+  let text ← readArg at_
+  let some fr := (← get).nest.back? | failAt at_ "\\caption outside float"
+  let .float idx := fr.kind | failAt at_ "\\caption outside float"
+  let kind := (((← docSt).floats[idx]?).map (·.kind)).getD "figure"
+  refStepCounter at_ kind
+  let num ← theCounter at_ kind
+  modifyDoc fun d => { d with floats := d.floats.modify idx fun f => { f with number := num } }
+  endParagraph
+  pushV (.glue { width := 10 * 65536 } 0)
+  let name := if kind == "figure" then "Figure" else "Table"
+  let p := at_.pos
+  inject at_ (#[csT "hbox" at_, Tok.char '{' 1 p] ++ textToks at_ (name ++ "~" ++ num ++ ": ") ++
+    text ++ #[Tok.char '}' 2 p, csT "leantex@captionfit" at_])
+
+/-- After a caption's box: centred on a line of the column's width when it fits, else its
+content made a paragraph of its own. -/
+def captionFit (at_ : Tok) : M Unit := do
+  flushRun
+  let s ← get
+  let v ← vars
+  match s.hlist.back? with
+  | some (.box w h d _ c) =>
+    if w ≤ v.p.hsize then
+      let fil : HNode := .glue { stretch := 65536, stretchOrder := 1 } 0
+      let nodes := #[fil, HNode.box w h d 0 c, fil]
+      let (nat, st, sh, _, _) := measure nodes
+      let g := hpackGlue nat v.p.hsize st sh
+      set { s with hmode := false, hlist := #[] }
+      appendV (.hbox v.p.hsize h d 0 (freezeGlue nodes g) {})
+    else
+      set { s with hlist := s.hlist.pop ++ c }
+      endParagraph
+  | _ => endParagraph
+  pushV (.glue {} 0)
+  let _ := at_
 
 /-- `\begin{name}`. -/
 def beginEnv (at_ : Tok) : M Unit := do
@@ -68,6 +133,10 @@ where
     if ← beginListEnv at_ name then
       setEnd #[csT "leantex@endlist" at_]
       return true
+    if name == "figure" || name == "table" || name == "figure*" || name == "table*" then
+      beginFloat at_ (if name.startsWith "figure" then "figure" else "table")
+      setEnd #[csT "leantex@endfloat" at_]
+      return true
     return false
   /-- Sets the innermost environment's end code. -/
   setEnd (ts : Array Tok) : M Unit :=
@@ -83,6 +152,7 @@ def endEnv (at_ : Tok) : M Unit := do
     if let some e := d.envs.back? then
       failAt at_ s!"\\begin\{{e.name}} ended by \\end\{document}"
     newPage
+    pushV (.mark "@clearpage")
     modifyDoc fun d => { d with ended := true }
     -- everything after \end{document} is ignored
     modify fun s => { s with input := #[] }
@@ -92,14 +162,6 @@ def endEnv (at_ : Tok) : M Unit := do
   | some e =>
     if e.name != name then failAt at_ s!"\\begin\{{e.name}} ended by \\end\{{name}}"
     inject at_ (e.end_ ++ #[csT "leantex@endenv" at_])
-
-/-- The end of an environment after its own end code: the group closed. -/
-def endEnvGroup (at_ : Tok) : M Unit := do
-  let e := (← docSt).envs.back?
-  modifyDoc fun d => { d with envs := d.envs.pop }
-  endGroup at_
-  if let some e := e then
-    if isListEnv e.name then modifyDoc fun d => { d with endPe := true }
 
 /-- LaTeX's script size (`\sf@size`) for a text size: the defaults of its math sizes. -/
 def scriptSize (size : Int) : Int :=
@@ -182,8 +244,20 @@ def closeGroup (at_ : Tok) : M Unit := do
         | .footnote =>
           adjustV (.ins 254 content { width := cp.footnoteSep }
             (strutDepth v.baselineSkip.width) 20000)
+        | .float idx =>
+          let box := vpack content
+          modifyDoc fun d => { d with floats := d.floats.modify idx fun f => { f with box } }
+          adjustV (.float idx)
         | _ => pure ()
   endGroup at_
+
+/-- The end of an environment after its own end code: the group closed. -/
+def endEnvGroup (at_ : Tok) : M Unit := do
+  let e := (← docSt).envs.back?
+  modifyDoc fun d => { d with envs := d.envs.pop }
+  closeGroup at_
+  if let some e := e then
+    if isListEnv e.name then modifyDoc fun d => { d with endPe := true }
 
 /-- An alignment tab `&` (only inside a table). -/
 def alignTab (at_ : Tok) : M Unit := failAt at_ "Misplaced alignment tab character &"
@@ -314,7 +388,24 @@ def docCommand (t : Tok) (name : String) : M Bool := do
     match st.format? ((← docSt).counters.value n) with
     | some s => inject t (textToks t s)
     | none => failAt t "Counter too large"
-  | "newpage" | "clearpage" | "cleardoublepage" => newPage
+  | "newpage" => newPage
+  | "clearpage" | "cleardoublepage" =>
+    newPage
+    pushV (.mark "@clearpage")
+  | "caption" => caption t
+  | "leantex@captionfit" => captionFit t
+  | "leantex@endfloat" =>
+    endParagraph
+    pushV (.glue {} 0)
+  | "rule" =>
+    let r ← readOptional?
+    let raise ← match r with
+      | some ts => dimOf t ts
+      | none => pure 0
+    let w ← dimOf t (← readArg t)
+    let h ← dimOf t (← readArg t)
+    startParagraph
+    push (.box w (h + raise) (max 0 (-raise)) 0 #[.rule w (h + raise) (-raise)])
   | "pagebreak" =>
     let n ← readPriority t
     if (← get).hmode then
@@ -361,6 +452,13 @@ def docCommand (t : Tok) (name : String) : M Bool := do
   | _ => return false
   return true
 where
+  /-- A dimension from tokens. -/
+  dimOf (at_ : Tok) (ts : Array Tok) : M Int := do
+    let saved := (← get).input
+    modify fun s => { s with input := ts.reverse }
+    let (d, _) ← readDimen at_
+    modify fun s => { s with input := saved }
+    return d
   /-- A number argument (`\setcounter{x}{3}`, `{\value{y}}`). -/
   readNumberArg (at_ : Tok) : M Int := do
     let arg ← readArg at_
