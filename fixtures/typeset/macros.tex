@@ -1,0 +1,11 @@
+% Macros with and without arguments, a default argument, \def, groups and redefinition.
+\newcommand{\name}{LeAnTeX}
+\newcommand{\pair}[2]{(#1, #2)}
+\newcommand{\greet}[1][world]{hello, #1}
+\def\twice#1{#1#1}
+\name{} sets \pair{a}{b}, says \greet{} and \greet[reader], and doubles: \twice{ab}.
+{\renewcommand{\name}{inner} Inside a group the name is \name.} Outside it is \name\ again.
+\setlength{\parindent}{0pt}\tolerance=1000
+
+\noindent A new paragraph without indentation\hfill right\par
+\hspace{2em}Two em of space, \hspace{1cm}one centimetre, and \hspace{\fill}the rest.

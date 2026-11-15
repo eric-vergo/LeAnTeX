@@ -11,6 +11,7 @@ import LeAnTeXTest.TextFixtures
 import LeAnTeXTest.LineBreakChecks
 import LeAnTeXTest.HyphenChecks
 import LeAnTeXTest.FrontChecks
+import LeAnTeXTest.TypesetChecks
 
 /-!
 # The differential test and the parity report
@@ -336,8 +337,11 @@ def main (args : List String) : IO UInt32 := do
   if args == ["--bench-matrix"] then
     benchMatrix
     return 0
+  if args == ["--update-typeset"] then
+    let fails ← TypesetChecks.run true
+    return if fails.isEmpty then 0 else 1
   if args == ["--text"] then
-    let fails := (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++ (← FrontChecks.run) ++ (← FontTest.run)
+    let fails := (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++ (← FrontChecks.run) ++ (← TypesetChecks.run) ++ (← FontTest.run)
     for f in fails do IO.eprintln s!"  {f}"
     return if fails.isEmpty then 0 else 1
   let mut results := #[]
@@ -476,7 +480,7 @@ def main (args : List String) : IO UInt32 := do
       {DisplayChecks.displayChecks.size} checks hold"
     -- the text-mode fixtures and the font reader
     IO.println "text mode and fonts:"
-    for f in (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++ (← FrontChecks.run) ++ (← FontTest.run) do regressions := regressions.push f
+    for f in (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++ (← FrontChecks.run) ++ (← TypesetChecks.run) ++ (← FontTest.run) do regressions := regressions.push f
     if improved > 0 then
       IO.println s!"{improved} cases match that the baseline lists as mismatched; record them \
         with `lake exe leantex-test --update`"

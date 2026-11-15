@@ -10,10 +10,11 @@ import LeAnTeX.Layout.Display
 import LeAnTeX.Path
 import LeAnTeX.OpenType
 import LeAnTeX.OpenType.Display
+import LeAnTeX.Text
 
 /-!
 # LeAnTeX
 
-A TeX math renderer in pure Lean, ported from KaTeX, and the start of its text mode: an
-OpenType font reader (`LeAnTeX.OpenType`).
+A TeX math renderer in pure Lean, ported from KaTeX, an OpenType font reader
+(`LeAnTeX.OpenType`), and a text mode that sets paragraphs as TeX does (`LeAnTeX.Text`).
 -/
