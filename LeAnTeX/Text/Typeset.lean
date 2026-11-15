@@ -77,44 +77,6 @@ over a font change is cut there.
 
 namespace LeAnTeX.Text
 
-/-- A font family. -/
-inductive Family where
-  /-- Roman. -/
-  | roman
-  /-- Sans serif. -/
-  | sans
-  /-- Typewriter. -/
-  | mono
-  deriving BEq, Hashable, Inhabited, Repr
-
-/-- A font shape. -/
-inductive Shape where
-  /-- Upright. -/
-  | upright
-  /-- Italic. -/
-  | italic
-  /-- Slanted. -/
-  | slanted
-  /-- Small capitals. -/
-  | caps
-  deriving BEq, Hashable, Inhabited, Repr
-
-/-- The font asked for: family, series, shape and size (sp). -/
-structure FontKey where
-  /-- The family. -/
-  family : Family := .roman
-  /-- Bold. -/
-  bold : Bool := false
-  /-- The shape. -/
-  shape : Shape := .upright
-  /-- The size, in sp. -/
-  size : Int := 10 * 65536
-  deriving BEq, Hashable, Inhabited, Repr
-
-/-- How the caller names fonts: the font to use for a key, `none` if there is none (an error
-when text needs it). -/
-abbrev FontResolver := FontKey → Option FontInfo
-
 /-- The caps on the work, and the language. -/
 structure Settings where
   /-- The most characters of source. -/

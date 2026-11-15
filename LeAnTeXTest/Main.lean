@@ -369,8 +369,12 @@ def main (args : List String) : IO UInt32 := do
     let _ ← DocChecks.run false (some name)
     return 0
   if args == ["--math-boxes-detail"] then
-    for b in ← MathBoxChecks.boxes do
-      IO.println s!"{b.construct} {b.style} ours {repr b.ours} tex {repr b.theirs}"
+    match ← MathBoxChecks.boxes with
+    | .ok bs =>
+      for b in bs do
+        IO.println s!"{b.construct} {b.style} {b.size}pt {b.formula} ours {repr b.ours} \
+          tex {repr b.theirs} {b.diff.getD ""}"
+    | .error e => IO.println e
     return 0
   if args == ["--math-boxes"] then
     IO.println (← MathBoxChecks.run true)

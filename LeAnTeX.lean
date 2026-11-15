@@ -13,6 +13,7 @@ import LeAnTeX.OpenType.Display
 import LeAnTeX.Text
 import LeAnTeX.Doc
 import LeAnTeX.Backend
+import LeAnTeX.TeXMath
 
 /-!
 # LeAnTeX

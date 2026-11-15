@@ -1,0 +1,1420 @@
+!	mathcode	-	5	6	33
+!	delcode	-	-1
+"	mathcode	-	0	0	34
+"	delcode	-	-1
+#	mathcode	-	0	0	35
+#	delcode	-	-1
+$	mathcode	-	0	0	36
+$	delcode	-	-1
+%	mathcode	-	0	0	37
+%	delcode	-	-1
+&	mathcode	-	0	0	38
+&	delcode	-	-1
+'	mathcode	-	8	0	0
+'	delcode	-	-1
+(	mathcode	-	4	6	40
+(	delcode	-	6	40	3	0
+)	mathcode	-	5	6	41
+)	delcode	-	6	41	3	1
+*	mathcode	-	2	2	3
+*	delcode	-	-1
++	mathcode	-	2	6	43
++	delcode	-	-1
+,	mathcode	-	6	1	59
+,	delcode	-	-1
+-	mathcode	-	2	2	0
+-	delcode	-	-1
+.	mathcode	-	0	1	58
+.	delcode	-	0	0	0	0
+/	mathcode	-	0	6	47
+/	delcode	-	6	47	3	14
+0	mathcode	-	7	6	48
+0	delcode	-	-1
+1	mathcode	-	7	6	49
+1	delcode	-	-1
+2	mathcode	-	7	6	50
+2	delcode	-	-1
+3	mathcode	-	7	6	51
+3	delcode	-	-1
+4	mathcode	-	7	6	52
+4	delcode	-	-1
+5	mathcode	-	7	6	53
+5	delcode	-	-1
+6	mathcode	-	7	6	54
+6	delcode	-	-1
+7	mathcode	-	7	6	55
+7	delcode	-	-1
+8	mathcode	-	7	6	56
+8	delcode	-	-1
+9	mathcode	-	7	6	57
+9	delcode	-	-1
+:	mathcode	-	3	6	58
+:	delcode	-	-1
+;	mathcode	-	6	6	59
+;	delcode	-	-1
+<	mathcode	-	3	1	60
+<	delcode	-	2	104	3	10
+=	mathcode	-	3	6	61
+=	delcode	-	-1
+>	mathcode	-	3	1	62
+>	delcode	-	2	105	3	11
+?	mathcode	-	5	6	63
+?	delcode	-	-1
+@	mathcode	-	0	0	64
+@	delcode	-	-1
+A	mathcode	-	7	1	65
+A	delcode	-	-1
+B	mathcode	-	7	1	66
+B	delcode	-	-1
+C	mathcode	-	7	1	67
+C	delcode	-	-1
+D	mathcode	-	7	1	68
+D	delcode	-	-1
+E	mathcode	-	7	1	69
+E	delcode	-	-1
+F	mathcode	-	7	1	70
+F	delcode	-	-1
+G	mathcode	-	7	1	71
+G	delcode	-	-1
+H	mathcode	-	7	1	72
+H	delcode	-	-1
+I	mathcode	-	7	1	73
+I	delcode	-	-1
+J	mathcode	-	7	1	74
+J	delcode	-	-1
+K	mathcode	-	7	1	75
+K	delcode	-	-1
+L	mathcode	-	7	1	76
+L	delcode	-	-1
+M	mathcode	-	7	1	77
+M	delcode	-	-1
+N	mathcode	-	7	1	78
+N	delcode	-	-1
+O	mathcode	-	7	1	79
+O	delcode	-	-1
+P	mathcode	-	7	1	80
+P	delcode	-	-1
+Q	mathcode	-	7	1	81
+Q	delcode	-	-1
+R	mathcode	-	7	1	82
+R	delcode	-	-1
+S	mathcode	-	7	1	83
+S	delcode	-	-1
+T	mathcode	-	7	1	84
+T	delcode	-	-1
+U	mathcode	-	7	1	85
+U	delcode	-	-1
+V	mathcode	-	7	1	86
+V	delcode	-	-1
+W	mathcode	-	7	1	87
+W	delcode	-	-1
+X	mathcode	-	7	1	88
+X	delcode	-	-1
+Y	mathcode	-	7	1	89
+Y	delcode	-	-1
+Z	mathcode	-	7	1	90
+Z	delcode	-	-1
+[	mathcode	-	4	6	91
+[	delcode	-	6	91	3	2
+\	mathcode	-	0	2	110
+\	delcode	-	2	110	3	15
+\ 	other	-	\relax
+\!	macro	-	macro:->\x@protect \!\protect \!  
+\"	macro	-	macro:->\TU-cmd \"\TU\" 
+\#	other	-	\char"23
+\$	macro	-	macro:->\x@protect \$\protect \$  
+\%	other	-	\char"25
+\&	other	-	\char"26
+\'	macro	-	macro:->\TU-cmd \'\TU\' 
+\(	macro	-	macro:->\x@protect \(\protect \(  
+\)	macro	-	macro:->\x@protect \)\protect \)  
+\,	macro	-	macro:->\x@protect \,\protect \,  
+\.	macro	-	macro:->\TU-cmd \.\TU\. 
+\:	macro	-	macro:->\x@protect \:\protect \:  
+\;	macro	-	\long macro:->\tmspace +\thickmuskip {.2777em}
+\=	macro	-	macro:->\TU-cmd \=\TU\= 
+\>	macro	-	macro:->\x@protect \:\protect \:  
+\@binrel	undefined	-
+\@cdots	macro	-	macro:->\mathinner {\cdotp \cdotp \cdotp }
+\@char	undefined	-
+\@firstoftwo	macro	-	\long macro:#1#2->#1
+\@gvertneqq	undefined	-
+\@hspace	macro	-	macro:#1->\setlength \sp@ce@skip {#1}\hskip \sp@ce@skip 
+\@hspacer	macro	-	macro:#1->\vrule \@width \z@ \nobreak \@hspace {#1}\hskip \z@skip 
+\@ifnextchar	macro	-	\long macro:#1#2#3->\let \reserved@d =#1\def \reserved@a {#2}\def \reserved@b {#3}\futurelet \@let@token \@ifnch 
+\@ifstar	macro	-	macro:#1#2->\new@ifnextchar *{\def \reserved@a *{#1}\reserved@a }{#2}
+\@imath	undefined	-
+\@jmath	undefined	-
+\@llcorner	undefined	-
+\@lrcorner	undefined	-
+\@lvertneqq	undefined	-
+\@ngeqq	undefined	-
+\@ngeqslant	undefined	-
+\@nleqq	undefined	-
+\@nleqslant	undefined	-
+\@not	undefined	-
+\@nshortmid	undefined	-
+\@nshortparallel	undefined	-
+\@nsubseteqq	undefined	-
+\@nsupseteqq	undefined	-
+\@secondoftwo	macro	-	\long macro:#1#2->#2
+\@ulcorner	undefined	-
+\@urcorner	undefined	-
+\@varsubsetneq	undefined	-
+\@varsubsetneqq	undefined	-
+\@varsupsetneq	undefined	-
+\@varsupsetneqq	undefined	-
+\AA	macro	-	macro:->\r A
+\Alpha	undefined	-
+\And	macro	-	macro:->\DOTSB \;\mathchar "3026 \;
+\Bbb	macro	-	macro:->\protect \Bbb  
+\Bbb	macro	inner:Bbb 	\long macro:#1->{\@subst@obsolete {amsfonts}\Bbb \mathbb {#1}}
+\Bbbk	mathchar	-	0	5	124
+\Beta	undefined	-
+\Big	macro	-	macro:->\protect \Big  
+\Big	macro	inner:Big 	\long macro:->\bBigg@ {1.5}
+\Bigg	macro	-	macro:->\protect \Bigg  
+\Bigg	macro	inner:Bigg 	\long macro:->\bBigg@ {2.5}
+\Biggl	macro	-	macro:->\protect \Biggl  
+\Biggl	macro	inner:Biggl 	\long macro:->\mathopen \Bigg 
+\Biggm	macro	-	macro:->\protect \Biggm  
+\Biggm	macro	inner:Biggm 	\long macro:->\mathrel \Bigg 
+\Biggr	macro	-	macro:->\protect \Biggr  
+\Biggr	macro	inner:Biggr 	\long macro:->\mathclose \Bigg 
+\Bigl	macro	-	macro:->\protect \Bigl  
+\Bigl	macro	inner:Bigl 	\long macro:->\mathopen \Big 
+\Bigm	macro	-	macro:->\protect \Bigm  
+\Bigm	macro	inner:Bigm 	\long macro:->\mathrel \Big 
+\Bigr	macro	-	macro:->\protect \Bigr  
+\Bigr	macro	inner:Bigr 	\long macro:->\mathclose \Big 
+\Box	mathchar	-	0	4	3
+\Bra	undefined	-
+\Braket	undefined	-
+\Bumpeq	mathchar	-	3	4	109
+\Cap	mathchar	-	2	4	101
+\Chi	undefined	-
+\Colonapprox	undefined	-
+\Coloneq	undefined	-
+\Coloneqq	undefined	-
+\Colonsim	undefined	-
+\Complex	undefined	-
+\Cup	mathchar	-	2	4	100
+\DOTSB	other	-	\relax
+\DOTSI	other	-	\relax
+\DOTSX	other	-	\relax
+\Dagger	undefined	-
+\Darr	undefined	-
+\Delta	mathchar	-	7	6	1
+\Diamond	mathchar	-	0	4	6
+\Doteq	mathchar	-	3	4	43
+\Downarrow	macro	-	\protected macro:->\delimiter "322B37F 
+\Downarrow	delimiter	inner:body	3	2	43	3	127
+\Epsilon	undefined	-
+\Eqcolon	undefined	-
+\Eqqcolon	undefined	-
+\Eta	undefined	-
+\Finv	mathchar	-	0	5	96
+\Game	mathchar	-	0	5	97
+\Gamma	mathchar	-	7	6	0
+\H	macro	-	macro:->\TU-cmd \H \TU\H 
+\Harr	undefined	-
+\Huge	macro	-	macro:->\protect \Huge  
+\Huge	macro	inner:Huge 	\long macro:->\@setfontsize \Huge \@xxvpt {30}
+\Im	mathchar	-	0	2	61
+\Iota	undefined	-
+\Join	macro	-	macro:->\mathrel {\mathchar "056F\mkern -13.8mu\mathchar "056E}
+\KaTeX	undefined	-
+\Kappa	undefined	-
+\Ket	undefined	-
+\LARGE	macro	-	macro:->\protect \LARGE  
+\LARGE	macro	inner:LARGE 	\long macro:->\@setfontsize \LARGE \@xviipt {22}
+\LaTeX	macro	-	macro:->\protect \LaTeX  
+\LaTeX	macro	inner:LaTeX 	\long macro:->L\kern -.36em{\sbox \z@ T\vbox to\ht \z@ {\hbox {\check@mathfonts \fontsize \sf@size \z@ \math@fontsfalse \selectfont A}\vss }}\kern -.15em\TeX 
+\Lambda	mathchar	-	7	6	3
+\Large	macro	-	macro:->\protect \Large  
+\Large	macro	inner:Large 	\long macro:->\@setfontsize \Large \@xivpt {18}
+\Larr	undefined	-
+\Leftarrow	mathchar	-	3	2	40
+\Leftrightarrow	mathchar	-	3	2	44
+\Lleftarrow	mathchar	-	3	4	87
+\Longleftarrow	macro	-	\long macro:->\DOTSB \Leftarrow \protect \joinrel \protect \Relbar 
+\Longleftrightarrow	macro	-	\long macro:->\DOTSB \Leftarrow \joinrel \Rightarrow 
+\Longrightarrow	macro	-	\long macro:->\DOTSB \protect \Relbar \protect \joinrel \Rightarrow 
+\Lrarr	undefined	-
+\Lsh	mathchar	-	3	4	30
+\Mu	undefined	-
+\N	undefined	-
+\Nu	undefined	-
+\Omega	mathchar	-	7	6	10
+\Omicron	undefined	-
+\Overrightarrow	undefined	-
+\P	macro	-	macro:->\protect \P  
+\P	macro	inner:P 	\long macro:->\ifmmode \mathparagraph \else \textparagraph \fi 
+\Phi	mathchar	-	7	6	8
+\Pi	mathchar	-	7	6	5
+\Pr	macro	-	\protected macro:->\qopname \relax m{Pr}
+\Psi	mathchar	-	7	6	9
+\R	undefined	-
+\Rarr	undefined	-
+\Re	mathchar	-	0	2	60
+\Reals	undefined	-
+\Rho	undefined	-
+\Rightarrow	mathchar	-	3	2	41
+\Rrightarrow	mathchar	-	3	4	86
+\Rsh	mathchar	-	3	4	31
+\S	macro	-	macro:->\protect \S  
+\S	macro	inner:S 	\long macro:->\ifmmode \mathsection \else \textsection \fi 
+\Set	undefined	-
+\Sigma	mathchar	-	7	6	6
+\Subset	mathchar	-	3	4	98
+\Supset	mathchar	-	3	4	99
+\Tau	undefined	-
+\TeX	macro	-	macro:->\protect \TeX  
+\TeX	macro	inner:TeX 	\long macro:->T\kern -.1667em\lower .5ex\hbox {E}\kern -.125emX\@
+\TextOrMath	macro	-	macro:#1#2->\TextOrMath  {#1}{#2}
+\Theta	mathchar	-	7	6	2
+\Uarr	undefined	-
+\Uparrow	macro	-	\protected macro:->\delimiter "322A37E 
+\Uparrow	delimiter	inner:body	3	2	42	3	126
+\Updownarrow	macro	-	\protected macro:->\delimiter "326D377 
+\Updownarrow	delimiter	inner:body	3	2	109	3	119
+\Upsilon	mathchar	-	7	6	7
+\Vdash	mathchar	-	3	4	13
+\Vert	macro	-	\protected macro:->\delimiter "026B30D 
+\Vert	delimiter	inner:body	0	2	107	3	13
+\Vvdash	mathchar	-	3	4	14
+\Xi	mathchar	-	7	6	4
+\Z	undefined	-
+\Zeta	undefined	-
+\\	macro	-	\protected macro:->\let \reserved@e \relax \let \reserved@f \relax \@ifstar {\let \reserved@e \vadjust \let \reserved@f \nobreak \@xnewline }\@xnewline 
+\\abovefrac	undefined	-
+\\atopfrac	undefined	-
+\\bracefrac	undefined	-
+\\brackfrac	undefined	-
+\\cdleft	undefined	-
+\\cdleftarrow	undefined	-
+\\cdlongequal	undefined	-
+\\cdparent	undefined	-
+\\cdright	undefined	-
+\\cdrightarrow	undefined	-
+\\globalfuture	undefined	-
+\\globallet	undefined	-
+\\globallong	undefined	-
+\]	macro	-	macro:->\x@protect \]\protect \]  
+\^	macro	-	macro:->\TU-cmd \^\TU\^ 
+\_	macro	-	macro:->\x@protect \_\protect \_  
+\`	macro	-	macro:->\TU-cmd \`\TU\` 
+\aa	macro	-	macro:->\r a
+\above	macro	-	\long macro:->\primfrac {above}
+\acute	macro	-	macro:->\protect \acute  
+\acute	macro	inner:acute 	macro:->\mathaccentV {acute}613
+\alef	undefined	-
+\alefsym	undefined	-
+\aleph	mathchar	-	0	2	64
+\allowbreak	macro	-	macro:->\protect \allowbreak  
+\allowbreak	macro	inner:allowbreak 	macro:->\penalty \z@ 
+\alpha	mathchar	-	0	1	11
+\amalg	mathchar	-	2	2	113
+\angl	undefined	-
+\angle	mathchar	-	0	4	92
+\angln	undefined	-
+\approx	mathchar	-	3	2	25
+\approxcolon	undefined	-
+\approxcoloncolon	undefined	-
+\approxeq	mathchar	-	3	5	117
+\arccos	macro	-	\protected macro:->\qopname \relax o{arccos}
+\arcctg	undefined	-
+\arcsin	macro	-	\protected macro:->\qopname \relax o{arcsin}
+\arctan	macro	-	\protected macro:->\qopname \relax o{arctan}
+\arctg	undefined	-
+\arg	macro	-	\protected macro:->\qopname \relax o{arg}
+\argmax	undefined	-
+\argmin	undefined	-
+\ast	mathchar	-	2	2	3
+\asymp	mathchar	-	3	2	16
+\atop	macro	-	\long macro:->\primfrac {atop}
+\backepsilon	mathchar	-	3	5	127
+\backprime	mathchar	-	0	4	56
+\backsim	mathchar	-	3	4	118
+\backsimeq	mathchar	-	3	4	119
+\backslash	macro	-	\protected macro:->\delimiter "026E30F 
+\backslash	delimiter	inner:body	0	2	110	3	15
+\bar	macro	-	macro:->\protect \bar  
+\bar	macro	inner:bar 	macro:->\mathaccentV {bar}616
+\barwedge	mathchar	-	2	4	90
+\bcancel	undefined	-
+\because	mathchar	-	3	4	42
+\begin	macro	-	\protected macro:#1->\UseHook {env/#1/before}\@ifundefined {#1}{\def \reserved@a {\@latex@error {Environment #1 undefined}\@eha }}{\def \reserved@a {\def \@currenvir {#1}\edef \@currenvline {\on@line }\@execute@begin@hook {#1}\csname #1\endcsname }}\@ignorefalse \begingroup \@endpefalse \reserved@a 
+\beta	mathchar	-	0	1	12
+\beth	mathchar	-	0	5	105
+\between	mathchar	-	3	4	71
+\bf	macro	-	macro:->\protect \bf  
+\bf	macro	inner:bf 	\long macro:->\@fontswitch {\normalfont \bfseries }{\mathbf }
+\bgroup	other	-	begin-group character {
+\big	macro	-	macro:->\protect \big  
+\big	macro	inner:big 	\long macro:->\bBigg@ \@ne 
+\bigcap	macro	-	macro:->\DOTSB \bigcap@ \slimits@ 
+\bigcirc	mathchar	-	2	2	13
+\bigcup	macro	-	macro:->\DOTSB \bigcup@ \slimits@ 
+\bigg	macro	-	macro:->\protect \bigg  
+\bigg	macro	inner:bigg 	\long macro:->\bBigg@ \tw@ 
+\biggl	macro	-	macro:->\protect \biggl  
+\biggl	macro	inner:biggl 	\long macro:->\mathopen \bigg 
+\biggm	macro	-	macro:->\protect \biggm  
+\biggm	macro	inner:biggm 	\long macro:->\mathrel \bigg 
+\biggr	macro	-	macro:->\protect \biggr  
+\biggr	macro	inner:biggr 	\long macro:->\mathclose \bigg 
+\bigl	macro	-	macro:->\protect \bigl  
+\bigl	macro	inner:bigl 	\long macro:->\mathopen \big 
+\bigm	macro	-	macro:->\protect \bigm  
+\bigm	macro	inner:bigm 	\long macro:->\mathrel \big 
+\bigodot	macro	-	macro:->\DOTSB \bigodot@ \slimits@ 
+\bigoplus	macro	-	macro:->\DOTSB \bigoplus@ \slimits@ 
+\bigotimes	macro	-	macro:->\DOTSB \bigotimes@ \slimits@ 
+\bigr	macro	-	macro:->\protect \bigr  
+\bigr	macro	inner:bigr 	\long macro:->\mathclose \big 
+\bigsqcup	macro	-	macro:->\DOTSB \bigsqcup@ \slimits@ 
+\bigstar	mathchar	-	0	4	70
+\bigtriangledown	mathchar	-	2	2	53
+\bigtriangleup	mathchar	-	2	2	52
+\biguplus	macro	-	macro:->\DOTSB \biguplus@ \slimits@ 
+\bigvee	macro	-	macro:->\DOTSB \bigvee@ \slimits@ 
+\bigwedge	macro	-	macro:->\DOTSB \bigwedge@ \slimits@ 
+\binom	macro	-	macro:->\protect \binom  
+\binom	macro	inner:binom 	\long macro:->\genfrac ()\z@ {}
+\blacklozenge	mathchar	-	0	4	7
+\blacksquare	mathchar	-	0	4	4
+\blacktriangle	mathchar	-	0	4	78
+\blacktriangledown	mathchar	-	0	4	72
+\blacktriangleleft	mathchar	-	3	4	74
+\blacktriangleright	mathchar	-	3	4	73
+\blue	undefined	-
+\blueA	undefined	-
+\blueB	undefined	-
+\blueC	undefined	-
+\blueD	undefined	-
+\blueE	undefined	-
+\bm	undefined	-
+\bmod	macro	-	macro:->\protect \bmod  
+\bmod	macro	inner:bmod 	\long macro:->\nonscript \mskip -\medmuskip \mkern 5mu\mathbin {\operator@font mod}\penalty 900 \mkern 5mu\nonscript \mskip -\medmuskip 
+\bold	macro	-	macro:->\protect \bold  
+\bold	macro	inner:bold 	\long macro:#1->{\@subst@obsolete {amsfonts}\bold \mathbf {#1}}
+\boldsymbol	macro	-	macro:->\protect \boldsymbol  
+\boldsymbol	macro	inner:boldsymbol 	\long macro:#1->\begingroup \let \@nomath \@gobble \mathversion {bold}\math@atom {#1}{\mathchoice {\hbox {$\m@th \displaystyle #1$}}{\hbox {$\m@th \textstyle #1$}}{\hbox {$\m@th \scriptstyle #1$}}{\hbox {$\m@th \scriptscriptstyle #1$}}}\endgroup 
+\bot	mathchar	-	0	2	63
+\bowtie	macro	-	macro:->\protect \bowtie  
+\bowtie	macro	inner:bowtie 	\long macro:->\mathrel \triangleright \joinrel \mathrel \triangleleft 
+\boxdot	mathchar	-	2	4	0
+\boxed	macro	-	macro:->\protect \boxed  
+\boxed	macro	inner:boxed 	\long macro:#1->\fbox {\m@th $\displaystyle #1$}
+\boxminus	mathchar	-	2	4	12
+\boxplus	mathchar	-	2	4	1
+\boxtimes	mathchar	-	2	4	2
+\bra	undefined	-
+\bra@ket	undefined	-
+\bra@set	undefined	-
+\brace	macro	-	macro:->\atopwithdelims \{\}
+\brack	macro	-	macro:->\atopwithdelims []
+\braket	undefined	-
+\breve	macro	-	macro:->\protect \breve  
+\breve	macro	inner:breve 	macro:->\mathaccentV {breve}615
+\bull	undefined	-
+\bullet	mathchar	-	2	2	15
+\bumpeq	mathchar	-	3	4	108
+\c	macro	-	macro:->\TU-cmd \c \TU\c 
+\cal	macro	-	macro:->\protect \cal  
+\cal	macro	inner:cal 	macro:->\@fontswitch \relax \mathcal 
+\cancel	undefined	-
+\cap	mathchar	-	2	2	92
+\cdot	mathchar	-	2	2	1
+\cdotp	mathchar	-	6	2	1
+\cdots	macro	-	macro:->\protect \cdots  
+\cdots	macro	inner:cdots 	\long macro:->\DN@ {\extrap@ \@cdots }\FN@ \next@ 
+\centerdot	mathchar	-	2	4	5
+\cfrac	macro	-	macro:->\protect \cfrac  
+\cfrac	macro	inner:cfrac 	macro:->\@protected@testopt \cfrac  \\cfrac  {c}
+\ch	undefined	-
+\char	primitive	-	\char
+\check	macro	-	macro:->\protect \check  
+\check	macro	inner:check 	macro:->\mathaccentV {check}614
+\checkmark	macro	-	macro:->\mathhexbox {4}58
+\chi	mathchar	-	0	1	31
+\choose	macro	-	macro:->\atopwithdelims ()
+\circ	mathchar	-	2	2	14
+\circeq	mathchar	-	3	4	36
+\circlearrowleft	mathchar	-	3	4	9
+\circlearrowright	mathchar	-	3	4	8
+\circledR	macro	-	macro:->\mathhexbox {4}72
+\circledS	mathchar	-	0	4	115
+\circledast	mathchar	-	2	4	126
+\circledcirc	mathchar	-	2	4	125
+\circleddash	mathchar	-	2	4	127
+\clap	macro	-	macro:->\protect \clap  
+\clap	macro	inner:clap 	\long macro:#1->\hb@xt@ \z@ {\hss #1\hss }
+\clubs	undefined	-
+\clubsuit	mathchar	-	0	2	124
+\cnums	undefined	-
+\colon	macro	-	macro:->\protect \colon  
+\colon	macro	inner:colon 	\long macro:->\nobreak \mskip 2mu\mathpunct {}\nonscript \mkern -\thinmuskip {:}\mskip 6muplus1mu\relax 
+\colonapprox	undefined	-
+\coloncolon	undefined	-
+\coloncolonapprox	undefined	-
+\coloncolonequals	undefined	-
+\coloncolonminus	undefined	-
+\coloncolonsim	undefined	-
+\coloneq	undefined	-
+\coloneqq	undefined	-
+\colonequals	undefined	-
+\colonminus	undefined	-
+\colonsim	undefined	-
+\color	undefined	-
+\colorbox	undefined	-
+\complement	mathchar	-	0	4	123
+\cong	macro	-	macro:->\protect \cong  
+\cong	macro	inner:cong 	\long macro:->\mathrel {\mathpalette \@vereq \sim }
+\coprod	macro	-	macro:->\DOTSB \coprod@ \slimits@ 
+\copyright	macro	-	macro:->\protect \copyright  
+\copyright	macro	inner:copyright 	\long macro:->\ifmmode {\nfss@text {\textcopyright }}\else \textcopyright \fi 
+\cos	macro	-	\protected macro:->\qopname \relax o{cos}
+\cosec	undefined	-
+\cosh	macro	-	\protected macro:->\qopname \relax o{cosh}
+\cot	macro	-	\protected macro:->\qopname \relax o{cot}
+\cotg	undefined	-
+\coth	macro	-	\protected macro:->\qopname \relax o{coth}
+\csc	macro	-	\protected macro:->\qopname \relax o{csc}
+\ctg	undefined	-
+\cth	undefined	-
+\cup	mathchar	-	2	2	91
+\curlyeqprec	mathchar	-	3	4	50
+\curlyeqsucc	mathchar	-	3	4	51
+\curlyvee	mathchar	-	2	4	103
+\curlywedge	mathchar	-	2	4	102
+\curvearrowleft	mathchar	-	3	5	120
+\curvearrowright	mathchar	-	3	5	121
+\dArr	undefined	-
+\dag	macro	-	macro:->\protect \dag  
+\dag	macro	inner:dag 	\long macro:->\ifmmode {\dagger }\else \textdagger \fi 
+\dagger	mathchar	-	2	2	121
+\daleth	mathchar	-	0	5	107
+\darr	undefined	-
+\dashleftarrow	macro	-	macro:->\mathrel {\mathchar "044C\dabar@ \dabar@ }
+\dashrightarrow	macro	-	macro:->\mathrel {\dabar@ \dabar@ \mathchar "044B}
+\dashv	mathchar	-	3	2	97
+\dbinom	macro	-	macro:->\protect \dbinom  
+\dbinom	macro	inner:dbinom 	\long macro:->\genfrac (){0pt}0
+\dblcolon	undefined	-
+\ddag	macro	-	macro:->\protect \ddag  
+\ddag	macro	inner:ddag 	\long macro:->\ifmmode {\ddagger }\else \textdaggerdbl \fi 
+\ddagger	mathchar	-	2	2	122
+\ddddot	macro	-	macro:->\protect \ddddot  
+\ddddot	macro	inner:ddddot 	\long macro:#1->{\mathop {\kern \z@ #1}\limits ^{\vbox to-1.4\ex@ {\kern -\tw@ \ex@ \hbox {\,\normalfont ....}\vss }}}
+\dddot	macro	-	macro:->\protect \dddot  
+\dddot	macro	inner:dddot 	\long macro:#1->{\mathop {\kern \z@ #1}\limits ^{\vbox to-1.4\ex@ {\kern -\tw@ \ex@ \hbox {\,\normalfont ...}\vss }}}
+\ddot	macro	-	macro:->\protect \ddot  
+\ddot	macro	inner:ddot 	macro:->\mathaccentV {ddot}67F
+\ddots	macro	-	macro:->\protect \ddots  
+\ddots	macro	inner:ddots 	\long macro:->\mathinner {\mkern 1mu\raise 7\p@ \vbox {\kern 7\p@ \hbox {.}}\mkern 2mu \raise 4\p@ \hbox {.}\mkern 2mu\raise \p@ \hbox {.}\mkern 1mu}
+\def	primitive	-	\def
+\deg	macro	-	\protected macro:->\qopname \relax o{deg}
+\degree	undefined	-
+\delta	mathchar	-	0	1	14
+\det	macro	-	\protected macro:->\qopname \relax m{det}
+\dfrac	macro	-	macro:->\protect \dfrac  
+\dfrac	macro	inner:dfrac 	\long macro:->\genfrac {}{}{}0
+\diagdown	mathchar	-	0	5	31
+\diagup	mathchar	-	0	5	30
+\diamond	mathchar	-	2	2	5
+\diamonds	undefined	-
+\diamondsuit	mathchar	-	0	2	125
+\digamma	mathchar	-	0	5	122
+\dim	macro	-	\protected macro:->\qopname \relax o{dim}
+\displaystyle	primitive	-	\displaystyle
+\div	mathchar	-	2	2	4
+\divideontimes	mathchar	-	2	5	62
+\dot	macro	-	macro:->\protect \dot  
+\dot	macro	inner:dot 	macro:->\mathaccentV {dot}65F
+\doteq	macro	-	\long macro:->\DOTSB \mathrel {\mathop {\kern 0pt =}\limits ^{\textstyle .}}
+\doteqdot	mathchar	-	3	4	43
+\dotplus	mathchar	-	2	4	117
+\dots	macro	-	macro:->\protect \dots  
+\dots	macro	inner:dots 	\long macro:->\ifmmode \@xp \mdots@ \else \@xp \textellipsis \fi 
+\dotsb	macro	-	macro:->\protect \cdots  
+\dotsc	macro	-	macro:->\protect \dotsc  
+\dotsc	macro	inner:dotsc 	\long macro:->\DN@ {\ifx \@let@token ;\@ldots \,\else \ifx \@let@token .\@ldots \,\else \extra@ \@ldots \ifgtest@ \,\fi \fi \fi }\FN@ \next@ 
+\dotsi	macro	-	\long macro:->\!\@cdots 
+\dotsm	macro	-	macro:->\protect \cdots  
+\dotso	macro	-	macro:->\protect \dotso  
+\dotso	macro	inner:dotso 	\long macro:->\relax \ifmmode \DN@ {\extrap@ \@ldots }\else \let \next@ \tdots@ \fi \FN@ \next@ 
+\dotsx	undefined	-
+\doublebarwedge	mathchar	-	2	4	91
+\doublecap	mathchar	-	2	4	101
+\doublecup	mathchar	-	2	4	100
+\downarrow	macro	-	\protected macro:->\delimiter "3223379 
+\downarrow	delimiter	inner:body	3	2	35	3	121
+\downdownarrows	mathchar	-	3	4	21
+\downharpoonleft	mathchar	-	3	4	25
+\downharpoonright	mathchar	-	3	4	23
+\edef	primitive	-	\edef
+\egroup	other	-	end-group character }
+\ell	mathchar	-	0	1	96
+\emph	macro	-	macro:->\protect \emph  
+\emph	macro	inner:emph 	\long macro:#1->\ifmmode \nfss@text {\em #1}\else \hmode@bgroup \text@command {#1}\em \check@icl #1\check@icr \expandafter \egroup \fi 
+\empty	macro	-	macro:->
+\emptyset	mathchar	-	0	2	59
+\end	macro	-	macro:->\romannumeral \ifx \protect \@typeset@protect \expandafter \expandafter \expandafter \expandafter \expandafter \expandafter \expandafter \z@ \else \expandafter \z@ \expandafter \protect \fi \end  
+\enskip	macro	-	macro:->\hskip .5em\relax 
+\enspace	macro	-	macro:->\protect \enspace  
+\enspace	macro	inner:enspace 	\long macro:->\leavevmode@ifvmode \kern .5em 
+\epsilon	mathchar	-	0	1	15
+\eqcirc	mathchar	-	3	4	80
+\eqcolon	undefined	-
+\eqqcolon	undefined	-
+\eqsim	mathchar	-	3	5	104
+\eqslantgtr	mathchar	-	3	4	49
+\eqslantless	mathchar	-	3	4	48
+\equalscolon	undefined	-
+\equalscoloncolon	undefined	-
+\equiv	mathchar	-	3	2	17
+\errmessage	primitive	-	\errmessage
+\eta	mathchar	-	0	1	17
+\eth	mathchar	-	0	5	103
+\exist	undefined	-
+\exists	mathchar	-	0	2	57
+\exp	macro	-	\protected macro:->\qopname \relax o{exp}
+\expandafter	primitive	-	\expandafter
+\fallingdotseq	mathchar	-	3	4	59
+\fbox	macro	-	macro:->\protect \fbox  
+\fbox	macro	inner:fbox 	\long macro:#1->\leavevmode \setbox \@tempboxa \hbox {\color@begingroup \kern \fboxsep {#1}\kern \fboxsep \color@endgroup }\@frameb@x \relax 
+\fcolorbox	undefined	-
+\flat	mathchar	-	0	1	91
+\footnotesize	macro	-	macro:->\protect \footnotesize  
+\footnotesize	macro	inner:footnotesize 	\long macro:->\@setfontsize \footnotesize \@viiipt {9.5}\abovedisplayskip 6\p@ \@plus 2\p@ \@minus 4\p@ \abovedisplayshortskip \z@ \@plus \p@ \belowdisplayshortskip 3\p@ \@plus \p@ \@minus 2\p@ \def \@listi {\leftmargin \leftmargini \topsep 3\p@ \@plus \p@ \@minus \p@ \parsep 2\p@ \@plus \p@ \@minus \p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip 
+\forall	mathchar	-	0	2	56
+\frac	macro	-	macro:->\protect \frac  
+\frac	macro	inner:frac 	\long macro:#1#2->{\Ustack {\begingroup #1\endgroup \@@over #2}}
+\frak	macro	-	macro:->\protect \frak  
+\frak	macro	inner:frak 	\long macro:#1->{\@subst@obsolete {amsfonts}\frak \mathfrak {#1}}
+\frown	mathchar	-	3	1	95
+\futurelet	primitive	-	\futurelet
+\gamma	mathchar	-	0	1	13
+\gcd	macro	-	\protected macro:->\qopname \relax m{gcd}
+\gdef	primitive	-	\gdef
+\ge	mathchar	-	3	2	21
+\genfrac	macro	-	macro:->\protect \genfrac  
+\genfrac	macro	inner:genfrac 	\long macro:#1#2#3#4#5#6->{\@mathstyle {#4}\genfrac@choice o{#1}{\Ustack {\begingroup #5\endgroup \ifx @#3@\@@over \else \@@above \fi #3\relax #6}}\genfrac@choice c{#2}}
+\geq	mathchar	-	3	2	21
+\geqq	mathchar	-	3	4	61
+\geqslant	mathchar	-	3	4	62
+\gets	mathchar	-	3	2	32
+\gg	mathchar	-	3	2	29
+\ggg	mathchar	-	3	4	111
+\gggtr	mathchar	-	3	4	111
+\gimel	mathchar	-	0	5	106
+\global	primitive	-	\global
+\gnapprox	mathchar	-	3	5	27
+\gneq	mathchar	-	3	5	13
+\gneqq	mathchar	-	3	5	9
+\gnsim	mathchar	-	3	5	19
+\goldA	undefined	-
+\goldB	undefined	-
+\goldC	undefined	-
+\goldD	undefined	-
+\goldE	undefined	-
+\grave	macro	-	macro:->\protect \grave  
+\grave	macro	inner:grave 	macro:->\mathaccentV {grave}612
+\gray	undefined	-
+\grayA	undefined	-
+\grayB	undefined	-
+\grayC	undefined	-
+\grayD	undefined	-
+\grayE	undefined	-
+\grayF	undefined	-
+\grayG	undefined	-
+\grayH	undefined	-
+\grayI	undefined	-
+\green	undefined	-
+\greenA	undefined	-
+\greenB	undefined	-
+\greenC	undefined	-
+\greenD	undefined	-
+\greenE	undefined	-
+\gt	undefined	-
+\gtrapprox	mathchar	-	3	4	39
+\gtrdot	mathchar	-	2	5	109
+\gtreqless	mathchar	-	3	4	82
+\gtreqqless	mathchar	-	3	4	84
+\gtrless	mathchar	-	3	4	63
+\gtrsim	mathchar	-	3	4	38
+\gvertneqq	mathchar	-	3	5	1
+\hArr	undefined	-
+\harr	undefined	-
+\hat	macro	-	macro:->\protect \hat  
+\hat	macro	inner:hat 	macro:->\mathaccentV {hat}65E
+\hbar	macro	-	\long macro:->{\mathchar "AF\mkern -9muh}
+\hbox	primitive	-	\hbox
+\hdashline	undefined	-
+\hearts	undefined	-
+\heartsuit	mathchar	-	0	2	126
+\hline	macro	-	macro:->\noalign {\ifnum 0=`}\fi \hrule \@height \arrayrulewidth \futurelet \reserved@a \@xhline 
+\hom	macro	-	\protected macro:->\qopname \relax o{hom}
+\hookleftarrow	macro	-	\long macro:->\DOTSB \leftarrow \joinrel \rhook 
+\hookrightarrow	macro	-	\long macro:->\DOTSB \lhook \joinrel \rightarrow 
+\hphantom	macro	-	macro:->\protect \hphantom  
+\hphantom	macro	inner:hphantom 	\long macro:->\v@false \h@true \ph@nt 
+\href	undefined	-
+\hskip	primitive	-	\hskip
+\hslash	mathchar	-	0	5	125
+\hspace	macro	-	macro:->\protect \hspace  
+\hspace	macro	inner:hspace 	\long macro:->\@ifstar \@hspacer \@hspace 
+\html@mathml	undefined	-
+\htmlClass	undefined	-
+\htmlData	undefined	-
+\htmlId	undefined	-
+\htmlStyle	undefined	-
+\huge	macro	-	macro:->\protect \huge  
+\huge	macro	inner:huge 	\long macro:->\@setfontsize \huge \@xxpt {25}
+\iff	macro	-	\long macro:->\DOTSB \;\Longleftrightarrow \;
+\iiint	macro	-	\long macro:->\DOTSI \MultiIntegral {3}
+\iint	macro	-	\long macro:->\DOTSI \MultiIntegral {2}
+\image	undefined	-
+\imageof	undefined	-
+\imath	mathchar	-	0	1	123
+\impliedby	macro	-	\long macro:->\DOTSB \;\Longleftarrow \;
+\implies	macro	-	\long macro:->\DOTSB \;\Longrightarrow \;
+\in	mathchar	-	3	2	50
+\includegraphics	undefined	-
+\inf	macro	-	\protected macro:->\qopname \relax m{inf}
+\infin	undefined	-
+\infty	mathchar	-	0	2	49
+\injlim	macro	-	\protected macro:->\qopname \relax m{inj\,lim}
+\int	macro	-	\long macro:->\DOTSI \intop \ilimits@ 
+\intercal	mathchar	-	2	4	124
+\intop	mathchar	-	1	3	82
+\iota	mathchar	-	0	1	19
+\isin	undefined	-
+\it	macro	-	macro:->\protect \it  
+\it	macro	inner:it 	\long macro:->\@fontswitch {\normalfont \itshape }{\mathit }
+\jmath	mathchar	-	0	1	124
+\kaBlue	undefined	-
+\kaGreen	undefined	-
+\kappa	mathchar	-	0	1	20
+\ker	macro	-	\protected macro:->\qopname \relax o{ker}
+\kern	primitive	-	\kern
+\ket	undefined	-
+\lArr	undefined	-
+\lBrace	undefined	-
+\lVert	macro	-	\protected macro:->\delimiter 69645069 
+\lVert	delimiter	inner:body	4	2	107	3	13
+\lambda	mathchar	-	0	1	21
+\land	mathchar	-	2	2	94
+\lang	undefined	-
+\langle	macro	-	\protected macro:->\delimiter "426830A 
+\langle	delimiter	inner:body	4	2	104	3	10
+\large	macro	-	macro:->\protect \large  
+\large	macro	inner:large 	\long macro:->\@setfontsize \large \@xiipt {14}
+\larr	undefined	-
+\lbrace	macro	-	\protected macro:->\delimiter "4266308 
+\lbrace	delimiter	inner:body	4	2	102	3	8
+\lbrack	macro	-	macro:->[
+\lceil	macro	-	\protected macro:->\delimiter "4264306 
+\lceil	delimiter	inner:body	4	2	100	3	6
+\ldotp	mathchar	-	6	1	58
+\ldots	macro	-	macro:->\protect \ldots  
+\ldots	macro	inner:ldots 	\long macro:->\ifmmode \mathellipsis \else \textellipsis \fi 
+\le	mathchar	-	3	2	20
+\leadsto	mathchar	-	3	4	32
+\left	primitive	-	\left
+\leftarrow	mathchar	-	3	2	32
+\leftarrowtail	mathchar	-	3	4	27
+\leftharpoondown	mathchar	-	3	1	41
+\leftharpoonup	mathchar	-	3	1	40
+\leftleftarrows	mathchar	-	3	4	18
+\leftrightarrow	mathchar	-	3	2	36
+\leftrightarrows	mathchar	-	3	4	28
+\leftrightharpoons	mathchar	-	3	4	11
+\leftrightsquigarrow	mathchar	-	3	4	33
+\leftthreetimes	mathchar	-	2	4	104
+\leq	mathchar	-	3	2	20
+\leqq	mathchar	-	3	4	53
+\leqslant	mathchar	-	3	4	54
+\lessapprox	mathchar	-	3	4	47
+\lessdot	mathchar	-	2	5	108
+\lesseqgtr	mathchar	-	3	4	81
+\lesseqqgtr	mathchar	-	3	4	83
+\lessgtr	mathchar	-	3	4	55
+\lesssim	mathchar	-	3	4	46
+\let	primitive	-	\let
+\lfloor	macro	-	\protected macro:->\delimiter "4262304 
+\lfloor	delimiter	inner:body	4	2	98	3	4
+\lg	macro	-	\protected macro:->\qopname \relax o{lg}
+\lgroup	macro	-	\protected macro:->\delimiter "433A33A 
+\lgroup	delimiter	inner:body	4	3	58	3	58
+\lhd	mathchar	-	2	4	67
+\lim	macro	-	\protected macro:->\qopname \relax m{lim}
+\liminf	macro	-	\protected macro:->\qopname \relax m{lim\,inf}
+\limsup	macro	-	\protected macro:->\qopname \relax m{lim\,sup}
+\ll	mathchar	-	3	2	28
+\llap	macro	-	macro:->\protect \llap  
+\llap	macro	inner:llap 	\long macro:#1->\hb@xt@ \z@ {\hss #1}
+\llbracket	undefined	-
+\llcorner	macro	-	\protected macro:->\delimiter "4478478 
+\llcorner	delimiter	inner:body	4	4	120	4	120
+\lll	mathchar	-	3	4	110
+\llless	mathchar	-	3	4	110
+\lmoustache	macro	-	\protected macro:->\delimiter "437A340 
+\lmoustache	delimiter	inner:body	4	3	122	3	64
+\ln	macro	-	\protected macro:->\qopname \relax o{ln}
+\lnapprox	mathchar	-	3	5	26
+\lneq	mathchar	-	3	5	12
+\lneqq	mathchar	-	3	5	8
+\lnot	mathchar	-	0	2	58
+\lnsim	mathchar	-	3	5	18
+\log	macro	-	\protected macro:->\qopname \relax o{log}
+\long	primitive	-	\long
+\longleftarrow	macro	-	\long macro:->\DOTSB \leftarrow \protect \joinrel \protect \relbar 
+\longleftrightarrow	macro	-	\long macro:->\DOTSB \leftarrow \joinrel \rightarrow 
+\longmapsto	macro	-	\long macro:->\DOTSB \mapstochar \longrightarrow 
+\longrightarrow	macro	-	\long macro:->\DOTSB \protect \relbar \protect \joinrel \rightarrow 
+\looparrowleft	mathchar	-	3	4	34
+\looparrowright	mathchar	-	3	4	35
+\lor	mathchar	-	2	2	95
+\lozenge	mathchar	-	0	4	6
+\lparen	undefined	-
+\lq	macro	-	macro:->`
+\lrArr	undefined	-
+\lrarr	undefined	-
+\lrcorner	macro	-	\protected macro:->\delimiter "5479479 
+\lrcorner	delimiter	inner:body	5	4	121	4	121
+\lt	undefined	-
+\ltimes	mathchar	-	2	5	110
+\lvert	macro	-	\protected macro:->\delimiter 69640972 
+\lvert	delimiter	inner:body	4	2	106	3	12
+\lvertneqq	mathchar	-	3	5	0
+\maltese	macro	-	macro:->\mathhexbox {4}7A
+\mapsfrom	undefined	-
+\mapsto	macro	-	\long macro:->\DOTSB \mapstochar \rightarrow 
+\maroonA	undefined	-
+\maroonB	undefined	-
+\maroonC	undefined	-
+\maroonD	undefined	-
+\maroonE	undefined	-
+\mathbb	macro	-	macro:->\protect \mathbb  
+\mathbb	macro	inner:mathbb 	macro:->\relax \ifmmode \else \non@alpherr \mathbb  \fi \use@mathgroup \M@U \symAMSb 
+\mathbf	macro	-	macro:->\protect \mathbf  
+\mathbf	macro	inner:mathbf 	macro:->\select@group \mathbf  \M@OT1 \OT1/cmr/bx/n 
+\mathbin	primitive	-	\mathbin
+\mathcal	macro	-	macro:->\protect \mathcal  
+\mathcal	macro	inner:mathcal 	macro:->\relax \ifmmode \else \non@alpherr \mathcal  \fi \use@mathgroup \M@OMS \symsymbols 
+\mathchoice	primitive	-	\mathchoice
+\mathclap	undefined	-
+\mathclose	primitive	-	\mathclose
+\mathellipsis	macro	-	macro:->\protect \mathellipsis  
+\mathellipsis	macro	inner:mathellipsis 	\long macro:->\mathinner {\ldotp \ldotp \ldotp }
+\mathfrak	macro	-	macro:->\protect \mathfrak  
+\mathfrak	macro	inner:mathfrak 	macro:->\select@group \mathfrak  \M@U \U/euf/m/n 
+\mathinner	primitive	-	\mathinner
+\mathit	macro	-	macro:->\protect \mathit  
+\mathit	macro	inner:mathit 	macro:->\select@group \mathit  \M@OT1 \OT1/cmr/m/it 
+\mathllap	undefined	-
+\mathnormal	macro	-	macro:->\protect \mathnormal  
+\mathnormal	macro	inner:mathnormal 	macro:->\relax \ifmmode \else \non@alpherr \mathnormal  \fi \use@mathgroup \M@OML \symletters 
+\mathop	primitive	-	\mathop
+\mathopen	primitive	-	\mathopen
+\mathord	primitive	-	\mathord
+\mathpunct	primitive	-	\mathpunct
+\mathreflectbox	undefined	-
+\mathrel	primitive	-	\mathrel
+\mathring	macro	-	macro:->\protect \mathring  
+\mathring	macro	inner:mathring 	macro:->\mathaccentV {mathring}617
+\mathrlap	undefined	-
+\mathrm	macro	-	macro:->\protect \mathrm  
+\mathrm	macro	inner:mathrm 	macro:->\relax \ifmmode \else \non@alpherr \mathrm  \fi \use@mathgroup \M@TU \symoperators 
+\mathscr	undefined	-
+\mathsf	macro	-	macro:->\protect \mathsf  
+\mathsf	macro	inner:mathsf 	macro:->\select@group \mathsf  \M@OT1 \OT1/cmss/m/n 
+\mathsfit	undefined	-
+\mathsterling	macro	-	macro:->\protect \mathsterling  
+\mathsterling	macro	inner:mathsterling 	\long macro:->\mathit {\mathchar "7024}
+\mathstrut	macro	-	macro:->\protect \mathstrut  
+\mathstrut	macro	inner:mathstrut 	\long macro:->\vphantom (
+\mathtt	macro	-	macro:->\protect \mathtt  
+\mathtt	macro	inner:mathtt 	macro:->\select@group \mathtt  \M@OT1 \OT1/cmtt/m/n 
+\max	macro	-	\protected macro:->\qopname \relax m{max}
+\measuredangle	mathchar	-	0	4	93
+\medspace	macro	-	macro:->\x@protect \:\protect \:  
+\message	primitive	-	\message
+\mho	mathchar	-	0	5	102
+\mid	mathchar	-	3	2	106
+\middle	primitive	-	\middle
+\min	macro	-	\protected macro:->\qopname \relax m{min}
+\mintA	undefined	-
+\mintB	undefined	-
+\mintC	undefined	-
+\minuscolon	undefined	-
+\minuscoloncolon	undefined	-
+\minuso	undefined	-
+\mkern	primitive	-	\mkern
+\mod	macro	-	macro:->\protect \mod  
+\mod	macro	inner:mod 	\long macro:#1->\allowbreak \if@display \mkern 18mu \else \mkern 12mu\fi {\operator@font mod}\,\,#1
+\models	macro	-	macro:->\protect \models  
+\models	macro	inner:models 	\long macro:->\mathrel {|}\joinrel \Relbar 
+\mp	mathchar	-	2	2	7
+\mskip	primitive	-	\mskip
+\mu	mathchar	-	0	1	22
+\multimap	mathchar	-	3	4	40
+\nLeftarrow	mathchar	-	3	5	58
+\nLeftrightarrow	mathchar	-	3	5	60
+\nRightarrow	mathchar	-	3	5	59
+\nVDash	mathchar	-	3	5	51
+\nVdash	mathchar	-	3	5	49
+\nabla	mathchar	-	0	2	114
+\natnums	undefined	-
+\natural	mathchar	-	0	1	92
+\ncong	mathchar	-	3	5	29
+\ne	macro	-	macro:->\protect \ne  
+\ne	macro	inner:ne 	\long macro:->\not =
+\nearrow	mathchar	-	3	2	37
+\neg	mathchar	-	0	2	58
+\negmedspace	macro	-	macro:->\protect \negmedspace  
+\negmedspace	macro	inner:negmedspace 	\long macro:->\tmspace -\medmuskip {.2222em}
+\negthickspace	macro	-	macro:->\protect \negthickspace  
+\negthickspace	macro	inner:negthickspace 	\long macro:->\tmspace -\thickmuskip {.2777em}
+\negthinspace	macro	-	macro:->\x@protect \!\protect \!  
+\neq	macro	-	macro:->\protect \neq  
+\neq	macro	inner:neq 	\long macro:->\not =
+\newcommand	macro	-	macro:->\@star@or@long \new@command 
+\newline	macro	-	macro:->\protect \newline  
+\newline	macro	inner:newline 	\long macro:->\@normalcr \relax 
+\nexists	mathchar	-	0	5	64
+\ngeq	mathchar	-	3	5	3
+\ngeqq	mathchar	-	3	5	21
+\ngeqslant	mathchar	-	3	5	11
+\ngtr	mathchar	-	3	5	5
+\ni	mathchar	-	3	2	51
+\nleftarrow	mathchar	-	3	5	56
+\nleftrightarrow	mathchar	-	3	5	61
+\nleq	mathchar	-	3	5	2
+\nleqq	mathchar	-	3	5	20
+\nleqslant	mathchar	-	3	5	10
+\nless	mathchar	-	3	5	4
+\nmid	mathchar	-	3	5	45
+\nobreak	macro	-	macro:->\protect \nobreak  
+\nobreak	macro	inner:nobreak 	macro:->\penalty \@M 
+\nobreakspace	macro	-	macro:->\protect \nobreakspace  
+\nobreakspace	macro	inner:nobreakspace 	\long macro:->\leavevmode \nobreak \ 
+\noexpand	primitive	-	\noexpand
+\nonumber	macro	-	\long macro:->\if@eqnsw \ifx \incr@eqnum \@empty \addtocounter {equation}\m@ne \fi \fi \let \print@eqnum \@empty \let \incr@eqnum \@empty \global \@eqnswfalse 
+\normalsize	macro	-	macro:->\protect \normalsize  
+\normalsize	macro	inner:normalsize 	\long macro:->\@setfontsize \normalsize \@xpt \@xiipt \abovedisplayskip 10\p@ \@plus 2\p@ \@minus 5\p@ \abovedisplayshortskip \z@ \@plus 3\p@ \belowdisplayshortskip 6\p@ \@plus 3\p@ \@minus 3\p@ \belowdisplayskip \abovedisplayskip \let \@listi \@listI 
+\not	mathchar	-	3	2	54
+\notag	macro	-	\long macro:->\nonumber 
+\notin	macro	-	macro:->\protect \notin  
+\notin	macro	inner:notin 	\long macro:->\mathrel {\m@th \mathpalette \c@ncel \in }
+\notni	undefined	-
+\nparallel	mathchar	-	3	5	44
+\nprec	mathchar	-	3	5	6
+\npreceq	mathchar	-	3	5	14
+\nrightarrow	mathchar	-	3	5	57
+\nshortmid	mathchar	-	3	5	46
+\nshortparallel	mathchar	-	3	5	47
+\nsim	mathchar	-	3	5	28
+\nsubseteq	mathchar	-	3	5	42
+\nsubseteqq	mathchar	-	3	5	34
+\nsucc	mathchar	-	3	5	7
+\nsucceq	mathchar	-	3	5	15
+\nsupseteq	mathchar	-	3	5	43
+\nsupseteqq	mathchar	-	3	5	35
+\ntriangleleft	mathchar	-	3	5	54
+\ntrianglelefteq	mathchar	-	3	5	53
+\ntriangleright	mathchar	-	3	5	55
+\ntrianglerighteq	mathchar	-	3	5	52
+\nu	mathchar	-	0	1	23
+\nvDash	mathchar	-	3	5	50
+\nvdash	mathchar	-	3	5	48
+\nwarrow	mathchar	-	3	2	45
+\odot	mathchar	-	2	2	12
+\oiiint	undefined	-
+\oiint	undefined	-
+\oint	macro	-	\long macro:->\DOTSI \ointop \ilimits@ 
+\omega	mathchar	-	0	1	33
+\omicron	undefined	-
+\ominus	mathchar	-	2	2	9
+\operatorname	macro	-	macro:->\protect \operatorname  
+\operatorname	macro	inner:operatorname 	\long macro:->\@ifstar {\qopname \newmcodes@ m}{\qopname \newmcodes@ o}
+\operatorname@	undefined	-
+\operatornamewithlimits	macro	-	macro:->\operatorname *
+\oplus	mathchar	-	2	2	8
+\orange	undefined	-
+\ordinarycolon	undefined	-
+\origof	undefined	-
+\oslash	mathchar	-	2	2	11
+\otimes	mathchar	-	2	2	10
+\over	macro	-	\long macro:->\primfrac {over}
+\overbrace	macro	-	macro:->\protect \overbrace  
+\overbrace	macro	inner:overbrace 	\long macro:#1->\mathop {\vbox {\m@th \ialign {##\crcr \noalign {\kern 3\p@ }\downbracefill \crcr \noalign {\kern 3\p@ \nointerlineskip }$\hfil \displaystyle {#1}\hfil $\crcr }}}\limits 
+\overbracket	undefined	-
+\overgroup	undefined	-
+\overleftarrow	macro	-	macro:->\protect \overleftarrow  
+\overleftarrow	macro	inner:overleftarrow 	\long macro:->\mathpalette {\overarrow@ \leftarrowfill@ }
+\overleftharpoon	undefined	-
+\overleftrightarrow	macro	-	macro:->\protect \overleftrightarrow  
+\overleftrightarrow	macro	inner:overleftrightarrow 	\long macro:->\mathpalette {\overarrow@ \leftrightarrowfill@ }
+\overline	macro	-	macro:->\protect \overline  
+\overline	macro	inner:overline 	\long macro:#1->\@@overline {#1}
+\overlinesegment	undefined	-
+\overrightarrow	macro	-	macro:->\protect \overrightarrow  
+\overrightarrow	macro	inner:overrightarrow 	\long macro:->\mathpalette {\overarrow@ \rightarrowfill@ }
+\overrightharpoon	undefined	-
+\overset	macro	-	macro:->\protect \overset  
+\overset	macro	inner:overset 	\long macro:#1#2->\binrel@ {#2}\binrel@@ {\mathop {\kern \z@ #2}\limits ^{#1}}
+\owns	mathchar	-	3	2	51
+\parallel	mathchar	-	3	2	107
+\partial	mathchar	-	0	1	64
+\perp	mathchar	-	3	2	63
+\phantom	macro	-	macro:->\protect \phantom  
+\phantom	macro	inner:phantom 	\long macro:->\v@true \h@true \ph@nt 
+\phase	undefined	-
+\phi	mathchar	-	0	1	30
+\pi	mathchar	-	0	1	25
+\pink	undefined	-
+\pitchfork	mathchar	-	3	4	116
+\plim	undefined	-
+\plusmn	undefined	-
+\pm	mathchar	-	2	2	6
+\pmb	macro	-	macro:->\protect \pmb  
+\pmb	macro	inner:pmb 	\long macro:->\ifmmode \else \expandafter \pmb@@ \fi \mathpalette \pmb@ 
+\pmod	macro	-	macro:->\protect \pmod  
+\pmod	macro	inner:pmod 	\long macro:#1->\pod {{\operator@font mod}\mkern 6mu#1}
+\pod	macro	-	macro:->\protect \pod  
+\pod	macro	inner:pod 	\long macro:#1->\allowbreak \if@display \mkern 18mu\else \mkern 8mu\fi (#1)
+\pounds	macro	-	macro:->\protect \pounds  
+\pounds	macro	inner:pounds 	\long macro:->\ifmmode \mathsterling \else \textsterling \fi 
+\prec	mathchar	-	3	2	30
+\precapprox	mathchar	-	3	5	119
+\preccurlyeq	mathchar	-	3	4	52
+\preceq	mathchar	-	3	2	22
+\precnapprox	mathchar	-	3	5	24
+\precneqq	mathchar	-	3	5	22
+\precnsim	mathchar	-	3	5	16
+\precsim	mathchar	-	3	4	45
+\prime	mathchar	-	0	2	48
+\prod	macro	-	macro:->\DOTSB \prod@ \slimits@ 
+\projlim	macro	-	\protected macro:->\qopname \relax m{proj\,lim}
+\propto	mathchar	-	3	2	47
+\providecommand	macro	-	macro:->\@star@or@long \provide@command 
+\psi	mathchar	-	0	1	32
+\purple	undefined	-
+\purpleA	undefined	-
+\purpleB	undefined	-
+\purpleC	undefined	-
+\purpleD	undefined	-
+\purpleE	undefined	-
+\qquad	macro	-	macro:->\hskip 2em\relax 
+\quad	macro	-	macro:->\hskip 1em\relax 
+\r	macro	-	macro:->\TU-cmd \r \TU\r 
+\rArr	undefined	-
+\rBrace	undefined	-
+\rVert	macro	-	\protected macro:->\delimiter 86422285 
+\rVert	delimiter	inner:body	5	2	107	3	13
+\raisebox	macro	-	macro:->\protect \raisebox  
+\raisebox	macro	inner:raisebox 	\long macro:#1->\leavevmode \@ifnextchar [{\@rsbox {#1}}{\@irsbox {#1}[]}
+\rang	undefined	-
+\rangle	macro	-	\protected macro:->\delimiter "526930B 
+\rangle	delimiter	inner:body	5	2	105	3	11
+\rarr	undefined	-
+\ratio	undefined	-
+\rbrace	macro	-	\protected macro:->\delimiter "5267309 
+\rbrace	delimiter	inner:body	5	2	103	3	9
+\rbrack	macro	-	macro:->]
+\rceil	macro	-	\protected macro:->\delimiter "5265307 
+\rceil	delimiter	inner:body	5	2	101	3	7
+\real	undefined	-
+\reals	undefined	-
+\red	undefined	-
+\redA	undefined	-
+\redB	undefined	-
+\redC	undefined	-
+\redD	undefined	-
+\redE	undefined	-
+\reflectbox	undefined	-
+\relax	primitive	-	\relax
+\renewcommand	macro	-	macro:->\@star@or@long \renew@command 
+\restriction	mathchar	-	3	4	22
+\rfloor	macro	-	\protected macro:->\delimiter "5263305 
+\rfloor	delimiter	inner:body	5	2	99	3	5
+\rgroup	macro	-	\protected macro:->\delimiter "533B33B 
+\rgroup	delimiter	inner:body	5	3	59	3	59
+\rhd	mathchar	-	2	4	66
+\rho	mathchar	-	0	1	26
+\right	primitive	-	\right
+\rightarrow	mathchar	-	3	2	33
+\rightarrowtail	mathchar	-	3	4	26
+\rightharpoondown	mathchar	-	3	1	43
+\rightharpoonup	mathchar	-	3	1	42
+\rightleftarrows	mathchar	-	3	4	29
+\rightleftharpoons	mathchar	-	3	4	10
+\rightrightarrows	mathchar	-	3	4	19
+\rightsquigarrow	mathchar	-	3	4	32
+\rightthreetimes	mathchar	-	2	4	105
+\risingdotseq	mathchar	-	3	4	58
+\rlap	macro	-	macro:->\protect \rlap  
+\rlap	macro	inner:rlap 	\long macro:#1->\hb@xt@ \z@ {#1\hss }
+\rm	macro	-	macro:->\protect \rm  
+\rm	macro	inner:rm 	\long macro:->\@fontswitch {\normalfont \rmfamily }{\mathrm }
+\rmoustache	macro	-	\protected macro:->\delimiter "537B341 
+\rmoustache	delimiter	inner:body	5	3	123	3	65
+\rparen	undefined	-
+\rq	macro	-	macro:->'
+\rrbracket	undefined	-
+\rtimes	mathchar	-	2	5	111
+\rule	macro	-	macro:->\protect \rule  
+\rule	macro	inner:rule 	\long macro:->\@ifnextchar [\@rule {\@rule [\z@ ]}
+\rvert	macro	-	\protected macro:->\delimiter 86418188 
+\rvert	delimiter	inner:body	5	2	106	3	12
+\scriptscriptstyle	primitive	-	\scriptscriptstyle
+\scriptsize	macro	-	macro:->\protect \scriptsize  
+\scriptsize	macro	inner:scriptsize 	\long macro:->\@setfontsize \scriptsize \@viipt \@viiipt 
+\scriptstyle	primitive	-	\scriptstyle
+\sdot	undefined	-
+\searrow	mathchar	-	3	2	38
+\sec	macro	-	\protected macro:->\qopname \relax o{sec}
+\sect	undefined	-
+\set	undefined	-
+\setminus	mathchar	-	2	2	110
+\sf	macro	-	macro:->\protect \sf  
+\sf	macro	inner:sf 	\long macro:->\@fontswitch {\normalfont \sffamily }{\mathsf }
+\sh	undefined	-
+\sharp	mathchar	-	0	1	93
+\shortmid	mathchar	-	3	5	112
+\shortparallel	mathchar	-	3	5	113
+\show	primitive	-	\show
+\sigma	mathchar	-	0	1	27
+\sim	mathchar	-	3	2	24
+\simcolon	undefined	-
+\simcoloncolon	undefined	-
+\simeq	mathchar	-	3	2	39
+\sin	macro	-	\protected macro:->\qopname \relax o{sin}
+\sinh	macro	-	\protected macro:->\qopname \relax o{sinh}
+\sixptsize	undefined	-
+\small	macro	-	macro:->\protect \small  
+\small	macro	inner:small 	\long macro:->\@setfontsize \small \@ixpt {11}\abovedisplayskip 8.5\p@ \@plus 3\p@ \@minus 4\p@ \abovedisplayshortskip \z@ \@plus 2\p@ \belowdisplayshortskip 4\p@ \@plus 2\p@ \@minus 2\p@ \def \@listi {\leftmargin \leftmargini \topsep 4\p@ \@plus 2\p@ \@minus 2\p@ \parsep 2\p@ \@plus \p@ \@minus \p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip 
+\smallfrown	mathchar	-	3	4	97
+\smallint	mathchar	-	1	2	115
+\smallsetminus	mathchar	-	2	5	114
+\smallsmile	mathchar	-	3	4	96
+\smash	macro	-	macro:->\protect \smash  
+\smash	macro	inner:smash 	macro:->\@protected@testopt \smash  \\smash  {tb}
+\smile	mathchar	-	3	1	94
+\sout	undefined	-
+\space	macro	-	macro:-> 
+\spades	undefined	-
+\spadesuit	mathchar	-	0	2	127
+\sphericalangle	mathchar	-	0	4	94
+\sqcap	mathchar	-	2	2	117
+\sqcup	mathchar	-	2	2	116
+\sqrt	macro	-	macro:->\protect \sqrt  
+\sqrt	macro	inner:sqrt 	\long macro:->\@ifnextchar [\@sqrt \sqrtsign 
+\sqsubset	mathchar	-	3	4	64
+\sqsubseteq	mathchar	-	3	2	118
+\sqsupset	mathchar	-	3	4	65
+\sqsupseteq	mathchar	-	3	2	119
+\square	mathchar	-	0	4	3
+\stackrel	macro	-	macro:->\protect \stackrel  
+\stackrel	macro	inner:stackrel 	\long macro:#1#2->\mathrel {\mathop {#2}\limits ^{#1}}
+\star	mathchar	-	2	1	63
+\sub	undefined	-
+\sube	undefined	-
+\subset	mathchar	-	3	2	26
+\subseteq	mathchar	-	3	2	18
+\subseteqq	mathchar	-	3	4	106
+\subsetneq	mathchar	-	3	5	40
+\subsetneqq	mathchar	-	3	5	36
+\substack	macro	-	macro:->\protect \substack  
+\substack	macro	inner:substack 	\long macro:#1->\subarray {c}#1\endsubarray 
+\succ	mathchar	-	3	2	31
+\succapprox	mathchar	-	3	5	118
+\succcurlyeq	mathchar	-	3	4	60
+\succeq	mathchar	-	3	2	23
+\succnapprox	mathchar	-	3	5	25
+\succneqq	mathchar	-	3	5	23
+\succnsim	mathchar	-	3	5	17
+\succsim	mathchar	-	3	4	37
+\sum	macro	-	macro:->\DOTSB \sum@ \slimits@ 
+\sup	macro	-	\protected macro:->\qopname \relax m{sup}
+\supe	undefined	-
+\supset	mathchar	-	3	2	27
+\supseteq	mathchar	-	3	2	19
+\supseteqq	mathchar	-	3	4	107
+\supsetneq	mathchar	-	3	5	41
+\supsetneqq	mathchar	-	3	5	37
+\surd	macro	-	macro:->\protect \surd  
+\surd	macro	inner:surd 	\long macro:->{\mathchar "1270}
+\swarrow	mathchar	-	3	2	46
+\symAMSa	family	-	4
+\symAMSb	family	-	5
+\symlargesymbols	family	-	3
+\symlegacymaths	family	-	6
+\symletters	family	-	1
+\symoperators	family	-	0
+\symsymbols	family	-	2
+\tag	macro	-	macro:->\invalid@tag {\string \tag \space not allowed here}
+\tag@literal	undefined	-
+\tag@paren	undefined	-
+\tan	macro	-	\protected macro:->\qopname \relax o{tan}
+\tanh	macro	-	\protected macro:->\qopname \relax o{tanh}
+\tau	mathchar	-	0	1	28
+\tbinom	macro	-	macro:->\protect \tbinom  
+\tbinom	macro	inner:tbinom 	\long macro:->\genfrac (){0pt}1
+\tealA	undefined	-
+\tealB	undefined	-
+\tealC	undefined	-
+\tealD	undefined	-
+\tealE	undefined	-
+\text	macro	-	macro:->\protect \text  
+\text	macro	inner:text 	\long macro:->\ifmmode \expandafter \text@ \else \expandafter \mbox \fi 
+\textbf	macro	-	macro:->\protect \textbf  
+\textbf	macro	inner:textbf 	\long macro:#1->\ifmmode \nfss@text {\bfseries #1}\else \hmode@bgroup \text@command {#1}\bfseries \check@icl #1\check@icr \expandafter \egroup \fi 
+\textcircled	macro	-	macro:->\?-cmd \textcircled \?\textcircled 
+\textcolor	undefined	-
+\textcopyright	macro	-	macro:->\?-cmd \textcopyright \?\textcopyright 
+\textit	macro	-	macro:->\protect \textit  
+\textit	macro	inner:textit 	\long macro:#1->\ifmmode \nfss@text {\itshape #1}\else \hmode@bgroup \text@command {#1}\itshape \check@icl #1\check@icr \expandafter \egroup \fi 
+\textmd	macro	-	macro:->\protect \textmd  
+\textmd	macro	inner:textmd 	\long macro:#1->\ifmmode \nfss@text {\mdseries #1}\else \hmode@bgroup \text@command {#1}\mdseries \check@icl #1\check@icr \expandafter \egroup \fi 
+\textnormal	macro	-	macro:->\protect \textnormal  
+\textnormal	macro	inner:textnormal 	\long macro:#1->\ifmmode \nfss@text {\normalfont #1}\else \hmode@bgroup \text@command {#1}\normalfont \check@icl #1\check@icr \expandafter \egroup \fi 
+\textregistered	macro	-	macro:->\?-cmd \textregistered \?\textregistered 
+\textrm	macro	-	macro:->\protect \textrm  
+\textrm	macro	inner:textrm 	\long macro:#1->\ifmmode \nfss@text {\rmfamily #1}\else \hmode@bgroup \text@command {#1}\rmfamily \check@icl #1\check@icr \expandafter \egroup \fi 
+\textsf	macro	-	macro:->\protect \textsf  
+\textsf	macro	inner:textsf 	\long macro:#1->\ifmmode \nfss@text {\sffamily #1}\else \hmode@bgroup \text@command {#1}\sffamily \check@icl #1\check@icr \expandafter \egroup \fi 
+\textstyle	primitive	-	\textstyle
+\texttt	macro	-	macro:->\protect \texttt  
+\texttt	macro	inner:texttt 	\long macro:#1->\ifmmode \nfss@text {\ttfamily #1}\else \hmode@bgroup \text@command {#1}\ttfamily \check@icl #1\check@icr \expandafter \egroup \fi 
+\textup	macro	-	macro:->\protect \textup  
+\textup	macro	inner:textup 	\long macro:#1->\ifmmode \nfss@text {\upshape #1}\else \hmode@bgroup \text@command {#1}\upshape \check@icl #1\check@icr \expandafter \egroup \fi 
+\tfrac	macro	-	macro:->\protect \tfrac  
+\tfrac	macro	inner:tfrac 	\long macro:->\genfrac {}{}{}1
+\tg	undefined	-
+\th	macro	-	macro:->\TU-cmd \th \TU\th 
+\therefore	mathchar	-	3	4	41
+\theta	mathchar	-	0	1	18
+\thetasym	undefined	-
+\thickapprox	mathchar	-	3	5	116
+\thicksim	mathchar	-	3	5	115
+\thickspace	macro	-	\long macro:->\tmspace +\thickmuskip {.2777em}
+\thinspace	macro	-	macro:->\x@protect \,\protect \,  
+\tilde	macro	-	macro:->\protect \tilde  
+\tilde	macro	inner:tilde 	macro:->\mathaccentV {tilde}67E
+\times	mathchar	-	2	2	2
+\tiny	macro	-	macro:->\protect \tiny  
+\tiny	macro	inner:tiny 	\long macro:->\@setfontsize \tiny \@vpt \@vipt 
+\tmspace	macro	-	macro:->\protect \tmspace  
+\tmspace	macro	inner:tmspace 	\long macro:#1#2#3->\ifmmode \mskip #1#2\else \leavevmode@ifvmode \kern #1#3\fi \relax 
+\to	mathchar	-	3	2	33
+\top	mathchar	-	0	2	62
+\triangle	mathchar	-	0	2	52
+\triangledown	mathchar	-	0	4	79
+\triangleleft	mathchar	-	2	1	47
+\trianglelefteq	mathchar	-	3	4	69
+\triangleq	mathchar	-	3	4	44
+\triangleright	mathchar	-	2	1	46
+\trianglerighteq	mathchar	-	3	4	68
+\tt	macro	-	macro:->\protect \tt  
+\tt	macro	inner:tt 	\long macro:->\@fontswitch {\normalfont \ttfamily }{\mathtt }
+\twoheadleftarrow	mathchar	-	3	4	17
+\twoheadrightarrow	mathchar	-	3	4	16
+\u	macro	-	macro:->\TU-cmd \u \TU\u 
+\uArr	undefined	-
+\uarr	undefined	-
+\ulcorner	macro	-	\protected macro:->\delimiter "4470470 
+\ulcorner	delimiter	inner:body	4	4	112	4	112
+\underbar	macro	-	macro:->\protect \underbar  
+\underbar	macro	inner:underbar 	macro:#1->\underline {\sbox \tw@ {#1}\dp \tw@ \z@ \box \tw@ }
+\underbrace	macro	-	macro:->\protect \underbrace  
+\underbrace	macro	inner:underbrace 	\long macro:#1->\mathop {\vtop {\m@th \ialign {##\crcr $\hfil \displaystyle {#1}\hfil $\crcr \noalign {\kern 3\p@ \nointerlineskip }\upbracefill \crcr \noalign {\kern 3\p@ }}}}\limits 
+\underbracket	undefined	-
+\undergroup	undefined	-
+\underleftarrow	macro	-	macro:->\protect \underleftarrow  
+\underleftarrow	macro	inner:underleftarrow 	\long macro:->\mathpalette {\underarrow@ \leftarrowfill@ }
+\underleftrightarrow	macro	-	macro:->\protect \underleftrightarrow  
+\underleftrightarrow	macro	inner:underleftrightarrow 	\long macro:->\mathpalette {\underarrow@ \leftrightarrowfill@ }
+\underline	macro	-	macro:->\protect \underline  
+\underline	macro	inner:underline 	\long macro:#1->\relax \ifmmode \@@underline {#1}\else $\@@underline {\hbox {#1}}\m@th $\relax \fi 
+\underlinesegment	undefined	-
+\underrightarrow	macro	-	macro:->\protect \underrightarrow  
+\underrightarrow	macro	inner:underrightarrow 	\long macro:->\mathpalette {\underarrow@ \rightarrowfill@ }
+\underset	macro	-	macro:->\protect \underset  
+\underset	macro	inner:underset 	\long macro:#1#2->\binrel@ {#2}\binrel@@ {\mathop {\kern \z@ #2}\limits _{#1}}
+\unlhd	mathchar	-	2	4	69
+\unrhd	mathchar	-	2	4	68
+\uparrow	macro	-	\protected macro:->\delimiter "3222378 
+\uparrow	delimiter	inner:body	3	2	34	3	120
+\updownarrow	macro	-	\protected macro:->\delimiter "326C33F 
+\updownarrow	delimiter	inner:body	3	2	108	3	63
+\upharpoonleft	mathchar	-	3	4	24
+\upharpoonright	mathchar	-	3	4	22
+\uplus	mathchar	-	2	2	93
+\upsilon	mathchar	-	0	1	29
+\upuparrows	mathchar	-	3	4	20
+\urcorner	macro	-	\protected macro:->\delimiter "5471471 
+\urcorner	delimiter	inner:body	5	4	113	4	113
+\url	undefined	-
+\utilde	undefined	-
+\v	macro	-	macro:->\TU-cmd \v \TU\v 
+\vDash	mathchar	-	3	4	15
+\varDelta	mathchar	-	0	1	1
+\varGamma	mathchar	-	0	1	0
+\varLambda	mathchar	-	0	1	3
+\varOmega	mathchar	-	0	1	10
+\varPhi	mathchar	-	0	1	8
+\varPi	mathchar	-	0	1	5
+\varPsi	mathchar	-	0	1	9
+\varSigma	mathchar	-	0	1	6
+\varTheta	mathchar	-	0	1	2
+\varUpsilon	mathchar	-	0	1	7
+\varXi	mathchar	-	0	1	4
+\varepsilon	mathchar	-	0	1	34
+\varinjlim	macro	-	\protected macro:->\mathop {\mathpalette \varlim@ {\rightarrowfill@ \textstyle }}\nmlimits@ 
+\varkappa	mathchar	-	0	5	123
+\varliminf	macro	-	\protected macro:->\mathop {\mathpalette \varliminf@ {}}\nmlimits@ 
+\varlimsup	macro	-	\protected macro:->\mathop {\mathpalette \varlimsup@ {}}\nmlimits@ 
+\varnothing	mathchar	-	0	5	63
+\varphi	mathchar	-	0	1	39
+\varpi	mathchar	-	0	1	36
+\varprojlim	macro	-	\protected macro:->\mathop {\mathpalette \varlim@ {\leftarrowfill@ \textstyle }}\nmlimits@ 
+\varpropto	mathchar	-	3	4	95
+\varrho	mathchar	-	0	1	37
+\varsigma	mathchar	-	0	1	38
+\varsubsetneq	mathchar	-	3	5	32
+\varsubsetneqq	mathchar	-	3	5	38
+\varsupsetneq	mathchar	-	3	5	33
+\varsupsetneqq	mathchar	-	3	5	39
+\vartheta	mathchar	-	0	1	35
+\vartriangle	mathchar	-	3	4	77
+\vartriangleleft	mathchar	-	3	4	67
+\vartriangleright	mathchar	-	3	4	66
+\varvdots	undefined	-
+\vcentcolon	undefined	-
+\vcenter	primitive	-	\vcenter
+\vdash	mathchar	-	3	2	96
+\vdots	macro	-	macro:->\protect \vdots  
+\vdots	macro	inner:vdots 	\long macro:->\vbox {\baselineskip 4\p@ \lineskiplimit \z@ \kern 6\p@ \hbox {.}\hbox {.}\hbox {.}}
+\vec	macro	-	macro:->\protect \vec  
+\vec	macro	inner:vec 	macro:->\mathaccentV {vec}17E
+\vee	mathchar	-	2	2	95
+\veebar	mathchar	-	2	4	89
+\verb	macro	-	macro:->\relax \ifmmode \hbox \else \leavevmode \null \fi \bgroup \verb@eol@error \let \do \@makeother \dospecials \verbatim@font \@noligs \language \l@nohyphenation \@ifstar \@sverb \@verb 
+\vert	macro	-	\protected macro:->\delimiter "026A30C 
+\vert	delimiter	inner:body	0	2	106	3	12
+\vphantom	macro	-	macro:->\protect \vphantom  
+\vphantom	macro	inner:vphantom 	\long macro:->\v@true \h@false \ph@nt 
+\wedge	mathchar	-	2	2	94
+\weierp	undefined	-
+\widecheck	undefined	-
+\widehat	macro	-	macro:#1->\@mathmeasure \z@ \textstyle {#1}\ifdim \wd \z@ >\tw@ em\mathaccent "055B{#1}\else \mathaccent "0362{#1}\fi 
+\widetilde	macro	-	macro:#1->\@mathmeasure \z@ \textstyle {#1}\ifdim \wd \z@ >\tw@ em\mathaccent "055D{#1}\else \mathaccent "0365{#1}\fi 
+\wp	mathchar	-	0	1	125
+\wr	mathchar	-	2	2	111
+\xLeftarrow	undefined	-
+\xLeftrightarrow	undefined	-
+\xRightarrow	undefined	-
+\xcancel	undefined	-
+\xdef	primitive	-	\xdef
+\xhookleftarrow	undefined	-
+\xhookrightarrow	undefined	-
+\xi	mathchar	-	0	1	24
+\xleftarrow	macro	-	macro:->\protect \xleftarrow  
+\xleftarrow	macro	inner:xleftarrow 	macro:->\@protected@testopt \xleftarrow  \\xleftarrow  {}
+\xleftequilibrium	undefined	-
+\xleftharpoondown	undefined	-
+\xleftharpoonup	undefined	-
+\xleftrightarrow	undefined	-
+\xleftrightharpoons	undefined	-
+\xlongequal	undefined	-
+\xmapsto	undefined	-
+\xrightarrow	macro	-	macro:->\protect \xrightarrow  
+\xrightarrow	macro	inner:xrightarrow 	macro:->\@protected@testopt \xrightarrow  \\xrightarrow  {}
+\xrightequilibrium	undefined	-
+\xrightharpoondown	undefined	-
+\xrightharpoonup	undefined	-
+\xrightleftarrows	undefined	-
+\xrightleftharpoons	undefined	-
+\xtofrom	undefined	-
+\xtwoheadleftarrow	undefined	-
+\xtwoheadrightarrow	undefined	-
+\yen	macro	-	macro:->\mathhexbox {4}55
+\zeta	mathchar	-	0	1	16
+\{	macro	-	\protected macro:->\ifmmode \lbrace \else \textbraceleft \fi 
+\|	macro	-	\protected macro:->\delimiter "026B30D 
+\|	delimiter	inner:body	0	2	107	3	13
+\}	macro	-	\protected macro:->\ifmmode \rbrace \else \textbraceright \fi 
+\~	macro	-	macro:->\TU-cmd \~\TU\~ 
+]	mathcode	-	5	6	93
+]	delcode	-	6	93	3	3
+^	mathcode	-	0	0	94
+^	delcode	-	-1
+_	mathcode	-	8	0	0
+_	delcode	-	-1
+`	mathcode	-	0	0	96
+`	delcode	-	-1
+a	mathcode	-	7	1	97
+a	delcode	-	-1
+b	mathcode	-	7	1	98
+b	delcode	-	-1
+c	mathcode	-	7	1	99
+c	delcode	-	-1
+d	mathcode	-	7	1	100
+d	delcode	-	-1
+e	mathcode	-	7	1	101
+e	delcode	-	-1
+f	mathcode	-	7	1	102
+f	delcode	-	-1
+g	mathcode	-	7	1	103
+g	delcode	-	-1
+h	mathcode	-	7	1	104
+h	delcode	-	-1
+i	mathcode	-	7	1	105
+i	delcode	-	-1
+j	mathcode	-	7	1	106
+j	delcode	-	-1
+k	mathcode	-	7	1	107
+k	delcode	-	-1
+l	mathcode	-	7	1	108
+l	delcode	-	-1
+m	mathcode	-	7	1	109
+m	delcode	-	-1
+n	mathcode	-	7	1	110
+n	delcode	-	-1
+o	mathcode	-	7	1	111
+o	delcode	-	-1
+p	mathcode	-	7	1	112
+p	delcode	-	-1
+q	mathcode	-	7	1	113
+q	delcode	-	-1
+r	mathcode	-	7	1	114
+r	delcode	-	-1
+s	mathcode	-	7	1	115
+s	delcode	-	-1
+t	mathcode	-	7	1	116
+t	delcode	-	-1
+u	mathcode	-	7	1	117
+u	delcode	-	-1
+v	mathcode	-	7	1	118
+v	delcode	-	-1
+w	mathcode	-	7	1	119
+w	delcode	-	-1
+x	mathcode	-	7	1	120
+x	delcode	-	-1
+y	mathcode	-	7	1	121
+y	delcode	-	-1
+z	mathcode	-	7	1	122
+z	delcode	-	-1
+{	mathcode	-	0	0	123
+{	delcode	-	-1
+|	mathcode	-	0	2	106
+|	delcode	-	2	106	3	12
+}	mathcode	-	0	0	125
+}	delcode	-	-1
+~	mathcode	-	0	0	126
+~	delcode	-	-1
