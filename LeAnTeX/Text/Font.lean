@@ -27,8 +27,8 @@ text:
   characters set before the break (with a hyphen), after it, and unbroken.
 * **Interword space** from the font's space character: its advance; stretch a half and shrink
   a third of it, and an extra space after a sentence of a third of it, as luaotfload derives
-  TeX's font dimensions; none of these three for a font whose `post` table marks it
-  monospaced.
+  TeX's font dimensions; none of these three for a monospaced font (marked so by its `post`
+  table or its PANOSE proportion, as luaotfload reads it).
 
 ## Main definitions
 
@@ -60,7 +60,8 @@ structure FontInfo where
   /-- The character each glyph comes from, for glyphs a character maps to (the least such
   character). -/
   chars : Std.HashMap Nat Char
-  /-- Whether the font is monospaced (`post`'s `isFixedPitch`). -/
+  /-- Whether the font is monospaced: `post`'s `isFixedPitch`, or a PANOSE proportion of 9, as
+  luaotfload decides it. -/
   mono : Bool
   /-- A slant drawn onto the glyphs, in thousandths (horizontal shift per unit of height, as
   `FakeSlant` gives it to `fontspec`); `0` for none. Metrics are unchanged, as in luaotfload. -/
@@ -84,7 +85,8 @@ def FontInfo.ofFont (f : OpenType.Font) (name : String) : FontInfo := Id.run do
     if c < 0xD800 || c ≥ 0xE000 then
       let g := f.glyph (Char.ofNat c)
       if g != 0 && !chars.contains g then chars := chars.insert g (Char.ofNat c)
-  let mono := (f.post.map (·.isFixedPitch)).getD false
+  let mono := (f.post.map (·.isFixedPitch)).getD false ||
+    (f.os2.map (·.panoseProportion == 9)).getD false
   return { font := f, name, boxes, chars, mono }
 
 /-- The `GSUB` features the text layer applies to a run in this font: `smcp` for small

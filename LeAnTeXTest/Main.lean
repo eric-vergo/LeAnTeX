@@ -12,6 +12,7 @@ import LeAnTeXTest.LineBreakChecks
 import LeAnTeXTest.HyphenChecks
 import LeAnTeXTest.FrontChecks
 import LeAnTeXTest.TypesetChecks
+import LeAnTeXTest.FontFiles
 
 /-!
 # The differential test and the parity report
@@ -335,7 +336,7 @@ def benchMatrix : IO Unit := do
 /-- The text-mode checks and the font reader's: their failures. -/
 def textChecks : IO (Array String) := do
   return (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++
-    (← FrontChecks.run) ++ (← TypesetChecks.run) ++ (← FontTest.run)
+    (← FrontChecks.run) ++ (← TypesetChecks.run) ++ (← FontTest.run) ++ (← FontFiles.run)
 
 /-- Run everything; see the module docstring for the modes. -/
 def main (args : List String) : IO UInt32 := do

@@ -7,7 +7,9 @@
 # fixtures/text/<name>.jsonl (line breaks, hyphenation points, box dimensions; see
 # tools/tex-reference/reference.lua). The fixtures are committed, so `lake test` needs no TeX.
 #
-# Usage, from the repository root:  bash tools/tex-reference.sh [name …]
+# Usage, from the repository root:  bash tools/tex-reference.sh [--ncm] [name …]
+# With --ncm the fonts are New Computer Modern from fonts/newcomputermodern (tools/tex-reference/
+# ncm.tex) and each fixture is written as fixtures/text/<name>-ncm.jsonl.
 # Needs a TeX Live with LuaLaTeX and the Latin Modern OpenType fonts on PATH, or TEXBIN set to
 # its binary directory. TeX writes the fixture into its working directory (TeX Live forbids
 # writing elsewhere) and the script moves it into place. TeX's caches (luaotfload's font
@@ -25,6 +27,8 @@ trap 'rm -rf "$work"' EXIT
 export TEXMFVAR="$work/texmf-var" TEXMFCACHE="$work/texmf-var" TEXMFCONFIG="$work/texmf-config"
 mkdir -p "$TEXMFVAR" "$TEXMFCONFIG" "$root/fixtures/text"
 
+ncm=""
+if [ "${1:-}" = "--ncm" ]; then ncm="$root/fonts/newcomputermodern"; shift; fi
 names=("$@")
 if [ ${#names[@]} -eq 0 ]; then
   for f in "$root"/corpus/text/*.jsonl; do names+=("$(basename "$f" .jsonl)"); done
@@ -32,14 +36,16 @@ fi
 
 for name in "${names[@]}"; do
   corpus="$root/corpus/text/$name.jsonl"
-  fixture="$root/fixtures/text/$name.jsonl"
+  fixture="$root/fixtures/text/$name${ncm:+-ncm}.jsonl"
   [ -f "$corpus" ] || { echo "tex-reference: no corpus $corpus" >&2; exit 2; }
   # Paths go to TeX inside \def; refuse characters TeX or Lua would read specially.
   case "$root" in *[\\\{\}\%\#\$\&\~\^\"\ ]*)
     echo "tex-reference: unsupported characters in $root" >&2; exit 2;; esac
   tools="$root/tools/tex-reference"
   defs="\\def\\LeanTeXCorpus{$corpus}\\def\\LeanTeXFixture{out.jsonl}"
-  defs="$defs\\def\\LeanTeXTools{$tools}\\input{$tools/reference.tex}"
+  defs="$defs\\def\\LeanTeXTools{$tools}"
+  [ -n "$ncm" ] && defs="$defs\\def\\LeanTeXNcm{$ncm}"
+  defs="$defs\\input{$tools/reference.tex}"
   (cd "$work" && "$lualatex" --interaction=nonstopmode --halt-on-error --jobname=ref "$defs" \
     >"$work/run.out" 2>&1) || { tail -40 "$work/ref.log" >&2; exit 1; }
   mv "$work/out.jsonl" "$fixture"

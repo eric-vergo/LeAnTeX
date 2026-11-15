@@ -185,6 +185,8 @@ structure Os2 where
   xHeight : Option Int
   /-- Cap height (version 2 and later). -/
   capHeight : Option Int
+  /-- The PANOSE classification's proportion (its fourth byte): 9 for a monospaced font. -/
+  panoseProportion : Nat := 0
   deriving Repr, Inhabited
 
 /-- Reads `OS/2`. -/
@@ -194,7 +196,7 @@ def Os2.read (s : Slice) : Result Os2 := do
   let (xh, ch) ← if v ≥ 2 && s.fits 0 90 then
       pure (some (← s.i16 86), some (← s.i16 88)) else pure (none, none)
   return ⟨v, ← s.i16 2, ← s.u16 4, ← s.u16 6, ← s.u16 8, ← s.i16 68, ← s.i16 70, ← s.i16 72,
-    ← s.u16 74, ← s.u16 76, xh, ch⟩
+    ← s.u16 74, ← s.u16 76, xh, ch, ← s.u8 35⟩
 
 /-- The `post` table's metrics (glyph names come from the CFF charset). -/
 structure Post where

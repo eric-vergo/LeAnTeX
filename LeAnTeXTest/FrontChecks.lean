@@ -3,6 +3,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
 import LeAnTeX.Text.LatinModern
+import LeAnTeX.Text.NewComputerModern
 import LeAnTeXTest.LineBreakChecks
 
 /-!
@@ -96,12 +97,18 @@ def sourceOf (c : Json) : String := Id.run do
       else if (p.get? "tie").isSome then s := s ++ "~"
   return s ++ "\\par"
 
-/-- Runs the comparison; prints a summary, returns the differences. -/
-def run : IO (Array String) := do
-  let some resolve ← latinModern
-    | IO.println "  front end: skipped (no Latin Modern fonts found)"; return #[]
+/-- The New Computer Modern fonts of the repository (`fonts/newcomputermodern`), as a resolver;
+`none` if the roman Book font is missing. -/
+def newComputerModern : IO (Option FontResolver) := do
+  let (infos, _) ← loadNewComputerModern "fonts/newcomputermodern"
+  if !infos.contains "NewCM10-Book" then return none
+  return some (newComputerModernResolver infos)
+
+/-- Runs the comparison against `fixture` (TeX's answers with the fonts `resolve` stands for);
+prints a summary under `label`, returns the differences. -/
+def runWith (resolve : FontResolver) (fixture label : String) : IO (Array String) := do
   let corpus ← readJsonLines "corpus/text/paragraphs.jsonl"
-  let fixture ← readJsonLines "fixtures/text/paragraphs.jsonl"
+  let fixture ← readJsonLines fixture
   let mut fails := #[]
   let mut same := 0
   let mut n := 0
@@ -131,8 +138,20 @@ def run : IO (Array String) := do
           ours[i]? != theirs[i]?).getD 0
         fails := fails.push s!"{id}: node {i} is {ours[i]?.getD "-"}, TeX's {theirs[i]?.getD "-"} \
           ({ours.size} and {theirs.size} nodes)"
-  IO.println s!"  front end: {same} of {n} corpus paragraphs give TeX's horizontal list, lines \
-    and box"
+  IO.println s!"  front end{label}: {same} of {n} corpus paragraphs give TeX's horizontal list, \
+    lines and box"
   return fails
+
+/-- Runs the comparison with Latin Modern (`fixtures/text/paragraphs.jsonl`) and with New
+Computer Modern (`fixtures/text/paragraphs-ncm.jsonl`); prints the summaries, returns the
+differences. -/
+def run : IO (Array String) := do
+  let lm ← match ← latinModern with
+    | some r => runWith r "fixtures/text/paragraphs.jsonl" ""
+    | none => IO.println "  front end: skipped (no Latin Modern fonts found)"; pure #[]
+  let ncm ← match ← newComputerModern with
+    | some r => runWith r "fixtures/text/paragraphs-ncm.jsonl" " (New Computer Modern)"
+    | none => IO.println "  front end (New Computer Modern): fonts missing"; pure #["no NCM"]
+  return lm ++ ncm
 
 end FrontChecks

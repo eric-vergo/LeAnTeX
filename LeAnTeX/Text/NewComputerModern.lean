@@ -30,6 +30,7 @@ default.
 * `NcmFace`, `newComputerModernFace`: the file, slant and small capitals for a font key.
 * `newComputerModernFiles`: every file a key can name.
 * `newComputerModernResolver`: a `FontResolver` over fonts read from those files.
+* `loadNewComputerModern`: those files read from a directory.
 -/
 
 namespace LeAnTeX.Text
@@ -91,5 +92,20 @@ name (`FontInfo.name`) is its file name with `.otf`. -/
 def newComputerModernResolver (fonts : Std.HashMap String FontInfo) : FontResolver := fun k =>
   let face := newComputerModernFace k
   fonts[face.file]?.map fun i => { i with slant := face.slant, smallCaps := face.smallCaps }
+
+/-- The files of `newComputerModernFiles` found in `dir` (`fonts/newcomputermodern` in this
+repository), read; a file that is missing or does not read is left out, with its name and the
+reason in the second component. -/
+def loadNewComputerModern (dir : System.FilePath) :
+    IO (Std.HashMap String FontInfo × Array String) := do
+  let mut infos : Std.HashMap String FontInfo := {}
+  let mut missing := #[]
+  for name in newComputerModernFiles do
+    let path := dir / (name ++ ".otf")
+    if !(← path.pathExists) then missing := missing.push s!"{name}: not found"; continue
+    match OpenType.Font.read (← IO.FS.readBinFile path) with
+    | .ok f => infos := infos.insert name (FontInfo.ofFont f (name ++ ".otf"))
+    | .error e => missing := missing.push s!"{name}: {e.table}: {e.message}"
+  return (infos, missing)
 
 end LeAnTeX.Text

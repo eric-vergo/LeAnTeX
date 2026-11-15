@@ -5,8 +5,10 @@
 % tools/tex-reference.sh, which defines \LeanTeXCorpus (the corpus file), \LeanTeXFixture (the
 % fixture to write) and \LeanTeXTools (this directory) before \input-ing this file.
 % LaTeX's defaults stand (article class, Latin Modern in the TU encoding, US English
-% hyphenation) except where a case sets a parameter.
+% hyphenation) except where a case sets a parameter. With \LeanTeXNcm defined (the directory of
+% the New Computer Modern fonts), ncm.tex sets those fonts instead of Latin Modern.
 \documentclass{article}
+\ifdefined\LeanTeXNcm\input{\LeanTeXTools/ncm.tex}\fi
 \begin{document}
 \directlua{
   require("lualibs-util-jsn")

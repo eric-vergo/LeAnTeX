@@ -1,0 +1,26 @@
+% Released under Apache 2.0 license as described in the file LICENSE.
+% Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
+%
+% New Computer Modern as the document's fonts, for recording TeX's answers with them
+% (tools/tex-reference.sh --ncm). \LeanTeXNcm is the directory with the font files
+% (fonts/newcomputermodern). The faces are those of the package's own fontspec files for its
+% Book weight (NewCM10-Book.fontspec, NewCMSans10-Book.fontspec, NewCMMono10-Book.fontspec):
+% the 8-point design up to 8 points, slanted shapes as FakeSlant=0.25 of the upright font.
+\usepackage{fontspec}
+\setmainfont{NewCM10-Book.otf}[Path=\LeanTeXNcm/,
+  UprightFeatures={SizeFeatures={{Size=-8.01,Font=NewCM08-Book.otf},{Size=8.01-}}},
+  ItalicFont=NewCM10-BookItalic.otf,
+  ItalicFeatures={SizeFeatures={{Size=-8.01,Font=NewCM08-BookItalic.otf},{Size=8.01-}}},
+  BoldFont=NewCM10-Bold.otf, BoldItalicFont=NewCM10-BoldItalic.otf,
+  SlantedFont=NewCM10-Book.otf, SlantedFeatures={FakeSlant=0.25},
+  BoldSlantedFont=NewCM10-Bold.otf, BoldSlantedFeatures={FakeSlant=0.25}]
+\setsansfont{NewCMSans10-Book.otf}[Path=\LeanTeXNcm/,
+  UprightFeatures={SizeFeatures={{Size=-8.01,Font=NewCMSans08-Book.otf},{Size=8.01-}}},
+  ItalicFont=NewCMSans10-BookOblique.otf,
+  ItalicFeatures={SizeFeatures={{Size=-8.01,Font=NewCMSans08-BookOblique.otf},{Size=8.01-}}},
+  BoldFont=NewCMSans10-Bold.otf, BoldItalicFont=NewCMSans10-BoldOblique.otf,
+  SlantedFont=NewCMSans10-Book.otf, SlantedFeatures={FakeSlant=0.25}]
+\setmonofont{NewCMMono10-Book.otf}[Path=\LeanTeXNcm/,
+  ItalicFont=NewCMMono10-BookItalic.otf, BoldFont=NewCMMono10-Bold.otf,
+  BoldItalicFont=NewCMMono10-BoldOblique.otf,
+  SlantedFont=NewCMMono10-Book.otf, SlantedFeatures={FakeSlant=0.25}]
