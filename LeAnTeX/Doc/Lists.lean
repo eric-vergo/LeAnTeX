@@ -51,10 +51,11 @@ The level is the number of enclosing lists that are not trivial (LaTeX's `\@list
 `\trivlist` leaves alone). Level 1 takes the size's own `\@listi` (`\small` and
 `\footnotesize` have theirs, `Vars.listOne`) and keeps the `\labelwidth` in force (`\@listi`
 does not set it: 0 inside a trivial list); levels 2 to 4 set it from their left margin. A
-trivial list keeps the enclosing list's skips (outside every list the class's level 1), `\rightmargin`, `\listparindent` and
-`\parindent`, its own `\parsep` the `\parskip` outside. With `ams` (amsthm's theorems) the skip
-above is `\topsep` alone and the skip below too (`\@topsep\thm@preskip`,
-`\@topsepadd\thm@postskip`), without `\partopsep` and the outer `\parskip`. -/
+trivial list keeps the enclosing list's skips (outside every list the class's level 1),
+`\rightmargin`, `\listparindent`, `\linewidth` and `\parindent`, and its `\parsep` is the
+`\parskip` outside. With `ams` (amsthm's theorems) the skip above is `\topsep` alone and the
+skip below too (`\@topsep\thm@preskip`, `\@topsepadd\thm@postskip`), without `\partopsep` and
+the outer `\parskip`. -/
 def beginList (at_ : Tok) (setup : ListLevel → ListLevel) (trivial : Bool := false)
     (ams : Bool := false) : M Unit := do
   let d ← docSt

@@ -215,7 +215,9 @@ def label (at_ : Tok) : M Unit := do
   if !s.hmode && d.noBreak then
     for n in nb do pushV n
   else if s.hmode && s.clubMax && s.run.isEmpty &&
-      s.hlist.all (fun n => match n with | .box .. | .penalty _ | .glue .. => true | _ => false) then
+      s.hlist.all (fun n => match n with
+        | .box .. | .penalty _ | .glue .. => true
+        | _ => false) then
     match s.vlist.back? with
     | some (.glue g 3) =>
       set { s with vlist := s.vlist.pop ++ nb |>.push (.glue g 3) }
