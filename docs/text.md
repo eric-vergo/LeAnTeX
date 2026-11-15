@@ -71,7 +71,7 @@ explicit hyphens.
 * **Glyph metrics**: advances, and heights and depths from the glyphs' tight boxes, scaled and
   rounded to the nearest sp.
 * **Hyphenation** as LuaTeX applies it: a run of letters that starts the list or follows a
-  glue, a box or a non-letter character, not one right after a penalty, a kern, a discretionary
+  glue, a box, a rule (a strut) or a non-letter character, not one right after a penalty, a kern, a discretionary
   or an explicit hyphen; plain TeX's patterns (TeX Live's language 0, LaTeX's default for
   English); no hyphenation in a monospaced font.
 * **Discretionaries** as luaotfload builds them: a hyphenation point between two glyphs is a
