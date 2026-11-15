@@ -150,8 +150,10 @@ where
       beginProof at_
       setEnd #[csT "leantex@qed" at_, csT "leantex@endlist" at_]
       return true
-    if ["equation", "equation*", "displaymath", "align", "align*", "gather", "gather*",
-        "multline", "multline*", "flalign", "flalign*"].contains name then
+    if ["align", "align*", "gather", "gather*", "multline", "multline*"].contains name then
+      alignEnv at_ name
+      return true
+    if ["equation", "equation*", "displaymath", "flalign", "flalign*"].contains name then
       equationEnv at_ name
       return true
     if name == "abstract" then

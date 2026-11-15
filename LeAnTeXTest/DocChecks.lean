@@ -426,6 +426,29 @@ def probeDiffs (resolve : FontResolver) : IO (Array String) := do
             out := out.push s!"{size} {fa[1]?.getD ""}: {x}, LuaLaTeX {y}"
   return out
 
+/-- A horizontal list in short form, for `--show-paragraphs`: characters as themselves, the
+other nodes in brackets with their sizes. -/
+partial def hShort (n : HNode) : String := match n with
+  | .glyph c .. => c.toString
+  | .kern w _ => s!"[k{w}]"
+  | .glue g st => s!"[g{g.width}+{g.stretch}/{g.stretchOrder}-{g.shrink} s{st}]"
+  | .penalty p => s!"[p{p}]"
+  | .disc .. => "[-]"
+  | .box w h d _ c => s!"[box {w} {h} {d} " ++ String.join (c.toList.map hShort) ++ "]"
+  | .rule w h d => s!"[rule {w} {h} {d}]"
+  | .math w h d _ _ => s!"[math {w} {h} {d}]"
+
+/-- Every paragraph's horizontal list of a document as the line breaker received it
+(`--show-paragraphs NAME`). -/
+def showParagraphs (name : String) : IO Unit := do
+  let some resolve ← FrontChecks.newComputerModern | IO.println "fonts missing"; return
+  let src ← IO.FS.readFile s!"corpus/{setOf name}/{name}.tex"
+  match typeset src resolve with
+  | .error e => IO.println s!"error: {e.message}"
+  | .ok d =>
+    for h : k in [0:d.paragraphs.size] do
+      IO.println s!"{k}: {String.join (d.paragraphs[k].toList.map hShort)}"
+
 /-- Runs every document; with `update` rewrites the baseline and the report. Returns the
 failures (a baselined document that no longer agrees). -/
 def run (update : Bool := false) (show? : Option String := none) : IO (Array String) := do

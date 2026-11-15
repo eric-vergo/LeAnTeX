@@ -173,6 +173,23 @@ def readEnvBody (at_ : Tok) (name : String) : M (String × Array String × Bool)
       | t => out := out ++ t.text
   failAt at_ "Equation too long"
 
+/-- The source of an environment's body up to its `\end{name}`, as text, with nothing taken
+out (for the alignments, which take labels and `\notag` row by row). -/
+def readEnvBodyRaw (at_ : Tok) (name : String) : M (String × Array String × Bool) := do
+  let mut out := ""
+  let (cfg, _) ← read
+  for _ in [0:cfg.maxTokens + 1] do
+    match ← next? with
+    | none => failAt at_ s!"\\begin\{{name}} ended by the end of the source"
+    | some t =>
+      match t with
+      | .cs "end" _ =>
+        let n ← readWord at_
+        if n == name then return (out, #[], false)
+        out := out ++ s!"\\end\{{n}}"
+      | t => out := out ++ t.text
+  failAt at_ "Equation too long"
+
 /-- An equation environment (see the module docstring). -/
 def equationEnv (at_ : Tok) (name : String) : M Unit := do
   let (src, labels, nonum) ← readEnvBody at_ name
@@ -200,6 +217,250 @@ def equationEnv (at_ : Tok) (name : String) : M Unit := do
       eqno := some (.box w h d 0 g)
   -- the group the environment opened ends with it
   displayFormula at_ math eqno (fullWidth := ams)
+  modifyDoc fun d => { d with envs := d.envs.pop }
+  endGroup at_
+
+/-! ### amsmath's alignments -/
+
+/-- A row of an alignment: its cells' source, the labels in it, whether it is numbered
+(`\notag` and `\nonumber` drop the number) and the space `\\[dim]` adds after it. -/
+structure AlignRow where
+  /-- The cells' source. -/
+  cells : Array String
+  /-- The labels. -/
+  labels : Array String := #[]
+  /-- Whether the row is numbered. -/
+  numbered : Bool := true
+  /-- The source of the `[dim]` after the row's `\\`, if any. -/
+  space : Option String := none
+  deriving Inhabited
+
+/-- An alignment's body split into rows at `\\` and into cells at `&`, outside braces and
+nested environments; `\label{key}`, `\notag` and `\nonumber` taken out of each row. Linear in
+the body's length. -/
+def splitAlignRows (src : String) : Array AlignRow := Id.run do
+  let cs := src.toList.toArray
+  let n := cs.size
+  let mut rows : Array AlignRow := #[]
+  let mut cells : Array String := #[]
+  let mut cur := ""
+  let mut labels : Array String := #[]
+  let mut numbered := true
+  let mut depth : Int := 0
+  let mut envDepth : Int := 0
+  let mut i := 0
+  let at_ := fun (k : Nat) (pat : String) =>
+    (List.range pat.length).all fun j => cs[k + j]? == pat.toList[j]?
+  for _ in [0:n + 1] do
+    if i ≥ n then break
+    let c := cs[i]?.getD ' '
+    if c == '\\' && depth == 0 && envDepth == 0 && cs[i + 1]? == some '\\' then
+      -- a row ends: `\\`, `\\*`, `\\[dim]`
+      let mut j := i + 2
+      if cs[j]? == some '*' then j := j + 1
+      let mut space : Option String := none
+      let mut k := j
+      for _ in [j:n] do
+        if cs[k]? == some ' ' || cs[k]? == some '\n' then k := k + 1 else break
+      if cs[k]? == some '[' then
+        let mut e := k + 1
+        for _ in [k + 1:n] do
+          if cs[e]? == some ']' then break
+          e := e + 1
+        space := some (String.ofList (cs.extract (k + 1) e).toList)
+        j := e + 1
+      rows := rows.push { cells := cells.push cur, labels, numbered, space }
+      cells := #[]
+      cur := ""
+      labels := #[]
+      numbered := true
+      i := j
+    else if c == '&' && depth == 0 && envDepth == 0 && (i == 0 || cs[i - 1]? != some '\\') then
+      cells := cells.push cur
+      cur := ""
+      i := i + 1
+    else if c == '\\' && depth == 0 && at_ i "\\label" &&
+        !((cs[i + 6]?.map Char.isAlpha).getD false) then
+      let mut b := i + 6
+      for _ in [i + 6:n] do
+        if cs[b]? == some ' ' then b := b + 1 else break
+      let mut e := b + 1
+      for _ in [b + 1:n] do
+        if cs[e]? == some '}' then break
+        e := e + 1
+      labels := labels.push (String.ofList (cs.extract (b + 1) e).toList).trimAscii.toString
+      i := e + 1
+    else if c == '\\' && (at_ i "\\notag" || at_ i "\\nonumber") &&
+        !((cs[i + (if at_ i "\\notag" then 6 else 9)]?.map Char.isAlpha).getD false) then
+      numbered := false
+      i := i + (if at_ i "\\notag" then 6 else 9)
+    else
+      if c == '\\' then
+        if at_ i "\\begin" then envDepth := envDepth + 1
+        if at_ i "\\end" then envDepth := envDepth - 1
+        -- a control symbol keeps its character (`\{`, `\&`, `\\` inside a group)
+        if let some d := cs[i + 1]? then
+          if !d.isAlpha then
+            cur := cur.push c |>.push d
+            i := i + 2
+            continue
+      if c == '{' then depth := depth + 1
+      if c == '}' then depth := depth - 1
+      cur := cur.push c
+      i := i + 1
+  let last := cells.push cur
+  -- an empty last row (after a final `\\`) is dropped
+  if !(last.size == 1 && (last[0]?.getD "").trimAscii.isEmpty) then
+    rows := rows.push { cells := last, labels, numbered }
+  return rows
+
+/-- amsmath's `align`, `align*`, `gather`, `gather*`, `multline`, `multline*` as amsmath builds
+them: a display whose rows are boxes of their own, one after the other on the vertical list.
+
+* **Vertical**: `\predisplaypenalty` and `\abovedisplayskip` (never the short skip), then for
+  `align` and `gather` `\vskip-\jot` and for `multline` a penalty of 10000; each row with the
+  interline glue of `\baselineskip` plus `\jot` (`\lineskip` plus `\jot` when the rows come
+  closer than `\lineskiplimit`), at least the strut's height and depth, followed
+  by `\interdisplaylinepenalty` (10000) and the row's `\\[dim]` space; then
+  `\postdisplaypenalty` and `\belowdisplayskip`.
+* **Horizontal**: `align`'s columns in pairs, right then left aligned (the left cell's source
+  after `{}`, so that a relation keeps its space), each column as wide as its widest cell; the
+  space left over divided equally among the margins and the gaps between pairs (as many as
+  the pairs and one more); `gather`'s rows centred; `multline`'s first row flush left and its
+  last flush right, `\multlinegap` (10 pt) from the margins, the others centred. A row's number
+  goes flush right in the display width, in the roman font at the current size.
+* **Numbers**: every row of a numbered environment steps `equation` except the rows with
+  `\notag` or `\nonumber`; `multline` has one number, on its last row; a row's `\label`
+  records its number.
+
+The cells are laid out by the math layout in display style. Not modelled: `\tag`,
+`\intertext`, `split`, `alignat` and `flalign` (set as `aligned`), a number that does not fit
+beside its row. -/
+def alignEnv (at_ : Tok) (name : String) : M Unit := do
+  let (src, _, _) ← readEnvBodyRaw at_ name
+  let base := (name.dropEnd (if name.endsWith "*" then 1 else 0)).toString
+  let star := name.endsWith "*"
+  let rows := splitAlignRows src
+  let wasH := (← get).hmode
+  if wasH then endParagraph (display := true)
+  let v ← vars
+  let z := v.lineWidth.getD v.p.hsize
+  let sh := v.totalLeftMargin
+  let jot : Int := 3 * 65536
+  let (strutH, strutD) := (texTimes v.baselineSkip.width 0 45875,
+    texTimes v.baselineSkip.width 0 19661)
+  -- the cells, laid out
+  let mut laid : Array (Array HNode) := #[]
+  for r in rows do
+    let mut cs := #[]
+    for h : k in [0:r.cells.size] do
+      let cell := r.cells[k]
+      let src := if base == "align" && k % 2 == 1 then "{}" ++ cell else cell
+      cs := cs.push (← formula at_ src true)
+    laid := laid.push cs
+  -- the numbers
+  let tf ← fontFor { v.key with family := .roman, bold := false, shape := .upright }
+  let mut tags : Array (Option HNode) := #[]
+  for h : i in [0:rows.size] do
+    let r := rows[i]
+    let numbered := !star && r.numbered && (base != "multline" || i + 1 == rows.size)
+    let labels := if base == "multline" then rows.foldl (init := #[]) (· ++ ·.labels)
+      else r.labels
+    if numbered then
+      refStepCounter at_ "equation"
+      let num ← theCounter at_ "equation"
+      for l in labels do
+        modifyDoc fun d => { d with labels := d.labels.push (l, num) }
+        adjustV (.label l)
+      let g := tf.shape ("(" ++ num ++ ")").toList.toArray
+      let (w, _, _, h, d) := measure g
+      tags := tags.push (some (.box w h d 0 g))
+    else
+      for l in labels do
+        modifyDoc fun d => { d with labels := d.labels.push (l, d.currentLabel) }
+        adjustV (.label l)
+      tags := tags.push none
+  -- the columns of `align`
+  let ncols := laid.foldl (init := 0) fun m cs => max m cs.size
+  let widths := (List.range ncols).toArray.map fun k =>
+    laid.foldl (init := (0 : Int)) fun m cs => max m ((cs[k]?.map HNode.width).getD 0)
+  let total := widths.foldl (· + ·) 0
+  let pairs := (ncols + 1) / 2
+  let gap := if pairs == 0 then 0 else max 0 ((z - total) / (pairs + 1))
+  let anyTag := tags.any (·.isSome)
+  -- the vertical list
+  pushV (.penalty v.preDisplayPenalty)
+  pushV (.glue v.aboveDisplaySkip 4)
+  if base == "multline" then pushV (.penalty 10000) else pushV (.glue { width := -jot } 0)
+  let p ← interline
+  let p := { p with baselineSkip := { p.baselineSkip with width := p.baselineSkip.width + jot },
+                    lineSkip := { p.lineSkip with width := p.lineSkip.width + jot } }
+  for h : i in [0:rows.size] do
+    let cs := laid[i]?.getD #[]
+    let tag := tags[i]?.getD none
+    let rh := cs.foldl (init := strutH) fun m c => max m c.height
+    let rd := cs.foldl (init := strutD) fun m c => max m c.depth
+    let (rh, rd) := match tag with
+      | some t => (max rh t.height, max rd t.depth)
+      | none => (rh, rd)
+    let cellBox := fun (c : HNode) => HNode.box c.width c.height c.depth 0 #[c]
+    let tagNodes := fun (x : Int) => match tag with
+      | some t => #[HNode.kern (z - t.width - x) .explicit, t]
+      | none => #[]
+    let (content, width) : Array HNode × Int :=
+      if base == "align" then Id.run do
+        let mut out := #[]
+        let mut x : Int := 0
+        let mut col : Int := 0
+        for k in [0:ncols] do
+          if k % 2 == 0 then col := col + gap
+          let w := widths.getD k 0
+          let c := cs[k]?
+          let cw := (c.map HNode.width).getD 0
+          let at_x := if k % 2 == 0 then col + w - cw else col
+          if let some c := c then
+            out := out.push (.kern (at_x - x) .explicit) |>.push (cellBox c)
+            x := at_x + cw
+          col := col + w
+        if anyTag then
+          let t := tagNodes x
+          return (out ++ (if t.isEmpty then #[HNode.kern (z - x) .explicit] else t), z)
+        return (out.push (.kern (col - x) .explicit), col)
+      else if base == "gather" then
+        let c := cs[0]?.getD (.box 0 0 0 0 #[])
+        let x := half (z - c.width)
+        let t := tagNodes (x + c.width)
+        (#[HNode.kern x .explicit, cellBox c] ++
+          (if t.isEmpty then #[HNode.kern (z - x - c.width) .explicit] else t), z)
+      else
+        -- multline: the content directly in the row
+        let c := cs[0]?.getD (.box 0 0 0 0 #[])
+        let gapM : Int := 10 * 65536
+        let x := if i == 0 && rows.size > 1 then gapM
+          else if i + 1 == rows.size && rows.size > 1 then
+            z - gapM - c.width - (match tag with | some t => t.width | none => 0)
+          else half (z - c.width)
+        let t := tagNodes (x + c.width)
+        (#[HNode.kern x .explicit, c] ++
+          (if t.isEmpty then #[HNode.kern (z - x - c.width) .explicit] else t), z)
+    let s ← get
+    let (l, pd) := LeAnTeX.Doc.appendBox s.vlist p s.vPrev (.hbox width rh rd sh content {})
+    set { s with vlist := l, vPrev := pd }
+    let y ← stack rh rd
+    let line : Line := { nodes := content, width, indent := 0, natural := width, height := rh,
+                         depth := rd, glue := {} }
+    modify fun s => { s with lines := s.lines.push (line, y), width := v.p.hsize }
+    pushV (.penalty 10000)
+    let space ← match (rows[i]?.bind (·.space)) with
+      | some d => dimFrom at_ (textToks at_ d)
+      | none => pure 0
+    pushV (.glue { width := space } 0)
+  pushV (.penalty v.postDisplayPenalty)
+  pushV (.glue v.belowDisplaySkip 5)
+  if wasH then
+    modify fun s => { s with noIndent := true, afterDisplay := true }
+    startParagraph
+  if let some t ← nextNonSpace? then unread #[t]
   modifyDoc fun d => { d with envs := d.envs.pop }
   endGroup at_
 

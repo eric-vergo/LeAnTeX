@@ -12,8 +12,12 @@
 \makeatletter
 % (patched again at the start of the document, since a package such as amsmath may define
 % \stepcounter anew)
+% (amsmath's alignments step their counter while measuring the rows, then restore it: those
+% steps are not recorded)
 \def\leantex@ours#1{\leantex@stepcounter{#1}%
-  \ifx\@elt\@stpelt\else\leantex@record{#1}\fi}
+  \ifx\@elt\@stpelt\else\leantex@measuring{}{\leantex@record{#1}}\fi}
+\def\leantex@measuring#1#2{\ifx\ifmeasuring@\@undefined#2\else
+  \ifmeasuring@#1\else#2\fi\fi}
 \def\leantex@patch{\ifx\stepcounter\leantex@ours\else
   \let\leantex@stepcounter\stepcounter\let\stepcounter\leantex@ours\fi}
 \leantex@patch
