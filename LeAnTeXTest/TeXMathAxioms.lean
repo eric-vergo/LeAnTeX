@@ -21,8 +21,9 @@ open LeAnTeX.TeXMath
 #print axioms Style.sub_size_eq_sup_size
 #print axioms Style.sub_of_script
 #print axioms Style.size_le_num
-#print axioms spacingTable_total
+#print axioms spacingTable_eq_two_iff
 #print axioms spacingTable_after_open
+#print axioms spacingTable_before_close
 #print axioms interAtomGlue_script
 #print axioms hpack_width
 #print axioms le_hpack_height

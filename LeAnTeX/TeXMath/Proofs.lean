@@ -13,9 +13,11 @@ Theorems about the functions the layout runs.
   denominator's style is cramped, a cramped style's superscript is cramped, `cramped` is
   idempotent, scripts are never larger than their nucleus, the subscript and superscript of a
   style are set at the same size, and the scripts of a script style are scriptscript.
-* The inter-atom spacing is total over the classes and gives no space but the unconditional
-  thin one in script styles; there is never a space after an opening or before a closing atom
-  in the table, and every entry is one of the five codes.
+* The inter-atom spacing gives no space but the unconditional thin one in script styles, and
+  that one stands exactly where *The TeXbook*'s table (Chapter 18) has it unbracketed: between
+  an operator and an ordinary atom or another operator, and before an operator after a closing
+  or an inner atom. There is never a space after an opening atom, and before a closing atom
+  only after punctuation (a conditional thin space, as in TeX's table).
 * `hpack` contains its children: its width is the sum of theirs, its height and depth are at
   least each child's.
 -/
@@ -58,13 +60,26 @@ theorem size_le_num (s : Style) : s.size ≤ s.num.size := by
 
 end Style
 
-/-- Every entry of the spacing table is one of its five codes, for every pair of classes. -/
-theorem spacingTable_total (l r : Fin 8) : (spacingTable l r).val ≤ 4 := by
+/-- The unconditional thin space (code `2`) is between an operator (1) and an ordinary atom (0)
+or another operator, and before an operator after a closing (5) or an inner (7) atom, and
+nowhere else. -/
+theorem spacingTable_eq_two_iff (l r : Fin 8) :
+    spacingTable l r = 2 ↔
+      (l = 0 ∧ r = 1) ∨ (l = 1 ∧ r = 0) ∨ (l = 1 ∧ r = 1) ∨ (l = 5 ∧ r = 1) ∨
+        (l = 7 ∧ r = 1) := by
   revert l r; decide
 
 /-- No space follows an opening atom. -/
 theorem spacingTable_after_open (r : Fin 8) : spacingTable 4 r = 0 := by
   revert r; decide
+
+/-- No space comes before a closing atom (5) except after punctuation (6). -/
+theorem spacingTable_before_close (l : Fin 8) (h : l ≠ 6) : spacingTable l 5 = 0 := by
+  revert l; decide
+
+/-- After punctuation a closing atom gets the conditional thin space (code `1`), as in TeX's
+table: `spacingTable_before_close` needs its hypothesis. -/
+example : spacingTable 6 5 = 1 := by decide
 
 /-- In script and scriptscript style the only inter-atom space is the unconditional thin one
 (`2` in the table, between an operator and an ordinary atom or another operator, and before an
@@ -81,6 +96,12 @@ theorem interAtomGlue_script (p : Params) (l r : Fin 8) (s : Style) (mu : Int)
   | 2, _ => exact .inr rfl
   | 3, _ => exact .inl (by simp [h])
   | 4, _ => exact .inl (by simp [h])
+
+/-- The hypothesis of `interAtomGlue_script` can be met: script style is not large, and there
+the medium space between an ordinary atom and a binary operation is left out. -/
+example (p : Params) (mu : Int) :
+    Style.script.isLarge = false ∧ interAtomGlue p 0 2 Style.script mu = none := by
+  constructor <;> rfl
 
 /-- `hpack`'s width at natural size is the sum of its children's. -/
 theorem hpack_width (l : Array Node) :
