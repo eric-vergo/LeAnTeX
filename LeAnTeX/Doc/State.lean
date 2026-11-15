@@ -60,6 +60,8 @@ inductive FrameKind where
 /-- The parameters of a list environment at one level (LaTeX's `\list`, its `\@listi` …
 `\@listvi` and the environment's own settings). -/
 structure ListLevel where
+  /-- The environment that opened the level (`itemize`, `enumerate`, …; empty for others). -/
+  env : String := ""
   /-- `\topsep`. -/
   topSep : Glue := {}
   /-- `\partopsep`. -/

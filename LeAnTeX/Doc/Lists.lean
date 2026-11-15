@@ -25,7 +25,10 @@ LuaLaTeX shows them:
   inner `\parskip` less the outer one; `\addpenalty{-51}` and `\addvspace{\@topsepadd}`; the
   next paragraph, if it follows without a blank line, is not indented (`\@endpe`).
 * **Levels**: the class's parameters for levels 1 to 4 (`\@listi` …), `\leftmarginv` and
-  `\leftmarginvi` deeper; at most six levels (an error beyond, as in LaTeX).
+  `\leftmarginvi` deeper; at most six levels (an error beyond, as in LaTeX). The labels of
+  `itemize` and of `enumerate` follow each environment's own level, counted apart as LaTeX
+  counts them (`\@itemdepth`, `\@enumdepth`, at most four each): an `itemize` inside an
+  `enumerate` inside an `itemize` has the second `itemize` label.
 
 Environments: `itemize` (labels •, bold –, ∗, ·), `enumerate` (`1.`, `(a)`, `i.`, `A.`; its
 `\ref` texts `1`, `1a`, `1(a)i`, `1(a)iA`), `description` (bold labels at their natural
@@ -186,15 +189,22 @@ def enumLabel (at_ : Tok) (depth : Nat) : Array Tok :=
 
 /-- The list environments' beginnings (see the module docstring); whether `name` is one. -/
 def beginListEnv (at_ : Tok) (name : String) : M Bool := do
-  let depth := (← docSt).lists.size + 1
+  -- LaTeX counts the levels of `itemize` and of `enumerate` apart (`\@itemdepth`,
+  -- `\@enumdepth`), each to four, inside the six levels of all lists (`\@listdepth`)
+  let levels := (← docSt).lists
+  let depthOf := fun (env : String) => (levels.filter (·.env == env)).size + 1
   match name with
   | "itemize" =>
-    beginList at_ fun l => { l with label := itemizeLabel at_ depth }
+    let depth := depthOf "itemize"
+    if depth > 4 then failAt at_ "Too deeply nested"
+    beginList at_ fun l => { l with label := itemizeLabel at_ depth, env := "itemize" }
   | "enumerate" =>
+    let depth := depthOf "enumerate"
     let c := enumCounter depth
     if depth > 4 then failAt at_ "Too deeply nested"
     modifyDoc fun d => { d with counters := d.counters.set c 0 }
-    beginList at_ fun l => { l with label := enumLabel at_ depth, counter := some c }
+    beginList at_ fun l =>
+      { l with label := enumLabel at_ depth, counter := some c, env := "enumerate" }
   | "description" =>
     beginList at_ fun l => { l with labelWidth := 0, itemIndent := -l.leftMargin,
                                     naturalLabel := true, labelStyle := 1,

@@ -40,7 +40,7 @@ given). `examples/article/article.tex` and `examples/article/` show the result.
   most four times. An undefined reference prints a bold `??` and is reported in the warnings.
 * **Lengths**: `\newlength`, `\setlength`, `\addtolength` of user lengths and of the layout's
   (`\parindent`, `\parskip`, `\textwidth`, `\baselineskip`, …).
-* **Lists**: `itemize`, `enumerate`, `description` nested to four levels with the class's labels
+* **Lists**: `itemize`, `enumerate`, `description` nested to six levels in all, `itemize` and `enumerate` to four each (counted apart, as LaTeX counts them), with the class's labels
   and indents; `\item[label]`.
 * **Environments**: `quote`, `quotation`, `center`, `flushleft`, `flushright`, `\centering`,
   `\raggedright`, `\raggedleft`, `verbatim`, `\verb`, `\newenvironment`, `\renewenvironment`,
