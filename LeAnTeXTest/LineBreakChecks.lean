@@ -102,6 +102,53 @@ def checkOne (c r : Json) : Array String := Id.run do
             {num "glueSign"}/{num "glueOrder"}/{ratio}"
     return out
 
+/-- Random horizontal lists (glyphs, glue of every order, penalties, kerns, discretionaries,
+some malformed) under random parameters, and lists past the caps: each must be broken, its
+breaks satisfying `checkBreaks`, or rejected with an error. Returns the failures, the number of
+lists, and how many were rejected. -/
+def fuzz : Array String × Nat × Nat := Id.run do
+  let mut seed : Nat := 2024
+  let mut fails := #[]
+  let mut rejected := 0
+  let next := fun (s : Nat) => (s * 6364136223846793005 + 1442695040888963407) % 2 ^ 64
+  let n := 400
+  for case in [0:n] do
+    let mut items : Array HNode := #[]
+    seed := next seed
+    let len := seed % 120
+    for _ in [0:len] do
+      seed := next seed
+      let r := seed % 1000
+      seed := next seed
+      let v : Int := (seed % 2000000 : Nat)
+      items := items.push <| match r % 10 with
+        | 0 | 1 | 2 | 3 => .glyph 'a' 1 v 0 0 0
+        | 4 =>
+          .glue
+            { width := v / 4, stretch := v / 8, stretchOrder := if r == 997 then 4 else r % 4, shrink := v / 9,
+              shrinkOrder := (r / 7) % 4 } 13
+        | 5 => .penalty (v - 1000000)
+        | 6 => .kern (v / 10 - 100000) (if r % 2 == 0 then .font else .explicit)
+        | 7 => .disc 50 #[.glyph '-' 2 v 0 0 0] #[] (if r == 7 then #[.penalty 0] else #[])
+            .syllable
+        | 8 => .box v 0 0 0 #[]
+        | _ => .glue {} 0
+    items := items.push (.penalty 10000) |>.push (.glue { stretch := 65536, stretchOrder := 1 } 15)
+    seed := next seed
+    let p : Params :=
+      { hsize := (seed % 30000000 : Nat), tolerance := (seed % 3 : Nat) * 4000,
+        pretolerance := (seed % 5 : Int) * 50 - 50, looseness := (seed % 7 : Int) - 3,
+        emergencyStretch := (seed % 2 : Nat) * 2000000, hangIndent := (seed % 11 : Int) * 100000,
+        hangAfter := (seed % 5 : Int) - 2, maxActive := if case % 50 == 0 then 3 else 20000 }
+    match breakParagraph items p with
+    | .ok r =>
+      if (checkBreaks items r).toBool != true then fails := fails.push s!"fuzz case {case}"
+    | .error _ => rejected := rejected + 1
+  -- past the caps
+  let long := Array.replicate 50 (HNode.glyph 'a' 1 1 0 0 0)
+  if (breakParagraph long { maxNodes := 10 }).toBool then fails := fails.push "maxNodes not kept"
+  return (fails, n, rejected)
+
 /-- Runs the comparison over every fixture paragraph; prints a summary, returns failures. -/
 def run : IO (Array String) := do
   let fixture ← readJsonLines "fixtures/text/paragraphs.jsonl"
@@ -111,6 +158,9 @@ def run : IO (Array String) := do
   let bad := (fails.filter (!·.isEmpty)).size
   IO.println s!"  line breaker: {cases.size - bad} of {cases.size} paragraphs broken as TeX \
     breaks them (breaks, demerits, line lengths and shifts, natural widths, glue)"
-  return fails.foldl (· ++ ·) #[]
+  let (ff, n, rej) := fuzz
+  IO.println s!"  line breaker fuzz: {n} random lists, {n - rej} broken (every result \
+    checked), {rej} rejected with an error"
+  return fails.foldl (· ++ ·) ff
 
 end LineBreakChecks
