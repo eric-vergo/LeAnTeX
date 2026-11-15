@@ -16,8 +16,8 @@ back ends consume.
 | Layout to KaTeX's box tree: every construct, from symbols, scripts and fractions to arrays and environments, `{CD}`, enclosures, extensible arrows and braces | done: every corpus formula KaTeX lays out gets KaTeX's box tree ([layout parity report](parity/LAYOUT.md)) |
 | Display list (positioned glyphs, rules, paths; mirrored material, display-mode placement, equation numbers) | done ([definition](docs/display-list.md)); checked against KaTeX in a browser |
 | OpenType font reader: metrics, character maps, CFF and TrueType outlines, ligatures, pair kerning, `MATH` constants; untrusted input checked ([reader](docs/opentype.md)) | done: every glyph of fifteen Latin Modern fonts as fontTools reads it; TeX's boxes reproduced; fuzzed |
-| Text mode: reference harness against real TeX for line breaks, hyphenation and boxes ([reference](docs/text-reference.md)) | done: 162 paragraphs, 1,691 words, 80 boxes recorded from LuaLaTeX |
-| Text mode: line breaking, hyphenation, paragraphs | not started |
+| Text mode: reference harness against real TeX for line breaks, hyphenation and boxes ([reference](docs/text-reference.md)) | done: 174 paragraphs, 1,691 words, 80 boxes recorded from LuaLaTeX |
+| Text mode: Liang hyphenation, Knuth–Plass line breaking, a LaTeX front end (paragraphs, spacing, fonts and sizes, boxes, formulas, macros), lines as a display list ([text mode](docs/text.md)) | done: every hyphenation point, every break, demerit and glue setting, and every horizontal list TeX built for the corpus, reproduced; document structure next |
 | Back ends | not started |
 
 ## Use
@@ -59,7 +59,10 @@ whose id starts with `PREFIX`; `--bench` and `--bench-matrix` time the stages.
 
 It also checks the text-mode fixtures (`fixtures/text/`, real TeX's line breaks, hyphenation
 points and boxes) against their corpora and the font reader against fontTools and TeX
-(`docs/opentype.md`); `lake exe leantex-test --text` runs those checks alone.
+(`docs/opentype.md`); `lake exe leantex-test --text` runs those checks alone, with the text layer's: hyphenation,
+line breaking and the front end against TeX, the typesetting goldens (`fixtures/typeset/`,
+`--update-typeset` rewrites them), the front-end checks and fuzzing. `lake exe leantex-typeset
+FILE` typesets a LaTeX file and prints its display list.
 
 The corpora: KaTeX's own parser and error tests (`katex-spec`), its screenshot cases, the examples
 of its support table, a few formulas per KaTeX name (`katex-names`), the formulas of Mathlib's doc

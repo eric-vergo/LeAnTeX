@@ -26,10 +26,11 @@ Item := glyph (face : Face) (char : Char) (x y size : Em) (exact shadow : Bool)
       | rule (x y width height : Em) (color) (source)
       | path (data viewBox preserveAspectRatio : String) (x y width height : Em)
              (clip : Option (Em × Em × Em × Em)) (color) (source)
-Face := { family : String, bold italic : Bool }      -- Face.name = "Main-Regular", …
+Face := { family : String, bold italic : Bool,       -- Face.name = "Main-Regular", …
+          font : Option String }                      -- a text glyph's font file
 Region := { x y width height depth : Em, source : Nat × Nat }
 Part := { x width : Em, line : Nat, tag : Bool }
-Line := { start stop : Nat, width height depth : Em }
+Line := { start stop : Nat, width height depth : Em, x y : Em }
 DisplayOptions := { lineWidth : Option Em := none, firstEquationNumber : Nat := 1,
                    fallbackAdvance : String → Char → Option Em := fun _ _ => none }
 Em := an integer number of TeX scaled points (1/655360 em)
@@ -167,3 +168,20 @@ border rounded to whole pixels at a smaller size, and 0.0025 em, one pixel, for 
 Left out: the 87 formulas with a character KaTeX has no metrics of its own for (the browser
 draws it with a fallback font whose advance no table holds) and 4 with a colour the browser
 does not know.
+
+## Text
+
+The text layer (`docs/text.md`) writes paragraphs to the same display list
+(`LeAnTeX.Text.Document.toDisplayList`), with two additions that a formula's display list does
+not use (their defaults leave formulas as they were):
+
+- `Face.font` names the OpenType font a text glyph is set in (as the caller named it, its file
+  name); the character maps to the glyph through that font's character map. A glyph no
+  character maps to is drawn as its outline, a path item.
+- `Line.x` and `Line.y` place each line: its indentation, and its baseline below the first
+  line's, as TeX's interline glue puts it. A formula's lines keep 0, 0 and are stacked by the
+  back end.
+
+The em of a text display list is ten points, so an `Em`'s raw value is a length in TeX's scaled
+points. Formulas in the text are the math layout's items scaled to the font size.
+

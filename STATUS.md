@@ -38,9 +38,16 @@ What LeAnTeX does today, and what comes next.
   in `THIRD-PARTY.md`; `LICENSE-KaTeX` holds KaTeX's MIT notice; the font-advance table states
   the fonts' SIL Open Font License 1.1 (Reserved Font Names `KaTeX_*`).
 - Text-mode reference (`docs/text-reference.md`): `tools/tex-reference.sh` records LuaLaTeX's
-  answers for 162 paragraphs (item lists, breaks, line glue, demerits), 1,691 words
+  answers for 174 paragraphs (item lists, breaks, line glue and shifts, demerits), 1,691 words
   (hyphenation points) and 80 boxes into `fixtures/text/`; `lake test` keeps them coherent.
-  This is the reference for the line breaker and the hyphenator.
+- Text mode (`LeAnTeX/Text*`, `docs/text.md`): Liang hyphenation with plain TeX's patterns,
+  TeX's line breaker, a LaTeX front end (paragraphs, spacing, fonts and sizes, boxes, formulas
+  through the math layout, macros) and the lines as a display list. Against LuaLaTeX: all 2,686
+  hyphenation points of the 1,691 words; for all 174 paragraphs the breaks, total demerits, line
+  lengths, natural widths and glue settings from TeX's item lists; and the front end gives TeX's
+  item lists, lines and paragraph boxes from the corpus source. Theorems: legal and increasing
+  breaks, the lines' nodes are the input's without the dropped ones, hyphen minima, the badness
+  bound. `lake exe leantex-typeset` with goldens in `fixtures/typeset/`.
 - OpenType reader (`LeAnTeX/OpenType*`, `docs/opentype.md`): every table listed there; outlines
   as `LeAnTeX.Path Int` and as display-list path items. Checked against fontTools on every glyph
   of fifteen Latin Modern fonts (when TeX Live is installed) and two committed test fonts, against
@@ -51,9 +58,9 @@ What LeAnTeX does today, and what comes next.
 
 ## Next
 
-1. Text mode: Knuth–Plass line breaking and Liang hyphenation against `fixtures/text/`, glue
-   and penalties, macros, fonts and sizes, lists and sectioning.
-2. Back ends.
+1. Back ends: SVG and HTML for text and math together.
+2. The document layer: vertical lists and page breaking, environments, lists and sectioning,
+   counters and cross-references, floats and simple tables.
 3. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
    tests (`Box.hasClass`) and style lookups.
 

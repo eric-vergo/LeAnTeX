@@ -17,8 +17,11 @@ a `meta` line naming the engine, luaotfload's version and the format.
 
 ## Units
 
-Lengths are TeX's scaled points (sp, 2⁻¹⁶ pt). Glue orders are 0 (finite), 1 (`fil`),
-2 (`fill`), 3 (`filll`); a line's `glueSign` is 0 (natural), 1 (stretched), 2 (shrunk).
+Lengths are TeX's scaled points (sp, 2⁻¹⁶ pt). Glue orders are LuaTeX's: 0 (finite), 1 (`fi`,
+LuaTeX's own, not used here), 2 (`fil`), 3 (`fill`), 4 (`filll`); LeAnTeX's own glue uses TeX's
+numbering (0 finite, 1 `fil`, 2 `fill`, 3 `filll`) and the tests convert. A line's `glueSign`
+is 0 (natural), 1 (stretched), 2 (shrunk); its `glueSet` is LuaTeX's glue ratio, a 32-bit float,
+written with nine significant digits (enough to name it exactly).
 
 ## Items
 
@@ -30,7 +33,7 @@ A horizontal list is written as an array of items, in order:
 | `["k", width, subtype]` | a kern; subtype 0 is a font kern, 1 an explicit one |
 | `["glue", width, stretch, stretchOrder, shrink, shrinkOrder, subtype]` | glue; subtype 13 is an interword space, 15 `\parfillskip` |
 | `["p", penalty]` | a penalty |
-| `["d", penalty, pre, post, replace]` | a discretionary with its three item lists (TeX's hyphenation points and explicit hyphens) |
+| `["d", penalty, pre, post, replace, subtype]` | a discretionary with its three item lists and LuaTeX's subtype: 2 after an explicit hyphen, 3 a hyphenation point of the patterns (TeX's first pass does not break at those) |
 | `["box", width, height, depth, items]` | a box (the paragraph's indentation box) |
 | `["rule", width, height, depth]` | a rule |
 
@@ -43,15 +46,17 @@ The items are what TeX's line breaker receives: after hyphenation, ligatures and
 `{"kern": pt}`, `{"hbox": "text"}`, `{"tie": true}`), and may set `font` (`regular`, `italic`,
 `bold`, `bolditalic`, `sans`, `mono`, `caps`, `slanted`), `size` (pt), the integer parameters
 `tolerance`, `pretolerance`, `looseness`, `linepenalty`, `hyphenpenalty`, `exhyphenpenalty`,
-`adjdemerits`, `doublehyphendemerits`, `finalhyphendemerits`, the lengths `parindent` and
-`emergencystretch` (pt), and the glue `leftskip`, `rightskip`, `parfillskip`. The answer:
+`adjdemerits`, `doublehyphendemerits`, `finalhyphendemerits`, `hangafter`, the lengths
+`parindent`, `emergencystretch` and `hangindent` (pt), the glue `leftskip`, `rightskip`,
+`parfillskip`, and `parshape` (a list of `[indent, length]` in pt). The answer:
 
 - `fonts`: the font files and sizes (sp) the items refer to;
 - `params`: every parameter in force when the paragraph was broken;
 - `items`: the list the line breaker received;
 - `lines`: for each line, `break` (the index of the item TeX broke at; the last line's is the
-  last item, `\parfillskip`), `width` (`\hsize`), `natural` (the line's natural width), and
-  `glueSign`, `glueOrder`, `glueSet`;
+  last item, `\parfillskip`), `width` (the line's length: `\hsize`, or less under hanging
+  indentation or `\parshape`), `shift` (its indentation), `natural` (the line's natural width),
+  and `glueSign`, `glueOrder`, `glueSet`;
 - `demerits` (the total of the chosen breaks), `prevgraf` (the number of lines), and the
   paragraph's `height` and `depth`.
 
@@ -78,3 +83,7 @@ International word list (1934, copyright lapsed) and a list chosen for hyphenati
 answer per case in order, breaks ascending at breakable items and ending at the last item, line
 widths equal to `\hsize`, hyphenated words equal to their words, box widths equal to the sum of
 their items. The boxes also test the font reader (`docs/opentype.md`).
+
+The fixtures are the reference for the text layer (`docs/text.md`): the hyphenator must give
+every word's points, the line breaker every paragraph's breaks, demerits and lines from the
+recorded item list, and the front end the recorded item list itself from the corpus text.
