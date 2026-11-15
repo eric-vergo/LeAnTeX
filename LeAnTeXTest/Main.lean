@@ -368,6 +368,13 @@ def main (args : List String) : IO UInt32 := do
   if let ["--show-doc", name] := args then
     let _ ← DocChecks.run false (some name)
     return 0
+  if args == ["--math-boxes-detail"] then
+    for b in ← MathBoxChecks.boxes do
+      IO.println s!"{b.construct} {b.style} ours {repr b.ours} tex {repr b.theirs}"
+    return 0
+  if args == ["--math-boxes"] then
+    IO.println (← MathBoxChecks.run true)
+    return 0
   if args == ["--probes"] then
     let some resolve ← FrontChecks.newComputerModern | return 1
     for d in ← DocChecks.probeDiffs resolve do IO.println d

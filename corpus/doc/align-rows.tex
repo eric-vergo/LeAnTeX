@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+Words before the alignment gq.
+\begin{align}
+a &= b + c \label{x}\\
+d + e &= f \notag\\
+g &= h
+\end{align}
+Words after the alignment gq.
+\begin{align*}
+a &= b & c &= d\\
+e &= f
+\end{align*}
+\begin{gather}
+x = y\\
+z = w \notag
+\end{gather}
+\begin{multline}
+a + b + c + d + e + f + g\\
++ h + i + j\\
+= k
+\end{multline}
+\end{document}

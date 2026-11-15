@@ -76,20 +76,26 @@ What LeAnTeX does today, and what comes next.
   insertions, LaTeX's output routine (footnotes, top, bottom, here and page floats, deferral,
   `\clearpage`), headings, the table of contents, counters, labels and references resolved in
   repeated passes inside the engine, lists, quotations, centring, verbatim, theorems and
-  proofs, equations, accents, rules, lengths, the title and abstract, `tabular`,
-  `\includegraphics` of PNG and SVG, bibliographies (`thebibliography`, `\bibitem`, `\cite`).
-  Against LuaLaTeX (`tools/doc-reference.sh`, 64 documents in `corpus/doc/`, fixtures in
-  `fixtures/doc/`): 49 documents agree line by line to the sp, 1,445 of 1,583 lines
-  (`parity/DOC.md`); ten fresh documents written without reading the source: none agrees in
-  full, 212 of 398 lines at the same place. Paged SVG and HTML (`leantex-render --document`),
-  `examples/article/`. Theorems: the pages hold the vertical list's boxes, counters, references,
-  image paths. 366 mutated documents end cleanly.
+  proofs, equations, amsmath's alignments row by row, accents, rules, lengths, the title and
+  abstract, `tabular`, `\includegraphics` of PNG and SVG, bibliographies (`thebibliography`,
+  `\bibitem`, `\cite`). Against LuaLaTeX (`tools/doc-reference.sh`, `parity/DOC.md`), line by
+  line to the sp: the 64 reference documents 60 agree, 1,562 of 1,583 lines (1,577 within
+  1 pt); 15 regression documents 13 agree; ten fresh documents written without reading the
+  source 2 agree, 204 of 398 lines (299 within 1 pt); **twenty held-out documents, written
+  without reading the source and not tuned to: none agrees in full, 190 of 469 lines at the
+  place to the sp, 355 within 1 pt**. Their largest remaining cause is the formulas' boxes
+  (KaTeX's metrics, not TeX's math fonts; `docs/math-boxes.md`, `parity/MATHBOX.md`: 0 of 418
+  formula boxes TeX's to the sp, 339 within 1 pt). List parameters probed against LuaLaTeX at
+  every level for three sizes (`tools/list-params.sh`). Paged SVG and HTML (`leantex-render
+  --document`), `examples/article/`. Theorems: the pages hold the vertical list's boxes,
+  counters, references, image paths. 534 mutated documents end cleanly.
 
 ## Next
 
-1. The document layer's open disagreements (`docs/documents.md`): alignments row by row,
-   `quotation`'s later paragraphs, `p{}` cells and `\multicolumn` widths, a float placed one line
-   late; bibliographies; `minipage` and `\parbox`.
+1. The formulas' boxes in documents: a second, TeX-rule math layout with the Computer Modern
+   metrics of each size (`docs/math-boxes.md`), measured by `parity/MATHBOX.md`; then the
+   held-out documents' remaining causes; `\tag`, `\intertext`, `split`; `minipage` and
+   `\parbox`.
 2. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
    tests (`Box.hasClass`) and style lookups.
 

@@ -1,0 +1,209 @@
+ord	x
+ord	a
+ord	b
+ord	f
+ord	y
+ord	z
+ord	A
+ord	X
+ord	\alpha
+ord	\beta
+ord	\gamma
+ord	\delta
+ord	\pi
+ord	\omega
+ord	\Gamma
+ord	\Omega
+ord	0
+ord	1
+ord	42
+ord	3.14
+ord	xy
+ord	abc
+ord	f(x)
+ord	\varepsilon
+ord	\varphi
+bin-rel	a+b
+bin-rel	a-b
+bin-rel	x=y
+bin-rel	a\le b
+bin-rel	a\ge b
+bin-rel	x\ne y
+bin-rel	a\times b
+bin-rel	a\cdot b
+bin-rel	x\in A
+bin-rel	A\subseteq B
+bin-rel	a\equiv b
+bin-rel	f\circ g
+bin-rel	a\pm b
+bin-rel	x\to y
+bin-rel	a<b<c
+bin-rel	a = b + c
+bin-rel	x \mapsto y
+bin-rel	p \Rightarrow q
+bin-rel	A \cup B
+bin-rel	A\cap B
+sup	x^2
+sup	x^n
+sup	e^x
+sup	x^{n+1}
+sup	2^{10}
+sup	a^{b^c}
+sup	e^{-x^2}
+sup	x^\prime
+sup	f'
+sup	f''
+sup	10^{-3}
+sup	x^{2n}
+sup	r^k
+sup	A^T
+sup	e^{i\pi}
+sub	x_i
+sub	a_n
+sub	x_{i+1}
+sub	a_{ij}
+sub	x_0
+sub	p_k
+sub	S_n
+sub	x_{n-1}
+sub	\alpha_i
+sub	f_\epsilon
+subsup	x_i^2
+subsup	a_n^k
+subsup	x_{i}^{n+1}
+subsup	S_n^2
+subsup	e_i^T
+subsup	p_i^{e_i}
+subsup	x_0^\prime
+subsup	a_{ij}^{(k)}
+frac	\frac12
+frac	\frac{1}{2}
+frac	\frac{a}{b}
+frac	\frac{a+b}{c}
+frac	\frac{x^2}{y}
+frac	\frac{1}{n^2}
+frac	\frac{\pi}{4}
+frac	\frac{dy}{dx}
+frac	\frac{1-r^{n+1}}{1-r}
+frac	\frac{\sin x}{x}
+frac	\tfrac12
+frac	\dfrac{1}{1-r}
+frac	\frac{a}{\frac{b}{c}}
+frac	\frac{p_i^{e_i+1}-1}{p_i-1}
+frac	\frac{\partial f}{\partial x}
+sum-int	\sum_{i=1}^n x_i
+sum-int	\sum_{k=0}^{\infty} r^k
+sum-int	\sum x
+sum-int	\sum_{n\ge1}
+sum-int	\prod_{i=1}^{k} (e_i+1)
+sum-int	\int_0^1 f
+sum-int	\int_a^b g(x)\,dx
+sum-int	\int f
+sum-int	\int_0^\infty e^{-x}\,dx
+sum-int	\oint_C
+sum-int	\iint_D
+sum-int	\sum_{i=1}^n i^2
+sum-int	\bigcup_{i} A_i
+sum-int	\bigcap_{n=1}^\infty A_n
+sum-int	\coprod
+limits-op	\lim_{n\to\infty} a_n
+limits-op	\lim_{x\to 0} \frac{\sin x}{x}
+limits-op	\max_{i} x_i
+limits-op	\min(a,b)
+limits-op	\sup_{x\in A} f(x)
+limits-op	\inf S
+limits-op	\limsup_{n} a_n
+limits-op	\det A
+limits-op	\gcd(a,b)
+limits-op	\log_2 n
+limits-op	\ln x
+limits-op	\sin x
+limits-op	\cos\theta
+limits-op	\exp(x)
+limits-op	\operatorname{Var}(X)
+sqrt	\sqrt2
+sqrt	\sqrt{x}
+sqrt	\sqrt{x^2+y^2}
+sqrt	\sqrt[3]{2}
+sqrt	\sqrt{\frac{a}{b}}
+sqrt	\sqrt{1-x^2}
+sqrt	\sqrt{n}
+sqrt	\sqrt[n]{x}
+delim	(a)
+delim	[x]
+delim	\{x\}
+delim	|x|
+delim	\|v\|
+delim	\langle x,y\rangle
+delim	\left(\frac{a}{b}\right)
+delim	\left[x^2\right]
+delim	\left|\frac{S_n}{n}-\mu\right|
+delim	\bigl(x\bigr)
+delim	\Bigl(x\Bigr)
+delim	\left\{ x \right\}
+delim	\left( \sum_{i} x_i \right)
+delim	\lfloor x\rfloor
+delim	\lceil x\rceil
+accent	\hat x
+accent	\bar x
+accent	\tilde y
+accent	\vec v
+accent	\dot x
+accent	\ddot x
+accent	\overline{AB}
+accent	\widehat{xy}
+accent	\hat{\theta}
+accent	\bar{z}
+font	\mathbb{R}
+font	\mathbb{Z}/m\mathbb{Z}
+font	\mathcal{A}
+font	\mathrm{d}x
+font	\mathbf{v}
+font	\mathit{diff}
+font	\mathsf{T}
+font	\mathfrak{g}
+font	\mathbb{E}[X]
+font	\mathbb{P}(A)
+text-in-math	\text{if } x>0
+text-in-math	x \text{ and } y
+text-in-math	\mbox{for all } n
+text-in-math	\textrm{max}
+spacing	a\,b
+spacing	a\;b
+spacing	a\quad b
+spacing	a\qquad b
+spacing	a\!b
+spacing	a\ b
+spacing	\,dx
+spacing	f(x)\,dx
+matrix	\begin{pmatrix}a&b\\c&d\end{pmatrix}
+matrix	\begin{bmatrix}1&0\\0&1\end{bmatrix}
+matrix	\begin{vmatrix}a&b\\c&d\end{vmatrix}
+matrix	\binom{n}{k}
+matrix	\binom{2n}{n}
+matrix	\begin{cases}1 & x>0\\0 & x\le 0\end{cases}
+mixed	d(n)=\prod_{i=1}^{k} (e_i + 1)
+mixed	\sigma(n)=\sum_{d\mid n} d
+mixed	e^{i\pi}+1=0
+mixed	\mathbb{P}(|X-\mu|\ge t)\le \frac{\operatorname{Var}(X)}{t^2}
+mixed	|r|<1
+mixed	S_n=(1-r^{n+1})/(1-r)
+mixed	a \mid b
+mixed	n! \sim \sqrt{2\pi n}\left(\frac{n}{e}\right)^n
+mixed	\log_2 (n!) = n\log_2 n - n\log_2 e + O(\log n)
+mixed	x \equiv 3 \pmod{11}
+mixed	f\colon A\to B
+mixed	\forall \varepsilon>0\ \exists \delta>0
+mixed	\|f\|_{L^2}
+mixed	\nabla f(x)
+mixed	\partial_x u
+mixed	\overline{\lim} a_n
+mixed	\{x\in\mathbb{R} : x^2<2\}
+mixed	\int_{-\infty}^{\infty} e^{-x^2}\,dx=\sqrt{\pi}
+mixed	(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k
+mixed	\zeta(s)=\sum_{n=1}^\infty n^{-s}
+mixed	O(n\log n)
+mixed	x_1,\dots,x_n
+mixed	1+2+\cdots+n
+mixed	\lambda\in\mathbb{C}
+mixed	\det(A-\lambda I)=0

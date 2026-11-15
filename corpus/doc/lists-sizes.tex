@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\begin{document}
+Text before the lists.
+{\small
+\begin{itemize}
+\item A small item with enough words to run over the end of the line in the small size of the class.
+\item Another.
+\end{itemize}}
+{\footnotesize
+\begin{enumerate}
+\item A footnote-size item.
+\item Another.
+\end{enumerate}}
+\begin{center}
+Centred.
+\begin{itemize}
+\item An item inside a centred block.
+\end{itemize}
+\end{center}
+\begin{theorem}
+A theorem with a list.
+\begin{enumerate}
+\item First.
+\item Second.
+\end{enumerate}
+\end{theorem}
+After everything.
+\end{document}

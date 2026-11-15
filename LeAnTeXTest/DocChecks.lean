@@ -5,6 +5,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 import LeAnTeX
 import LeAnTeXTest.FrontChecks
 import LeAnTeXTest.JsonParse
+import LeAnTeXTest.MathBoxChecks
 
 /-!
 # Documents against LuaLaTeX
@@ -471,6 +472,7 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
   let near := outs.foldl (init := 0) (· + ·.nearLines)
   IO.println s!"  documents: {agree.size} of {outs.size} agree with LuaLaTeX; lines at the same \
     place {same} of {lines}, within 1 pt {near}"
+  if show?.isNone then IO.println s!"  {← MathBoxChecks.run update}"
   let held ← if show?.isNone then heldOut resolve else pure #[]
   if !held.isEmpty then
     let (a, n, hs, hl, hn, hb, hbt) := totals held
