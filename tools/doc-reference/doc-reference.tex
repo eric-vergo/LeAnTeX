@@ -1,0 +1,22 @@
+% Released under Apache 2.0 license as described in the file LICENSE.
+% Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
+%
+% Loaded after the article class by tools/doc-reference.sh, before the document's own preamble:
+% New Computer Modern as the fonts (ncm.tex), doc-reference.lua's shipout recorder, a record of
+% every counter step with the counter's printed value (not the resets of the counters within
+% it), and the output written at the very end
+% of the run (after the last page is shipped and the auxiliary file closed). \LeanTeXTools and
+% \LeanTeXNcm are defined by the script.
+\input{\LeanTeXTools/../tex-reference/ncm.tex}
+\directlua{dofile("\LeanTeXTools/doc-reference.lua")}
+\makeatletter
+\let\leantex@stepcounter\stepcounter
+\def\stepcounter#1{\leantex@stepcounter{#1}%
+  \ifx\@elt\@stpelt\else\leantex@record{#1}\fi}
+\def\leantex@record#1{%
+  \protected@edef\leantex@value{\csname the#1\endcsname}%
+  \directlua{leantexCounter("step", "\luaescapestring{#1}",
+    "\luaescapestring{\detokenize\expandafter{\leantex@value}}")}}
+\AddToHook{enddocument/end}{\directlua{leantexFinish("out.json", status.banner,
+  "\luaescapestring{\jobname}")}}
+\makeatother

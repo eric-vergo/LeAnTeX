@@ -1,0 +1,9 @@
+\documentclass[12pt]{article}
+\begin{document}
+\section{Twelve}
+A typesetting system takes a description of a document and decides where every character goes. It breaks paragraphs into lines, stacks the lines into pages and places headings, notes and figures where the reader expects them. Each of these steps follows rules that can be written down precisely, and a good program follows them exactly.
+
+Lines of a paragraph are chosen together rather than one at a time. The program looks at every way of breaking the paragraph and picks the one whose lines are spaced most evenly, avoiding hyphens on consecutive lines and very loose lines next to very tight ones.
+
+Pages are built one line at a time. As each line arrives the program measures how well the page would look if it ended there, and when adding more would only make it worse it stops and starts a new page. Penalties discourage breaks in awkward places, such as after the first line of a paragraph or before its last.
+\end{document}

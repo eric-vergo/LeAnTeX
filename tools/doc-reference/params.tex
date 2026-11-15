@@ -1,0 +1,34 @@
+% Released under Apache 2.0 license as described in the file LICENSE.
+% Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
+%
+% Prints the article class's layout parameters (lengths, penalties, list parameters per level,
+% the size commands with their baselines) to the log as PARAM, LIST and SIZE lines, for
+% fixtures/doc/class/params-*.txt: input it after \documentclass[<options>]{article} and grep
+% the log for those lines. The document layer's defaults (LeAnTeX.Doc.Class) are checked
+% against them.
+\makeatletter
+\def\P#1{\typeout{PARAM \string#1=\the#1}}
+\def\S#1{\begingroup#1\typeout{SIZE \string#1=\f@size/\the\baselineskip}\endgroup}
+\AtBeginDocument{%
+\P\textwidth\P\textheight\P\oddsidemargin\P\evensidemargin\P\topmargin\P\headheight\P\headsep\P\footskip\P\topskip\P\maxdepth\P\parindent\P\parskip\P\baselineskip\P\lineskip\P\lineskiplimit
+\P\smallskipamount\P\medskipamount\P\bigskipamount
+\P\abovedisplayskip\P\belowdisplayskip\P\abovedisplayshortskip\P\belowdisplayshortskip
+\P\footnotesep\P{\skip\footins}\P{\dimen\footins}\P{\count\footins}
+\P\floatsep\P\textfloatsep\P\intextsep\P\dblfloatsep\P\abovecaptionskip\P\belowcaptionskip
+\P\@fptop\P\@fpsep\P\@fpbot
+\P\leftmargini\P\leftmarginii\P\leftmarginiii\P\leftmarginiv\P\leftmarginv\P\leftmarginvi\P\labelsep
+\P\arraycolsep\P\tabcolsep\P\arrayrulewidth\P\doublerulesep\P\arraystretch\P\jot
+\P\interlinepenalty\P\clubpenalty\P\widowpenalty\P\displaywidowpenalty\P\predisplaypenalty\P\postdisplaypenalty\P\brokenpenalty\P\@lowpenalty\P\@medpenalty\P\@highpenalty\P\@secpenalty
+\P\c@topnumber\P\c@bottomnumber\P\c@totalnumber\P\c@dbltopnumber
+\typeout{PARAM topfraction=\topfraction}\typeout{PARAM bottomfraction=\bottomfraction}\typeout{PARAM textfraction=\textfraction}\typeout{PARAM floatpagefraction=\floatpagefraction}
+\P\pagewidth\P\pageheight\P\paperwidth\P\paperheight\P\hoffset\P\voffset
+\P\fboxsep\P\fboxrule\P\marginparwidth\P\columnsep
+\@listi\typeout{LIST 1}\P\topsep\P\partopsep\P\itemsep\P\parsep\P\leftmargin\P\labelwidth
+\@listii\typeout{LIST 2}\P\topsep\P\partopsep\P\itemsep\P\parsep\P\leftmargin\P\labelwidth
+\@listiii\typeout{LIST 3}\P\topsep\P\partopsep\P\itemsep\P\parsep\P\leftmargin\P\labelwidth
+\@listiv\typeout{LIST 4}\P\topsep\P\partopsep\P\itemsep\P\parsep\P\leftmargin\P\labelwidth
+\@listi
+\S\tiny\S\scriptsize\S\footnotesize\S\small\S\normalsize\S\large\S\Large\S\LARGE\S\huge\S\Huge
+\typeout{PARAM sfsize=\sf@size}\typeout{PARAM ssfsize=\ssf@size}
+}
+\makeatother

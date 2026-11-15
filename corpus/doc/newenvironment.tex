@@ -1,0 +1,11 @@
+\documentclass{article}
+\begin{document}
+\newenvironment{boxed}{\begin{quote}\itshape}{\end{quote}}
+\newenvironment{named}[1]{\par\noindent\textbf{#1.}}{\par}
+\begin{boxed}
+Inside the new environment.
+\end{boxed}
+\begin{named}{Note}
+A named block.
+\end{named}
+\end{document}

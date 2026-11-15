@@ -1,0 +1,14 @@
+\documentclass{article}
+\begin{document}
+\newcounter{thing}
+\setcounter{thing}{3}
+Thing \thething. \stepcounter{thing}Thing \thething.
+\addtocounter{thing}{10}Thing \arabic{thing}, \roman{thing}, \Roman{thing},
+\alph{thing}, \Alph{thing}, \fnsymbol{footnote}.
+\newcounter{sub}[thing]
+\setcounter{sub}{2}\stepcounter{thing}Sub \arabic{sub}.
+\renewcommand{\thething}{[\Roman{thing}]}Thing \thething.
+\setcounter{section}{4}
+\section{Fifth}
+Value \the\value{section}.
+\end{document}

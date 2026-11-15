@@ -1,0 +1,17 @@
+\documentclass{article}
+\begin{document}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defn}{Definition}[section]
+\section{Results}
+\begin{theorem}\label{thm:a}
+Every line is a box.
+\end{theorem}
+\begin{lemma}[Stacking]
+Boxes stack.
+\end{lemma}
+\begin{defn}
+A page is a box.
+\end{defn}
+By Theorem~\ref{thm:a}.
+\end{document}
