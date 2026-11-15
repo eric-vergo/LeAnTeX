@@ -125,8 +125,8 @@ def fuzz : Array String × Nat × Nat := Id.run do
         | 0 | 1 | 2 | 3 => .glyph 'a' 1 v 0 0 0
         | 4 =>
           .glue
-            { width := v / 4, stretch := v / 8, stretchOrder := if r == 997 then 4 else r % 4, shrink := v / 9,
-              shrinkOrder := (r / 7) % 4 } 13
+            { width := v / 4, stretch := v / 8, stretchOrder := if r == 997 then 4 else r % 4,
+              shrink := v / 9, shrinkOrder := (r / 7) % 4 } 13
         | 5 => .penalty (v - 1000000)
         | 6 => .kern (v / 10 - 100000) (if r % 2 == 0 then .font else .explicit)
         | 7 => .disc 50 #[.glyph '-' 2 v 0 0 0] #[] (if r == 7 then #[.penalty 0] else #[])
