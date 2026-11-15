@@ -21,7 +21,7 @@ lake exe leantex-render --document [--external-css] article.tex OUTDIR
 
 writes `page-N.svg` per page, `document.svg` (every page in one picture), `document.html` (the
 pages as sheets) and `web.html` (one continuous page, no page breaks, floats where they are
-given). `examples/article.tex` and `examples/article/` show the result.
+given). `examples/article/article.tex` and `examples/article/` show the result.
 
 ## What a document can use
 
@@ -133,7 +133,7 @@ Every disagreement, with its cause:
   LuaLaTeX's output rather than from amsthm's documentation.
 
 Pixel comparison of the example article's pages with LuaLaTeX's PDF
-(`tools/doc-render-compare.sh examples/article.tex N`, Quick Look renderings at 2 pixels per
+(`tools/doc-render-compare.sh examples/article/article.tex N`, Quick Look renderings at 2 pixels per
 point, each page as two squares): page 1 mean 8.7 levels (top) and 5.8 (bottom), 94 % and
 96 % of pixels within 32 levels; page 2 (with the table placed one line later) 18.4 and 9.4
 levels, 87 % and 93 %. The text is New Computer Modern in both; the formulas' fonts differ

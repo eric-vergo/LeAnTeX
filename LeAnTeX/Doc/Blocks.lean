@@ -223,7 +223,8 @@ def unhex (s : String) : String := Id.run do
 
 /-- The source with every `verbatim` environment and `\verb` taken out and replaced by the
 front end's own commands holding the raw text in hexadecimal (control sequences named by
-the private-use characters U+E000 and U+E001), so that the reader never sees their contents. Comments are kept as they
+the private-use characters U+E000 and U+E001),
+so that the reader never sees their contents. Comments are kept as they
 are (a `%` starts one, outside verbatim text). An error for an unterminated one. -/
 def prepareVerbatim (src : String) : Except String String := Id.run do
   let begin_ := "\\begin{verbatim}"

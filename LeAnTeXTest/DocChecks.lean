@@ -148,14 +148,15 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
     n + (((p.get? "lines").bind Json.getArr?).getD #[]).size
   -- the images the corpus documents include
   let png ← IO.FS.readBinFile "corpus/doc/images/square.png"
-  let cfg : Text.Settings := { images := fun p => if p == "images/square.png" then some png else none }
+  let cfg : Text.Settings :=
+    { images := fun p => if p == "images/square.png" then some png else none }
   match typesetDocument src resolve cfg with
   | .error e => return { name, diffs := #[s!"error: {e.message} at {e.pos}"], lines := total }
   | .ok r =>
     let mut o : Outcome := { name, lines := total }
     if r.pages.size != theirs.size then
       o := o.add s!"pages: {r.pages.size}, LuaLaTeX {theirs.size}"
-    for h : i in [0:min r.pages.size theirs.size] do
+    for i in [0:min r.pages.size theirs.size] do
       let ours := r.pages[i]!.lines
       let tl := ((theirs[i]!.get? "lines").bind Json.getArr?).getD #[]
       if ours.size != tl.size then
@@ -289,8 +290,8 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
   if show?.isNone then
     let (fonts, missing) ← LeAnTeX.Backend.Fonts.load "fonts/newcomputermodern"
     if missing.isEmpty then
-      let src ← IO.FS.readFile "examples/article.tex"
-      let png ← IO.FS.readBinFile "examples/images/square.png"
+      let src ← IO.FS.readFile "examples/article/article.tex"
+      let png ← IO.FS.readBinFile "examples/article/images/square.png"
       let cfg : Text.Settings :=
         { images := fun p => if p == "images/square.png" then some png else none }
       match typesetDocument src fonts.resolver cfg with

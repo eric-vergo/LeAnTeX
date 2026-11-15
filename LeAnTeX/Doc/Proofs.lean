@@ -44,13 +44,13 @@ theorem buildPages_boxes (items : Array VNode) (p : PageParams) (pages : Array P
 /-- Adding to a defined counter adds to its value. -/
 theorem Counters.add_value (cs : Counters) (n : String) (v : Int) (c : Counter)
     (h : cs.table.get? n = some c) : (cs.add n v).value n = c.value + v := by
-  simp [Counters.add, Counters.value, h, Std.HashMap.get?_eq_getElem?] at h ⊢
+  simp [Counters.add, Counters.value, Std.HashMap.get?_eq_getElem?] at h ⊢
   simp [h]
 
 /-- Setting a defined counter sets its value. -/
 theorem Counters.set_value (cs : Counters) (n : String) (v : Int) (c : Counter)
     (h : cs.table.get? n = some c) : (cs.set n v).value n = v := by
-  simp [Counters.set, Counters.value, h, Std.HashMap.get?_eq_getElem?] at h ⊢
+  simp [Counters.set, Counters.value, Std.HashMap.get?_eq_getElem?] at h ⊢
   simp [h]
 
 /-- A new counter (not within another) starts at zero. -/

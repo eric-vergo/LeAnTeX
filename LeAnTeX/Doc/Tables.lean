@@ -13,7 +13,8 @@ and as LuaLaTeX shows it:
 * **Preamble**: `l`, `c`, `r` (the cell's material flush left, centred or flush right in the
   column, as `\hfil` on the other side or both sides sets it), `p{w}` (a paragraph `w` wide
   in a `\vtop`, its first line with a strut, its last with the strut's depth), `|` (a rule
-  `\arrayrulewidth` wide, as tall as the row, centred on the boundary and taking no width), `@{}` (no `\tabcolsep` on that side).
+  `\arrayrulewidth` wide, as tall as the row, centred on the boundary and taking no width),
+  `@{}` (no `\tabcolsep` on that side).
 * **Cells**: each has `\tabcolsep` on both sides and the array strut (0.7 and 0.3 of the
   `\baselineskip`, times `\arraystretch` 1); spaces at its ends are dropped. A column is as
   wide as its widest cell; `\multicolumn{n}{spec}{text}` spans `n` columns with its own
@@ -25,7 +26,8 @@ and as LuaLaTeX shows it:
   `[t]` with its first row's (or rule's) top on the baseline (`\vtop`), `[b]` with its last
   row's baseline on the baseline.
 
-Not implemented: `\cline`, `>{…}`, `<{…}`, `m{}`, `b{}`, `!{…}`, `@{text}` with text, `*{n}{…}`,
+Not implemented: `\cline`, `>{…}`, `<{…}`, `m{}`, `b{}`, `!{…}`, `@{text}` with text,
+`*{n}{…}`,
 `\arraystretch` other than 1, `tabular*`, `array` (in formulas the math layout's own arrays
 are used).
 -/
