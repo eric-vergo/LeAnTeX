@@ -1,0 +1,42 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\title{A Note on Uniform Convergence}
+\author{Marta Lindqvist}
+\date{March 2024}
+\begin{document}
+\maketitle
+\begin{abstract}
+We record a short proof that a uniformly convergent sequence of continuous functions on a compact interval has a continuous limit, and we discuss a standard counterexample when uniformity fails.
+\end{abstract}
+
+\section{Definitions}
+Let $f_n\colon[0,1]\to\mathbb{R}$ be a sequence of functions.
+
+\begin{definition}\label{def:unif}
+We say that $f_n\to f$ \emph{uniformly} if for every $\varepsilon>0$ there is an $N$ such that $|f_n(x)-f(x)|<\varepsilon$ for all $n\ge N$ and all $x\in[0,1]$.
+\end{definition}
+
+Pointwise convergence only asks that $N$ may depend on $x$. The difference matters, as the next section shows.
+
+\section{The main result}
+\begin{theorem}\label{thm:cont}
+If each $f_n$ is continuous and $f_n\to f$ uniformly, then $f$ is continuous.
+\end{theorem}
+\begin{proof}
+Fix $x_0$ and $\varepsilon>0$. Choose $n$ with $\sup_x|f_n(x)-f(x)|<\varepsilon/3$. By continuity of $f_n$ there is $\delta>0$ such that $|f_n(x)-f_n(x_0)|<\varepsilon/3$ whenever $|x-x_0|<\delta$. Then
+\begin{align}
+|f(x)-f(x_0)| &\le |f(x)-f_n(x)|+|f_n(x)-f_n(x_0)|+|f_n(x_0)-f(x_0)| \nonumber\\
+&< \varepsilon. \label{eq:three}
+\end{align}
+Hence $f$ is continuous at $x_0$.
+\end{proof}
+
+The estimate \eqref{eq:three} is the familiar ``$\varepsilon/3$ argument''; Theorem~\ref{thm:cont} follows from it.
+
+\section{A counterexample}
+Take $f_n(x)=x^n$. Then $f_n(x)\to0$ for $x<1$ while $f_n(1)=1$, so the limit is discontinuous. By Theorem~\ref{thm:cont} the convergence cannot be uniform; indeed $\sup_x |f_n(x)-f(x)|=1$ for every $n$.
+\end{document}

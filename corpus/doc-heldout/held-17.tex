@@ -1,0 +1,32 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\begin{document}
+\title{Random Walks on the Integers\thanks{Notes prepared for a reading group.}}
+\author{Ingrid Solheim \and Kofi Mensah}
+\date{}
+\maketitle
+\begin{abstract}
+We compute the probability that a simple random walk started at $k$ reaches $N$ before $0$, and the expected duration of the game.
+\end{abstract}
+
+\section{Gambler's ruin}
+Let $S_0=k$ and $S_{n+1}=S_n\pm1$ with probabilities $p$ and $q=1-p$. Write $h(k)$ for the probability of hitting $N$ before $0$. First-step analysis gives
+\begin{equation}
+h(k)=p\,h(k+1)+q\,h(k-1),\qquad h(0)=0,\ h(N)=1.
+\end{equation}
+For $p=\tfrac12$ the solution is linear, $h(k)=k/N$.\footnote{This is also a consequence of the martingale property.}
+
+For $p\ne\tfrac12$,
+\[
+h(k)=\frac{1-(q/p)^k}{1-(q/p)^N}.
+\]
+
+\section{Expected duration}
+\begin{flushleft}
+In the fair case the expected number of steps is $k(N-k)$.\footnote{Compare with the variance of Brownian motion.}
+\end{flushleft}
+\begin{flushright}
+\emph{Quite surprisingly, it is quadratic in $N$.}
+\end{flushright}
+\end{document}

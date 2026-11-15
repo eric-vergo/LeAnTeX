@@ -1,0 +1,32 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+\begin{center}
+{\Large\textbf{Fourier Series, Briefly}}\\[6pt]
+\small Lecture notes
+\end{center}
+\bigskip
+
+Let $f$ be $2\pi$-periodic and integrable. Its Fourier coefficients are
+\begin{align}
+a_k&=\frac1\pi\int_{-\pi}^{\pi}f(x)\cos kx\,dx,\\
+b_k&=\frac1\pi\int_{-\pi}^{\pi}f(x)\sin kx\,dx,
+\end{align}
+and the series is $\frac{a_0}2+\sum_{k\ge1}(a_k\cos kx+b_k\sin kx)$.
+
+\medskip
+\noindent\textbf{Example.} For $f(x)=x$ on $(-\pi,\pi)$ we get $a_k=0$ and $b_k=2(-1)^{k+1}/k$. Evaluating at $x=\pi/2$ yields the Leibniz series
+\[
+\frac\pi4=1-\frac13+\frac15-\frac17+\cdots.
+\]
+
+\vspace{1ex}
+\noindent\textbf{Parseval.} For square-integrable $f$,
+\begin{equation*}
+\frac1\pi\int_{-\pi}^{\pi}|f|^2\,dx=\frac{a_0^2}2+\sum_{k=1}^\infty(a_k^2+b_k^2).
+\end{equation*}
+Applied to $f(x)=x$ this gives $\sum_{k\ge1}k^{-2}=\pi^2/6$.
+\hrule
+\vspace{2pt}
+\flushright{\small End of notes.}
+\end{document}

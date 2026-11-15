@@ -1,0 +1,34 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+\section*{Counting lattice paths}
+How many paths lead from $(0,0)$ to $(m,n)$ using unit steps right and up? Each path is a word of length $m+n$ with $m$ letters R and $n$ letters U, so the number is
+\begin{equation}\label{eq:binom}
+\binom{m+n}{m}=\frac{(m+n)!}{m!\,n!}.
+\end{equation}
+For $m=n$ this is the central binomial coefficient, and by Stirling's formula
+\[
+\binom{2n}{n}\sim\frac{4^n}{\sqrt{\pi n}}.
+\]
+
+\subsection*{Paths staying below the diagonal}
+The number of such paths from $(0,0)$ to $(n,n)$ that never go above the diagonal is the Catalan number
+\begin{equation}
+C_n=\frac{1}{n+1}\binom{2n}{n}.
+\end{equation}
+The first few values are collected below.
+\begin{center}
+\begin{tabular}{c|cccccc}
+$n$ & 0 & 1 & 2 & 3 & 4 & 5\\ \hline
+$C_n$ & 1 & 1 & 2 & 5 & 14 & 42
+\end{tabular}
+\end{center}
+Comparing with \eqref{eq:binom} shows $C_n$ is always an integer, since $C_n=\binom{2n}{n}-\binom{2n}{n+1}$.
+
+\subsubsection*{A recurrence}
+Splitting a path at its first return to the diagonal gives
+\begin{align*}
+C_{n+1}&=\sum_{k=0}^{n}C_kC_{n-k},\\
+C_0&=1.
+\end{align*}
+\end{document}

@@ -1,0 +1,31 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\begin{document}
+\section{Linear algebra review}
+Let $A$ be an $n\times n$ real matrix. A scalar $\lambda$ is an \emph{eigenvalue} if $Av=\lambda v$ for some nonzero vector $v$.
+
+\begin{itemize}
+\item The eigenvalues are the roots of $\det(A-\lambda I)=0$.
+\item The trace of $A$ is the sum of the eigenvalues, counted with multiplicity.
+\item The determinant is their product.
+  \begin{itemize}
+  \item In particular $A$ is invertible exactly when $0$ is not an eigenvalue.
+  \item For symmetric $A$ all eigenvalues are real.
+    \begin{itemize}
+    \item Eigenvectors for distinct eigenvalues are orthogonal.
+      \begin{itemize}
+      \item This gives the spectral theorem.
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\subsection{A $2\times2$ example}
+For $A=\begin{pmatrix}2&1\\1&2\end{pmatrix}$ we find
+\begin{gather*}
+\det(A-\lambda I)=(2-\lambda)^2-1=\lambda^2-4\lambda+3,\\
+\lambda_1=1,\quad\lambda_2=3.
+\end{gather*}
+\end{document}

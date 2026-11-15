@@ -1,0 +1,35 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm,graphicx}
+\begin{document}
+\section{Triangles and circles}
+Figure~\ref{fig:sq} shows a square of side one, which we use as a unit cell.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=3cm]{images/square.png}
+\caption{A unit square.}\label{fig:sq}
+\end{figure}
+
+The diagonal of the unit square has length $\sqrt2$, and the circumscribed circle has radius $\tfrac{\sqrt2}{2}$. Its area is therefore $\pi r^2=\pi/2$.
+
+\subsection{Law of cosines}
+In a triangle with sides $a,b,c$ and angle $\gamma$ opposite $c$,
+\begin{equation}
+c^2=a^2+b^2-2ab\cos\gamma.\label{eq:cos}
+\end{equation}
+Setting $\gamma=\pi/2$ in \eqref{eq:cos} recovers Pythagoras.
+
+\subsection{Areas}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcr}
+\hline
+Shape & Parameter & Area\\ \hline
+Square & side $s$ & $s^2$\\
+Disc & radius $r$ & $\pi r^2$\\
+Triangle & base $b$, height $h$ & $\tfrac12 bh$\\ \hline
+\end{tabular}
+\caption{Some areas.}\label{tab:areas}
+\end{table}
+Table~\ref{tab:areas} lists three cases; see page~\pageref{tab:areas} for the table itself.
+\end{document}

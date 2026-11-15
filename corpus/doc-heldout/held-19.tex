@@ -1,0 +1,34 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{definition}{Definition}
+\begin{document}
+\section{Metric spaces}
+\begin{definition}
+A \emph{metric} on a set $X$ is a map $d\colon X\times X\to[0,\infty)$ with $d(x,y)=0\iff x=y$, $d(x,y)=d(y,x)$, and $d(x,z)\le d(x,y)+d(y,z)$.
+\end{definition}
+
+\begin{example}\label{ex:disc}
+On any set the discrete metric $d(x,y)=1$ for $x\ne y$ makes every subset open.
+\end{example}
+
+\begin{theorem}[Banach]\label{thm:banach}
+Let $(X,d)$ be a complete metric space and $T\colon X\to X$ satisfy $d(Tx,Ty)\le c\,d(x,y)$ for some $c<1$. Then $T$ has a unique fixed point $x^\ast$, and $T^nx_0\to x^\ast$ for every $x_0$.
+\end{theorem}
+\begin{proof}
+The sequence $x_n=T^nx_0$ satisfies $d(x_{n+1},x_n)\le c^nd(x_1,x_0)$, so for $m>n$
+\[
+d(x_m,x_n)\le\frac{c^n}{1-c}\,d(x_1,x_0)\to0.
+\]
+Thus $(x_n)$ is Cauchy and converges to some $x^\ast$, which is fixed by continuity of $T$. Uniqueness: if $Ty=y$ also, then $d(x^\ast,y)\le c\,d(x^\ast,y)$, forcing $d(x^\ast,y)=0$.
+\end{proof}
+
+In Example~\ref{ex:disc} every map is continuous but contractions are scarce. For applications of Theorem~\ref{thm:banach} to differential equations see \cite[Ch.~3]{rudin} and \cite{kreyszig,rudin}.
+
+\begin{thebibliography}{9}
+\bibitem[Rud]{rudin} W. Rudin, \emph{Principles of Mathematical Analysis}.
+\bibitem{kreyszig} E. Kreyszig, \emph{Introductory Functional Analysis with Applications}.
+\end{thebibliography}
+\end{document}

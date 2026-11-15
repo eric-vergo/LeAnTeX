@@ -1,0 +1,28 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\title{Expectation and Variance}
+\author{Jonas Hartmann\thanks{Department of Statistics, University of Nowhere.} \and Priya Raman}
+\date{}
+\newtheorem{theorem}{Theorem}
+\begin{document}
+\maketitle
+\section{Basic notions}
+Let $X$ be a random variable with $\mathbb{E}|X|<\infty$. We write $\mu=\mathbb{E}[X]$ and define the variance by
+\[
+\operatorname{Var}(X)=\mathbb{E}\bigl[(X-\mu)^2\bigr]=\mathbb{E}[X^2]-\mu^2.
+\]
+\begin{theorem}[Chebyshev]
+For every $t>0$, $\mathbb{P}(|X-\mu|\ge t)\le \operatorname{Var}(X)/t^2$.
+\end{theorem}
+\begin{proof}
+Apply Markov's inequality to $(X-\mu)^2$.
+\end{proof}
+
+\section{Sums of independent variables}
+Let $X_1,\dots,X_n$ be independent with common mean $\mu$ and variance $\sigma^2$, and put $S_n=X_1+\dots+X_n$. Then $\operatorname{Var}(S_n)=n\sigma^2$, and Chebyshev gives
+\begin{multline}
+\mathbb{P}\!\left(\left|\frac{S_n}{n}-\mu\right|\ge \varepsilon\right)\le \frac{\sigma^2}{n\varepsilon^2}\\
+\longrightarrow 0\quad (n\to\infty).
+\end{multline}
+This is the weak law of large numbers\footnote{The strong law requires more work and is not needed here.}.
+\end{document}

@@ -1,0 +1,26 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newcounter{step}
+\newcommand{\R}{\mathbb{R}}
+\begin{document}
+\section{Gradient descent}
+Let $f\colon\R^d\to\R$ be differentiable. Starting from $x_0$, we iterate in numbered steps.
+\begin{enumerate}
+\setcounter{enumi}{0}
+\item Compute $g_k=\nabla f(x_k)$.
+\item Choose a step size $\eta_k>0$.
+\item Set $x_{k+1}=x_k-\eta_k g_k$.
+\end{enumerate}
+We also number the phases of the algorithm with a private counter.
+
+\stepcounter{step}\noindent Phase \arabic{step}: initialisation.\\
+\stepcounter{step}\noindent Phase \arabic{step}: iteration.\\
+\addtocounter{step}{1}\noindent Phase \roman{step}: termination (note the Roman numeral).
+
+\subsection{Convergence for convex functions}
+If $f$ is convex and $L$-smooth, and $\eta_k=1/L$, then
+\[
+f(x_k)-f^\ast\le\frac{L\|x_0-x^\ast\|^2}{2k}.
+\]
+The current section number is \thesection, and the current subsection is \thesubsection.
+\end{document}

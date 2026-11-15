@@ -1,0 +1,36 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\begin{document}
+\title{Irrationality of $\sqrt2$ and Beyond}
+\author{Tomasz Wi\'sniewski}
+\date{\today}
+\maketitle
+\section{The classical argument}
+\begin{theorem}\label{thm:sqrt2}
+The number $\sqrt2$ is irrational.
+\end{theorem}
+\begin{proof}
+Suppose $\sqrt2=a/b$ with $\gcd(a,b)=1$. Then $a^2=2b^2$, so $a$ is even, say $a=2c$. Hence $2c^2=b^2$ and $b$ is even too, contradicting $\gcd(a,b)=1$.
+\end{proof}
+
+\section{Generalisation}
+\begin{lemma}\label{lem:root}
+If $n$ is a positive integer that is not a perfect square, then $\sqrt n$ is irrational.
+\end{lemma}
+\begin{proof}
+Suppose $\sqrt n=a/b$ in lowest terms. Then $a^2=nb^2$. Any prime $p$ dividing $b$ would divide $a^2$ and hence $a$; so $b=1$ and $n=a^2$ is a perfect square.
+\end{proof}
+
+Lemma~\ref{lem:root} subsumes Theorem~\ref{thm:sqrt2}. Using the same idea one checks that
+\begin{equation}
+\sqrt[3]{2}\notin\mathbb{Q}.
+\end{equation}
+Hardy and Wright~\cite{hw} give many further proofs, and Niven~\cite[p.~21]{niven} treats the cubic case.
+
+\begin{thebibliography}{9}
+\bibitem{hw} G.~H. Hardy and E.~M. Wright, \emph{An Introduction to the Theory of Numbers}, Oxford University Press.
+\bibitem{niven} I. Niven, \emph{Irrational Numbers}, Mathematical Association of America.
+\end{thebibliography}
+\end{document}

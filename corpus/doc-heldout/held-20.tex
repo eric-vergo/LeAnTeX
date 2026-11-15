@@ -1,0 +1,28 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+\pagestyle{empty}
+\section{Modular arithmetic}
+Two integers are congruent modulo $m$ if $m$ divides their difference. The residues form a ring $\mathbb{Z}/m\mathbb{Z}$.
+
+\begin{tabular}[t]{|l|p{5cm}|}
+\hline
+Operation & Rule\\ \hline
+Sum & $a+b \bmod m$ is well defined on classes.\\[4pt]
+Product & Likewise for $ab$; this is why we can reduce at each step.\\ \hline
+\multicolumn{2}{|c|}{Division requires $\gcd(a,m)=1$}\\ \hline
+\end{tabular}
+
+\bigskip
+\begin{description}
+\item[Chinese remainder theorem] If $\gcd(m,n)=1$ then $\mathbb{Z}/mn\cong\mathbb{Z}/m\times\mathbb{Z}/n$.
+\item[Euler] $a^{\varphi(m)}\equiv1\pmod m$ when $\gcd(a,m)=1$.
+\end{description}
+
+\begin{quotation}
+Congruences let us do arithmetic on a clock face, and the clock face is a finite world where every nonzero element of a prime clock has an inverse.
+\end{quotation}
+
+\raggedright
+Solving $7x\equiv3\pmod{11}$: since $7\cdot8=56\equiv1$, we get $x\equiv24\equiv2$. \vrule width 0.4pt height 8pt\ Check: $7\cdot2=14\equiv3$.
+\end{document}

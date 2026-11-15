@@ -89,6 +89,11 @@ structure Outcome where
   sameLines : Nat := 0
   /-- Lines at the same place to within 1 pt. -/
   nearLines : Nat := 0
+  /-- LuaLaTeX's page breaks (its pages less one). -/
+  breaks : Nat := 0
+  /-- Page breaks at LuaLaTeX's place: the page after the break begins with LuaLaTeX's first
+  line. -/
+  sameBreaks : Nat := 0
   deriving Inhabited
 
 /-- The outcome with one more difference. -/
@@ -140,10 +145,26 @@ def fixtureToc (j : Json) : Array (Nat × String × String) := Id.run do
     out := out.push (level, num, (g[2]?.getD "").trimAscii.toString)
   return out
 
+/-- A counter's printed value as LuaLaTeX's recorder writes it, with the footnote symbols
+(`\TextOrMath {\textasteriskcentered }{*}`, …) as the characters they print. -/
+def printedValue (v : String) : String := Id.run do
+  let syms := [("textasteriskcentered", "∗"), ("textdaggerdbl", "‡"), ("textdagger", "†"),
+    ("textsection", "§"), ("textparagraph", "¶"), ("textbardbl", "‖")]
+  let mut out := ""
+  for piece in (v.splitOn "\\TextOrMath").drop 1 do
+    match syms.find? (fun (n, _) => (piece.splitOn ("\\" ++ n ++ " ")).length > 1) with
+    | some (_, c) => out := out ++ c
+    | none => return v
+  return if out.isEmpty then v else out
+
+/-- The directory of a document's source and fixture: `doc`, or `doc-heldout` for the held-out
+documents (`held-…`). -/
+def setOf (name : String) : String := if name.startsWith "held-" then "doc-heldout" else "doc"
+
 /-- Compares one document with its fixture. -/
 def compare (name : String) (resolve : FontResolver) : IO Outcome := do
-  let src ← IO.FS.readFile s!"corpus/doc/{name}.tex"
-  let fx ← match Json.parse (← IO.FS.readFile s!"fixtures/doc/{name}.json") with
+  let src ← IO.FS.readFile s!"corpus/{setOf name}/{name}.tex"
+  let fx ← match Json.parse (← IO.FS.readFile s!"fixtures/{setOf name}/{name}.json") with
     | .ok j => pure j
     | .error e => return { name, diffs := #[s!"fixture: {e}"] }
   let theirs := ((fx.get? "pages").bind Json.getArr?).getD #[]
@@ -156,7 +177,14 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
   match typesetDocument src resolve cfg with
   | .error e => return { name, diffs := #[s!"error: {e.message} at {e.pos}"], lines := total }
   | .ok r =>
-    let mut o : Outcome := { name, lines := total }
+    let mut o : Outcome := { name, lines := total, breaks := theirs.size - 1 }
+    for i in [1:theirs.size] do
+      let first := ((theirs[i]!.get? "lines").bind Json.getArr?).bind (·[0]?)
+      let tt := norm (((first.bind (·.get? "text")).bind Json.getStr?).getD "")
+      match (r.pages[i]?.bind (·.lines[0]?)) with
+      | some a => if a.math || sameText (norm a.text) tt then
+          o := { o with sameBreaks := o.sameBreaks + 1 }
+      | none => pure ()
     if r.pages.size != theirs.size then
       o := o.add s!"pages: {r.pages.size}, LuaLaTeX {theirs.size}"
     for i in [0:min r.pages.size theirs.size] do
@@ -206,7 +234,7 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
     let fs := (((fx.get? "counters").bind Json.getArr?).getD #[]).filterMap fun c =>
       match c.getArr? with
       | some #[_, n, v] => match n.getStr?, v.getStr? with
-        | some n, some v => if known.contains n then some (n, v) else none
+        | some n, some v => if known.contains n then some (n, printedValue v) else none
         | _, _ => none
       | _ => none
     let os := r.steps.filter fun (n, _) => known.contains n
@@ -214,13 +242,14 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
       o := o.add s!"counter steps: {os.size}, LuaLaTeX {fs.size}"
     return o
 
-/-- The documents of the corpus that have a fixture. -/
-def documents : IO (Array String) := do
+/-- The documents of a set (`doc` or `doc-heldout`) that have a fixture. -/
+def documents (set : String := "doc") : IO (Array String) := do
   let mut out := #[]
-  for e in ← System.FilePath.readDir "corpus/doc" do
+  if !(← System.FilePath.pathExists s!"corpus/{set}") then return out
+  for e in ← System.FilePath.readDir s!"corpus/{set}" do
     if e.fileName.endsWith ".tex" then
       let n := e.fileName.dropEnd 4 |>.toString
-      if ← System.FilePath.pathExists s!"fixtures/doc/{n}.json" then out := out.push n
+      if ← System.FilePath.pathExists s!"fixtures/{set}/{n}.json" then out := out.push n
   return out.qsort (· < ·)
 
 /-- Mutated documents: from every corpus document, `n` sources with characters deleted,
@@ -282,19 +311,22 @@ def nodeText : VNode → Option String
   | .rule _ h d => some s!"r {h} {d}"
   | _ => none
 
-/-- The same for a fixture's item (`["glue", …]`, `["h", …]`, `["p", n]`, …); whatsits and
-other items are left out. -/
+/-- The same for a fixture's item (`["glue", …]`, `["h", …]`, `["p", n]`, `["rule", w, h, d]`,
+…); whatsits and other items are left out. LuaTeX's glue orders (0 finite, 1 `fi`, 2 `fil`,
+3 `fill`, 4 `filll`) are written as `Glue` has them (0, 1 `fil`, 2 `fill`, 3 `filll`; `fi` as
+`fi`). -/
 def itemText (j : Json) : Option String :=
   match j.getArr? with
   | some a =>
-    let nums := fun (k : Nat) => " ".intercalate ((a.extract 1 (k + 1)).toList.map
-      fun x => toString (int x))
+    let n := fun (k : Nat) => int (a[k]?.getD .null)
+    let order := fun (k : Nat) => match n k with
+      | 0 => "0" | 1 => "fi" | o => toString (o - 1)
     match (a[0]?.bind Json.getStr?) with
-    | some "glue" => some s!"glue {nums 6}"
-    | some "h" | some "v" => some s!"h {nums 4}"
-    | some "p" => some s!"p {nums 1}"
-    | some "k" => some s!"k {nums 1}"
-    | some "r" => some s!"r {nums 2}"
+    | some "glue" => some s!"glue {n 1} {n 2} {order 3} {n 4} {order 5} {n 6}"
+    | some "h" | some "v" => some s!"h {n 1} {n 2} {n 3} {n 4}"
+    | some "p" => some s!"p {n 1}"
+    | some "k" => some s!"k {n 1}"
+    | some "rule" => some s!"r {n 2} {n 3}"
     | _ => none
   | none => none
 
@@ -302,8 +334,8 @@ def itemText (j : Json) : Option String :=
 it and three after for context (`--show-vlist NAME`). -/
 def showVList (name : String) : IO Unit := do
   let some resolve ← FrontChecks.newComputerModern | IO.println "fonts missing"; return
-  let src ← IO.FS.readFile s!"corpus/doc/{name}.tex"
-  let .ok fx := Json.parse (← IO.FS.readFile s!"fixtures/doc/{name}.json")
+  let src ← IO.FS.readFile s!"corpus/{setOf name}/{name}.tex"
+  let .ok fx := Json.parse (← IO.FS.readFile s!"fixtures/{setOf name}/{name}.json")
     | IO.println "fixture unreadable"; return
   let theirs := ((fx.get? "pages").bind Json.getArr?).getD #[]
   let png ← IO.FS.readBinFile "corpus/doc/images/square.png"
@@ -330,6 +362,37 @@ def showVList (name : String) : IO Unit := do
             {ours.size} against {items.size}"
           break
 
+/-- The totals of some outcomes: documents agreeing, documents, lines at the same place, lines,
+lines within 1 pt, page breaks at the same place, page breaks. -/
+def totals (outs : Array Outcome) : Nat × Nat × Nat × Nat × Nat × Nat × Nat :=
+  ((outs.filter (·.diffs.isEmpty)).size, outs.size, outs.foldl (init := 0) (· + ·.sameLines),
+    outs.foldl (init := 0) (· + ·.lines), outs.foldl (init := 0) (· + ·.nearLines),
+    outs.foldl (init := 0) (· + ·.sameBreaks), outs.foldl (init := 0) (· + ·.breaks))
+
+/-- A table row of totals: documents, lines to the sp, lines within 1 pt, page breaks. -/
+def totalsRow (label : String) (outs : Array Outcome) : String :=
+  let (a, n, same, lines, near, sb, b) := totals outs
+  s!"| {label} | {a} / {n} | {same} / {lines} | {near} | {sb} / {b} |\n"
+
+/-- The held-out documents (`corpus/doc-heldout/`): written without reading this library and
+not tuned to; their agreement is reported, never required. -/
+def heldOut (resolve : FontResolver) : IO (Array Outcome) := do
+  let mut outs := #[]
+  for n in ← documents "doc-heldout" do outs := outs.push (← compare n resolve)
+  return outs
+
+/-- One line per document of a set: whether it agrees, its lines and its first difference
+(`--doc-table [heldout]`). -/
+def table (set : String) : IO Unit := do
+  let some resolve ← FrontChecks.newComputerModern | IO.println "fonts missing"; return
+  let mut outs := #[]
+  for n in ← documents set do
+    let o ← compare n resolve
+    outs := outs.push o
+    IO.println s!"{n}\t{if o.diffs.isEmpty then "yes" else "no"}\t{o.sameLines}/{o.lines}\t\
+      {o.nearLines}\t{o.sameBreaks}/{o.breaks}\t{(o.diffs[0]?.getD "").take 110}"
+  IO.print (totalsRow "all" outs)
+
 /-- Runs every document; with `update` rewrites the baseline and the report. Returns the
 failures (a baselined document that no longer agrees). -/
 def run (update : Bool := false) (show? : Option String := none) : IO (Array String) := do
@@ -352,6 +415,11 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
   let near := outs.foldl (init := 0) (· + ·.nearLines)
   IO.println s!"  documents: {agree.size} of {outs.size} agree with LuaLaTeX; lines at the same \
     place {same} of {lines}, within 1 pt {near}"
+  let held ← if show?.isNone then heldOut resolve else pure #[]
+  if !held.isEmpty then
+    let (a, n, hs, hl, hn, hb, hbt) := totals held
+    IO.println s!"  held-out documents (reported, not required): {a} of {n} agree; lines at the \
+      same place {hs} of {hl}, within 1 pt {hn}; page breaks {hb} of {hbt}"
   if show?.isNone then
     let (fok, ferr) ← fuzz resolve 6
     IO.println s!"  mutated documents: {fok + ferr} ended ({fok} with pages, {ferr} with an error)"
@@ -384,17 +452,24 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
     let mut md := "# Documents against LuaLaTeX\n\nWritten by `lake exe leantex-test \
       --update-doc` (`LeAnTeXTest/DocChecks.lean`). A document agrees when its pages, every \
       line's position (to the sp) and text, its labels, its table of contents and its \
-      counter steps are LuaLaTeX's.\n\n| Feature | Documents agreeing | Lines at the same \
-      place | Within 1 pt |\n|---|---|---|---|\n"
+      counter steps are LuaLaTeX's. A page break is at LuaLaTeX's place when the page after it \
+      begins with LuaLaTeX's line. The reference documents were written to cover the \
+      features and the layer was tuned on them; the fresh and the held-out documents were \
+      written by someone who had not read this library, and the held-out ones are not tuned \
+      to: they are the honest measure.\n\n| Set | Documents agreeing | Lines at the same \
+      place | Within 1 pt | Page breaks |\n|---|---|---|---|---|\n"
+    let fresh := outs.filter (·.name.startsWith "fresh-")
+    md := md ++ totalsRow "reference documents (tuned on)" (outs.filter
+      (!·.name.startsWith "fresh-")) ++ totalsRow "fresh documents (written blind)" fresh ++
+      totalsRow "**held-out documents (written blind, not tuned to)**" held
+    md := md ++ "\n| Feature | Documents agreeing | Lines at the same place | Within 1 pt | \
+      Page breaks |\n|---|---|---|---|---|\n"
     let feats := (outs.map (feature ·.name)).toList.eraseDups
     for f in feats do
-      let fo := outs.filter (feature ·.name == f)
-      md := md ++ s!"| {f} | {(fo.filter (·.diffs.isEmpty)).size} / {fo.size} | \
-        {fo.foldl (init := 0) (· + ·.sameLines)} / {fo.foldl (init := 0) (· + ·.lines)} | \
-        {fo.foldl (init := 0) (· + ·.nearLines)} |\n"
+      md := md ++ totalsRow f (outs.filter (feature ·.name == f))
     md := md ++ "\n## Per document\n\n| Document | Agrees | Lines same | First difference |\n\
       |---|---|---|---|\n"
-    for o in outs do
+    for o in outs ++ held do
       let first := (o.diffs[0]?.getD "").replace "|" "\\|"
       md := md ++ s!"| {o.name} | {if o.diffs.isEmpty then "yes" else "no"} | \
         {o.sameLines} / {o.lines} | {first} |\n"

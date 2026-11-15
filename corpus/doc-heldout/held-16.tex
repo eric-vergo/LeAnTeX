@@ -1,0 +1,36 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm,graphicx}
+\pagestyle{plain}
+\begin{document}
+\section{Symmetries of the square}
+The dihedral group of the square has eight elements. In the picture, the shaded cell is the reference position.
+\begin{figure}[t]
+\centering
+\includegraphics[height=2cm]{images/square.png}\quad
+\includegraphics[scale=2]{images/square.png}
+\caption{The reference square at two sizes.}
+\label{fig:two}
+\end{figure}
+
+Figure~\ref{fig:two} appears above; the group acts on it by rotations by multiples of $90^\circ$ and four reflections.
+
+\begin{table}[b]
+\centering
+\begin{tabular}{@{}lcc@{}}
+\hline
+Type & Count & Fixed points\\ \hline
+Identity & 1 & 4 corners\\
+Rotation by $90^\circ$ & 2 & none\\
+Rotation by $180^\circ$ & 1 & none\\
+Reflection & 4 & 2 corners or 0\\ \hline
+\end{tabular}
+\caption{Conjugacy-type summary.}
+\label{tab:sym}
+\end{table}
+
+By Burnside's lemma, the number of orbits of colourings of the four corners with two colours is
+\[
+\frac18\bigl(2^4+2\cdot2+2^2+2\cdot2^3+2\cdot2^2\bigr)=\frac{16+4+4+16+8}{8}=6.
+\]
+Table~\ref{tab:sym} supports the count.
+\end{document}

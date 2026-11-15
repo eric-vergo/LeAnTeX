@@ -1,0 +1,32 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+\section{Series and sequences}
+\subsection{Geometric series}
+For $|r|<1$,
+\[
+\sum_{n=0}^\infty r^n=\frac1{1-r}.
+\]
+\subsubsection{Application}
+With $r=\tfrac12$ the sum is $2$.
+
+\newpage
+\section{Further examples}
+\thispagestyle{empty}
+The harmonic series diverges: grouping terms,
+\begin{multline*}
+1+\frac12+\Bigl(\frac13+\frac14\Bigr)+\Bigl(\frac15+\frac16+\frac17+\frac18\Bigr)+\cdots\\
+\ge 1+\frac12+\frac12+\frac12+\cdots=\infty.
+\end{multline*}
+\medskip
+The alternating version converges, with
+\begin{displaymath}
+\sum_{n=1}^\infty\frac{(-1)^{n+1}}n=\log 2.
+\end{displaymath}
+\bigskip
+\subparagraph{Convergence tests.} The ratio test says $\sum a_n$ converges if $\lim|a_{n+1}/a_n|<1$.
+\vfill
+\begin{center}
+\rule{4cm}{0.4pt}
+\end{center}
+\end{document}

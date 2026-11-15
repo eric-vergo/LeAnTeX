@@ -1,0 +1,31 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newenvironment{keyidea}{\begin{quote}\textbf{Key idea.}\ }{\end{quote}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\begin{document}
+\section{Hilbert spaces}
+Let $H$ be a complex Hilbert space with inner product $\langle\cdot,\cdot\rangle$ and norm $\norm{x}=\sqrt{\langle x,x\rangle}$.
+
+\begin{keyidea}
+Orthogonality replaces coordinates: every closed subspace has an orthogonal complement.
+\end{keyidea}
+
+\subsection{Cauchy--Schwarz}
+For all $x,y\in H$,
+\begin{equation}\label{eq:cs}
+|\langle x,y\rangle|\le\norm{x}\,\norm{y}.
+\end{equation}
+Equality holds exactly when $x$ and $y$ are linearly dependent.
+
+\subsection{Projection}
+Let $M$ be a closed subspace. Each $x\in H$ decomposes uniquely as $x=m+m^\perp$, and
+\begin{align}
+\norm{x}^2&=\norm{m}^2+\norm{m^\perp}^2 \label{eq:pyth}\\
+&\ge\norm{m}^2.\notag
+\end{align}
+Inequality \eqref{eq:cs} and identity \eqref{eq:pyth} are the two tools used repeatedly in what follows.
+
+\begin{keyidea}
+Bessel's inequality: $\sum_k|\langle x,e_k\rangle|^2\le\norm{x}^2$ for an orthonormal family $(e_k)$.
+\end{keyidea}
+\end{document}

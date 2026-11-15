@@ -10,7 +10,9 @@
 # file stops changing (at most five runs), so references and the contents are resolved. The
 # fixtures are committed, so `lake test` needs no TeX.
 #
-# Usage, from the repository root:  bash tools/doc-reference.sh [name …]
+# Usage, from the repository root:  bash tools/doc-reference.sh [--held-out] [name …]
+# With --held-out the documents are corpus/doc-heldout/<name>.tex and the fixtures go to
+# fixtures/doc-heldout/ (the held-out set, which the layer is not tuned to).
 # Needs a TeX Live with LuaLaTeX (TEXBIN, default the directory of `lualatex` on PATH or
 # /Library/TeX/texbin). TeX's caches go to a fresh temporary directory, removed at the end;
 # HOME is set to it as well, so nothing is written into the user's own directories.
@@ -27,16 +29,22 @@ work=$(mktemp -d "${TMPDIR:-/tmp}/leantex-docref.XXXXXX")
 trap '[ -n "${KEEP:-}" ] || rm -rf "$work"' EXIT
 export HOME="$work/home" TEXMFVAR="$work/texmf-var" TEXMFCACHE="$work/texmf-var"
 export TEXMFCONFIG="$work/texmf-config"
-mkdir -p "$HOME" "$TEXMFVAR" "$TEXMFCONFIG" "$root/fixtures/doc"
+mkdir -p "$HOME" "$TEXMFVAR" "$TEXMFCONFIG"
 
+corpus="$root/corpus/doc" fixtures="$root/fixtures/doc"
+if [ "${1:-}" = --held-out ]; then
+  corpus="$root/corpus/doc-heldout" fixtures="$root/fixtures/doc-heldout"
+  shift
+fi
+mkdir -p "$fixtures"
 names=("$@")
 if [ ${#names[@]} -eq 0 ]; then
-  for f in "$root"/corpus/doc/*.tex; do names+=("$(basename "$f" .tex)"); done
+  for f in "$corpus"/*.tex; do names+=("$(basename "$f" .tex)"); done
 fi
 
 tools="$root/tools/doc-reference"
 for name in "${names[@]}"; do
-  src="$root/corpus/doc/$name.tex"
+  src="$corpus/$name.tex"
   [ -f "$src" ] || { echo "doc-reference: no document $src" >&2; exit 2; }
   run="$work/run-$name"
   mkdir -p "$run"
@@ -53,6 +61,6 @@ for name in "${names[@]}"; do
     if [ -f "$run/prev.aux" ] && cmp -s "$run/doc.aux" "$run/prev.aux"; then stable=yes; break; fi
   done
   [ "$stable" = yes ] || { echo "doc-reference: $name: references did not settle" >&2; exit 1; }
-  mv "$run/out.json" "$root/fixtures/doc/$name.json"
+  mv "$run/out.json" "$fixtures/$name.json"
   echo "doc-reference: $name: $i runs"
 done

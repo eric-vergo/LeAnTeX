@@ -1,0 +1,40 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\begin{document}
+\section{Propositional logic}
+We write $\neg$, $\wedge$, $\vee$, $\to$ for negation, conjunction, disjunction and implication. A formula $\varphi$ is a \emph{tautology} if it is true under every valuation.
+
+\begin{quote}
+A proof is whatever convinces a reasonable reader; a formal proof is whatever convinces a machine.
+\end{quote}
+
+\subsection{An example}
+The formula $(p\to q)\to(\neg q\to\neg p)$ is a tautology, as the table shows.
+\begin{center}
+\begin{tabular}{cc|c|c|c}
+$p$ & $q$ & $p\to q$ & $\neg q\to\neg p$ & whole\\ \hline
+T & T & T & T & T\\
+T & F & F & F & T\\
+F & T & T & T & T\\
+F & F & T & T & T
+\end{tabular}
+\end{center}
+
+\subsection{Natural deduction}
+\begin{enumerate}
+\item Assume $p\to q$ and $\neg q$.
+\item Assume $p$; then $q$ by modus ponens.
+\item This contradicts $\neg q$, so $\neg p$.
+\end{enumerate}
+\smallskip
+The verbatim sketch of the same derivation:
+\begin{verbatim}
+  1. p -> q      assumption
+  2. ~q          assumption
+  3.   p         assumption
+  4.   q         MP 1,3
+  5.   false     2,4
+  6. ~p          RAA 3-5
+\end{verbatim}
+Here \verb|RAA| stands for reductio ad absurdum.
+\end{document}

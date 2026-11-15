@@ -1,0 +1,33 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+\begin{document}
+\section{Quadrature}
+We wish to approximate $I=\int_0^1 e^{-x^2}\,dx$. The composite trapezoidal rule with $n$ panels gives
+\begin{equation}
+T_n=\frac h2\bigl(f_0+2f_1+\dots+2f_{n-1}+f_n\bigr),\qquad h=\frac1n,
+\end{equation}
+with error $O(h^2)$.
+
+\begin{center}
+\begin{tabular}{|r|l|l|}
+\hline
+$n$ & $T_n$ & error\\ \hline
+2 & 0.7313703 & $1.4\times10^{-2}$\\
+4 & 0.7429840 & $3.6\times10^{-3}$\\
+8 & 0.7458656 & $9.0\times10^{-4}$\\ \hline
+\end{tabular}
+\end{center}
+The error drops by a factor of about four each time $n$ doubles, as predicted.
+
+\section{Newton's method}
+To solve $f(x)=0$ iterate
+\[
+x_{k+1}=x_k-\frac{f(x_k)}{f'(x_k)}.
+\]
+\begin{itemize}
+\item Near a simple root convergence is quadratic.
+\item Near a multiple root it is only linear.
+\item The method may diverge from a poor starting point.
+\end{itemize}
+\textbf{Warning.} Always bound the number of iterations.\footnote{A fixed cap such as one hundred is typical.}
+\end{document}

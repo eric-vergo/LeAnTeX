@@ -1,0 +1,34 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{theorem}{Theorem}
+\begin{document}
+\title{Primes in Arithmetic Progressions}
+\author{Hélène Dubois}
+\date{November 2025}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+Euclid showed that there are infinitely many primes. Dirichlet proved much more: if $\gcd(a,q)=1$, then the progression $a, a+q, a+2q,\dots$ contains infinitely many primes.
+
+\section{Statement}
+\begin{theorem}[Dirichlet]\label{thm:dir}
+Let $q\ge1$ and $\gcd(a,q)=1$. Then
+\[
+\sum_{p\equiv a\ (\mathrm{mod}\ q)}\frac1p=\infty.
+\]
+\end{theorem}
+
+\subsection{Easy special cases}
+The case $q=4$, $a=3$ has an elementary proof: if $p_1,\dots,p_k$ are primes of the form $4m+3$, the number $4p_1\cdots p_k-1$ has a prime factor of that form not among them.
+
+\subsection{Quantitative form}
+Let $\pi(x;q,a)$ count primes $p\le x$ with $p\equiv a\pmod q$. Then
+\begin{equation}
+\pi(x;q,a)\sim\frac{1}{\varphi(q)}\,\frac{x}{\log x}.
+\end{equation}
+
+\section{Remarks}
+\paragraph{Characters.} The proof uses Dirichlet characters modulo $q$ and the nonvanishing of $L(1,\chi)$.
+\paragraph{Computation.} A table of small cases for $q=10$ is easy to produce by hand.
+\end{document}

@@ -1,0 +1,29 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{theorem}{Theorem}
+\begin{document}
+\section{Euler's formula}
+For a connected planar graph with $V$ vertices, $E$ edges and $F$ faces,
+\begin{equation}\label{eq:euler}
+V-E+F=2.
+\end{equation}
+
+\begin{theorem}\label{thm:k5}
+The complete graph $K_5$ is not planar.
+\end{theorem}
+\begin{proof}
+$K_5$ has $V=5$ and $E=10$. If it were planar, \eqref{eq:euler} would give $F=7$. Each face is bounded by at least three edges, and each edge borders at most two faces, so $3F\le 2E$, that is $21\le 20$, a contradiction.
+\end{proof}
+
+\section{Degrees}
+The handshake lemma states
+\[
+\sum_{v}\deg(v)=2E.
+\]
+Consequently the number of vertices of odd degree is even.
+
+\subsection{Trees}
+A tree on $n$ vertices has $n-1$ edges. Conversely, a connected graph with $n$ vertices and $n-1$ edges is a tree.
+
+Theorem~\ref{thm:k5} and the handshake lemma are both consequences of counting; see equation~\eqref{eq:euler} on page~\pageref{eq:euler}.
+\end{document}
