@@ -73,11 +73,11 @@ def buildArray (ctx : BuildCtx) (colSeparationType : Option String)
   -- the rules above the first row, 0.25 em apart
   for h : i in [0:(hLinesBeforeRow[0]?.getD #[]).size] do
     if i > 0 then totalHeight := totalHeight + 0.25
-    hlines := hlines.push (totalHeight, (hLinesBeforeRow[0]?.getD #[])[i]!)
+    hlines := hlines.push (totalHeight, (hLinesBeforeRow[0]?.getD #[]).getD i false)
   let mut rows : Array OutRow := #[]
   let mut nc := 0
   for r in [0:nr] do
-    let inrow := body[r]!
+    let inrow := body.getD r default
     let mut height := arstrutHeight
     let mut depth := arstrutDepth
     if nc < inrow.size then nc := inrow.size
@@ -112,7 +112,7 @@ def buildArray (ctx : BuildCtx) (colSeparationType : Option String)
       | .inr _ => true
     if anyTag then
       for r in [0:nr] do
-        let rw := rows[r]!
+        let rw := rows.getD r default
         let tagSpan ← match ts[r]? with
           | some (.inl true) => pure (makeSpan #["eqn-num"] #[] (some o))
           | some (.inr tag) => pure (makeSpan #[] (← ctx.expr tag o .yes) (some o))

@@ -48,7 +48,7 @@ def size (s : MathStyle) : Nat := s.id / 2
 def cramped (s : MathStyle) : Bool := s.id % 2 == 1
 
 /-- The style id after a transition table. -/
-private def step (table : Array Nat) (s : MathStyle) : MathStyle := ⟨table[s.id]!⟩
+private def step (table : Array Nat) (s : MathStyle) : MathStyle := ⟨table.getD s.id 0⟩
 
 /-- The style of a superscript. -/
 def sup : MathStyle → MathStyle := step #[4, 5, 4, 5, 6, 7, 6, 7]
@@ -89,7 +89,7 @@ def sizeStyleMap : Array (Nat × Nat × Nat) :=
 def sizeAtStyle (size : Nat) (style : MathStyle) : Nat :=
   if style.size < 2 then size
   else
-    let (_, b, c) := sizeStyleMap[size - 1]!
+    let (_, b, c) := sizeStyleMap.getD (size - 1) default
     if style.size == 2 then b else c
 
 /-- The options a group is laid out with (KaTeX's `Options`). -/
@@ -129,7 +129,7 @@ def baseSize : Nat := 6
 
 /-- `o` with a new size: the size's multiplier follows. -/
 def withSize (o : Options) (size : Nat) : Options :=
-  { o with size, sizeMultiplier := sizeMultipliers[size - 1]! }
+  { o with size, sizeMultiplier := sizeMultipliers.getD (size - 1) default }
 
 /-- The options in another style (`havingStyle`). -/
 def havingStyle (o : Options) (style : MathStyle) : Options :=

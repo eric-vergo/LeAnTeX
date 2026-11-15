@@ -156,7 +156,7 @@ def buildHTML (tree : Array Node) (o : Options) : BuildM Box := do
     | t => (t, none)
   let mut expression ← rootCtx.expr tree o .root
   let mut eqnNum : Option Box := none
-  if expression.size == 2 && expression[1]!.hasClass "katex-tag" then
+  if expression.size == 2 && (expression.getD (1) default).hasClass "katex-tag" then
     eqnNum := expression.back?
     expression := expression.pop
   let mut children := #[]
@@ -164,16 +164,16 @@ def buildHTML (tree : Array Node) (o : Options) : BuildM Box := do
   let mut i := 0
   for _ in [0:expression.size] do
     if i ≥ expression.size then break
-    let e := expression[i]!
+    let e := (expression.getD (i) default)
     parts := parts.push e
     if e.hasClass "mbin" || e.hasClass "mrel" || e.hasClass "allowbreak" then
       let mut nobreak := false
       for _ in [0:expression.size] do
-        if i < expression.size - 1 && expression[i + 1]!.hasClass "mspace" &&
-            !expression[i + 1]!.hasClass "katex-newline" then
+        if i < expression.size - 1 && (expression.getD (i + 1) default).hasClass "mspace" &&
+            !(expression.getD (i + 1) default).hasClass "katex-newline" then
           i := i + 1
-          parts := parts.push expression[i]!
-          if expression[i]!.hasClass "nobreak" then nobreak := true
+          parts := parts.push (expression.getD (i) default)
+          if (expression.getD (i) default).hasClass "nobreak" then nobreak := true
         else break
       if !nobreak then
         children := children.push (buildHTMLUnbreakable parts o)
@@ -190,19 +190,18 @@ def buildHTML (tree : Array Node) (o : Options) : BuildM Box := do
   if let some t := tag then
     let tc := buildHTMLUnbreakable (← rootCtx.expr t o .yes) o
     tagChild := some { tc with classes := #["katex-tag"] }
-    children := children.push tagChild.get!
+    children := children.push { tc with classes := #["katex-tag"] }
   else if let some e := eqnNum then
     children := children.push e
   let mut html := makeSpan #["katex-html"] children
   html := { html with attrs := #[("aria-hidden", "true")] }
   if tagChild.isSome then
-    let n := html.children.size
-    let tc := html.children[n - 1]!
-    let strut := tc.children[0]!.setStyle "height" (html.height + html.depth)
-    let strut := if html.depth != 0 then strut.setStyle "verticalAlign" (-html.depth)
-      else strut
-    let tc' := { tc with children := tc.children.set! 0 strut }
-    html := { html with children := html.children.set! (n - 1) tc' }
+    if let some tc := html.children.back? then
+      let strut := (tc.children.getD 0 default).setStyle "height" (html.height + html.depth)
+      let strut := if html.depth != 0 then strut.setStyle "verticalAlign" (-html.depth)
+        else strut
+      let tc' := { tc with children := tc.children.setIfInBounds 0 strut }
+      html := { html with children := html.children.pop.push tc' }
   return html
 
 /-- The layout options of a formula's settings (`optionsFromSettings`). -/

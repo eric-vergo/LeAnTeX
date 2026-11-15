@@ -90,13 +90,13 @@ def stretchySvg (label : String) (base : Option Node) (o : Options) : BuildM Box
         if numChars > 5 then
           if hat then (2364, 420, 0.42, label ++ "4") else (2340, 312, 0.34, "tilde4")
         else
-          let i := #[1, 1, 2, 2, 3, 3][numChars]!
+          let i := #[1, 1, 2, 2, 3, 3].getD numChars 0
           if hat then
-            (#[0, 1062, 2364, 2364, 2364][i]!, #[0, 239, 300, 360, 420][i]!,
-             #[(0 : Em), 0.24, 0.3, 0.3, 0.36, 0.42][i]!, label ++ toString i)
+            (#[0, 1062, 2364, 2364, 2364].getD i 0, #[0, 239, 300, 360, 420].getD i 0,
+             #[(0 : Em), 0.24, 0.3, 0.3, 0.36, 0.42].getD i 0, label ++ toString i)
           else
-            (#[0, 600, 1033, 2339, 2340][i]!, #[0, 260, 286, 306, 312][i]!,
-             #[(0 : Em), 0.26, 0.286, 0.3, 0.306, 0.34][i]!, "tilde" ++ toString i)
+            (#[0, 600, 1033, 2339, 2340].getD i 0, #[0, 260, 286, 306, 312].getD i 0,
+             #[(0 : Em), 0.26, 0.286, 0.3, 0.306, 0.34].getD i 0, "tilde" ++ toString i)
       let svg : Box :=
         { kind := .svg #[.path pathName none]
           attrs := #[("width", "100%"), ("height", height.css),
@@ -114,11 +114,11 @@ def stretchySvg (label : String) (base : Option Node) (o : Options) : BuildM Box
               #["xMinYMin", "xMidYMin", "xMaxYMin"])
       let piece (i : Nat) : Box :=
         let svg : Box :=
-          { kind := .svg #[.path paths[i]! none]
+          { kind := .svg #[.path (paths.getD i default) none]
             attrs := #[("width", "400em"), ("height", height.css),
               ("viewBox", s!"0 0 400000 {vbh}"),
-              ("preserveAspectRatio", aligns[i]! ++ " slice")] }
-        makeSvgSpan #[widthClasses[i]!] #[svg] o
+              ("preserveAspectRatio", (aligns.getD i "") ++ " slice")] }
+        makeSvgSpan #[(widthClasses.getD i "")] #[svg] o
       if n == 1 then pure (piece 0, minWidth, height)
       else
         let spans := (List.range n).toArray.map fun i => (piece i).setStyle "height" height

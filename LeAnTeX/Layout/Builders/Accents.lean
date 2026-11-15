@@ -32,7 +32,9 @@ def getBaseSymbol : Nat → Box → Option Box
   | 0, _ => none
   | fuel + 1, b =>
     if b.isSymbol then some b
-    else if b.children.size == 1 then getBaseSymbol fuel b.children[0]! else none
+    else match b.children with
+      | #[c] => getBaseSymbol fuel c
+      | _ => none
 
 /-- An accent over its base; with `scripts`, the base's sub- and superscripts, which a
 single-character base takes beside the accent (KaTeX's `accent` builder). -/
@@ -79,8 +81,9 @@ def buildAccent (ctx : BuildCtx) (mode : Mode) (label : String) (isStretchy isSh
   let accentWrap := makeSpan #["mord", "katex-accent"] #[accentBody] (some o)
   match supSubGroup with
   | some s =>
-    let children := if s.children.isEmpty then #[accentWrap] else s.children.set! 0 accentWrap
-    let classes := if s.classes.isEmpty then #["mord"] else s.classes.set! 0 "mord"
+    let children :=
+      if s.children.isEmpty then #[accentWrap] else s.children.setIfInBounds 0 accentWrap
+    let classes := if s.classes.isEmpty then #["mord"] else s.classes.setIfInBounds 0 "mord"
     return { s with children, height := max accentWrap.height s.height, classes }
   | none => return accentWrap
 
@@ -189,7 +192,7 @@ def makeSqrtImage (height : Em) (o : Options) : BuildM (Box × Em × Em) := do
       let span := (sqrtSvg "sqrtMain" spanHeight vbh ev o).setStyleStr "minWidth" "0.853em"
       pure (span, spanHeight, (1 + ev) / sm, (0.833 : Em) / sm)
     | .large s =>
-      let maxH := sizeToMaxHeight[s]!
+      let maxH := sizeToMaxHeight.getD s default
       let vbh := ((1000 + Em.ofInt vbPad) * maxH).round
       let spanHeight := (maxH + ev + 0.08) / sm
       let span := (sqrtSvg s!"sqrtSize{s}" spanHeight vbh ev o).setStyleStr "minWidth" "1.02em"

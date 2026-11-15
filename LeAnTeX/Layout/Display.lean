@@ -127,7 +127,7 @@ def Face.katexName (f : Face) : String :=
     else if f.bold && styles.contains "Bold" then "Bold"
     else if f.bold && styles.contains "BoldItalic" then "BoldItalic"
     else if f.italic && styles.contains "Italic" then "Italic"
-    else styles.head!
+    else styles.headD ""
   f.family ++ "-" ++ pick
 
 /-- The name of the face's font file (and metric table): `Main-BoldItalic`, `Math-Italic`,
@@ -499,7 +499,7 @@ def advances : Std.HashMap String (Std.HashMap Nat Em) := Id.run do
   for (face, flat) in Data.fontAdvanceTables do
     let mut m : Std.HashMap Nat Em := {}
     for i in [0:flat.size / 2] do
-      m := m.insert flat[2 * i]! (Em.ofRatio flat[2 * i + 1]! 1000)
+      m := m.insert (flat.getD (2 * i) 0) (Em.ofRatio (flat.getD (2 * i + 1) 0) 1000)
     out := out.insert face m
   return out
 

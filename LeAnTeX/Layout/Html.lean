@@ -180,21 +180,21 @@ def insertSpacing (groups : Array Box) (o glueOptions : Options) (isRoot : Bool)
   let mut prevDummy : Array String := #[before]
   for i in [0:n + 1] do
     let isNext := i == n
-    if !isNext && leaves[i]!.isSpace then
-      if isRoot && leaves[i]!.isNewline then
+    if !isNext && (leaves.getD i default).isSpace then
+      if isRoot && (leaves.getD i default).isNewline then
         prev := none
         prevDummy := #["leftmost"]
       continue
-    let nodeCls := if isNext then #[after] else cls[i]!
+    let nodeCls := if isNext then #[after] else (cls.getD i #[])
     let prevCls := match prev with
-      | some j => cls[j]!
+      | some j => (cls.getD j #[])
       | none => prevDummy
     if prevCls[0]? == some "mbin" && rightCancel.contains (nodeCls[0]?.getD "") then
       match prev with
-      | some j => cls := cls.modify j (·.set! 0 "mord")
-      | none => prevDummy := prevDummy.set! 0 "mord"
+      | some j => cls := cls.modify j (·.setIfInBounds 0 "mord")
+      | none => prevDummy := prevDummy.setIfInBounds 0 "mord"
     else if nodeCls[0]? == some "mbin" && leftCancel.contains (prevCls[0]?.getD "") then
-      if !isNext then cls := cls.modify i (·.set! 0 "mord")
+      if !isNext then cls := cls.modify i (·.setIfInBounds 0 "mord")
     prev := if isNext then prev else some i
   -- pass 2: glue between atoms, after the box visited last before the right one
   let mut inserts : Array (Array Nat × Nat × Box) := #[]
@@ -204,35 +204,35 @@ def insertSpacing (groups : Array Box) (o glueOptions : Options) (isRoot : Bool)
   let mut insertAfter : Option (Array Nat) := none
   for i in [0:n + 1] do
     let isNext := i == n
-    let isSpace := !isNext && leaves[i]!.isSpace
+    let isSpace := !isNext && (leaves.getD i default).isSpace
     if !isSpace then
-      let nodeCls := if isNext then #[after] else cls[i]!
+      let nodeCls := if isNext then #[after] else (cls.getD i #[])
       let prevCls := match prev2 with
-        | some j => cls[j]!
+        | some j => (cls.getD j #[])
         | none => prevDummy2
-      let tight := !isNext && leaves[i]!.tight
+      let tight := !isNext && (leaves.getD i default).tight
       let space := match atomType prevCls, atomType nodeCls with
         | some a, some b => if tight then tightAtomSpacing a b else atomSpacing a b
         | _, _ => none
       if let some mu := space then
         let glue ← makeGlue ⟨mu.toFloat, "mu"⟩ glueOptions
         match insertAfter with
-        | some p => inserts := inserts.push (p.pop, p.back! + 1, glue)
+        | some p => inserts := inserts.push (p.pop, (p.back?.getD 0) + 1, glue)
         | none =>
-          let frame := if isNext then #[] else leaves[i]!.path.pop
+          let frame := if isNext then #[] else (leaves.getD i default).path.pop
           inserts := inserts.push (frame, 0, glue)
       if !isNext then prev2 := some i
-    else if isRoot && leaves[i]!.isNewline then
+    else if isRoot && (leaves.getD i default).isNewline then
       prev2 := none
       prevDummy2 := #["leftmost"]
-    if !isNext then insertAfter := some leaves[i]!.path
+    if !isNext then insertAfter := some (leaves.getD i default).path
   let _ := o
   -- apply: class changes, then insertions deepest first and right to left
   let mut out := groups
   for i in [0:n] do
-    if cls[i]! != leaves[i]!.classes then
-      let c := cls[i]!
-      out := modifyBoxAt out leaves[i]!.path fun b => { b with classes := c }
+    if (cls.getD i #[]) != (leaves.getD i default).classes then
+      let c := (cls.getD i #[])
+      out := modifyBoxAt out (leaves.getD i default).path fun b => { b with classes := c }
   let sorted := inserts.qsort fun (p, i, _) (q, j, _) =>
     p.size > q.size || (p.size == q.size && (p.toList > q.toList ||
       (p.toList == q.toList && i > j)))

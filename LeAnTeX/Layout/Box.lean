@@ -94,7 +94,7 @@ def get? (c : Css) (key : String) : Option CssValue :=
 order). -/
 def set (c : Css) (key : String) (v : CssValue) : Css :=
   match c.props.findIdx? (·.1 == key) with
-  | some i => ⟨c.props.set! i (key, v)⟩
+  | some i => ⟨c.props.setIfInBounds i (key, v)⟩
   | none => ⟨c.props.push (key, v)⟩
 
 /-- Set a length. -/

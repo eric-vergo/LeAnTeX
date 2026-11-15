@@ -305,7 +305,7 @@ def makeSizedDelim (delim : String) (size : Nat) (o : Options) (mode : Mode)
   if stackLargeDelimiters.contains delim || stackNeverDelimiters.contains delim then
     makeLargeDelim delim size false o mode classes
   else if stackAlwaysDelimiters.contains delim then
-    makeStackedDelim delim sizeToMaxHeight[size]! false o mode classes
+    makeStackedDelim delim (sizeToMaxHeight.getD size default) false o mode classes
   else throwParse s!"Illegal delimiter: '{delim}'"
 
 /-- A delimiter kind: Main at a style's size, a large size, or stacked. -/
@@ -343,14 +343,14 @@ def traverseSequence (delim : String) (height : Em) (seq : Array DelimType) (o :
     BuildM DelimType := do
   let start := min 2 (3 - o.style.size)
   for i in [start:seq.size] do
-    let t := seq[i]!
+    let some t := seq[i]? | break
     if let .stack := t then break
     let m ← delimMetrics delim t.font .math
     let mut heightDepth := m.height + m.depth
     if let .small st := t then
       heightDepth := heightDepth * (o.havingBaseStyle st).sizeMultiplier
     if heightDepth > height then return t
-  return seq.back!
+  return seq.back?.getD default
 
 /-- The smallest delimiter taller than `height` (`makeCustomSizedDelim`). -/
 def makeCustomSizedDelim (delim : String) (height : Em) (center : Bool) (o : Options)

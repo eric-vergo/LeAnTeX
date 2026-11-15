@@ -67,8 +67,8 @@ def table : HashMap String (HashMap Nat CharMetrics) := Id.run do
   for (font, flat) in Data.fontMetricTables do
     let mut m : HashMap Nat CharMetrics := {}
     for i in [0:flat.size / 6] do
-      let g := fun k => Em.ofRatio flat[6 * i + k]! 100000
-      m := m.insert flat[6 * i]!.toNat
+      let g := fun k => Em.ofRatio (flat.getD (6 * i + k) 0) 100000
+      m := m.insert (flat.getD (6 * i) 0).toNat
         ⟨g 1, g 2, g 3, g 4, g 5, (flat.extract (6 * i + 1) (6 * i + 6))⟩
     out := out.insert font m
   return out
@@ -200,6 +200,6 @@ end Metrics
 /-- The font parameters for KaTeX size `size` (1–11): sizes 5 and up use the text class, 3 and
 4 the script class, 1 and 2 the scriptscript class. -/
 def fontParams (size : Nat) : FontParams :=
-  Metrics.params[if size ≥ 5 then 0 else if size ≥ 3 then 1 else 2]!
+  Metrics.params.getD (if size ≥ 5 then 0 else if size ≥ 3 then 1 else 2) default
 
 end LeAnTeX

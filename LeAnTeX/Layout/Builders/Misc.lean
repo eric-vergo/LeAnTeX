@@ -206,8 +206,8 @@ def buildLeftright (ctx : BuildCtx) (mode : Mode) (body : Array Node) (left righ
   let mut out := #[leftDelim] ++ inner
   if hadMiddle then
     for i in [1:out.size] do
-      if let some (d, mo) := out[i]!.middle then
-        out := out.set! i (← makeLeftRightDelim d innerHeight innerDepth mo mode #[])
+      if let some (d, mo) := out[i]?.bind (·.middle) then
+        out := out.setIfInBounds i (← makeLeftRightDelim d innerHeight innerDepth mo mode #[])
   let rightDelim ← if right == "." then pure (makeNullDelimiter o #["mclose"])
     else
       let co := match rightColor with

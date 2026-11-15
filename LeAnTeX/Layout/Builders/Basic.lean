@@ -72,7 +72,7 @@ def sizingGroup (ctx : BuildCtx) (body : Array Node) (o base : Options) : BuildM
       | none => { b with classes := b.classes ++ o.sizingClasses base }
       | some pos =>
         if b.classes[pos + 1]? == some s!"reset-size{o.size}" then
-          { b with classes := b.classes.set! (pos + 1) s!"reset-size{base.size}" }
+          { b with classes := b.classes.setIfInBounds (pos + 1) s!"reset-size{base.size}" }
         else b
     { b with height := b.height * multiplier, depth := b.depth * multiplier }
   return makeFragment out

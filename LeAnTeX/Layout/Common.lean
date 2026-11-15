@@ -188,9 +188,9 @@ def wideCharacterFont (text : String) : BuildM (String × String × String) := d
     boldFraktur, sansSerif, sansSerif, boldSansSerif, boldSansSerif, italicSansSerif,
     italicSansSerif, noFont, noFont, monospace, monospace]
   let numerals := #[boldUpright, noFont, sansSerif, boldSansSerif, monospace]
-  if 0x1D400 ≤ cp && cp < 0x1D6A4 then return letters[(cp - 0x1D400) / 26]!
-  else if 0x1D7CE ≤ cp && cp ≤ 0x1D7FF then return numerals[(cp - 0x1D7CE) / 10]!
-  else if cp == 0x1D6A5 || cp == 0x1D6A6 then return letters[0]!
+  if 0x1D400 ≤ cp && cp < 0x1D6A4 then return letters.getD ((cp - 0x1D400) / 26) default
+  else if 0x1D7CE ≤ cp && cp ≤ 0x1D7FF then return numerals.getD ((cp - 0x1D7CE) / 10) default
+  else if cp == 0x1D6A5 || cp == 0x1D6A6 then return letters.getD 0 default
   else if 0x1D6A6 < cp && cp < 0x1D7CE then return noFont
   else throwParse s!"Unsupported character: {text}"
 
@@ -255,7 +255,8 @@ def canCombine (prev next : Box) : Bool :=
   let cls (b : Box) := b.classes.filter (· != "")
   cls prev == cls next && prev.skew == next.skew && prev.maxFontSize == next.maxFontSize &&
     !(prev.italicOr0 != 0 && prev.hasClass "mathnormal") &&
-    !(prev.classes.size == 1 && (prev.classes[0]! == "mbin" || prev.classes[0]! == "mord")) &&
+    !(prev.classes.size == 1 &&
+      (prev.classes[0]? == some "mbin" || prev.classes[0]? == some "mord")) &&
     prev.style.sameAs next.style
 
 /-- Merge runs of combinable symbols (`tryCombineChars`): the text is joined, height and depth
@@ -354,10 +355,12 @@ def vlistChildrenAndDepth : VListParam → BuildM (Array VChild × Em)
     let mut out := #[VChild.elem c0]
     let mut currPos := depth
     for i in [1:cs.size] do
-      let diff := -cs[i]!.shift - currPos - cs[i]!.elem.depth
-      let size := diff - (cs[i - 1]!.elem.height + cs[i - 1]!.elem.depth)
+      let some c := cs[i]? | break
+      let some p := cs[i - 1]? | break
+      let diff := -c.shift - currPos - c.elem.depth
+      let size := diff - (p.elem.height + p.elem.depth)
       currPos := currPos + diff
-      out := out.push (.kern size) |>.push (.elem cs[i]!)
+      out := out.push (.kern size) |>.push (.elem c)
     return (out, depth)
   | .top h cs =>
     let bottom := cs.foldl (init := h) fun acc c => match c with

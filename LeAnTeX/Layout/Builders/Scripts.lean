@@ -120,7 +120,8 @@ def buildOp (ctx : BuildCtx) (mode : Mode) (symbol : Bool) (name : Option String
     if h : inner.size = 1 then
       if inner[0].isSymbol then
         let s := inner[0]
-        base := { s with classes := if s.classes.isEmpty then #["mop"] else s.classes.set! 0 "mop" }
+        base := { s with classes :=
+          if s.classes.isEmpty then #["mop"] else s.classes.setIfInBounds 0 "mop" }
       else base := makeSpan #["mop"] inner (some o)
     else base := makeSpan #["mop"] inner (some o)
   else
