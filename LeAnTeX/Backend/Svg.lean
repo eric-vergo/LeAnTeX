@@ -241,7 +241,8 @@ def pictureParts (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) :
         let inner := fun (ox oy : Int) =>
           s!"<svg{attr "x" (ptText (px - ox))}{attr "y" (ptText (py - oy))}\
             {attr "width" (ptText (sp w))}{attr "height" (ptText (sp h))}{attr "viewBox" vb}\
-            {attr "preserveAspectRatio" par}><path{attr "d" data}/></svg>"
+            {if par.trimAscii.isEmpty then "" else attr "preserveAspectRatio" par}>\
+            <path{attr "d" data}/></svg>"
         let el := match clip with
           | some (cx, cy, cw, ch) =>
             s!"<svg{attr "x" (ptText (lx + sp cx))}{attr "y" (ptText (ly + sp cy))}\

@@ -140,6 +140,11 @@ def checks (fonts : Fonts) : Array (String × Bool) :=
       has s "aria-label=\"x^2\"" && has s "class=\"ltx-a\">$x^2$"),
     ("html: lengths in CSS points (345 TeX points are 343.711)",
       has (html "Some text.") "width:343.711pt"),
+    ("svg: no attribute is written with an empty value (a path without an aspect rule has none)",
+      ["$\\Big| x \\Big|$", "$\\left( \\frac{a}{b} \\right)$", "$\\sqrt{x} + \\overbrace{a+b}$",
+        "$\\widehat{abc} \\xrightarrow{f} \\Bigg\\| y$"].all fun src =>
+        let s := svg src
+        has s "<svg" && !has s "=\"\"" && !has s "preserveAspectRatio=\" "),
     ("svg: an empty source gives an empty picture", has (svg "") "<svg"),
     ("svg: deterministic", svg "$a+b$ and text" == svg "$a+b$ and text")]
 
