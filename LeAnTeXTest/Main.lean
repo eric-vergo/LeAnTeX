@@ -333,6 +333,11 @@ def benchMatrix : IO Unit := do
       (checksum {check})"
 
 /-- Run everything; see the module docstring for the modes. -/
+/-- The text-mode checks and the font reader's: their failures. -/
+def textChecks : IO (Array String) := do
+  return (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++
+    (← FrontChecks.run) ++ (← TypesetChecks.run) ++ (← FontTest.run)
+
 def main (args : List String) : IO UInt32 := do
   if args == ["--bench-matrix"] then
     benchMatrix
@@ -341,7 +346,7 @@ def main (args : List String) : IO UInt32 := do
     let fails ← TypesetChecks.run true
     return if fails.isEmpty then 0 else 1
   if args == ["--text"] then
-    let fails := (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++ (← FrontChecks.run) ++ (← TypesetChecks.run) ++ (← FontTest.run)
+    let fails ← textChecks
     for f in fails do IO.eprintln s!"  {f}"
     return if fails.isEmpty then 0 else 1
   let mut results := #[]
@@ -480,7 +485,7 @@ def main (args : List String) : IO UInt32 := do
       {DisplayChecks.displayChecks.size} checks hold"
     -- the text-mode fixtures and the font reader
     IO.println "text mode and fonts:"
-    for f in (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++ (← FrontChecks.run) ++ (← TypesetChecks.run) ++ (← FontTest.run) do regressions := regressions.push f
+    for f in ← textChecks do regressions := regressions.push f
     if improved > 0 then
       IO.println s!"{improved} cases match that the baseline lists as mismatched; record them \
         with `lake exe leantex-test --update`"

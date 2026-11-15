@@ -6,11 +6,11 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 /-!
 # US English hyphenation patterns (`usenglishmax`)
 
-The hyphenation patterns and exceptions for American English of the hyph-utf8 package, as TeX Live ships them
-(`tex/generic/hyph-utf8/patterns/txt/hyph-en-us.pat.txt` and `hyph-en-us.hyp.txt`, the data of
-`hyph-en-us.tex`): Knuth's patterns with Gerard Kuiken's additions (`ushyphmax.tex`), TeX Live's
-language `usenglishmax`.
-Copied by `tools/gen-hyphen.py`: 4938 patterns and 14 exceptions.
+The hyphenation patterns and exceptions for American English of the hyph-utf8 package, as TeX
+Live ships them (`tex/generic/hyph-utf8/patterns/txt/hyph-en-us.pat.txt` and
+`hyph-en-us.hyp.txt`, the data of `hyph-en-us.tex`): Knuth's patterns with Gerard Kuiken's
+additions (`ushyphmax.tex`), TeX Live's language `usenglishmax`. Copied by
+`tools/gen-hyphen.py`: 4938 patterns and 14 exceptions.
 
 The source file's notice, kept with the copy as its terms ask:
 

@@ -15,9 +15,12 @@
 # (default: the first /usr/local/texlive/*/texmf-dist that has the files)
 
 import glob
+import textwrap
 import os
 import sys
 
+NL = chr(10)
+BS = chr(92)
 SUB = "tex/generic/hyph-utf8/patterns"
 
 
@@ -48,18 +51,18 @@ def notice(tex):
 def chunks(s, width=90):
     """A long literal written over several lines with Lean's string gaps (a backslash at the
     end of a line skips the newline and the next line's indentation)."""
-    lines = s.split("\n")
     pieces, cur = [], ""
-    for ln in lines:
-        add = ln + "\n"
+    for ln in s.split(NL):
+        add = ln + NL
         if len(cur) + len(add) > width - 10 and cur:
             pieces.append(cur)
             cur = ""
         cur += add
     if cur:
         pieces.append(cur)
-    body = "\\\n    ".join(p.replace("\n", "\\n") for p in pieces)
-    assert all(c.isalnum() or c in ".-\n\\ " for c in body), "unexpected character"
+    escaped = [p.replace(NL, BS + "n") for p in pieces]
+    body = (BS + NL + "    ").join(escaped)
+    assert all(c.isalnum() or c in ".-" + BS + NL + " " for c in body), "unexpected character"
     return '"' + body + '"'
 
 
@@ -74,8 +77,8 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 /-!
 # {title}
 
-{doc}
-Copied by `tools/gen-hyphen.py`: {len(pats)} patterns and {len(hyps)} exceptions.
+{textwrap.fill(doc + f" Copied by `tools/gen-hyphen.py`: {len(pats)} patterns and "
+                f"{len(hyps)} exceptions.", 96, break_on_hyphens=False)}
 
 The source file's notice, kept with the copy as its terms ask:
 

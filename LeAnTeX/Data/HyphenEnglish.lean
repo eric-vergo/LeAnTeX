@@ -8,8 +8,8 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 
 Knuth's hyphenation patterns and exceptions for English from plain TeX's `hyphen.tex`, as TeX
 Live ships it (`tex/generic/hyphen/hyphen.tex`): TeX Live's language `english`, the language 0
-of LaTeX's formats and so the hyphenation LaTeX uses by default.
-Copied by `tools/gen-hyphen.py`: 4447 patterns and 14 exceptions.
+of LaTeX's formats and so the hyphenation LaTeX uses by default. Copied by
+`tools/gen-hyphen.py`: 4447 patterns and 14 exceptions.
 
 The source file's notice, kept with the copy as its terms ask:
 

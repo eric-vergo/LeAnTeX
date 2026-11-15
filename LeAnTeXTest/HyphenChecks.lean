@@ -8,7 +8,8 @@ import LeAnTeXTest.Font
 /-!
 # Hyphenation against TeX
 
-Every word of `fixtures/text/words.jsonl` hyphenated by `Patterns.english` (TeX's language 0) under the fixture's
+Every word of `fixtures/text/words.jsonl` hyphenated by `Patterns.english` (TeX's language 0)
+under the fixture's
 hyphen minima must be TeX's hyphenation of it, point for point.
 -/
 

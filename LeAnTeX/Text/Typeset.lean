@@ -490,8 +490,9 @@ def readDimen (at_ : Tok) (infinite : Bool := false) : M (Int × Nat) := do
       skipOneSpace
       return (sign ((whole * 65536 + f : Nat) : Int), order)
   let (em, ex) ← fontUnits
-  if ← keyword "em" then skipOneSpace; return (sign (Em.roundDiv (em * ((whole * 65536 + f : Nat) : Int)) 65536), 0)
-  if ← keyword "ex" then skipOneSpace; return (sign (Em.roundDiv (ex * ((whole * 65536 + f : Nat) : Int)) 65536), 0)
+  let times := fun (u : Int) => sign (Em.roundDiv (u * ((whole * 65536 + f : Nat) : Int)) 65536)
+  if ← keyword "em" then skipOneSpace; return (times em, 0)
+  if ← keyword "ex" then skipOneSpace; return (times ex, 0)
   let _ ← keyword "true"
   for u in ["pt", "pc", "in", "bp", "cm", "mm", "dd", "cc", "sp"] do
     if ← keyword u then
@@ -777,7 +778,8 @@ def beginBox (at_ : Tok) : M Unit := do
 
 /-- The font key after a declaration, if `name` is one. -/
 def fontDecl (name : String) (k : FontKey) : Option FontKey :=
-  let at10 := fun (pt : Nat) (tenths : Nat) => ({ k with size := (pt * 65536 + tenths * 65536 / 100 : Nat) } : FontKey)
+  let at10 := fun (pt : Nat) (hundredths : Nat) =>
+    ({ k with size := (pt * 65536 + hundredths * 65536 / 100 : Nat) } : FontKey)
   match name with
   | "rmfamily" => some { k with family := .roman }
   | "sffamily" => some { k with family := .sans }
@@ -916,7 +918,8 @@ where
   isBuiltin (name : String) : Bool :=
     (fontDecl name {}).isSome || (textFontCommand name).isSome || isIntParam name ||
       isGlueParam name || isDimenParam name ||
-      ["par", "parshape", "noindent", "indent", "hbox", "mbox", "hspace", "vspace", "hfill", "hfil", "hss",
+      ["par", "parshape", "noindent", "indent", "hbox", "mbox", "hspace", "vspace", "hfill",
+        "hfil", "hss",
         "quad", "qquad", "enspace", "newline", "penalty", "kern", "hskip", "nobreak", "break",
         "allowbreak", "relax", "newcommand", "renewcommand", "providecommand", "def",
         "setlength", "fontsize", "selectfont", "textbackslash"].contains name
@@ -971,7 +974,8 @@ def command (t : Tok) (name : String) : M Unit := do
   if let some k := fontDecl name v.key then
     flushRun
     modifyVars fun x => { x with key := k }
-    if let some b := sizeBaseline name then modifyVars fun x => { x with baselineSkip := { width := b } }
+    if let some b := sizeBaseline name then
+      modifyVars fun x => { x with baselineSkip := { width := b } }
     return
   if let some decl := textFontCommand name then
     let arg ← readArg t

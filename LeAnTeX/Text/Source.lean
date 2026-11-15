@@ -70,7 +70,8 @@ def pos : Tok → Nat
 
 /-- The token as source text (a control sequence named by letters followed by a space). -/
 def text : Tok → String
-  | .cs n _ => if n.length == 1 && !(n.toList.headD 'a').isAlpha then "\\" ++ n else "\\" ++ n ++ " "
+  | .cs n _ =>
+    if n.length == 1 && !(n.toList.headD 'a').isAlpha then "\\" ++ n else "\\" ++ n ++ " "
   | .char c _ _ => c.toString
   | .param n => "#" ++ toString n
 

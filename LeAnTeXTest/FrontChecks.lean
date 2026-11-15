@@ -131,7 +131,8 @@ def run : IO (Array String) := do
           ours[i]? != theirs[i]?).getD 0
         fails := fails.push s!"{id}: node {i} is {ours[i]?.getD "-"}, TeX's {theirs[i]?.getD "-"} \
           ({ours.size} and {theirs.size} nodes)"
-  IO.println s!"  front end: {same} of {n} corpus paragraphs give TeX's horizontal list, lines and box"
+  IO.println s!"  front end: {same} of {n} corpus paragraphs give TeX's horizontal list, lines \
+    and box"
   return fails
 
 end FrontChecks
