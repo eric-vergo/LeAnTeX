@@ -22,10 +22,14 @@ open LeAnTeX LeAnTeX.Text FontTest
 /-- An integer field of a JSON array, 0 if absent. -/
 def ji (j : Json) (i : Nat) : Int := (jint? (jat j i)).getD 0
 
+/-- A glue order of the fixtures (LuaTeX's: 0 finite, 1 `fi`, 2 `fil`, 3 `fill`, 4 `filll`)
+as TeX's (0 finite, 1 `fil`, 2 `fill`, 3 `filll`); LuaTeX's `fi` does not occur in them. -/
+def orderOf (o : Int) : Nat := if o ≤ 1 then 0 else (o - 1).toNat
+
 /-- Glue from `[width, stretch, stretchOrder, shrink, shrinkOrder]`. -/
 def glueOf (j : Json) : Glue :=
-  { width := ji j 0, stretch := ji j 1, stretchOrder := (ji j 2).toNat, shrink := ji j 3,
-    shrinkOrder := (ji j 4).toNat }
+  { width := ji j 0, stretch := ji j 1, stretchOrder := orderOf (ji j 2), shrink := ji j 3,
+    shrinkOrder := orderOf (ji j 4) }
 
 /-- A fixture's items as nodes (`docs/text-reference.md`, *Items*), `fuel` bounding the
 nesting. -/
@@ -84,7 +88,7 @@ def checkOne (r : Json) : Array String := Id.run do
         let num := fun k => ((t.get? k).bind jint?).getD 0
         let ratio := ((t.get? "glueSet").bind Json.getNum?).getD 0
         if l.natural != num "natural" || (l.glue.sign : Int) != num "glueSign" ||
-            (l.glue.order : Int) != num "glueOrder" || !sameRatio l.glue.ratio ratio then
+            l.glue.order != orderOf (num "glueOrder") || !sameRatio l.glue.ratio ratio then
           out := out.push s!"{id}: line ending at {num "break"}: natural {l.natural}, glue \
             {l.glue.sign}/{l.glue.order}/{l.glue.ratio}; TeX's {num "natural"}, \
             {num "glueSign"}/{num "glueOrder"}/{ratio}"

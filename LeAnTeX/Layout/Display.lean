@@ -101,12 +101,14 @@ structure Face where
   bold : Bool := false
   /-- Italic. -/
   italic : Bool := false
+  /-- For a glyph of the text layer (`LeAnTeX.Text`): the OpenType font it is set in, as the
+  caller named it (its file name); the character maps to the glyph through that font's
+  character map, and `family`, `bold` and `italic` are unused. `none` for KaTeX's faces. -/
+  font : Option String := none
   deriving BEq, Inhabited, Repr
 
-/-- The name of the face's font file (and metric table): `Main-BoldItalic`, `Math-Italic`,
-`Size2-Regular`, …. A weight or style the family does not have falls back to the nearest face
-it has, as a browser's font matching does with KaTeX's `@font-face` rules. -/
-def Face.name (f : Face) : String :=
+/-- The name of one of KaTeX's faces (see `Face.name`). -/
+def Face.katexName (f : Face) : String :=
   let styles : List String := match f.family with
     | "Main" => ["Regular", "Bold", "Italic", "BoldItalic"]
     | "Math" => ["Italic", "BoldItalic"]
@@ -121,6 +123,13 @@ def Face.name (f : Face) : String :=
     else if f.italic && styles.contains "Italic" then "Italic"
     else styles.head!
   f.family ++ "-" ++ pick
+
+/-- The name of the face's font file (and metric table): `Main-BoldItalic`, `Math-Italic`,
+`Size2-Regular`, …, or a text-layer glyph's font. A weight or style the family does not have
+falls back to the nearest face it has, as a browser's font matching does with KaTeX's
+`@font-face` rules. -/
+def Face.name (f : Face) : String :=
+  f.font.getD f.katexName
 
 /-- A source range: start and end offsets in UTF-16 code units, end exclusive. -/
 abbrev SourceRange := Nat × Nat
@@ -182,6 +191,13 @@ structure Line where
   height : Em
   /-- Depth below the baseline. -/
   depth : Em
+  /-- Where the line's left end is: 0 for a formula's lines, which a back end places itself;
+  for the lines of a paragraph set by the text layer, the indentation. -/
+  x : Em := 0
+  /-- Where the line's baseline is, below the first line's: 0 for a formula's lines, which a
+  back end stacks itself; for the lines of a paragraph set by the text layer, the baseline as
+  TeX's interline glue places it. -/
+  y : Em := 0
   deriving Inhabited, Repr
 
 /-- A formula laid out as positioned drawing operations (see the module docstring). -/
