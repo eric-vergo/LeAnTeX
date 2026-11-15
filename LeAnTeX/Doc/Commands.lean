@@ -409,12 +409,12 @@ def tocLine (at_ : Tok) : M Unit := do
     pushV (.glue { stretch := 13107 } 0)
   let leaders := if level == 1 then #[csT "hfil" at_]
     else #[csT "leantex@dotfill" at_]
-  let pageBox := #[csT "hbox" at_, csT "to" at_] ++ textToks at_ "1.55em" ++ #[lb] ++
+  let pageBox := #[csT "hbox" at_] ++ textToks at_ "to " ++ textToks at_ "1.55em" ++ #[lb] ++
     (if level == 1 then #[csT "hss" at_] else #[csT "hfil" at_, csT "normalfont" at_]) ++
     page ++ (if level == 1 then #[csT "kern" at_] ++ textToks at_ "-1pt" ++ #[csT "kern" at_] ++
       textToks at_ "1pt " else #[]) ++ #[rb]
   let numBox := if num.isEmpty then #[] else
-    #[csT "hbox" at_, csT "to" at_] ++ textToks at_ numWidth ++ #[lb] ++ num ++
+    #[csT "hbox" at_] ++ textToks at_ "to " ++ textToks at_ numWidth ++ #[lb] ++ num ++
       #[csT "hfil" at_, rb]
   let rsk := if level == 1 then "1.55em" else "2.55em"
   inject at_ (#[csT "begingroup" at_, csT "parindent" at_] ++ textToks at_ (indent ++ " ") ++
