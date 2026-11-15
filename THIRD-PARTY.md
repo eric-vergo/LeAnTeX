@@ -5,7 +5,8 @@ derived from [KaTeX](https://github.com/KaTeX/KaTeX), version 0.19.1, which is r
 the MIT licence; its notice is reproduced in full in `LICENSE-KaTeX` and below. Each derived Lean
 module names the KaTeX source files it follows in the *References* section of its module
 docstring. One table holds numbers measured from KaTeX's fonts, which carry their own licence
-(see *KaTeX's fonts* below). LeAnTeX does not include the fonts.
+(see *KaTeX's fonts* below). LeAnTeX does not include KaTeX's fonts; it includes fonts of New
+Computer Modern (see *Fonts: New Computer Modern*).
 
 ## Derived from KaTeX
 
@@ -54,9 +55,26 @@ their `name` table, read from the 0.19.1 `woff2` files): "Copyright (c) 2009-201
 Science, Inc. (<www.mathjax.org>) Copyright (c) 2014-2018 Khan Academy
 (<www.khanacademy.org>), with Reserved Font Name KaTeX_Main. This Font Software is licensed
 under the SIL Open Font License, Version 1.1." (each face names its own Reserved Font Name,
-`KaTeX_AMS`, `KaTeX_Size1`, …). LeAnTeX contains no Font Software; it records these notices
-because one table is measured from the fonts, and because a back end that draws the display
-list needs the fonts, which it must take with their licence.
+`KaTeX_AMS`, `KaTeX_Size1`, …). LeAnTeX contains none of KaTeX's Font Software; it records these
+notices because one table is measured from the fonts. Its back ends draw KaTeX's faces with New
+Computer Modern instead.
+
+## Fonts: New Computer Modern
+
+`fonts/newcomputermodern/` holds 29 font files of New Computer Modern by Antonis Tsolomitis,
+package version 8.1.1, from CTAN (<https://ctan.org/pkg/newcomputermodern>), unmodified, with
+the package's `README` and `License.txt`; `fonts/MANIFEST.tsv` lists each file's size, SHA-256
+and licence, and `fonts/README.md` says which files and why. The package's licence statement
+(`License.txt`) reads: "All fonts are distributed under the GUST license except NewCM10-Regular,
+all NewCMUncial, and all NewCM*Devanagari which are distributed with GPL3 or later plus Font
+Exception (FE) plus Distribution Exception (DE)". Only fonts under the GUST Font License are
+included; the excepted files are not part of this repository. Each included font carries its
+own notice, for example: "(C) 2019-2026 Antonis Tsolomitis. This work is released under the GUST
+Font License -- see http://tug.org/fonts/licenses/GUST-FONT-LICENSE.txt for details." The GUST
+Font License is the LaTeX Project Public License 1.3c or later (`fonts/LPPL-1.3c.txt`, copied
+verbatim from TeX Live) with a request, not a requirement, to rename modified fonts; none is
+modified. The back ends draw glyph outlines of these fonts into SVG pictures, and HTML pages load
+the files themselves.
 
 ## Other corpora
 
@@ -73,6 +91,7 @@ list needs the fonts, which it must take with their licence.
 
 | File | What | Source |
 |---|---|---|
+| `fixtures/text/paragraphs-ncm.jsonl` | TeX's answers for the paragraphs with New Computer Modern, recorded by `tools/tex-reference.sh --ncm` | LuaLaTeX of TeX Live 2025 with the fonts of `fonts/newcomputermodern` (GUST Font License) |
 | `fixtures/text/*.jsonl` | TeX's answers (item lists, line breaks, hyphenation points, box dimensions) recorded by `tools/tex-reference.sh` | LuaLaTeX of TeX Live 2025 with the Latin Modern OpenType fonts (GUST Font License) and TeX Live's language 0, `english`: Knuth's patterns of plain TeX's `hyphen.tex` (see *Hyphenation patterns*) |
 | `fixtures/font/lm*.jsonl`, `latinmodern-math.jsonl` | numbers read from the Latin Modern fonts by fontTools (metrics, names, character maps, boxes, outline hashes; no outlines) | the Latin Modern fonts of TeX Live (GUST Font License, the LaTeX Project Public License 1.3c with a request to rename modified fonts) |
 | `fixtures/font/leantex-test-*` | two small fonts drawn by `tools/test-fonts.py`, and their references | Apache-2.0 (this repository) |

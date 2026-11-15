@@ -8,9 +8,12 @@ TeX; the script regenerates them.
 ```
 python3 -I tools/text-corpus.py        # corpus/text/*.jsonl
 bash tools/tex-reference.sh [name …]   # fixtures/text/*.jsonl (needs LuaLaTeX)
+bash tools/tex-reference.sh --ncm paragraphs   # fixtures/text/paragraphs-ncm.jsonl
 ```
 
-The recording run uses LaTeX's defaults (article class, Latin Modern in the TU encoding, US
+With `--ncm` the fonts are New Computer Modern from `fonts/newcomputermodern`, set as the
+package's `fontspec` files set them (`tools/tex-reference/ncm.tex`), and the fixture's name
+ends in `-ncm`. The recording run otherwise uses LaTeX's defaults (article class, Latin Modern in the TU encoding, US
 English hyphenation with `\lefthyphenmin=2`, `\righthyphenmin=3`) except where a case sets a
 parameter. TeX's caches go to a temporary directory the script removes. Every fixture starts with
 a `meta` line naming the engine, luaotfload's version and the format.

@@ -53,15 +53,28 @@ What LeAnTeX does today, and what comes next.
   of fifteen Latin Modern fonts (when TeX Live is installed) and two committed test fonts, against
   TeX's 72 comparable boxes (glyphs, ligatures, widths, kerns), and by 1,200 mutated fonts per
   run.
+- Fonts (`fonts/`, `fonts/README.md`): the 29 files of New Computer Modern 8.1.1 under the GUST
+  Font License, unmodified, with the package's `README` and `License.txt` and a manifest of sizes,
+  SHA-256 and licences that `lake test` checks; the files under the GPL (`NewCM10-Regular`,
+  Uncial, Devanagari) are not in the repository. The text layer chooses them as the package's
+  `fontspec` files do (Book weight, 8-point designs up to 8 points, slant and small capitals),
+  and with them gives LuaLaTeX's lists, lines and boxes for all 174 paragraphs
+  (`fixtures/text/paragraphs-ncm.jsonl`). The reader takes a font's PANOSE proportion for
+  monospace, as luaotfload does, and the `MATH` table's size variants.
+- Back ends (`LeAnTeX/Backend*`, `docs/back-ends.md`): SVG with glyphs as outlines defined once,
+  HTML with text runs at TeX's positions in the web fonts and formulas as inline SVG;
+  `leantex-render`; `examples/` (three samples as source, SVG and HTML) checked byte for byte; 21
+  named checks; escaping and glyph references proved. Against LuaLaTeX's rendering
+  (`tools/tex-render-compare.sh`): text within 9.4 levels on average, 89.7 % of pixels within 32
+  levels; formulas within one to three pixels at 4 pixels to the point.
 - Gates: `lake build --wfail` and `lake test` green; a Lean style checker (100 columns,
   headers, naming) run read-only on this tree: 0 violations.
 
 ## Next
 
-1. Back ends: SVG and HTML for text and math together.
-2. The document layer: vertical lists and page breaking, environments, lists and sectioning,
+1. The document layer: vertical lists and page breaking, environments, lists and sectioning,
    counters and cross-references, floats and simple tables.
-3. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
+2. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
    tests (`Box.hasClass`) and style lookups.
 
 ## Choices made

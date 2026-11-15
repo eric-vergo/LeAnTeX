@@ -35,6 +35,7 @@ is installed, else the committed test font) and prints the display list as text
 | `LeAnTeX.Text.Source` | tokens with LaTeX's category codes; TeX's units |
 | `LeAnTeX.Text.Typeset` | the front end (`typeset`): source to a `Document` |
 | `LeAnTeX.Text.LatinModern` | which Latin Modern file LaTeX loads for a font |
+| `LeAnTeX.Text.NewComputerModern` | which New Computer Modern file (`fonts/newcomputermodern`) the package's `fontspec` files load for a font, with the slant and small capitals |
 | `LeAnTeX.Text.Output` | a `Document` as a display list |
 | `LeAnTeX.Text.Proofs` | theorems (below) |
 
@@ -46,6 +47,7 @@ is installed, else the committed test font) and prints the display list as text
 | Line breaker on TeX's own item lists (`breakParagraph`, `setLines`) | 174 paragraphs | every break, total demerits, line length and shift, natural width, glue sign, order and ratio |
 | Front end on the corpus source (`typeset`) | 174 paragraphs | every node of the horizontal list TeX's line breaker received, every line, and the paragraph box's height and depth |
 | Glyphs, ligatures, kerns and widths of boxes (font reader) | 72 boxes | every glyph and kern |
+| Front end with New Computer Modern (`fixtures/text/paragraphs-ncm.jsonl`) | 174 paragraphs | every node, line and paragraph box, as with Latin Modern |
 
 The paragraphs cover running prose at seven widths, italic, bold, sans serif, typewriter and
 slanted fonts, three sizes, every line-breaking parameter (tolerance, pretolerance, looseness,
@@ -109,7 +111,7 @@ The defaults are LaTeX's article class at ten points: `\hsize` 345 pt, `\parinde
   shrunk. `\vspace` inside a paragraph takes effect after the paragraph, not after its line.
   Displayed formulas have LaTeX's 10 pt above and below at their natural size; the short skips,
   `\predisplaysize` and equation numbers placed by TeX's rules are left out (KaTeX's tags are
-  drawn by the math layout).
+  drawn by the math layout). Spaces after a display are ignored, as TeX ignores them.
 * **TeX's programming layer**: `\let`, `\edef`, `\expandafter`, conditionals, registers,
   `\catcode`, delimited macro parameters, `\csname`; accents (`\'e`, `\"o`), `\char`,
   `\vadjust`, `\vbox`, `\raisebox`, rules (`\rule`), leaders, `\discretionary`, inserts and

@@ -18,7 +18,8 @@ back ends consume.
 | OpenType font reader: metrics, character maps, CFF and TrueType outlines, ligatures, pair kerning, `MATH` constants; untrusted input checked ([reader](docs/opentype.md)) | done: every glyph of fifteen Latin Modern fonts as fontTools reads it; TeX's boxes reproduced; fuzzed |
 | Text mode: reference harness against real TeX for line breaks, hyphenation and boxes ([reference](docs/text-reference.md)) | done: 174 paragraphs, 1,691 words, 80 boxes recorded from LuaLaTeX |
 | Text mode: Liang hyphenation, Knuth–Plass line breaking, a LaTeX front end (paragraphs, spacing, fonts and sizes, boxes, formulas, macros), lines as a display list ([text mode](docs/text.md)) | done: every hyphenation point, every break, demerit and glue setting, and every horizontal list TeX built for the corpus, reproduced; document structure next |
-| Back ends | not started |
+| Back ends: SVG (glyphs as outlines, self-contained) and HTML (text as text, formulas as inline SVG), with New Computer Modern ([back ends](docs/back-ends.md)) | done: examples in `examples/`; escaping proved; compared with LuaLaTeX's rendering |
+| Fonts: New Computer Modern, the files under the GUST Font License, unmodified ([fonts](fonts/README.md)) | committed with a manifest; the text layer agrees with LuaLaTeX on all 174 paragraphs with them too |
 
 ## Use
 
@@ -62,7 +63,9 @@ points and boxes) against their corpora and the font reader against fontTools an
 (`docs/opentype.md`); `lake exe leantex-test --text` runs those checks alone, with the text layer's: hyphenation,
 line breaking and the front end against TeX, the typesetting goldens (`fixtures/typeset/`,
 `--update-typeset` rewrites them), the front-end checks and fuzzing. `lake exe leantex-typeset
-FILE` typesets a LaTeX file and prints its display list.
+FILE` typesets a LaTeX file and prints its display list; `lake exe leantex-render FILE OUT`
+writes it as SVG or HTML (`docs/back-ends.md`), and the back ends' checks compare `examples/`
+byte for byte (`--update-examples` rewrites them).
 
 The corpora: KaTeX's own parser and error tests (`katex-spec`), its screenshot cases, the examples
 of its support table, a few formulas per KaTeX name (`katex-names`), the formulas of Mathlib's doc
@@ -110,4 +113,5 @@ corpora from a Mathlib checkout and a built blueprint site.
 ## Licence
 
 Apache License 2.0 (`LICENSE`). Parts are derived from KaTeX (MIT licence, `LICENSE-KaTeX`), and
-one table from KaTeX's fonts (SIL Open Font License 1.1); see `THIRD-PARTY.md` for which.
+one table from KaTeX's fonts (SIL Open Font License 1.1); `fonts/` holds fonts of New Computer
+Modern under the GUST Font License; see `THIRD-PARTY.md` for which.

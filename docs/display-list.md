@@ -20,14 +20,17 @@ LeAnTeX.DisplayList.ofBox box { lineWidth := some 40 }
 
 ```
 DisplayList := { width height depth : Em, items : Array Item, regions : Array Region,
-                 parts : Array Part, lines : Array Line, mirrored : Array (Nat × Nat) }
+                 parts : Array Part, lines : Array Line, mirrored : Array (Nat × Nat),
+                 formulas : Array Formula }
 Item := glyph (face : Face) (char : Char) (x y size : Em) (exact shadow : Bool)
               (color : Option String) (source : Option (Nat × Nat))
       | rule (x y width height : Em) (color) (source)
       | path (data viewBox preserveAspectRatio : String) (x y width height : Em)
              (clip : Option (Em × Em × Em × Em)) (color) (source)
 Face := { family : String, bold italic : Bool,       -- Face.name = "Main-Regular", …
-          font : Option String }                      -- a text glyph's font file
+          font : Option String,                       -- a text glyph's font file
+          slant : Int, smallCaps : Bool }             -- a text glyph's slant, small capitals
+Formula := { start stop : Nat, x y width height depth : Em, source : String, display : Bool }
 Region := { x y width height depth : Em, source : Nat × Nat }
 Part := { x width : Em, line : Nat, tag : Bool }
 Line := { start stop : Nat, width height depth : Em, x y : Em }
@@ -172,12 +175,17 @@ does not know.
 ## Text
 
 The text layer (`docs/text.md`) writes paragraphs to the same display list
-(`LeAnTeX.Text.Document.toDisplayList`), with two additions that a formula's display list does
-not use (their defaults leave formulas as they were):
+(`LeAnTeX.Text.Document.toDisplayList`), with additions that a formula's display list does not
+use (their defaults leave formulas as they were):
 
 - `Face.font` names the OpenType font a text glyph is set in (as the caller named it, its file
   name); the character maps to the glyph through that font's character map. A glyph no
-  character maps to is drawn as its outline, a path item.
+  character maps to is drawn as its outline, a path item. `Face.slant` (thousandths of the
+  height, 250 for New Computer Modern's slanted shape) is a slant the back end draws onto the
+  glyph; `Face.smallCaps` says the glyph is the font's small capital of the character (`smcp`).
+- `formulas` lists the formulas of the text: the range of items each drew, its box in its line
+  and its source, for back ends that draw formulas apart from the text (HTML). A formula's own
+  display list made by the text layer has one record covering it.
 - `Line.x` and `Line.y` place each line: its indentation, and its baseline below the first
   line's, as TeX's interline glue puts it. A formula's lines keep 0, 0 and are stacked by the
   back end.

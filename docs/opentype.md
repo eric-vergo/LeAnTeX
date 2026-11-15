@@ -19,14 +19,14 @@ def demo (bytes : ByteArray) : Except FontError (Nat × Int) := do
 |---|---|
 | directory | `sfntVersion` `0x00010000`, `OTTO` or `true` (font collections are refused) |
 | `head`, `hhea`, `maxp`, `hmtx` | units per em, the font box, style bits, ascender, descender, line gap, the number of glyphs, advance widths and left side bearings |
-| `OS/2`, `post` | weight and width classes, embedding permissions (`fsType`), typographic and Windows metrics, x-height, cap height; italic angle, underline, fixed pitch |
+| `OS/2`, `post` | weight and width classes, embedding permissions (`fsType`), typographic and Windows metrics, x-height, cap height, the PANOSE proportion (9: monospaced); italic angle, underline, fixed pitch |
 | `name` | names by id, Windows US English preferred |
 | `cmap` | formats 0, 4, 6 and 12; a full-repertoire Unicode subtable preferred |
 | `CFF ` | INDEXes, DICTs (reals included), Private DICTs, local and global subroutines, CID-keyed fonts (FDArray, FDSelect formats 0 and 3); Type 2 charstrings to outlines and widths |
 | `glyf`, `loca` | simple glyphs (implied on-curve points made explicit) and composites placed by offset and 2×2 transform |
 | `GSUB` | single (type 1) and ligature (type 4) substitution, through extension lookups (type 7); `Font.ligate` applies `liga` |
 | `GPOS`, `kern` | pair adjustment (type 2, formats 1 and 2, through type 9) for the `kern` feature; the old `kern` table (version 0, format 0) when there is no `GPOS` |
-| `MATH` | the 56 `MathConstants` |
+| `MATH` | the 56 `MathConstants`; `MathVariants`: each glyph's vertical and horizontal size variants with their sizes (glyph assemblies are not read) |
 
 Outlines are `Path Int` (`LeAnTeX.Path`) in 1/65536 font units: Type 2's 16.16 numbers and
 TrueType's half units are exact. `Font.glyphItem` (`LeAnTeX.OpenType.Display`) turns a glyph
