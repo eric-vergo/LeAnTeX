@@ -7,6 +7,7 @@ import LeAnTeX.Text.Font
 import LeAnTeX.Text.Pack
 import LeAnTeX.Layout.Build
 import LeAnTeX.Layout.Display
+import LeAnTeX.Doc.State
 
 /-!
 # Typesetting text
@@ -168,6 +169,34 @@ structure Vars where
   lineSkip : Glue := { width := 65536 }
   /-- `\lineskiplimit`. -/
   lineSkipLimit : Int := 0
+  /-- `\interlinepenalty`. -/
+  interlinePenalty : Int := 0
+  /-- `\clubpenalty`. -/
+  clubPenalty : Int := 150
+  /-- `\widowpenalty`. -/
+  widowPenalty : Int := 150
+  /-- `\displaywidowpenalty`. -/
+  displayWidowPenalty : Int := 50
+  /-- `\brokenpenalty`. -/
+  brokenPenalty : Int := 100
+  /-- `\predisplaypenalty`. -/
+  preDisplayPenalty : Int := 10000
+  /-- `\postdisplaypenalty`. -/
+  postDisplayPenalty : Int := 0
+  /-- `\abovedisplayskip`. -/
+  aboveDisplaySkip : Glue := { width := 10 * 65536, stretch := 2 * 65536, shrink := 5 * 65536 }
+  /-- `\belowdisplayskip`. -/
+  belowDisplaySkip : Glue := { width := 10 * 65536, stretch := 2 * 65536, shrink := 5 * 65536 }
+  /-- `\abovedisplayshortskip`. -/
+  aboveDisplayShortSkip : Glue := { stretch := 3 * 65536 }
+  /-- `\belowdisplayshortskip`. -/
+  belowDisplayShortSkip : Glue :=
+    { width := 6 * 65536, stretch := 3 * 65536, shrink := 3 * 65536 }
+  /-- The left margin of the lists open (LaTeX's `\@totalleftmargin`). -/
+  totalLeftMargin : Int := 0
+  /-- The width of a line in the lists open (LaTeX's `\linewidth`), when it is not
+  `\hsize`. -/
+  lineWidth : Option Int := none
   deriving Inhabited
 
 /-- Why source could not be typeset: a message and the source offset (in characters) of the
@@ -207,6 +236,41 @@ structure BoxFrame where
   sf : Nat
   /-- Whether the box began in vertical mode (it then starts a paragraph). -/
   wasVertical : Bool
+
+/-- What a nested vertical list saves of the list around it: TeX's semantic nest, one level. -/
+structure Outer where
+  /-- The vertical list outside. -/
+  vlist : Array LeAnTeX.Doc.VNode
+  /-- Its `\prevdepth`. -/
+  vPrev : Int
+  /-- Whether a paragraph was being built outside. -/
+  hmode : Bool
+  /-- The horizontal list outside. -/
+  hlist : Array HNode
+  /-- Its pending characters. -/
+  run : Array Char
+  /-- Their font. -/
+  runKey : FontKey
+  /-- Its space factor. -/
+  sf : Nat
+  /-- Its vertical material waiting for the lines. -/
+  adjust : Array (Nat × LeAnTeX.Doc.VNode)
+  /-- Its `\noindent` state. -/
+  noIndent : Bool
+  /-- The boxes being built outside. -/
+  boxes : Array BoxFrame
+  deriving Inhabited
+
+/-- A nested vertical list being built: what for, the group depth it closes with, and what it
+saved. -/
+structure Frame where
+  /-- What it is for. -/
+  kind : LeAnTeX.Doc.FrameKind
+  /-- The group depth when it began. -/
+  depth : Nat
+  /-- The state outside. -/
+  outer : Outer
+  deriving Inhabited
 
 /-- The front end's state. -/
 structure St where
@@ -250,6 +314,28 @@ structure St where
   width : Int := 0
   /-- The paragraphs' horizontal lists. -/
   paragraphs : Array (Array HNode) := #[]
+  /-- The vertical list being built (the main one, or a nested one's). -/
+  vlist : Array LeAnTeX.Doc.VNode := #[]
+  /-- Its `\prevdepth`. -/
+  vPrev : Int := LeAnTeX.Doc.ignoreDepth
+  /-- Vertical material made in the paragraph (labels, insertions, `\vadjust`), with the
+  index in the horizontal list where it was made: it goes after the line that holds it. -/
+  adjust : Array (Nat × LeAnTeX.Doc.VNode) := #[]
+  /-- The nested vertical lists being built, innermost last. -/
+  nest : Array Frame := #[]
+  /-- The document layer's state. -/
+  doc : LeAnTeX.Doc.DocState := {}
+  /-- Whether the paragraph being built continues one interrupted by a display (TeX's
+  `prev_graf` after a display: no `\parskip`, no `\clubpenalty`). -/
+  afterDisplay : Bool := false
+  /-- Whether the paragraph being built takes no `\clubpenalty` (after a display or a
+  heading). -/
+  noClub : Bool := false
+  /-- Whether the first line of the paragraph being built takes `\clubpenalty` 10000 (the
+  first paragraph after a heading). -/
+  clubMax : Bool := false
+  /-- TeX's `\predisplaysize` from the last line set. -/
+  preDisplay : Int := -1073741823
 
 /-- The front end's monad. -/
 abbrev M := ReaderT (Settings × FontResolver) (StateT St (Except TypesetError))
@@ -632,45 +718,160 @@ def stack (height depth : Int) : M Int := do
   set { s with cursor := base + depth, prevDepth := some depth }
   return base
 
-/-- Starts a paragraph (in vertical mode), with its indentation unless `\noindent` said not. -/
+/-- The interline parameters in force. -/
+def interline : M LeAnTeX.Doc.Interline := do
+  let v ← vars
+  return { baselineSkip := v.baselineSkip, lineSkip := v.lineSkip,
+           lineSkipLimit := v.lineSkipLimit }
+
+/-- Appends a box to the vertical list with TeX's interline glue (`append_to_vlist`). -/
+def appendV (n : LeAnTeX.Doc.VNode) : M Unit := do
+  let p ← interline
+  let s ← get
+  let (l, pd) := LeAnTeX.Doc.appendBox s.vlist p s.vPrev n
+  set { s with vlist := l, vPrev := pd }
+
+/-- Appends an item other than a box to the vertical list. -/
+def pushV (n : LeAnTeX.Doc.VNode) : M Unit :=
+  modify fun s => { s with vlist := s.vlist.push n }
+
+/-- The index in the paragraph's horizontal list where material made now sits: the end of the
+list, or, inside a box, where the outermost box will go. -/
+def hereIndex : M Nat := do
+  let s ← get
+  return match s.boxes[0]? with
+    | some fr => fr.outer.size
+    | none => s.hlist.size + (if s.run.isEmpty then 0 else 1)
+
+/-- Adds vertical material: in a paragraph it goes after the line that holds this place (as
+TeX moves insertions and `\vadjust` material out of a line); else to the vertical list. -/
+def adjustV (n : LeAnTeX.Doc.VNode) : M Unit := do
+  if (← get).hmode then
+    let i ← hereIndex
+    modify fun s => { s with adjust := s.adjust.push (i, n) }
+  else pushV n
+
+/-- Starts a paragraph (in vertical mode), with its indentation unless `\noindent` said not:
+TeX's `new_graf`, with `\parskip` glue first (in a nested list only when it is not empty).
+After a heading (LaTeX's `\@afterheading`) there is no indentation and no break after the
+first line; after an `\item` the item's label starts the paragraph. -/
 def startParagraph : M Unit := do
   let s ← get
   if s.hmode then return
   let v ← vars
-  let indent := if s.noIndent then #[] else #[HNode.box v.parIndent 0 0 0 #[]]
+  let afterHeading := s.doc.afterHeading
+  let indent := if s.noIndent || afterHeading || s.doc.inLabel then #[]
+    else #[HNode.box v.parIndent 0 0 0 #[]]
+  let indent := match s.doc.labelBox with
+    | some b => if s.doc.inLabel then indent.push b |>.push (.penalty 0) else indent
+    | none => indent
   let cursor := if s.prevDepth.isSome then s.cursor + v.parSkip.width else s.cursor
-  set { s with hmode := true, hlist := indent, sf := 1000, noIndent := false, cursor }
+  let vlist := if s.afterDisplay then s.vlist
+    else if s.nest.isEmpty || !s.vlist.isEmpty then s.vlist.push (.glue v.parSkip 3)
+    else s.vlist
+  set { s with hmode := true, hlist := indent, sf := 1000, noIndent := false, cursor, vlist,
+               noClub := s.afterDisplay, clubMax := s.doc.noBreak, afterDisplay := false,
+               doc := { s.doc with afterHeading := false, noBreak := false, inLabel := false,
+                                   labelBox := none } }
+
+/-- TeX's `pre_display_size` for a display after line `l` (shifted by its indentation): the
+right end of its last visible item plus two em of the current font. -/
+def preDisplaySize (l : Line) (em : Int) : Int := Id.run do
+  let mut v := l.indent + 2 * em
+  let mut w : Int := -1073741823
+  for n in l.nodes do
+    match n with
+    | .glyph .. | .box .. | .rule .. | .math .. =>
+      v := v + n.width
+      w := v
+    | .glue g _ =>
+      if (l.glue.sign == 1 && l.glue.order == g.stretchOrder && g.stretch != 0) ||
+         (l.glue.sign == 2 && l.glue.order == g.shrinkOrder && g.shrink != 0) then
+        v := 1073741823
+      else v := v + g.width
+    | n => v := v + n.width
+  return w
 
 /-- Ends the paragraph being built: TeX's `\par`: the list's last glue removed,
-`\penalty10000\parfillskip` appended, the lines broken, set and stacked. -/
-def endParagraph : M Unit := do
+`\penalty10000\parfillskip` appended, the lines broken, set and stacked. On the vertical
+list the lines go with TeX's interline penalties between them (`\interlinepenalty`, with
+`\clubpenalty` after the first line, `\widowpenalty` before the last, or
+`\displaywidowpenalty` when a display follows, and `\brokenpenalty` after a hyphen) and the
+vertical material made in each line after it. An empty paragraph (after a display) adds no
+line. Inside a list the lines take the list's margin and width (LaTeX's `\parshape`). -/
+def endParagraph (display : Bool := false) : M Unit := do
   flushRun
   let s ← get
   if !s.hmode || !s.boxes.isEmpty then return
   let v ← vars
+  let empty := s.hlist.isEmpty
   let mut items := s.hlist
   if let some (.glue ..) := items.back? then items := items.pop
   items := items.push (.penalty 10000) |>.push (.glue v.parFillSkip 15)
-  set { s with hmode := false, hlist := #[], paragraphs := s.paragraphs.push items }
+  let adjust := s.adjust
+  set { s with hmode := false, hlist := #[], paragraphs := s.paragraphs.push items,
+               adjust := #[] }
   -- TeX resets the paragraph shape after every paragraph
   modifyVars fun x => { x with p := { x.p with hangIndent := 0, hangAfter := 1, parShape := #[] } }
-  match breakParagraph items v.p with
+  let p := if v.p.parShape.isEmpty && v.p.hangIndent == 0 then
+      match v.lineWidth with
+      | some w => { v.p with parShape := #[(v.totalLeftMargin, w)] }
+      | none => v.p
+    else v.p
+  match breakParagraph items p with
   | .error e => fail s!"paragraph: {e.message}"
   | .ok r =>
     modify fun s => { s with warnings := s.warnings ++ r.warnings, width := v.p.hsize }
-    for l in setLines items v.p r.breaks do
+    let ls := setLines items p r.breaks
+    let ranges := lineRanges items (r.breaks.map (·.pos))
+    let noClub := (← get).noClub
+    let clubMax := (← get).clubMax
+    for h : k in [0:ls.size] do
+      let l := ls[k]
       if l.glue.sign == 2 && l.glue.ratio == 1 && l.natural > l.width then
         let msg := s!"overfull line by {l.natural - l.width} sp"
         modify fun s => { s with warnings := s.warnings.push msg }
       let y ← stack l.height l.depth
       modify fun s => { s with lines := s.lines.push (l, y) }
+      if empty then continue
+      appendV (.hbox l.width l.height l.depth l.indent l.nodes l.glue)
+      -- the material made in this line: before its break, after the previous line's
+      for (i, n) in adjust do
+        if lineOf ranges ls.size i == k then pushV n
+      if k + 1 < ls.size then
+        let mut pen := v.interlinePenalty
+        if k == 0 && !noClub then pen := pen + (if clubMax then 10000 else v.clubPenalty)
+        if k + 2 == ls.size then
+          pen := pen + (if display then v.displayWidowPenalty else v.widowPenalty)
+        if (r.breaks[k]?.map (·.hyphenated)).getD false then pen := pen + v.brokenPenalty
+        if pen != 0 then pushV (.penalty pen)
+    if empty then
+      for (_, n) in adjust do pushV n
+    if let some l := ls.back? then
+      if !empty then
+        let (em, _) ← fontUnits
+        modify fun s => { s with preDisplay := preDisplaySize l em }
   let skip := (← get).pendingSkip
-  modify fun s => { s with cursor := s.cursor + skip, pendingSkip := 0 }
+  modify fun s => { s with cursor := s.cursor + skip, pendingSkip := 0, noClub := false,
+                           clubMax := false }
+where
+  /-- The line that holds material made before node `i`: the first whose break is at or
+  after it, else the last. -/
+  lineOf (ranges : Array (Nat × Nat)) (n i : Nat) : Nat :=
+    (ranges.findIdx? (fun r => i ≤ r.2)).getD (n - 1)
 
-/-- Adds vertical space: between paragraphs at once, inside one after it. -/
-def vspace (w : Int) : M Unit := do
-  if (← get).hmode then modify fun s => { s with pendingSkip := s.pendingSkip + w }
-  else modify fun s => { s with cursor := s.cursor + w }
+/-- Adds vertical space: between paragraphs at once, inside one after the line it is in (as
+LaTeX's `\vspace` adds `\vskip` glue followed by zero glue, through `\vadjust` in a
+paragraph). -/
+def vspace (g : Glue) : M Unit := do
+  if (← get).hmode then
+    modify fun s => { s with pendingSkip := s.pendingSkip + g.width }
+    adjustV (.glue g 0)
+    adjustV (.glue {} 0)
+  else
+    modify fun s => { s with cursor := s.cursor + g.width }
+    pushV (.glue g 0)
+    pushV (.glue {} 0)
 
 /-- The text macros as KaTeX macro definitions, for formulas. -/
 def mathMacros : M (Array (String × String)) := do
@@ -715,14 +916,25 @@ def readFormula (at_ : Tok) (close : Tok → Bool) (double : Bool) : M String :=
       out := out ++ t.text
   failAt at_ "Missing $ inserted (formula not closed)"
 
+/-- TeX's `half`: half of `x`, rounded up when odd. -/
+def half (x : Int) : Int := if x % 2 == 1 || x % 2 == -1 then (x + 1) / 2 else x / 2
+
 /-- Sets a displayed formula: the paragraph so far ends (TeX's display interrupts it), the
-formula is centred on a line of its own with `\abovedisplayskip` and `\belowdisplayskip`
-(LaTeX's ten-point values, 10pt above and below at their natural widths), and the paragraph
-goes on without indentation, the spaces after the display ignored. The document's width is
-`\hsize`, as for a paragraph. -/
-def displayFormula (at_ : Tok) (src : String) : M Unit := do
+formula is centred on a line of its own and the paragraph goes on without indentation, the
+spaces after the display ignored. The document's width is `\hsize`, as for a paragraph.
+
+On the vertical list it is TeX's display (*TeX: The Program* §1199–§1205): `\predisplaypenalty`,
+`\abovedisplayskip` (or `\abovedisplayshortskip` when the formula starts to the right of
+`\predisplaysize`), the formula's box shifted to the centre of the display width (the list's
+line width inside a list) with its interline glue, `\postdisplaypenalty` and the matching skip
+below. An equation number `eqno` goes at the right: with `fullWidth` (amsmath's equations) the
+line is the display width with the formula centred and the number flush right; else TeX's
+`\eqno` placement (the formula moved left when the number would come closer than its own
+width). -/
+def displayFormula (at_ : Tok) (src : String) (eqno : Option HNode := none)
+    (fullWidth : Bool := false) : M Unit := do
   let wasH := (← get).hmode
-  if wasH then endParagraph
+  if wasH then endParagraph (display := true)
   let n ← formula at_ src true
   let v ← vars
   let (w, h, d) := match n with | .math w h d _ _ => (w, h, d) | _ => (0, 0, 0)
@@ -733,8 +945,34 @@ def displayFormula (at_ : Tok) (src : String) : M Unit := do
       height := h, depth := d, glue := {} }
   modify fun s =>
     { s with lines := s.lines.push (line, y), cursor := s.cursor + 10 * 65536, width := v.p.hsize }
+  -- the vertical list
+  let z := v.lineWidth.getD v.p.hsize
+  let sh := v.totalLeftMargin
+  let preD := (← get).preDisplay
+  let pre := if wasH then preD else -1073741823
+  let e := match eqno with | some b => b.width | none => 0
+  let mut dd := half (z - w)
+  if e > 0 && !fullWidth && dd < 2 * e then dd := half (z - w - e)
+  let short := !(dd + sh ≤ pre)
+  pushV (.penalty v.preDisplayPenalty)
+  pushV (.glue (if short then v.aboveDisplayShortSkip else v.aboveDisplaySkip)
+    (if short then 6 else 4))
+  let box : LeAnTeX.Doc.VNode := match eqno with
+    | none => .hbox w h d (sh + dd) #[n] {}
+    | some b =>
+      if fullWidth then
+        let dc := half (z - w)
+        let content := #[HNode.kern dc .explicit, n, .kern (z - dc - w - e) .explicit, b]
+        .hbox z (max h b.height) (max d b.depth) sh content {}
+      else
+        let content := #[n, HNode.kern (z - w - e - dd) .explicit, b]
+        .hbox (z - dd) (max h b.height) (max d b.depth) (sh + dd) content {}
+  appendV box
+  pushV (.penalty v.postDisplayPenalty)
+  pushV (.glue (if short then v.belowDisplayShortSkip else v.belowDisplaySkip)
+    (if short then 7 else 5))
   if wasH then
-    modify fun s => { s with noIndent := true }
+    modify fun s => { s with noIndent := true, afterDisplay := true }
     startParagraph
   -- spaces after a display are ignored (TeX after `$$`, LaTeX's `\]` with `\ignorespaces`)
   if let some t ← nextNonSpace? then unread #[t]
@@ -1027,7 +1265,7 @@ def command (t : Tok) (name : String) : M Unit := do
   | "vspace" =>
     let _ ← readStar
     let g ← readGlueArg t
-    vspace g.width
+    vspace g
   | "hfill" => startParagraph; push (.glue { stretch := 65536, stretchOrder := 2 } 0)
   | "hfil" => startParagraph; push (.glue { stretch := 65536, stretchOrder := 1 } 0)
   | "hss" =>
