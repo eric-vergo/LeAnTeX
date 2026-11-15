@@ -146,7 +146,10 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
   let theirs := ((fx.get? "pages").bind Json.getArr?).getD #[]
   let total := theirs.foldl (init := 0) fun n p =>
     n + (((p.get? "lines").bind Json.getArr?).getD #[]).size
-  match typesetDocument src resolve with
+  -- the images the corpus documents include
+  let png ← IO.FS.readBinFile "corpus/doc/images/square.png"
+  let cfg : Text.Settings := { images := fun p => if p == "images/square.png" then some png else none }
+  match typesetDocument src resolve cfg with
   | .error e => return { name, diffs := #[s!"error: {e.message} at {e.pos}"], lines := total }
   | .ok r =>
     let mut o : Outcome := { name, lines := total }

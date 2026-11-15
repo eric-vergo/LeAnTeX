@@ -12,12 +12,21 @@ HTML.
 
 ```
 lake exe leantex-render [--html] [--math] [--fonts DIR] [--font-url URL] FILE OUT
+lake exe leantex-render --document [--external-css] [--fonts DIR] [--font-url URL] FILE OUTDIR
 ```
 
 `--html` writes an HTML page (else an SVG picture); `--math` takes the file as one formula in
 display mode instead of text. The fonts are read from `DIR` (default `fonts/newcomputermodern`);
 `--font-url` is where the HTML page finds them (default `DIR`). Exit status 1 when the source
 does not typeset (the error is printed with its position), 2 for bad usage or missing fonts.
+
+`--document` typesets a whole LaTeX document (`\documentclass{article}`) and writes into
+`OUTDIR`: `page-N.svg` for every page, `document.svg` (all pages), `document.html` (the pages
+as sheets) and `web.html` (one continuous page); with `--external-css` the HTML files take
+their positions from `document.css` and `web.css` instead of `style` attributes. Images
+(`\includegraphics`) are read from the source file's directory only: a path that is not
+relative, contains `..`, or leads (through a link) outside that directory is refused, as is a
+file over 16 MiB.
 -/
 
 open LeAnTeX LeAnTeX.Backend
@@ -32,6 +41,10 @@ structure Args where
   fonts : String := "fonts/newcomputermodern"
   /-- Where the HTML page finds the fonts, if not `fonts`. -/
   fontUrl : Option String := none
+  /-- Typeset a whole document into a directory. -/
+  document : Bool := false
+  /-- Generated style sheets instead of `style` attributes. -/
+  externalCss : Bool := false
   /-- The source file and the output file. -/
   files : List String := []
 
@@ -40,9 +53,61 @@ def parseArgs : List String → Args → Option Args
   | [], a => some a
   | "--html" :: r, a => parseArgs r { a with html := true }
   | "--math" :: r, a => parseArgs r { a with math := true }
+  | "--document" :: r, a => parseArgs r { a with document := true }
+  | "--external-css" :: r, a => parseArgs r { a with externalCss := true }
   | "--fonts" :: d :: r, a => parseArgs r { a with fonts := d }
   | "--font-url" :: u :: r, a => parseArgs r { a with fontUrl := some u }
   | f :: r, a => if f.startsWith "--" then none else parseArgs r { a with files := a.files ++ [f] }
+
+/-- The images of a document in `dir`: every file the source names that is a regular file
+inside `dir` (its real path under `dir`'s), read whole up to 16 MiB. -/
+def loadImages (dir : System.FilePath) (src : String) : IO (Std.HashMap String ByteArray) := do
+  let root ← IO.FS.realPath dir
+  let mut out : Std.HashMap String ByteArray := {}
+  for piece in (src.splitOn "\\includegraphics").drop 1 do
+    let after := (piece.splitOn "{").drop 1
+    let some p := after.head? | continue
+    let p := ((p.splitOn "}").headD "").trimAscii.toString
+    if !Text.Typeset.safeImagePath p || out.contains p then continue
+    let f := dir / p
+    if !(← f.pathExists) then continue
+    let real ← IO.FS.realPath f
+    if !(real.toString.startsWith (root.toString ++ "/")) then continue
+    if (← real.metadata).byteSize > 16777216 then continue
+    if (← real.metadata).type != .file then continue
+    out := out.insert p (← IO.FS.readBinFile real)
+  return out
+
+/-- Typesets a document into a directory (see the module docstring). -/
+def renderDocument (fonts : Fonts) (a : Args) (src out : String) : IO UInt32 := do
+  let source ← IO.FS.readFile src
+  let dir := (System.FilePath.mk src).parent.getD "."
+  let images ← loadImages dir source
+  let cfg : Text.Settings := { images := fun p => images[p]? }
+  let title := (System.FilePath.mk src).fileStem.getD "document"
+  match Doc.typesetDocument source fonts.resolver cfg,
+      Doc.typesetDocument source fonts.resolver { cfg with continuous := true } with
+  | .ok r, .ok web =>
+    IO.FS.createDirAll out
+    let pages := svgPages fonts.set r title
+    for h : k in [0:pages.size] do
+      IO.FS.writeFile (System.FilePath.mk out / s!"page-{k + 1}.svg") pages[k]
+    IO.FS.writeFile (System.FilePath.mk out / "document.svg") (svgCombined fonts.set r title)
+    let fontUrl := a.fontUrl.getD a.fonts
+    let (html, css) := htmlPages fonts.set r
+      { fontUrl, title, externalStyles := a.externalCss, styleUrl := "document.css" }
+    IO.FS.writeFile (System.FilePath.mk out / "document.html") html
+    if a.externalCss then IO.FS.writeFile (System.FilePath.mk out / "document.css") css
+    let (wh, wc) := htmlPages fonts.set web
+      { fontUrl, title, externalStyles := a.externalCss, styleUrl := "web.css" }
+    IO.FS.writeFile (System.FilePath.mk out / "web.html") wh
+    if a.externalCss then IO.FS.writeFile (System.FilePath.mk out / "web.css") wc
+    for w in r.warnings do IO.eprintln s!"{src}: warning: {w}"
+    IO.println s!"{src}: {r.pages.size} pages, {r.passes} passes"
+    return 0
+  | .error e, _ | _, .error e =>
+    IO.eprintln s!"{src}: error at character {e.pos}: {e.message}"
+    return 1
 
 /-- Renders the file named on the command line. -/
 def main (argv : List String) : IO UInt32 := do
@@ -55,6 +120,7 @@ def main (argv : List String) : IO UInt32 := do
   if !missing.isEmpty then
     for m in missing do IO.eprintln s!"leantex-render: font {m}"
     return 2
+  if a.document then return ← renderDocument fonts a src out
   let source ← IO.FS.readFile src
   let opts : RenderOptions := { html := a.html, math := a.math, fontUrl := a.fontUrl.getD a.fonts }
   match render fonts source opts with

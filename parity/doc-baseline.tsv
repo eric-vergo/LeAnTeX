@@ -30,6 +30,7 @@ sections-pages
 skips
 tabular
 theorem
+theorem-amsthm
 thispagestyle
 title
 toc

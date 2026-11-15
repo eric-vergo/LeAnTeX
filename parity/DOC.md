@@ -5,8 +5,8 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | Feature | Documents agreeing | Lines at the same place | Within 1 pt |
 |---|---|---|---|
 | structure | 13 / 15 | 418 / 419 | 419 |
-| environments | 7 / 11 | 62 / 87 | 67 |
-| combined | 1 / 2 | 30 / 82 | 30 |
+| environments | 8 / 11 | 65 / 87 | 70 |
+| combined | 1 / 2 | 62 / 82 | 73 |
 | lists | 3 / 3 | 23 / 23 | 23 |
 | floats | 4 / 5 | 114 / 115 | 115 |
 | footnotes | 2 / 2 | 81 / 81 | 81 |
@@ -20,7 +20,7 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | abstract | yes | 15 / 15 |  |
 | accents | yes | 3 / 3 |  |
 | align | no | 1 / 15 | page 1: 8 lines, LuaLaTeX 15 |
-| article | no | 0 / 52 | error: Undefined control sequence \includegraphics at 1922 |
+| article | no | 32 / 52 | page 2 line 5: (8799518, 12010782) 'Table 1 and Figure 1 on page 2; Theorem ', LuaLaTeX (17618696, 12722500) 'Step' (dy -711718) |
 | center | yes | 7 / 7 |  |
 | counters | yes | 4 / 4 |  |
 | description | yes | 5 / 5 |  |
@@ -56,7 +56,7 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | tabular | yes | 13 / 13 |  |
 | tabular-multi | no | 0 / 10 | page 1: 9 lines, LuaLaTeX 10 |
 | theorem | yes | 6 / 6 |  |
-| theorem-amsthm | no | 3 / 6 | page 1 line 3: (8799518, 11742936) 'Proof. Clear from the construction.', LuaLaTeX (8799518, 11611864) 'Proof. Clear from the construction.' (dy 131072) |
+| theorem-amsthm | yes | 6 / 6 |  |
 | thispagestyle | yes | 46 / 46 |  |
 | title | yes | 15 / 15 |  |
 | title-thanks | no | 8 / 8 | counter steps: 1, LuaLaTeX 1 |
