@@ -36,7 +36,9 @@ lean_exe «leantex-typeset» where
 lean_exe «leantex-render» where
   root := `LeAnTeXTest.RenderMain
 
-/-- The test driver: `lake test` runs it from the repository root. -/
+/-- The test driver: `lake test` runs it from the repository root. It runs the command-line
+programs on hostile sources, so they are built first. -/
 @[test_driver]
 lean_exe «leantex-test» where
   root := `LeAnTeXTest.Main
+  needs := #[«leantex-typeset», «leantex-render»]

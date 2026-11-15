@@ -15,6 +15,7 @@ import LeAnTeXTest.TypesetChecks
 import LeAnTeXTest.FontFiles
 import LeAnTeXTest.BackendChecks
 import LeAnTeXTest.DocChecks
+import LeAnTeXTest.Bounds
 
 /-!
 # The differential test and the parity report
@@ -41,6 +42,9 @@ It then lays out every formula and compares the box tree with KaTeX's
   difference of the trees.
 * `lake exe leantex-test --text`: only the text-mode fixtures and the font reader
   (`LeAnTeXTest.TextFixtures`, `LeAnTeXTest.Font`), which `lake test` also runs.
+* `lake exe leantex-test --bounds`: only the bounded-work checks (`LeAnTeXTest.Bounds`: the
+  command-line programs on hostile sources under CPU and memory limits), which `lake test` also
+  runs.
 -/
 
 open LeAnTeX
@@ -335,11 +339,17 @@ def benchMatrix : IO Unit := do
     IO.println s!"{n} × {n} matrix: parse {p} µs, parse + layout {l} µs, display list {d} µs \
       (checksum {check})"
 
+/-- The bounded-work checks (`LeAnTeXTest.Bounds`): their failures. -/
+def boundsFailures : IO (Array String) := do
+  let r := LeAnTeXTest.Bounds.checks ++ (← LeAnTeXTest.Bounds.ioChecks)
+  IO.println s!"  bounds: {(r.filter (·.2)).size} of {r.size} hold"
+  return r.filterMap fun (n, ok) => if ok then none else some s!"FAIL {n}"
+
 /-- The text-mode checks and the font reader's: their failures. -/
 def textChecks : IO (Array String) := do
   return (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++
     (← FrontChecks.run) ++ (← TypesetChecks.run) ++ (← FontTest.run) ++ (← FontFiles.run) ++
-    (← BackendChecks.run) ++ (← DocChecks.run)
+    (← BackendChecks.run) ++ (← DocChecks.run) ++ (← boundsFailures)
 
 /-- Run everything; see the module docstring for the modes. -/
 def main (args : List String) : IO UInt32 := do
@@ -358,6 +368,10 @@ def main (args : List String) : IO UInt32 := do
   if let ["--show-doc", name] := args then
     let _ ← DocChecks.run false (some name)
     return 0
+  if args == ["--bounds"] then
+    let fails ← boundsFailures
+    for f in fails do IO.eprintln s!"  {f}"
+    return if fails.isEmpty then 0 else 1
   if args == ["--text"] then
     let fails ← textChecks
     for f in fails do IO.eprintln s!"  {f}"
