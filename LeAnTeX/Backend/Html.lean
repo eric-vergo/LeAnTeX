@@ -192,9 +192,9 @@ def hiddenSvg (defs : String) : String :=
     defs ++ "</svg>"
 
 /-- The display list as an HTML fragment (a `div`) and the fonts it uses (for
-`htmlStyleSheet`): see the module docstring. The third component holds, with `opts.externalStyles`, the style-sheet rules that take the
-place of `style` attributes (each element then gets a class of its own instead); it is empty
-otherwise. Both forms are written from the same values. -/
+`htmlStyleSheet`): see the module docstring. The third component holds, with
+`opts.externalStyles`, the style-sheet rules that take the place of `style` attributes (each
+element then gets a class of its own instead); it is empty otherwise. Both forms are written from the same values. -/
 def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
     String × Array String × Array String := Id.run do
   let p := cssIdent opts.idPrefix
