@@ -11,6 +11,7 @@ import LeAnTeX.Text.Source
 import LeAnTeX.Text.Typeset
 import LeAnTeX.Text.LatinModern
 import LeAnTeX.Text.Output
+import LeAnTeX.Text.Proofs
 
 /-!
 # Text mode
