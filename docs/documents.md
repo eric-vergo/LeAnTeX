@@ -3,7 +3,7 @@
 LeAnTeX's document layer typesets whole LaTeX documents of the `article` class into pages, as
 LaTeX does: TeX's vertical lists and page builder, LaTeX's output routine with its floats and
 footnotes, sectioning, counters, cross-references, the table of contents, lists, theorems,
-tables and figures. It is checked against LuaLaTeX line by line, to the scaled point, on 89
+tables and figures. It is checked against LuaLaTeX line by line, to the scaled point, on 97
 documents it was developed with and on 20 held-out documents it was not (see *Agreement with
 LuaLaTeX*: the second figure is the one to go by).
 
@@ -116,10 +116,15 @@ Three sets, which must be read together:
 
 | Set | Documents agreeing | Lines at the same place (to the sp) | Within 1 pt | Page breaks |
 |---|---|---|---|---|
-| reference documents: the 64 written to cover the features (tuned on) | 60 / 64 | 1562 / 1583 | 1577 | 17 / 17 |
-| regression documents: 15, one or more per difference fixed | 13 / 15 | 109 / 143 | 143 | 3 / 3 |
-| fresh documents: 10 written without reading this library | 2 / 10 | 204 / 398 | 299 | 9 / 10 |
-| **held-out documents: 20 written without reading this library, not tuned to** | **0 / 20** | **190 / 469** | **355** | **3 / 3** |
+| reference documents: the 72 written to cover the features, the math ones included (tuned on) | 72 / 72 | 1667 / 1667 | 1667 | 17 / 17 |
+| regression documents: 15, one or more per difference fixed | 15 / 15 | 143 / 143 | 143 | 3 / 3 |
+| fresh documents: 10 written without reading this library | 7 / 10 | 367 / 398 | 367 | 10 / 10 |
+| **held-out documents: 20 written without reading this library, not tuned to** | **8 / 20** | **397 / 469** | **405** | **3 / 3** |
+
+The figures are with the Computer Modern metric files installed (the TeX-rule math layout,
+`docs/math-boxes.md`); without them formulas are set by the KaTeX-compatible layout and the
+documents with formulas differ as they did before it: the held-out set then gave 0 / 20, 190 of
+469 lines and 355 within 1 pt.
 
 The held-out set (`corpus/doc-heldout/`, `bash tools/doc-reference.sh --held-out`) is the honest
 measure of the layer on documents it was not shaped by: short mathematical articles with

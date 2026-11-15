@@ -76,27 +76,39 @@ What LeAnTeX does today, and what comes next.
   insertions, LaTeX's output routine (footnotes, top, bottom, here and page floats, deferral,
   `\clearpage`), headings, the table of contents, counters, labels and references resolved in
   repeated passes inside the engine, lists, quotations, centring, verbatim, theorems and
-  proofs, equations, amsmath's alignments row by row, accents, rules, lengths, the title and
-  abstract, `tabular`, `\includegraphics` of PNG and SVG, bibliographies (`thebibliography`,
-  `\bibitem`, `\cite`). Against LuaLaTeX (`tools/doc-reference.sh`, `parity/DOC.md`), line by
-  line to the sp: the 64 reference documents 60 agree, 1,562 of 1,583 lines (1,577 within
-  1 pt); 15 regression documents 13 agree; ten fresh documents written without reading the
-  source 2 agree, 204 of 398 lines (299 within 1 pt); **twenty held-out documents, written
-  without reading the source and not tuned to: none agrees in full, 190 of 469 lines at the
-  place to the sp, 355 within 1 pt**. Their largest remaining cause is the formulas' boxes
-  (KaTeX's metrics, not TeX's math fonts; `docs/math-boxes.md`, `parity/MATHBOX.md`: 0 of 418
-  formula boxes TeX's to the sp, 339 within 1 pt). List parameters probed against LuaLaTeX at
-  every level for three sizes (`tools/list-params.sh`). Paged SVG and HTML (`leantex-render
-  --document`), `examples/article/`. Theorems: the pages hold the vertical list's boxes,
-  counters, references, image paths. 534 mutated documents end cleanly.
+  proofs, equations with amsmath's `\tag`, amsmath's alignments row by row, accents, rules,
+  lengths, the title and abstract, `tabular`, `\includegraphics` of PNG and SVG,
+  bibliographies (`thebibliography`, `\bibitem`, `\cite`). Against LuaLaTeX
+  (`tools/doc-reference.sh`, `parity/DOC.md`), line by line to the sp: the 87 reference and
+  regression documents all agree, 1,810 of 1,810 lines; ten fresh documents written without
+  reading the source 7 agree, 367 of 398 lines; **twenty held-out documents, written without
+  reading the source and not tuned to: 8 agree in full, 397 of 469 lines at the place to the
+  sp, 405 within 1 pt, page breaks 3 of 3** (before the TeX-rule layout: none, 190 and 355).
+  List parameters probed against LuaLaTeX at every level for three sizes
+  (`tools/list-params.sh`). Paged SVG and HTML (`leantex-render --document`),
+  `examples/article/`. Theorems: the pages hold the vertical list's boxes, counters,
+  references, image paths. 582 mutated documents end cleanly.
+- TeX-rule math layout (`LeAnTeX/TeXMath*`, `docs/math-boxes.md`): a TFM reader in pure Lean
+  (checked as TeX checks a file, scaled as TeX scales it, fuzzed), TeX's Appendix G with TeX's
+  rounding and LuaTeX's five differences, LaTeX's math codes recorded from LuaLaTeX, the
+  commands built as LaTeX and amsmath build them, LaTeX's font setup for every size. The
+  metric files are read at run time from a TeX installation (none is committed); without one
+  formulas fall back to the KaTeX-compatible layout. Against LuaLaTeX (`parity/MATHBOX.md`):
+  12,142 of 12,726 formula boxes to the sp (12,142 of the 12,150 it builds); `lake test` fails
+  if a box that was TeX's no longer is. Inline formulas break after relations and binary
+  operations as in TeX; glyphs drawn with New Computer Modern Math at TeX's positions.
+  Theorems: the style lattice, the spacing table's totality and its script-style rule,
+  `hpack` containing its children.
 
 ## Next
 
-1. The formulas' boxes in documents: a second, TeX-rule math layout with the Computer Modern
-   metrics of each size (`docs/math-boxes.md`), measured by `parity/MATHBOX.md`; then the
-   held-out documents' remaining causes; `\tag`, `\intertext`, `split`; `minipage` and
-   `\parbox`.
-2. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
+1. The constructs the TeX-rule layout refuses (`docs/math-boxes.md`): `\over` and its
+   relatives (the parser's tree would have to keep them apart), arrays with rules and script
+   cells, extensible arrows and braces, `\boldsymbol`, `\notin`; amsmath's `\intertext`,
+   `split`, `alignat`, and a number that does not fit beside its row.
+2. The held-out documents' remaining causes (`docs/documents.md`): the title block in some
+   documents, `--` in bold headings, text accents, line breaks in a few paragraphs.
+3. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
    tests (`Box.hasClass`) and style lookups.
 
 ## Choices made

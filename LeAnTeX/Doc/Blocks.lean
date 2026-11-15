@@ -216,7 +216,8 @@ def extractTag (src : String) : String × Option (String × Bool) := Id.run do
         if depth == 0 then e := k; break
     let arg := String.ofList (cs.extract 1 e).toList
     let after := String.ofList (cs.extract (e + 1) cs.size).toList
-    return (first ++ after ++ String.join (more.map ("\\tag" ++ ·)), some (arg.trimAscii.toString, star))
+    let rest' := String.join (more.map ("\\tag" ++ ·))
+    return (first ++ after ++ rest', some (arg.trimAscii.toString, star))
 
 /-- The box of an amsmath tag: `(x)` (`x` when starred) in the roman font at the current size,
 a part of `x` between `$` signs as a formula. -/
