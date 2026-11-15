@@ -4,13 +4,13 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 
 | Feature | Documents agreeing | Lines at the same place | Within 1 pt |
 |---|---|---|---|
-| structure | 13 / 15 | 390 / 419 | 390 |
-| environments | 6 / 11 | 56 / 87 | 56 |
+| structure | 13 / 15 | 418 / 419 | 419 |
+| environments | 7 / 11 | 62 / 87 | 67 |
 | combined | 1 / 2 | 30 / 82 | 30 |
 | lists | 3 / 3 | 23 / 23 | 23 |
 | floats | 4 / 5 | 114 / 115 | 115 |
 | footnotes | 2 / 2 | 81 / 81 | 81 |
-| page breaking | 6 / 7 | 296 / 312 | 296 |
+| page breaking | 7 / 7 | 312 / 312 | 312 |
 | tables | 1 / 2 | 13 / 23 | 13 |
 
 ## Per document
@@ -26,7 +26,7 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | description | yes | 5 / 5 |  |
 | emph | yes | 3 / 3 |  |
 | enumerate | yes | 8 / 8 |  |
-| equation | no | 5 / 13 | page 1: 12 lines, LuaLaTeX 13 |
+| equation | no | 8 / 13 | page 1 line 6: (18347177, 12797214) '$ x^2 + y^2 = z^2 $', LuaLaTeX (18299587, 12797214) 'x2 + y2 = z2' (dy 0) |
 | float-bottom | no | 13 / 14 | page 1 line 13: (16494428, 44117141) 'Figure 1: At the bottom.', LuaLaTeX (16494428, 44117157) 'Figure 1: At the bottom.' (dy -16) |
 | float-default | yes | 50 / 50 |  |
 | float-here | yes | 17 / 17 |  |
@@ -47,12 +47,12 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | pages-long | yes | 71 / 71 |  |
 | pagestyle-empty | yes | 46 / 46 |  |
 | quote | no | 20 / 23 | page 1 line 14: (10437918, 20661534) 'Vertical space between paragraphs and ar', LuaLaTeX (10437918, 20661534) 'Vertical space between paragraphs and ar' (dy 0) |
-| refs | no | 2 / 31 | page 1: 30 lines, LuaLaTeX 31 |
+| refs | no | 30 / 31 | page 1 line 3: (19353582, 11745347) '$ a = b $', LuaLaTeX (19353738, 11745347) 'a = b' (dy 0) |
 | rules | yes | 3 / 3 |  |
 | sections-basic | yes | 15 / 15 |  |
 | sections-levels | yes | 14 / 14 |  |
 | sections-pages | yes | 86 / 86 |  |
-| skips | no | 4 / 20 | page 1: 22 lines, LuaLaTeX 20 |
+| skips | yes | 20 / 20 |  |
 | tabular | yes | 13 / 13 |  |
 | tabular-multi | no | 0 / 10 | page 1: 9 lines, LuaLaTeX 10 |
 | theorem | yes | 6 / 6 |  |
@@ -62,5 +62,5 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | title-thanks | no | 8 / 8 | counter steps: 1, LuaLaTeX 1 |
 | toc | yes | 19 / 19 |  |
 | toc-pages | yes | 91 / 91 |  |
-| verbatim | no | 2 / 5 | page 1 line 2: (8799518, 10306846) 'def f(x):', LuaLaTeX (8799518, 10175774) 'def f(x):' (dy 131072) |
+| verbatim | yes | 5 / 5 |  |
 | widows | yes | 61 / 61 |  |

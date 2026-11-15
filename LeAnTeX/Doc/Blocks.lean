@@ -117,7 +117,6 @@ def beginProof (at_ : Tok) : M Unit := do
   let title ← readOptional?
   let p := at_.pos
   let t := title.getD (textToks at_ "Proof")
-  endParagraph
   beginList at_ (fun l => { l with topSep := { width := 6 * 65536, stretch := 6 * 65536 } })
     (trivial := true)
   modifyVars fun v =>

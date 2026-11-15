@@ -251,6 +251,9 @@ def footnote (at_ : Tok) (thanks : Bool := false) : M Unit := do
       let v := (← docSt).counters.value "footnote"
       pure (if v == 1 then "∗" else (NumberStyle.fnsymbol.format? v).getD "?")
     else theCounter at_ "footnote"
+  if thanks then
+    modifyDoc fun d => { d with steps := d.steps.modify (d.steps.size - 1) fun (n, _) =>
+      (n, mark) }
   let size := (← vars).key.size
   startParagraph
   push (.penalty 10000)
@@ -374,7 +377,6 @@ def docCommand (t : Tok) (name : String) : M Bool := do
     endGroup t
   | "\uE000" =>
     let txt := unhex (← readWord t)
-    endParagraph
     beginGroup t
     beginList t id (trivial := true)
     modifyVars fun v => { v with parIndent := 0, parFillSkip := flushGlue, parSkip := {},
@@ -568,9 +570,9 @@ def docCommand (t : Tok) (name : String) : M Bool := do
     endParagraph
     pushV (.glue g 0)
   | "smallskip" | "medskip" | "bigskip" =>
+    -- `\vspace{\smallskipamount}` …: after the current line in a paragraph
     let k : Int := if name == "smallskip" then 1 else if name == "medskip" then 2 else 4
-    endParagraph
-    pushV (.glue { width := 3 * k * 65536, stretch := k * 65536, shrink := k * 65536 } 0)
+    vspace { width := 3 * k * 65536, stretch := k * 65536, shrink := k * 65536 }
   | "addvspace" =>
     let g ← readGlueArg t
     if (← get).hmode then failAt t "Something's wrong--perhaps a missing \\item"

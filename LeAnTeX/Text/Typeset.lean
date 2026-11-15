@@ -982,12 +982,14 @@ def displayFormula (at_ : Tok) (src : String) (eqno : Option HNode := none)
   let box : LeAnTeX.Doc.VNode := match eqno with
     | none => .hbox w h d (sh + dd) #[n] {}
     | some b =>
+      -- the formula and the number are boxes of their own in the line, as TeX makes them
+      let fb := HNode.box w h d 0 #[n]
       if fullWidth then
         let dc := half (z - w)
-        let content := #[HNode.kern dc .explicit, n, .kern (z - dc - w - e) .explicit, b]
+        let content := #[HNode.kern dc .explicit, fb, .kern (z - dc - w - e) .explicit, b]
         .hbox z (max h b.height) (max d b.depth) sh content {}
       else
-        let content := #[n, HNode.kern (z - w - e - dd) .explicit, b]
+        let content := #[fb, HNode.kern (z - w - e - dd) .explicit, b]
         .hbox (z - dd) (max h b.height) (max d b.depth) (sh + dd) content {}
   appendV box
   pushV (.penalty v.postDisplayPenalty)

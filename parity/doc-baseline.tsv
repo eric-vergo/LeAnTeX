@@ -27,10 +27,12 @@ rules
 sections-basic
 sections-levels
 sections-pages
+skips
 tabular
 theorem
 thispagestyle
 title
 toc
 toc-pages
+verbatim
 widows
