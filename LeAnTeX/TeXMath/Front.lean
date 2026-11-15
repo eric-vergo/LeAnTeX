@@ -94,10 +94,14 @@ structure FrontCtx where
   arrayColSep : Int := 5 * 65536
   /-- The current family for class-7 characters, if any. -/
   fam : Option Nat := none
+  /-- For each dots command of the source in order (`dotsInSource`), whether amsmath puts a
+  thin space after it. -/
+  dots : Array Bool := #[]
 
 /-- The conversion's monad: the context, and the layout's monad (for the boxes LaTeX sets while
-it builds the list: `\sqrt[n]`'s index, `\text`, phantoms). -/
-abbrev FM := ReaderT FrontCtx M
+it builds the list: `\sqrt[n]`'s index, `\text`, phantoms), and the count of the dots
+commands met so far (`FrontCtx.dots`). -/
+abbrev FM := ReaderT FrontCtx (StateT Nat M)
 
 /-- An error for something the conversion does not build. -/
 def unsupported {α : Type} (what : String) : FM α :=
@@ -178,7 +182,7 @@ def delimOf (name : String) : FM Delim := do
     | none => unsupported s!"delimiter {name}"
   | _ =>
     let alias_ := match name with
-      | "\\{" => "\\lbrace" | "\\}" => "\\rbrace" | "\\vert" => "|" | "\\Vert" => "\\|"
+      | "\\{" => "\\lbrace" | "\\}" => "\\rbrace" | "\\lbrack" => "[" | "\\rbrack" => "]" | "\\vert" => "|" | "\\Vert" => "\\|"
       | "\\lvert" => "|" | "\\rvert" => "|" | "\\lVert" => "\\|" | "\\rVert" => "\\|"
       | n => n
     match alias_.toList with
@@ -246,6 +250,7 @@ partial def textChars (n : LeAnTeX.Node) : Option String :=
   match n with
   | .sym _ _ _ t => if t == "\\ " || t == "~" then some " " else
       if t.length == 1 then some t else none
+  | .text _ _ _ (some _) => none
   | .ordgroup _ _ b _ | .text _ _ b _ =>
     b.foldlM (init := "") fun acc x => (acc ++ ·) <$> textChars x
   | _ => none
@@ -333,7 +338,7 @@ def relChar (fam slot : Nat) : Noad := .atom .rel (.mathChar fam slot) .empty .e
 def joinrel : Noad := .atom .rel (.list #[.kern (-3 * 65536) true]) .empty .empty
 
 /-- LaTeX's `\Relbar`: `\mathrel=`. -/
-def bigRelbar : Noad := relChar 6 0x3D
+def bigRelbar : Noad := relChar 0 0x3D
 
 /-- The arrows and relations LaTeX builds from pieces (`fontmath.ltx`, amsmath): their lists;
 `\relbar` (a smashed minus) is passed in, as it needs the layout. -/
@@ -346,8 +351,8 @@ def composite (relbar : Noad) (thick : Glue) : String → Option (Array Noad)
   | "\\Longleftarrow" => some #[relChar 2 0x28, joinrel, bigRelbar]
   | "\\longleftrightarrow" => some #[relChar 2 0x24, joinrel, relChar 2 0x21]
   | "\\Longleftrightarrow" => some #[relChar 2 0x28, joinrel, relChar 2 0x29]
-  | "\\hookrightarrow" => some #[relChar 2 0x2C, joinrel, relChar 2 0x21]
-  | "\\hookleftarrow" => some #[relChar 2 0x20, joinrel, relChar 2 0x2D]
+  | "\\hookrightarrow" => some #[relChar 1 0x2C, joinrel, relChar 2 0x21]
+  | "\\hookleftarrow" => some #[relChar 2 0x20, joinrel, relChar 1 0x2D]
   | "\\iff" => some #[.glue thick true, relChar 2 0x28, joinrel, relChar 2 0x29,
       .glue thick true]
   | "\\implies" => some #[.glue thick true, bigRelbar, joinrel, relChar 2 0x29, .glue thick true]
@@ -420,9 +425,14 @@ partial def convNode (n : LeAnTeX.Node) : FM (Array Noad) := do
         let z ← boxOf #[Noad.style st, groupAtom #[.atom .bin (.mathChar 2 0) .empty .empty]] .text
         pure #[groupAtom' (.box false z.width 0 0 0 {} z.list)]]) .empty .empty
       if let some l := composite relbar p.thickMuSkip t then return l
-      if t == "\\ldots" || t == "\\@ldots" || t == "\\mathellipsis" || t == "…" then
-        return #[dots "\\ldotp"]
-      if t == "\\cdots" || t == "\\@cdots" || t == "⋯" then return #[dots "\\cdotp"]
+      let isL := t == "\\ldots" || t == "\\@ldots" || t == "\\mathellipsis" || t == "…"
+      let isC := t == "\\cdots" || t == "\\@cdots" || t == "⋯"
+      if isL || isC then
+        let k ← getModify (· + 1)
+        let d := dots (if isL then "\\ldotp" else "\\cdotp")
+        if ((← read).dots[k]?).getD false then
+          return #[d, .glue (← readThe Env).params.thinMuSkip true]
+        return #[d]
       return #[← symbolAtom t]
   | .ordgroup _ _ b _ => return #[groupAtom (← convList b)]
   | .supsub _ _ base sup sub => do
@@ -436,8 +446,11 @@ partial def convNode (n : LeAnTeX.Node) : FM (Array Noad) := do
   | .operatorname _ _ body _ lim _ =>
     let b ← withReader (fun c => { c with fam := some 0 }) (convList body)
     let word := String.join (body.toList.filterMap fun x => x.symText?)
+    let star := match n with
+      | .operatorname _ _ _ always _ _ => always
+      | _ => false
     return #[.atom .op (.list (#[Noad.kern 0 false] ++ b)) .empty .empty
-      (if lim || limitsOperators.contains word then .normal else .noLimits)]
+      (if lim || star || limitsOperators.contains word then .normal else .noLimits)]
   | .hbox _ _ body =>
     let some s := (body.foldlM (init := "") fun acc x => (acc ++ ·) <$> textChars x)
       | unsupported "a box that is not plain text"
@@ -559,7 +572,8 @@ partial def convNode (n : LeAnTeX.Node) : FM (Array Noad) := do
       pure #[groupAtom' (.box false z.width (if sh then 0 else z.height)
         (if sd then 0 else z.depth) 0 {} z.list)]]
   | .internal .. => return #[]
-  | .array _ _ _ hskip _ cols stretch body rowGaps hlines tags _ =>
+  | .array _ _ sep hskip jot cols stretch body rowGaps hlines tags _ =>
+    if sep.isSome || jot.isSome then unsupported "this array environment"
     if rowGaps.any (·.isSome) then unsupported "array row gaps"
     if hlines.any (!·.isEmpty) then unsupported "array rules"
     if tags.isSome then unsupported "array tags"
@@ -576,6 +590,7 @@ partial def convNode (n : LeAnTeX.Node) : FM (Array Noad) := do
       for cell in row do
         let l ← match cell with
           | .styling _ _ "text" _ #[g] => convNode' g
+          | .styling .. => unsupported "array cells in script style"
           | x => convNode' x
         r := r.push (← mlistToHlist maxNesting l .text false)
       cells := cells.push r
@@ -668,17 +683,64 @@ end
 that is displayed (`display`) or not: `\pmod`'s space, `\ne` and `\neq` as `\not=`. -/
 def texMacros (display : Bool) : Array (String × String) := #[
   ("\\pmod", s!"\\allowbreak\\mkern{if display then 18 else 8}mu(\\mathrm\{mod}\\mkern6mu #1)"),
-  ("\\ne", "\\@not="), ("\\neq", "\\@not="), ("\\mbox", "\\hbox{#1}")]
+  ("\\pod", s!"\\allowbreak\\mkern{if display then 18 else 8}mu(#1)"),
+  ("\\mod", s!"\\allowbreak\\mkern{if display then 18 else 12}mu\\mathrm\{mod}\\,\\,#1"),
+  ("\\ne", "\\@not="), ("\\neq", "\\@not="), ("\\not", "\\@not"), ("\\mbox", "\\hbox{#1}")]
+
+/-- The dots commands of a source in order, each with whether amsmath sets a thin space after
+it: `\cdots`, `\dotsb`, `\dotsm`, `\dotsi`, `\dotso` and `\dots` (amsmath's `\extrap@`) when
+the next token is `,`, `;`, `.`, the end of the formula or a closing delimiter (`\extra@`);
+`\dotsc` only before `;`, `.`, the end or a closing delimiter; `\ldots` never. -/
+def dotsInSource (src : String) : Array Bool := Id.run do
+  let cs := src.toList.toArray
+  let mut out : Array Bool := #[]
+  let mut i := 0
+  for _ in [0:cs.size + 1] do
+    if i ≥ cs.size then break
+    if cs[i]? == some '\\' then
+      let mut j := i + 1
+      for _ in [0:cs.size] do
+        if (cs[j]?.map Char.isAlpha).getD false then j := j + 1 else break
+      let name := String.ofList (cs.extract (i + 1) j).toList
+      if ["ldots", "dots", "cdots", "dotsb", "dotsm", "dotsi", "dotso", "dotsc",
+          "mathellipsis"].contains name then
+        let mut k := j
+        for _ in [0:cs.size] do
+          if (cs[k]?.map Char.isWhitespace).getD false then k := k + 1 else break
+        let rest := String.ofList (cs.extract k cs.size).toList
+        let closing := rest.isEmpty || ["\\right", ")", "]", "\\}", "\\rangle", "|", "\\|",
+          "\\rvert", "\\rVert", "\\rbrace", "\\rfloor", "\\rceil", "}"].any (fun (p : String) => rest.startsWith p)
+        let punct := rest.startsWith "," || rest.startsWith ";" || rest.startsWith "."
+        let thin := match name with
+          | "ldots" | "mathellipsis" | "dotsi" => false
+          | "dotsc" => closing || rest.startsWith ";" || rest.startsWith "."
+          | "dots" => if rest.startsWith "," then false else closing || punct
+          | _ => closing || punct
+        out := out.push thin
+      i := max j (i + 1)
+    else i := i + 1
+  return out
+
+/-- Whether a source uses what the parser's tree cannot tell apart from other constructs: the
+generalised fractions `\over`, `\atop`, `\above`, `\choose`, `\brace`, `\brack` (TeX's,
+without amsmath's groups) and glue with `plus` or `minus`. -/
+def hasUnsupportedSyntax (src : String) : Bool :=
+  ["\\over", "\\atop", "\\above", "\\choose", "\\brace", "\\brack"].any (fun c =>
+    (src.splitOn c).drop 1 |>.any fun r => !(r.toList.headD ' ').isAlpha) ||
+  (["\\hskip", "\\mskip", "\\hspace"].any (fun c => (src.splitOn c).length > 1) &&
+    (src.splitOn "plus").length + (src.splitOn "minus").length > 2)
 
 /-- Parses a formula for the TeX-rule layout: the parser with `texMacros` added. -/
 def parseForTeX (src : String) (settings : LeAnTeX.Settings) (displayMath : Bool) :
     Except String (Array LeAnTeX.Node) :=
+  if hasUnsupportedSyntax src then .error "not supported by the TeX-rule layout: \\over, \\atop, \\choose, \\above or glue with plus or minus" else
   let s := { settings with macros := texMacros displayMath ++ settings.macros }
   match (LeAnTeX.parse src s).result with
   | .ok t => .ok t
   | .error e => .error e.message
 
 /-- The math list of a parsed formula. -/
-def toMathList (t : Array LeAnTeX.Node) : FM (Array Noad) := convList t
+def toMathList (t : Array LeAnTeX.Node) (ctx : FrontCtx) : M (Array Noad) :=
+  (convList t).run { ctx with dots := dotsInSource ctx.source } |>.run' 0
 
 end LeAnTeX.TeXMath

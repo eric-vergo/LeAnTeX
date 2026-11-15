@@ -207,3 +207,1915 @@ mixed	x_1,\dots,x_n
 mixed	1+2+\cdots+n
 mixed	\lambda\in\mathbb{C}
 mixed	\det(A-\lambda I)=0
+gen-spacing	aa
+gen-spacing	a\sum
+gen-spacing	a+
+gen-spacing	a=
+gen-spacing	a(
+gen-spacing	a)
+gen-spacing	a,
+gen-spacing	a\left(x\right)
+gen-spacing	\sum a
+gen-spacing	\sum \sum
+gen-spacing	\sum +
+gen-spacing	\sum =
+gen-spacing	\sum (
+gen-spacing	\sum )
+gen-spacing	\sum ,
+gen-spacing	\sum \left(x\right)
+gen-spacing	+a
+gen-spacing	+\sum
+gen-spacing	++
+gen-spacing	+=
+gen-spacing	+(
+gen-spacing	+)
+gen-spacing	+,
+gen-spacing	+\left(x\right)
+gen-spacing	=a
+gen-spacing	=\sum
+gen-spacing	=+
+gen-spacing	==
+gen-spacing	=(
+gen-spacing	=)
+gen-spacing	=,
+gen-spacing	=\left(x\right)
+gen-spacing	(a
+gen-spacing	(\sum
+gen-spacing	(+
+gen-spacing	(=
+gen-spacing	((
+gen-spacing	()
+gen-spacing	(,
+gen-spacing	(\left(x\right)
+gen-spacing	)a
+gen-spacing	)\sum
+gen-spacing	)+
+gen-spacing	)=
+gen-spacing	)(
+gen-spacing	))
+gen-spacing	),
+gen-spacing	)\left(x\right)
+gen-spacing	,a
+gen-spacing	,\sum
+gen-spacing	,+
+gen-spacing	,=
+gen-spacing	,(
+gen-spacing	,)
+gen-spacing	,,
+gen-spacing	,\left(x\right)
+gen-spacing	\left(x\right)a
+gen-spacing	\left(x\right)\sum
+gen-spacing	\left(x\right)+
+gen-spacing	\left(x\right)=
+gen-spacing	\left(x\right)(
+gen-spacing	\left(x\right))
+gen-spacing	\left(x\right),
+gen-spacing	\left(x\right)\left(x\right)
+gen-spacing	a=+b
+gen-spacing	a,b
+gen-spacing	\lim x
+gen-spacing	x\left(y\right)z
+gen-spacing	a\frac12
+gen-spacing	,-
+gen-spacing	-a
+gen-spacing	a-
+gen-spacing	a\left(b\right)
+gen-spacing	\left(a\right)b
+gen-spacing	\left(a\right)+b
+gen-spacing	a+\left(b\right)
+gen-spacing	\frac12+\frac34
+gen-spacing	\frac12 a
+gen-spacing	a\frac12 b
+gen-spacing	(a+b)(c+d)
+gen-spacing	a,\ b
+gen-spacing	f(x,y)
+gen-spacing	a+-b
+gen-spacing	a==b
+gen-spacing	a,,b
+gen-spacing	a\lim b
+gen-spacing	\lim\sum
+gen-spacing	\sum\lim
+gen-spacing	x_{a+b}
+gen-spacing	x_{a=b}
+gen-spacing	x^{a+b}
+gen-spacing	x^{a=b}
+gen-spacing	x_{a,b}
+gen-spacing	x_{(a)}
+gen-spacing	x_{a\sum b}
+gen-spacing	x_{a\times b}
+gen-spacing	x_{-a}
+gen-spacing	x^{a\le b}
+gen-spacing	x_{\left(a\right)b}
+gen-spacing	x_{a\lim b}
+gen-spacing	x_{a,b+c}
+gen-spacing	x^{a,b=c}
+gen-spacing	x_{a_{b+c}}
+gen-spacing	{a+b}
+gen-spacing	{a}+{b}
+gen-spacing	a{+}b
+gen-spacing	a{=}b
+gen-spacing	{a}{,}{b}
+gen-spacing	\mathbin{a}b
+gen-spacing	a\mathrel{b}c
+gen-spacing	a\mathpunct{b}c
+gen-spacing	a\mathopen{b}c
+gen-spacing	\mathclose{a}b
+gen-spacing	a\mathinner{b}c
+gen-scripts	f^2
+gen-scripts	f_2
+gen-scripts	f_i^2
+gen-scripts	f_{i}^{n+1}
+gen-scripts	V^2
+gen-scripts	V_2
+gen-scripts	V_i^2
+gen-scripts	V_{i}^{n+1}
+gen-scripts	P^2
+gen-scripts	P_2
+gen-scripts	P_i^2
+gen-scripts	P_{i}^{n+1}
+gen-scripts	x_2
+gen-scripts	A^2
+gen-scripts	A_2
+gen-scripts	A_i^2
+gen-scripts	A_{i}^{n+1}
+gen-scripts	W^2
+gen-scripts	W_2
+gen-scripts	W_i^2
+gen-scripts	W_{i}^{n+1}
+gen-scripts	\beta^2
+gen-scripts	\beta_2
+gen-scripts	\beta_i^2
+gen-scripts	\beta_{i}^{n+1}
+gen-scripts	T^2
+gen-scripts	T_2
+gen-scripts	T_i^2
+gen-scripts	T_{i}^{n+1}
+gen-scripts	y^2
+gen-scripts	y_2
+gen-scripts	y_i^2
+gen-scripts	y_{i}^{n+1}
+gen-scripts	j^2
+gen-scripts	j_2
+gen-scripts	j_i^2
+gen-scripts	j_{i}^{n+1}
+gen-scripts	\gamma^2
+gen-scripts	\gamma_2
+gen-scripts	\gamma_i^2
+gen-scripts	\gamma_{i}^{n+1}
+gen-scripts	\Gamma^2
+gen-scripts	\Gamma_2
+gen-scripts	\Gamma_i^2
+gen-scripts	\Gamma_{i}^{n+1}
+gen-scripts	0^2
+gen-scripts	0_0
+gen-scripts	1^2
+gen-scripts	1_1
+gen-scripts	2^2
+gen-scripts	2_2
+gen-scripts	3^2
+gen-scripts	3_3
+gen-scripts	(a+b)^2
+gen-scripts	(a+b)_i
+gen-scripts	(a+b)^2_i
+gen-scripts	{a+b}^2
+gen-scripts	{a+b}_i
+gen-scripts	(x)^2
+gen-scripts	[x]^2
+gen-scripts	\{x\}^2
+gen-scripts	\left(\frac12\right)^2
+gen-scripts	\left(\frac12\right)_n^2
+gen-scripts	\sum_i^n
+gen-scripts	\sum_{i=1}^{n}x_i^2
+gen-scripts	\int_0^1
+gen-scripts	\int_{0}^{\infty}x^2dx
+gen-scripts	\int_{\frac12}^{\frac34}
+gen-scripts	x^{y^{z}}
+gen-scripts	x_{i_{j}}
+gen-scripts	x^{y_z}
+gen-scripts	x_{i^j}
+gen-scripts	x^{y^{z^w}}
+gen-scripts	x_{i_{j_k}}
+gen-scripts	x^{y}_{z}
+gen-scripts	x_i^{y^z}
+gen-scripts	x_{i_j}^{k^l}
+gen-scripts	f'''
+gen-scripts	f'_1
+gen-scripts	{f'}^2
+gen-scripts	f'^2
+gen-scripts	f'(x)
+gen-scripts	f''(x)
+gen-scripts	x'
+gen-scripts	x'_1
+gen-scripts	V'
+gen-scripts	P'_n
+gen-scripts	A''
+gen-scripts	\beta'
+gen-scripts	y'^{2}
+gen-scripts	(f')^2
+gen-scripts	f^{\prime}
+gen-scripts	f^{\prime\prime}_i
+gen-scripts	x_{\frac12}^{\frac34}
+gen-scripts	x^{\sqrt2}_{\sum}
+gen-scripts	x^{\frac{a}{b}}
+gen-scripts	x_{\frac{a}{b}}
+gen-scripts	x^{\sqrt{2}}
+gen-scripts	x_{\sqrt2}
+gen-scripts	x_{\sum_i}
+gen-scripts	x^{\sum_i}
+gen-scripts	x_{\int}^{\int}
+gen-scripts	x^{\left(\frac12\right)}
+gen-scripts	x_{\binom{n}{k}}
+gen-scripts	x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}
+gen-scripts	x^{\scriptstyle a}
+gen-scripts	x^{\scriptscriptstyle a}
+gen-scripts	x_{\scriptstyle \frac12}
+gen-scripts	x_{\scriptscriptstyle \frac12}
+gen-scripts	x^{\displaystyle \frac12}
+gen-scripts	x^{\textstyle \frac12}
+gen-scripts	x^{\scriptscriptstyle\sqrt2}
+gen-scripts	x^{\scriptstyle a_b}
+gen-scripts	{}^2x
+gen-scripts	{}_ax
+gen-scripts	{}^a_bx
+gen-scripts	{}^{14}C
+gen-scripts	{}_{1}^{2}x
+gen-scripts	x^{\prime}
+gen-scripts	x_{a}^{}
+gen-scripts	x^{}_{b}
+gen-scripts	x^2_3
+gen-scripts	x_3^2
+gen-scripts	e^{x^2}
+gen-scripts	e^{-x^2/2}
+gen-scripts	2^{2^{2}}
+gen-scripts	a_{n+1}
+gen-scripts	a_{n-1}^{2}
+gen-scripts	x_{ij}
+gen-scripts	x_{i,j}
+gen-scripts	\mathrm{d}^2x
+gen-scripts	x^{\mathrm{T}}
+gen-scripts	A^{\dagger}
+gen-scripts	A^{-1}
+gen-scripts	A^{\ast}
+gen-scripts	A^{*}
+gen-scripts	f^{-1}_{*}
+gen-scripts	W^{\perp}
+gen-scripts	V^{\otimes n}
+gen-scripts	\hat{x}^{2}
+gen-scripts	\vec{v}_i^{2}
+gen-scripts	\overline{x}^2
+gen-scripts	\overline{x^2}
+gen-scripts	\underline{x}_i
+gen-scripts	\sqrt{x}^2
+gen-scripts	\sqrt{x}_i
+gen-scripts	\frac12^2
+gen-scripts	\frac{1}{2}_n
+gen-scripts	\lim_{n\to\infty}x_n
+gen-scripts	x_{\mathrm{max}}
+gen-scripts	x^{\text{th}}
+gen-scripts	x_{\text{a b}}
+gen-scripts	\prod_{i=1}^{n}a_i^{2}
+gen-scripts	\bigcup_{i}A_i^{c}
+gen-scripts	F_{\mu\nu}^{\ \ \alpha}
+gen-scripts	T^{\mu}{}_{\nu}
+gen-scripts	\Gamma^{\lambda}_{\mu\nu}
+gen-scripts	R^{\rho}{}_{\sigma\mu\nu}
+gen-scripts	x_{a}^{b}y_{c}^{d}
+gen-scripts	x^{a}_{b}{}^{c}_{d}
+gen-scripts	\left(x^2\right)^3
+gen-scripts	\left[A\right]_i^j
+gen-scripts	{x^2}^3
+gen-scripts	{x_1}_2
+gen-scripts	{x^1}^2
+gen-frac	\dfrac12
+gen-frac	\dfrac{a}{b}
+gen-frac	\tfrac{a}{b}
+gen-frac	\frac{x+1}{x-1}
+gen-frac	\dfrac{x+1}{x-1}
+gen-frac	\tfrac{x+1}{x-1}
+gen-frac	\frac{1}{x^2}
+gen-frac	\frac{x^2}{y^2}
+gen-frac	\frac{a+b+c+d+e}{f}
+gen-frac	\frac{a}{b+c+d+e+f}
+gen-frac	\frac{abcdef}{g}
+gen-frac	\frac{g}{abcdef}
+gen-frac	\frac{\sum_i x_i}{n}
+gen-frac	\frac{1}{\sum_i x_i}
+gen-frac	\frac{x}{y_{i_j}}
+gen-frac	\frac{x}{\sqrt{y}}
+gen-frac	\frac{\sqrt{x}}{y}
+gen-frac	\frac{x}{y^{2^{3}}}
+gen-frac	\dbinom{n}{k}
+gen-frac	\tbinom{n}{k}
+gen-frac	\binom{n+1}{k-1}
+gen-frac	\dbinom{n+1}{k-1}
+gen-frac	\tbinom{n+1}{k-1}
+gen-frac	\binom{\frac12}{k}
+gen-frac	\binom{n}{\frac{k}{2}}
+gen-frac	\binom{a}{b}^2
+gen-frac	\binom{n}{k}_q
+gen-frac	\genfrac{(}{)}{0pt}{}{n}{k}
+gen-frac	\genfrac{(}{)}{0.4pt}{}{n}{k}
+gen-frac	\genfrac{[}{]}{1pt}{0}{a}{b}
+gen-frac	\genfrac{\{}{\}}{0pt}{1}{a}{b}
+gen-frac	\genfrac{}{}{0pt}{}{a}{b}
+gen-frac	\genfrac{}{}{2pt}{}{a}{b}
+gen-frac	\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}
+gen-frac	\genfrac{|}{|}{0.8pt}{3}{x+1}{y}
+gen-frac	\genfrac{}{}{0.4pt}{0}{a}{b}
+gen-frac	\genfrac{}{}{0.4pt}{1}{a}{b}
+gen-frac	\genfrac{}{}{0.4pt}{2}{a}{b}
+gen-frac	\genfrac{}{}{0.4pt}{3}{a}{b}
+gen-frac	\genfrac{(}{]}{0pt}{}{a}{b}
+gen-frac	\frac{1}{\frac{1}{\frac{1}{x}}}
+gen-frac	\frac{\frac{a}{b}}{\frac{c}{d}}
+gen-frac	\frac{1}{1+\frac{1}{1+\frac{1}{x}}}
+gen-frac	\dfrac{1}{1+\dfrac{1}{1+\dfrac{1}{x}}}
+gen-frac	\tfrac{1}{1+\tfrac{1}{1+\tfrac{1}{x}}}
+gen-frac	\frac{a}{b+\frac{c}{d+\frac{e}{f}}}
+gen-frac	\frac{\frac{\frac{a}{b}}{c}}{d}
+gen-frac	\frac{a}{\frac{b}{\frac{c}{d}}}
+gen-frac	x^{\frac12}
+gen-frac	x_{\frac12}
+gen-frac	x^{\frac{a}{b}}_{\frac{c}{d}}
+gen-frac	e^{\frac{x}{2}}
+gen-frac	a_{\dfrac12}
+gen-frac	a^{\tfrac12}
+gen-frac	\frac{x^{\frac12}}{y}
+gen-frac	\sum_{\frac1n}
+gen-frac	\left(\frac{a}{b}\right)^{\frac{c}{d}}
+gen-frac	\frac{a}{b}+\frac{c}{d}
+gen-frac	\frac{a}{b}\cdot\frac{c}{d}
+gen-frac	\frac{a}{b}=\frac{c}{d}
+gen-frac	1+\frac12
+gen-frac	\frac12+1
+gen-frac	\frac{d}{dx}
+gen-frac	\frac{\mathrm{d}^2y}{\mathrm{d}x^2}
+gen-frac	\frac{n(n+1)}{2}
+gen-frac	\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+gen-frac	\frac{\pi}{2}
+gen-frac	\frac{f(x+h)-f(x)}{h}
+gen-frac	\frac{1}{g}
+gen-frac	\frac{y}{g}
+gen-frac	\frac{g}{y}
+gen-frac	\frac{(a)}{(b)}
+gen-frac	\frac{\left(a\right)}{b}
+gen-frac	\frac{\sum}{\prod}
+gen-frac	\frac{\int}{x}
+gen-radical	\sqrt x
+gen-radical	\sqrt{2}
+gen-radical	\sqrt{10}
+gen-radical	\sqrt{a+b}
+gen-radical	\sqrt{x^2}
+gen-radical	\sqrt{x_i}
+gen-radical	\sqrt{f}
+gen-radical	\sqrt{V}
+gen-radical	\sqrt{g}
+gen-radical	\sqrt{y}
+gen-radical	\sqrt{xyz}
+gen-radical	\sqrt{\frac12}
+gen-radical	\sqrt{\dfrac12}
+gen-radical	\sqrt{\frac{\frac12}{3}}
+gen-radical	\sqrt{\sum_i x_i}
+gen-radical	\sqrt{\int_0^1 f}
+gen-radical	\sqrt{x^{y^z}}
+gen-radical	\sqrt{\left(\frac12\right)}
+gen-radical	\sqrt{\binom{n}{k}}
+gen-radical	\sqrt{\sqrt{x}}
+gen-radical	\sqrt{1+\sqrt{x}}
+gen-radical	\sqrt{1+\sqrt{1+\sqrt{x}}}
+gen-radical	\sqrt{\sqrt{\sqrt{2}}}
+gen-radical	\sqrt{x+\sqrt{x+\sqrt{x+\sqrt{x}}}}
+gen-radical	\sqrt{\sqrt{x}+\sqrt{y}}
+gen-radical	\sqrt[3]{x}
+gen-radical	\sqrt[k+1]{x}
+gen-radical	\sqrt[n]{a+b}
+gen-radical	\sqrt[10]{x}
+gen-radical	\sqrt[3]{\frac12}
+gen-radical	\sqrt[n]{\frac{a}{b}}
+gen-radical	\sqrt[k+1]{\sum_i x_i}
+gen-radical	\sqrt[\frac12]{x}
+gen-radical	\sqrt[3]{\sqrt[3]{x}}
+gen-radical	\sqrt[a]{\sqrt[b]{\sqrt[c]{x}}}
+gen-radical	\sqrt[n]{x^n}
+gen-radical	\sqrt[m+n]{y}
+gen-radical	\sqrt[\beta]{x}
+gen-radical	\sqrt[3]{x_{i_j}}
+gen-radical	x^{\sqrt{2}}
+gen-radical	x_{\sqrt{2}}
+gen-radical	e^{\sqrt{x}}
+gen-radical	e^{\sqrt{x^2+y^2}}
+gen-radical	x^{\sqrt[3]{y}}
+gen-radical	a_{\sqrt{n}}
+gen-radical	\sqrt{x}^2
+gen-radical	\sqrt{x}_n
+gen-radical	\sqrt{x^2+y^2}+\sqrt{z}
+gen-radical	\sqrt{x}\sqrt{y}
+gen-radical	2\sqrt{x}
+gen-radical	\frac{1}{\sqrt{x}}
+gen-radical	\frac{\sqrt{x}}{\sqrt{y}}
+gen-radical	\sqrt{2}\,\pi
+gen-radical	\sqrt{\pi}
+gen-radical	\sqrt{\Gamma}
+gen-radical	\sqrt{\mathstrut x}
+gen-radical	\sqrt{\vphantom{\frac12}x}
+gen-radical	\sqrt{\phantom{x}}
+gen-radical	\sqrt{}
+gen-radical	\sqrt{\hat{x}}
+gen-radical	\sqrt{\overline{xy}}
+gen-radical	\sqrt{\underline{x}}
+gen-op	\sum
+gen-op	\sum_a^b
+gen-op	\sum_{i=1}^{n}x_i
+gen-op	\sum\limits_a^b
+gen-op	\sum\nolimits_a^b
+gen-op	\sum_{\frac12}^{\frac34}x
+gen-op	\prod
+gen-op	\prod_a^b
+gen-op	\prod_{i=1}^{n}x_i
+gen-op	\prod\limits_a^b
+gen-op	\prod\nolimits_a^b
+gen-op	\prod_{\frac12}^{\frac34}x
+gen-op	\coprod_a^b
+gen-op	\coprod_{i=1}^{n}x_i
+gen-op	\coprod\limits_a^b
+gen-op	\coprod\nolimits_a^b
+gen-op	\coprod_{\frac12}^{\frac34}x
+gen-op	\int
+gen-op	\int_a^b
+gen-op	\int_{i=1}^{n}x_i
+gen-op	\int\limits_a^b
+gen-op	\int\nolimits_a^b
+gen-op	\int_{\frac12}^{\frac34}x
+gen-op	\iint
+gen-op	\iint_a^b
+gen-op	\iint_{i=1}^{n}x_i
+gen-op	\iint\limits_a^b
+gen-op	\iint\nolimits_a^b
+gen-op	\iint_{\frac12}^{\frac34}x
+gen-op	\iiint
+gen-op	\iiint_a^b
+gen-op	\iiint_{i=1}^{n}x_i
+gen-op	\iiint\limits_a^b
+gen-op	\iiint\nolimits_a^b
+gen-op	\iiint_{\frac12}^{\frac34}x
+gen-op	\oint
+gen-op	\oint_a^b
+gen-op	\oint_{i=1}^{n}x_i
+gen-op	\oint\limits_a^b
+gen-op	\oint\nolimits_a^b
+gen-op	\oint_{\frac12}^{\frac34}x
+gen-op	\bigcup
+gen-op	\bigcup_a^b
+gen-op	\bigcup_{i=1}^{n}x_i
+gen-op	\bigcup\limits_a^b
+gen-op	\bigcup\nolimits_a^b
+gen-op	\bigcup_{\frac12}^{\frac34}x
+gen-op	\bigcap
+gen-op	\bigcap_a^b
+gen-op	\bigcap_{i=1}^{n}x_i
+gen-op	\bigcap\limits_a^b
+gen-op	\bigcap\nolimits_a^b
+gen-op	\bigcap_{\frac12}^{\frac34}x
+gen-op	\bigsqcup
+gen-op	\bigsqcup_a^b
+gen-op	\bigsqcup_{i=1}^{n}x_i
+gen-op	\bigsqcup\limits_a^b
+gen-op	\bigsqcup\nolimits_a^b
+gen-op	\bigsqcup_{\frac12}^{\frac34}x
+gen-op	\bigvee
+gen-op	\bigvee_a^b
+gen-op	\bigvee_{i=1}^{n}x_i
+gen-op	\bigvee\limits_a^b
+gen-op	\bigvee\nolimits_a^b
+gen-op	\bigvee_{\frac12}^{\frac34}x
+gen-op	\bigwedge
+gen-op	\bigwedge_a^b
+gen-op	\bigwedge_{i=1}^{n}x_i
+gen-op	\bigwedge\limits_a^b
+gen-op	\bigwedge\nolimits_a^b
+gen-op	\bigwedge_{\frac12}^{\frac34}x
+gen-op	\bigodot
+gen-op	\bigodot_a^b
+gen-op	\bigodot_{i=1}^{n}x_i
+gen-op	\bigodot\limits_a^b
+gen-op	\bigodot\nolimits_a^b
+gen-op	\bigodot_{\frac12}^{\frac34}x
+gen-op	\bigotimes
+gen-op	\bigotimes_a^b
+gen-op	\bigotimes_{i=1}^{n}x_i
+gen-op	\bigotimes\limits_a^b
+gen-op	\bigotimes\nolimits_a^b
+gen-op	\bigotimes_{\frac12}^{\frac34}x
+gen-op	\bigoplus
+gen-op	\bigoplus_a^b
+gen-op	\bigoplus_{i=1}^{n}x_i
+gen-op	\bigoplus\limits_a^b
+gen-op	\bigoplus\nolimits_a^b
+gen-op	\bigoplus_{\frac12}^{\frac34}x
+gen-op	\biguplus
+gen-op	\biguplus_a^b
+gen-op	\biguplus_{i=1}^{n}x_i
+gen-op	\biguplus\limits_a^b
+gen-op	\biguplus\nolimits_a^b
+gen-op	\biguplus_{\frac12}^{\frac34}x
+gen-op	\sum_{\substack{i<j\\ j<n}}x_{ij}
+gen-op	\sum_{i=1}^{\frac{n}{2}}
+gen-op	\prod_{\sqrt{n}}^{\binom{n}{k}}
+gen-op	\int_{\frac{a}{b}}^{\frac{c}{d}}f
+gen-op	\bigcup_{i\in I_{j}}A_i
+gen-op	\sum\limits_{\sum}^{\sum}
+gen-op	\int\limits_0^1 f\,dx
+gen-op	\int\nolimits_0^1 f\,dx
+gen-op	\oint_{\partial D}\omega
+gen-op	\int_{-\infty}^{\infty}e^{-x^2}dx
+gen-op	\sum_{n=0}^{\infty}\frac{x^n}{n!}
+gen-op	\sum_{i}
+gen-op	\sum^{n}
+gen-op	\int^{b}
+gen-op	\int_{a}
+gen-op	\sum\sum
+gen-op	\int\int
+gen-op	\sum a_i b_i
+gen-op	\prod\frac12
+gen-op	\sum_{k}\binom{n}{k}
+gen-op	\lim x
+gen-op	\lim_{n}x
+gen-op	\lim_{n\to\infty}x_n
+gen-op	\lim^2x
+gen-op	\lim\left(x\right)
+gen-op	\limsup x
+gen-op	\limsup_{n}x
+gen-op	\limsup_{n\to\infty}x_n
+gen-op	\limsup^2x
+gen-op	\limsup\left(x\right)
+gen-op	\liminf x
+gen-op	\liminf_{n}x
+gen-op	\liminf_{n\to\infty}x_n
+gen-op	\liminf^2x
+gen-op	\liminf\left(x\right)
+gen-op	\max x
+gen-op	\max_{n}x
+gen-op	\max_{n\to\infty}x_n
+gen-op	\max^2x
+gen-op	\max\left(x\right)
+gen-op	\min x
+gen-op	\min_{n}x
+gen-op	\min_{n\to\infty}x_n
+gen-op	\min^2x
+gen-op	\min\left(x\right)
+gen-op	\sup x
+gen-op	\sup_{n}x
+gen-op	\sup_{n\to\infty}x_n
+gen-op	\sup^2x
+gen-op	\sup\left(x\right)
+gen-op	\inf x
+gen-op	\inf_{n}x
+gen-op	\inf_{n\to\infty}x_n
+gen-op	\inf^2x
+gen-op	\inf\left(x\right)
+gen-op	\det x
+gen-op	\det_{n}x
+gen-op	\det_{n\to\infty}x_n
+gen-op	\det^2x
+gen-op	\det\left(x\right)
+gen-op	\gcd x
+gen-op	\gcd_{n}x
+gen-op	\gcd_{n\to\infty}x_n
+gen-op	\gcd^2x
+gen-op	\gcd\left(x\right)
+gen-op	\Pr x
+gen-op	\Pr_{n}x
+gen-op	\Pr_{n\to\infty}x_n
+gen-op	\Pr^2x
+gen-op	\Pr\left(x\right)
+gen-op	\log x
+gen-op	\log_{n}x
+gen-op	\log_{n\to\infty}x_n
+gen-op	\log^2x
+gen-op	\log\left(x\right)
+gen-op	\ln_{n}x
+gen-op	\ln_{n\to\infty}x_n
+gen-op	\ln^2x
+gen-op	\ln\left(x\right)
+gen-op	\sin_{n}x
+gen-op	\sin_{n\to\infty}x_n
+gen-op	\sin^2x
+gen-op	\sin\left(x\right)
+gen-op	\cos x
+gen-op	\cos_{n}x
+gen-op	\cos_{n\to\infty}x_n
+gen-op	\cos^2x
+gen-op	\cos\left(x\right)
+gen-op	\tan x
+gen-op	\tan_{n}x
+gen-op	\tan_{n\to\infty}x_n
+gen-op	\tan^2x
+gen-op	\tan\left(x\right)
+gen-op	\exp x
+gen-op	\exp_{n}x
+gen-op	\exp_{n\to\infty}x_n
+gen-op	\exp^2x
+gen-op	\exp\left(x\right)
+gen-op	\arg x
+gen-op	\arg_{n}x
+gen-op	\arg_{n\to\infty}x_n
+gen-op	\arg^2x
+gen-op	\arg\left(x\right)
+gen-op	\deg x
+gen-op	\deg_{n}x
+gen-op	\deg_{n\to\infty}x_n
+gen-op	\deg^2x
+gen-op	\deg\left(x\right)
+gen-op	\dim x
+gen-op	\dim_{n}x
+gen-op	\dim_{n\to\infty}x_n
+gen-op	\dim^2x
+gen-op	\dim\left(x\right)
+gen-op	\hom x
+gen-op	\hom_{n}x
+gen-op	\hom_{n\to\infty}x_n
+gen-op	\hom^2x
+gen-op	\hom\left(x\right)
+gen-op	\ker x
+gen-op	\ker_{n}x
+gen-op	\ker_{n\to\infty}x_n
+gen-op	\ker^2x
+gen-op	\ker\left(x\right)
+gen-op	\sec x
+gen-op	\sec_{n}x
+gen-op	\sec_{n\to\infty}x_n
+gen-op	\sec^2x
+gen-op	\sec\left(x\right)
+gen-op	\csc x
+gen-op	\csc_{n}x
+gen-op	\csc_{n\to\infty}x_n
+gen-op	\csc^2x
+gen-op	\csc\left(x\right)
+gen-op	\cot x
+gen-op	\cot_{n}x
+gen-op	\cot_{n\to\infty}x_n
+gen-op	\cot^2x
+gen-op	\cot\left(x\right)
+gen-op	\sinh x
+gen-op	\sinh_{n}x
+gen-op	\sinh_{n\to\infty}x_n
+gen-op	\sinh^2x
+gen-op	\sinh\left(x\right)
+gen-op	\cosh x
+gen-op	\cosh_{n}x
+gen-op	\cosh_{n\to\infty}x_n
+gen-op	\cosh^2x
+gen-op	\cosh\left(x\right)
+gen-op	\tanh x
+gen-op	\tanh_{n}x
+gen-op	\tanh_{n\to\infty}x_n
+gen-op	\tanh^2x
+gen-op	\tanh\left(x\right)
+gen-op	\arcsin x
+gen-op	\arcsin_{n}x
+gen-op	\arcsin_{n\to\infty}x_n
+gen-op	\arcsin^2x
+gen-op	\arcsin\left(x\right)
+gen-op	\arccos x
+gen-op	\arccos_{n}x
+gen-op	\arccos_{n\to\infty}x_n
+gen-op	\arccos^2x
+gen-op	\arccos\left(x\right)
+gen-op	\arctan x
+gen-op	\arctan_{n}x
+gen-op	\arctan_{n\to\infty}x_n
+gen-op	\arctan^2x
+gen-op	\arctan\left(x\right)
+gen-op	\lg x
+gen-op	\lg_{n}x
+gen-op	\lg_{n\to\infty}x_n
+gen-op	\lg^2x
+gen-op	\lg\left(x\right)
+gen-op	\coth x
+gen-op	\coth_{n}x
+gen-op	\coth_{n\to\infty}x_n
+gen-op	\coth^2x
+gen-op	\coth\left(x\right)
+gen-op	\operatorname{sgn}x
+gen-op	\operatorname{sgn}(x)
+gen-op	\operatorname{Hom}_R(M,N)
+gen-op	\operatorname{rank}A
+gen-op	\operatorname{tr}A^2
+gen-op	\operatorname{Re}z
+gen-op	\operatorname{Im}z
+gen-op	\operatorname{id}_X
+gen-op	\operatorname{span}\{v\}
+gen-op	\operatorname{argmax}_x f
+gen-op	\operatorname*{argmax}_x f
+gen-op	\operatorname*{argmin}_{x\in X}f(x)
+gen-op	\operatorname*{ess\,sup}_{x}f
+gen-op	\operatorname*{Res}_{z=0}f
+gen-op	\operatorname*{lim\,inf}_{n}a_n
+gen-op	\operatorname*{op}_{\frac12}x
+gen-op	\operatorname{op}_{\frac12}x
+gen-op	\operatorname*{op}^{a}_{b}
+gen-op	\operatorname{op}^{a}_{b}
+gen-op	\operatorname{a b}x
+gen-op	\operatorname{Aut}(G)
+gen-op	\operatorname{GL}_n(\mathbb{R})
+gen-op	\mathop{\mathrm{ad}}x
+gen-op	\mathop{x}\limits_a^b
+gen-op	\mathop{x}\nolimits_a^b
+gen-op	\mathop{\sum}
+gen-op	\lim_{x\to0}\frac{\sin x}{x}
+gen-op	\max_{1\le i\le n}x_i
+gen-op	\sup_{x\in\frac12}f
+gen-op	\inf_{\sum}f
+gen-op	\lim\limits_{n}x
+gen-op	\lim\nolimits_{n}x
+gen-op	\sin^{-1}x
+gen-op	\log_{\frac12}x
+gen-op	\ln\ln x
+gen-op	\sin\cos\tan
+gen-op	\exp\left(-x\right)
+gen-op	\det\begin{pmatrix}a&b\\c&d\end{pmatrix}
+gen-accent	\hat{x}
+gen-accent	\hat{f}
+gen-accent	\hat{A}
+gen-accent	\hat{\imath}
+gen-accent	\hat{\jmath}
+gen-accent	\hat{\alpha}
+gen-accent	\hat{V}
+gen-accent	\hat{W}
+gen-accent	\hat{ab}
+gen-accent	\hat{abc}
+gen-accent	\hat{abcdef}
+gen-accent	\hat{x}^2
+gen-accent	\hat{x}_i
+gen-accent	\hat{x}_i^2
+gen-accent	\hat{AB}
+gen-accent	\hat{\frac12}
+gen-accent	\check{x}
+gen-accent	\check{f}
+gen-accent	\check{A}
+gen-accent	\check{\imath}
+gen-accent	\check{\jmath}
+gen-accent	\check{\alpha}
+gen-accent	\check{V}
+gen-accent	\check{W}
+gen-accent	\check{ab}
+gen-accent	\check{abc}
+gen-accent	\check{abcdef}
+gen-accent	\check{x}^2
+gen-accent	\check{x}_i
+gen-accent	\check{x}_i^2
+gen-accent	\check{AB}
+gen-accent	\check{\frac12}
+gen-accent	\tilde{x}
+gen-accent	\tilde{f}
+gen-accent	\tilde{A}
+gen-accent	\tilde{\imath}
+gen-accent	\tilde{\jmath}
+gen-accent	\tilde{\alpha}
+gen-accent	\tilde{V}
+gen-accent	\tilde{W}
+gen-accent	\tilde{ab}
+gen-accent	\tilde{abc}
+gen-accent	\tilde{abcdef}
+gen-accent	\tilde{x}^2
+gen-accent	\tilde{x}_i
+gen-accent	\tilde{x}_i^2
+gen-accent	\tilde{AB}
+gen-accent	\tilde{\frac12}
+gen-accent	\acute{x}
+gen-accent	\acute{f}
+gen-accent	\acute{A}
+gen-accent	\acute{\imath}
+gen-accent	\acute{\jmath}
+gen-accent	\acute{\alpha}
+gen-accent	\acute{V}
+gen-accent	\acute{W}
+gen-accent	\acute{ab}
+gen-accent	\acute{abc}
+gen-accent	\acute{abcdef}
+gen-accent	\acute{x}^2
+gen-accent	\acute{x}_i
+gen-accent	\acute{x}_i^2
+gen-accent	\acute{AB}
+gen-accent	\acute{\frac12}
+gen-accent	\grave{x}
+gen-accent	\grave{f}
+gen-accent	\grave{A}
+gen-accent	\grave{\imath}
+gen-accent	\grave{\jmath}
+gen-accent	\grave{\alpha}
+gen-accent	\grave{V}
+gen-accent	\grave{W}
+gen-accent	\grave{ab}
+gen-accent	\grave{abc}
+gen-accent	\grave{abcdef}
+gen-accent	\grave{x}^2
+gen-accent	\grave{x}_i
+gen-accent	\grave{x}_i^2
+gen-accent	\grave{AB}
+gen-accent	\grave{\frac12}
+gen-accent	\dot{x}
+gen-accent	\dot{f}
+gen-accent	\dot{A}
+gen-accent	\dot{\imath}
+gen-accent	\dot{\jmath}
+gen-accent	\dot{\alpha}
+gen-accent	\dot{V}
+gen-accent	\dot{W}
+gen-accent	\dot{ab}
+gen-accent	\dot{abc}
+gen-accent	\dot{abcdef}
+gen-accent	\dot{x}^2
+gen-accent	\dot{x}_i
+gen-accent	\dot{x}_i^2
+gen-accent	\dot{AB}
+gen-accent	\dot{\frac12}
+gen-accent	\ddot{x}
+gen-accent	\ddot{f}
+gen-accent	\ddot{A}
+gen-accent	\ddot{\imath}
+gen-accent	\ddot{\jmath}
+gen-accent	\ddot{\alpha}
+gen-accent	\ddot{V}
+gen-accent	\ddot{W}
+gen-accent	\ddot{ab}
+gen-accent	\ddot{abc}
+gen-accent	\ddot{abcdef}
+gen-accent	\ddot{x}^2
+gen-accent	\ddot{x}_i
+gen-accent	\ddot{x}_i^2
+gen-accent	\ddot{AB}
+gen-accent	\ddot{\frac12}
+gen-accent	\breve{x}
+gen-accent	\breve{f}
+gen-accent	\breve{A}
+gen-accent	\breve{\imath}
+gen-accent	\breve{\jmath}
+gen-accent	\breve{\alpha}
+gen-accent	\breve{V}
+gen-accent	\breve{W}
+gen-accent	\breve{ab}
+gen-accent	\breve{abc}
+gen-accent	\breve{abcdef}
+gen-accent	\breve{x}^2
+gen-accent	\breve{x}_i
+gen-accent	\breve{x}_i^2
+gen-accent	\breve{AB}
+gen-accent	\breve{\frac12}
+gen-accent	\bar{x}
+gen-accent	\bar{f}
+gen-accent	\bar{A}
+gen-accent	\bar{\imath}
+gen-accent	\bar{\jmath}
+gen-accent	\bar{\alpha}
+gen-accent	\bar{V}
+gen-accent	\bar{W}
+gen-accent	\bar{ab}
+gen-accent	\bar{abc}
+gen-accent	\bar{abcdef}
+gen-accent	\bar{x}^2
+gen-accent	\bar{x}_i
+gen-accent	\bar{x}_i^2
+gen-accent	\bar{AB}
+gen-accent	\bar{\frac12}
+gen-accent	\vec{x}
+gen-accent	\vec{f}
+gen-accent	\vec{A}
+gen-accent	\vec{\imath}
+gen-accent	\vec{\jmath}
+gen-accent	\vec{\alpha}
+gen-accent	\vec{V}
+gen-accent	\vec{W}
+gen-accent	\vec{ab}
+gen-accent	\vec{abc}
+gen-accent	\vec{abcdef}
+gen-accent	\vec{x}^2
+gen-accent	\vec{x}_i
+gen-accent	\vec{x}_i^2
+gen-accent	\vec{AB}
+gen-accent	\vec{\frac12}
+gen-accent	\mathring{x}
+gen-accent	\mathring{f}
+gen-accent	\mathring{A}
+gen-accent	\mathring{\imath}
+gen-accent	\mathring{\jmath}
+gen-accent	\mathring{\alpha}
+gen-accent	\mathring{V}
+gen-accent	\mathring{W}
+gen-accent	\mathring{ab}
+gen-accent	\mathring{abc}
+gen-accent	\mathring{abcdef}
+gen-accent	\mathring{x}^2
+gen-accent	\mathring{x}_i
+gen-accent	\mathring{x}_i^2
+gen-accent	\mathring{AB}
+gen-accent	\mathring{\frac12}
+gen-accent	\hat x^2
+gen-accent	\hat x_i
+gen-accent	\tilde f
+gen-accent	\vec f
+gen-accent	\dddot x
+gen-accent	\dddot{x}^2
+gen-accent	\widehat{x}
+gen-accent	\widehat{xyz}
+gen-accent	\widehat{abcd}
+gen-accent	\widehat{abcdef}
+gen-accent	\widetilde{x}
+gen-accent	\widetilde{xy}
+gen-accent	\widetilde{xyz}
+gen-accent	\widetilde{abcd}
+gen-accent	\widetilde{abcdef}
+gen-accent	\widehat{AB}
+gen-accent	\widetilde{ABC}
+gen-accent	\widehat{x}^2
+gen-accent	\widehat{xy}_i
+gen-accent	\widetilde{xy}^{2}
+gen-accent	\widehat{\frac12}
+gen-accent	\widehat{x^2}
+gen-accent	\widehat{\widehat{x}}
+gen-accent	\widetilde{\widehat{xyz}}
+gen-accent	\widehat{\alpha\beta}
+gen-accent	\widehat{V}
+gen-accent	\widetilde{W}
+gen-accent	\widehat{f}
+gen-accent	\widetilde{f}
+gen-accent	\hat{\hat{x}}
+gen-accent	\hat{\tilde{x}}
+gen-accent	\tilde{\hat{x}}
+gen-accent	\bar{\bar{x}}
+gen-accent	\dot{\hat{x}}
+gen-accent	\ddot{\vec{x}}
+gen-accent	\vec{\dot{x}}
+gen-accent	\hat{\bar{A}}
+gen-accent	\acute{\grave{x}}
+gen-accent	\check{\breve{y}}
+gen-accent	\vec{\vec{v}}
+gen-accent	\dot{\dot{x}}
+gen-accent	\tilde{\tilde{f}}
+gen-accent	\widetilde{\widetilde{xy}}
+gen-accent	\overline{x}
+gen-accent	\overline{xy}
+gen-accent	\overline{abcdef}
+gen-accent	\overline{\frac12}
+gen-accent	\overline{x+y}
+gen-accent	\overline{\overline{x}}
+gen-accent	\overline{x}^2
+gen-accent	\overline{x^2}
+gen-accent	\overline{x}_i
+gen-accent	\overline{\sum_i x_i}
+gen-accent	\overline{\sqrt{x}}
+gen-accent	\overline{A\cup B}
+gen-accent	\overline{f}
+gen-accent	\overline{V}
+gen-accent	\overline{\frac{a}{b}}
+gen-accent	\overline{\left(x\right)}
+gen-accent	\underline{x}
+gen-accent	\underline{xy}
+gen-accent	\underline{abcdef}
+gen-accent	\underline{\frac12}
+gen-accent	\underline{x+y}
+gen-accent	\underline{\underline{x}}
+gen-accent	\underline{x}^2
+gen-accent	\underline{x^2}
+gen-accent	\underline{x}_i
+gen-accent	\underline{\sum_i x_i}
+gen-accent	\underline{g}
+gen-accent	\underline{y}
+gen-accent	\underline{\frac{a}{b}}
+gen-accent	\overline{\underline{x}}
+gen-accent	\underline{\overline{x}}
+gen-accent	\overrightarrow{AB}
+gen-accent	\overleftarrow{AB}
+gen-accent	\overrightarrow{x}
+gen-accent	\underrightarrow{AB}
+gen-accent	\overbrace{a+b+c}^{3}
+gen-accent	\underbrace{a+b+c}_{3}
+gen-accent	\overbrace{x}
+gen-accent	\underbrace{x}
+gen-accent	\overset{a}{=}
+gen-accent	\underset{a}{=}
+gen-accent	\xrightarrow{a}
+gen-accent	\xleftarrow[b]{a}
+gen-delim	\left( x\right)
+gen-delim	\left( x^2\right)
+gen-delim	\left( \frac12\right)
+gen-delim	\left( \dfrac{1}{2}\right)
+gen-delim	\left( \sum\right)
+gen-delim	\left( \begin{matrix}a&b\\c&d\end{matrix}\right)
+gen-delim	\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)
+gen-delim	\left( \sum_{i=1}^{n}x_i\right)
+gen-delim	\left( \int_0^1\right)
+gen-delim	\left( \sqrt{x}\right)
+gen-delim	\left( \frac{\frac12}{\frac34}\right)
+gen-delim	\left( y_i\right)
+gen-delim	\left( x \middle| y \right)
+gen-delim	\left( \frac12 \middle\| \frac{a}{b} \right)
+gen-delim	\left[ x\right]
+gen-delim	\left[ x^2\right]
+gen-delim	\left[ \frac12\right]
+gen-delim	\left[ \dfrac{1}{2}\right]
+gen-delim	\left[ \sum\right]
+gen-delim	\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]
+gen-delim	\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]
+gen-delim	\left[ \sum_{i=1}^{n}x_i\right]
+gen-delim	\left[ \int_0^1\right]
+gen-delim	\left[ \sqrt{x}\right]
+gen-delim	\left[ \frac{\frac12}{\frac34}\right]
+gen-delim	\left[ y_i\right]
+gen-delim	\left[ x \middle| y \right]
+gen-delim	\left[ \frac12 \middle\| \frac{a}{b} \right]
+gen-delim	\left\{ x\right\}
+gen-delim	\left\{ x^2\right\}
+gen-delim	\left\{ \frac12\right\}
+gen-delim	\left\{ \dfrac{1}{2}\right\}
+gen-delim	\left\{ \sum\right\}
+gen-delim	\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}
+gen-delim	\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}
+gen-delim	\left\{ x \middle| y \right\}
+gen-delim	\left\{ \frac12 \middle\| \frac{a}{b} \right\}
+gen-delim	\left\langle x\right\rangle
+gen-delim	\left\langle x^2\right\rangle
+gen-delim	\left\langle \frac12\right\rangle
+gen-delim	\left\langle \dfrac{1}{2}\right\rangle
+gen-delim	\left\langle \sum\right\rangle
+gen-delim	\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle
+gen-delim	\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle
+gen-delim	\left\langle x \middle| y \right\rangle
+gen-delim	\left\langle \frac12 \middle\| \frac{a}{b} \right\rangle
+gen-delim	\left| x\right|
+gen-delim	\left| x^2\right|
+gen-delim	\left| \frac12\right|
+gen-delim	\left| \dfrac{1}{2}\right|
+gen-delim	\left| \sum\right|
+gen-delim	\left| \begin{matrix}a&b\\c&d\end{matrix}\right|
+gen-delim	\left| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right|
+gen-delim	\left| x \middle| y \right|
+gen-delim	\left| \frac12 \middle\| \frac{a}{b} \right|
+gen-delim	\left\| x\right\|
+gen-delim	\left\| x^2\right\|
+gen-delim	\left\| \frac12\right\|
+gen-delim	\left\| \dfrac{1}{2}\right\|
+gen-delim	\left\| \sum\right\|
+gen-delim	\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|
+gen-delim	\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|
+gen-delim	\left\| x \middle| y \right\|
+gen-delim	\left\| \frac12 \middle\| \frac{a}{b} \right\|
+gen-delim	\left\lfloor x\right\rfloor
+gen-delim	\left\lfloor x^2\right\rfloor
+gen-delim	\left\lfloor \frac12\right\rfloor
+gen-delim	\left\lfloor \dfrac{1}{2}\right\rfloor
+gen-delim	\left\lfloor \sum\right\rfloor
+gen-delim	\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor
+gen-delim	\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor
+gen-delim	\left\lfloor x \middle| y \right\rfloor
+gen-delim	\left\lfloor \frac12 \middle\| \frac{a}{b} \right\rfloor
+gen-delim	\left\lceil x\right\rceil
+gen-delim	\left\lceil x^2\right\rceil
+gen-delim	\left\lceil \frac12\right\rceil
+gen-delim	\left\lceil \dfrac{1}{2}\right\rceil
+gen-delim	\left\lceil \sum\right\rceil
+gen-delim	\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil
+gen-delim	\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil
+gen-delim	\left\lceil x \middle| y \right\rceil
+gen-delim	\left\lceil \frac12 \middle\| \frac{a}{b} \right\rceil
+gen-delim	\left/ x\right\backslash
+gen-delim	\left/ x^2\right\backslash
+gen-delim	\left/ \frac12\right\backslash
+gen-delim	\left/ \dfrac{1}{2}\right\backslash
+gen-delim	\left/ \sum\right\backslash
+gen-delim	\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash
+gen-delim	\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash
+gen-delim	\left/ x \middle| y \right\backslash
+gen-delim	\left/ \frac12 \middle\| \frac{a}{b} \right\backslash
+gen-delim	\left\uparrow x\right\downarrow
+gen-delim	\left\uparrow x^2\right\downarrow
+gen-delim	\left\uparrow \frac12\right\downarrow
+gen-delim	\left\uparrow \dfrac{1}{2}\right\downarrow
+gen-delim	\left\uparrow \sum\right\downarrow
+gen-delim	\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow
+gen-delim	\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow
+gen-delim	\left\uparrow x \middle| y \right\downarrow
+gen-delim	\left\uparrow \frac12 \middle\| \frac{a}{b} \right\downarrow
+gen-delim	\left\Uparrow x\right\updownarrow
+gen-delim	\left\Uparrow x^2\right\updownarrow
+gen-delim	\left\Uparrow \frac12\right\updownarrow
+gen-delim	\left\Uparrow \dfrac{1}{2}\right\updownarrow
+gen-delim	\left\Uparrow \sum\right\updownarrow
+gen-delim	\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow
+gen-delim	\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow
+gen-delim	\left\Uparrow x \middle| y \right\updownarrow
+gen-delim	\left\Uparrow \frac12 \middle\| \frac{a}{b} \right\updownarrow
+gen-delim	\left. x\right)
+gen-delim	\left. x^2\right)
+gen-delim	\left. \frac12\right)
+gen-delim	\left. \dfrac{1}{2}\right)
+gen-delim	\left. \sum\right)
+gen-delim	\left. \begin{matrix}a&b\\c&d\end{matrix}\right)
+gen-delim	\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)
+gen-delim	\left. x \middle| y \right)
+gen-delim	\left. \frac12 \middle\| \frac{a}{b} \right)
+gen-delim	\left( x\right.
+gen-delim	\left( x^2\right.
+gen-delim	\left( \frac12\right.
+gen-delim	\left( \dfrac{1}{2}\right.
+gen-delim	\left( \sum\right.
+gen-delim	\left( \begin{matrix}a&b\\c&d\end{matrix}\right.
+gen-delim	\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.
+gen-delim	\left( \sum_{i=1}^{n}x_i\right.
+gen-delim	\left( \int_0^1\right.
+gen-delim	\left( \sqrt{x}\right.
+gen-delim	\left( \frac{\frac12}{\frac34}\right.
+gen-delim	\left( y_i\right.
+gen-delim	\left( x \middle| y \right.
+gen-delim	\left( \frac12 \middle\| \frac{a}{b} \right.
+gen-delim	\left. x\right.
+gen-delim	\left. x^2\right.
+gen-delim	\left. \frac12\right.
+gen-delim	\left. \dfrac{1}{2}\right.
+gen-delim	\left. \sum\right.
+gen-delim	\left. \begin{matrix}a&b\\c&d\end{matrix}\right.
+gen-delim	\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.
+gen-delim	\left. x \middle| y \right.
+gen-delim	\left. \frac12 \middle\| \frac{a}{b} \right.
+gen-delim	\left\Downarrow x\right\Updownarrow
+gen-delim	\left\Downarrow x^2\right\Updownarrow
+gen-delim	\left\Downarrow \frac12\right\Updownarrow
+gen-delim	\left\Downarrow \dfrac{1}{2}\right\Updownarrow
+gen-delim	\left\Downarrow \sum\right\Updownarrow
+gen-delim	\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow
+gen-delim	\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow
+gen-delim	\left\Downarrow x \middle| y \right\Updownarrow
+gen-delim	\left\Downarrow \frac12 \middle\| \frac{a}{b} \right\Updownarrow
+gen-delim	\left\backslash x\right/
+gen-delim	\left\backslash x^2\right/
+gen-delim	\left\backslash \frac12\right/
+gen-delim	\left\backslash \dfrac{1}{2}\right/
+gen-delim	\left\backslash \sum\right/
+gen-delim	\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/
+gen-delim	\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/
+gen-delim	\left\backslash x \middle| y \right/
+gen-delim	\left\backslash \frac12 \middle\| \frac{a}{b} \right/
+gen-delim	\left\lvert x\right\rvert
+gen-delim	\left\lvert x^2\right\rvert
+gen-delim	\left\lvert \frac12\right\rvert
+gen-delim	\left\lvert \dfrac{1}{2}\right\rvert
+gen-delim	\left\lvert \sum\right\rvert
+gen-delim	\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert
+gen-delim	\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert
+gen-delim	\left\lvert x \middle| y \right\rvert
+gen-delim	\left\lvert \frac12 \middle\| \frac{a}{b} \right\rvert
+gen-delim	\left\lVert x\right\rVert
+gen-delim	\left\lVert x^2\right\rVert
+gen-delim	\left\lVert \frac12\right\rVert
+gen-delim	\left\lVert \dfrac{1}{2}\right\rVert
+gen-delim	\left\lVert \sum\right\rVert
+gen-delim	\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert
+gen-delim	\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert
+gen-delim	\left\lVert x \middle| y \right\rVert
+gen-delim	\left\lVert \frac12 \middle\| \frac{a}{b} \right\rVert
+gen-delim	\left\lbrace x\right\rbrace
+gen-delim	\left\lbrace x^2\right\rbrace
+gen-delim	\left\lbrace \frac12\right\rbrace
+gen-delim	\left\lbrace \dfrac{1}{2}\right\rbrace
+gen-delim	\left\lbrace \sum\right\rbrace
+gen-delim	\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace
+gen-delim	\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace
+gen-delim	\left\lbrace x \middle| y \right\rbrace
+gen-delim	\left\lbrace \frac12 \middle\| \frac{a}{b} \right\rbrace
+gen-delim	\left\lbrack x\right\rbrack
+gen-delim	\left\lbrack x^2\right\rbrack
+gen-delim	\left\lbrack \frac12\right\rbrack
+gen-delim	\left\lbrack \dfrac{1}{2}\right\rbrack
+gen-delim	\left\lbrack \sum\right\rbrack
+gen-delim	\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack
+gen-delim	\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack
+gen-delim	\left\lbrack x \middle| y \right\rbrack
+gen-delim	\left\lbrack \frac12 \middle\| \frac{a}{b} \right\rbrack
+gen-delim	big( x big)
+gen-delim	bigl( x bigr)
+gen-delim	big( \frac12 big)
+gen-delim	bigl( x^2 bigr)
+gen-delim	Big( x Big)
+gen-delim	Bigl( x Bigr)
+gen-delim	Big( \frac12 Big)
+gen-delim	Bigl( x^2 Bigr)
+gen-delim	bigg( x bigg)
+gen-delim	biggl( x biggr)
+gen-delim	bigg( \frac12 bigg)
+gen-delim	biggl( x^2 biggr)
+gen-delim	Bigg( x Bigg)
+gen-delim	Biggl( x Biggr)
+gen-delim	Bigg( \frac12 Bigg)
+gen-delim	Biggl( x^2 Biggr)
+gen-delim	big[ x big]
+gen-delim	bigl[ x bigr]
+gen-delim	big[ \frac12 big]
+gen-delim	bigl[ x^2 bigr]
+gen-delim	Big[ x Big]
+gen-delim	Bigl[ x Bigr]
+gen-delim	Big[ \frac12 Big]
+gen-delim	Bigl[ x^2 Bigr]
+gen-delim	bigg[ x bigg]
+gen-delim	biggl[ x biggr]
+gen-delim	bigg[ \frac12 bigg]
+gen-delim	biggl[ x^2 biggr]
+gen-delim	Bigg[ x Bigg]
+gen-delim	Biggl[ x Biggr]
+gen-delim	Bigg[ \frac12 Bigg]
+gen-delim	Biggl[ x^2 Biggr]
+gen-delim	big\{ x big\}
+gen-delim	bigl\{ x bigr\}
+gen-delim	big\{ \frac12 big\}
+gen-delim	bigl\{ x^2 bigr\}
+gen-delim	Big\{ x Big\}
+gen-delim	Bigl\{ x Bigr\}
+gen-delim	Big\{ \frac12 Big\}
+gen-delim	Bigl\{ x^2 Bigr\}
+gen-delim	bigg\{ x bigg\}
+gen-delim	biggl\{ x biggr\}
+gen-delim	bigg\{ \frac12 bigg\}
+gen-delim	biggl\{ x^2 biggr\}
+gen-delim	Bigg\{ x Bigg\}
+gen-delim	Biggl\{ x Biggr\}
+gen-delim	Bigg\{ \frac12 Bigg\}
+gen-delim	Biggl\{ x^2 Biggr\}
+gen-delim	big\langle x big\rangle
+gen-delim	bigl\langle x bigr\rangle
+gen-delim	big\langle \frac12 big\rangle
+gen-delim	bigl\langle x^2 bigr\rangle
+gen-delim	Big\langle x Big\rangle
+gen-delim	Bigl\langle x Bigr\rangle
+gen-delim	Big\langle \frac12 Big\rangle
+gen-delim	Bigl\langle x^2 Bigr\rangle
+gen-delim	bigg\langle x bigg\rangle
+gen-delim	biggl\langle x biggr\rangle
+gen-delim	bigg\langle \frac12 bigg\rangle
+gen-delim	biggl\langle x^2 biggr\rangle
+gen-delim	Bigg\langle x Bigg\rangle
+gen-delim	Biggl\langle x Biggr\rangle
+gen-delim	Bigg\langle \frac12 Bigg\rangle
+gen-delim	Biggl\langle x^2 Biggr\rangle
+gen-delim	big| x big|
+gen-delim	bigl| x bigr|
+gen-delim	big| \frac12 big|
+gen-delim	bigl| x^2 bigr|
+gen-delim	Big| x Big|
+gen-delim	Bigl| x Bigr|
+gen-delim	Big| \frac12 Big|
+gen-delim	Bigl| x^2 Bigr|
+gen-delim	bigg| x bigg|
+gen-delim	biggl| x biggr|
+gen-delim	bigg| \frac12 bigg|
+gen-delim	biggl| x^2 biggr|
+gen-delim	Bigg| x Bigg|
+gen-delim	Biggl| x Biggr|
+gen-delim	Bigg| \frac12 Bigg|
+gen-delim	Biggl| x^2 Biggr|
+gen-delim	big\| x big\|
+gen-delim	bigl\| x bigr\|
+gen-delim	big\| \frac12 big\|
+gen-delim	bigl\| x^2 bigr\|
+gen-delim	Big\| x Big\|
+gen-delim	Bigl\| x Bigr\|
+gen-delim	Big\| \frac12 Big\|
+gen-delim	Bigl\| x^2 Bigr\|
+gen-delim	bigg\| x bigg\|
+gen-delim	biggl\| x biggr\|
+gen-delim	bigg\| \frac12 bigg\|
+gen-delim	biggl\| x^2 biggr\|
+gen-delim	Bigg\| x Bigg\|
+gen-delim	Biggl\| x Biggr\|
+gen-delim	Bigg\| \frac12 Bigg\|
+gen-delim	Biggl\| x^2 Biggr\|
+gen-delim	big\lfloor x big\rfloor
+gen-delim	bigl\lfloor x bigr\rfloor
+gen-delim	big\lfloor \frac12 big\rfloor
+gen-delim	bigl\lfloor x^2 bigr\rfloor
+gen-delim	Big\lfloor x Big\rfloor
+gen-delim	Bigl\lfloor x Bigr\rfloor
+gen-delim	Big\lfloor \frac12 Big\rfloor
+gen-delim	Bigl\lfloor x^2 Bigr\rfloor
+gen-delim	bigg\lfloor x bigg\rfloor
+gen-delim	biggl\lfloor x biggr\rfloor
+gen-delim	bigg\lfloor \frac12 bigg\rfloor
+gen-delim	biggl\lfloor x^2 biggr\rfloor
+gen-delim	Bigg\lfloor x Bigg\rfloor
+gen-delim	Biggl\lfloor x Biggr\rfloor
+gen-delim	Bigg\lfloor \frac12 Bigg\rfloor
+gen-delim	Biggl\lfloor x^2 Biggr\rfloor
+gen-delim	big\lceil x big\rceil
+gen-delim	bigl\lceil x bigr\rceil
+gen-delim	big\lceil \frac12 big\rceil
+gen-delim	bigl\lceil x^2 bigr\rceil
+gen-delim	Big\lceil x Big\rceil
+gen-delim	Bigl\lceil x Bigr\rceil
+gen-delim	Big\lceil \frac12 Big\rceil
+gen-delim	Bigl\lceil x^2 Bigr\rceil
+gen-delim	bigg\lceil x bigg\rceil
+gen-delim	biggl\lceil x biggr\rceil
+gen-delim	bigg\lceil \frac12 bigg\rceil
+gen-delim	biggl\lceil x^2 biggr\rceil
+gen-delim	Bigg\lceil x Bigg\rceil
+gen-delim	Biggl\lceil x Biggr\rceil
+gen-delim	Bigg\lceil \frac12 Bigg\rceil
+gen-delim	Biggl\lceil x^2 Biggr\rceil
+gen-delim	big/ x big\backslash
+gen-delim	bigl/ x bigr\backslash
+gen-delim	big/ \frac12 big\backslash
+gen-delim	bigl/ x^2 bigr\backslash
+gen-delim	Big/ x Big\backslash
+gen-delim	Bigl/ x Bigr\backslash
+gen-delim	Big/ \frac12 Big\backslash
+gen-delim	Bigl/ x^2 Bigr\backslash
+gen-delim	bigg/ x bigg\backslash
+gen-delim	biggl/ x biggr\backslash
+gen-delim	bigg/ \frac12 bigg\backslash
+gen-delim	biggl/ x^2 biggr\backslash
+gen-delim	Bigg/ x Bigg\backslash
+gen-delim	Biggl/ x Biggr\backslash
+gen-delim	Bigg/ \frac12 Bigg\backslash
+gen-delim	Biggl/ x^2 Biggr\backslash
+gen-delim	big\uparrow x big\downarrow
+gen-delim	bigl\uparrow x bigr\downarrow
+gen-delim	big\uparrow \frac12 big\downarrow
+gen-delim	bigl\uparrow x^2 bigr\downarrow
+gen-delim	Big\uparrow x Big\downarrow
+gen-delim	Bigl\uparrow x Bigr\downarrow
+gen-delim	Big\uparrow \frac12 Big\downarrow
+gen-delim	Bigl\uparrow x^2 Bigr\downarrow
+gen-delim	bigg\uparrow x bigg\downarrow
+gen-delim	biggl\uparrow x biggr\downarrow
+gen-delim	bigg\uparrow \frac12 bigg\downarrow
+gen-delim	biggl\uparrow x^2 biggr\downarrow
+gen-delim	Bigg\uparrow x Bigg\downarrow
+gen-delim	Biggl\uparrow x Biggr\downarrow
+gen-delim	Bigg\uparrow \frac12 Bigg\downarrow
+gen-delim	Biggl\uparrow x^2 Biggr\downarrow
+gen-delim	big\Uparrow x big\updownarrow
+gen-delim	bigl\Uparrow x bigr\updownarrow
+gen-delim	big\Uparrow \frac12 big\updownarrow
+gen-delim	bigl\Uparrow x^2 bigr\updownarrow
+gen-delim	Big\Uparrow x Big\updownarrow
+gen-delim	Bigl\Uparrow x Bigr\updownarrow
+gen-delim	Big\Uparrow \frac12 Big\updownarrow
+gen-delim	Bigl\Uparrow x^2 Bigr\updownarrow
+gen-delim	bigg\Uparrow x bigg\updownarrow
+gen-delim	biggl\Uparrow x biggr\updownarrow
+gen-delim	bigg\Uparrow \frac12 bigg\updownarrow
+gen-delim	biggl\Uparrow x^2 biggr\updownarrow
+gen-delim	Bigg\Uparrow x Bigg\updownarrow
+gen-delim	Biggl\Uparrow x Biggr\updownarrow
+gen-delim	Bigg\Uparrow \frac12 Bigg\updownarrow
+gen-delim	Biggl\Uparrow x^2 Biggr\updownarrow
+gen-delim	a bigm| b
+gen-delim	a bigm\| b
+gen-delim	bigl( a bigm| b bigr)
+gen-delim	abig| b
+gen-delim	a Bigm| b
+gen-delim	a Bigm\| b
+gen-delim	Bigl( a Bigm| b Bigr)
+gen-delim	aBig| b
+gen-delim	a biggm| b
+gen-delim	a biggm\| b
+gen-delim	biggl( a biggm| b biggr)
+gen-delim	abigg| b
+gen-delim	a Biggm| b
+gen-delim	a Biggm\| b
+gen-delim	Biggl( a Biggm| b Biggr)
+gen-delim	aBigg| b
+gen-delim	\left(\left(\left(x\right)\right)\right)
+gen-delim	\left(\frac{\left(a\right)}{\left[b\right]}\right)
+gen-delim	\left\{x\middle|x>0\right\}
+gen-delim	\left\langle x\middle|y\right\rangle
+gen-delim	\left(x\right)^2
+gen-delim	\left(x\right)_i
+gen-delim	\left(x\right)_i^2
+gen-delim	\left[\frac12\right]^{\frac{a}{b}}
+gen-delim	\left.\frac{df}{dx}\right|_{x=0}
+gen-delim	\left.x\right|_{a}^{b}
+gen-delim	\left\lfloor\frac{n}{2}\right\rfloor
+gen-delim	\left\lceil\sqrt{n}\right\rceil
+gen-delim	\left|\frac{a}{b}\right|
+gen-delim	\left\|\frac{a}{b}\right\|
+gen-delim	\left(\vphantom{\frac12}x\right)
+gen-delim	\left(\right)
+gen-delim	\left[\right]
+gen-delim	\left\{\right\}
+gen-delim	\left.\right.
+gen-delim	\left(\begin{array}{cc}a&b\\c&d\end{array}\right)
+gen-delim	\left(\sum_{i}^{n}\frac{1}{i}\right)^{2}
+gen-delim	\left(\frac{\left(\frac{a}{b}\right)}{c}\right)
+gen-delim	\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.
+gen-font	\mathrm{x}
+gen-font	\mathrm{ABC}
+gen-font	\mathrm{xyz}
+gen-font	\mathrm{R}
+gen-font	\mathrm{012}
+gen-font	\mathrm{max}
+gen-font	x_{\mathrm{a}}
+gen-font	x^{\mathrm{AB}}_{\mathrm{n}}
+gen-font	\mathrm{f}^2
+gen-font	\mathbf{x}
+gen-font	\mathbf{ABC}
+gen-font	\mathbf{xyz}
+gen-font	\mathbf{R}
+gen-font	\mathbf{012}
+gen-font	\mathbf{max}
+gen-font	x_{\mathbf{a}}
+gen-font	x^{\mathbf{AB}}_{\mathbf{n}}
+gen-font	\mathbf{f}^2
+gen-font	\mathit{x}
+gen-font	\mathit{ABC}
+gen-font	\mathit{xyz}
+gen-font	\mathit{R}
+gen-font	\mathit{012}
+gen-font	\mathit{max}
+gen-font	x_{\mathit{a}}
+gen-font	x^{\mathit{AB}}_{\mathit{n}}
+gen-font	\mathit{f}^2
+gen-font	\mathsf{x}
+gen-font	\mathsf{ABC}
+gen-font	\mathsf{xyz}
+gen-font	\mathsf{R}
+gen-font	\mathsf{012}
+gen-font	\mathsf{max}
+gen-font	x_{\mathsf{a}}
+gen-font	x^{\mathsf{AB}}_{\mathsf{n}}
+gen-font	\mathsf{f}^2
+gen-font	\mathtt{x}
+gen-font	\mathtt{ABC}
+gen-font	\mathtt{xyz}
+gen-font	\mathtt{R}
+gen-font	\mathtt{012}
+gen-font	\mathtt{max}
+gen-font	x_{\mathtt{a}}
+gen-font	x^{\mathtt{AB}}_{\mathtt{n}}
+gen-font	\mathtt{f}^2
+gen-font	\mathcal{x}
+gen-font	\mathcal{ABC}
+gen-font	\mathcal{xyz}
+gen-font	\mathcal{R}
+gen-font	\mathcal{012}
+gen-font	\mathcal{max}
+gen-font	x_{\mathcal{a}}
+gen-font	x^{\mathcal{AB}}_{\mathcal{n}}
+gen-font	\mathcal{f}^2
+gen-font	\mathbb{x}
+gen-font	\mathbb{ABC}
+gen-font	\mathbb{xyz}
+gen-font	\mathbb{012}
+gen-font	\mathbb{max}
+gen-font	x_{\mathbb{a}}
+gen-font	x^{\mathbb{AB}}_{\mathbb{n}}
+gen-font	\mathbb{f}^2
+gen-font	\mathfrak{x}
+gen-font	\mathfrak{ABC}
+gen-font	\mathfrak{xyz}
+gen-font	\mathfrak{R}
+gen-font	\mathfrak{012}
+gen-font	\mathfrak{max}
+gen-font	x_{\mathfrak{a}}
+gen-font	x^{\mathfrak{AB}}_{\mathfrak{n}}
+gen-font	\mathfrak{f}^2
+gen-font	\mathnormal{x}
+gen-font	\mathnormal{ABC}
+gen-font	\mathnormal{xyz}
+gen-font	\mathnormal{R}
+gen-font	\mathnormal{012}
+gen-font	\mathnormal{max}
+gen-font	x_{\mathnormal{a}}
+gen-font	x^{\mathnormal{AB}}_{\mathnormal{n}}
+gen-font	\mathnormal{f}^2
+gen-font	\text{hello}
+gen-font	\text{hello world}
+gen-font	\mbox{hello}
+gen-font	\mbox{hello world}
+gen-font	x_{\text{max}}
+gen-font	x_{\text{a b c}}
+gen-font	x^{\text{th}}
+gen-font	x_{\mbox{min}}
+gen-font	x^{\mbox{a b}}
+gen-font	a\text{ and }b
+gen-font	a\mbox{ and }b
+gen-font	x\text{if }y
+gen-font	\text{if }x>0
+gen-font	\text{x}_i
+gen-font	\text{f}^2
+gen-font	\text{A}
+gen-font	\textbf{x}
+gen-font	\textbf{ab}+x
+gen-font	\textit{x}
+gen-font	\textrm{x}
+gen-font	\textsf{x}
+gen-font	\texttt{x}
+gen-font	\text{\textbf{a}}
+gen-font	\text{a$x$b}
+gen-font	\mathrm{e}^{x}
+gen-font	\mathrm{i}
+gen-font	\mathbf{v}\cdot\mathbf{w}
+gen-font	\mathbb{R}^n
+gen-font	\mathbb{N}_0
+gen-font	\mathcal{L}(x)
+gen-font	\mathfrak{g}_{\alpha}
+gen-font	\boldsymbol{\alpha}
+gen-font	\boldsymbol{x}
+gen-misc	\mathchoice{a}{b}{c}{d}
+gen-misc	x^{\mathchoice{a}{b}{c}{d}}
+gen-misc	x^{y^{\mathchoice{a}{b}{c}{d}}}
+gen-misc	\mathchoice{\frac12}{\tfrac12}{\sum}{x}
+gen-misc	\displaystyle\sum_{i}x
+gen-misc	\textstyle\sum_{i}x
+gen-misc	\scriptstyle\sum_{i}x
+gen-misc	\scriptscriptstyle\sum_{i}x
+gen-misc	a+\displaystyle\frac12+b
+gen-misc	a+\textstyle\frac12+b
+gen-misc	a+\scriptstyle\frac12+b
+gen-misc	a+{\scriptstyle b}+c
+gen-misc	a+{\scriptscriptstyle b}+c
+gen-misc	{\displaystyle\int_0^1}x
+gen-misc	{\textstyle\int_0^1}x
+gen-misc	\frac{\displaystyle a}{b}
+gen-misc	\frac{a}{\displaystyle b}
+gen-misc	\frac{\textstyle\sum x}{y}
+gen-misc	\phantom{x}
+gen-misc	a\phantom{b}c
+gen-misc	a\hphantom{b}c
+gen-misc	a\vphantom{b}c
+gen-misc	\vphantom{\frac12}x
+gen-misc	\smash{\frac12}
+gen-misc	a\smash{b}c
+gen-misc	\smash{x_i}
+gen-misc	\hphantom{\frac12}
+gen-misc	\phantom{\sum}x
+gen-misc	x\vphantom{\int}y
+gen-misc	\smash[t]{\frac12}
+gen-misc	\smash[b]{\frac12}
+gen-misc	\mathstrut
+gen-misc	a\mathstrut b
+gen-misc	\mathord{+}
+gen-misc	\mathop{+}
+gen-misc	\mathbin{+}
+gen-misc	\mathrel{+}
+gen-misc	\mathopen{+}
+gen-misc	\mathclose{+}
+gen-misc	\mathpunct{+}
+gen-misc	\mathinner{+}
+gen-misc	a\mathord{+}b
+gen-misc	a\mathop{+}b
+gen-misc	a\mathbin{=}b
+gen-misc	a\mathrel{+}b
+gen-misc	a\mathopen{+}b
+gen-misc	a\mathclose{+}b
+gen-misc	a\mathpunct{+}b
+gen-misc	a\mathinner{+}b
+gen-misc	\mathop{abc}_x
+gen-misc	\mathop{abc}\limits_x^y
+gen-misc	\mathbin{\mathrm{mod}}
+gen-misc	\mathrel{\mathrm{R}}
+gen-misc	\mathinner{\frac12}
+gen-misc	\mathinner{x}\mathinner{y}
+gen-misc	a\:b
+gen-misc	a~b
+gen-misc	a\mkern18mu b
+gen-misc	a\mkern-3mu b
+gen-misc	a\hspace{1em}b
+gen-misc	a\kern2pt b
+gen-misc	a\hskip 3pt plus 1pt b
+gen-misc	a\negthinspace b
+gen-misc	a\thinspace b
+gen-misc	a\medspace b
+gen-misc	a\thickspace b
+gen-misc	a\negmedspace b
+gen-misc	a\negthickspace b
+gen-misc	a\mskip 5mu b
+gen-misc	a\hspace{-1em}b
+gen-misc	\int f\,dx
+gen-misc	\int\!f\,dx
+gen-misc	f\!\left(x\right)
+gen-misc	a\enspace b
+gen-misc	a\enskip b
+gen-misc	\ldots
+gen-misc	\cdots
+gen-misc	\dots
+gen-misc	\dotsb
+gen-misc	\dotsc
+gen-misc	\dotsm
+gen-misc	\dotsi
+gen-misc	\vdots
+gen-misc	\ddots
+gen-misc	\cdot
+gen-misc	\cdotp
+gen-misc	\ldotp
+gen-misc	a_1,\dots,a_n
+gen-misc	a_1+\dots+a_n
+gen-misc	1,2,\dots
+gen-misc	a_1,\ldots,a_n
+gen-misc	a_1+\cdots+a_n
+gen-misc	a_1\cdots a_n
+gen-misc	a_1\dotsm a_n
+gen-misc	x_1,x_2,\dotsc,x_n
+gen-misc	x_1\le\dotsb\le x_n
+gen-misc	\int\dotsi\int
+gen-misc	a_1,\dots
+gen-misc	\dots,a_n
+gen-misc	1+2+\dots
+gen-misc	a\dots b
+gen-misc	a\cdots b
+gen-misc	a\ldots b
+gen-misc	x,\ldots,y
+gen-misc	x=\dots
+gen-misc	\dots=x
+gen-misc	\vdots+x
+gen-misc	a_{1},\dots,a_{n}=\cdots
+gen-misc	a\pmod{n}
+gen-misc	a\bmod n
+gen-misc	a\pod{n}
+gen-misc	a\equiv b\pmod{n}
+gen-misc	a\equiv b\pmod n
+gen-misc	a\equiv b\pod{n}
+gen-misc	a\equiv b \mod n
+gen-misc	a\bmod{n+1}
+gen-misc	x\pmod{\frac12}
+gen-misc	\pmod{n}
+gen-misc	\pod{n}
+gen-misc	a\bmod b\bmod c
+gen-misc	x\equiv y\pmod{m+n}
+gen-misc	a\not=b
+gen-misc	a\ne b
+gen-misc	a\neq b
+gen-misc	a\notin B
+gen-misc	a\not\in B
+gen-misc	a\not\subset B
+gen-misc	a\not<b
+gen-misc	a\nless b
+gen-misc	a\nleq b
+gen-misc	a\nmid b
+gen-misc	a\nsubseteq b
+gen-misc	a\ncong b
+gen-misc	a\not\equiv b
+gen-misc	a\not\ni b
+gen-misc	x\not\to y
+gen-misc	a\to b
+gen-misc	a\mapsto b
+gen-misc	a\longrightarrow b
+gen-misc	a\Longrightarrow b
+gen-misc	a\iff b
+gen-misc	a\implies b
+gen-misc	a\hookrightarrow b
+gen-misc	a\leftrightarrow b
+gen-misc	a\leftarrow b
+gen-misc	a\Leftarrow b
+gen-misc	a\longleftarrow b
+gen-misc	a\Longleftarrow b
+gen-misc	a\longmapsto b
+gen-misc	a\Rightarrow b
+gen-misc	a\Leftrightarrow b
+gen-misc	a\longleftrightarrow b
+gen-misc	a\Longleftrightarrow b
+gen-misc	a\hookleftarrow b
+gen-misc	a\rightharpoonup b
+gen-misc	a\rightleftharpoons b
+gen-misc	a\uparrow b
+gen-misc	a\Downarrow b
+gen-misc	a\nearrow b
+gen-misc	a\swarrow b
+gen-misc	a\rightsquigarrow b
+gen-misc	a\twoheadrightarrow b
+gen-misc	a\rightarrowtail b
+gen-misc	a\looparrowright b
+gen-misc	a\circlearrowleft b
+gen-misc	a\leadsto b
+gen-misc	f\colon X\hookrightarrow Y
+gen-misc	x\xrightarrow{f}y
+gen-misc	x\xrightarrow[g]{f}y
+gen-misc	x\overset{f}{\longrightarrow}y
+gen-misc	A\xleftarrow{\frac12}B
+gen-misc	a\leqslant b
+gen-misc	a\geqslant b
+gen-misc	a\lesssim b
+gen-misc	a\gtrsim b
+gen-misc	A\subsetneq B
+gen-misc	A\supsetneq B
+gen-misc	\varnothing
+gen-misc	\mathbb{N}
+gen-misc	\mathbb{Z}
+gen-misc	\mathbb{Q}
+gen-misc	\mathbb{C}
+gen-misc	\emptyset
+gen-misc	a\approx b
+gen-misc	a\sim b
+gen-misc	a\simeq b
+gen-misc	a\cong b
+gen-misc	a\propto b
+gen-misc	a\ll b
+gen-misc	a\gg b
+gen-misc	a\prec b
+gen-misc	a\succ b
+gen-misc	a\preceq b
+gen-misc	a\vdash b
+gen-misc	a\models b
+gen-misc	a\perp b
+gen-misc	a\parallel b
+gen-misc	a\mid b
+gen-misc	a\in B
+gen-misc	A\subset B
+gen-misc	A\supseteq B
+gen-misc	A\cup B
+gen-misc	A\setminus B
+gen-misc	A\triangle B
+gen-misc	A\sqcup B
+gen-misc	a\mp b
+gen-misc	a\div b
+gen-misc	a\ast b
+gen-misc	a\star b
+gen-misc	a\circ b
+gen-misc	a\bullet b
+gen-misc	a\oplus b
+gen-misc	a\otimes b
+gen-misc	a\wedge b
+gen-misc	a\vee b
+gen-misc	a\wr b
+gen-misc	a\amalg b
+gen-misc	\forall x\exists y
+gen-misc	\nabla f
+gen-misc	\partial f
+gen-misc	\infty
+gen-misc	\hbar
+gen-misc	\ell
+gen-misc	\Re z
+gen-misc	\Im z
+gen-misc	\aleph_0
+gen-misc	\angle ABC
+gen-misc	\triangle ABC
+gen-misc	\square
+gen-misc	\blacksquare
+gen-misc	\therefore
+gen-misc	\because
+gen-misc	\checkmark
+gen-misc	\complement
+gen-misc	\Box
+gen-misc	\diamondsuit
+gen-misc	\lozenge
+gen-misc	\hslash
+gen-misc	\beth
+gen-misc	\eth
+gen-misc	\mho
+gen-misc	\Finv
+gen-misc	\digamma
+gen-misc	\varkappa
+gen-misc	\backepsilon
+gen-misc	\varepsilon\epsilon\vartheta\varrho\varsigma\varphi\varpi
+gen-misc	\begin{matrix}a&b\\c&d\end{matrix}
+gen-misc	\begin{bmatrix}a&b\\c&d\end{bmatrix}
+gen-misc	\begin{Bmatrix}a&b\\c&d\end{Bmatrix}
+gen-misc	\begin{Vmatrix}a&b\\c&d\end{Vmatrix}
+gen-misc	\begin{smallmatrix}a&b\\c&d\end{smallmatrix}
+gen-misc	\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)
+gen-misc	\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}
+gen-misc	\begin{pmatrix}a\\b\end{pmatrix}
+gen-misc	\begin{pmatrix}a&b\end{pmatrix}
+gen-misc	\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}
+gen-misc	\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}
+gen-misc	\begin{pmatrix}1&\cdots&n\\\vdots&\ddots&\vdots\\m&\cdots&mn\end{pmatrix}
+gen-misc	\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}
+gen-misc	\begin{pmatrix}a&b\\c&d\end{pmatrix}^2
+gen-misc	\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}
+gen-misc	x\begin{pmatrix}a\end{pmatrix}y
+gen-misc	\begin{matrix}a\end{matrix}
+gen-misc	\begin{matrix}abc&d\\e&fghij\end{matrix}
+gen-misc	\begin{cases}a&x>0\\b&x\le0\end{cases}
+gen-misc	f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}
+gen-misc	\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}
+gen-misc	\begin{cases}a\end{cases}
+gen-misc	\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}
+gen-misc	\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}
+gen-misc	\begin{array}{c}a\\b\end{array}
+gen-misc	\begin{array}{l}a\\bbb\end{array}
+gen-misc	\begin{array}{r}a\\bbb\end{array}
+gen-misc	\begin{array}{cc}a&b\end{array}
+gen-misc	\begin{array}{rl}x&=1\\yyy&=2\end{array}
+gen-misc	\begin{array}{c|c}a&b\\\hline c&d\end{array}
+gen-misc	\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}
+gen-misc	\begin{array}{lcr}1&22&333\\4444&55&6\end{array}
+gen-misc	\begin{array}[t]{c}a\\b\end{array}
+gen-misc	\begin{array}[b]{c}a\\b\end{array}
+gen-misc	\begin{array}{@{}c@{}}a\end{array}
+gen-misc	\begin{array}{c@{\,}c}a&b\end{array}
+gen-misc	\substack{a\\b}
+gen-misc	\sum_{\substack{a\\b}}
+gen-misc	\begin{aligned}a&=b\\c&=d\end{aligned}
+gen-misc	\begin{gathered}a\\bb\end{gathered}
+gen-misc	\stackrel{a}{=}
+gen-misc	\stackrel{!}{=}
+gen-misc	\overset{\mathrm{def}}{=}
+gen-misc	\boxed{x}
+gen-misc	\boxed{\frac12}
+gen-misc	\fbox{x}
+gen-misc	\tfrac{1}{2}\,\cdot\,x
+gen-misc	\left(a\atop b\right)
+gen-misc	a\over b
+gen-misc	{a\over b}
+gen-misc	{a\choose b}
+gen-misc	{a\above 1pt b}
+gen-misc	{a\overwithdelims() b}
+gen-misc	{a\atopwithdelims[] b}
+gen-misc	{a\brace b}
+gen-misc	{a\brack b}
+gen-misc	a\mathrel{\mathop{=}\limits^{!}}b
+gen-misc	\char"41
+gen-misc	\mathchar"7141
+gen-misc	\delimiter"4266308
+gen-misc	\radical"270370{x}
+gen-misc	\skew{3}\hat{x}
+gen-misc	\underline{\hbox{a}}
+gen-misc	\hbox{a b}
+gen-misc	\vcenter{\hbox{x}}
+gen-misc	\raise2pt\hbox{x}
+gen-misc	\lower2pt\hbox{x}
+gen-misc	\mathsurround=3pt a
+gen-misc	\rule{1pt}{1em}
+gen-misc	\rule[-2pt]{3pt}{2pt}
+gen-misc	x\hbox to 10pt{\hfil a}y
+gen-misc	\mathchar"0161
+gen-misc	\fam1 a
+gen-misc	\hbox{$x^2$}
+gen-misc	\vrule
+gen-misc	a\nonscript\mskip 4mu b
+gen-misc	x_{a\nonscript\mskip4mu b}
+gen-misc	\mathbin{\ }
+gen-misc	\left\vert x\right\vert
+gen-misc	\left\Vert x\right\Vert
+doc	\int_0^1 f(x)\,dx
+doc	a + b
+doc	w
+doc	\ell
+doc	n \approx 4w\ell/s^2
+doc	s
+doc	144/4
+doc	r
+doc	r \neq 1
+doc	n \geq 0
+doc	n = 0
+doc	n
+doc	S_{n+1} = S_n + r^{n+1} = \frac{1 - r^{n+1}}{1 - r} + r^{n+1} = \frac{1 - r^{n+2}}{1 - r},
+doc	n+1
+doc	|r| < 1
+doc	\sum_{k=0}^{\infty} r^k = \dfrac{1}{1-r}
+doc	S_n = (1 - r^{n+1})/(1-r)
+doc	r^{n+1}
+doc	n \to \infty
+doc	\int_0^\infty e^{-\lambda t}\,dt = 1/\lambda
+doc	\lambda > 0
+doc	\int_0^{\infty} \sum_{k=0}^{\infty} e^{-(k+1)\lambda t}\,dt = \sum_{k=1}^{\infty} \frac{1}{k\lambda},
+doc	t = 0
+doc	-
+doc	n!
+doc	\log_2 (n!)
+doc	\Omega(n \log n)
+doc	c
+doc	b = ac
+doc	\mathbb{N}
+doc	\mathbb{Z}
+doc	a \mid c
+doc	a \mid (b + c)
+doc	b = ax
+doc	c = ay
+doc	b + c = a(x + y)
+doc	a \mid (mb + nc)
+doc	m, n \in \mathbb{Z}
+doc	d(n)
+doc	n = p_1^{e_1} \cdots p_k^{e_k}
+doc	d(360) = 4 \cdot 3 \cdot 2 = 24
+doc	360 = 2^3 \cdot 3^2 \cdot 5
+doc	(k, j)
+doc	1 \le k j \le n
+doc	\bar{x} = \frac{1}{3}\sum_{i=1}^{3} x_i = 73.3
+doc	s^2 = \frac{1}{2}\sum_{i=1}^{3} (x_i - \bar{x})^2 \approx 485.
+doc	L
+doc	u(x,t)
+doc	\kappa > 0
+doc	Q(t) = c\rho \int_0^L u(x,t)\,dx
+doc	u = X(x)T(t)
+doc	\lambda_n = (n\pi/L)^2
+doc	n = 1, 2, \dots
+doc	u(x,t) = \sum_{n=1}^{\infty} b_n \sin\frac{n\pi x}{L}\, e^{-\kappa n^2\pi^2 t/L^2},
+doc	b_n = \frac{2}{L}\int_0^L u(x,0)\sin\frac{n\pi x}{L}\,dx.
+doc	\bullet
+doc	t \to \infty
+doc	b_1 \sin(\pi x/L)
+doc	\tau = L^2/(\kappa\pi^2)
+doc	\star
+doc	p
+doc	N
+doc	N/p
+doc	\frac{N}{p/2} = 2\cdot\frac{N}{p}.
+doc	d
+doc	pd
+doc	\sum_{i=1}^{5} s_i = 1
+doc	t
+doc	m
+doc	A = 12m \cdot \frac{(1+r)^t - 1}{r}.
+doc	\sum_{k=0}^{m} \frac{1}{k+1}
+doc	\int_a^b g
+doc	\int_0^\infty e^{-x}
+doc	x^2+y^2

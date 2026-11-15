@@ -224,11 +224,15 @@ def extensible (i : Nat) (f : MathFont) (c : Nat) (v : Int) : M Node := do
 
 /-- TeX's `var_delimiter`: the delimiter `d` at size `s` at least `v` tall (height plus
 depth), or the largest there is: the small variant's family at `s` and the smaller sizes down
-to text size, each with its chain of larger characters, then the large variant's; an
-extensible character ends the search. Centred on the axis. -/
-def varDelimiter (d : Delim) (s : MathSize) (v : Int) : M Node := do
+to text size when `largerSizes` (TeX82 always; LuaTeX, which this follows, for a fraction's
+delimiters only), each with its chain of larger characters, then the large variant's; an
+extensible character ends the search. Centred on the axis; the empty box of a null delimiter
+too unless `centreNull` is false (LuaTeX leaves it unshifted for `\left.` and `\right.`). -/
+def varDelimiter (d : Delim) (s : MathSize) (v : Int) (centreNull : Bool := true)
+    (largerSizes : Bool := false) : M Node := do
   let fs := (← read).fams
   let mut best : Option (Nat × MathFont × Nat × CharMetrics) := none
+  let mut bestSize : MathSize := s
   let mut w : Int := 0
   let mut ext := false
   let mut done := false
@@ -236,7 +240,9 @@ def varDelimiter (d : Delim) (s : MathSize) (v : Int) : M Node := do
     if done then break
     let (z, x) := if attempt == 0 then (d.smallFam, d.smallChar) else (d.largeFam, d.largeChar)
     if z != 0 || x != 0 then
-      for k in [0:s.val + 1] do
+      -- TeX82 goes on to the larger sizes down to text size (§707); LuaTeX, whose boxes these
+      -- are, does so for a fraction's delimiters only (found against its lists)
+      for k in [0:(if largerSizes then s.val + 1 else 1)] do
         if done then break
         let sz : MathSize := ⟨s.val - k, by omega⟩
         match fs.index? z sz with
@@ -251,10 +257,10 @@ def varDelimiter (d : Delim) (s : MathSize) (v : Int) : M Node := do
             | none => break
             | some m =>
               if m.tag matches .ext _ then
-                best := some (gi, g, y, m); ext := true; done := true; break
+                best := some (gi, g, y, m); bestSize := sz; ext := true; done := true; break
               let u := m.height + m.depth
               if u > w then
-                best := some (gi, g, y, m); w := u
+                best := some (gi, g, y, m); bestSize := sz; w := u
                 if u ≥ v then done := true; break
               match m.tag with
               | .list nx => y := nx
@@ -264,7 +270,9 @@ def varDelimiter (d : Delim) (s : MathSize) (v : Int) : M Node := do
     | none =>
       let nds := (← read).params.nullDelimiterSpace
       pure (.box false nds 0 0 0 {} #[])
-  let ax ← axisHeight s
+  -- centred on the axis of the size the delimiter was found at (LuaTeX; TeX82 takes `s`'s)
+  let ax ← axisHeight bestSize
+  if best.isNone && !centreNull then return b
   return b.withShift (half (b.boxHeight - b.boxDepth) - ax)
 
 /-- The type of the previous noad in the first pass, for rules 5 and 6. -/
@@ -290,18 +298,19 @@ inductive Item where
   deriving Inhabited
 
 /-- The spacing between two atoms of the kinds with indices `l` and `r` (rows and columns
-ord, op, bin, rel, open, close, punct, inner), as *The TeXbook*'s table in Chapter 18 gives it:
-0 none, 1 a thin space in display and text style, 2 a thin space, 3 a medium space in display
-and text style, 4 a thick space in display and text style. The pairs the table leaves blank
+ord, op, bin, rel, open, close, punct, inner), as *The TeXbook*'s table in Chapter 18 gives it
+(and *TeX: The Program* §764 encodes it): 0 none, 1 a thin space in display and text style, 2 a
+thin space, 3 a medium space in display and text style, 4 a thick space in display and text
+style. The pairs the table leaves blank
 (they cannot occur once rules 5 and 6 have run) are 0. -/
 def spacingTable (l r : Fin 8) : Fin 5 :=
   let row : Array (Fin 5) := match l.val with
-    | 0 => #[0, 1, 3, 4, 0, 0, 0, 1]
+    | 0 => #[0, 2, 3, 4, 0, 0, 0, 1]
     | 1 => #[2, 2, 0, 4, 0, 0, 0, 1]
     | 2 => #[3, 3, 0, 0, 3, 0, 0, 3]
     | 3 => #[4, 4, 0, 0, 4, 0, 0, 4]
     | 4 => #[0, 0, 0, 0, 0, 0, 0, 0]
-    | 5 => #[0, 1, 3, 4, 0, 0, 0, 1]
+    | 5 => #[0, 2, 3, 4, 0, 0, 0, 1]
     | 6 => #[1, 1, 0, 1, 1, 1, 1, 1]
     | _ => #[1, 2, 3, 4, 1, 0, 1, 1]
   row.getD r.val 0
@@ -488,8 +497,8 @@ def makeFraction (rec : Rec) (num den : Field) (thick : Option Int) (left right 
   let v : Node := .box true x.width (shiftUp + x.height) (z.depth + shiftDown) 0 {} l
   -- rule 15e
   let dl ← if style.isDisplay then mathsy 20 cs else mathsy 21 cs
-  let ld ← varDelimiter left cs dl
-  let rd ← varDelimiter right cs dl
+  let ld ← varDelimiter left cs dl (largerSizes := true)
+  let rd ← varDelimiter right cs dl (largerSizes := true)
   return #[hpack #[ld, v, rd]]
 
 /-- A radical (rule 11, TeX's `make_radical`): the nucleus cramped under a rule, the radical
@@ -542,7 +551,10 @@ def makeAccent (rec : Rec) (nuc sup sub : Field) (fam code : Nat) (style : Style
     delta := delta + x.height - h
     h := x.height
     took := true
-  let y := (charBox fi c cm).withShift (s + half (w - (cm.width + cm.italic)))
+  -- LuaTeX places an accent over a nucleus that is not a character 1sp further right than
+  -- TeX's rule gives (found against its lists)
+  let extra : Int := if nuc matches .mathChar .. || nuc matches .textChar .. then 0 else 1
+  let y := (charBox fi c cm).withShift (s + half (w - (cm.width + cm.italic)) + extra)
   let y := y.withWidth 0
   let y := (vpack #[y, .kern (-delta) .font, x]).withWidth x.width
   let y := if y.height < h then
@@ -594,7 +606,7 @@ def makeLeftRight (d : Delim) (style : Style) (maxH maxD : Int) : M Node := do
   let delta2 := maxD + ax
   let delta1 := max (maxH + maxD - delta2) delta2
   let delta := max ((delta1.tdiv 500) * p.delimiterFactor) (delta1 + delta1 - p.delimiterShortfall)
-  varDelimiter d cs delta
+  varDelimiter d cs delta (centreNull := false)
 
 /-- The first pass: each item set in the style in force, with the list's largest height and
 depth. -/

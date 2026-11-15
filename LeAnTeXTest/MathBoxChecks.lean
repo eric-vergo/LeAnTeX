@@ -205,7 +205,7 @@ def texLayout (m : MathFontSet) (fs : Families) (cls : Nat) (src : String) (disp
     strutHeight := xnOverD bskip 45875 65536, strutDepth := xnOverD bskip 19661 65536 }
   let env : Env := { fams := fs }
   let run : TeXMath.M (Array TeXMath.Node) := do
-    let l ← (toMathList tree).run ctx
+    let l ← toMathList tree ctx
     let l := if display then #[Noad.style .display] ++ l else l
     mlistToHlist maxNesting l .text false
   match (run.run env).run {} with

@@ -37,14 +37,15 @@ inductive MathFont where
 
 /-- The italic correction luaotfload gives a glyph of a slanted OpenType font (one whose `post`
 italic angle is not 0): the part of its outline right of its advance plus a fiftieth of the em,
-when there is such a part; 0 for an upright font. Found against LuaTeX's lists. -/
+when that is positive; 0 for an upright font. Found against LuaTeX's lists. -/
 def italicOf (f : TextFont) (g : Nat) : Int :=
   let angle := (f.info.font.post.map (·.italicAngle)).getD 0
   if angle == 0 then 0
   else match f.info.font.bounds g with
     | .ok (some b) =>
       let over := Em.roundDiv b.xMax 65536 - f.info.font.advance g
-      if over > 0 then f.scale (over + f.info.font.unitsPerEm / 50) else 0
+      let it := over + f.info.font.unitsPerEm / 50
+      if it > 0 then f.scale it else 0
     | _ => 0
 
 namespace MathFont
