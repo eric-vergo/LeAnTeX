@@ -1,0 +1,20 @@
+% Released under Apache 2.0 license as described in the file LICENSE.
+% Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
+%
+% A page exactly as large as LeAnTeX's SVG picture of a fragment, with the text where the picture
+% has it, for tools/tex-render-compare.sh. The script defines \LeanTeXNcm (the font directory),
+% \TOPSKIP (the first baseline below the top), \PAGEW, \PAGEH and \SRC (the fragment) before
+% \input-ing this file. Text in New Computer Modern (ncm.tex); math in LaTeX's default fonts.
+\documentclass{article}
+\input{\LeanTeXTools/ncm.tex}
+\usepackage{amsmath,amssymb}
+\pagestyle{empty}
+\setlength\hoffset{-1in}\setlength\voffset{-1in}
+\setlength\oddsidemargin{2pt}\setlength\topmargin{0pt}
+\setlength\headheight{0pt}\setlength\headsep{0pt}
+\setlength\textwidth{345pt}\setlength\textheight{2000pt}
+\setlength\topskip{\TOPSKIP}
+\pagewidth=\PAGEW \pageheight=\PAGEH
+\begin{document}
+\input{\SRC}
+\end{document}

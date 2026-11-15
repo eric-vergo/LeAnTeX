@@ -19,6 +19,8 @@ each formula as an inline SVG picture (`LeAnTeX.Backend.Svg`) with a text altern
   least a sixth of its size ends with a space, so copied text has its spaces. A ligature
   character (`ﬁ`, `ﬂ`, …, U+FB00–U+FB06) is written as its letters, which the browser ligates
   again.
+* **Units.** Lengths are written in CSS's `pt` (1/72 inch), converted from TeX's points
+  (1/72.27 inch), so the text has TeX's size.
 * **Baselines.** A run is placed by its baseline without knowing the font's ascent: its box is
   a baseline-aligned flex box whose first item is an empty strut two ems tall, so the box's top
   is two ems above the baseline (`.ltx-w` in the style sheet).
@@ -189,11 +191,11 @@ def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
   let (runs, others) := htmlRuns fs dl em top
   let fonts := runFonts runs
   let mut out : Array String := #[]
-  out := out.push s!"<div class=\"{escape p}\" style=\"width:{ptText (sp dl.width)}pt;\
-    height:{ptText bottom}pt\">"
+  out := out.push s!"<div class=\"{escape p}\" style=\"width:{bpText (sp dl.width)}pt;\
+    height:{bpText bottom}pt\">"
   for r in runs do
     let fi := (fonts.idxOf? r.font).getD 0
-    let mut style := s!"left:{ptText r.x}pt;top:{ptText r.y}pt;font-size:{ptText r.size}pt"
+    let mut style := s!"left:{bpText r.x}pt;top:{bpText r.y}pt;font-size:{bpText r.size}pt"
     if r.slant != 0 then
       style := style ++ s!";transform:matrix(1,0,{fixed (-r.slant) 1000 3},1,0,0)"
     if r.smallCaps then style := style ++ ";font-feature-settings:\"smcp\""
@@ -214,7 +216,7 @@ def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
     let left := lx + sp f.x - pad
     let ftop := top + ly + sp f.y - sp f.height - pad
     let svg := svg.replace "<svg xmlns=\"http://www.w3.org/2000/svg\""
-      s!"<svg class=\"{escape p}-m\" style=\"left:{ptText left}pt;top:{ptText ftop}pt\" \
+      s!"<svg class=\"{escape p}-m\" style=\"left:{bpText left}pt;top:{bpText ftop}pt\" \
         aria-label=\"{escape f.source}\" xmlns=\"http://www.w3.org/2000/svg\""
     out := out.push svg
     let delim := if f.display then ("\\[", "\\]") else ("$", "$")
@@ -233,7 +235,7 @@ def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
     let left := lx - pad
     let ltop := top + ly - sp line.height - pad
     out := out.push (svg.replace "<svg xmlns=\"http://www.w3.org/2000/svg\""
-      s!"<svg class=\"{escape p}-g\" style=\"left:{ptText left}pt;top:{ptText ltop}pt\" \
+      s!"<svg class=\"{escape p}-g\" style=\"left:{bpText left}pt;top:{bpText ltop}pt\" \
         aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\"")
   out := out.push "</div>"
   return ("\n".intercalate out.toList, fonts)

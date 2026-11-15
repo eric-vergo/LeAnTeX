@@ -28,7 +28,7 @@ is the same on every machine.
 
 * `xmlChar`, `escapeChar`, `escapeList`, `escape`, `unescapeList`.
 * `cssColor?`.
-* `fixed`, `ptText`, `spOf`.
+* `fixed`, `ptText`, `bpText`, `spOf`.
 -/
 
 namespace LeAnTeX.Backend
@@ -99,6 +99,11 @@ def fixed (num den : Int) (places : Nat) : String :=
 
 /-- A length in scaled points as points with at most three decimals (`12.5`, `-0.004`). -/
 def ptText (sp : Int) : String := fixed sp 65536 3
+
+/-- A length in scaled points (TeX's points, 1/72.27 inch) as the points of CSS and SVG (1/72
+inch, PostScript's big points) with at most three decimals: what a page writes in `pt` units,
+so that ten TeX points are as long on a screen or in a PDF viewer as in TeX's own output. -/
+def bpText (sp : Int) : String := fixed (sp * 7200) (7227 * 65536) 3
 
 /-- A display-list length in scaled points, for a display list whose em is `em` sp. -/
 def spOf (em : Int) (e : Em) : Int := Em.roundDiv (e.raw * em) Em.unit

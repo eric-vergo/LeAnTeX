@@ -718,7 +718,8 @@ def readFormula (at_ : Tok) (close : Tok → Bool) (double : Bool) : M String :=
 /-- Sets a displayed formula: the paragraph so far ends (TeX's display interrupts it), the
 formula is centred on a line of its own with `\abovedisplayskip` and `\belowdisplayskip`
 (LaTeX's ten-point values, 10pt above and below at their natural widths), and the paragraph
-goes on without indentation. -/
+goes on without indentation, the spaces after the display ignored. The document's width is
+`\hsize`, as for a paragraph. -/
 def displayFormula (at_ : Tok) (src : String) : M Unit := do
   let wasH := (← get).hmode
   if wasH then endParagraph
@@ -730,10 +731,13 @@ def displayFormula (at_ : Tok) (src : String) : M Unit := do
   let line : Line :=
     { nodes := #[n], width := w, indent := (v.p.hsize - w) / 2, natural := w,
       height := h, depth := d, glue := {} }
-  modify fun s => { s with lines := s.lines.push (line, y), cursor := s.cursor + 10 * 65536 }
+  modify fun s =>
+    { s with lines := s.lines.push (line, y), cursor := s.cursor + 10 * 65536, width := v.p.hsize }
   if wasH then
     modify fun s => { s with noIndent := true }
     startParagraph
+  -- spaces after a display are ignored (TeX after `$$`, LaTeX's `\]` with `\ignorespaces`)
+  if let some t ← nextNonSpace? then unread #[t]
 
 /-! ### Groups and boxes -/
 

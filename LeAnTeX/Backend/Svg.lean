@@ -12,7 +12,8 @@ A display list (a paragraph of the text layer, a formula, or both) as an SVG pic
 needs nothing else: every glyph is drawn as its outline, read from the font with
 `LeAnTeX.OpenType`, so the picture refers to no font file and looks the same everywhere.
 
-* **Units.** One SVG user unit is one point; `width` and `height` are given in `pt`. A display
+* **Units.** One SVG user unit is one of TeX's points; `width` and `height` are given in CSS's
+  `pt` (1/72 inch, which is 72.27/72 of TeX's point), so the picture has TeX's size. A display
   list's em is `SvgOptions.em` scaled points (ten points by default, the text layer's em; a
   formula laid out alone may be given its own size).
 * **Glyphs.** Each glyph used is defined once, in `<defs>`, as a `<path>` in its font's units
@@ -241,8 +242,8 @@ def svgElement (fs : FontSet) (dl : DisplayList) (opts : SvgOptions := {}) : Str
   let p := picture fs dl opts
   let mut out : Array String := #[]
   out := out.push s!"<svg xmlns=\"http://www.w3.org/2000/svg\" \
-    xmlns:xlink=\"http://www.w3.org/1999/xlink\"{attr "width" (ptText p.width ++ "pt")}\
-    {attr "height" (ptText p.height ++ "pt")}\
+    xmlns:xlink=\"http://www.w3.org/1999/xlink\"{attr "width" (bpText p.width ++ "pt")}\
+    {attr "height" (bpText p.height ++ "pt")}\
     {attr "viewBox" s!"{ptText p.left} {ptText p.top} {ptText p.width} {ptText p.height}"}\
     {match opts.color.bind cssColor? with | some c => attr "fill" c | none => ""} role=\"img\">"
   out := out.push s!"<title>{escape opts.title}</title><desc>{escape opts.desc}</desc>"
