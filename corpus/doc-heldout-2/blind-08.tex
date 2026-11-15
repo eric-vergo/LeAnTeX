@@ -1,0 +1,57 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+
+\title{Stability of a Feedback Loop}
+\author{Viktor Hrabal}
+\date{May 12, 2016}
+
+\newcommand{\Lap}{\mathcal{L}}
+\newcommand{\sv}{s}
+
+\begin{document}
+\maketitle
+
+\section{A first-order plant}
+Consider a plant with transfer function $G(\sv)=\dfrac{K}{\tau\sv+1}$, where $K$ is the DC gain and $\tau>0$ the time constant. Closing the loop with unity feedback gives
+\begin{equation}
+  T(\sv)=\frac{G(\sv)}{1+G(\sv)}=\frac{K}{\tau\sv+1+K}.
+\end{equation}
+The single pole is at $\sv=-(1+K)/\tau$, which lies in the left half-plane for all $K>-1$.
+
+\section{Adding delay}
+Real systems have delay. Replacing $G$ by $G(\sv)e^{-\sv d}$ with delay $d>0$ makes the characteristic equation transcendental:
+\[
+  1+\frac{K\,e^{-\sv d}}{\tau\sv+1}=0 .
+\]
+On the imaginary axis $\sv=\mathrm{i}\omega$ the magnitude condition reads
+\[
+  \frac{K}{\sqrt{1+\tau^2\omega^2}}=1,
+\]
+which has the solution $\omega_c=\sqrt{K^2-1}/\tau$ for $K>1$.
+
+\section*{Procedure for a quick check}
+\begin{quote}
+Plot the open-loop frequency response and find the frequency at which the gain is one. The phase margin is $180^\circ$ plus the phase at that frequency.
+\end{quote}
+
+The phase of $G(\mathrm{i}\omega)e^{-\mathrm{i}\omega d}$ at $\omega_c$ equals $-\arctan(\tau\omega_c)-\omega_c d$. The loop is stable if this phase is above $-\pi$, that is, if
+\[
+  d < \frac{\pi-\arctan(\tau\omega_c)}{\omega_c}.
+\]
+
+\begin{flushleft}
+Example values:
+\end{flushleft}
+\begin{center}
+\begin{tabular}{c|c|c}
+$K$ & $\tau$ (s) & $d_{\max}$ (s)\\
+\hline
+2 & 1 & 1.37\\
+5 & 1 & 0.68\\
+5 & 0.5 & 0.34\\
+\end{tabular}
+\end{center}
+
+Larger gain thus reduces the tolerable delay, a trade-off familiar to every control engineer.
+
+\end{document}

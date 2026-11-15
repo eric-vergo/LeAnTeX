@@ -82,8 +82,10 @@ What LeAnTeX does today, and what comes next.
   (`tools/doc-reference.sh`, `parity/DOC.md`), line by line to the sp: the 87 reference and
   regression documents all agree, 1,810 of 1,810 lines; ten fresh documents written without
   reading the source 7 agree, 367 of 398 lines; **twenty held-out documents, written without
-  reading the source and not tuned to: 8 agree in full, 397 of 469 lines at the place to the
-  sp, 405 within 1 pt, page breaks 3 of 3** (before the TeX-rule layout: none, 190 and 355).
+  reading the source and not tuned to: 9 agree in full, 398 of 469 lines at the place to the
+  sp, 405 within 1 pt, page breaks 3 of 3** (before the TeX-rule layout: none, 190 and 355);
+  a second held-out set of ten, written blind after the first was run and a defect it showed
+  was fixed: 5 agree, 374 of 400 lines, 375 within 1 pt, page breaks 10 of 10.
   List parameters probed against LuaLaTeX at every level for three sizes
   (`tools/list-params.sh`). Paged SVG and HTML (`leantex-render --document`),
   `examples/article/`. Theorems: the pages hold the vertical list's boxes, counters,
@@ -94,7 +96,7 @@ What LeAnTeX does today, and what comes next.
   commands built as LaTeX and amsmath build them, LaTeX's font setup for every size. The
   metric files are read at run time from a TeX installation (none is committed); without one
   formulas fall back to the KaTeX-compatible layout. Against LuaLaTeX (`parity/MATHBOX.md`):
-  12,142 of 12,726 formula boxes to the sp (12,142 of the 12,150 it builds); `lake test` fails
+  12,166 of 12,750 formula boxes to the sp (12,166 of the 12,174 it builds); `lake test` fails
   if a box that was TeX's no longer is. Inline formulas break after relations and binary
   operations as in TeX; glyphs drawn with New Computer Modern Math at TeX's positions.
   Theorems: the style lattice, the spacing table's totality and its script-style rule,

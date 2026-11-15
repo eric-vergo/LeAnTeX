@@ -1,0 +1,52 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}[proposition]{Example}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+
+\title{Generating Functions for Counting}
+\author{Rosa Delgado}
+\date{April 5, 2023}
+
+\begin{document}
+\maketitle
+
+\section{Ordinary generating functions}
+To a sequence $(a_n)_{n\ge0}$ we associate the formal power series $A(x)=\sum_{n=0}^{\infty}a_nx^n$. Operations on sequences become operations on series: shifting, summing and convolving.
+
+\subsection{The Fibonacci numbers}
+Let $F_0=0$, $F_1=1$ and $F_{n+2}=F_{n+1}+F_n$. Multiplying the recurrence by $x^{n+2}$ and summing over $n\ge0$ gives $F(x)-x=xF(x)+x^2F(x)$, so
+\begin{equation}\label{eq:fib}
+  F(x)=\frac{x}{1-x-x^2}.
+\end{equation}
+Partial fractions yield Binet's formula
+\[
+  F_n=\frac{1}{\sqrt5}\Bigl[\Bigl(\frac{1+\sqrt5}{2}\Bigr)^{n}-\Bigl(\frac{1-\sqrt5}{2}\Bigr)^{n}\Bigr].
+\]
+
+\subsubsection{A consequence}
+Since $|(1-\sqrt5)/2|<1$, the ratio $F_{n+1}/F_n$ converges to the golden ratio $\varphi=(1+\sqrt5)/2$.
+
+\subsection{Binomial coefficients}
+By the binomial theorem, $(1+x)^m=\sum_{k=0}^{m}\binom{m}{k}x^k$. Comparing coefficients in $(1+x)^m(1+x)^n=(1+x)^{m+n}$ gives Vandermonde's identity
+\begin{equation}\label{eq:vdm}
+  \sum_{k=0}^{r}\binom{m}{k}\binom{n}{r-k}=\binom{m+n}{r}.
+\end{equation}
+
+\begin{proposition}
+The number of compositions of $n$ into parts from a set $S\subseteq\N$ has generating function $1/(1-\sum_{s\in S}x^s)$.
+\end{proposition}
+
+\begin{example}
+Taking $S=\{1,2\}$ in the proposition gives $1/(1-x-x^2)$, so the number of compositions of $n$ into ones and twos is $F_{n+1}$, in line with \eqref{eq:fib}.
+\end{example}
+
+\section{Catalan numbers}
+The Catalan numbers $C_n=\frac{1}{n+1}\binom{2n}{n}$ count, among many other things, balanced bracketings. They satisfy $C(x)=1+xC(x)^2$, and hence
+\[
+  C(x)=\frac{1-\sqrt{1-4x}}{2x}.
+\]
+The first values are $1,1,2,5,14,42,\dots$, and the sum $\sum_{i=0}^{n-1}C_iC_{n-1-i}=C_n$ is a special case of the product rule used to derive \eqref{eq:vdm}.
+
+\end{document}

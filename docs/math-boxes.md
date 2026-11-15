@@ -118,16 +118,16 @@ as the glue, whose width is the same.
 ## How far apart they are
 
 `tools/math-box-reference.sh` records TeX's box and whole node list for each formula of
-`corpus/math-box/formulas.tsv` (2,121 formulas: the first 209 hand-picked, then systematic
+`corpus/math-box/formulas.tsv` (2,125 formulas: the first 209 hand-picked, then systematic
 families for every construct and the formulas of the reference documents,
-`tools/math-box-harvest.py`) in text and display style at 10, 11 and 12 points: 12,726 boxes.
+`tools/math-box-harvest.py`) in text and display style at 10, 11 and 12 points: 12,750 boxes.
 `lake test` compares the TeX-rule layout's boxes with them (`parity/MATHBOX.md`, per construct,
 with the first differing node of every box that is not TeX's) and fails when a box that was
 TeX's to the sp (`parity/mathbox-baseline.tsv`) no longer is.
 
-At the time of writing: **12,142 of 12,726 boxes are TeX's to the sp** in width, height and
-depth (the KaTeX-compatible layout: 10 of them); of the 12,150 the TeX-rule layout builds,
-12,142, and 576 boxes are of formulas it refuses. The eight it builds and misses are a
+At the time of writing: **12,166 of 12,750 boxes are TeX's to the sp** in width, height and
+depth (the KaTeX-compatible layout: 10 of them); of the 12,174 the TeX-rule layout builds,
+12,166, and 576 boxes are of formulas it refuses. The eight it builds and misses are a
 radical in scriptscript style inside a superscript (1,218 or 2,435 sp in height) and
 `\genfrac` with `\|` delimiters in scriptscript style (TeX takes a wider delimiter). Of the
 boxes TeX's to the sp, a few hundred differ from TeX's in the structure of their lists (LuaTeX

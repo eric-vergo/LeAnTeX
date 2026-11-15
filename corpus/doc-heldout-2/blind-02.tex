@@ -1,0 +1,50 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+
+\title{Projectile Motion with Linear Drag}
+\author{Henrik Aalto \and Priya Raman}
+\date{14 October 2019}
+
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\g}{\mathbf{g}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+A ball thrown through air does not follow a perfect parabola. In this note we treat the simplest correction, a drag force proportional to the velocity, and derive the trajectory in closed form.\footnote{Quadratic drag is more realistic at high speed but has no elementary solution.}
+
+\section{Equations of motion}\label{sec:eom}
+Let $m$ be the mass, $\vv$ the velocity and $k>0$ the drag coefficient. Newton's second law reads
+\begin{equation}\label{eq:newton}
+  m\dot{\vv} = m\g - k\vv .
+\end{equation}
+Writing $\gamma = k/m$, the horizontal and vertical components decouple:
+\begin{align}
+  \dot v_x &= -\gamma v_x, \label{eq:vx}\\
+  \dot v_y &= -g - \gamma v_y. \label{eq:vy}
+\end{align}
+
+\subsection{Solution}
+With initial speed $v_0$ and launch angle $\theta$, integrating \eqref{eq:vx} and \eqref{eq:vy} gives
+\begin{align*}
+  x(t) &= \frac{v_0\cos\theta}{\gamma}\bigl(1-e^{-\gamma t}\bigr),\\
+  y(t) &= \frac{1}{\gamma}\Bigl(v_0\sin\theta+\frac{g}{\gamma}\Bigr)\bigl(1-e^{-\gamma t}\bigr)-\frac{g}{\gamma}\,t .
+\end{align*}
+The horizontal distance never exceeds $v_0\cos\theta/\gamma$.
+
+\subsection{Terminal velocity}
+As $t\to\infty$ the vertical velocity tends to
+\[
+  v_{\mathrm{term}} = \lim_{t\to\infty} \dot y(t) = -\frac{g}{\gamma} = -\frac{mg}{k}.
+\]
+
+\section{Limit of vanishing drag}
+Expanding $e^{-\gamma t}=1-\gamma t+\tfrac12\gamma^2t^2-\cdots$ and letting $\gamma\to0$ recovers the familiar parabola
+\[
+  y = x\tan\theta - \frac{g\,x^2}{2v_0^2\cos^2\theta}.
+\]
+Section~\ref{sec:eom} on page~\pageref{sec:eom} contains the full derivation.
+
+\end{document}

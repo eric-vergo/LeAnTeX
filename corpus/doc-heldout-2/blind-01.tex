@@ -1,0 +1,53 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\eps}{\varepsilon}
+
+\title{A Short Note on Uniform Continuity}
+\author{Marta Lindqvist}
+\date{March 3, 2021}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We recall the definition of uniform continuity and give a short proof that every continuous function on a closed bounded interval is uniformly continuous.
+\end{abstract}
+
+\section{Definitions}
+Let $f\colon \R \to \R$ be a function. Continuity at a point is a local property; uniform continuity is a global one.
+
+\begin{definition}\label{def:uc}
+A function $f\colon I\to\R$ is \emph{uniformly continuous} on $I$ if for every $\eps>0$ there is a $\delta>0$ such that $|f(x)-f(y)|<\eps$ whenever $x,y\in I$ and $|x-y|<\delta$.
+\end{definition}
+
+The difference from ordinary continuity is that $\delta$ may depend on $\eps$ but not on the point $x$. For instance, $f(x)=x^2$ is continuous on $\R$, yet not uniformly continuous there, since
+\[
+  f(x+\delta)-f(x) = 2x\delta+\delta^2
+\]
+grows without bound as $x\to\infty$ for any fixed $\delta>0$.
+
+\section{The main result}
+\begin{lemma}\label{lem:cover}
+Every sequence in $[a,b]$ has a subsequence that converges to a point of $[a,b]$.
+\end{lemma}
+
+\begin{theorem}[Heine--Cantor]\label{thm:hc}
+If $f\colon[a,b]\to\R$ is continuous, then $f$ is uniformly continuous.
+\end{theorem}
+
+\begin{proof}
+Suppose not. Then there is an $\eps>0$ and sequences $(x_n)$, $(y_n)$ in $[a,b]$ with $|x_n-y_n|<1/n$ but $|f(x_n)-f(y_n)|\ge\eps$. By Lemma~\ref{lem:cover} we may pass to a subsequence with $x_{n_k}\to c\in[a,b]$. Then also $y_{n_k}\to c$, because
+\begin{equation}\label{eq:close}
+  |y_{n_k}-c| \le |y_{n_k}-x_{n_k}| + |x_{n_k}-c| \to 0 .
+\end{equation}
+By continuity, $f(x_{n_k})-f(y_{n_k})\to f(c)-f(c)=0$, contradicting $|f(x_{n_k})-f(y_{n_k})|\ge\eps$.
+\end{proof}
+
+Equation~\eqref{eq:close} is the only place where the closeness of the two sequences is used. Theorem~\ref{thm:hc} fails on open intervals: the function $x\mapsto 1/x$ on $(0,1)$ is continuous but not uniformly continuous.
+
+\end{document}

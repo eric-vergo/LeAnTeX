@@ -1,0 +1,62 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,graphicx}
+
+\title{Notes on a Small Linear System}
+\author{Ingrid Sorensen}
+\date{January 9, 2022}
+
+\begin{document}
+\maketitle
+
+\section{Setting}
+Consider the system $A\mathbf{x}=\mathbf{b}$ with
+\[
+  A=\begin{pmatrix} 2 & -1 & 0\\ -1 & 2 & -1\\ 0 & -1 & 2\end{pmatrix},\qquad
+  \mathbf{b}=\begin{bmatrix}1\\0\\1\end{bmatrix}.
+\]
+This is the discrete second-difference matrix, which appears whenever one discretises $-u''=f$ on an interval with Dirichlet boundary conditions.
+
+\section{Determinant and inverse}
+Expanding along the first row,
+\begin{equation}
+  \det A=\begin{vmatrix} 2 & -1 & 0\\ -1 & 2 & -1\\ 0 & -1 & 2\end{vmatrix}
+  = 2\cdot3-(-1)(-2)=4 .
+\end{equation}
+Since $\det A\ne0$, the matrix is invertible, and
+\[
+  A^{-1}=\frac14\begin{pmatrix}3&2&1\\2&4&2\\1&2&3\end{pmatrix}.
+\]
+Hence $\mathbf{x}=A^{-1}\mathbf{b}=(1,1,1)^{\mathsf T}$.
+
+\section{Eigenvalues}
+The eigenvalues are $\lambda_k = 2-2\cos\frac{k\pi}{4}$ for $k=1,2,3$, that is
+$2-\sqrt2$, $2$ and $2+\sqrt2$. Their product is $(2-\sqrt2)\cdot2\cdot(2+\sqrt2)=4$, in agreement with the determinant. The condition number is therefore
+\[
+  \kappa(A)=\frac{2+\sqrt2}{2-\sqrt2}\approx 5.83 .
+\]
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|r|l|}
+\hline
+$k$ & $\lambda_k$ & comment\\
+\hline
+1 & $0.586$ & smallest\\
+2 & $2.000$ & middle\\
+3 & $3.414$ & largest\\
+\hline
+\end{tabular}
+\caption{Numerical eigenvalues of $A$.}\label{tab:eig}
+\end{table}
+
+Table~\ref{tab:eig} lists them to three decimals.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.3\textwidth]{images/square.png}
+\caption{A placeholder picture standing in for a plot of the eigenvectors.}\label{fig:vec}
+\end{figure}
+
+Figure~\ref{fig:vec} would normally show the three sine-shaped eigenvectors.
+
+\end{document}

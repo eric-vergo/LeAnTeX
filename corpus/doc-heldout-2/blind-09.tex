@@ -1,0 +1,63 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm,graphicx}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\inner}[2]{\langle #1,#2\rangle}
+
+\title{Orthogonal Projections in Hilbert Space}
+\author{Elena Marchetti}
+\date{February 27, 2024}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Preliminaries}
+Let $H$ be a real Hilbert space with inner product $\inner{\cdot}{\cdot}$ and norm $\norm{x}=\sqrt{\inner{x}{x}}$. The \textsc{Cauchy--Schwarz} inequality $|\inner{x}{y}|\le\norm{x}\norm{y}$ holds for all $x,y\in H$.
+
+\begin{definition}
+A subset $C\subseteq H$ is \emph{convex} if $tx+(1-t)y\in C$ for all $x,y\in C$ and $t\in[0,1]$.
+\end{definition}
+
+\section{The projection theorem}
+\begin{theorem}\label{thm:proj}
+Let $C\subseteq H$ be nonempty, closed and convex, and let $x\in H$. Then there is a unique $p\in C$ with $\norm{x-p}=\min_{y\in C}\norm{x-y}$, and $p$ is characterised by
+\begin{equation}\label{eq:var}
+  \inner{x-p}{y-p}\le0\quad\text{for all } y\in C.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Let $d=\inf_{y\in C}\norm{x-y}$ and choose $y_n\in C$ with $\norm{x-y_n}\to d$. The parallelogram law gives
+\begin{multline*}
+  \norm{y_n-y_m}^2 = 2\norm{x-y_n}^2+2\norm{x-y_m}^2\\
+  - 4\Bigl\lVert x-\frac{y_n+y_m}{2}\Bigr\rVert^2 \le 2\norm{x-y_n}^2+2\norm{x-y_m}^2-4d^2 ,
+\end{multline*}
+which tends to $0$, so $(y_n)$ is Cauchy and converges to some $p\in C$. For \eqref{eq:var}, apply minimality to $p+t(y-p)\in C$ and let $t\downarrow0$.
+\end{proof}
+
+\subsection{The linear case}
+If $C=M$ is a closed subspace, \eqref{eq:var} forces $\inner{x-p}{y}=0$ for all $y\in M$, so $x-p\in M^\perp$ and $H=M\oplus M^\perp$.
+
+\subsubsection{Example}
+In $\mathbb{R}^3$ take $M=\operatorname{span}\{(1,1,0),(0,1,1)\}$. The projection of $x$ onto $M$ is $P x$, where $P=A(A^{\mathsf T}A)^{-1}A^{\mathsf T}$ and the columns of $A$ span $M$.
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=0.25\textwidth]{images/square.png}
+\caption{Sketch of a point and its projection onto a plane.}
+\label{fig:proj}
+\end{figure}
+
+See Figure~\ref{fig:proj} on page~\pageref{fig:proj}.
+
+\begin{thebibliography}{9}
+\bibitem{rudin} W.~Rudin, \emph{Real and Complex Analysis}, McGraw-Hill, 1987.
+\bibitem{brezis} H.~Brezis, \emph{Functional Analysis, Sobolev Spaces and Partial Differential Equations}, Springer, 2011.
+\end{thebibliography}
+
+The proofs follow the presentation in \cite{brezis}; the reader may also consult \cite{rudin}.
+
+\end{document}

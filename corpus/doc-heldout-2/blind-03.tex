@@ -1,0 +1,61 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newcommand{\Z}{\mathbb{Z}}
+
+\title{Congruences and Fermat's Little Theorem}
+\author{Daniel Okafor}
+\date{June 18, 2018}
+
+\begin{document}
+\maketitle
+
+\section{Modular arithmetic}
+Two integers $a$ and $b$ are \emph{congruent modulo} $n$, written $a\equiv b\pmod n$, if $n$ divides $a-b$. Congruence is compatible with addition and multiplication, so we may compute in the ring $\Z/n\Z$.
+
+Some elementary facts follow.
+\begin{enumerate}
+  \item If $a\equiv b \pmod n$ and $c\equiv d\pmod n$, then $a+c\equiv b+d\pmod n$.
+  \item If $\gcd(a,n)=1$, there is an $a'$ with $aa'\equiv1\pmod n$.
+  \item For a prime $p$, the ring $\Z/p\Z$ is a field:
+    \begin{itemize}
+      \item every nonzero element has an inverse;
+      \item the multiplicative group has order $p-1$.
+    \end{itemize}
+\end{enumerate}
+
+\section{Fermat's little theorem}
+\begin{theorem}[Fermat]\label{thm:fermat}
+Let $p$ be a prime and $a$ an integer not divisible by $p$. Then
+\begin{equation}
+  a^{p-1}\equiv 1 \pmod p. \tag{F}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The numbers $a, 2a, \dots, (p-1)a$ are pairwise incongruent modulo $p$, hence a permutation of $1,2,\dots,p-1$. Multiplying them,
+\[
+  a^{p-1}\,(p-1)! \equiv (p-1)! \pmod p,
+\]
+and cancelling the unit $(p-1)!$ gives the claim.
+\end{proof}
+
+\begin{corollary}
+For every integer $a$ and prime $p$, $a^p\equiv a\pmod p$.
+\end{corollary}
+
+\begin{remark}
+The converse is false: the composite number $561=3\cdot11\cdot17$ satisfies $a^{560}\equiv1\pmod{561}$ for all $a$ coprime to it.
+\end{remark}
+
+\section{An example}
+To find $7^{222}\bmod 11$ we note that $7^{10}\equiv1\pmod{11}$ by Theorem~\ref{thm:fermat}, and $222=22\cdot10+2$, so
+\begin{align*}
+  7^{222} &\equiv 7^2 \\
+          &= 49 \equiv 5 \pmod{11}.
+\end{align*}
+
+\end{document}

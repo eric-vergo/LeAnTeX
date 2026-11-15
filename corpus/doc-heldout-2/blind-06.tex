@@ -1,0 +1,57 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+
+\title{Lab Report: Damped Oscillations of a Pendulum}
+\author{Chloe Baptiste \and Jonas Kral \and Aiko Tanaka}
+\date{November 22, 2017}
+
+\begin{document}
+\maketitle
+
+\section{Purpose}
+The aim of this experiment was to measure the damping constant of a simple pendulum and to compare it with the prediction of a linear model.
+
+\section{Method}
+We used the following equipment:
+\begin{description}
+  \item[Pendulum] a brass bob of mass $0.25$~kg on a thin string.
+  \item[Timer] a photogate, accurate to one millisecond.
+  \item[Protractor] used to set the initial angle of $5^\circ$.
+\end{description}
+The procedure was as follows.
+\begin{enumerate}
+  \item Release the bob from the initial angle.
+  \item Record the amplitude after each full swing.
+  \item Repeat the measurement ten times and average.
+\end{enumerate}
+
+\section{Theory}
+For small angles the angle $\theta(t)$ obeys
+\begin{equation}
+  \ddot\theta + 2\beta\dot\theta + \omega_0^2\theta = 0,
+\end{equation}
+whose underdamped solution is $\theta(t)=\theta_0 e^{-\beta t}\cos(\omega t+\varphi)$ with $\omega=\sqrt{\omega_0^2-\beta^2}$. The period is $T=2\pi/\omega$, and the amplitude after $n$ swings is $\theta_n=\theta_0e^{-\beta nT}$.
+
+\section{Results}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lrr}
+\hline
+Swing $n$ & Amplitude (deg) & $\ln(\theta_n/\theta_0)$\\
+\hline
+0 & 5.00 & 0.000\\
+5 & 4.12 & $-0.194$\\
+10 & 3.39 & $-0.389$\\
+20 & 2.31 & $-0.772$\\
+\hline
+\end{tabular}
+\caption{Measured amplitudes.}
+\label{tab:amp}
+\end{table}
+
+A straight-line fit of the last column against $n$ in Table~\ref{tab:amp} gives a slope of $-0.0386$ per swing. With $T=1.84$~s this yields $\beta=0.021\ \mathrm{s}^{-1}$, with an uncertainty of about $5\%$.
+
+\section{Discussion}
+The agreement with the linear model is good; the small curvature seen at large $n$ may come from air resistance that grows with speed.\footnote{A quadratic drag term would bend the semilog plot.} The main source of error was reading the protractor.
+
+\end{document}

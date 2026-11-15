@@ -119,7 +119,13 @@ Three sets, which must be read together:
 | reference documents: the 72 written to cover the features, the math ones included (tuned on) | 72 / 72 | 1667 / 1667 | 1667 | 17 / 17 |
 | regression documents: 15, one or more per difference fixed | 15 / 15 | 143 / 143 | 143 | 3 / 3 |
 | fresh documents: 10 written without reading this library | 7 / 10 | 367 / 398 | 367 | 10 / 10 |
-| **held-out documents: 20 written without reading this library, not tuned to** | **8 / 20** | **397 / 469** | **405** | **3 / 3** |
+| **held-out documents: 20 written without reading this library, not tuned to** | **9 / 20** | **398 / 469** | **405** | **3 / 3** |
+| **second held-out set: 10 written blind after the first set was run** | **5 / 10** | **374 / 400** | **375** | **10 / 10** |
+
+The first held-out set was run once with the TeX-rule layout (8 / 20, 397 lines); a defect it
+showed (a doubled thin space after `\cdots` before punctuation) was then fixed, and the second
+set (`corpus/doc-heldout-2/`, `tools/doc-reference.sh --held-out-2`) was written blind and run
+once after that.
 
 The figures are with the Computer Modern metric files installed (the TeX-rule math layout,
 `docs/math-boxes.md`); without them formulas are set by the KaTeX-compatible layout and the

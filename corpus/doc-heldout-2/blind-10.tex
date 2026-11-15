@@ -1,0 +1,56 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage{amsmath,amssymb}
+
+\title{Why Is the Sky Blue? A Student's Summary}
+\author{Samuel Whitfield}
+\date{December 1, 2022}
+
+\newcommand{\lam}{\lambda}
+
+\begin{document}
+\maketitle
+
+\section{The question}
+Every child asks why the sky is blue. The short answer is that air scatters short wavelengths more strongly than long ones. This note makes that statement quantitative, and it is meant for students who have met electromagnetism but not yet scattering theory.
+
+\section{Rayleigh scattering}
+When light of wavelength $\lam$ meets a particle much smaller than $\lam$, the scattered intensity is proportional to
+\begin{equation}
+  I\propto \frac{1}{\lam^{4}}\bigl(1+\cos^2\vartheta\bigr),
+\end{equation}
+where $\vartheta$ is the angle between the incoming and the scattered direction. Blue light with $\lam\approx 450$~nm is therefore scattered about
+\[
+  \Bigl(\frac{650}{450}\Bigr)^{4}\approx 4.4
+\]
+times more strongly than red light with $\lam\approx650$~nm.
+
+\subsection{Why not violet?}
+Violet has an even shorter wavelength, yet the sky looks blue because the Sun emits less violet light, the upper atmosphere absorbs some of it, and our eyes are less sensitive to it. A formula such as $S(\lam)\,\lam^{-4}\,V(\lam)$, the product of the solar spectrum, the scattering law and the eye response, peaks in the blue.
+
+\subsection{Sunsets}
+At sunset the light travels through a longer path of air. The surviving intensity falls off as $\exp(-\tau(\lam))$ with optical depth $\tau\propto\lam^{-4}$, so the blue is removed first:
+\begin{align*}
+  \tau_{\mathrm{blue}} &= 4.4\,\tau_{\mathrm{red}},\\
+  \frac{I_{\mathrm{blue}}}{I_{\mathrm{red}}} &= \exp\bigl(-3.4\,\tau_{\mathrm{red}}\bigr).
+\end{align*}
+
+\section{A few remarks}
+\begin{itemize}
+  \item Clouds look white because their droplets are comparable to the wavelength, so all colours scatter alike.
+  \item The polarisation of the sky light is strongest at $\vartheta=90^\circ$.
+  \item On Mars, the fine dust gives a butterscotch sky by day and a blue sunset.
+\end{itemize}
+
+\begin{verbatim}
+ratio = (650/450)**4   # about 4.35
+\end{verbatim}
+
+In a spreadsheet one can type \verb|=(650/450)^4| to reproduce the number above. As the textbook puts it:
+\begin{quotation}
+Nature uses only the longest threads to weave her patterns, so that each small piece of her fabric reveals the organisation of the entire tapestry.
+\end{quotation}
+
+\vspace{1ex}
+\noindent\textbf{Conclusion.} The blue sky is a consequence of the fourth-power law, tempered by the spectrum of the Sun and by human vision --- a good example of how a simple law and a few corrections explain an everyday fact.
+
+\end{document}

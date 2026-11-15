@@ -1,0 +1,45 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath,amssymb}
+
+\title{Gaussian Integrals and Their Uses}
+\author{Tomas Weiss}
+\date{September 30, 2020}
+
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\E}{\mathbb{E}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We compute the Gaussian integral by the polar-coordinate trick and apply it to the normalisation of the normal distribution and to Stirling's approximation.
+\end{abstract}
+
+\section{The basic integral}
+Let $I=\int_{-\infty}^{\infty}e^{-x^2}\dd x$. Squaring and passing to polar coordinates,
+\begin{align}
+  I^2 &= \int_{-\infty}^{\infty}\!\int_{-\infty}^{\infty} e^{-(x^2+y^2)}\dd x\dd y \notag\\
+      &= \int_0^{2\pi}\!\!\int_0^\infty e^{-r^2}\,r\dd r\dd\theta = \pi,
+\end{align}
+so that $I=\sqrt{\pi}$. By scaling, for $\sigma>0$ and $\mu\in\mathbb{R}$,
+\begin{equation}\label{eq:norm}
+  \int_{-\infty}^{\infty}\frac{1}{\sigma\sqrt{2\pi}}\exp\Bigl(-\frac{(x-\mu)^2}{2\sigma^2}\Bigr)\dd x=1 .
+\end{equation}
+
+\section{Moments}
+If $X$ has the density in \eqref{eq:norm}, then $\E[X]=\mu$ and $\E[(X-\mu)^2]=\sigma^2$. Higher even central moments are
+\[
+  \E[(X-\mu)^{2n}] = \sigma^{2n}(2n-1)!! = \sigma^{2n}\,\frac{(2n)!}{2^n\,n!}.
+\]
+
+\section{Stirling's formula}
+The Gamma function satisfies $n!=\Gamma(n+1)=\int_0^\infty t^n e^{-t}\dd t$. Writing $t=n+s\sqrt n$ and expanding the logarithm of the integrand around its maximum, one finds
+\[
+  n! \sim \sqrt{2\pi n}\,\Bigl(\frac{n}{e}\Bigr)^{n}\qquad (n\to\infty).
+\]
+A quick check at $n=10$: the exact value is $3\,628\,800$, whereas the formula gives about $3\,598\,696$, an error of less than one percent.
+
+\section*{Remarks}
+The same method, known as Laplace's method, handles integrals of the form $\int e^{-nf(x)}\dd x$ whenever $f$ has a unique non-degenerate minimum, and the leading term is $e^{-nf(x_0)}\sqrt{2\pi/(nf''(x_0))}$.
+
+\end{document}
