@@ -148,6 +148,9 @@ structure Settings where
   today : String := "January 1, 2000"
   /-- The settings for formulas; the text's macros are added to them. -/
   math : LeAnTeX.Settings := {}
+  /-- Whether `\leantexprobe{label}` records the list parameters in force (for the comparison
+  with LuaLaTeX's, `tools/list-params.sh`); when off the command is undefined. -/
+  probes : Bool := false
 
 /-- A macro: its number of parameters, the default of its first (for an optional first
 argument), and its body. -/
@@ -218,6 +221,9 @@ structure Vars where
   /-- The width of a line in the lists open (LaTeX's `\linewidth`), when it is not
   `\hsize`. -/
   lineWidth : Option Int := none
+  /-- The size's own list skips at level 1 (`\topsep`, `\itemsep`, `\parsep` of the
+  `\@listi` that `\small` and `\footnotesize` define); `none` for the class's. -/
+  listOne : Option (Glue × Glue × Glue) := none
   /-- Whether `\\` ends the paragraph (LaTeX's `\centering`, `\raggedright`,
   `\raggedleft`). -/
   crPar : Bool := false
@@ -913,9 +919,13 @@ def endParagraph (display : Bool := false) : M Unit := do
                            clubMax := false }
 where
   /-- The line that holds material made before node `i`: the first whose break is at or
-  after it, else the last. -/
+  after it, else the last; material made among the glue and penalties that a break removes
+  from the start of a line goes with the line before (as LuaTeX moves a `\vadjust` there). -/
   lineOf (ranges : Array (Nat × Nat)) (n i : Nat) : Nat :=
-    (ranges.findIdx? (fun r => i ≤ r.2)).getD (n - 1)
+    match ranges.findIdx? (fun r => i ≤ r.2) with
+    | some k =>
+      if k > 0 && i < (ranges[k]?.map (·.1)).getD 0 then k - 1 else k
+    | none => n - 1
 
 /-- Adds vertical space: between paragraphs at once, inside one after the line it is in (as
 LaTeX's `\vspace` adds `\vskip` glue followed by zero glue, through `\vadjust` in a

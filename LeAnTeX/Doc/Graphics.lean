@@ -110,6 +110,36 @@ def svgSize (b : ByteArray) : Option (Int × Int) := do
     let h ← (ns[3]?).bind svgLength
     return (w, h)
 
+/-- The natural size of `n` pixels of a PNG without a resolution, as LuaLaTeX's graphics driver
+gives it: LuaTeX's size (a pixel a big point, rounded to the sp), turned into big points as a
+decimal (`\Gin@defaultbp`: times 0.99626, rounded down) and read back in `bp` as TeX reads a
+dimension. -/
+def pngNatural (n : Nat) : Int :=
+  let native := (2 * n * 7227 * 65536 + 7200) / 14400
+  let x := native * 65291 / 65536
+  scaleUnit (x / 65536) (x % 65536) 7227 7200
+
+/-- The graphics package's `\Gscale@div`: the ratio `num / den` of two positive lengths as a
+length in sp (a factor of `ratio * 65536`), computed as the package computes it: the numerator
+doubled (and a count halved from 65536) until it reaches 8192 pt, then divided by the
+denominator divided by that count, both divisions truncated. 0 for a denominator that comes
+out 0. -/
+def gscaleDiv (num den : Int) : Int := Id.run do
+  if num ≤ 0 || den ≤ 0 then return 0
+  let mut d := num
+  let mut c : Int := 65536
+  for _ in [0:17] do
+    if c < 2 || d ≥ 8192 * 65536 then break
+    d := 2 * d
+    c := c / 2
+  let dii := den / c
+  if dii == 0 then return 0
+  return d / dii
+
+/-- A length `v` scaled by a factor given as a length in sp (`f / 65536`), as TeX scans
+`<factor>\dimen`: the whole part times `v` plus `v` times the fraction, rounded down. -/
+def scaleBy (f v : Int) : Int := (f / 65536) * v + v * (f % 65536) / 65536
+
 /-- `\includegraphics[keys]{path}` (see the module docstring). -/
 def includeGraphics (at_ : Tok) : M Unit := do
   if !(← docSt).packages.any (fun p => p == "graphicx" || p == "graphics") then
@@ -129,7 +159,7 @@ def includeGraphics (at_ : Tok) : M Unit := do
           {cfg.maxImagesTotal} bytes"
       let (kind, nat) ← match pngSize bytes with
         | some (w, h) =>
-          let bp := fun (n : Nat) => ((n * 7227 * 65536 / 7200 : Nat) : Int)
+          let bp := fun (n : Nat) => pngNatural n
           pure ("image/png", bp w, bp h)
         | none => match svgSize bytes with
           | some (w, h) => pure ("image/svg+xml", w, h)
@@ -167,8 +197,9 @@ def includeGraphics (at_ : Tok) : M Unit := do
     | _ => if kv != "keepaspectratio" then failAt at_ s!"Bad graphics option '{kv}'"
   let (fw, fh) := match w, h, scale with
     | some w, some h, _ => (w, h)
-    | some w, none, _ => (w, if nw == 0 then 0 else nh * w / nw)
-    | none, some h, _ => (if nh == 0 then 0 else nw * h / nh, h)
+    -- graphicx scales the other side by the factor `\Gscale@div` gives, as a decimal
+    | some w, none, _ => (w, scaleBy (gscaleDiv w nw) nh)
+    | none, some h, _ => (scaleBy (gscaleDiv h nh) nw, h)
     | none, none, some (n, d) => (nw * n / d, nh * n / d)
     | none, none, none => (nw, nh)
   if fw > 1073741823 || fh > 1073741823 then failAt at_ "Image too large"

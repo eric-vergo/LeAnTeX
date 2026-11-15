@@ -257,6 +257,20 @@ def setSize (name : String) : M Bool := do
   flushRun
   modifyVars fun v => { v with key := { v.key with size := sz.size },
                                 baselineSkip := { width := sz.baseline } }
+  -- `\normalsize`, `\small` and `\footnotesize` also set the display skips and define
+  -- `\@listi`
+  let cp ← classP
+  if name == "normalsize" then
+    modifyVars fun v =>
+      { v with
+        listOne := none, aboveDisplaySkip := cp.displaySkip, belowDisplaySkip := cp.displaySkip
+        aboveDisplayShortSkip := { stretch := 3 * 65536 }
+        belowDisplayShortSkip := cp.belowShortSkip }
+  else if let some (_, one, (disp, short, bshort)) := cp.sizeSkips.find? (·.1 == name) then
+    modifyVars fun v =>
+      { v with
+        listOne := some one, aboveDisplaySkip := disp, belowDisplaySkip := disp
+        aboveDisplayShortSkip := short, belowDisplayShortSkip := bshort }
   return true
 
 /-- The counters, lengths and parameters LaTeX's article class starts a document with. -/

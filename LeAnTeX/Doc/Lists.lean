@@ -45,44 +45,67 @@ open LeAnTeX.Doc
 def flushGlue : Glue := { stretch := 65536, stretchOrder := 1 }
 
 /-- Starts a list (`\list` and `\@trivlist`): the level's parameters, then `setup` (the
-environment's own settings), then the vertical skips' bookkeeping and the new margins. -/
-def beginList (at_ : Tok) (setup : ListLevel → ListLevel) (trivial : Bool := false) : M Unit := do
+environment's own settings), then the vertical skips' bookkeeping and the new margins.
+
+The level is the number of enclosing lists that are not trivial (LaTeX's `\@listdepth`, which
+`\trivlist` leaves alone). Level 1 takes the size's own `\@listi` (`\small` and
+`\footnotesize` have theirs, `Vars.listOne`) and keeps the `\labelwidth` in force (`\@listi`
+does not set it: 0 inside a trivial list); levels 2 to 4 set it from their left margin. A
+trivial list keeps the enclosing list's skips (outside every list the class's level 1), `\rightmargin`, `\listparindent` and
+`\parindent`, its own `\parsep` the `\parskip` outside. With `ams` (amsthm's theorems) the skip
+above is `\topsep` alone and the skip below too (`\@topsep\thm@preskip`,
+`\@topsepadd\thm@postskip`), without `\partopsep` and the outer `\parskip`. -/
+def beginList (at_ : Tok) (setup : ListLevel → ListLevel) (trivial : Bool := false)
+    (ams : Bool := false) : M Unit := do
   let d ← docSt
-  let depth := d.lists.size + 1
+  let enclosing := d.lists.back?
+  let depth := (d.lists.filter (!·.trivial)).size + 1
   if depth > 6 && !trivial then failAt at_ "Too deeply nested"
   let cp ← classP
-  let lvl := if trivial && d.lists.isEmpty then (cp.lists[0]?.getD {})
-    else if trivial then (d.lists.back?.getD {})
-    else cp.lists[(min depth 4) - 1]?.getD {}
-  let left := if trivial then lvl.leftMargin else if depth ≤ 4 then lvl.leftMargin
-    else cp.leftMarginDeep
+  let v0 ← vars
+  let one := match v0.listOne with
+    | some (t, i, p) => { (cp.lists[0]?.getD default) with topSep := t, itemSep := i, parSep := p }
+    | none => cp.lists[0]?.getD default
+  let defaultLabel := (cp.lists[0]?.map (·.leftMargin)).getD 0 - cp.labelSep
+  -- a trivial list outside every list has the `\topsep` the class's `\@listi` set at the
+  -- start (a size command defines its own `\@listi` without carrying it out)
+  let lvl := if trivial then enclosing.getD (cp.lists[0]?.getD default)
+    else if depth == 1 then one
+    else cp.lists[(min depth 4) - 1]?.getD default
+  let left := if trivial then 0 else if depth ≤ 4 then lvl.leftMargin else cp.leftMarginDeep
+  let labelWidth := if trivial then 0
+    else if depth == 1 then (enclosing.map (·.labelWidth)).getD defaultLabel
+    else left - cp.labelSep
+  let inherited := fun (f : ListLevel → Int) => (enclosing.map f).getD 0
   let base : ListLevel :=
-    { lvl with leftMargin := left, labelWidth := left - cp.labelSep, labelSep := cp.labelSep,
-               rightMargin := 0, itemIndent := 0, listParIndent := 0, label := #[],
-               counter := none, labelStyle := 0, trivial, naturalLabel := false }
-  let outerSkip := (← vars).parSkip
-  let base := if trivial then
-      { base with leftMargin := 0, labelWidth := 0, itemIndent := 0, parSep := outerSkip }
-    else base
+    { lvl with leftMargin := left, labelWidth, labelSep := cp.labelSep,
+               rightMargin := if trivial then inherited (·.rightMargin) else 0, itemIndent := 0,
+               listParIndent := if trivial then inherited (·.listParIndent) else 0, label := #[],
+               counter := none, labelStyle := 0, trivial, naturalLabel := false, env := "" }
+  let base := if trivial then { base with parSep := v0.parSkip } else base
   let l := setup base
   let wasV := !(← get).hmode
   if !wasV then endParagraph
   let v ← vars
-  let topSepAdd := if wasV then
+  let topSepAdd := if wasV && !ams then
       { l.topSep with width := l.topSep.width + l.parTopSep.width,
                       stretch := l.topSep.stretch + l.parTopSep.stretch,
                       shrink := l.topSep.shrink + l.parTopSep.shrink } else l.topSep
-  let topSepItem := { topSepAdd with width := topSepAdd.width + v.parSkip.width,
-                                     stretch := topSepAdd.stretch + v.parSkip.stretch,
-                                     shrink := topSepAdd.shrink + v.parSkip.shrink }
+  let topSepItem := if ams then l.topSep
+    else { topSepAdd with width := topSepAdd.width + v.parSkip.width,
+                          stretch := topSepAdd.stretch + v.parSkip.stretch,
+                          shrink := topSepAdd.shrink + v.parSkip.shrink }
   let noParList := d.inLabel
   let l := { l with topSepAdd, topSepItem, outerParSkip := v.parSkip, newList := true,
                     noParList }
   modifyDoc fun d => { d with lists := d.lists.push l }
-  let width := (v.lineWidth.getD v.p.hsize) - l.rightMargin - l.leftMargin
+  -- `\@trivlist` leaves `\linewidth` and `\parindent` as they are
+  let width := (v.lineWidth.getD v.p.hsize) -
+    (if trivial then 0 else l.rightMargin + l.leftMargin)
   modifyVars fun v =>
     { v with
-      parSkip := l.parSep, parIndent := l.listParIndent, lineWidth := some width,
+      parSkip := l.parSep, parIndent := if trivial then v.parIndent else l.listParIndent,
+      lineWidth := some width,
       totalLeftMargin := v.totalLeftMargin + l.leftMargin,
       p := { v.p with leftSkip := {}, rightSkip := {} }, parFillSkip := flushGlue,
       crPar := false }
@@ -227,6 +250,15 @@ def beginListEnv (at_ : Tok) (name : String) : M Bool := do
     beginList at_ fun l => { l with listParIndent := pi, itemIndent := pi,
                                     rightMargin := l.leftMargin, parSep := { stretch := 65536 } }
     inject at_ #[csT "item" at_, csT "relax" at_, csT "leantex@ignorespaces" at_]
+  | "verse" =>
+    -- `\list{}{\itemsep\z@ \itemindent -1.5em \listparindent\itemindent
+    -- \rightmargin\leftmargin \advance\leftmargin 1.5em}`, `\\` ending the line
+    let (em, _) ← fontUnits
+    let pi := em + em / 2
+    beginList at_ fun l => { l with itemSep := {}, itemIndent := -pi, listParIndent := -pi,
+                                    rightMargin := l.leftMargin, leftMargin := l.leftMargin + pi }
+    modifyVars fun v => { v with crPar := true }
+    inject at_ #[csT "item" at_, csT "relax" at_, csT "leantex@ignorespaces" at_]
   | "thebibliography" =>
     -- `\section*{\refname}`, then the list
     let w ← readArg at_
@@ -323,7 +355,7 @@ def cite (at_ : Tok) : M Unit := do
 
 /-- Whether an environment is a list ended by `endList`. -/
 def isListEnv (name : String) : Bool :=
-  ["itemize", "enumerate", "description", "quote", "quotation", "trivlist", "center",
+  ["itemize", "enumerate", "description", "quote", "quotation", "verse", "trivlist", "center",
     "flushleft", "flushright", "thebibliography"].contains name
 
 end LeAnTeX.Text.Typeset

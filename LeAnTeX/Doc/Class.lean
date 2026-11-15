@@ -96,6 +96,10 @@ structure ClassParams where
   labelSep : Int
   /-- `\marginparwidth`. -/
   marginparWidth : Int
+  /-- What `\small` and `\footnotesize` set besides the font: their `\@listi` (`\topsep`,
+  `\itemsep`, `\parsep`) and their display skips (`\abovedisplayskip` and
+  `\belowdisplayskip`, `\abovedisplayshortskip`, `\belowdisplayshortskip`). -/
+  sizeSkips : Array (String × (Glue × Glue × Glue) × (Glue × Glue × Glue)) := #[]
   deriving Inhabited
 
 /-- The ten-point sizes. -/
@@ -121,6 +125,16 @@ def sizes12 : Array SizeSpec :=
     ⟨"normalsize", ptm 12000, ptm 14500⟩, ⟨"large", ptm 14400, ptm 18000⟩,
     ⟨"Large", ptm 17280, ptm 22000⟩, ⟨"LARGE", ptm 20740, ptm 25000⟩,
     ⟨"huge", ptm 24880, ptm 30000⟩, ⟨"Huge", ptm 24880, ptm 30000⟩]
+
+/-- Glue of a width, stretch and shrink in sp. -/
+def gsp (w st sh : Int) : Glue := { width := w, stretch := st, shrink := sh }
+
+/-- The entry of `ClassParams.sizeSkips` for a size command: `\topsep`, `\itemsep` (also
+`\parsep`) and the three display skips, in sp (width, stretch, shrink each). -/
+def sizeSkip (name : String) (top item disp short bshort : Int × Int × Int) :
+    String × (Glue × Glue × Glue) × (Glue × Glue × Glue) :=
+  let g := fun (x : Int × Int × Int) => gsp x.1 x.2.1 x.2.2
+  (name, (g top, g item, g item), (g disp, g short, g bshort))
 
 /-- A list level from its skips (thousandths of a point: width, stretch, shrink) and its left
 margin (sp). -/
@@ -148,9 +162,14 @@ def classParams (o : ClassOptions) : ClassParams :=
           (4500, 2000, 1000) 1794047,
         listLevel (4500, 2000, 1000) (3000, 1000, 1000) (2000, 1000, 1000) (2000, 1000, 1000)
           1578759,
-        listLevel (2000, 1000, 1000) (0, 0, 1000) (2000, 1000, 1000) (0, 0, 0) 1341944,
-        listLevel (2000, 1000, 1000) (0, 0, 1000) (2000, 1000, 1000) (0, 0, 0) 1219950],
-      leftMarginDeep := 717619, labelSep := 358809, marginparWidth := ptm 59000 }
+        listLevel (2000, 1000, 1000) (1000, 0, 1000) (2000, 1000, 1000) (0, 0, 0) 1341944,
+        listLevel (2000, 1000, 1000) (1000, 0, 1000) (2000, 1000, 1000) (0, 0, 0) 1219950],
+      leftMarginDeep := 717619, labelSep := 358809, marginparWidth := ptm 59000,
+      sizeSkips := #[
+        sizeSkip "small" (393216, 131072, 131072) (196608, 131072, 65536)
+          (655360, 131072, 327680) (0, 196608, 0) (393216, 196608, 196608),
+        sizeSkip "footnotesize" (262144, 131072, 131072) (131072, 65536, 65536)
+          (524288, 131072, 262144) (0, 65536, 0) (262144, 131072, 131072)] }
   | 12 =>
     { paperWidth := pw, paperHeight := ph, textWidth := 25559040,
       textHeight := if o.a4 then 38797312 else 35946496,
@@ -166,9 +185,14 @@ def classParams (o : ClassOptions) : ClassParams :=
           (5000, 2500, 1000) 1966080,
         listLevel (5000, 2500, 1000) (3000, 2000, 2000) (2500, 1000, 1000) (2500, 1000, 1000)
           1730148,
-        listLevel (2500, 1000, 1000) (0, 0, 1000) (2500, 1000, 1000) (0, 0, 0) 1470624,
-        listLevel (2500, 1000, 1000) (0, 0, 1000) (2500, 1000, 1000) (0, 0, 0) 1336932],
-      leftMarginDeep := 786432, labelSep := 393216, marginparWidth := ptm 44000 }
+        listLevel (2500, 1000, 1000) (1000, 0, 1000) (2500, 1000, 1000) (0, 0, 0) 1470624,
+        listLevel (2500, 1000, 1000) (1000, 0, 1000) (2500, 1000, 1000) (0, 0, 0) 1336932],
+      leftMarginDeep := 786432, labelSep := 393216, marginparWidth := ptm 44000,
+      sizeSkips := #[
+        sizeSkip "small" (589824, 196608, 327680) (294912, 131072, 65536)
+          (720896, 196608, 393216) (0, 196608, 0) (425984, 229376, 196608),
+        sizeSkip "footnotesize" (393216, 131072, 131072) (196608, 131072, 65536)
+          (655360, 131072, 327680) (0, 196608, 0) (393216, 196608, 196608)] }
   | _ =>
     { paperWidth := pw, paperHeight := ph, textWidth := 22609920,
       textHeight := if o.a4 then 39190528 else 36044800,
@@ -184,9 +208,14 @@ def classParams (o : ClassOptions) : ClassParams :=
           (4000, 2000, 1000) 1638400,
         listLevel (4000, 2000, 1000) (2000, 1000, 1000) (2000, 1000, 1000) (2000, 1000, 1000)
           1441790,
-        listLevel (2000, 1000, 1000) (0, 0, 1000) (2000, 1000, 1000) (0, 0, 0) 1225520,
-        listLevel (2000, 1000, 1000) (0, 0, 1000) (2000, 1000, 1000) (0, 0, 0) 1114110],
-      leftMarginDeep := 655360, labelSep := 327680, marginparWidth := ptm 65000 }
+        listLevel (2000, 1000, 1000) (1000, 0, 1000) (2000, 1000, 1000) (0, 0, 0) 1225520,
+        listLevel (2000, 1000, 1000) (1000, 0, 1000) (2000, 1000, 1000) (0, 0, 0) 1114110],
+      leftMarginDeep := 655360, labelSep := 327680, marginparWidth := ptm 65000,
+      sizeSkips := #[
+        sizeSkip "small" (262144, 131072, 131072) (131072, 65536, 65536)
+          (557056, 196608, 262144) (0, 131072, 0) (262144, 131072, 131072),
+        sizeSkip "footnotesize" (196608, 65536, 65536) (131072, 65536, 65536)
+          (393216, 131072, 262144) (0, 65536, 0) (196608, 65536, 131072)] }
 
 /-- A heading command's parameters (LaTeX's `\@startsection`): its level, its indentation,
 the skip before it (negative: the first paragraph after it is not indented), the skip after

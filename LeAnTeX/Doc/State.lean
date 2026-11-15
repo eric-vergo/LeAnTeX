@@ -338,6 +338,8 @@ structure DocState where
   steps : Array (String × String) := #[]
   /-- Warnings of the document layer (undefined references, unknown packages). -/
   warnings : Array String := #[]
+  /-- The records of `\leantexprobe` (`Settings.probes`). -/
+  probes : Array String := #[]
   deriving Inhabited
 
 end LeAnTeX.Doc

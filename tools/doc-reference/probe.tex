@@ -1,0 +1,22 @@
+% Released under Apache 2.0 license as described in the file LICENSE.
+% Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
+%
+% Loaded after the article class by tools/list-params.sh: defines \leantexprobe{label}, which
+% writes a PROBE line to the log with the list parameters in force (glue as width, stretch and
+% shrink in sp; dimensions in sp), the same line LeAnTeX's front end records for
+% \leantexprobe when its probes are on (LeAnTeX.Text.Settings.probes).
+\makeatletter
+\def\leantex@g#1{\number#1,\number\gluestretch#1,\number\glueshrink#1}
+\def\leantexprobe#1{\typeout{PROBE #1 topsep=\leantex@g\topsep\space
+  partopsep=\leantex@g\partopsep\space itemsep=\leantex@g\itemsep\space
+  parsep=\leantex@g\parsep\space parskip=\leantex@g\parskip\space
+  leftmargin=\number\leftmargin\space rightmargin=\number\rightmargin\space
+  labelwidth=\number\labelwidth\space labelsep=\number\labelsep\space
+  itemindent=\number\itemindent\space listparindent=\number\listparindent\space
+  totalleftmargin=\number\@totalleftmargin\space linewidth=\number\linewidth\space
+  parindent=\number\parindent\space
+  abovedisplayskip=\leantex@g\abovedisplayskip\space
+  belowdisplayskip=\leantex@g\belowdisplayskip\space
+  abovedisplayshortskip=\leantex@g\abovedisplayshortskip\space
+  belowdisplayshortskip=\leantex@g\belowdisplayshortskip}\ignorespaces}
+\makeatother

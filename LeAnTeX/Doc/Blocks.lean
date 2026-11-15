@@ -107,8 +107,7 @@ def beginTheorem (at_ : Tok) (th : TheoremDef) : M Unit := do
     | none => #[]
   let head := #[lb, csT "bfseries" at_] ++ th.name ++ numT ++ noteT ++
     (if ams then textToks at_ "." else #[]) ++ #[rb]
-  -- amsthm's theorems take no `\partopsep` (as LuaLaTeX shows)
-  beginList at_ (fun l => if ams then { l with parTopSep := {} } else l) (trivial := true)
+  beginList at_ id (trivial := true) (ams := ams)
   let body := if th.style == "plain" || !ams then #[csT "itshape" at_] else #[]
   let sep := if ams then #[csT "hskip" at_] ++ textToks at_ "5pt plus 1pt minus 1pt" else #[]
   inject at_ (#[csT "item" at_, Tok.char '[' 12 p, csT "hskip" at_, csT "labelsep" at_] ++

@@ -132,6 +132,8 @@ structure DocResult where
   passes : Nat
   /-- Warnings. -/
   warnings : Array String
+  /-- The records of `\leantexprobe` (`LeAnTeX.Text.Settings.probes`), in order. -/
+  probes : Array String := #[]
   deriving Inhabited
 
 /-- The pages of a pass: the main vertical list through the page builder and the output
@@ -240,7 +242,7 @@ def typesetDocument (src : String) (resolve : FontResolver) (cfg : LeAnTeX.Text.
     pages, fonts := s.fonts, passes,
     labels := s.doc.labels.map fun (k, t) => (k, t, pageOf k)
     toc := s.doc.toc.map fun e => (e.level, e.number, tokText e.title, pageOf e.anchor)
-    steps := s.doc.steps
+    steps := s.doc.steps, probes := s.doc.probes
     warnings := s.warnings ++ s.doc.warnings ++
       (s.doc.undefinedRefs.map fun k => s!"Reference '{k}' undefined") }
 where

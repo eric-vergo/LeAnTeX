@@ -368,6 +368,10 @@ def main (args : List String) : IO UInt32 := do
   if let ["--show-doc", name] := args then
     let _ ← DocChecks.run false (some name)
     return 0
+  if args == ["--probes"] then
+    let some resolve ← FrontChecks.newComputerModern | return 1
+    for d in ← DocChecks.probeDiffs resolve do IO.println d
+    return 0
   if args == ["--doc-table"] then
     DocChecks.table "doc"
     return 0

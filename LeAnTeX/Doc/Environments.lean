@@ -272,10 +272,14 @@ def footnote (at_ : Tok) (thanks : Bool := false) : M Unit := do
   let cp ← classP
   let some fs ← classSize "footnotesize" | failAt at_ "internal: no footnote size"
   beginGroup at_
+  -- the first paragraph after a heading has `\clubpenalty` 10000 (LaTeX's `\@afterheading`),
+  -- and the footnote's paragraphs made in it keep that value
+  let club ← if (← get).clubMax then pure 10000 else pure (← vars).clubPenalty
   openFrame .footnote
   modifyDoc fun d => { d with currentLabel := mark }
   modifyVars fun v =>
     { v with
+      clubPenalty := club
       key := { family := .roman, bold := false, shape := .upright, size := fs.size },
       baselineSkip := { width := fs.baseline }, interlinePenalty := 100,
       p := { v.p with hsize := cp.textWidth, leftSkip := {}, rightSkip := {} },
@@ -317,6 +321,26 @@ def endEnvGroup (at_ : Tok) : M Unit := do
   closeGroup at_
   if let some e := e then
     if isListEnv e.name then modifyDoc fun d => { d with endPe := true }
+
+/-- `\leantexprobe{label}` (with `Settings.probes`): records the list parameters in force as
+`tools/doc-reference/probe.tex` writes LuaLaTeX's (glue as width, stretch and shrink; sp). -/
+def probe (label : String) : M Unit := do
+  let d ← docSt
+  let v ← vars
+  let cp ← classP
+  let outer := cp.lists[0]?.getD default
+  let l := d.lists.back?.getD { outer with labelWidth := outer.leftMargin - cp.labelSep,
+                                           labelSep := cp.labelSep }
+  let g := fun (x : Glue) => s!"{x.width},{x.stretch},{x.shrink}"
+  let line := s!"PROBE {label} topsep={g l.topSep} partopsep={g l.parTopSep} \
+    itemsep={g l.itemSep} parsep={g l.parSep} parskip={g v.parSkip} \
+    leftmargin={l.leftMargin} rightmargin={l.rightMargin} labelwidth={l.labelWidth} \
+    labelsep={l.labelSep} itemindent={l.itemIndent} listparindent={l.listParIndent} \
+    totalleftmargin={v.totalLeftMargin} linewidth={v.lineWidth.getD v.p.hsize} \
+    parindent={v.parIndent} abovedisplayskip={g v.aboveDisplaySkip} \
+    belowdisplayskip={g v.belowDisplaySkip} abovedisplayshortskip={g v.aboveDisplayShortSkip} \
+    belowdisplayshortskip={g v.belowDisplayShortSkip}"
+  modifyDoc fun d => { d with probes := d.probes.push line }
 
 /-- An alignment tab `&` (only inside a table). -/
 def alignTab (at_ : Tok) : M Unit := nextCell at_
@@ -470,6 +494,10 @@ def docCommand (t : Tok) (name : String) : M Bool := do
       push (.penalty 10000)
       push (.rule 0 0 (strutDepth (← vars).baselineSkip.width))
   | "item" => item t
+  | "leantexprobe" =>
+    let (cfg, _) ← read
+    if !cfg.probes then return false
+    probe (← readWord t)
   | "leantex@endtabular" => endTabular t
   | "hline" => hline t
   | "multicolumn" => multicolumn t

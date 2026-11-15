@@ -400,6 +400,32 @@ def table (set : String) : IO Unit := do
       {o.nearLines}\t{o.sameBreaks}/{o.breaks}\t{(o.diffs[0]?.getD "").take 110}"
   IO.print (totalsRow "all" outs)
 
+/-- The list parameters at every probe of `corpus/doc-probe/lists.tex` against LuaLaTeX's
+(`fixtures/doc/probe/lists-<size>.txt`, `tools/list-params.sh`) for the three class sizes:
+the differences, each as the probe's label, the parameter, ours and LuaLaTeX's. -/
+def probeDiffs (resolve : FontResolver) : IO (Array String) := do
+  let src ← IO.FS.readFile "corpus/doc-probe/lists.tex"
+  let mut out := #[]
+  for size in ["10pt", "11pt", "12pt"] do
+    let path := s!"fixtures/doc/probe/lists-{size}.txt"
+    if !(← System.FilePath.pathExists path) then
+      out := out.push s!"{size}: no fixture"
+      continue
+    let theirs := (((← IO.FS.readFile path).splitOn "\n").filter (·.startsWith "PROBE ")).toArray
+    let src' := src.replace "\\documentclass{article}" s!"\\documentclass[{size}]\{article}"
+    match typesetDocument src' resolve { probes := true } (maxPasses := 1) with
+    | .error e => out := out.push s!"{size}: error {e.message}"
+    | .ok r =>
+      if r.probes.size != theirs.size then
+        out := out.push s!"{size}: {r.probes.size} probes, LuaLaTeX {theirs.size}"
+      for (a, b) in r.probes.zip theirs do
+        let fa := (a.splitOn " ").toArray
+        let fb := (b.splitOn " ").toArray
+        for (x, y) in fa.zip fb do
+          if x != y then
+            out := out.push s!"{size} {fa[1]?.getD ""}: {x}, LuaLaTeX {y}"
+  return out
+
 /-- Runs every document; with `update` rewrites the baseline and the report. Returns the
 failures (a baselined document that no longer agrees). -/
 def run (update : Bool := false) (show? : Option String := none) : IO (Array String) := do
