@@ -3,7 +3,7 @@
 LeAnTeX's document layer typesets whole LaTeX documents of the `article` class into pages, as
 LaTeX does: TeX's vertical lists and page builder, LaTeX's output routine with its floats and
 footnotes, sectioning, counters, cross-references, the table of contents, lists, theorems,
-tables and figures. It is checked against LuaLaTeX on a corpus of 47 documents, line by line, to
+tables and figures. It is checked against LuaLaTeX on a corpus of 61 documents, line by line, to
 the scaled point.
 
 ```lean
@@ -100,15 +100,15 @@ the same text, and the same labels, contents and counter steps.
 
 | Feature | Documents agreeing | Lines at the same place (to the sp) | Within 1 pt |
 |---|---|---|---|
-| structure | 13 / 15 | 418 / 419 | 419 |
-| environments | 8 / 11 | 65 / 87 | 70 |
-| combined | 1 / 2 | 62 / 82 | 73 |
-| lists | 3 / 3 | 23 / 23 | 23 |
+| structure | 15 / 17 | 456 / 457 | 457 |
+| environments | 9 / 13 | 87 / 114 | 92 |
+| combined | 5 / 8 | 158 / 209 | 171 |
+| lists | 3 / 4 | 28 / 35 | 28 |
 | floats | 4 / 5 | 114 / 115 | 115 |
-| footnotes | 2 / 2 | 81 / 81 | 81 |
+| footnotes | 3 / 3 | 205 / 205 | 205 |
 | page breaking | 7 / 7 | 312 / 312 | 312 |
-| tables | 1 / 2 | 13 / 23 | 13 |
-| **all** | **39 / 47** | **1088 / 1142** | **1106** |
+| tables | 1 / 4 | 18 / 67 | 20 |
+| **all** | **47 / 61** | **1378 / 1514** | **1400** |
 
 Every disagreement, with its cause:
 
@@ -123,9 +123,23 @@ Every disagreement, with its cause:
   output), here the last line's depth; the share of `\raggedbottom`'s glue moves by 16 sp.
 * `quote` (20 of 23): in `quotation` a later paragraph breaks its first line one word earlier
   than LuaLaTeX; not yet explained.
-* `tabular-multi`: a `p{}` cell's paragraph breaks differently (TeX hyphenates "col-umn") and
-  the table is 3.3 pt narrower; `\multicolumn` widening or the `p` cell's paragraph parameters
-  differ from LaTeX's `\@arrayparboxrestore`.
+* Tables: `tabular-multi`, `tabular-para`, `tabular-mixed`, `hyphen-hard`. Two differences,
+  neither caused by `\multicolumn` (`tabular-para` has none and shows both): a `p{}` cell's
+  paragraph breaks and hyphenates differently from LuaLaTeX (it hyphenates "col-umn",
+  "hyphen-ates", "International-ization" where this layer does not), with every line of the
+  cell 1 sp to the right; and the table as a whole sits off by a fixed amount (1.67 pt to the
+  right in `tabular-mixed`, 3.3 pt narrower in `tabular-multi`). Both point at the parameters
+  a `p{}` cell's paragraph is set with (LaTeX's `\@arrayparboxrestore`, the column's width
+  and `\tabcolsep` arithmetic); not yet found.
+* `description-long` (5 of 12): a long label that runs into the item's text; the following
+  lines break one word earlier than LuaLaTeX's (the positions agree), so the label's box width
+  or the glue after it differs from LaTeX's `\descriptionlabel` handling; not yet found.
+* `inline-limits` (1 of 9): a line holding an inline `\sum` or `\lim` with limits is 290 sp
+  lower than LuaLaTeX's and later lines move by up to 2.2 pt: the formula's height and depth
+  come from the math layout (KaTeX's metrics), not from TeX's math fonts, as for `equation`.
+* `verbatim-mixed` (6 of 11): after a `verbatim` block every line is one baseline (12 pt) lower
+  than LuaLaTeX's: the space this layer leaves after the block differs from LaTeX's
+  `\@verbatim` list's; not yet found.
 * `article` (32 of 52): page 1 agrees; on page 2 LuaLaTeX puts the table (`[ht]`) one line
   earlier than here, so the lines after it are in a different order.
 * `title-thanks`: lines agree; the recorded counter step differs only in how the symbol is
