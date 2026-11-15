@@ -374,6 +374,9 @@ def main (args : List String) : IO UInt32 := do
   if args == ["--doc-table", "heldout"] then
     DocChecks.table "doc-heldout"
     return 0
+  if let ["--dump-vlist", name] := args then
+    DocChecks.showVList name (full := true)
+    return 0
   if let ["--show-vlist", name] := args then
     DocChecks.showVList name
     return 0

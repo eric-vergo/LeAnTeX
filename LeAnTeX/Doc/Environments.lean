@@ -381,22 +381,33 @@ def docCommand (t : Tok) (name : String) : M Bool := do
     verbText txt
     endGroup t
   | "\uE000" =>
-    let txt := unhex (← readWord t)
+    -- `verbatim` (LaTeX's `\@verbatim`): a trivial list whose item starts the first line,
+    -- `\vskip\parskip` (the list's, the outer `\parskip`) after the item, `\parskip` zero
+    -- inside, every line ended by `\penalty\interlinepenalty`; the lines are set once the
+    -- item's label has started the first one
+    let hex ← readArg t
     beginGroup t
     beginList t id (trivial := true)
     modifyVars fun v => { v with parIndent := 0, parFillSkip := flushGlue, parSkip := {},
                                  p := { v.p with leftSkip := {}, rightSkip := {} } }
+    inject t (#[csT "item" t, csT "relax" t, csT "leantex@verblines" t, .char '{' 1 t.pos] ++
+      hex ++ #[.char '}' 2 t.pos])
+  | "leantex@verblines" =>
+    let txt := unhex (← readWord t)
+    let outer := (((← docSt).lists.back?).map (·.parSep)).getD {}
+    flushRun
+    modify fun s => { s with vlist := match s.vlist.back? with
+      | some (.glue g 3) => s.vlist.pop.push (.glue outer 0) |>.push (.glue g 3)
+      | _ => s.vlist.push (.glue outer 0) }
     let ls := (txt.splitOn "\n").toArray
     for h : k in [0:ls.size] do
-      if k == 0 then
-        item t
-        flushRun
-      else
+      if k > 0 then
         modify fun s => { s with noIndent := true }
         startParagraph
       verbText ls[k]
       if ls[k].isEmpty then push (.box 0 0 0 0 #[])
       endParagraph
+      pushV (.penalty (← vars).interlinePenalty)
     endList t
     endGroup t
     modifyDoc fun d => { d with endPe := true }

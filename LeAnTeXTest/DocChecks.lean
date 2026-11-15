@@ -331,8 +331,9 @@ def itemText (j : Json) : Option String :=
   | none => none
 
 /-- The first node at which the body of each page differs from LuaLaTeX's, with six nodes before
-it and three after for context (`--show-vlist NAME`). -/
-def showVList (name : String) : IO Unit := do
+it and three after for context (`--show-vlist NAME`); with `full` every node of every page,
+side by side (`--dump-vlist NAME`). -/
+def showVList (name : String) (full : Bool := false) : IO Unit := do
   let some resolve ← FrontChecks.newComputerModern | IO.println "fonts missing"; return
   let src ← IO.FS.readFile s!"corpus/{setOf name}/{name}.tex"
   let .ok fx := Json.parse (← IO.FS.readFile s!"fixtures/{setOf name}/{name}.json")
@@ -350,6 +351,12 @@ def showVList (name : String) : IO Unit := do
       let ours := (r.pages[i]!.body.content.filterMap nodeText).filter (!empty ·)
       let items := (((((theirs[i]!.get? "body").bind (·.get? "items")).bind Json.getArr?).getD
         #[]).filterMap itemText).filter (!empty ·)
+      if full then
+        IO.println s!"page {i + 1}"
+        for k in [0:max ours.size items.size] do
+          IO.println s!"  {if ours[k]? == items[k]? then " " else "*"} ours {ours[k]?.getD ""}  \
+            |  LuaLaTeX {items[k]?.getD ""}"
+        continue
       match (List.range (min ours.size items.size)).find? (fun k => ours[k]! != items[k]!) with
       | some k =>
         IO.println s!"page {i + 1}: node {k} of {ours.size} (LuaLaTeX {items.size})"
