@@ -325,7 +325,8 @@ def bibItem (at_ : Tok) : M Unit := do
       textToks at_ s!"to {l.labelWidth}sp" ++ #[lb] ++ textToks at_ "[" ++ ts ++
       textToks at_ "]" ++ #[csT "hss" at_, rb, rb, Tok.char ']' 12 p])
   | none =>
-    inject at_ (#[csT "item" at_, csT "leantex@bibcite" at_, lb] ++ textToks at_ key ++ #[rb])
+    inject at_ (#[csT "item" at_, csT "leantex@bibcite" at_, lb] ++ textToks at_ key ++
+      #[rb, csT "leantex@ignorespaces" at_])
 
 /-- After a numbered `\bibitem`: its number recorded for `\cite`. -/
 def bibCite (at_ : Tok) : M Unit := do
