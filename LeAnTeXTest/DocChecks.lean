@@ -4,6 +4,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
 import LeAnTeX
 import LeAnTeXTest.FrontChecks
+import LeAnTeXTest.JsonParse
 
 /-!
 # Documents against LuaLaTeX

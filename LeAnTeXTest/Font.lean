@@ -6,6 +6,7 @@ import LeAnTeX.OpenType
 import LeAnTeX.OpenType.Display
 import LeAnTeX.Json
 import LeAnTeXTest.Cases
+import LeAnTeXTest.JsonParse
 
 /-!
 # Tests of the font reader
