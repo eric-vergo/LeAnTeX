@@ -15,6 +15,7 @@ import LeAnTeXTest.TypesetChecks
 import LeAnTeXTest.FontFiles
 import LeAnTeXTest.BackendChecks
 import LeAnTeXTest.DocChecks
+import LeAnTeXTest.TeXMathChecks
 import LeAnTeXTest.Bounds
 
 /-!
@@ -349,7 +350,7 @@ def boundsFailures : IO (Array String) := do
 def textChecks : IO (Array String) := do
   return (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← HyphenChecks.run) ++
     (← FrontChecks.run) ++ (← TypesetChecks.run) ++ (← FontTest.run) ++ (← FontFiles.run) ++
-    (← BackendChecks.run) ++ (← DocChecks.run) ++ (← boundsFailures)
+    (← BackendChecks.run) ++ (← DocChecks.run) ++ (← TeXMathChecks.run) ++ (← boundsFailures)
 
 /-- Run everything; see the module docstring for the modes. -/
 def main (args : List String) : IO UInt32 := do
@@ -367,6 +368,7 @@ def main (args : List String) : IO UInt32 := do
     return 0
   if args == ["--update-doc"] then
     let _ ← DocChecks.run true
+    let _ ← TeXMathChecks.run true
     return 0
   if let ["--show-doc", name] := args then
     let _ ← DocChecks.run false (some name)

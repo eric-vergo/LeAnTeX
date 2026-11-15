@@ -20,7 +20,7 @@ trap '[ -n "${KEEP:-}" ] || rm -rf "$work"' EXIT
 # `elan` here: with HOME moved to the scratch directory a toolchain proxy would fetch a toolchain
 render="$root/.lake/build/bin/leantex-render"
 [ -x "$render" ] || { echo "doc-render-compare: build leantex-render first" >&2; exit 2; }
-"$render" --document "$doc" "$work/ours" >/dev/null
+"$render" --document ${RENDER_ARGS:-} "$doc" "$work/ours" >/dev/null
 export HOME="$work/home" TEXMFVAR="$work/var" TEXMFCACHE="$work/var" TEXMFCONFIG="$work/cfg"
 mkdir -p "$HOME"
 dir=$(cd "$(dirname "$doc")" && pwd)

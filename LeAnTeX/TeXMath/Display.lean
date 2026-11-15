@@ -5,6 +5,7 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 import LeAnTeX.TeXMath.Font
 import LeAnTeX.TeXMath.Data.Glyphs
 import LeAnTeX.Layout.Display
+import LeAnTeX.Layout.Metrics
 
 /-!
 # Drawing the TeX-rule layout's boxes
@@ -50,6 +51,19 @@ def drawFont (f : MathFont) (code : Nat) : Option (Face × Char) :=
   | .otf t =>
     some ({ font := some t.info.name, family := t.info.name, slant := t.info.slant,
             smallCaps := t.info.smallCaps }, Char.ofNat code)
+
+/-- Where a `cmex` character drawn through a `Size` face is put: that face's glyph (whose
+height and depth KaTeX's metrics give) centred on the box TeX's metrics give the character
+(baseline `base`, height `h`, depth `d`), since the math font's size variants stand on the axis
+while `cmex`'s hang from the baseline. -/
+def sizeVariantBaseline (face : Face) (u : Char) (size base h d : Int) : Int :=
+  match LeAnTeX.charMetrics u.toString face.katexName .math with
+  | some m =>
+    let hk := Em.roundDiv (m.height.raw * size) Em.unit
+    let dk := Em.roundDiv (m.depth.raw * size) Em.unit
+    let centre := base + (d - h) / 2
+    centre + (hk - dk) / 2
+  | none => base
 
 /-- A float rounded to the nearest integer, within ±2³⁰ (TeX's glue bound). -/
 def roundGlueFloat (v : Float) : Int :=
@@ -97,6 +111,8 @@ def itemsOf (fs : Families) : Nat → Bool → Array Node → GlueSet → Int �
         if let some font := fs.fonts[f]? then
           if let some (face, u) := drawFont font c then
             let base := if vertical then cy + h else cy
+            let base := if face.font.isSome then base
+              else sizeVariantBaseline face u font.size base h d
             out := out.push (.glyph face u ⟨cx⟩ ⟨base⟩ ⟨font.size⟩ true false none none)
         if vertical then cy := cy + h + d else cx := cx + w
       | .glyph f c _ w h d =>

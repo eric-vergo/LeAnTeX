@@ -12,7 +12,8 @@ HTML.
 
 ```
 lake exe leantex-render [--html] [--math] [--fonts DIR] [--font-url URL] FILE OUT
-lake exe leantex-render --document [--external-css] [--fonts DIR] [--font-url URL] FILE OUTDIR
+lake exe leantex-render --document [--external-css] [--fonts DIR] [--font-url URL]
+  [--tfm DIR]… FILE OUTDIR
 ```
 
 `--html` writes an HTML page (else an SVG picture); `--math` takes the file as one formula in
@@ -26,7 +27,9 @@ as sheets) and `web.html` (one continuous page); with `--external-css` the HTML 
 their positions from `document.css` and `web.css` instead of `style` attributes. Images
 (`\includegraphics`) are read from the source file's directory only: a path that is not
 relative, contains `..`, or leads (through a link) outside that directory is refused, as is a
-file over 16 MiB.
+file over 16 MiB. Formulas are set with TeX's own rules and the Computer Modern metric files
+read from the directories `--tfm` names (by default those of `/usr/local/texlive/*`), when they
+are there; else with the KaTeX-compatible layout.
 -/
 
 open LeAnTeX LeAnTeX.Backend
@@ -45,6 +48,8 @@ structure Args where
   document : Bool := false
   /-- Generated style sheets instead of `style` attributes. -/
   externalCss : Bool := false
+  /-- The directories of the metric files (`--tfm`). -/
+  tfm : Array String := #[]
   /-- The source file and the output file. -/
   files : List String := []
 
@@ -57,6 +62,7 @@ def parseArgs : List String → Args → Option Args
   | "--external-css" :: r, a => parseArgs r { a with externalCss := true }
   | "--fonts" :: d :: r, a => parseArgs r { a with fonts := d }
   | "--font-url" :: u :: r, a => parseArgs r { a with fontUrl := some u }
+  | "--tfm" :: d :: r, a => parseArgs r { a with tfm := a.tfm.push d }
   | f :: r, a => if f.startsWith "--" then none else parseArgs r { a with files := a.files ++ [f] }
 
 /-- The images of a document in `dir`: every file the source names that is a regular file
@@ -95,7 +101,10 @@ def renderDocument (fonts : Fonts) (a : Args) (src out : String) : IO UInt32 := 
   let source ← IO.FS.readFile src
   let dir := (System.FilePath.mk src).parent.getD "."
   let images ← loadImages dir source
-  let cfg : Text.Settings := { images := fun p => images[p]? }
+  let dirs ← if a.tfm.isEmpty then TeXMath.texLiveTfmDirs else pure (a.tfm.map (⟨·⟩))
+  let (tfms, refused) ← TeXMath.readTfmDirs dirs
+  for r in refused do IO.eprintln s!"warning: metric file refused: {r}"
+  let cfg : Text.Settings := { images := fun p => images[p]?, mathTfms := tfms }
   let title := (System.FilePath.mk src).fileStem.getD "document"
   match Doc.typesetDocument source fonts.resolver cfg,
       Doc.typesetDocument source fonts.resolver { cfg with continuous := true } with

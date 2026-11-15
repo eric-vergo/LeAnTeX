@@ -25,56 +25,33 @@ namespace MathBoxChecks
 
 open LeAnTeX LeAnTeX.TeXMath LeAnTeX.Text
 
-/-- The directories searched for metric files. -/
+/-- The directories searched for metric files: `LEANTEX_TFM_DIRS` (colon-separated) or TeX
+Live's. -/
 def tfmDirs : IO (Array System.FilePath) := do
   if let some v ← IO.getEnv "LEANTEX_TFM_DIRS" then
     return (v.splitOn ":").toArray.filter (!·.isEmpty) |>.map (⟨·⟩)
-  let root : System.FilePath := "/usr/local/texlive"
-  if !(← root.isDir) then return #[]
-  let mut out := #[]
-  for e in ← root.readDir do
-    let t := e.path / "texmf-dist" / "fonts" / "tfm" / "public"
-    for sub in ["cm", "amsfonts/cmextra", "amsfonts/symbols", "amsfonts/euler"] do
-      out := out.push (t / sub)
-  return out
+  texLiveTfmDirs
 
-/-- The metric files of `mathTfmNames` found in the directories. -/
-def readTfms : IO (Std.HashMap String ByteArray) := do
-  let dirs ← tfmDirs
-  let mut out : Std.HashMap String ByteArray := {}
-  for n in mathTfmNames do
-    for d in dirs do
-      let p := d / (n ++ ".tfm")
-      if ← p.pathExists then
-        out := out.insert n (← IO.FS.readBinFile p)
-        break
-  return out
-
-/-- The metric files read once per run (`readTfms`), parsed; empty without a TeX installation. -/
+/-- The metric files read once per run; empty without a TeX installation. -/
 initialize tfmCache : IO.Ref (Option (Std.HashMap String LeAnTeX.TeXMath.Tfm)) ← IO.mkRef none
 
-/-- The parsed metric files of `mathTfms`, read once per run (a file that fails its checks is
-left out). -/
+/-- The metric files of `tfmDirs`, read once per run (a file that fails its checks is left
+out). -/
 def mathTfms : IO (Std.HashMap String LeAnTeX.TeXMath.Tfm) := do
   if let some m := ← tfmCache.get then return m
-  let mut out : Std.HashMap String LeAnTeX.TeXMath.Tfm := {}
-  for (n, b) in (← readTfms).toList do
-    if let .ok t := LeAnTeX.TeXMath.Tfm.read b then out := out.insert n t
+  let (out, _) ← readTfmDirs (← tfmDirs)
   tfmCache.set (some out)
   return out
 
 /-- The math fonts with the committed New Computer Modern text fonts, or why not. -/
 def fontSet : IO (Except String MathFontSet) := do
-  let files ← readTfms
-  if !files.contains "cmmi10" then
+  let tfms ← mathTfms
+  if !tfms.contains "cmmi10" then
     return .error "no Computer Modern metric files (set LEANTEX_TFM_DIRS)"
   let (infos, _) ← loadNewComputerModern "fonts/newcomputermodern"
   let resolve := newComputerModernResolver infos
-  match MathFontSet.ofFiles (files[·]?) with
-  | .error e => return .error e
-  | .ok m =>
-    return .ok { m with text := fun k => (resolve k).map fun i =>
-      ({ info := i, size := k.size, index := 0 } : TextFont) }
+  return .ok { tfms, text := fun k => (resolve k).map fun i =>
+    ({ info := i, size := k.size, index := 0 } : TextFont) }
 
 /-- The text size (sp) and `\baselineskip` of the class options. -/
 def classSize : Nat → Int × Int

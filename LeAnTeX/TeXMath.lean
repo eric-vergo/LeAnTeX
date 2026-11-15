@@ -11,6 +11,9 @@ import LeAnTeX.TeXMath.MList
 import LeAnTeX.TeXMath.Setup
 import LeAnTeX.TeXMath.Data.MathCodes
 import LeAnTeX.TeXMath.Front
+import LeAnTeX.TeXMath.Display
+import LeAnTeX.TeXMath.Files
+import LeAnTeX.TeXMath.Proofs
 
 /-!
 # The TeX-rule math layout
@@ -23,4 +26,5 @@ boxes must be TeX's (`docs/math-boxes.md`).
 * `LeAnTeX.TeXMath.mlistToHlist`: a math list to boxes.
 * `LeAnTeX.TeXMath.MathFontSet`: LaTeX's math fonts at a size.
 * `LeAnTeX.TeXMath.toMathList`: the parse tree to TeX's math list.
+* `LeAnTeX.TeXMath.readTfmDirs`: the metric files from a TeX installation.
 -/
