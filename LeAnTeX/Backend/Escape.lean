@@ -30,6 +30,7 @@ is the same on every machine.
 * `cssColor?`.
 * `fixed`, `ptText`, `bpText`, `spOf`.
 * `terminalUnsafe`, `terminalText`: text from a source made safe to print on a terminal.
+* `cssIdent`: a caller's prefix made a valid class name and id.
 -/
 
 namespace LeAnTeX.Backend
@@ -108,6 +109,15 @@ def bpText (sp : Int) : String := fixed (sp * 7200) (7227 * 65536) 3
 
 /-- A display-list length in scaled points, for a display list whose em is `em` sp. -/
 def spOf (em : Int) (e : Em) : Int := Em.roundDiv (e.raw * em) Em.unit
+
+/-- A string made usable as a CSS class name and an id: every character other than an ASCII
+letter, a digit, `-` and `_` becomes `_`, and `x` is put first when it does not start with a
+letter (or is empty). The back ends pass the prefixes a caller gives (`idPrefix`,
+`imagePrefix`) through it before they enter a selector or an id. -/
+def cssIdent (s : String) : String :=
+  let t := s.map fun c => if (c.isAlphanum && c.toNat < 128) || c == '-' || c == '_' then c
+    else '_'
+  if t.front.isAlpha && t.front.toNat < 128 then t else "x" ++ t
 
 /-! ### Text for a terminal -/
 

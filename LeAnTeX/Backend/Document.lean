@@ -153,35 +153,20 @@ structure HtmlDocOptions where
   styleUrl : String := "document.css"
   deriving Inhabited
 
-/-- Moves every `style="…"` attribute of HTML text (each written as `class="…" style="…"` by
-the back end) into a class of its own (`<prefix>-s<n>`) and returns the text with the rules
-of those classes. -/
-def externalizeStyles (html prefix_ : String) : String × String := Id.run do
-  let parts := (html.splitOn "\" style=\"").toArray
-  let mut out := parts[0]?.getD ""
-  let mut css : Array String := #[]
-  for h : k in [1:parts.size] do
-    let part := parts[k]
-    match part.splitOn "\"" with
-    | style :: rest =>
-      let cls := s!"{prefix_}-s{k}"
-      let decl := (style.replace "&quot;" "\"").replace "&amp;" "&"
-      css := css.push s!".{cls} \{ {decl} }"
-      out := out ++ " " ++ cls ++ "\"" ++ "\"".intercalate rest
-    | [] => out := out ++ part
-  return (out, "\n".intercalate css.toList)
-
 /-- Every page as a sheet of one HTML page; with `externalStyles` also the generated style
 sheet (else empty). -/
 def htmlPages (fs : FontSet) (r : DocResult) (o : HtmlDocOptions := {}) : String × String :=
   Id.run do
   let mut body : Array String := #[]
   let mut sheets : Array String := #[]
+  let mut extra : Array String := #[]
   for h : k in [0:r.pages.size] do
     let p := r.pages[k]
     let opts : HtmlOptions :=
-      { fontUrl := o.fontUrl, idPrefix := s!"ltx{k}", writeImageDefs := false }
-    let (frag, fonts) := htmlFragment fs (pageDisplayList r.fonts p) opts
+      { fontUrl := o.fontUrl, idPrefix := s!"ltx{k}", writeImageDefs := false,
+        externalStyles := o.externalStyles }
+    let (frag, fonts, rules) := htmlFragment fs (pageDisplayList r.fonts p) opts
+    extra := extra ++ rules
     sheets := sheets.push (htmlStyleSheet fonts opts)
     body := body.push s!"<section class=\"ltx-page\" aria-label=\"Page {escape p.text}\">\
       {frag}</section>"
@@ -191,14 +176,13 @@ def htmlPages (fs : FontSet) (r : DocResult) (o : HtmlDocOptions := {}) : String
   let defs := imageDefs (r.pages.map (pageDisplayList r.fonts)) ({} : HtmlOptions).imagePrefix
   if !defs.isEmpty then body := #[hiddenSvg defs] ++ body
   let bodyText := "\n".intercalate body.toList
-  let (bodyText, extra) := if o.externalStyles then externalizeStyles bodyText "ltxs"
-    else (bodyText, "")
+  let extraText := "\n".intercalate extra.toList
   let head := if o.externalStyles then
       s!"<link rel=\"stylesheet\" href=\"{escape o.styleUrl}\">"
     else s!"<style>\n{base}\n</style>"
   let page := s!"<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n\
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\
     <title>{escape o.title}</title>\n{head}\n</head>\n<body>\n{bodyText}\n</body>\n</html>\n"
-  return (page, if o.externalStyles then base ++ "\n" ++ extra ++ "\n" else "")
+  return (page, if o.externalStyles then base ++ "\n" ++ extraText ++ "\n" else "")
 
 end LeAnTeX.Backend

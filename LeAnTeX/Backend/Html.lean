@@ -60,6 +60,9 @@ structure HtmlOptions where
   idPrefix : String := "ltx"
   /-- The prefix of the images' ids; the fragments of one page share it. -/
   imagePrefix : String := "ltx-i-"
+  /-- Put positions and sizes into style-sheet rules (classes `<idPrefix>-s<n>`, returned
+  beside the fragment) instead of `style` attributes. -/
+  externalStyles : Bool := false
   /-- Whether the fragment writes the definitions of its images (once, in a hidden `<svg>`);
   `false` when the page writes them once for all its fragments. -/
   writeImageDefs : Bool := true
@@ -165,7 +168,7 @@ private def runFonts (runs : Array HtmlRun) : Array String :=
 /-- The style sheet of a fragment whose runs use `fonts`: the `@font-face` rules and the
 classes of `htmlFragment`. -/
 def htmlStyleSheet (fonts : Array String) (opts : HtmlOptions := {}) : String := Id.run do
-  let p := opts.idPrefix
+  let p := cssIdent opts.idPrefix
   let mut out : Array String := #[]
   for f in fonts do
     out := out.push s!"@font-face \{ font-family: {cssString (familyOf f)}; \
@@ -189,10 +192,12 @@ def hiddenSvg (defs : String) : String :=
     defs ++ "</svg>"
 
 /-- The display list as an HTML fragment (a `div`) and the fonts it uses (for
-`htmlStyleSheet`): see the module docstring. -/
+`htmlStyleSheet`): see the module docstring. The third component holds, with `opts.externalStyles`, the style-sheet rules that take the
+place of `style` attributes (each element then gets a class of its own instead); it is empty
+otherwise. Both forms are written from the same values. -/
 def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
-    String × Array String := Id.run do
-  let p := opts.idPrefix
+    String × Array String × Array String := Id.run do
+  let p := cssIdent opts.idPrefix
   let em := opts.em
   let sp := spOf em
   let top := sp dl.height
@@ -201,10 +206,18 @@ def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
   let (runs, others) := htmlRuns fs dl em top
   let fonts := runFonts runs
   let mut out : Array String := #[]
-  out := out.push s!"<div class=\"{escape p}\" style=\"width:{bpText (sp dl.width)}pt;\
-    height:{bpText bottom}pt\">"
+  let mut css : Array String := #[]
+  -- the class and style of an element: as attributes, or as a class with a rule of its own
+  let styled := fun (cls style : String) (css : Array String) =>
+    if opts.externalStyles then
+      let name := s!"{p}-s{css.size}"
+      (s!"class=\"{escape cls} {escape name}\"", css.push s!".{name} \{ {style} }")
+    else (s!"class=\"{escape cls}\" style=\"{escape style}\"", css)
+  let (a, c) := styled p s!"width:{bpText (sp dl.width)}pt;height:{bpText bottom}pt" css
+  css := c
+  out := out.push s!"<div {a}>"
   if opts.writeImageDefs then
-    let d := imageDefs #[dl] opts.imagePrefix
+    let d := imageDefs #[dl] (cssIdent opts.imagePrefix)
     if !d.isEmpty then out := out.push (hiddenSvg d)
   for r in runs do
     let fi := (fonts.idxOf? r.font).getD 0
@@ -213,8 +226,9 @@ def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
       style := style ++ s!";transform:matrix(1,0,{fixed (-r.slant) 1000 3},1,0,0)"
     if r.smallCaps then style := style ++ ";font-feature-settings:\"smcp\""
     if let some c := r.color.bind cssColor? then style := style ++ s!";color:{c}"
-    out := out.push s!"<span class=\"{escape p}-w {escape p}-f{fi}\" style=\"{escape style}\">\
-      {escape r.text}</span>"
+    let (a, c) := styled s!"{p}-w {p}-f{fi}" style css
+    css := c
+    out := out.push s!"<span {a}>{escape r.text}</span>"
   -- the formulas, each an SVG picture with its source as alternative text
   for h : k in [0:dl.formulas.size] do
     let f := dl.formulas[k]
@@ -226,12 +240,13 @@ def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
     let pad := 2 * 65536
     let svg := svgElement fs sub
       { em, padding := pad, title := f.source, desc := "Formula", idPrefix := s!"{p}-f{k}-",
-        imagePrefix := opts.imagePrefix, writeImageDefs := false }
+        imagePrefix := cssIdent opts.imagePrefix, writeImageDefs := false }
     let left := lx + sp f.x - pad
     let ftop := top + ly + sp f.y - sp f.height - pad
+    let (a, c) := styled s!"{p}-m" s!"left:{bpText left}pt;top:{bpText ftop}pt" css
+    css := c
     let svg := svg.replace "<svg xmlns=\"http://www.w3.org/2000/svg\""
-      s!"<svg class=\"{escape p}-m\" style=\"left:{bpText left}pt;top:{bpText ftop}pt\" \
-        aria-label=\"{escape f.source}\" xmlns=\"http://www.w3.org/2000/svg\""
+      s!"<svg {a} aria-label=\"{escape f.source}\" xmlns=\"http://www.w3.org/2000/svg\""
     out := out.push svg
     let delim := if f.display then ("\\[", "\\]") else ("$", "$")
     out := out.push s!"<span class=\"{escape p}-a\">{escape (delim.1 ++ f.source ++ delim.2)} \
@@ -247,18 +262,19 @@ def htmlFragment (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) :
     let pad := 2 * 65536
     let svg := svgElement fs sub
       { em, padding := pad, desc := "", idPrefix := s!"{p}-l{k}-",
-        imagePrefix := opts.imagePrefix, writeImageDefs := false }
+        imagePrefix := cssIdent opts.imagePrefix, writeImageDefs := false }
     let left := lx - pad
     let ltop := top + ly - sp line.height - pad
+    let (a, c) := styled s!"{p}-g" s!"left:{bpText left}pt;top:{bpText ltop}pt" css
+    css := c
     out := out.push (svg.replace "<svg xmlns=\"http://www.w3.org/2000/svg\""
-      s!"<svg class=\"{escape p}-g\" style=\"left:{bpText left}pt;top:{bpText ltop}pt\" \
-        aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\"")
+      s!"<svg {a} aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\"")
   out := out.push "</div>"
-  return ("\n".intercalate out.toList, fonts)
+  return ("\n".intercalate out.toList, fonts, css)
 
 /-- The display list as an HTML page: the fragment with its style sheet. -/
 def htmlDocument (fs : FontSet) (dl : DisplayList) (opts : HtmlOptions := {}) : String :=
-  let (body, fonts) := htmlFragment fs dl opts
+  let (body, fonts, _) := htmlFragment fs dl { opts with externalStyles := false }
   s!"<!DOCTYPE html>\n<html lang=\"{escape opts.lang}\">\n<head>\n<meta charset=\"utf-8\">\n\
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\
     <title>{escape opts.title}</title>\n<style>\n{htmlStyleSheet fonts opts}\n</style>\n\

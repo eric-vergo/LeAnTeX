@@ -200,7 +200,7 @@ def pictureParts (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) :
           | none =>
             let fi := (fontIds[r.font]?).getD fontIds.size
             fontIds := fontIds.insert r.font fi
-            let id := s!"{opts.idPrefix}{fi}-{r.glyph}"
+            let id := s!"{cssIdent opts.idPrefix}{fi}-{r.glyph}"
             index := index.insert r id
             order := order.push r
             pure id
@@ -238,7 +238,7 @@ def pictureParts (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) :
       | .image id _ x y w h =>
         let m := s!"matrix({ptText (sp w)} 0 0 {ptText (sp h)} {ptText (lx + sp x)} \
           {ptText (ly + sp y)})"
-        body := body.push (.inr s!"<use{attr "xlink:href" ("#" ++ opts.imagePrefix ++ id)}\
+        body := body.push (.inr s!"<use{attr "xlink:href" ("#" ++ cssIdent opts.imagePrefix ++ id)}\
           {attr "transform" m}/>")
   -- the definitions of the glyphs that have outlines
   let mut defs : Array (String × String) := #[]
@@ -289,7 +289,7 @@ def svgElement (fs : FontSet) (dl : DisplayList) (opts : SvgOptions := {}) : Str
     for (id, d) in p.defs do out := out.push s!"<path{attr "id" id}{attr "d" d}/>"
     out := out.push "</defs>"
   if opts.writeImageDefs then
-    let d := imageDefs #[dl] opts.imagePrefix
+    let d := imageDefs #[dl] (cssIdent opts.imagePrefix)
     if !d.isEmpty then out := out.push d
   for e in p.body do
     out := out.push <| match e with
