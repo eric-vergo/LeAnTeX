@@ -2,7 +2,7 @@
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
-import LeAnTeX.Font.Binary
+import LeAnTeX.OpenType.Binary
 import LeAnTeX.Path
 
 /-!
@@ -29,7 +29,7 @@ Instructions (hinting) are skipped.
 * The OpenType specification 1.9.1, "loca", "glyf".
 -/
 
-namespace LeAnTeX.Font
+namespace LeAnTeX.OpenType
 
 /-- How deep composite glyphs may nest. -/
 def maxComponentDepth : Nat := 8
@@ -75,21 +75,22 @@ private def Affine.comp (m n : Affine) : Affine :=
     c := r (m.a * n.c + m.c * n.d), d := r (m.b * n.c + m.d * n.d),
     dx := (m.apply ⟨n.dx, n.dy⟩).x, dy := (m.apply ⟨n.dx, n.dy⟩).y }
 
-/-- The quadratic path of one contour's points (`on` marks on-curve points). -/
+/-- The quadratic path of one contour's points (`on` marks on-curve points). It starts at the
+first on-curve point, or (no point on the curve) at the implied point between the last and the
+first; a closing line back to the start is left to `close`. These are the start and segments
+fontTools' reader gives. -/
 private def contourPath (pts : Array (Point Int × Bool)) : Array (PathCmd Int) := Id.run do
   let n := pts.size
-  if n == 0 then return #[]
   let mid := fun (p q : Point Int) => (⟨(p.x + q.x) / 2, (p.y + q.y) / 2⟩ : Point Int)
-  -- Start at an on-curve point, or at the implied point between the last and first.
-  let some (p0, on0) := pts[0]? | return #[]
-  let some (pl, onl) := pts[n - 1]? | return #[]
-  let (start, first) :=
-    if on0 then (p0, 1) else if onl then (pl, 0) else (mid pl p0, 0)
+  let some (p0, _) := pts[0]? | return #[]
+  let some (pl, _) := pts[n - 1]? | return #[]
+  let (start, others) : Point Int × Array (Point Int × Bool) :=
+    match pts.findIdx? (·.2) with
+    | some k => ((pts[k]?.map (·.1)).getD p0, pts.extract (k + 1) n ++ pts.extract 0 k)
+    | none => (mid pl p0, pts)
   let mut out : Array (PathCmd Int) := #[.move start]
   let mut ctrl : Option (Point Int) := none
-  let count := if on0 then n else if onl then n - 1 else n
-  for k in [0:count] do
-    let some (p, on) := pts[(first + k) % n]? | break
+  for (p, on) in others do
     if on then
       out := out.push (match ctrl with | some c => .quad c p | none => .line p)
       ctrl := none
@@ -208,4 +209,4 @@ def Glyf.outline (gl : Glyf) (g : Nat) : Result (Path Int) := do
   let (cmds, _) ← outlineInto gl g {} (maxComponentDepth + 1) (#[], 0)
   return ⟨cmds⟩
 
-end LeAnTeX.Font
+end LeAnTeX.OpenType

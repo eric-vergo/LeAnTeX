@@ -9,6 +9,9 @@
 # and the test compares a font only when it finds the same file (by SHA-256).
 #
 # Usage, from the repository root:  python3 -I tools/font-reference.py [FONT_DIR …]
+#                                    python3 -I tools/font-reference.py --test-fonts
+# The second form records the two small fonts tools/test-fonts.py builds (committed, so that the
+# reader is tested without TeX installed).
 # FONT_DIR defaults to TeX Live's OpenType directories found through kpsewhich. Needs fontTools.
 #
 # The outline hash: FNV-1a (64 bit) of the outline as text, `M x y`, `L x y`, `Q cx cy x y`,
@@ -50,8 +53,13 @@ MATH_NAMES = [
 
 def fnv1a(text):
     """FNV-1a, 64 bit, of the UTF-8 bytes of `text`."""
+    return fnv1a_bytes(text.encode("utf-8"))
+
+
+def fnv1a_bytes(data):
+    """FNV-1a, 64 bit, of bytes (the test's check that it reads the recorded file)."""
     h = 0xcbf29ce484222325
-    for b in text.encode("utf-8"):
+    for b in data:
         h ^= b
         h = (h * 0x100000001b3) & 0xFFFFFFFFFFFFFFFF
     return h
@@ -76,7 +84,15 @@ def outline_text(ops):
             pts = " ".join("%d %d" % (fx(x), fx(y)) for x, y in args)
             out.append("C" + pts)
         elif op == "qCurveTo":
-            out.append("Q" + " ".join("%d %d" % (fx(x), fx(y)) for x, y in args))
+            # TrueType's run of off-curve points with implied on-curve points between them, as
+            # single quadratic segments.
+            if args[-1] is None:
+                raise ValueError("contour without on-curve points")
+            offs, end = list(args[:-1]), args[-1]
+            for k, c in enumerate(offs):
+                to = end if k + 1 == len(offs) else ((c[0] + offs[k + 1][0]) / 2,
+                                                      (c[1] + offs[k + 1][1]) / 2)
+                out.append("Q%d %d %d %d" % (fx(c[0]), fx(c[1]), fx(to[0]), fx(to[1])))
         elif op in ("closePath", "endPath"):
             out.append("Z")
     return " ".join(out)
@@ -115,8 +131,13 @@ def record(path, out):
     order = t.getGlyphOrder()
     head, hhea = t["head"], t["hhea"]
     os2, post = t["OS/2"], t["post"]
-    names = {str(i): t["name"].getDebugName(i) for i in [1, 2, 4, 6]
-             if t["name"].getDebugName(i) is not None}
+    xh = getattr(os2, "sxHeight", None) if os2.version >= 2 else None
+    ch = getattr(os2, "sCapHeight", None) if os2.version >= 2 else None
+    def name(i):
+        """The Windows US-English name, else fontTools' choice."""
+        r = t["name"].getName(i, 3, 1, 0x409)
+        return r.toUnicode() if r is not None else t["name"].getDebugName(i)
+    names = {str(i): name(i) for i in [1, 2, 4, 6] if name(i) is not None}
     info = {
         "unitsPerEm": head.unitsPerEm, "numGlyphs": len(order),
         "head": [head.xMin, head.yMin, head.xMax, head.yMax, head.macStyle],
@@ -124,7 +145,7 @@ def record(path, out):
         "os2": [os2.version, os2.xAvgCharWidth, os2.usWeightClass, os2.usWidthClass,
                 os2.fsType, os2.sTypoAscender, os2.sTypoDescender, os2.sTypoLineGap,
                 os2.usWinAscent, os2.usWinDescent,
-                getattr(os2, "sxHeight", None), getattr(os2, "sCapHeight", None)],
+                xh, ch],
         "post": [int(round(post.italicAngle * 65536)), post.underlinePosition,
                  post.underlineThickness, bool(post.isFixedPitch)],
         "names": names,
@@ -137,6 +158,7 @@ def record(path, out):
     with open(out, "w", encoding="utf-8") as f:
         f.write(json.dumps({"meta": {
             "font": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),
+            "size": len(data), "fnv1a": "%016x" % fnv1a_bytes(data),
             "fontTools": fontTools.version, "recorder": "tools/font-reference.py"}},
             sort_keys=True) + "\n")
         f.write(json.dumps({"info": info}, sort_keys=True) + "\n")
@@ -155,7 +177,13 @@ def record(path, out):
 
 
 def main():
-    dirs = sys.argv[1:] or font_dirs()
+    args = sys.argv[1:]
+    if args[:1] == ["--test-fonts"]:
+        for name in ["leantex-test-cff.otf", "leantex-test-glyf.ttf"]:
+            record(f"fixtures/font/{name}", f"fixtures/font/{os.path.splitext(name)[0]}.jsonl")
+            print("font-reference:", name)
+        return
+    dirs = args or font_dirs()
     os.makedirs("fixtures/font", exist_ok=True)
     for name in wanted_fonts():
         path = next((os.path.join(d, name) for d in dirs

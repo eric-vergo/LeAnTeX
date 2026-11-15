@@ -19,7 +19,7 @@ does not fit, is a `FontError` naming the table, never an out-of-bounds access o
   1/65536.
 -/
 
-namespace LeAnTeX.Font
+namespace LeAnTeX.OpenType
 
 /-- Why a font could not be read: the table (or reader) and what was wrong. -/
 structure FontError where
@@ -56,7 +56,7 @@ namespace Slice
 def ofBytes (data : ByteArray) (table : String := "file") : Slice := ⟨data, 0, data.size, table⟩
 
 /-- Fail with a message about this window's table. -/
-def fail {α : Type} (s : Slice) (message : String) : Result α := Font.fail s.table message
+def fail {α : Type} (s : Slice) (message : String) : Result α := OpenType.fail s.table message
 
 /-- The byte at `off`. -/
 def u8 (s : Slice) (off : Nat) : Result Nat :=
@@ -128,4 +128,4 @@ def bytes (s : Slice) : ByteArray := s.data.extract s.start (s.start + s.size)
 
 end Slice
 
-end LeAnTeX.Font
+end LeAnTeX.OpenType

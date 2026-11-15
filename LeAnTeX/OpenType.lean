@@ -2,11 +2,11 @@
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
-import LeAnTeX.Font.Tables
-import LeAnTeX.Font.Cff
-import LeAnTeX.Font.Glyf
-import LeAnTeX.Font.Layout
-import LeAnTeX.Font.Math
+import LeAnTeX.OpenType.Tables
+import LeAnTeX.OpenType.Cff
+import LeAnTeX.OpenType.Glyf
+import LeAnTeX.OpenType.Layout
+import LeAnTeX.OpenType.Math
 
 /-!
 # OpenType fonts
@@ -16,7 +16,7 @@ outlines (CFF or TrueType), ligatures and pair kerning, and the `MATH` table's c
 
 A font file is untrusted input. `Font.read` checks every offset and length it follows, and
 every query on the result is total: a malformed font is a `FontError`, never a crash, a hang
-or an unbounded allocation (`LeAnTeX.Font.Binary`, and the limits in `Cff`, `Glyf` and
+or an unbounded allocation (`LeAnTeX.OpenType.Binary`, and the limits in `Cff`, `Glyf` and
 `Layout`).
 
 ## Main definitions
@@ -30,7 +30,7 @@ or an unbounded allocation (`LeAnTeX.Font.Binary`, and the limits in `Cff`, `Gly
 * `Font.mathConstant?`: a `MATH` constant by name.
 -/
 
-namespace LeAnTeX.Font
+namespace LeAnTeX.OpenType
 
 /-- Where a font's outlines are. -/
 inductive Outlines where
@@ -40,7 +40,7 @@ inductive Outlines where
   | glyf (g : Glyf)
 
 /-- A font, read. -/
-structure _root_.LeAnTeX.Font where
+structure Font where
   /-- The header. -/
   head : Head
   /-- The horizontal header. -/
@@ -68,10 +68,6 @@ structure _root_.LeAnTeX.Font where
   /-- The `MATH` constants, if present, in the order of `mathConstantNames`. -/
   math : Option (Array Int)
 
-end LeAnTeX.Font
-
-namespace LeAnTeX.Font
-
 /-- The optional table with the tag, read by `f` if present. -/
 private def optional {α : Type} (d : Directory) (tag : String) (f : Slice → Result α) :
     Result (Option α) :=
@@ -79,8 +75,10 @@ private def optional {α : Type} (d : Directory) (tag : String) (f : Slice → R
   | some s => some <$> f s
   | none => .ok none
 
+namespace Font
+
 /-- Reads a font from the bytes of an OpenType file (one font, not a collection). -/
-def read (data : ByteArray) : Result LeAnTeX.Font := do
+def read (data : ByteArray) : Result Font := do
   let d ← Directory.read data
   let head ← Head.read (← d.get "head")
   let hhea ← Hhea.read (← d.get "hhea")
@@ -104,11 +102,7 @@ def read (data : ByteArray) : Result LeAnTeX.Font := do
     kern := ← optional d "kern" KernTable.read
     math := ← optional d "MATH" readMathConstants }
 
-end LeAnTeX.Font
-
-namespace LeAnTeX.Font
-
-variable (f : LeAnTeX.Font)
+variable (f : Font)
 
 /-- Font units per em. -/
 def unitsPerEm : Nat := f.head.unitsPerEm
@@ -161,4 +155,6 @@ def mathConstant? (name : String) : Option Int := do
   let i ← mathConstantNames.findIdx? (· == name)
   vs[i]?
 
-end LeAnTeX.Font
+end Font
+
+end LeAnTeX.OpenType

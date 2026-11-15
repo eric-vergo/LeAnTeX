@@ -2,7 +2,7 @@
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
-import LeAnTeX.Font.Binary
+import LeAnTeX.OpenType.Binary
 
 /-!
 # The basic OpenType tables
@@ -31,7 +31,7 @@ claiming millions of code points costs only its bytes. Names are decoded from UT
   "post", "name", "cmap", "kern".
 -/
 
-namespace LeAnTeX.Font
+namespace LeAnTeX.OpenType
 
 /-- The index of the first element of the sorted array `xs` whose key is at least `k`
 (`xs.size` if none). -/
@@ -438,4 +438,4 @@ def KernTable.get (k : KernTable) (left right : Nat) : Int :=
       | none => break
     return total
 
-end LeAnTeX.Font
+end LeAnTeX.OpenType

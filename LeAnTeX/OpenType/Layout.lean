@@ -2,7 +2,7 @@
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
-import LeAnTeX.Font.Tables
+import LeAnTeX.OpenType.Tables
 import Std.Data.HashMap
 
 /-!
@@ -33,7 +33,7 @@ text needs, and what TeX's OpenType loader applies for the `kern` feature in bas
 * The OpenType specification 1.9.1, "OpenType Layout common table formats", "GSUB", "GPOS".
 -/
 
-namespace LeAnTeX.Font
+namespace LeAnTeX.OpenType
 
 /-- A coverage table: the glyphs a subtable applies to, each with its coverage index. -/
 inductive Coverage where
@@ -431,4 +431,4 @@ def Gpos.kerning (g : Gpos) (l r : Nat) (script : String := "latn") : Int :=
   (g.table.lookupsFor "kern" script).foldl (init := 0) fun acc li =>
     acc + (((g.pairs[li]?.getD #[]).findSome? (·.get? l r)).getD 0)
 
-end LeAnTeX.Font
+end LeAnTeX.OpenType

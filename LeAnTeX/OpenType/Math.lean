@@ -2,7 +2,7 @@
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
-import LeAnTeX.Font.Binary
+import LeAnTeX.OpenType.Binary
 
 /-!
 # The `MATH` table's constants
@@ -21,7 +21,7 @@ parameters TeX takes from its math fonts' σ and ξ): two percentages, two heigh
 * The OpenType specification 1.9.1, "MATH — The Mathematical Typesetting Table".
 -/
 
-namespace LeAnTeX.Font
+namespace LeAnTeX.OpenType
 
 /-- The names of the `MathConstants` fields, in table order. -/
 def mathConstantNames : Array String := #[
@@ -56,4 +56,4 @@ def readMathConstants (s : Slice) : Result (Array Int) := do
   for k in [0:51] do out := out.push (← c.i16 (8 + 4 * k))
   return out.push (← c.i16 212)
 
-end LeAnTeX.Font
+end LeAnTeX.OpenType

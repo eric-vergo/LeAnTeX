@@ -6,6 +6,8 @@ import LeAnTeX
 import LeAnTeXTest.Layout
 import LeAnTeXTest.Cases
 import LeAnTeXTest.DisplayChecks
+import LeAnTeXTest.Font
+import LeAnTeXTest.TextFixtures
 
 /-!
 # The differential test and the parity report
@@ -30,6 +32,8 @@ It then lays out every formula and compares the box tree with KaTeX's
   do not match, with both answers.
 * `lake exe leantex-test --show-layout ID-PREFIX`: the same for the layout, with the first
   difference of the trees.
+* `lake exe leantex-test --text`: only the text-mode fixtures and the font reader
+  (`LeAnTeXTest.TextFixtures`, `LeAnTeXTest.Font`), which `lake test` also runs.
 -/
 
 open LeAnTeX
@@ -329,6 +333,10 @@ def main (args : List String) : IO UInt32 := do
   if args == ["--bench-matrix"] then
     benchMatrix
     return 0
+  if args == ["--text"] then
+    let fails := (← TextFixtures.run) ++ (← FontTest.run)
+    for f in fails do IO.eprintln s!"  {f}"
+    return if fails.isEmpty then 0 else 1
   let mut results := #[]
   for c in ← corpora do
     results := results ++ (← runCorpus c)
@@ -463,6 +471,9 @@ def main (args : List String) : IO UInt32 := do
     for (name, _) in failed do regressions := regressions.push s!"display list: {name}"
     IO.println s!"display list: {DisplayChecks.displayChecks.size - failed.size} of \
       {DisplayChecks.displayChecks.size} checks hold"
+    -- the text-mode fixtures and the font reader
+    IO.println "text mode and fonts:"
+    for f in (← TextFixtures.run) ++ (← FontTest.run) do regressions := regressions.push f
     if improved > 0 then
       IO.println s!"{improved} cases match that the baseline lists as mismatched; record them \
         with `lake exe leantex-test --update`"

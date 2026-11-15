@@ -2,7 +2,7 @@
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
-import LeAnTeX.Font.Binary
+import LeAnTeX.OpenType.Binary
 import LeAnTeX.Path
 
 /-!
@@ -34,7 +34,7 @@ practice) and `seac`-style accented `endchar` are reported as unsupported.
 * Adobe Technical Note #5177, "The Type 2 Charstring Format", 16 March 2000.
 -/
 
-namespace LeAnTeX.Font
+namespace LeAnTeX.OpenType
 
 /-- A CFF INDEX: an array of byte strings. -/
 structure Index where
@@ -453,13 +453,13 @@ def Cff.charstring (cff : Cff) (g : Nat) : Result Charstring := do
     let setPos := fun (p : Nat) => frames.modify (frames.size - 1) fun f => { f with pos := p }
     if b ≥ 32 || b == 28 then
       let (v, len) ←
-        if b ≤ 246 then pure (((b : Int) - 139) * 65536, 1)
+        if b == 28 then pure (Slice.signed (← s.u16 (fr.pos + 1)) 16 * 65536, 3)
+        else if b ≤ 246 then pure (((b : Int) - 139) * 65536, 1)
         else if b ≤ 250 then
           pure ((((b : Int) - 247) * 256 + (← s.u8 (fr.pos + 1)) + 108) * 65536, 2)
         else if b ≤ 254 then
           pure ((-((b : Int) - 251) * 256 - (← s.u8 (fr.pos + 1)) - 108) * 65536, 2)
-        else if b == 255 then pure (← s.i32 (fr.pos + 1), 5)
-        else pure (Slice.signed (← s.u16 (fr.pos + 1)) 16 * 65536, 3)
+        else pure (← s.i32 (fr.pos + 1), 5)
       if t.stack.size ≥ maxStack then T2.err "argument stack overflow"
       t := { t with stack := t.stack.push v }
       frames := setPos (fr.pos + len)
@@ -526,4 +526,4 @@ def Cff.charstring (cff : Cff) (g : Nat) : Result Charstring := do
   let final := t.closePath
   return ⟨⟨final.cmds⟩, final.width.getD priv.defaultWidth⟩
 
-end LeAnTeX.Font
+end LeAnTeX.OpenType
