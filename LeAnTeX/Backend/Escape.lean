@@ -29,6 +29,7 @@ is the same on every machine.
 * `xmlChar`, `escapeChar`, `escapeList`, `escape`, `unescapeList`.
 * `cssColor?`.
 * `fixed`, `ptText`, `bpText`, `spOf`.
+* `terminalUnsafe`, `terminalText`: text from a source made safe to print on a terminal.
 -/
 
 namespace LeAnTeX.Backend
@@ -107,5 +108,34 @@ def bpText (sp : Int) : String := fixed (sp * 7200) (7227 * 65536) 3
 
 /-- A display-list length in scaled points, for a display list whose em is `em` sp. -/
 def spOf (em : Int) (e : Em) : Int := Em.roundDiv (e.raw * em) Em.unit
+
+/-! ### Text for a terminal -/
+
+/-- Whether a character must not reach a terminal or a log as it is: the C0 and C1 control
+characters and `U+007F`; the line and paragraph separators `U+2028`, `U+2029` (and `U+0085`, a
+C1 control); the bidirectional formatting characters (`U+061C`, `U+200E`, `U+200F`, `U+202A` to
+`U+202E`, `U+2066` to `U+2069`); and the invisible formatting characters `U+00AD`, `U+034F`,
+`U+115F`, `U+1160`, `U+17B4`, `U+17B5`, `U+180B` to `U+180F`, `U+200B` to `U+200D`, `U+2060` to
+`U+2064`, `U+3164`, `U+FE00` to `U+FE0F`, `U+FEFF`, `U+FFA0` and `U+FFF9` to `U+FFFB`. Each can
+start a terminal escape, end a line, reorder or hide text. -/
+def terminalUnsafe (c : Char) : Bool :=
+  let v := c.val
+  v < 0x20 || (0x7F ≤ v && v ≤ 0x9F) || v == 0xAD || v == 0x34F || v == 0x61C || v == 0x115F ||
+    v == 0x1160 || v == 0x17B4 || v == 0x17B5 || (0x180B ≤ v && v ≤ 0x180F) ||
+    (0x200B ≤ v && v ≤ 0x200F) || (0x2028 ≤ v && v ≤ 0x202E) || (0x2060 ≤ v && v ≤ 0x2064) ||
+    (0x2066 ≤ v && v ≤ 0x2069) || v == 0x3164 || (0xFE00 ≤ v && v ≤ 0xFE0F) || v == 0xFEFF ||
+    v == 0xFFA0 || (0xFFF9 ≤ v && v ≤ 0xFFFB)
+
+/-- The text with every `terminalUnsafe` character and the backslash written as escapes
+(`\\n`, `\\t`, `\\\\`, `\\u{..}` in hexadecimal): what the command-line programs print for any
+string that comes from their input (messages that quote the source, file names, warnings), so
+that the source cannot forge or hide a line of their output. -/
+def terminalText (s : String) : String :=
+  s.foldl (init := "") fun out c =>
+    if c == '\n' then out ++ "\\n" else if c == '\t' then out ++ "\\t"
+    else if c == '\\' then out ++ "\\\\"
+    else if terminalUnsafe c then
+      out ++ "\\u{" ++ String.ofList (Nat.toDigits 16 c.val.toNat) ++ "}"
+    else out.push c
 
 end LeAnTeX.Backend

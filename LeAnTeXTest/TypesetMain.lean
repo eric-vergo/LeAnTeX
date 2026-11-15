@@ -18,7 +18,7 @@ lake exe leantex-typeset --test-fonts FILE
 Exit status 1 when the source does not typeset (the error is printed), 2 for bad usage.
 -/
 
-open LeAnTeX LeAnTeX.Text
+open LeAnTeX LeAnTeX.Text LeAnTeX.Backend
 
 /-- Typesets the file named on the command line. -/
 def main (args : List String) : IO UInt32 := do
@@ -35,8 +35,8 @@ def main (args : List String) : IO UInt32 := do
   match typeset (← IO.FS.readFile file) res with
   | .ok d =>
     IO.print d.toDisplayList.textForm
-    for w in d.warnings do IO.eprintln s!"warning: {w}"
+    for w in d.warnings do IO.eprintln s!"warning: {terminalText w}"
     return 0
   | .error e =>
-    IO.eprintln s!"{file}: error at character {e.pos}: {e.message}"
+    IO.eprintln s!"{terminalText file}: error at character {e.pos}: {terminalText e.message}"
     return 1

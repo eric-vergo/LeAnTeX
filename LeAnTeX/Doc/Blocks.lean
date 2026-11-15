@@ -225,8 +225,9 @@ def unhex (s : String) : String := Id.run do
 front end's own commands holding the raw text in hexadecimal (control sequences named by
 the private-use characters U+E000 and U+E001),
 so that the reader never sees their contents. Comments are kept as they
-are (a `%` starts one, outside verbatim text). An error for an unterminated one. -/
-def prepareVerbatim (src : String) : Except String String := Id.run do
+are (a `%` starts one, outside verbatim text). An error, with the character offset of the
+`\begin{verbatim}` or `\verb` that is not ended, for an unterminated one. -/
+def prepareVerbatim (src : String) : Except (Nat × String) String := Id.run do
   let begin_ := "\\begin{verbatim}"
   let end_ := "\\end{verbatim}"
   let cs := src.toList.toArray
@@ -247,7 +248,7 @@ def prepareVerbatim (src : String) : Except String String := Id.run do
     else if c == '\\' && startsAt cs i begin_ then
       let s := i + begin_.length
       match find cs s end_ with
-      | none => return .error "\\begin{verbatim} not ended"
+      | none => return .error (i, "\\begin{verbatim} not ended")
       | some e =>
         -- the text after the line break that follows \begin{verbatim}
         let s := if cs[s]? == some '\n' then s + 1 else s
@@ -259,7 +260,7 @@ def prepareVerbatim (src : String) : Except String String := Id.run do
       let star := cs[i + 5]? == some '*'
       let d := i + 5 + (if star then 1 else 0)
       match cs[d]? with
-      | none => return .error "\\verb ended by the end of the source"
+      | none => return .error (i, "\\verb ended by the end of the source")
       | some delim =>
         let mut j := d + 1
         let mut ok := false
@@ -267,7 +268,7 @@ def prepareVerbatim (src : String) : Except String String := Id.run do
           if cs[j]! == '\n' then break
           if cs[j]! == delim then ok := true; break
           j := j + 1
-        if !ok then return .error "\\verb ended by end of line"
+        if !ok then return .error (i, "\\verb ended by end of line")
         out := out ++ "\\\uE001{" ++ hexOf (String.ofList (cs.extract (d + 1) j).toList) ++
           "}"
         i := j + 1

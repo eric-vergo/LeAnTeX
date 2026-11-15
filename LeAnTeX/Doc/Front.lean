@@ -212,7 +212,7 @@ def typesetDocument (src : String) (resolve : FontResolver) (cfg : LeAnTeX.Text.
     throw { message := s!"source too long: more than {cfg.maxSource} characters" }
   let prepared ← match prepareVerbatim src with
     | .ok s => pure s
-    | .error e => throw { message := e }
+    | .error (pos, e) => throw { message := e, pos }
   let mut refs : Std.HashMap String (String × String) := {}
   let mut prevToc : Array (TocEntry × String) := #[]
   let mut last : Option (Array Page × St) := none

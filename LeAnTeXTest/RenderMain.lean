@@ -110,7 +110,7 @@ def renderDocument (fonts : Fonts) (a : Args) (src out : String) : IO UInt32 := 
     let total := pages.foldl (· + ·.utf8ByteSize) 0 + combined.utf8ByteSize + html.utf8ByteSize +
       css.utf8ByteSize + wh.utf8ByteSize + wc.utf8ByteSize
     if total > maxOutputBytes then
-      IO.eprintln s!"{src}: error: the output would have {total} bytes, more than \
+      IO.eprintln s!"{terminalText src}: error: the output would have {total} bytes, more than \
         {maxOutputBytes}"
       return 1
     IO.FS.createDirAll out
@@ -121,11 +121,11 @@ def renderDocument (fonts : Fonts) (a : Args) (src out : String) : IO UInt32 := 
     if a.externalCss then IO.FS.writeFile (System.FilePath.mk out / "document.css") css
     IO.FS.writeFile (System.FilePath.mk out / "web.html") wh
     if a.externalCss then IO.FS.writeFile (System.FilePath.mk out / "web.css") wc
-    for w in r.warnings do IO.eprintln s!"{src}: warning: {w}"
-    IO.println s!"{src}: {r.pages.size} pages, {r.passes} passes"
+    for w in r.warnings do IO.eprintln s!"{terminalText src}: warning: {terminalText w}"
+    IO.println s!"{terminalText src}: {r.pages.size} pages, {r.passes} passes"
     return 0
   | .error e, _ | _, .error e =>
-    IO.eprintln s!"{src}: error at character {e.pos}: {e.message}"
+    IO.eprintln s!"{terminalText src}: error at character {e.pos}: {terminalText e.message}"
     return 1
 
 /-- Renders the file named on the command line. -/
@@ -137,11 +137,12 @@ def main (argv : List String) : IO UInt32 := do
       return 2
   let (fonts, missing) ← Fonts.load a.fonts
   if !missing.isEmpty then
-    for m in missing do IO.eprintln s!"leantex-render: font {m}"
+    for m in missing do IO.eprintln s!"leantex-render: font {terminalText m}"
     return 2
   if a.document then return ← renderDocument fonts a src out
   let source ← IO.FS.readFile src
   let opts : RenderOptions := { html := a.html, math := a.math, fontUrl := a.fontUrl.getD a.fonts }
   match render fonts source opts with
   | .ok s => IO.FS.writeFile out s; return 0
-  | .error (pos, msg) => IO.eprintln s!"{src}: error at character {pos}: {msg}"; return 1
+  | .error (pos, msg) =>
+    IO.eprintln s!"{terminalText src}: error at character {pos}: {terminalText msg}"; return 1
