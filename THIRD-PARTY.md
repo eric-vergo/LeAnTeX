@@ -73,13 +73,23 @@ list needs the fonts, which it must take with their licence.
 
 | File | What | Source |
 |---|---|---|
-| `fixtures/text/*.jsonl` | TeX's answers (item lists, line breaks, hyphenation points, box dimensions) recorded by `tools/tex-reference.sh` | LuaLaTeX of TeX Live 2025 with the Latin Modern OpenType fonts (GUST Font License) and the US English hyphenation patterns of hyph-utf8 (`hyph-en-us`: copyright Gerard D.C. Kuiken, "Copying and distribution of this file, with or without modification, are permitted in any medium without royalty provided the copyright notice and this notice are preserved"; it includes Knuth's `hyphen.tex` patterns) |
+| `fixtures/text/*.jsonl` | TeX's answers (item lists, line breaks, hyphenation points, box dimensions) recorded by `tools/tex-reference.sh` | LuaLaTeX of TeX Live 2025 with the Latin Modern OpenType fonts (GUST Font License) and TeX Live's language 0, `english`: Knuth's patterns of plain TeX's `hyphen.tex` (see *Hyphenation patterns*) |
 | `fixtures/font/lm*.jsonl`, `latinmodern-math.jsonl` | numbers read from the Latin Modern fonts by fontTools (metrics, names, character maps, boxes, outline hashes; no outlines) | the Latin Modern fonts of TeX Live (GUST Font License, the LaTeX Project Public License 1.3c with a request to rename modified fonts) |
 | `fixtures/font/leantex-test-*` | two small fonts drawn by `tools/test-fonts.py`, and their references | Apache-2.0 (this repository) |
 
 LeAnTeX contains no Latin Modern font file; the font tests read the fonts from a TeX
 installation when one is present. The recorded fixtures contain glyph indices and metrics of
-those fonts and the hyphenation points the patterns give, not the fonts or the patterns.
+those fonts and the hyphenation points the patterns give, not the fonts.
+
+## Hyphenation patterns
+
+The pattern data are copied verbatim from TeX Live 2025 by `tools/gen-hyphen.py`, each module
+with its source file's notice in its module docstring.
+
+| LeAnTeX | Source | Terms |
+|---|---|---|
+| `LeAnTeX/Data/HyphenEnglish.lean` | `texmf-dist/tex/generic/hyphen/hyphen.tex`, Donald E. Knuth's plain TeX patterns and exceptions (TeX Live's `english`, the hyphenation LaTeX uses by default) | "Unlimited copying and redistribution of this file are permitted as long as this file is not modified. Modifications are permitted, but only if the resulting file is not named hyphen.tex." (the file's header). The module holds the file's patterns and exceptions unchanged, in a file of another name, with that notice. |
+| `LeAnTeX/Data/HyphenEnUs.lean` | `texmf-dist/tex/generic/hyph-utf8/patterns/txt/hyph-en-us.pat.txt` and `hyph-en-us.hyp.txt` (the data of `hyph-en-us.tex`, hyph-utf8's `usenglishmax`), Copyright (C) 1990, 2004, 2005 Gerard D.C. Kuiken | "Copying and distribution of this file, with or without modification, are permitted in any medium without royalty provided the copyright notice and this notice are preserved." (`hyph-en-us.tex`'s header, reproduced in the module with the rest of its header fields). |
 
 ## KaTeX's licence
 
