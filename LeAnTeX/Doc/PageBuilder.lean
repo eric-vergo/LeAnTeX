@@ -519,10 +519,12 @@ def Builder.placeFloat (b : Builder) (p : PageParams) (i : Nat) : Builder := Id.
   return { b with fl := { fl with deferred := fl.deferred.push i },
                   contrib := b.contrib ++ #[.penalty 10000, .penalty f.penalty] }
 
-/-- Puts out every deferred float on pages of floats (LaTeX's `\clearpage`). -/
+/-- Puts out every deferred float on pages of floats (LaTeX's `\clearpage`), with the floats
+already given to the top or bottom of the page when no text came to it. -/
 def Builder.flushFloats (b : Builder) (p : PageParams) : Builder := Id.run do
   let mut b := b
-  let mut deferred := b.fl.deferred
+  let mut deferred := (b.fl.top ++ b.fl.bot ++ b.fl.deferred).qsort (· < ·)
+  b := { b with fl := { b.fl with top := #[], bot := #[] } }
   for _ in [0:deferred.size + 1] do
     if deferred.isEmpty then break
     let (taken, rest, _) := Builder.startPage.takeFloatPage p deferred true

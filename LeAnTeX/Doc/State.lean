@@ -122,6 +122,8 @@ structure FloatItem where
   penalty : Int := 0
   /-- The `\parskip` taken back after it when it is set here and began between paragraphs. -/
   unskip : Option Glue := none
+  /-- Whether it began in a paragraph right after a space. -/
+  spaceBefore : Bool := false
   deriving Inhabited
 
 /-- A line of the table of contents: the level (1 section … 5 subparagraph), the number as

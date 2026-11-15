@@ -61,7 +61,14 @@ def beginFloat (at_ : Tok) (kind : String) : M Unit := do
   let v ← vars
   let penalty := if vertical && (← docSt).noBreak then 10000 else v.interlinePenalty
   let unskip := if vertical then some v.parSkip else none
-  modifyDoc fun d => { d with floats := d.floats.push { kind, placement, penalty, unskip } }
+  -- LaTeX's `\@bsphack`: whether a space came before the float in the paragraph
+  flushRun
+  let afterGlue := match (← get).hlist.back? with
+    | some (.glue ..) => true
+    | _ => false
+  let spaceBefore := !vertical && afterGlue
+  let item : FloatItem := { kind, placement, penalty, unskip, spaceBefore }
+  modifyDoc fun d => { d with floats := d.floats.push item }
   openFrame (.float idx)
   let cp ← classP
   let normal := (cp.sizes.find? (·.name == "normalsize")).getD ⟨"normalsize", 655360, 786432⟩
@@ -124,6 +131,9 @@ def beginEnv (at_ : Tok) : M Unit := do
     if !d.documentMode then failAt at_ "\\begin{document} without \\documentclass"
     if d.inDocument then failAt at_ "\\begin{document} ended by \\begin{document}"
     modifyDoc fun d => { d with inDocument := true }
+    -- the document's vertical list starts with a `\prevdepth` of 0, as LuaLaTeX shows it (it
+    -- matters only when a float placed here comes first)
+    modify fun s => { s with vPrev := 0 }
   | _ =>
     if !d.inDocument && d.documentMode then failAt at_ "Missing \\begin{document}"
     beginGroup at_
@@ -323,6 +333,14 @@ def endEnvGroup (at_ : Tok) : M Unit := do
   closeGroup at_
   if let some e := e then
     if isListEnv e.name then modifyDoc fun d => { d with endPe := true }
+    -- a float in a paragraph after a space ends as LaTeX's `\@Esphack`: `\nobreak\hskip\z@skip`
+    -- and the spaces after it ignored
+    if ["figure", "table", "figure*", "table*"].contains e.name then
+      if let some f := (← docSt).floats.back? then
+        if f.spaceBefore && (← get).hmode then
+          push (.penalty 10000)
+          push (.glue {} 0)
+          inject at_ #[csT "leantex@ignorespaces" at_]
 
 /-- `\leantexprobe{label}` (with `Settings.probes`): records the list parameters in force as
 `tools/doc-reference/probe.tex` writes LuaLaTeX's (glue as width, stretch and shrink; sp). -/
