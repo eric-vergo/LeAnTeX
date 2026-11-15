@@ -23,7 +23,9 @@ namespace Json
 
 /-- A JSON parser over the characters of a text. -/
 structure P where
+  /-- The characters of the text. -/
   cs : Array Char
+  /-- The position of the next character. -/
   i : Nat
 
 /-- Skip whitespace. -/
