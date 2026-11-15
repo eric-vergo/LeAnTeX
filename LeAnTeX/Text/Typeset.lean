@@ -693,6 +693,9 @@ def formula (at_ : Tok) (src : String) (display : Bool) : M HNode := do
     failAt at_ s!"formula: {msg}"
   | .ok b =>
     let dl := DisplayList.ofBox b
+    -- the record of the whole formula, with its source (fields in order: items, box, source)
+    let whole : Formula := ⟨0, dl.items.size, 0, 0, dl.width, dl.height, dl.depth, src, display⟩
+    let dl := { dl with formulas := #[whole] }
     let sc := fun (e : Em) => Em.roundDiv (e.raw * size) Em.unit
     return .math (sc dl.width) (sc dl.height) (sc dl.depth) dl size
 

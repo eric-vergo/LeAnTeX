@@ -105,6 +105,12 @@ structure Face where
   caller named it (its file name); the character maps to the glyph through that font's
   character map, and `family`, `bold` and `italic` are unused. `none` for KaTeX's faces. -/
   font : Option String := none
+  /-- For a text-layer glyph: a slant drawn onto it, in thousandths (horizontal shift per unit
+  of height); `0` for none and for KaTeX's faces. -/
+  slant : Int := 0
+  /-- For a text-layer glyph: the character is set in the font's small capitals (its `smcp`
+  feature). -/
+  smallCaps : Bool := false
   deriving BEq, Inhabited, Repr
 
 /-- The name of one of KaTeX's faces (see `Face.name`). -/
@@ -200,6 +206,31 @@ structure Line where
   y : Em := 0
   deriving Inhabited, Repr
 
+/-- A formula inside a text display list: the items `[start, stop)` that the math layout drew,
+the formula's box (left end and baseline in its line's coordinates, width, height, depth), its
+source and whether it was displayed. Back ends that draw formulas apart from the text (HTML) use
+it. -/
+structure Formula where
+  /-- The first item. -/
+  start : Nat
+  /-- One past the last item. -/
+  stop : Nat
+  /-- The left end of the formula's box. -/
+  x : Em
+  /-- Its baseline. -/
+  y : Em
+  /-- Its width. -/
+  width : Em
+  /-- Its height above the baseline. -/
+  height : Em
+  /-- Its depth below the baseline. -/
+  depth : Em
+  /-- The formula's TeX source. -/
+  source : String
+  /-- Whether it was set in display mode. -/
+  display : Bool := false
+  deriving Inhabited, Repr
+
 /-- A formula laid out as positioned drawing operations (see the module docstring). -/
 structure DisplayList where
   /-- The advance width. -/
@@ -221,6 +252,10 @@ structure DisplayList where
   its origin (its advance runs leftwards from `x`), such a path reflected within its
   rectangle. -/
   mirrored : Array (Nat × Nat) := #[]
+  /-- For a display list of the text layer: the formulas in it, in order. A formula's own display
+  list has none, except when the text layer made it: then one, covering all its items, which
+  records its source. -/
+  formulas : Array Formula := #[]
   deriving Inhabited
 
 /-- How a formula is placed: display-mode formulas in a line of a given width, and the first

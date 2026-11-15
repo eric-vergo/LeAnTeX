@@ -62,6 +62,12 @@ structure FontInfo where
   chars : Std.HashMap Nat Char
   /-- Whether the font is monospaced (`post`'s `isFixedPitch`). -/
   mono : Bool
+  /-- A slant drawn onto the glyphs, in thousandths (horizontal shift per unit of height, as
+  `FakeSlant` gives it to `fontspec`); `0` for none. Metrics are unchanged, as in luaotfload. -/
+  slant : Int := 0
+  /-- Whether the text is set in the font's small capitals (its `smcp` feature, before the
+  ligatures). -/
+  smallCaps : Bool := false
 
 /-- The information of a font read from its bytes. The glyph boxes are read for every glyph
 (an outline that fails to read gives an empty box); the character map is inverted over the
@@ -80,6 +86,21 @@ def FontInfo.ofFont (f : OpenType.Font) (name : String) : FontInfo := Id.run do
       if g != 0 && !chars.contains g then chars := chars.insert g (Char.ofNat c)
   let mono := (f.post.map (·.isFixedPitch)).getD false
   return { font := f, name, boxes, chars, mono }
+
+/-- The `GSUB` features the text layer applies to a run in this font: `smcp` for small
+capitals, then `liga`. -/
+def FontInfo.features (i : FontInfo) : List String :=
+  if i.smallCaps then ["smcp", "liga"] else ["liga"]
+
+/-- The glyphs of characters after the font's substitutions (`FontInfo.features`). -/
+def FontInfo.substitute (i : FontInfo) (gs : Array Nat) : Array Nat :=
+  match i.font.gsub with
+  | some g => g.apply i.features gs
+  | none => gs
+
+/-- The glyph a single character is set with, after the substitutions. -/
+def FontInfo.glyphOf (i : FontInfo) (c : Char) : Nat :=
+  (i.substitute #[i.font.glyph c])[0]?.getD (i.font.glyph c)
 
 /-- A font at a size (in sp) with its index in the document's table of fonts. -/
 structure TextFont where
@@ -124,18 +145,19 @@ def space (sf : Nat := 1000) : Glue :=
 for (its cluster). -/
 def clusters (cs : Array Char) : Array (Nat × Array Char) := Id.run do
   let f := t.info.font
-  let gs := f.ligate (cs.map f.glyph)
+  let gs := t.info.substitute (cs.map f.glyph)
   let mut out := #[]
   let mut i := 0
   for g in gs do
     let c := cs[i]?.getD ' '
-    if f.glyph c == g || i + 1 ≥ cs.size then
+    if t.info.glyphOf c == g || i + 1 ≥ cs.size then
       out := out.push (g, #[c]); i := i + 1
     else
       -- a ligature: the fewest characters from `i` that ligate to it (at most 8)
       let mut k := 2
       for _ in [0:7] do
-        if i + k ≥ cs.size || f.ligate ((cs.extract i (i + k)).map f.glyph) == #[g] then break
+        if i + k ≥ cs.size || t.info.substitute ((cs.extract i (i + k)).map f.glyph) == #[g]
+          then break
         k := k + 1
       out := out.push (g, cs.extract i (i + k)); i := i + k
   return out

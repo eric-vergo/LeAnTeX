@@ -49,11 +49,13 @@ where
   /-- A length scaled. -/
   sc (e : Em) : Em := ⟨Em.roundDiv (e.raw * k) Em.unit⟩
 
-/-- The items of a list of nodes set with glue `g` from `x0` on the baseline `y`: TeX's
-`hlist_out`; boxes nested deeper than `fuel` are left out. -/
+/-- The items of a list of nodes set with glue `g` from `x0` on the baseline `y`, appended to
+`acc`, with the formulas among them (their item ranges counted from `base`, the number of items
+before `acc`'s): TeX's `hlist_out`; boxes nested deeper than `fuel` are left out. -/
 def placeNodes (fonts : Array (FontInfo × Int)) (fuel : Nat) (nodes : Array HNode)
-    (g : GlueSet) (x0 y : Int) : Array Item := Id.run do
-  let mut out := #[]
+    (g : GlueSet) (x0 y : Int) (base : Nat := 0)
+    (acc : Array Item × Array Formula := (#[], #[])) : Array Item × Array Formula := Id.run do
+  let mut (out, forms) := acc
   let mut x := x0
   let mut curG : Int := 0
   let mut curGlue : Float := 0
@@ -62,9 +64,11 @@ def placeNodes (fonts : Array (FontInfo × Int)) (fuel : Nat) (nodes : Array HNo
     | .glyph c gid w _ _ f =>
       match fonts[f]? with
       | some (info, size) =>
-        if info.font.glyph c == gid then
-          out := out.push (.glyph { font := some info.name, family := info.name } c ⟨x⟩ ⟨y⟩
-            ⟨size⟩ true false none none)
+        if info.glyphOf c == gid then
+          let face : Face :=
+            { font := some info.name, family := info.name, slant := info.slant,
+              smallCaps := info.smallCaps }
+          out := out.push (.glyph face c ⟨x⟩ ⟨y⟩ ⟨size⟩ true false none none)
         else
           match info.font.glyphItem gid ⟨x⟩ ⟨y⟩ ⟨size⟩ with
           | .ok (some it) => out := out.push it
@@ -86,17 +90,24 @@ def placeNodes (fonts : Array (FontInfo × Int)) (fuel : Nat) (nodes : Array HNo
     | .box w _ _ s content =>
       match fuel with
       | 0 => pure ()
-      | fuel + 1 => out := out ++ placeNodes fonts fuel content {} x (y + s)
+      | fuel + 1 => (out, forms) := placeNodes fonts fuel content {} x (y + s) base (out, forms)
       x := x + w
-    | .math w _ _ dl size =>
-      out := out ++ dl.items.map (scaleItem size x y); x := x + w
+    | .math w h d dl size =>
+      let start := base + out.size
+      out := out ++ dl.items.map (scaleItem size x y)
+      let (src, disp) := match dl.formulas[0]? with
+        | some f => (f.source, f.display)
+        | none => ("", false)
+      -- fields in order: the item range, the box, the source and display flag
+      forms := forms.push ⟨start, base + out.size, ⟨x⟩, ⟨y⟩, ⟨w⟩, ⟨h⟩, ⟨d⟩, src, disp⟩
+      x := x + w
     | .disc _ _ _ r _ =>
       match fuel with
       | 0 => pure ()
-      | fuel + 1 => out := out ++ placeNodes fonts fuel r {} x y
+      | fuel + 1 => (out, forms) := placeNodes fonts fuel r {} x y base (out, forms)
       x := x + listWidth r
     | n => x := x + n.width
-  return out
+  return (out, forms)
 where
   /-- A float rounded to the nearest integer, within ±2³⁰ (TeX's `vet_glue` bound). -/
   roundFloat (v : Float) : Int :=
@@ -108,18 +119,21 @@ where
 /-- The document as a display list (see the module docstring). -/
 def Document.toDisplayList (d : Document) : DisplayList := Id.run do
   let mut items : Array Item := #[]
+  let mut formulas : Array Formula := #[]
   let mut lines : Array LeAnTeX.Line := #[]
   let y0 := (d.lines[0]?.map (·.2)).getD 0
   for (l, y) in d.lines do
     let start := items.size
-    items := items ++ placeNodes d.fonts 64 l.nodes l.glue 0 0
+    let (its, fs) := placeNodes d.fonts 64 l.nodes l.glue 0 0 start
+    items := items ++ its
+    formulas := formulas ++ fs
     let line : LeAnTeX.Line :=
       { start, stop := items.size, width := ⟨l.width⟩, height := ⟨l.height⟩,
         depth := ⟨l.depth⟩, x := ⟨l.indent⟩, y := ⟨y - y0⟩ }
     lines := lines.push line
   let height := (d.lines[0]?.map (·.1.height)).getD 0
   let depth := (d.lines.back?.map fun (l, y) => y - y0 + l.depth).getD 0
-  return { width := ⟨d.width⟩, height := ⟨height⟩, depth := ⟨depth⟩, items, lines }
+  return { width := ⟨d.width⟩, height := ⟨height⟩, depth := ⟨depth⟩, items, lines, formulas }
 
 /-- A display list as text: a header line with its extent, then per line its range, extent and
 position, then its items, one per line, every length in sp (`Em.raw`). Stable across runs and

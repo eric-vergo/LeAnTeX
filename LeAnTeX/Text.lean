@@ -10,6 +10,7 @@ import LeAnTeX.Text.Font
 import LeAnTeX.Text.Source
 import LeAnTeX.Text.Typeset
 import LeAnTeX.Text.LatinModern
+import LeAnTeX.Text.NewComputerModern
 import LeAnTeX.Text.Output
 import LeAnTeX.Text.Proofs
 
