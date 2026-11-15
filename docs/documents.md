@@ -190,10 +190,13 @@ agree since and its regression document:
 
 | Cause | Documents | State |
 |---|---|---|
-| Formula boxes: KaTeX's metrics and rules where TeX uses the Computer Modern math fonts of each size and Appendix G (`docs/math-boxes.md`) | `equation`, `refs`, `inline-limits`, `align`, `align-rows`, `align-pairs`, `fresh-02`, `fresh-04`, `fresh-06`, `fresh-07`, `fresh-08`, `fresh-09`, `fresh-10`; most of the held-out differences | not modelled: the second, TeX-rule layout is designed, not written |
-| The footnote mark's raise in the footnote size of the 11-point class (the 9-point math fonts' parameters) | `fresh-01` | not modelled |
-| `\today` prints `Settings.today`, LuaLaTeX the recording date | held-out `held-13` | by design: output never depends on the clock |
-| `\flushright` as a declaration | held-out `held-10` (an error) | not supported (the environment is) |
+| Line breaking in two paragraphs and a bibliography entry: the breaks differ from LuaLaTeX's (cause not found) | `fresh-04`, `fresh-09` | open |
+| A paragraph with an inline sum in a definition breaks one word earlier than LuaLaTeX's | `fresh-02` | open |
+| `\intertext`, `split`, `alignat`, `flalign` | — | not modelled |
+
+Formulas are set by the TeX-rule layout when the Computer Modern metric files are installed
+(`docs/math-boxes.md`), inline formulas breaking after relations and binary operations as in
+TeX; a formula that layout refuses is one box of the KaTeX-compatible layout.
 
 ## amsmath's alignments
 
@@ -208,8 +211,10 @@ goes equally to the margins and the gaps between pairs. `gather` centres each ro
 sets its first row flush left and its last flush right, `\multlinegap` from the margins.
 Every row of a numbered environment steps `equation` unless it has `\notag` or `\nonumber`
 (`multline` numbers its last row); a row's `\label` records its number; the number goes flush
-right. The cells are laid out by the math layout. Not modelled: `\tag`, `\intertext`, `split`,
-`alignat`, `flalign`, a number that does not fit beside its row.
+right; a row's `\tag{x}` (`\tag*{x}`) is its number instead, set as `(x)` (`x`), and in an
+`equation` amsmath's step of the counter is taken back. The cells are laid out by the math
+layout. Not modelled: `\intertext`, `split`, `alignat`, `flalign`, a number that does not fit
+beside its row.
 
 ## Bounds and untrusted input
 
@@ -248,7 +253,7 @@ Tested only: everything else, against LuaLaTeX as above.
 | Indexes, glossaries | Medium (sorting and pages, no external program). |
 | Colour | Small in the display list, medium with every package's colour model. |
 | Graphics beyond PNG and SVG files: EPS, PDF, `\rotatebox`, `\scalebox`, `picture`, `tikz` | PDF and EPS need their own readers (large); rotations and scaling are small. |
-| Mathematics: TeX's own formula boxes (`docs/math-boxes.md`); `\intertext`, `\tag`, `split`, `alignat`, numbering within sections | Large for the boxes (a second, TeX-rule math layout with the Computer Modern metrics of each size); small to medium for the rest. |
+| Mathematics: the constructs the TeX-rule layout refuses (`docs/math-boxes.md`); `\intertext`, `split`, `alignat`, numbering within sections | Small to medium each. |
 | Marginal notes, `minipage`, `\parbox`, `\raisebox`, `\fbox`, `tabular*`, `longtable`, `\cline`, `array` package preambles | Small to medium each. |
 | Running heads (`headings`, `myheadings`, `fancyhdr`), `\markboth` | Small for the class's own styles. |
 | PDF output | Not in this layer; the SVG and HTML back ends draw the pages. |

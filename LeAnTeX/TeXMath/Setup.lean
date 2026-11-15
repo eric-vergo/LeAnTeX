@@ -26,7 +26,8 @@ TeX's default math fonts, optionally `amssymb`):
 The sizes are LaTeX's `\DeclareMathSizes` (text, script and scriptscript size for each text
 size; 0.7 and 0.5 of it for an undeclared size), and each family's metric file at a size is
 chosen as LaTeX's font definition files choose it (`ot1cmr.fd`, `omlcmm.fd`, `omscmsy.fd`,
-`omxcmex.fd` or, with `amsmath` or `amsfonts`, their `cmex` sizes, `umsa.fd`, `umsb.fd`, `ueuf.fd`): a
+`omxcmex.fd` or, with `amsmath` or `amsfonts`, their `cmex` sizes, `umsa.fd`, `umsb.fd`,
+`ueuf.fd`): a
 design size, or the nearest design loaded at the size. A size the definition does not list is
 replaced by the nearest it lists, as LaTeX substitutes it.
 

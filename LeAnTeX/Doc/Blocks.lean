@@ -190,10 +190,54 @@ def readEnvBodyRaw (at_ : Tok) (name : String) : M (String × Array String × Bo
       | t => out := out ++ t.text
   failAt at_ "Equation too long"
 
+/-- A source with amsmath's `\tag{x}` or `\tag*{x}` taken out, and the tag (its text and
+whether it was starred, which sets it without parentheses). Linear in the source's length. -/
+def extractTag (src : String) : String × Option (String × Bool) := Id.run do
+  let parts := src.splitOn "\\tag"
+  let some first := parts.head? | return (src, none)
+  match parts.drop 1 with
+  | [] => return (src, none)
+  | rest :: more =>
+    if (rest.toList.headD ' ').isAlpha then return (src, none)
+    let rest := rest.trimAsciiStart.toString
+    let star := rest.startsWith "*"
+    let r := if star then (rest.drop 1).toString else rest
+    let r := r.trimAsciiStart.toString
+    if !r.startsWith "{" then return (src, none)
+    -- the braced argument, nested braces counted
+    let cs := r.toList.toArray
+    let mut depth : Nat := 0
+    let mut e := 0
+    for h : k in [0:cs.size] do
+      let c := cs[k]
+      if c == '{' then depth := depth + 1
+      if c == '}' then
+        depth := depth - 1
+        if depth == 0 then e := k; break
+    let arg := String.ofList (cs.extract 1 e).toList
+    let after := String.ofList (cs.extract (e + 1) cs.size).toList
+    return (first ++ after ++ String.join (more.map ("\\tag" ++ ·)), some (arg.trimAscii.toString, star))
+
+/-- The box of an amsmath tag: `(x)` (`x` when starred) in the roman font at the current size,
+a part of `x` between `$` signs as a formula. -/
+def tagBox (at_ : Tok) (t : String) (starred : Bool) : M HNode := do
+  let tf ← fontFor { (← vars).key with family := .roman, bold := false, shape := .upright }
+  let text := if starred then t else "(" ++ t ++ ")"
+  let mut out : Array HNode := #[]
+  let mut inMath := false
+  for part in text.splitOn "$" do
+    if inMath then out := out.push (← formula at_ part false)
+    else out := out ++ tf.shape part.toList.toArray
+    inMath := !inMath
+  let (w, _, _, h, d) := measure out
+  return .box w h d 0 out
+
 /-- An equation environment (see the module docstring). -/
 def equationEnv (at_ : Tok) (name : String) : M Unit := do
   let (src, labels, nonum) ← readEnvBody at_ name
-  let numbered := !name.endsWith "*" && name != "displaymath" && !nonum
+  let (src, tag) := if name == "equation" || name == "equation*" then extractTag src
+    else (src, none)
+  let numbered := (!name.endsWith "*" || tag.isSome) && name != "displaymath" && !nonum
   let ams := (← docSt).packages.contains "amsmath"
   let base := name.dropEnd (if name.endsWith "*" then 1 else 0) |>.toString
   let math := match base with
@@ -205,16 +249,27 @@ def equationEnv (at_ : Tok) (name : String) : M Unit := do
     else (src.splitOn "\\\\").length
   let mut eqno : Option HNode := none
   if numbered then
+    -- amsmath steps the counter for a tagged equation too, then takes the step back
     for _ in [0:rows] do refStepCounter at_ "equation"
-    let num ← theCounter at_ "equation"
+    if tag.isSome then
+      modifyDoc fun d =>
+        let v := d.counters.value "equation" - 1
+        { d with counters := d.counters.set "equation" v }
+    -- a tag's label is its text in braces, as amsmath's `\@currentlabel` keeps it
+    let num ← match tag with
+      | some (t, _) => pure ("{" ++ t ++ "}")
+      | none => theCounter at_ "equation"
     for l in labels do
       modifyDoc fun d => { d with labels := d.labels.push (l, num) }
       adjustV (.label l)
     if base == "equation" then
       let tf ← fontFor { (← vars).key with family := .roman, bold := false, shape := .upright }
-      let g := tf.shape ("(" ++ num ++ ")").toList.toArray
-      let (w, _, _, h, d) := measure g
-      eqno := some (.box w h d 0 g)
+      match tag with
+      | some (t, starred) => eqno := some (← tagBox at_ t starred)
+      | none =>
+        let g := tf.shape ("(" ++ num ++ ")").toList.toArray
+        let (w, _, _, h, d) := measure g
+        eqno := some (.box w h d 0 g)
   -- the group the environment opened ends with it
   displayFormula at_ math eqno (fullWidth := ams)
   modifyDoc fun d => { d with envs := d.envs.pop }
@@ -233,6 +288,8 @@ structure AlignRow where
   numbered : Bool := true
   /-- The source of the `[dim]` after the row's `\\`, if any. -/
   space : Option String := none
+  /-- The row's `\tag`: its text and whether it is starred. -/
+  tag : Option (String × Bool) := none
   deriving Inhabited
 
 /-- An alignment's body split into rows at `\\` and into cells at `&`, outside braces and
@@ -312,7 +369,15 @@ def splitAlignRows (src : String) : Array AlignRow := Id.run do
   -- an empty last row (after a final `\\`) is dropped
   if !(last.size == 1 && (last[0]?.getD "").trimAscii.isEmpty) then
     rows := rows.push { cells := last, labels, numbered }
-  return rows
+  -- each row's `\tag`, taken out of its cells
+  return rows.map fun r => Id.run do
+    let mut tag := none
+    let mut out := #[]
+    for c in r.cells do
+      let (c', t) := extractTag c
+      if t.isSome then tag := t
+      out := out.push c'
+    return { r with cells := out, tag }
 
 /-- amsmath's `align`, `align*`, `gather`, `gather*`, `multline`, `multline*` as amsmath builds
 them: a display whose rows are boxes of their own, one after the other on the vertical list.
@@ -333,9 +398,10 @@ them: a display whose rows are boxes of their own, one after the other on the ve
   `\notag` or `\nonumber`; `multline` has one number, on its last row; a row's `\label`
   records its number.
 
-The cells are laid out by the math layout in display style. Not modelled: `\tag`,
-`\intertext`, `split`, `alignat` and `flalign` (set as `aligned`), a number that does not fit
-beside its row. -/
+The cells are laid out by the math layout in display style. A row's `\tag{x}` (`\tag*{x}`)
+is its number, set as `(x)` (`x`), the counter not stepped. Not modelled: `\intertext`,
+`split`, `alignat` and `flalign` (set as `aligned`), a number that does not fit beside its
+row. -/
 def alignEnv (at_ : Tok) (name : String) : M Unit := do
   let (src, _, _) ← readEnvBodyRaw at_ name
   let base := (name.dropEnd (if name.endsWith "*" then 1 else 0)).toString
@@ -366,7 +432,13 @@ def alignEnv (at_ : Tok) (name : String) : M Unit := do
     let numbered := !star && r.numbered && (base != "multline" || i + 1 == rows.size)
     let labels := if base == "multline" then rows.foldl (init := #[]) (· ++ ·.labels)
       else r.labels
-    if numbered then
+    if let some (t, starred) := r.tag then
+      -- amsmath's `\tag`: the text as the number, the counter not stepped
+      for l in labels do
+        modifyDoc fun d => { d with labels := d.labels.push (l, "{" ++ t ++ "}") }
+        adjustV (.label l)
+      tags := tags.push (some (← tagBox at_ t starred))
+    else if numbered then
       refStepCounter at_ "equation"
       let num ← theCounter at_ "equation"
       for l in labels do

@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+An equation with a tag of its own
+\begin{equation}
+a + b = c \tag{$\ast$}\label{eq:star}
+\end{equation}
+and one numbered as usual
+\begin{equation}
+x^2 = y
+\end{equation}
+then an alignment with a starred tag in its second row:
+\begin{align}
+u &= v + w \\
+p &= q \tag*{(A)} \\
+r &= s
+\end{align}
+and a reference to \eqref{eq:star} at the end.
+\end{document}

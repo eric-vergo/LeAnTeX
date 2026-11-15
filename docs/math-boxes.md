@@ -1,76 +1,151 @@
 # Formula boxes in documents
 
-A formula in a paragraph or a display is one box to the line breaker and the page builder: its
-width, height and depth decide where lines break, how far apart they are and where pages end.
-This page says where those boxes come from today, how far they are from TeX's, and how the
-document layer is to get TeX's boxes.
+A formula in a paragraph or a display is material to the line breaker and boxes to the page
+builder: its width, height and depth decide where lines break, how far apart they are and where
+pages end. The text and document layers lay formulas out with the **TeX-rule layout**
+(`LeAnTeX.TeXMath`), which follows TeX's own rules with the metrics of the fonts LaTeX uses, so
+that the boxes are TeX's to the sp. The KaTeX-compatible layout (`docs/layout.md`) stays beside
+it for its own use (the editor preview, the 11,885 parity cases of `parity/REPORT.md`) and
+takes over for a formula the TeX-rule layout does not build.
 
-## Where the boxes come from today
+## The metrics
 
-The text and document layers lay formulas out with the math layout (`docs/layout.md`), which
-reproduces KaTeX 0.19.1: KaTeX's rules and KaTeX's font metrics (the metrics of the KaTeX fonts,
-taken from Computer Modern at its ten-point design and scaled for every size). The box of the
-whole formula is scaled to the current font size (`LeAnTeX.Text.Typeset.formula`).
+LuaLaTeX with the `article` class sets formulas in TeX's Computer Modern math fonts, a metric
+file of its own design for each size: `cmmi10`, `cmmi7` and `cmmi5` for a ten-point formula's
+three sizes, `cmmi8` and `cmmi6` at eleven and twelve points, `cmsy`, `cmr` and `cmex` likewise,
+`msam` and `msbm` with `amssymb`, `eufm` for `\mathfrak`, `cmmib` and `cmbsy` in the bold math
+version. `LeAnTeX.TeXMath.Tfm` reads TFM files in pure Lean: the twelve lengths of the header
+checked against each other and the file, every index, every step of every ligature and kern
+program, every chain of larger characters and every extensible recipe, every scaled number's
+form; a file that fails is an error, every query on a font read returns. Sizes are scaled as
+TeX scales them (`store_scaled`), so the widths are TeX's at every size, design size or not.
 
-TeX, in the LuaLaTeX setup the document fixtures are recorded with (New Computer Modern text,
-TeX's default math fonts), sets a formula from the metric files of the Computer Modern math
-fonts, with a font of its own design for each of the three sizes (`cmmi10`, `cmmi7`, `cmmi5`
-and their symbol, extension and roman fonts at ten points), and with the rules of *The TeXbook*,
-Appendix G.
+**The metric files are not part of this library.** Their licences were looked for in the TeX
+Live installation the tests run against: TeX Live's catalogue names Knuth's licence for the
+Computer Modern fonts and the SIL Open Font License for the AMS fonts, but the installation
+holds no statement of the terms beside the metric files (its documentation tree is not
+installed; the METAFONT sources say only that they must not be changed under the same name).
+Redistribution of data derived from them is not clearly allowed by what is there, so nothing
+derived from the metric files is committed: a program reads them at run time from a TeX
+installation (`LeAnTeX.TeXMath.readTfmDirs`, `leantex-render --tfm DIR`, by default the
+directories of `/usr/local/texlive/*`); without one, formulas are laid out by the
+KaTeX-compatible layout and the comparisons below are skipped with a note. The committed
+recordings of TeX's output (`fixtures/math-box/`, the boxes and node lists TeX made) are TeX's
+typeset results, as the document fixtures are.
+
+The OpenType text fonts are a family of their own in LaTeX's setup with `fontspec`: `\mathrm`,
+`\operatorname`, `\mathbf`, `\mathit`, `\mathsf`, `\mathtt` and `\text` use New Computer Modern,
+measured as luaotfload measures it (advances, glyph boxes, and the italic correction of a
+slanted font: the part of the outline right of the advance plus a fiftieth of the em, when that
+is positive).
+
+## The rules
+
+`LeAnTeX.TeXMath.mlistToHlist` is TeX's conversion of a math list into boxes, implemented from
+*The TeXbook*'s Appendix G (rules 1–22) and the algorithm *TeX: The Program* documents
+(§699–§767): styles and cramped styles; atoms of the eight classes with rules 5 and 6; the
+inter-atom spacing table of Chapter 18 with `\thinmuskip`, `\medmuskip` and `\thickmuskip`,
+suppressed in script styles where the table says; characters with their italic corrections and
+rule 14's ligatures and kerns; superscripts and subscripts with all of rule 18's clearances and
+`\scriptspace`; generalised fractions with and without a rule (rule 15) and their delimiters;
+radicals (rule 11); large operators with limits, `\limits` and `\nolimits` (rule 13); accents
+with the skew of the skew character and the largest variant not wider than the nucleus (rule
+12); `\overline`, `\underline`, `\vcenter`; `\left`, `\middle` and `\right` sized with
+`\delimiterfactor` and `\delimitershortfall` by TeX's delimiter search, extensible delimiters
+from their recipes; `\mathchoice`; mu glue and kerns, `\nonscript`; and in a paragraph's
+formula the penalties after relations and binary operations (`\relpenalty`, `\binoppenalty`).
+Every length is integer sp and every division rounds as TeX's (`half`, `x_over_n`,
+`xn_over_d`, `nx_plus_y`).
+
+The boxes are LuaTeX's, and LuaTeX differs from TeX82 in a few places, all found against its
+lists and followed here:
+
+1. A delimiter of `\left`, `\right` or a radical is looked for at the current size only; TeX82
+   goes on to the larger sizes (§707). A fraction's delimiters are looked for down to text
+   size, as in TeX82.
+2. A delimiter is centred on the axis of the size it was found at.
+3. An extensible delimiter's box has its whole size as height (TeX82: the top piece's height,
+   the rest as depth); it is centred afterwards either way.
+4. `\left.` and `\right.` give an empty box that is not shifted.
+5. An accent over a nucleus that is not a single character is placed 1 sp further right.
+
+Everything the layout reads is bounded: the nesting of lists inside lists (400 levels) and a
+work budget over every step (an atom set, a delimiter variant looked at, an extensible piece, a
+ligature applied); past either the result is an error, never a hang.
+
+## The front end
+
+The parser's tree (KaTeX's) is turned into the math list TeX builds for the same source in
+LaTeX with amsmath and amssymb (`LeAnTeX.TeXMath.toMathList`). Each symbol takes the math code
+LaTeX gives it, recorded from LuaLaTeX (`tools/math-codes.sh`, `fixtures/math-codes/codes.tsv`,
+the table `LeAnTeX/TeXMath/Data/MathCodes.lean`): its class, family and slot; a letter or digit
+(class 7) takes the family of the alphabet around it. The commands are built as LaTeX's and
+amsmath's macros build them, read from their sources and checked against the recordings:
+
+* groups as ordinary atoms, a group of one ordinary atom without scripts reduced to that atom's
+  nucleus (§1186); scripts on the atom before them;
+* `\frac`, `\dfrac`, `\tfrac`, `\binom`, `\genfrac` inside amsmath's groups; `\sqrt` as
+  `\radical"270370`, `\sqrt[n]` as amsmath's `\root` (`\mathpalette`, the index raised by 0.6
+  of the radical's height less depth, `\mkern5mu` before and `\mkern-10mu` after);
+* large operators with amsmath's limits (`\displaylimits` for sums, `\nolimits` for integrals),
+  `\iint`, `\iiint`, `\iiiint` as amsmath's `\MultiIntegral`; `\lim`, `\max`, `\sin` and the
+  other named operators, `\operatorname` and `\operatorname*` as amsmath's `\qopname`;
+* `\bigl` … `\Biggr` as amsmath's `\bBigg@` (a `\left…\right.` around a `\vcenter` of 1, 1.5,
+  2 or 2.5 times 1.2 the height plus 1.2 the depth of `(`);
+* `\widehat` and `\widetilde` choosing the `msbm` accent for a nucleus wider than 2em;
+* `\text`, `\textrm`, `\textbf`, `\textit`, `\mbox`, `\hbox` with the text font at the size of
+  the style, shaped by the text layer's font;
+* `\ldots`, `\cdots` and amsmath's `\dots`, `\dotsc`, `\dotsb`, … with amsmath's thin space
+  after them before punctuation, a closing delimiter or the end of the formula;
+* `\ne`, `\neq`, `\not` as `\not`'s slash before the relation; `\mapsto`, `\longrightarrow`,
+  `\Longrightarrow`, `\iff`, `\implies`, `\hookrightarrow` and their relatives from their
+  pieces with `\joinrel`;
+* `\pmod`, `\pod`, `\mod` with amsmath's spaces (18mu in a displayed formula);
+* matrices (`matrix`, `pmatrix`, `bmatrix`, `Bmatrix`, `vmatrix`, `Vmatrix`), `cases` and
+  `array` with `l`, `c`, `r` columns as LaTeX's `\@array` sets them in a `\vcenter`;
+* spacing commands, styles, `\mathchoice`, `\mathord` … `\mathinner`, colours, phantoms,
+  `\smash`.
+
+Refused, and laid out by the KaTeX-compatible layout instead (each listed in
+`parity/MATHBOX.md` with its reason): `\over`, `\atop`, `\choose` and their relatives (the tree
+does not tell them from `\frac`), glue with `plus` or `minus`, arrays with rules, row gaps or
+script-style cells (`smallmatrix`, `\substack`, `aligned`, `gathered`), extensible arrows,
+`\overbrace`, `\overrightarrow`, `\boldsymbol`, `\notin`, `\iint` with explicit limits,
+`\cong`, `\models`, `\hbar`, `\ddots`, `\varvdots`, raw boxes and rules, size commands. The
+parser's tree cannot tell `\mkern3mu` from `\,` (nor 4mu, 5mu from `\:`, `\;`): they are read
+as the glue, whose width is the same.
 
 ## How far apart they are
 
-`tools/math-box-reference.sh` records TeX's box (width, height and depth) for each of the 209
-formulas of `corpus/math-box/formulas.tsv`, in text and in display style (418 boxes, in
-`fixtures/math-box/boxes.tsv`); `lake test` compares the math layout's boxes with them and
-writes the agreement per construct to `parity/MATHBOX.md`. The comparison is reported, never
-required.
+`tools/math-box-reference.sh` records TeX's box and whole node list for each formula of
+`corpus/math-box/formulas.tsv` (2,121 formulas: the first 209 hand-picked, then systematic
+families for every construct and the formulas of the reference documents,
+`tools/math-box-harvest.py`) in text and display style at 10, 11 and 12 points: 12,726 boxes.
+`lake test` compares the TeX-rule layout's boxes with them (`parity/MATHBOX.md`, per construct,
+with the first differing node of every box that is not TeX's) and fails when a box that was
+TeX's to the sp (`parity/mathbox-baseline.tsv`) no longer is.
 
-At the time of writing: no box is TeX's to the sp, 214 of 418 are within 0.1 pt in all three
-dimensions and 339 within 1 pt. The differences have three sources, in order of size:
+At the time of writing: **12,142 of 12,726 boxes are TeX's to the sp** in width, height and
+depth (the KaTeX-compatible layout: 10 of them); of the 12,150 the TeX-rule layout builds,
+12,142, and 576 boxes are of formulas it refuses. The eight it builds and misses are a
+radical in scriptscript style inside a superscript (1,218 or 2,435 sp in height) and
+`\genfrac` with `\|` delimiters in scriptscript style (TeX takes a wider delimiter). Of the
+boxes TeX's to the sp, a few hundred differ from TeX's in the structure of their lists (LuaTeX
+wraps some material in boxes of its own) without a difference in any dimension.
 
-1. **Script sizes.** TeX sets a superscript or subscript in the seven-point fonts (and a
-   second level in the five-point fonts), whose letters are wider and heavier than the
-   ten-point ones scaled down; KaTeX scales the ten-point metrics. `x^2` is 0.48 pt narrower
-   here than in TeX.
-2. **`\scriptspace` and other TeX rules KaTeX leaves out or changes**: the 0.5 pt after a
-   script, the italic correction at the end of a formula, the limits of a text-style `\sum`,
-   the placement of fractions and radicals from the fonts' parameters (`\fontdimen` of `cmsy`
-   and `cmex`).
-3. **Rounding.** KaTeX's metrics are rounded to five decimals of an em; TeX scales the metric
-   files' values exactly. A letter is up to 725 sp off, a line's depth 1 sp.
+## Drawing
 
-These are the largest remaining cause of disagreement in the documents written without reading
-this library (`parity/DOC.md`): a paragraph whose formulas are a little wider breaks a word
-earlier, and a page whose lines are a little taller is set with other glue.
-
-## What the document layer needs
-
-The boxes the paragraph and page see must be TeX's, while the KaTeX-compatible layout remains
-for its own use (the editor preview, the 11,885 parity cases of `parity/REPORT.md`). Two ways
-were weighed:
-
-* **Correcting the outer box** of the KaTeX layout to TeX's size. Rejected: the outer box is
-  the sum of the inner ones, the error is spread through the formula (every script, every
-  fraction), and a corrected outer box would no longer contain what the display list draws.
-* **A second layout that follows TeX's rules** for documents, the KaTeX one kept beside it.
-  Chosen. It takes the parse tree the parser already makes, and builds boxes as Appendix G of
-  *The TeXbook* builds them (styles, atoms and their spacing, scripts with the `\fontdimen`
-  parameters σ and ξ, limits, fractions, radicals, delimiters, accents, `\left`/`\right`, the
-  spacing table) from the metric files of the fonts LaTeX uses for each size. The display list
-  of such a box is drawn with the same glyph and rule items as today.
-
-What it needs that the library does not have yet:
-
-1. The Computer Modern math metrics for the sizes LaTeX loads (`cmr`, `cmmi`, `cmsy` at 5, 7
-   and 10 points, `cmex10`, and `msam`/`msbm` for `amssymb`): widths, heights, depths, italic
-   corrections, kerns and ligatures, extensible recipes, and the `\fontdimen` parameters,
-   generated into a data module from the metric files with a notice for their licences (Knuth's
-   for Computer Modern, the SIL Open Font License for the AMS fonts).
-2. The layout itself, in the order the corpus shows the differences: characters and spacing,
-   scripts, operators and limits, fractions, radicals, delimiters, accents, arrays.
-3. The text and document layers calling it, and `parity/MATHBOX.md` as its measure: the target
-   is every box of the corpus to the sp.
-
-The recording harness and the per-construct report are in place; the second layout is not
-written yet.
+The Computer Modern metric files have no outlines here. A character of a metric font is drawn
+with the glyph of New Computer Modern Math (`NewCMMath-Book.otf`, committed under the GUST Font
+License) that shows the same symbol, at the position and size TeX's metrics give it
+(`LeAnTeX.TeXMath.Data.Glyphs`: every slot of the fonts' encodings to its Unicode character);
+a `cmex` size variant is drawn through the back ends' `Size1`–`Size4` faces, which pick the
+math font's `MATH` variant, centred on TeX's box. The positions are TeX's; the shapes are New
+Computer Modern's, which follow Computer Modern closely; differences show in the script sizes
+(New Computer Modern scales one design where TeX has a design per size) and in a few symbols
+(the bar of `\mapsto` and the hooks of `\hookrightarrow` are pieces without a Unicode
+character and are not drawn). Against LuaLaTeX's rendering of the math reference documents
+(`tools/doc-render-compare.sh`): math-display 4.3 levels mean difference at the page top, 1.6
+at the bottom, 97–99 % of pixels within 32 levels; the KaTeX-compatible drawing of the same
+pages scores the same within 0.3 levels, the difference being in the glyph shapes, not the
+positions.

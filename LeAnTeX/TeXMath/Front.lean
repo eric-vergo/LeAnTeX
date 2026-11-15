@@ -182,7 +182,8 @@ def delimOf (name : String) : FM Delim := do
     | none => unsupported s!"delimiter {name}"
   | _ =>
     let alias_ := match name with
-      | "\\{" => "\\lbrace" | "\\}" => "\\rbrace" | "\\lbrack" => "[" | "\\rbrack" => "]" | "\\vert" => "|" | "\\Vert" => "\\|"
+      | "\\{" => "\\lbrace" | "\\}" => "\\rbrace" | "\\lbrack" => "[" | "\\rbrack" => "]"
+      | "\\vert" => "|" | "\\Vert" => "\\|"
       | "\\lvert" => "|" | "\\rvert" => "|" | "\\lVert" => "\\|" | "\\rVert" => "\\|"
       | n => n
     match alias_.toList with
@@ -709,7 +710,8 @@ def dotsInSource (src : String) : Array Bool := Id.run do
           if (cs[k]?.map Char.isWhitespace).getD false then k := k + 1 else break
         let rest := String.ofList (cs.extract k cs.size).toList
         let closing := rest.isEmpty || ["\\right", ")", "]", "\\}", "\\rangle", "|", "\\|",
-          "\\rvert", "\\rVert", "\\rbrace", "\\rfloor", "\\rceil", "}"].any (fun (p : String) => rest.startsWith p)
+          "\\rvert", "\\rVert", "\\rbrace", "\\rfloor", "\\rceil", "}"].any
+          (fun (p : String) => rest.startsWith p)
         let punct := rest.startsWith "," || rest.startsWith ";" || rest.startsWith "."
         let thin := match name with
           | "ldots" | "mathellipsis" | "dotsi" => false
@@ -733,7 +735,10 @@ def hasUnsupportedSyntax (src : String) : Bool :=
 /-- Parses a formula for the TeX-rule layout: the parser with `texMacros` added. -/
 def parseForTeX (src : String) (settings : LeAnTeX.Settings) (displayMath : Bool) :
     Except String (Array LeAnTeX.Node) :=
-  if hasUnsupportedSyntax src then .error "not supported by the TeX-rule layout: \\over, \\atop, \\choose, \\above or glue with plus or minus" else
+  if hasUnsupportedSyntax src then
+    .error "not supported by the TeX-rule layout: \\over, \\atop, \\choose, \\above or glue \
+      with plus or minus"
+  else
   let s := { settings with macros := texMacros displayMath ++ settings.macros }
   match (LeAnTeX.parse src s).result with
   | .ok t => .ok t

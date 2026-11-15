@@ -589,7 +589,9 @@ def ligatureRule (l : Array Noad) (i : Nat) (style : Style) : M (Array Noad) := 
       | 3 | 7 | 11 =>
         let r : Field := if op < 11 then .mathChar fam ch else .textChar fam ch
         l := l.insertIdxIfInBounds (i + 1) (.atom .ord r .empty .empty)
-      | _ => l := (l.setIfInBounds i (.atom .ord (.textChar fam ch) psup psub lim)).eraseIdxIfInBounds (i + 1)
+      | _ =>
+        l := (l.setIfInBounds i (.atom .ord (.textChar fam ch) psup psub lim)).eraseIdxIfInBounds
+          (i + 1)
       if op > 3 then return l
       match l[i]? with
       | some (.atom .ord (.textChar f' c') s1 s2 lim') =>

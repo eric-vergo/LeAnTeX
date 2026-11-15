@@ -550,6 +550,10 @@ def docCommand (t : Tok) (name : String) : M Bool := do
       let g ← readGlue t
       modify fun s => { s with input := saved }
       pushV (.glue g 0)
+  | "flushright" | "flushleft" | "center" =>
+    -- the environments' commands used as declarations (`{\flushright …}`): LaTeX starts their
+    -- trivial list and never ends it
+    let _ ← beginListEnv t name
   | "centering" | "raggedright" | "raggedleft" =>
     let (ls, rs, pf) := match name with
       | "centering" => (flushGlue, flushGlue, ({} : Glue))

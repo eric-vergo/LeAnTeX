@@ -8,6 +8,9 @@
 % of the run (after the last page is shipped and the auxiliary file closed). \LeanTeXTools and
 % \LeanTeXNcm are defined by the script.
 \input{\LeanTeXTools/../tex-reference/ncm.tex}
+% \today as LeAnTeX's `Settings.today` prints it, so a fixture does not depend on the day it was
+% recorded
+\def\today{January 1, 2000}
 \directlua{dofile("\LeanTeXTools/doc-reference.lua")}
 \makeatletter
 % (patched again at the start of the document, since a package such as amsmath may define

@@ -138,7 +138,8 @@ end Node
 /-- The stretch and shrink totals of each order of a list's glue. -/
 def glueTotals (l : Array Node) : Array Int × Array Int :=
   l.foldl (init := (#[0, 0, 0, 0], #[0, 0, 0, 0])) fun (st, sh) n => match n with
-    | .glue g _ => (st.modify g.stretchOrder (· + g.stretch), sh.modify g.shrinkOrder (· + g.shrink))
+    | .glue g _ =>
+      (st.modify g.stretchOrder (· + g.stretch), sh.modify g.shrinkOrder (· + g.shrink))
     | _ => (st, sh)
 
 /-- TeX's `hpack`: a horizontal box of the list, at its natural width (`to = none`) or exactly

@@ -932,7 +932,8 @@ def mathFamilies : M (Option LeAnTeX.TeXMath.Families) := do
   if let some fs := (← get).mathFams[size]? then return some fs
   let pk := (← get).doc.packages
   let set : LeAnTeX.TeXMath.MathFontSet :=
-    { tfms := cfg.mathTfms, amsfonts := pk.contains "amssymb" || pk.contains "amsfonts" || pk.contains "amsmath",
+    { tfms := cfg.mathTfms,
+      amsfonts := pk.contains "amssymb" || pk.contains "amsfonts" || pk.contains "amsmath",
       text := fun k => (resolve k).map fun i => (⟨i, k.size, 0⟩ : TextFont) }
   match set.families size with
   | .ok fs =>

@@ -161,6 +161,22 @@ def cases : Array Case := #[
     files := fun _ => #[("mt.tex",
       ("$\\def\\a{" ++ rep "x" 4000 ++ "}" ++ rep "\\a" 1000 ++ "$").toUTF8)],
     expect := "Too many tokens" },
+  { name := "TeX-rule layout: nested \\sqrt[n], each level built in four styles, stays bounded",
+    exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/root.tex", "@/o3"],
+    files := fun _ => #[("root.tex", ("\\documentclass{article}\\begin{document}$" ++
+      rep "\\sqrt[3]{" 12 ++ "x" ++ rep "}" 12 ++ "$\\end{document}").toUTF8)],
+    expect := "pages" },
+  { name := "TeX-rule layout: a paragraph of 3000 breakable formulas in linear time",
+    exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/inl.tex", "@/o4"],
+    files := fun _ => #[("inl.tex", ("\\documentclass{article}\\begin{document}" ++
+      rep "$a+b=c$ " 3000 ++ "\\end{document}").toUTF8)],
+    expect := "pages" },
+  { name := "TeX-rule layout: delimiters around 4000 atoms and fractions 300 deep",
+    exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/del.tex", "@/o5"],
+    files := fun _ => #[("del.tex", ("\\documentclass{article}\\begin{document}$\\left(" ++
+      rep "x+" 4000 ++ "\\right)$ $" ++ rep "\\frac{1}{" 300 ++ "x" ++ rep "}" 300 ++
+      "$\\end{document}").toUTF8)],
+    expect := "pages" },
   { name := "images: one 1 MiB image included 400 times is read and written once per file",
     exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/img.tex", "@/o2"],
     files := fun _ => #[("mid.png", paddedPng (1 <<< 20)), ("img.tex",

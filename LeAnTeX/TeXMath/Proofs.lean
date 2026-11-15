@@ -104,7 +104,8 @@ theorem le_hpack_height (l : Array Node) (n : Node) (h : n ∈ l) :
           intro ys
           induction ys with
           | nil => intro b; simp
-          | cons y ys ih2 => intro b; simp only [List.foldl_cons]; exact Int.le_trans (by omega) (ih2 _)
+          | cons y ys ih2 =>
+            intro b; simp only [List.foldl_cons]; exact Int.le_trans (by omega) (ih2 _)
         exact Int.le_trans (by omega) (this xs _)
       · exact ih _ hm
   rw [← Array.foldl_toList]
@@ -127,7 +128,8 @@ theorem le_hpack_depth (l : Array Node) (n : Node) (h : n ∈ l) :
           intro ys
           induction ys with
           | nil => intro b; simp
-          | cons y ys ih2 => intro b; simp only [List.foldl_cons]; exact Int.le_trans (by omega) (ih2 _)
+          | cons y ys ih2 =>
+            intro b; simp only [List.foldl_cons]; exact Int.le_trans (by omega) (ih2 _)
         exact Int.le_trans (by omega) (this xs _)
       · exact ih _ hm
   rw [← Array.foldl_toList]

@@ -88,7 +88,9 @@ Paragraphs (an empty line, `\par`, `\noindent`, `\indent`), `\\` and `\newline`,
 commands `\textrm` `\textsf` `\texttt` `\textbf` `\textmd` `\textit` `\textsl` `\textsc`
 `\textup` `\textnormal` `\emph` and their declarations, `\em`, the sizes `\tiny` to `\Huge`
 (LaTeX's ten-point classes, with their `\baselineskip`), `\fontsize{…}{…}\selectfont`; `\hbox`,
-`\mbox`; formulas `$…$`, `\(…\)`, `\[…\]`, `$$…$$` through the math layout at the text size;
+`\mbox`; formulas `$…$`, `\(…\)`, `\[…\]`, `$$…$$` at the text size, through the TeX-rule
+layout (`docs/math-boxes.md`) when `Settings.mathTfms` holds the Computer Modern metric files,
+else through the KaTeX-compatible math layout;
 `\newcommand`, `\renewcommand`, `\providecommand` (up to nine parameters, an optional first),
 `\def` with undelimited parameters, all local to groups and available in formulas; TeX's
 parameter assignments for the line breaker's parameters, `\hsize`, `\parindent`, `\parskip`,
@@ -119,7 +121,9 @@ The defaults are LaTeX's article class at ten points: `\hsize` 345 pt, `\parinde
   `\vadjust`, `\vbox`, `\raisebox`, rules (`\rule`), leaders, `\discretionary`, inserts and
   marks.
 * **In the line breaker**: `\lastlinefit`, margin kerning and font expansion (off in LaTeX).
-  Formulas are unbreakable boxes; TeX breaks a formula after a relation or a binary operator.
+  A formula of the KaTeX-compatible layout is an unbreakable box; one of the TeX-rule layout is
+  TeX's list (math nodes as zero kerns, glue that does not break, penalties after relations
+  and binary operations), so a line breaks inside it where TeX's would.
 * **In the fonts**: only `liga` and `kern` (and TeX's `tlig`); no other OpenType features, no
   contextual or script-specific shaping, no font fallback. A word split by a font change is
   hyphenated as two words.

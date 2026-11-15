@@ -18,8 +18,8 @@ The Computer Modern metric files have no outlines here: a character of a metric 
 with the glyph of New Computer Modern Math (`NewCMMath-Book.otf`) that shows the same symbol
 (`LeAnTeX.TeXMath.Data.Glyphs`), at the position and size TeX's metrics give it, a `cmex` size
 variant through the back ends' `Size1`–`Size4` faces (the math font's `MATH` variants); a
-character of an OpenType text font with that font. The drawing is a choice of shapes, not of positions:
-every box keeps TeX's dimensions.
+character of an OpenType text font with that font. The drawing is a choice of shapes, not of
+positions: every box keeps TeX's dimensions.
 
 ## Main definitions
 
