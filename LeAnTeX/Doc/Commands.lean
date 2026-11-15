@@ -180,7 +180,13 @@ def stepCounter (at_ : Tok) (name : String) : M Unit := do
 /-- `\refstepcounter`: steps it and makes its printed value what a `\label` records. -/
 def refStepCounter (at_ : Tok) (name : String) : M Unit := do
   stepCounter at_ name
-  let txt ← theCounter at_ name
+  -- an enumerate level's reference carries the levels above it (LaTeX's `\p@enumii` …)
+  let pre := match name with
+    | "enumii" => "\\theenumi "
+    | "enumiii" => "\\theenumi (\\theenumii )"
+    | "enumiv" => "\\theenumi (\\theenumii )\\theenumiii "
+    | _ => ""
+  let txt ← expandText at_ (tokenize (pre ++ "\\the" ++ name ++ " "))
   modifyDoc fun d => { d with currentLabel := txt }
 
 /-! ### Labels and references -/

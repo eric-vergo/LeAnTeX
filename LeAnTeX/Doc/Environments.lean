@@ -2,7 +2,7 @@
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
-import LeAnTeX.Doc.Commands
+import LeAnTeX.Doc.Lists
 
 /-!
 # The document layer's commands: environments and the dispatcher
@@ -65,9 +65,14 @@ def beginEnv (at_ : Tok) : M Unit := do
 where
   /-- The environment's own beginning; whether it is known. -/
   beginNamed (at_ : Tok) (name : String) : M Bool := do
-    let _ := at_
-    match name with
-    | _ => return false
+    if ← beginListEnv at_ name then
+      setEnd #[csT "leantex@endlist" at_]
+      return true
+    return false
+  /-- Sets the innermost environment's end code. -/
+  setEnd (ts : Array Tok) : M Unit :=
+    modifyDoc fun d => { d with envs := d.envs.modify (d.envs.size - 1) fun e =>
+                                { e with end_ := ts } }
 
 /-- `\end{name}`. -/
 def endEnv (at_ : Tok) : M Unit := do
@@ -90,8 +95,11 @@ def endEnv (at_ : Tok) : M Unit := do
 
 /-- The end of an environment after its own end code: the group closed. -/
 def endEnvGroup (at_ : Tok) : M Unit := do
+  let e := (← docSt).envs.back?
   modifyDoc fun d => { d with envs := d.envs.pop }
   endGroup at_
+  if let some e := e then
+    if isListEnv e.name then modifyDoc fun d => { d with endPe := true }
 
 /-- Closes a group: a nested vertical list or a box that began with it is finished. -/
 def closeGroup (at_ : Tok) : M Unit := endGroup at_
@@ -132,7 +140,7 @@ def docCommand (t : Tok) (name : String) : M Bool := do
     let (w, _) ← readDimen t
     modify fun s => { s with input := saved }
     modifyVars fun v => { v with p := { v.p with leftSkip :=
-      { v.p.leftSkip with width := v.p.leftSkip.width + w } } }
+                                 { v.p.leftSkip with width := v.p.leftSkip.width + w } } }
   | "leantex@hskipleft" =>
     startParagraph
     push (.glue { width := -(← vars).p.leftSkip.width } 0)
@@ -140,6 +148,31 @@ def docCommand (t : Tok) (name : String) : M Bool := do
     startParagraph
     push (.glue { stretch := 65536, stretchOrder := 2 } 100)
   | "leantex@tocline" => tocLine t
+  | "item" => item t
+  | "leantex@labelbox" => labelBox t
+  | "leantex@fitlast" => fitLast t
+  | "leantex@endlist" => endList t
+  | "\\" =>
+    if !(← vars).crPar then return false
+    let _ ← readStar
+    let skip ← readOptional?
+    endParagraph
+    if let some sk := skip then
+      let saved := (← get).input
+      modify fun s => { s with input := sk.reverse }
+      let g ← readGlue t
+      modify fun s => { s with input := saved }
+      pushV (.glue g 0)
+  | "centering" | "raggedright" | "raggedleft" =>
+    let (ls, rs, pf) := match name with
+      | "centering" => (flushGlue, flushGlue, ({} : Glue))
+      | "raggedright" => ({}, flushGlue, flushGlue)
+      | _ => (flushGlue, {}, {})
+    modifyVars fun v => { v with p := { v.p with leftSkip := ls, rightSkip := rs },
+                                 parIndent := 0, parFillSkip := pf, crPar := true }
+  | "par" =>
+    if !(← get).hmode then modifyDoc fun d => { d with endPe := false }
+    return false
   | "tableofcontents" => tableOfContents t
   | "begingroup" => beginGroup t
   | "endgroup" => closeGroup t

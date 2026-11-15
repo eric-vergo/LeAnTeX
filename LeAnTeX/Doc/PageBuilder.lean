@@ -311,7 +311,8 @@ def insert (b : Builder) (p : PageParams) (n : VNode) : Builder := Id.run do
     let hScaled := if ic.count == 1000 then h else h / 1000 * ic.count
     if (hScaled ≤ 0 || hScaled ≤ delta) && h + r.height ≤ ic.dimen then
       b := { b with goal := b.goal - hScaled,
-                    records := b.records.modify ri fun r => { r with height := r.height + h, last := idx } }
+                    records := b.records.modify ri fun r =>
+                      { r with height := r.height + h, last := idx } }
     else
       -- split it (TeX §1010): the room left, in the class's own units
       let w0 := if ic.count ≤ 0 then awfulBad else b.goal - b.hs.total - b.hs.depth
@@ -373,7 +374,8 @@ def Builder.fire (b : Builder) (p : PageParams) : Builder := Id.run do
       | none => held := held.push n
     | n => items := items.push n
   -- the material of each class, in order
-  let classes := ins.foldl (init := #[]) fun acc (c, _) => if acc.contains c then acc else acc.push c
+  let classes := ins.foldl (init := #[]) fun acc (c, _) =>
+    if acc.contains c then acc else acc.push c
   let merged := classes.map fun c =>
     (c, ins.foldl (init := #[]) fun acc (c', m) => if c' == c then acc ++ m else acc)
   let page : PageOut := { items, size := b.bestSize, inserts := merged, penalty }

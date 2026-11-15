@@ -197,6 +197,9 @@ structure Vars where
   /-- The width of a line in the lists open (LaTeX's `\linewidth`), when it is not
   `\hsize`. -/
   lineWidth : Option Int := none
+  /-- Whether `\\` ends the paragraph (LaTeX's `\centering`, `\raggedright`,
+  `\raggedleft`). -/
+  crPar : Bool := false
   deriving Inhabited
 
 /-- Why source could not be typeset: a message and the source offset (in characters) of the
@@ -770,7 +773,7 @@ def startParagraph : M Unit := do
   let s ← get
   if s.hmode then return
   let v ← vars
-  let afterHeading := s.doc.afterHeading
+  let afterHeading := s.doc.afterHeading || s.doc.endPe
   let indent := if s.noIndent || afterHeading || s.doc.inLabel then #[]
     else #[HNode.box v.parIndent 0 0 0 #[]]
   let indent := match s.doc.labelBox with
@@ -783,7 +786,7 @@ def startParagraph : M Unit := do
   set { s with hmode := true, hlist := indent, sf := 1000, noIndent := false, cursor, vlist,
                noClub := s.afterDisplay, clubMax := s.doc.noBreak, afterDisplay := false,
                doc := { s.doc with afterHeading := false, noBreak := false, inLabel := false,
-                                   labelBox := none } }
+                                   labelBox := none, endPe := false } }
 
 /-- TeX's `pre_display_size` for a display after line `l` (shifted by its indentation): the
 right end of its last visible item plus two em of the current font. -/

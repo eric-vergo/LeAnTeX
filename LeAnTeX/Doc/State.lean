@@ -89,6 +89,19 @@ structure ListLevel where
   labelStyle : Nat := 0
   /-- Whether the list is a trivial list (`center`, `quote`'s skips only, no items). -/
   trivial : Bool := false
+  /-- LaTeX's `\@topsepadd`: `\topsep`, with `\partopsep` when the list began in vertical
+  mode. -/
+  topSepAdd : Glue := {}
+  /-- LaTeX's `\@topsep`: `\@topsepadd` plus the `\parskip` outside. -/
+  topSepItem : Glue := {}
+  /-- The `\parskip` outside the list. -/
+  outerParSkip : Glue := {}
+  /-- Whether no item has come yet. -/
+  newList : Bool := true
+  /-- Whether the list began right after an item's label (no skips of its own). -/
+  noParList : Bool := false
+  /-- Whether the label is set at its natural width (`description`). -/
+  naturalLabel : Bool := false
   deriving Inhabited
 
 /-- A figure or table: its kind (`figure`, `table`), the placement it allows (`htbp`
@@ -203,6 +216,9 @@ structure DocState where
   noBreak : Bool := false
   /-- Whether the next paragraph is to start without its indentation after a heading. -/
   afterHeading : Bool := false
+  /-- Whether the next paragraph, if it follows at once, continues after an environment
+  without indentation (LaTeX's `\@endpe`). -/
+  endPe : Bool := false
   /-- The user environments. -/
   environments : Std.HashMap String EnvDef := {}
   /-- The theorem environments. -/
