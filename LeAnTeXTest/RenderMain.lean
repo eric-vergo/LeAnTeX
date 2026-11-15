@@ -29,7 +29,8 @@ their positions from `document.css` and `web.css` instead of `style` attributes.
 relative, contains `..`, or leads (through a link) outside that directory is refused, as is a
 file over 16 MiB. Formulas are set with TeX's own rules and the Computer Modern metric files
 read from the directories `--tfm` names (by default those of `/usr/local/texlive/*`), when they
-are there; else with the KaTeX-compatible layout.
+are there; else with the KaTeX-compatible layout. Without `--document`, `--tfm` is ignored
+with a warning: a fragment's formulas are laid out by the KaTeX-compatible layout.
 -/
 
 open LeAnTeX LeAnTeX.Backend
@@ -149,6 +150,9 @@ def main (argv : List String) : IO UInt32 := do
     for m in missing do IO.eprintln s!"leantex-render: font {terminalText m}"
     return 2
   if a.document then return ← renderDocument fonts a src out
+  if !a.tfm.isEmpty then
+    IO.eprintln "leantex-render: warning: --tfm applies to --document only; formulas here are \
+      laid out by the KaTeX-compatible layout"
   let source ← IO.FS.readFile src
   let opts : RenderOptions := { html := a.html, math := a.math, fontUrl := a.fontUrl.getD a.fonts }
   match render fonts source opts with

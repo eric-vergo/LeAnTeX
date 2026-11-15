@@ -27,9 +27,10 @@ holds no statement of the terms beside the metric files (its documentation tree 
 installed; the METAFONT sources say only that they must not be changed under the same name).
 Redistribution of data derived from them is not clearly allowed by what is there, so nothing
 derived from the metric files is committed: a program reads them at run time from a TeX
-installation (`LeAnTeX.TeXMath.readTfmDirs`, `leantex-render --tfm DIR`, by default the
-directories of `/usr/local/texlive/*`); without one, formulas are laid out by the
-KaTeX-compatible layout and the comparisons below are skipped with a note. The committed
+installation (`LeAnTeX.TeXMath.readTfmDirs`, `leantex-render --document --tfm DIR`, in the
+tests `LEANTEX_TFM_DIRS`, by default the directories of `/usr/local/texlive/*`); without one,
+formulas are laid out by the KaTeX-compatible layout, and `lake test` skips the comparisons
+below and the baselined documents that have formulas, each with a note. The committed
 recordings of TeX's output (`fixtures/math-box/`, the boxes and node lists TeX made) are TeX's
 typeset results, as the document fixtures are.
 

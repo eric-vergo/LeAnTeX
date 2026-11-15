@@ -164,6 +164,13 @@ def setOf (name : String) : String :=
   if name.startsWith "held-" then "doc-heldout"
   else if name.startsWith "blind-" then "doc-heldout-2" else "doc"
 
+/-- Whether a document's source has a formula (`$`, `\(`, `\[` or a math environment):
+such a document is set with TeX's boxes only when the metric files are there. -/
+def hasFormulas (src : String) : Bool :=
+  src.contains '$' || (src.splitOn "\\(").length > 1 || (src.splitOn "\\[").length > 1 ||
+    ["equation", "align", "gather", "multline", "eqnarray", "displaymath", "math"].any
+      fun e => (src.splitOn ("\\begin{" ++ e)).length > 1
+
 /-- Compares one document with its fixture. -/
 def compare (name : String) (resolve : FontResolver) : IO Outcome := do
   let src ← IO.FS.readFile s!"corpus/{setOf name}/{name}.tex"
@@ -511,11 +518,21 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
           else if (← IO.FS.readFile f) != pages[k] then
             fails := fails.push s!"example {f} differs from what the back end writes"
       | .error e => fails := fails.push s!"example article: {e.message}"
+  -- without the metric files formulas are set by the KaTeX-compatible layout, so a baselined
+  -- document with formulas is reported as skipped instead of failing
+  let haveTfms := (← MathBoxChecks.mathTfms).contains "cmmi10"
+  let mut skipped := 0
   for b in baseline do
     match outs.find? (·.name == b) with
     | some o => if !o.diffs.isEmpty then
-        fails := fails.push s!"document {b} no longer agrees: {o.diffs[0]?.getD ""}"
+        if !haveTfms && hasFormulas (← IO.FS.readFile s!"corpus/{setOf b}/{b}.tex") then
+          skipped := skipped + 1
+        else
+          fails := fails.push s!"document {b} no longer agrees: {o.diffs[0]?.getD ""}"
     | none => if show?.isNone then fails := fails.push s!"document {b}: no fixture"
+  if skipped > 0 then
+    IO.println s!"  documents with formulas: {skipped} not compared with the baseline (no \
+      Computer Modern metric files; set LEANTEX_TFM_DIRS)"
   if update then
     IO.FS.writeFile "parity/doc-baseline.tsv"
       (String.join (agree.toList.map (·.name ++ "\n")))

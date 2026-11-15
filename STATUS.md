@@ -95,7 +95,8 @@ What LeAnTeX does today, and what comes next.
   rounding and LuaTeX's five differences, LaTeX's math codes recorded from LuaLaTeX, the
   commands built as LaTeX and amsmath build them, LaTeX's font setup for every size. The
   metric files are read at run time from a TeX installation (none is committed); without one
-  formulas fall back to the KaTeX-compatible layout. Against LuaLaTeX (`parity/MATHBOX.md`):
+  formulas fall back to the KaTeX-compatible layout (and `lake test` skips the box checks and
+  the baselined documents with formulas, with a note). Against LuaLaTeX (`parity/MATHBOX.md`):
   12,166 of 12,750 formula boxes to the sp (12,166 of the 12,174 it builds); `lake test` fails
   if a box that was TeX's no longer is. Inline formulas break after relations and binary
   operations as in TeX; glyphs drawn with New Computer Modern Math at TeX's positions.
