@@ -236,12 +236,12 @@ def prepareVerbatim (src : String) : Except (Nat × String) String := Id.run do
   let mut i := 0
   for _ in [0:n + 1] do
     if i ≥ n then break
-    let c := cs[i]!
-    if c == '%' && (i == 0 || cs[i - 1]! != '\\') then
+    let some c := cs[i]? | break
+    if c == '%' && (i == 0 || cs[i - 1]? != some '\\') then
       -- a comment: copy to the end of the line
       let mut j := i
       for _ in [i:n] do
-        if cs[j]! == '\n' then break
+        if cs[j]? == some '\n' then break
         j := j + 1
       out := out ++ String.ofList (cs.extract i j).toList
       i := j
@@ -265,8 +265,8 @@ def prepareVerbatim (src : String) : Except (Nat × String) String := Id.run do
         let mut j := d + 1
         let mut ok := false
         for _ in [d + 1:n] do
-          if cs[j]! == '\n' then break
-          if cs[j]! == delim then ok := true; break
+          if cs[j]? == some '\n' then break
+          if cs[j]? == some delim then ok := true; break
           j := j + 1
         if !ok then return .error (i, "\\verb ended by end of line")
         out := out ++ "\\\uE001{" ++ hexOf (String.ofList (cs.extract (d + 1) j).toList) ++

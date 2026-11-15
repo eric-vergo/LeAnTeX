@@ -59,7 +59,7 @@ def parsePreamble (at_ : Tok) (ts : Array Tok) : M (Array Column) := do
   let mut i := 0
   for _ in [0:ts.size + 1] do
     if i ≥ ts.size then break
-    let t := ts[i]!
+    let some t := ts[i]? | break
     i := i + 1
     match t with
     | .char ' ' _ _ => pure ()

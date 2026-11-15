@@ -378,7 +378,7 @@ def createActive (ps : Pass) (s : State) (j pos : Nat) (hyph : Bool) (start : To
             total := m, passive := some q, start }
         s := { s with act := s.act.insertIdxIfInBounds j a, work := s.work + s.act.size }
         j := j + 1
-    s := { s with minimal := s.minimal.set! fc awfulBad }
+    s := { s with minimal := s.minimal.setIfInBounds fc awfulBad }
   return ({ s with minimum := awfulBad }, j)
 
 /-- TeX's `try_break` at node `pos` with penalty `pi`: `cur` are the totals of the material up
@@ -428,9 +428,9 @@ def tryBreak (ps : Pass) (s : State) (pi : Int) (hyph : Bool) (pos : Nat) (atEnd
       let d := d + r.total
       if d ≤ s.minimal[fc]?.getD awfulBad then
         s := { s with
-          minimal := s.minimal.set! fc d
-          bestPlace := s.bestPlace.set! fc r.passive
-          bestPlLine := s.bestPlLine.set! fc l
+          minimal := s.minimal.setIfInBounds fc d
+          bestPlace := s.bestPlace.setIfInBounds fc r.passive
+          bestPlLine := s.bestPlLine.setIfInBounds fc l
           minimum := min s.minimum d }
     if stays then j := j + 1
     else s := { s with act := s.act.eraseIdxIfInBounds j, work := s.work + s.act.size }

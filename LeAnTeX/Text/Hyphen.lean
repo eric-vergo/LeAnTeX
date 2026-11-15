@@ -61,7 +61,7 @@ def parsePattern (p : String) : String × Array Nat := Id.run do
   let mut letters := ""
   let mut digits : Array Nat := #[0]
   for c in p.toList do
-    if c.isDigit then digits := digits.set! (digits.size - 1) (c.toNat - '0'.toNat)
+    if c.isDigit then digits := digits.setIfInBounds (digits.size - 1) (c.toNat - '0'.toNat)
     else letters := letters.push c; digits := digits.push 0
   return (letters, digits)
 
@@ -102,7 +102,7 @@ def patternPoints (ps : Patterns) (w : String) : Array Nat := Id.run do
       if let some ds := ps.table[sub]? then
         for k in [0:ds.size] do
           let v := ds[k]?.getD 0
-          if v > vals[i + k]?.getD 0 then vals := vals.set! (i + k) v
+          if v > vals[i + k]?.getD 0 then vals := vals.setIfInBounds (i + k) v
   -- place `k` of the word (after its `k`th letter) is place `k + 1` of the dotted word
   let mut out := #[]
   for k in [1:w.length] do
