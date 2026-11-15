@@ -3,6 +3,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
 import LeAnTeX
+import LeAnTeXTest.MathBoxChecks
 
 /-!
 # The back ends' checks
@@ -142,13 +143,82 @@ def checks (fonts : Fonts) : Array (String × Bool) :=
     ("svg: an empty source gives an empty picture", has (svg "") "<svg"),
     ("svg: deterministic", svg "$a+b$ and text" == svg "$a+b$ and text")]
 
+/-- The horizontal centre of the ink of the glyph a back end draws for a glyph item, in
+scaled points of the em: its position, the shift `FontSet.shift` gives and the middle of its
+outline's box. -/
+def inkCentre (fs : FontSet) (it : Item) : Option Int := do
+  let .glyph face c x _ size .. := it | none
+  let r ← fs.resolve face c
+  let f ← fs.fonts[r.font]?
+  let b ← (f.bounds r.glyph).toOption.join
+  let mid : Int := (b.xMin + b.xMax) / 2 + fs.shift face c * 65536
+  return x.raw + mid * size.raw / (65536 * (f.unitsPerEm : Int))
+
+/-- Whether, in the items, the ink of every glyph for `c` is centred within 0.08 em of the ink
+of the glyph after it (`\not`'s slash over its relation), and there is one. -/
+def overlaysIn (fs : FontSet) (items : Array Item) (c : Char) : Bool :=
+    let pairs : List (Item × Option Item) := (List.range items.size).filterMap fun i =>
+      match items[i]? with
+      | some it => match it with
+        | .glyph _ c' .. => if c' == c then some (it, items[i + 1]?) else none
+        | _ => none
+      | none => none
+    !pairs.isEmpty && pairs.all fun (it, next) =>
+      match inkCentre fs it, next.bind (inkCentre fs) with
+      | some a, some b => (a - b).natAbs * 100 ≤ 8 * Em.unit
+      | _, _ => false
+
+/-- `overlaysIn` for the display list of the KaTeX-compatible layout of `src`. -/
+def overlays (fs : FontSet) (src : String) (c : Char) : Bool :=
+  match (LeAnTeX.layout src).result with
+  | .error _ => false
+  | .ok b => overlaysIn fs (DisplayList.ofBox b).items c
+
+/-- `overlaysIn` for the display list of the TeX-rule layout of `src` at ten points (`none`
+without the metric files). -/
+def texOverlays (fs : FontSet) (src : String) (c : Char) : IO (Option Bool) := do
+  let .ok m ← MathBoxChecks.fontSet | return none
+  let .ok fams := m.families 655360 | return none
+  match MathBoxChecks.texLayout m fams 10 src false with
+  | .error _ => return some false
+  | .ok l =>
+    -- the display list is in em of the size: items' positions and sizes are scaled alike
+    return some (overlaysIn fs (TeXMath.displayListOf fams l 655360).items c)
+
+/-- The negation and private-use glyphs: `\not`'s slash is drawn over the relation after it,
+and every math symbol whose character is one of KaTeX's private-use characters is drawn with a
+glyph `privateUse` names (never with the math font's own glyph of that code point, which is a
+different symbol). -/
+def privateUseChecks (fs : FontSet) : Array (String × Bool) :=
+  let pua := LeAnTeX.Data.mathSymbolList.filterMap fun (name, info) =>
+    match info.replace with
+    | some r => match r.toList with
+      | [c] => if 0xE000 ≤ c.toNat && c.toNat ≤ 0xF8FF then some (name, info.font, c) else none
+      | _ => none
+    | none => none
+  let faceOf : LeAnTeX.Font → String := fun
+    | .ams => "AMS-Regular"
+    | .main => "Main-Regular"
+  let unmapped := pua.filter fun (name, font, c) =>
+    let face := if name == "\\@imath" || name == "\\@jmath" then "Math-Italic" else faceOf font
+    (privateUse face c).isNone
+  #[("not: the slash of \\ne is centred on the =", overlays fs "a\\ne b" (Char.ofNat 0xE020)),
+    ("not: the slash of \\not< is centred on the <", overlays fs "a\\not< b" (Char.ofNat 0xE020)),
+    ("not: the bold slash of \\boldsymbol{\\ne} is centred on the =",
+      overlays fs "\\boldsymbol{a\\ne b}" (Char.ofNat 0xE020)),
+    (s!"private use: every symbol drawn with one of KaTeX's private-use characters has its \
+      glyph ({pua.size} symbols; unmapped: {unmapped.map (·.1)})", unmapped.isEmpty)]
+
 /-- Runs the back ends' checks (with `update`, rewrites the goldens); prints the summaries,
 returns the failures. -/
 def run (update : Bool := false) : IO (Array String) := do
   let (fonts, missing) ← Fonts.load "fonts/newcomputermodern"
   if !missing.isEmpty then return missing.map (s!"fonts: " ++ ·)
   let g ← goldens fonts update
-  let cs := checks fonts
+  let mut cs := checks fonts ++ privateUseChecks fonts.set
+  for src in ["a\\ne b", "a\\not< b"] do
+    if let some ok ← texOverlays fonts.set src (Char.ofNat 0x0338) then
+      cs := cs.push (s!"not: the TeX-rule layout's slash of {src} is centred on the relation", ok)
   let bad := cs.filter (!·.2)
   IO.println s!"  back-end checks: {cs.size - bad.size} of {cs.size} hold"
   return g ++ bad.map (s!"check: " ++ ·.1)

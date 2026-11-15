@@ -25,6 +25,13 @@ needs, for each, a font and a glyph index. `FontSet.resolve` gives them:
   italics (`NewCM10-BookItalic.otf`, `NewCM10-BoldItalic.otf`). `Size1`–`Size4` take the math
   font's size variants (`MATH` table): the smallest variant at least as tall (or, for a glyph
   that grows sideways, as wide) as KaTeX's glyph in that face, else the largest.
+* KaTeX's private-use characters (`privateUse`), which name glyphs of KaTeX's own fonts, are
+  drawn with the math font's glyph of the same symbol: `\not`'s slash as the combining long
+  solidus moved right onto the relation after it, the negated and variant AMS relations as
+  their Unicode characters (the variants through the font's `cv01` feature) or the math font's
+  own glyphs of them, the dotless `ı` and `ȷ` of math italic as the mathematical italic ones.
+  The math font's own private-use characters are other glyphs, so KaTeX's are never looked up
+  as they are.
 * A character the chosen font lacks is looked up in the math font, then in the main text font;
   a glyph no font has is not drawn.
 
@@ -120,6 +127,37 @@ def mathAlphanumeric (face : String) (c : Char) : Option Char :=
   | "Typewriter-Regular" => latin "" 0x1D670 0x1D68A (some 0x1D7F6) c
   | _ => none
 
+/-- KaTeX's private-use character `c` of face `face` as drawn with New Computer Modern Math:
+the code point (one of the font's own private-use characters for the negated AMS relations
+Unicode does not encode), the `GSUB` features applied to its glyph, and the shift right in
+thousandths of an em that centres the glyph where KaTeX's is (see the module docstring);
+`none` for every other character. -/
+def privateUse (face : String) (c : Char) : Option (Nat × List String × Int) :=
+  match face, c.toNat with
+  -- `\not`: KaTeX's slash is centred 0.389 em right of the origin (0.4465 em in bold), New
+  -- Computer Modern's combining solidus 0.2635 em left of it (0.2885 em in bold)
+  | "Main-Regular", 0xE020 => some (0x0338, [], 653)
+  | "Main-Bold", 0xE020 => some (0x0338, [], 735)
+  | "Math-Italic", 0xE131 | "Math-BoldItalic", 0xE131 => some (0x1D6A4, [], 0)
+  | "Math-Italic", 0xE237 | "Math-BoldItalic", 0xE237 => some (0x1D6A5, [], 0)
+  | "AMS-Regular", n => match n with
+    | 0xE006 => some (0x2224, [], 0)
+    | 0xE007 => some (0x2226, [], 0)
+    | 0xE00C => some (0x2268, ["cv01"], 0)
+    | 0xE00D => some (0x2269, ["cv01"], 0)
+    | 0xE00E => some (0xE0EA, [], 0)
+    | 0xE00F => some (0xE1CC, [], 0)
+    | 0xE010 => some (0xE1CB, [], 0)
+    | 0xE011 => some (0xE0E9, [], 0)
+    | 0xE016 => some (0xE20D, [], 0)
+    | 0xE017 => some (0x2ACB, ["cv01"], 0)
+    | 0xE018 => some (0xE20E, [], 0)
+    | 0xE019 => some (0x2ACC, ["cv01"], 0)
+    | 0xE01A => some (0x228A, ["cv01"], 0)
+    | 0xE01B => some (0x228B, ["cv01"], 0)
+    | _ => none
+  | _, _ => none
+
 namespace FontSet
 
 variable (fs : FontSet)
@@ -176,9 +214,28 @@ def resolve (face : Face) (c : Char) : Option GlyphRef :=
         | "Main-Italic" => fs.italic
         | "Main-BoldItalic" => fs.boldItalic
         | _ => fs.math
-      match mathAlphanumeric name c with
-      | some m => (fs.glyphIn font m).orElse fun _ => fs.glyphWithFallback font c
-      | none => fs.glyphWithFallback font c
+      match privateUse name c with
+      | some (m, feats, _) =>
+        let bold := (name == "Main-Bold" || name == "Math-BoldItalic") &&
+          fs.fonts.contains fs.mathBold
+        let pu := if bold then fs.mathBold else fs.math
+        (fs.glyphIn pu (Char.ofNat m)).map fun r =>
+          match (fs.fonts[pu]?).bind (·.gsub), feats with
+          | some t, _ :: _ => { r with glyph := (t.apply feats #[r.glyph])[0]?.getD r.glyph }
+          | _, _ => r
+      | none =>
+        match mathAlphanumeric name c with
+        | some m => (fs.glyphIn font m).orElse fun _ => fs.glyphWithFallback font c
+        | none => fs.glyphWithFallback font c
+
+/-- How far right of the display list's position the glyph `resolve` gives for `face` and `c`
+is drawn, in the units of the font it is in: 0 but for KaTeX's `\not` slash
+(`privateUse`). -/
+def shift (face : Face) (c : Char) : Int :=
+  match face.font, privateUse face.katexName c, fs.resolve face c with
+  | none, some (_, _, dx), some r =>
+    dx * (((fs.fonts[r.font]?).map (·.unitsPerEm)).getD 1000 : Nat) / 1000
+  | _, _, _ => 0
 
 /-- The font set over the fonts read from the files `names` in `dir`, each under its file name;
 a file missing or unreadable is left out, with the reason in the second component. -/

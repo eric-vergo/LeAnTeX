@@ -52,6 +52,14 @@ def drawFont (f : MathFont) (code : Nat) : Option (Face × Char) :=
     some ({ font := some t.info.name, family := t.info.name, slant := t.info.slant,
             smallCaps := t.info.smallCaps }, Char.ofNat code)
 
+/-- How far right of its place a metric font's character drawn as `u` in the math font goes:
+`\not`'s slash (`cmsy`'s character 54, drawn as the combining long solidus U+0338) has no
+width in TeX's font and its ink over the relation to its right, centred 0.389 em right of
+the origin, while the math font's combining solidus is centred 0.2635 em left of its origin;
+it is moved 0.653 em of the size. Every other character: 0. -/
+def combiningShift (u : Char) (size : Int) : Int :=
+  if u.toNat == 0x0338 then Em.roundDiv (653 * size) 1000 else 0
+
 /-- Where a `cmex` character drawn through a `Size` face is put: that face's glyph (whose
 height and depth KaTeX's metrics give) centred on the box TeX's metrics give the character
 (baseline `base`, height `h`, depth `d`), since the math font's size variants stand on the axis
@@ -113,7 +121,8 @@ def itemsOf (fs : Families) : Nat → Bool → Array Node → GlueSet → Int �
             let base := if vertical then cy + h else cy
             let base := if face.font.isSome then base
               else sizeVariantBaseline face u font.size base h d
-            out := out.push (.glyph face u ⟨cx⟩ ⟨base⟩ ⟨font.size⟩ true false none none)
+            let gx := cx + (if face.font.isSome then combiningShift u font.size else 0)
+            out := out.push (.glyph face u ⟨gx⟩ ⟨base⟩ ⟨font.size⟩ true false none none)
         if vertical then cy := cy + h + d else cx := cx + w
       | .glyph f c _ w h d =>
         if let some font := fs.fonts[f]? then

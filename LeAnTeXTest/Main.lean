@@ -43,6 +43,8 @@ It then lays out every formula and compares the box tree with KaTeX's
   difference of the trees.
 * `lake exe leantex-test --text`: only the text-mode fixtures and the font reader
   (`LeAnTeXTest.TextFixtures`, `LeAnTeXTest.Font`), which `lake test` also runs.
+* `lake exe leantex-test --backend`: only the back ends' goldens and checks
+  (`LeAnTeXTest.BackendChecks`), which `lake test` also runs.
 * `lake exe leantex-test --tex-math`: only the checks of the TeX-rule layout
   (`LeAnTeXTest.TeXMathChecks`), which `lake test` also runs.
 * `lake exe leantex-test --bounds`: only the bounded-work checks (`LeAnTeXTest.Bounds`: the
@@ -364,6 +366,10 @@ def main (args : List String) : IO UInt32 := do
     return if fails.isEmpty then 0 else 1
   if args == ["--update-examples"] then
     let fails ← BackendChecks.run true
+    return if fails.isEmpty then 0 else 1
+  if args == ["--backend"] then
+    let fails ← BackendChecks.run false
+    for f in fails do IO.println s!"FAIL {f}"
     return if fails.isEmpty then 0 else 1
   if args == ["--tex-math"] then
     let fails ← TeXMathChecks.run false
