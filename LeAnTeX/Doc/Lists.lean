@@ -220,13 +220,13 @@ def beginListEnv (at_ : Tok) (name : String) : M Bool := do
                                     label := #[] }
   | "quote" =>
     beginList at_ fun l => { l with rightMargin := l.leftMargin }
-    inject at_ #[csT "item" at_, csT "relax" at_]
+    inject at_ #[csT "item" at_, csT "relax" at_, csT "leantex@ignorespaces" at_]
   | "quotation" =>
     let (em, _) ← fontUnits
     let pi := em + em / 2
     beginList at_ fun l => { l with listParIndent := pi, itemIndent := pi,
                                     rightMargin := l.leftMargin, parSep := { stretch := 65536 } }
-    inject at_ #[csT "item" at_, csT "relax" at_]
+    inject at_ #[csT "item" at_, csT "relax" at_, csT "leantex@ignorespaces" at_]
   | "thebibliography" =>
     -- `\section*{\refname}`, then the list
     let w ← readArg at_
@@ -243,7 +243,7 @@ def beginListEnv (at_ : Tok) (name : String) : M Bool := do
       | _ => (flushGlue, {}, {})
     modifyVars fun v => { v with p := { v.p with leftSkip := ls, rightSkip := rs },
                                  parIndent := 0, parFillSkip := pf, crPar := true }
-    inject at_ #[csT "item" at_, csT "relax" at_]
+    inject at_ #[csT "item" at_, csT "relax" at_, csT "leantex@ignorespaces" at_]
   | _ => return false
   return true
 
