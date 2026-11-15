@@ -8,6 +8,7 @@ import LeAnTeXTest.Cases
 import LeAnTeXTest.DisplayChecks
 import LeAnTeXTest.Font
 import LeAnTeXTest.TextFixtures
+import LeAnTeXTest.LineBreakChecks
 
 /-!
 # The differential test and the parity report
@@ -334,7 +335,7 @@ def main (args : List String) : IO UInt32 := do
     benchMatrix
     return 0
   if args == ["--text"] then
-    let fails := (← TextFixtures.run) ++ (← FontTest.run)
+    let fails := (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← FontTest.run)
     for f in fails do IO.eprintln s!"  {f}"
     return if fails.isEmpty then 0 else 1
   let mut results := #[]
@@ -473,7 +474,7 @@ def main (args : List String) : IO UInt32 := do
       {DisplayChecks.displayChecks.size} checks hold"
     -- the text-mode fixtures and the font reader
     IO.println "text mode and fonts:"
-    for f in (← TextFixtures.run) ++ (← FontTest.run) do regressions := regressions.push f
+    for f in (← TextFixtures.run) ++ (← LineBreakChecks.run) ++ (← FontTest.run) do regressions := regressions.push f
     if improved > 0 then
       IO.println s!"{improved} cases match that the baseline lists as mismatched; record them \
         with `lake exe leantex-test --update`"

@@ -70,7 +70,7 @@ end
 local serialize
 -- A node list as items: ["g", char, gid, width, height, depth, font], ["k", width, subtype],
 -- ["glue", width, stretch, stretchOrder, shrink, shrinkOrder, subtype], ["p", penalty],
--- ["d", penalty, pre, post, replace], ["box", width, height, depth, items], ["rule", w, h, d].
+-- ["d", penalty, pre, post, replace, subtype], ["box", width, height, depth, items], ["rule", w, h, d].
 local function item(n)
   local id = n.id
   if id == GLYPH then
@@ -80,7 +80,8 @@ local function item(n)
     return { "glue", n.width, n.stretch, n.stretch_order, n.shrink, n.shrink_order, n.subtype }
   elseif id == PENALTY then return { "p", n.penalty }
   elseif id == DISC then
-    return { "d", n.penalty, serialize(n.pre), serialize(n.post), serialize(n.replace) }
+    return { "d", n.penalty, serialize(n.pre), serialize(n.post), serialize(n.replace),
+      n.subtype }
   elseif id == HLIST or id == VLIST then
     return { "box", n.width, n.height, n.depth, serialize(n.head) }
   elseif id == RULE then return { "rule", n.width, n.height, n.depth }
