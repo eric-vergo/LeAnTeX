@@ -81,6 +81,13 @@ structure FloatSpec where
   page : Bool := true
   /-- The type. -/
   kind : String := "figure"
+  /-- The penalty LaTeX's output routine leaves where the float was given (`\interlinepenalty`,
+  or 10000 right after a heading, LaTeX's `\if@nobreak\nobreak`); a penalty of 10000 follows
+  it. -/
+  penalty : Int := 0
+  /-- `\parskip` taken back after a float set here when the float began between paragraphs
+  (LaTeX's `\vskip-\parskip` in `\@addtocurcol`); `none` when it began in a paragraph. -/
+  unskip : Option Glue := none
   deriving Inhabited
 
 /-- The height a float takes (its box's height and depth). -/
@@ -498,13 +505,19 @@ def Builder.placeFloat (b : Builder) (p : PageParams) (i : Nat) : Builder := Id.
       let fl := { fl with colNum := fl.colNum - 1,
                           textFloatsHeight := fl.textFloatsHeight + f.size +
                             2 * fp.inTextSep.width }
-      let here := #[VNode.penalty 0, .glue fp.inTextSep 0, .mark "@float", f.box, .penalty 0,
-        .glue fp.inTextSep 0, .penalty 10000]
+      let back := match f.unskip with
+        | some g =>
+          let neg : Glue := { g with width := -g.width, stretch := -g.stretch, shrink := -g.shrink }
+          #[VNode.glue neg 0]
+        | none => #[]
+      let here := #[VNode.penalty f.penalty, .glue fp.inTextSep 0, .mark "@float", f.box,
+        .penalty 0, .glue fp.inTextSep 0] ++ back ++ #[.penalty 10000]
       return restart b fl here
     match Builder.startPage.topOrBottom p fl f i req with
-    | some fl => return restart b fl #[]
+    | some fl => return restart b fl #[.penalty f.penalty, .penalty 10000]
     | none => pure ()
-  return { b with fl := { fl with deferred := fl.deferred.push i } }
+  return { b with fl := { fl with deferred := fl.deferred.push i },
+                  contrib := b.contrib ++ #[.penalty 10000, .penalty f.penalty] }
 
 /-- Puts out every deferred float on pages of floats (LaTeX's `\clearpage`). -/
 def Builder.flushFloats (b : Builder) (p : PageParams) : Builder := Id.run do
@@ -585,8 +598,9 @@ def Builder.step (b : Builder) (p : PageParams) : Option Builder := do
     return b.contribute n
   | .mark "@pagedepth" =>
     -- `\vskip -\pagedepth` (LaTeX's `\newpage`): the depth of the page's last box, as far
-    -- as `\maxdepth` lets it count
-    let g := VNode.glue { width := if b.boxThere then -b.hs.depth else 0 } 0
+    -- as `\maxdepth` lets it count; nothing on a page with bottom floats (as LuaLaTeX shows:
+    -- the output routine that placed them gave the page back after its last box)
+    let g := VNode.glue { width := if b.boxThere && b.fl.bot.isEmpty then -b.hs.depth else 0 } 0
     return { b with contrib := b.contrib.pop.push g }
   | .mark "@clearpage" =>
     if !b.page.isEmpty then return b.contribute n

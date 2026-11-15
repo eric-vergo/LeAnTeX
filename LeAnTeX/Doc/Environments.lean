@@ -57,7 +57,11 @@ def beginFloat (at_ : Tok) (kind : String) : M Unit := do
   for c in placement.toList do
     if !"htbpH!".contains c then failAt at_ s!"Unknown float option '{c}'"
   let idx := (← docSt).floats.size
-  modifyDoc fun d => { d with floats := d.floats.push { kind, placement } }
+  let vertical := !(← get).hmode
+  let v ← vars
+  let penalty := if vertical && (← docSt).noBreak then 10000 else v.interlinePenalty
+  let unskip := if vertical then some v.parSkip else none
+  modifyDoc fun d => { d with floats := d.floats.push { kind, placement, penalty, unskip } }
   openFrame (.float idx)
   let cp ← classP
   let normal := (cp.sizes.find? (·.name == "normalsize")).getD ⟨"normalsize", 655360, 786432⟩

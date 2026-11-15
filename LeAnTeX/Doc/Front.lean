@@ -144,7 +144,7 @@ def makePages (vlist : Array VNode) : Typeset.M (Array Page) := do
   let specs := (d.floats.zip boxes).map fun (f, b) =>
     let has := fun (c : Char) => f.placement.contains c
     ({ box := b, here := has 'h', top := has 't', bottom := has 'b', page := has 'p',
-       kind := f.kind } : FloatSpec)
+       kind := f.kind, penalty := f.penalty, unskip := f.unskip } : FloatSpec)
   let fparams : FloatParams :=
     { floatSep := cp.floatSep, textFloatSep := cp.textFloatSep, inTextSep := cp.inTextSep,
       fpSep := cp.fpSep }

@@ -118,6 +118,10 @@ structure FloatItem where
   box : VBox := { width := 0, height := 0, depth := 0, content := #[], glue := {} }
   /-- Its number as printed, if it has a caption. -/
   number : Option String := none
+  /-- The penalty the output routine leaves in its place (`FloatSpec.penalty`). -/
+  penalty : Int := 0
+  /-- The `\parskip` taken back after it when it is set here and began between paragraphs. -/
+  unskip : Option Glue := none
   deriving Inhabited
 
 /-- A line of the table of contents: the level (1 section … 5 subparagraph), the number as
