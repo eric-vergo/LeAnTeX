@@ -1,0 +1,106 @@
+/-
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
+-/
+import LeAnTeX.Layout.Em
+
+/-!
+# Escaping and numbers for the back ends
+
+Everything the SVG and HTML back ends write that comes from TeX source (text, the formula's
+source in titles and alternative text, colour names) is untrusted: it is escaped, or checked
+against a strict form and dropped otherwise. Numbers are written from integers, so the output
+is the same on every machine.
+
+* **Escaping** (`escape`): `<`, `>`, `&`, `"` and `'` become the entities `&lt;`, `&gt;`,
+  `&amp;`, `&quot;` and `&#39;`; characters XML cannot carry (control characters other than
+  tab, line feed and carriage return, `U+FFFE`, `U+FFFF`) are dropped. One function serves text
+  and attribute values (quotes are escaped in both). `LeAnTeX.Backend.Proofs` proves that the
+  result has no `<`, `>`, `"` or `'`, and that decoding the five entities gives the input back
+  less the dropped characters (so every `&` written starts an entity).
+* **Colours** (`cssColor?`): `#` and 3, 4, 6 or 8 hexadecimal digits, or a name of ASCII
+  letters (at most 32); anything else is no colour, so the item takes the surrounding colour,
+  as a browser does with a colour it cannot read.
+* **Numbers** (`fixed`, `ptText`): a decimal with at most a given number of places, rounded
+  half away from zero, without trailing zeros, without an exponent, `0` rather than `-0`.
+
+## Main definitions
+
+* `xmlChar`, `escapeChar`, `escapeList`, `escape`, `unescapeList`.
+* `cssColor?`.
+* `fixed`, `ptText`, `spOf`.
+-/
+
+namespace LeAnTeX.Backend
+
+/-- Whether XML 1.0 can carry the character (its `Char` production). -/
+def xmlChar (c : Char) : Bool :=
+  let n := c.toNat
+  n == 0x9 || n == 0xA || n == 0xD || (0x20 ≤ n && n ≤ 0xD7FF) || (0xE000 ≤ n && n ≤ 0xFFFD) ||
+    0x10000 ≤ n
+
+/-- One character escaped: the five special characters as entities, a character XML cannot
+carry dropped, any other kept. -/
+def escapeChar (c : Char) : List Char :=
+  match c with
+  | '<' => ['&', 'l', 't', ';']
+  | '>' => ['&', 'g', 't', ';']
+  | '&' => ['&', 'a', 'm', 'p', ';']
+  | '"' => ['&', 'q', 'u', 'o', 't', ';']
+  | '\'' => ['&', '#', '3', '9', ';']
+  | c => if xmlChar c then [c] else []
+
+/-- A list of characters escaped, character by character. -/
+def escapeList : List Char → List Char
+  | [] => []
+  | c :: cs => escapeChar c ++ escapeList cs
+
+/-- A string escaped for XML and HTML text and attribute values (see the module docstring). -/
+def escape (s : String) : String := String.ofList (escapeList s.toList)
+
+/-- The five entities `escape` writes decoded; everything else is kept. The inverse of
+`escapeList` on characters XML can carry (`LeAnTeX.Backend.unescape_escape`). -/
+def unescapeList : List Char → List Char
+  | [] => []
+  | '&' :: 'l' :: 't' :: ';' :: r => '<' :: unescapeList r
+  | '&' :: 'g' :: 't' :: ';' :: r => '>' :: unescapeList r
+  | '&' :: 'a' :: 'm' :: 'p' :: ';' :: r => '&' :: unescapeList r
+  | '&' :: 'q' :: 'u' :: 'o' :: 't' :: ';' :: r => '"' :: unescapeList r
+  | '&' :: '#' :: '3' :: '9' :: ';' :: r => '\'' :: unescapeList r
+  | c :: r => c :: unescapeList r
+
+/-- Whether a character is an ASCII hexadecimal digit. -/
+def hexDigit (c : Char) : Bool :=
+  ('0' ≤ c && c ≤ '9') || ('a' ≤ c && c ≤ 'f') || ('A' ≤ c && c ≤ 'F')
+
+/-- Whether a character is an ASCII letter. -/
+def asciiLetter (c : Char) : Bool := ('a' ≤ c && c ≤ 'z') || ('A' ≤ c && c ≤ 'Z')
+
+/-- A colour from TeX source as CSS can take it: `#` and 3, 4, 6 or 8 hexadecimal digits, or a
+name of 1 to 32 ASCII letters; `none` for anything else. -/
+def cssColor? (s : String) : Option String :=
+  match s.toList with
+  | '#' :: ds => if [3, 4, 6, 8].contains ds.length && ds.all hexDigit then some s else none
+  | cs => if 0 < cs.length && cs.length ≤ 32 && cs.all asciiLetter then some s else none
+
+/-- `n / 10 ^ places` as a decimal with at most `places` places and no trailing zeros. -/
+def decimalOf (n : Int) (places : Nat) : String :=
+  let a := n.natAbs
+  let p := 10 ^ places
+  let frac := toString (a % p)
+  let frac := String.ofList (List.replicate (places - frac.length) '0') ++ frac
+  let frac := String.ofList (frac.toList.reverse.dropWhile (· == '0')).reverse
+  (if n < 0 then "-" else "") ++ toString (a / p) ++ (if frac.isEmpty then "" else "." ++ frac)
+
+/-- `num / den` rounded half away from zero to `places` decimal places, as a decimal (`0` for a
+zero denominator). -/
+def fixed (num den : Int) (places : Nat) : String :=
+  if den == 0 then "0" else decimalOf (Em.roundDiv (num * 10 ^ places) den) places
+
+/-- A length in scaled points as points with at most three decimals (`12.5`, `-0.004`). -/
+def ptText (sp : Int) : String := fixed sp 65536 3
+
+/-- A display-list length in scaled points, for a display list whose em is `em` sp. -/
+def spOf (em : Int) (e : Em) : Int := Em.roundDiv (e.raw * em) Em.unit
+
+end LeAnTeX.Backend

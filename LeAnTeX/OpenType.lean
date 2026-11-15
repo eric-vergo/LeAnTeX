@@ -67,6 +67,8 @@ structure Font where
   kern : Option KernTable
   /-- The `MATH` constants, if present, in the order of `mathConstantNames`. -/
   math : Option (Array Int)
+  /-- The `MATH` table's size variants (empty without a `MATH` table). -/
+  mathVariants : MathVariants := {}
 
 /-- The optional table with the tag, read by `f` if present. -/
 private def optional {α : Type} (d : Directory) (tag : String) (f : Slice → Result α) :
@@ -100,7 +102,8 @@ def read (data : ByteArray) : Result Font := do
     gsub := ← optional d "GSUB" Gsub.read
     gpos := ← optional d "GPOS" Gpos.read
     kern := ← optional d "kern" KernTable.read
-    math := ← optional d "MATH" readMathConstants }
+    math := ← optional d "MATH" readMathConstants
+    mathVariants := ((← optional d "MATH" readMathVariants).getD {}) }
 
 variable (f : Font)
 

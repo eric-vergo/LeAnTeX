@@ -10,7 +10,8 @@ import Lake
 The library `LeAnTeX` (imports `Init` and `Std` only) and the test executable that `lake test`
 runs: it checks the parser and the layout against the recorded KaTeX fixtures and the committed
 baselines. `leantex-display` prints display lists for the browser comparison; `leantex-typeset`
-typesets a LaTeX file with the text layer.
+typesets a LaTeX file with the text layer; `leantex-render` writes a LaTeX fragment as SVG or
+HTML.
 -/
 
 open Lake DSL
@@ -30,6 +31,10 @@ lean_exe «leantex-display» where
 /-- Typesets a LaTeX file with the text layer and prints its display list as text. -/
 lean_exe «leantex-typeset» where
   root := `LeAnTeXTest.TypesetMain
+
+/-- Typesets a LaTeX fragment and writes it as SVG or HTML. -/
+lean_exe «leantex-render» where
+  root := `LeAnTeXTest.RenderMain
 
 /-- The test driver: `lake test` runs it from the repository root. -/
 @[test_driver]
