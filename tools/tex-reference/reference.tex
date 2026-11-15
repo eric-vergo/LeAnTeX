@@ -1,0 +1,16 @@
+% Released under Apache 2.0 license as described in the file LICENSE.
+% Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
+%
+% The LuaLaTeX document that records TeX's text-mode answers (reference.lua). Started by
+% tools/tex-reference.sh, which defines \LeanTeXCorpus (the corpus file), \LeanTeXFixture (the
+% fixture to write) and \LeanTeXTools (this directory) before \input-ing this file.
+% LaTeX's defaults stand (article class, Latin Modern in the TU encoding, US English
+% hyphenation) except where a case sets a parameter.
+\documentclass{article}
+\begin{document}
+\directlua{
+  require("lualibs-util-jsn")
+  dofile("\LeanTeXTools/reference.lua")
+  leantexReference("\LeanTeXCorpus", "\LeanTeXFixture", status.banner)
+}
+\end{document}

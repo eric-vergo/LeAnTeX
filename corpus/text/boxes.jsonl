@@ -1,0 +1,81 @@
+{"meta": {"corpus": "boxes", "count": 80, "generator": "tools/text-corpus.py", "license": "Apache-2.0 (generated)"}}
+{"font": "regular", "id": "box/regular/ligatures", "kind": "hbox", "text": "ff fi fl ffi ffl office affine fluffy waffle"}
+{"font": "regular", "id": "box/regular/kerning", "kind": "hbox", "text": "AVATAR To Ty Wa We Yo LT P. V. F, AV VA"}
+{"font": "regular", "id": "box/regular/ascii-lower", "kind": "hbox", "text": "abcdefghijklmnopqrstuvwxyz"}
+{"font": "regular", "id": "box/regular/ascii-upper", "kind": "hbox", "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+{"font": "regular", "id": "box/regular/digits", "kind": "hbox", "text": "0123456789 3.14159 1,000,000"}
+{"font": "regular", "id": "box/regular/punctuation", "kind": "hbox", "text": "!?.,;:'\"()[]{}<>/\\|@#$%&*+=-_~^`"}
+{"font": "regular", "id": "box/regular/quotes-dashes", "kind": "hbox", "text": "‘single’ “double” en–dash em—dash"}
+{"font": "regular", "id": "box/regular/accents", "kind": "hbox", "text": "naïve café résumé über Straße ångström"}
+{"font": "regular", "id": "box/regular/sentence", "kind": "hbox", "text": "The quick brown fox jumps over the lazy dog."}
+{"font": "italic", "id": "box/italic/ligatures", "kind": "hbox", "text": "ff fi fl ffi ffl office affine fluffy waffle"}
+{"font": "italic", "id": "box/italic/kerning", "kind": "hbox", "text": "AVATAR To Ty Wa We Yo LT P. V. F, AV VA"}
+{"font": "italic", "id": "box/italic/ascii-lower", "kind": "hbox", "text": "abcdefghijklmnopqrstuvwxyz"}
+{"font": "italic", "id": "box/italic/ascii-upper", "kind": "hbox", "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+{"font": "italic", "id": "box/italic/digits", "kind": "hbox", "text": "0123456789 3.14159 1,000,000"}
+{"font": "italic", "id": "box/italic/punctuation", "kind": "hbox", "text": "!?.,;:'\"()[]{}<>/\\|@#$%&*+=-_~^`"}
+{"font": "italic", "id": "box/italic/quotes-dashes", "kind": "hbox", "text": "‘single’ “double” en–dash em—dash"}
+{"font": "italic", "id": "box/italic/accents", "kind": "hbox", "text": "naïve café résumé über Straße ångström"}
+{"font": "italic", "id": "box/italic/sentence", "kind": "hbox", "text": "The quick brown fox jumps over the lazy dog."}
+{"font": "bold", "id": "box/bold/ligatures", "kind": "hbox", "text": "ff fi fl ffi ffl office affine fluffy waffle"}
+{"font": "bold", "id": "box/bold/kerning", "kind": "hbox", "text": "AVATAR To Ty Wa We Yo LT P. V. F, AV VA"}
+{"font": "bold", "id": "box/bold/ascii-lower", "kind": "hbox", "text": "abcdefghijklmnopqrstuvwxyz"}
+{"font": "bold", "id": "box/bold/ascii-upper", "kind": "hbox", "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+{"font": "bold", "id": "box/bold/digits", "kind": "hbox", "text": "0123456789 3.14159 1,000,000"}
+{"font": "bold", "id": "box/bold/punctuation", "kind": "hbox", "text": "!?.,;:'\"()[]{}<>/\\|@#$%&*+=-_~^`"}
+{"font": "bold", "id": "box/bold/quotes-dashes", "kind": "hbox", "text": "‘single’ “double” en–dash em—dash"}
+{"font": "bold", "id": "box/bold/accents", "kind": "hbox", "text": "naïve café résumé über Straße ångström"}
+{"font": "bold", "id": "box/bold/sentence", "kind": "hbox", "text": "The quick brown fox jumps over the lazy dog."}
+{"font": "bolditalic", "id": "box/bolditalic/ligatures", "kind": "hbox", "text": "ff fi fl ffi ffl office affine fluffy waffle"}
+{"font": "bolditalic", "id": "box/bolditalic/kerning", "kind": "hbox", "text": "AVATAR To Ty Wa We Yo LT P. V. F, AV VA"}
+{"font": "bolditalic", "id": "box/bolditalic/ascii-lower", "kind": "hbox", "text": "abcdefghijklmnopqrstuvwxyz"}
+{"font": "bolditalic", "id": "box/bolditalic/ascii-upper", "kind": "hbox", "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+{"font": "bolditalic", "id": "box/bolditalic/digits", "kind": "hbox", "text": "0123456789 3.14159 1,000,000"}
+{"font": "bolditalic", "id": "box/bolditalic/punctuation", "kind": "hbox", "text": "!?.,;:'\"()[]{}<>/\\|@#$%&*+=-_~^`"}
+{"font": "bolditalic", "id": "box/bolditalic/quotes-dashes", "kind": "hbox", "text": "‘single’ “double” en–dash em—dash"}
+{"font": "bolditalic", "id": "box/bolditalic/accents", "kind": "hbox", "text": "naïve café résumé über Straße ångström"}
+{"font": "bolditalic", "id": "box/bolditalic/sentence", "kind": "hbox", "text": "The quick brown fox jumps over the lazy dog."}
+{"font": "sans", "id": "box/sans/ligatures", "kind": "hbox", "text": "ff fi fl ffi ffl office affine fluffy waffle"}
+{"font": "sans", "id": "box/sans/kerning", "kind": "hbox", "text": "AVATAR To Ty Wa We Yo LT P. V. F, AV VA"}
+{"font": "sans", "id": "box/sans/ascii-lower", "kind": "hbox", "text": "abcdefghijklmnopqrstuvwxyz"}
+{"font": "sans", "id": "box/sans/ascii-upper", "kind": "hbox", "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+{"font": "sans", "id": "box/sans/digits", "kind": "hbox", "text": "0123456789 3.14159 1,000,000"}
+{"font": "sans", "id": "box/sans/punctuation", "kind": "hbox", "text": "!?.,;:'\"()[]{}<>/\\|@#$%&*+=-_~^`"}
+{"font": "sans", "id": "box/sans/quotes-dashes", "kind": "hbox", "text": "‘single’ “double” en–dash em—dash"}
+{"font": "sans", "id": "box/sans/accents", "kind": "hbox", "text": "naïve café résumé über Straße ångström"}
+{"font": "sans", "id": "box/sans/sentence", "kind": "hbox", "text": "The quick brown fox jumps over the lazy dog."}
+{"font": "mono", "id": "box/mono/ligatures", "kind": "hbox", "text": "ff fi fl ffi ffl office affine fluffy waffle"}
+{"font": "mono", "id": "box/mono/kerning", "kind": "hbox", "text": "AVATAR To Ty Wa We Yo LT P. V. F, AV VA"}
+{"font": "mono", "id": "box/mono/ascii-lower", "kind": "hbox", "text": "abcdefghijklmnopqrstuvwxyz"}
+{"font": "mono", "id": "box/mono/ascii-upper", "kind": "hbox", "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+{"font": "mono", "id": "box/mono/digits", "kind": "hbox", "text": "0123456789 3.14159 1,000,000"}
+{"font": "mono", "id": "box/mono/punctuation", "kind": "hbox", "text": "!?.,;:'\"()[]{}<>/\\|@#$%&*+=-_~^`"}
+{"font": "mono", "id": "box/mono/quotes-dashes", "kind": "hbox", "text": "‘single’ “double” en–dash em—dash"}
+{"font": "mono", "id": "box/mono/accents", "kind": "hbox", "text": "naïve café résumé über Straße ångström"}
+{"font": "mono", "id": "box/mono/sentence", "kind": "hbox", "text": "The quick brown fox jumps over the lazy dog."}
+{"font": "caps", "id": "box/caps/ligatures", "kind": "hbox", "text": "ff fi fl ffi ffl office affine fluffy waffle"}
+{"font": "caps", "id": "box/caps/kerning", "kind": "hbox", "text": "AVATAR To Ty Wa We Yo LT P. V. F, AV VA"}
+{"font": "caps", "id": "box/caps/ascii-lower", "kind": "hbox", "text": "abcdefghijklmnopqrstuvwxyz"}
+{"font": "caps", "id": "box/caps/ascii-upper", "kind": "hbox", "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+{"font": "caps", "id": "box/caps/digits", "kind": "hbox", "text": "0123456789 3.14159 1,000,000"}
+{"font": "caps", "id": "box/caps/punctuation", "kind": "hbox", "text": "!?.,;:'\"()[]{}<>/\\|@#$%&*+=-_~^`"}
+{"font": "caps", "id": "box/caps/quotes-dashes", "kind": "hbox", "text": "‘single’ “double” en–dash em—dash"}
+{"font": "caps", "id": "box/caps/accents", "kind": "hbox", "text": "naïve café résumé über Straße ångström"}
+{"font": "caps", "id": "box/caps/sentence", "kind": "hbox", "text": "The quick brown fox jumps over the lazy dog."}
+{"font": "slanted", "id": "box/slanted/ligatures", "kind": "hbox", "text": "ff fi fl ffi ffl office affine fluffy waffle"}
+{"font": "slanted", "id": "box/slanted/kerning", "kind": "hbox", "text": "AVATAR To Ty Wa We Yo LT P. V. F, AV VA"}
+{"font": "slanted", "id": "box/slanted/ascii-lower", "kind": "hbox", "text": "abcdefghijklmnopqrstuvwxyz"}
+{"font": "slanted", "id": "box/slanted/ascii-upper", "kind": "hbox", "text": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+{"font": "slanted", "id": "box/slanted/digits", "kind": "hbox", "text": "0123456789 3.14159 1,000,000"}
+{"font": "slanted", "id": "box/slanted/punctuation", "kind": "hbox", "text": "!?.,;:'\"()[]{}<>/\\|@#$%&*+=-_~^`"}
+{"font": "slanted", "id": "box/slanted/quotes-dashes", "kind": "hbox", "text": "‘single’ “double” en–dash em—dash"}
+{"font": "slanted", "id": "box/slanted/accents", "kind": "hbox", "text": "naïve café résumé über Straße ångström"}
+{"font": "slanted", "id": "box/slanted/sentence", "kind": "hbox", "text": "The quick brown fox jumps over the lazy dog."}
+{"id": "box/regular/size-5", "kind": "hbox", "size": 5, "text": "Office AVATAR fluffy waffle"}
+{"id": "box/regular/size-7", "kind": "hbox", "size": 7, "text": "Office AVATAR fluffy waffle"}
+{"id": "box/regular/size-8", "kind": "hbox", "size": 8, "text": "Office AVATAR fluffy waffle"}
+{"id": "box/regular/size-9", "kind": "hbox", "size": 9, "text": "Office AVATAR fluffy waffle"}
+{"id": "box/regular/size-12", "kind": "hbox", "size": 12, "text": "Office AVATAR fluffy waffle"}
+{"id": "box/regular/size-17", "kind": "hbox", "size": 17, "text": "Office AVATAR fluffy waffle"}
+{"id": "box/regular/size-24", "kind": "hbox", "size": 24, "text": "Office AVATAR fluffy waffle"}
+{"id": "box/regular/spaces", "kind": "hbox", "text": "Spaces. After a period, a comma, and words."}
