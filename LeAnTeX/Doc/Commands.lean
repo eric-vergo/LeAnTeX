@@ -206,6 +206,20 @@ def label (at_ : Tok) : M Unit := do
     modifyDoc fun d => { d with warnings := d.warnings.push s!"Label '{key}' multiply defined" }
   modifyDoc fun d => { d with labels := d.labels.push (key, d.currentLabel) }
   adjustV (.label key)
+  -- LaTeX writes the label to its auxiliary file; in vertical mode right after a heading
+  -- (`@nobreak`) the write is followed by `\nobreak` twice, as LuaLaTeX shows. An item's
+  -- label still leaves TeX in vertical mode (LaTeX's `@inlabel`): the paragraph here holds no
+  -- more than that label, and the penalties go before its `\parskip`.
+  let s ← get
+  let nb := #[VNode.penalty 10000, VNode.penalty 10000]
+  if !s.hmode && d.noBreak then
+    for n in nb do pushV n
+  else if s.hmode && s.clubMax && s.run.isEmpty &&
+      s.hlist.all (fun n => match n with | .box .. | .penalty _ | .glue .. => true | _ => false) then
+    match s.vlist.back? with
+    | some (.glue g 3) =>
+      set { s with vlist := s.vlist.pop ++ nb |>.push (.glue g 3) }
+    | _ => pure ()
 
 /-- The previous pass's answer for a key: its text (`page` false) or page; `??` and a warning
 when there is none. -/
