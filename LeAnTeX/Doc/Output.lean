@@ -106,7 +106,8 @@ def makeColumn (cp : ClassParams) (p : PageOut) (colWidth : Int) (floats : Array
     for i in p.bottom do
       post := post.push (box i) |>.push (.glue cp.floatSep 0)
     items := items ++ post.push (.glue negSep 0)
-  let dp := (vmeasure items).depth
+  -- the output box's depth, as `\boxmaxdepth` (`\maxdepth`) lets it be (LaTeX's `\@makecol`)
+  let dp := min (vmeasure items).depth cp.maxDepth
   items := items.push (.glue { width := -dp } 0)
   items := items.push (.glue { stretch := 7, stretchOrder := 1 } 0)
   return vpack items (some cp.textHeight)

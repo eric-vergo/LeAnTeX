@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb}
+\begin{document}
+A display after a long line of text uses the ordinary skips above and below it, since the formula starts to the left of where the text line ended:
+\[ \sum_{k=0}^{n} \binom{n}{k} x^k y^{n-k} = (x+y)^n. \]
+A short line
+\[ e^{i\pi} + 1 = 0 \]
+takes the short skips. A numbered equation
+\begin{equation}
+\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}
+\end{equation}
+and a matrix
+\[ A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}, \qquad \det A = ad - bc, \]
+and cases
+\[ |x| = \begin{cases} x & x \ge 0 \\ -x & x < 0 \end{cases} \]
+close the document.
+\end{document}

@@ -57,8 +57,7 @@ def step (t : Tok) : M Unit :=
       | some u =>
         unread #[u]
         startParagraph
-        push (← formula t (← readFormula t (·.isChar '$' 3) false) false)
-        modify fun s => { s with sf := 1000 }
+        inlineFormula t (← readFormula t (·.isChar '$' 3) false)
       | none => failAt t "Missing $ inserted (formula not closed)"
     | 10 => addSpace
     | 13 => do

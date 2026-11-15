@@ -15,8 +15,9 @@ total rounded): glyphs and rules of the display list (`LeAnTeX.DisplayList`).
 
 The Computer Modern metric files have no outlines here: a character of a metric font is drawn
 with the glyph of New Computer Modern Math (`NewCMMath-Book.otf`) that shows the same symbol
-(`LeAnTeX.TeXMath.Data.Glyphs`), at the position and size TeX's metrics give it; a character of
-an OpenType text font with that font. The drawing is a choice of shapes, not of positions:
+(`LeAnTeX.TeXMath.Data.Glyphs`), at the position and size TeX's metrics give it, a `cmex` size
+variant through the back ends' `Size1`–`Size4` faces (the math font's `MATH` variants); a
+character of an OpenType text font with that font. The drawing is a choice of shapes, not of positions:
 every box keeps TeX's dimensions.
 
 ## Main definitions
@@ -38,8 +39,14 @@ def mathDrawFont : String := "NewCMMath-Book.otf"
 def drawFont (f : MathFont) (code : Nat) : Option (Face × Char) :=
   match f with
   | .tfm t =>
-    (Data.unicodeOf t.name code).map fun u =>
-      ({ font := some mathDrawFont, family := mathDrawFont }, u)
+    match Data.largeOf t.name code with
+    | some (face, u) =>
+      -- a size variant: the back end's KaTeX `Size` faces pick the math font's variant
+      if face.isEmpty then some ({ font := some mathDrawFont, family := mathDrawFont }, u)
+      else some ({ family := face }, u)
+    | none =>
+      (Data.unicodeOf t.name code).map fun u =>
+        ({ font := some mathDrawFont, family := mathDrawFont }, u)
   | .otf t =>
     some ({ font := some t.info.name, family := t.info.name, slant := t.info.slant,
             smallCaps := t.info.smallCaps }, Char.ofNat code)
@@ -141,8 +148,10 @@ def displayListOf (fs : Families) (l : Array Node) (size : Int) : DisplayList :=
     | .glyph f c x y s e sh col src => .glyph f c (conv x) (conv y) (conv s) e sh col src
     | .rule x y w h col src => .rule (conv x) (conv y) (conv w) (conv h) col src
     | it => it
+  let line : Line :=
+    { start := 0, stop := items.size, width := emOf size b.width,
+      height := emOf size b.height, depth := emOf size b.depth }
   { width := emOf size b.width, height := emOf size b.height, depth := emOf size b.depth,
-    items, lines := #[{ start := 0, stop := items.size, width := emOf size b.width,
-      height := emOf size b.height, depth := emOf size b.depth }] }
+    items, lines := #[line] }
 
 end LeAnTeX.TeXMath

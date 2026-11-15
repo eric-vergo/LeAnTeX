@@ -26,7 +26,7 @@ TeX's default math fonts, optionally `amssymb`):
 The sizes are LaTeX's `\DeclareMathSizes` (text, script and scriptscript size for each text
 size; 0.7 and 0.5 of it for an undeclared size), and each family's metric file at a size is
 chosen as LaTeX's font definition files choose it (`ot1cmr.fd`, `omlcmm.fd`, `omscmsy.fd`,
-`omxcmex.fd` or, with `amsfonts`, its own `cmex` sizes, `umsa.fd`, `umsb.fd`, `ueuf.fd`): a
+`omxcmex.fd` or, with `amsmath` or `amsfonts`, their `cmex` sizes, `umsa.fd`, `umsb.fd`, `ueuf.fd`): a
 design size, or the nearest design loaded at the size. A size the definition does not list is
 replaced by the nearest it lists, as LaTeX substitutes it.
 
@@ -145,7 +145,8 @@ structure MathFontSet where
   tfms : Std.HashMap String Tfm := {}
   /-- The text layer's font for a key (`none` if it has none). -/
   text : FontKey → Option TextFont := fun _ => none
-  /-- Whether `amsfonts.sty` (`amssymb`) is loaded. -/
+  /-- Whether `cmex` comes in its sizes 7 to 10 (`amsmath` or `amsfonts` loaded; they declare
+  the same sizes for the sizes LaTeX uses), not only at ten points. -/
   amsfonts : Bool := true
   /-- The bold math version (`\boldmath`). -/
   bold : Bool := false

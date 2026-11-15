@@ -235,7 +235,8 @@ def scriptSize (size : Int) : Int :=
 
 /-- A superscript mark (LaTeX's `\@textsuperscript`, a formula's superscript of a box): `text`
 in the normal font at the script size of `size`, raised by the superscript shift of the math
-fonts at `size` (`\fontdimen13` of the symbol font, 0.412892 em). -/
+fonts at `size` (rule 18c with the symbol font's `\fontdimen14` when the metric files are
+there, else Computer Modern's value of it scaled). -/
 def superscriptBox (text : String) (size : Int) : M HNode := do
   let tf ← fontFor { size := scriptSize size }
   let g := tf.shape text.toList.toArray
@@ -244,7 +245,14 @@ def superscriptBox (text : String) (size : Int) : M HNode := do
   -- size: Computer Modern's cmsy10 (scaled for 10 pt and above) and cmsy8
   let sup2 : Int := if size ≤ 8 * 65536 then 352917 else if size < 10 * 65536 then 357900
     else 362892
-  let shift := (size * sup2 + 500000) / 1000000
+  let shift ← match ← mathFamilies with
+    | some fs =>
+      -- with the metric files: rule 18c exactly, `\fontdimen14` of family 2 at the size and
+      -- the box's depth plus a quarter of the x-height
+      match fs.font? 2 0 with
+      | some f => pure (max (f.param 14) (d + (f.param 5).natAbs / 4))
+      | none => pure ((size * sup2 + 500000) / 1000000)
+    | none => pure ((size * sup2 + 500000) / 1000000)
   return .box w (h + shift) (max 0 (d - shift)) 0 #[.box w h d (-shift) g]
 
 /-- The depth of LaTeX's `\strutbox` at a `\baselineskip`: 0.3 of it. -/

@@ -50,6 +50,19 @@ def readTfms : IO (Std.HashMap String ByteArray) := do
         break
   return out
 
+/-- The metric files read once per run (`readTfms`), parsed; empty without a TeX installation. -/
+initialize tfmCache : IO.Ref (Option (Std.HashMap String LeAnTeX.TeXMath.Tfm)) ← IO.mkRef none
+
+/-- The parsed metric files of `mathTfms`, read once per run (a file that fails its checks is
+left out). -/
+def mathTfms : IO (Std.HashMap String LeAnTeX.TeXMath.Tfm) := do
+  if let some m := ← tfmCache.get then return m
+  let mut out : Std.HashMap String LeAnTeX.TeXMath.Tfm := {}
+  for (n, b) in (← readTfms).toList do
+    if let .ok t := LeAnTeX.TeXMath.Tfm.read b then out := out.insert n t
+  tfmCache.set (some out)
+  return out
+
 /-- The math fonts with the committed New Computer Modern text fonts, or why not. -/
 def fontSet : IO (Except String MathFontSet) := do
   let files ← readTfms

@@ -164,7 +164,7 @@ inductive Field where
 /-- An item of a math list. -/
 inductive Noad where
   /-- An atom: its kind, nucleus, superscript, subscript and (for an operator) its limits. -/
-  | atom (kind : AtomKind) (nucleus sup sub : Field) (limits : Limits := .normal)
+  | atom (kind : AtomKind) (nucleus sup sub : Field) (lim : Limits := .normal)
   /-- A radical: its nucleus, scripts and delimiter (the radical sign). -/
   | radical (nucleus sup sub : Field) (delim : Delim)
   /-- A math accent: its nucleus, scripts and accent character. -/

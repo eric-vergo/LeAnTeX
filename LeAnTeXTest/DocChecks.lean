@@ -174,7 +174,8 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
   -- the images the corpus documents include
   let png ← IO.FS.readBinFile "corpus/doc/images/square.png"
   let cfg : Text.Settings :=
-    { images := fun p => if p == "images/square.png" then some png else none }
+    { images := fun p => if p == "images/square.png" then some png else none,
+      mathTfms := ← MathBoxChecks.mathTfms }
   match typesetDocument src resolve cfg with
   | .error e => return { name, diffs := #[s!"error: {e.message} at {e.pos}"], lines := total }
   | .ok r =>
@@ -342,7 +343,8 @@ def showVList (name : String) (full : Bool := false) : IO Unit := do
   let theirs := ((fx.get? "pages").bind Json.getArr?).getD #[]
   let png ← IO.FS.readBinFile "corpus/doc/images/square.png"
   let cfg : Text.Settings :=
-    { images := fun p => if p == "images/square.png" then some png else none }
+    { images := fun p => if p == "images/square.png" then some png else none,
+      mathTfms := ← MathBoxChecks.mathTfms }
   match typesetDocument src resolve cfg with
   | .error e => IO.println s!"error: {e.message}"
   | .ok r =>
@@ -473,7 +475,9 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
   IO.println s!"  documents: {agree.size} of {outs.size} agree with LuaLaTeX; lines at the same \
     place {same} of {lines}, within 1 pt {near}"
   if show?.isNone then IO.println s!"  {← MathBoxChecks.run update}"
-  let held ← if show?.isNone then heldOut resolve else pure #[]
+  -- the held-out set is skipped with LEANTEX_SKIP_HELDOUT (while the layer is being worked on)
+  let skipHeld := (← IO.getEnv "LEANTEX_SKIP_HELDOUT").isSome
+  let held ← if show?.isNone && !skipHeld then heldOut resolve else pure #[]
   if !held.isEmpty then
     let (a, n, hs, hl, hn, hb, hbt) := totals held
     IO.println s!"  held-out documents (reported, not required): {a} of {n} agree; lines at the \

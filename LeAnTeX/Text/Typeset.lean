@@ -8,6 +8,9 @@ import LeAnTeX.Text.Pack
 import LeAnTeX.Layout.Build
 import LeAnTeX.Layout.Display
 import LeAnTeX.Doc.State
+import LeAnTeX.TeXMath.Front
+import LeAnTeX.TeXMath.Setup
+import LeAnTeX.TeXMath.Display
 
 /-!
 # Typesetting text
@@ -110,6 +113,11 @@ structure Settings where
   today : String := "January 1, 2000"
   /-- The settings for formulas; the text's macros are added to them. -/
   math : LeAnTeX.Settings := {}
+  /-- The metric files of the Computer Modern math fonts (`LeAnTeX.TeXMath.MathFontSet`): with
+  them formulas are laid out by the TeX-rule layout (`LeAnTeX.TeXMath`), TeX's boxes, and
+  inline formulas may break after relations and binary operations; without them (or for a
+  formula that layout does not build) by the KaTeX-compatible layout, as one box. -/
+  mathTfms : Std.HashMap String LeAnTeX.TeXMath.Tfm := {}
   /-- Whether `\leantexprobe{label}` records the list parameters in force (for the comparison
   with LuaLaTeX's, `tools/list-params.sh`); when off the command is undefined. -/
   probes : Bool := false
@@ -326,8 +334,9 @@ structure St where
   nest : Array Frame := #[]
   /-- The document layer's state. -/
   doc : LeAnTeX.Doc.DocState := {}
-  /-- Whether the paragraph being built continues one interrupted by a display (TeX's
-  `prev_graf` after a display: no `\parskip`, no `\clubpenalty`). -/
+  /-- Whether the paragraph being built continues one interrupted by a display (no `\parskip`;
+  the `\clubpenalty` applies to its first line, as TeX numbers the lines after a display from
+  `prev_graf` + 1). -/
   afterDisplay : Bool := false
   /-- Whether the paragraph being built takes no `\clubpenalty` (after a display or a
   heading). -/
@@ -337,6 +346,8 @@ structure St where
   clubMax : Bool := false
   /-- TeX's `\predisplaysize` from the last line set. -/
   preDisplay : Int := -1073741823
+  /-- The math families made for each text size (the TeX-rule layout's fonts). -/
+  mathFams : Std.HashMap Int LeAnTeX.TeXMath.Families := {}
 
 /-- The front end's monad. -/
 abbrev M := ReaderT (Settings × FontResolver) (StateT St (Except TypesetError))
@@ -786,7 +797,8 @@ def startParagraph : M Unit := do
     else if s.nest.isEmpty || !s.vlist.isEmpty then s.vlist.push (.glue v.parSkip 3)
     else s.vlist
   set { s with hmode := true, hlist := indent, sf := 1000, noIndent := false, cursor, vlist,
-               noClub := s.afterDisplay, clubMax := s.doc.noBreak, afterDisplay := false,
+               noClub := false, clubMax := if s.afterDisplay then s.clubMax else s.doc.noBreak,
+               afterDisplay := false,
                doc := { s.doc with afterHeading := false, noBreak := false, inLabel := false,
                                    labelBox := none, endPe := false } }
 
@@ -877,8 +889,10 @@ def endParagraph (display : Bool := false) : M Unit := do
         let (em, _) ← fontUnits
         modify fun s => { s with preDisplay := preDisplaySize l em }
   let skip := (← get).pendingSkip
+  -- a paragraph interrupted by a display keeps its `\clubpenalty`: LaTeX's `\everypar`, which
+  -- resets it after a heading, runs only when a new paragraph starts
   modify fun s => { s with cursor := s.cursor + skip, pendingSkip := 0, noClub := false,
-                           clubMax := false }
+                           clubMax := display && s.clubMax }
 where
   /-- The line that holds material made before node `i`: the first whose break is at or
   after it, else the last; material made among the glue and penalties that a break removes
@@ -909,10 +923,69 @@ def mathMacros : M (Array (String × String)) := do
     if m.default.isSome then none
     else some ("\\" ++ name, String.join (m.body.toList.map Tok.text))
 
-/-- Lays out a formula at the current size; a math node (or an error). -/
-def formula (at_ : Tok) (src : String) (display : Bool) : M HNode := do
-  let (cfg, _) ← read
+/-- The families of the TeX-rule layout at the current size, made once per size; `none` when
+the document has no metric files or a font is missing. -/
+def mathFamilies : M (Option LeAnTeX.TeXMath.Families) := do
+  let (cfg, resolve) ← read
+  if cfg.mathTfms.isEmpty then return none
   let size := (← vars).key.size
+  if let some fs := (← get).mathFams[size]? then return some fs
+  let pk := (← get).doc.packages
+  let set : LeAnTeX.TeXMath.MathFontSet :=
+    { tfms := cfg.mathTfms, amsfonts := pk.contains "amssymb" || pk.contains "amsfonts" || pk.contains "amsmath",
+      text := fun k => (resolve k).map fun i => (⟨i, k.size, 0⟩ : TextFont) }
+  match set.families size with
+  | .ok fs =>
+    modify fun s => { s with mathFams := s.mathFams.insert size fs }
+    return some fs
+  | .error _ => return none
+
+/-- A formula laid out by the TeX-rule layout at the current size, as TeX's `mlist_to_hlist`
+makes it (in display style for a displayed one; `penalties` for one in a paragraph): its
+list and the families, or `none` when it is not built so (no metric files, or a construct the
+layout refuses). -/
+def texFormula (src : String) (display penalties : Bool) :
+    M (Option (Array LeAnTeX.TeXMath.Node × LeAnTeX.TeXMath.Families)) := do
+  let some fs ← mathFamilies | return none
+  let (cfg, resolve) ← read
+  let v ← vars
+  let size := v.key.size
+  let macros := cfg.math.macros ++ (← mathMacros)
+  let settings := { cfg.math with displayMode := display, macros }
+  let .ok tree := LeAnTeX.TeXMath.parseForTeX src settings display | return none
+  let tf : Option TextFont := (resolve { size }).map fun i => { info := i, size, index := 0 }
+  let bskip := v.baselineSkip.width
+  let ctx : LeAnTeX.TeXMath.FrontCtx :=
+    { source := src, displayMath := display, quad := size,
+      xHeight := (tf.map fun t => (LeAnTeX.TeXMath.MathFont.otf t).param 5).getD 0,
+      space := (tf.map (·.space)).getD {},
+      strutHeight := LeAnTeX.TeXMath.xnOverD bskip 45875 65536,
+      strutDepth := LeAnTeX.TeXMath.xnOverD bskip 19661 65536 }
+  let env : LeAnTeX.TeXMath.Env := { fams := fs }
+  let style := if display then LeAnTeX.TeXMath.Style.display else .text
+  let run : LeAnTeX.TeXMath.M (Array LeAnTeX.TeXMath.Node) := do
+    let l ← LeAnTeX.TeXMath.toMathList tree ctx
+    LeAnTeX.TeXMath.mlistToHlist LeAnTeX.TeXMath.maxNesting l style penalties
+  match (run.run env).run {} with
+  | .ok (h, _) => return some (h, fs)
+  | .error _ => return none
+
+/-- A part of a formula drawn as one unbreakable node: its list's display list in em of the
+size, with the formula's record (`source` empty for a part after the first). -/
+def mathChunk (fs : LeAnTeX.TeXMath.Families) (l : Array LeAnTeX.TeXMath.Node) (size : Int)
+    (src : String) (display : Bool) : HNode :=
+  let b := LeAnTeX.TeXMath.hpack l
+  let dl := LeAnTeX.TeXMath.displayListOf fs l size
+  let whole : Formula := ⟨0, dl.items.size, 0, 0, dl.width, dl.height, dl.depth, src, display⟩
+  .math b.width b.height b.depth { dl with formulas := #[whole] } size
+
+/-- Lays out a formula at the current size as one node (or an error): by the TeX-rule layout
+when it builds the formula, else by the KaTeX-compatible one. -/
+def formula (at_ : Tok) (src : String) (display : Bool) : M HNode := do
+  let size := (← vars).key.size
+  if let some (h, fs) ← texFormula src display false then
+    return mathChunk fs h size src display
+  let (cfg, _) ← read
   let settings := { cfg.math with
     displayMode := display, macros := cfg.math.macros ++ (← mathMacros) }
   match (LeAnTeX.layout src settings).result with
@@ -928,6 +1001,41 @@ def formula (at_ : Tok) (src : String) (display : Bool) : M HNode := do
     let dl := { dl with formulas := #[whole] }
     let sc := fun (e : Em) => Em.roundDiv (e.raw * size) Em.unit
     return .math (sc dl.width) (sc dl.height) (sc dl.depth) dl size
+
+/-- An inline formula appended to the horizontal list. Laid out by the TeX-rule layout, it is
+TeX's list of the formula between its math nodes: the math nodes become explicit kerns of 0 (a
+line may break after the formula's end before glue, as TeX's math node allows), glue and
+penalties stay themselves, with a `\nobreak` before each glue (TeX does not break at glue
+inside a formula), and the material between them is drawn as unbreakable parts. A line may so
+break at the penalties after relations and binary operations (in a paragraph; not in a box).
+Laid out by the KaTeX-compatible layout, it is one box. The space factor becomes 1000. -/
+def inlineFormula (at_ : Tok) (src : String) : M Unit := do
+  let size := (← vars).key.size
+  let penalties := (← get).hmode && (← get).boxes.isEmpty
+  match ← texFormula src false penalties with
+  | none => push (← formula at_ src false)
+  | some (h, fs) =>
+    push (.kern 0 .explicit)
+    let mut part : Array LeAnTeX.TeXMath.Node := #[]
+    let mut first := true
+    for n in h do
+      match n with
+      | .glue g st =>
+        if !part.isEmpty then
+          push (mathChunk fs part size (if first then src else "") false); first := false
+          part := #[]
+        push (.penalty 10000)
+        push (.glue g st)
+      | .penalty p =>
+        if !part.isEmpty then
+          push (mathChunk fs part size (if first then src else "") false); first := false
+          part := #[]
+        push (.penalty p)
+      | n => part := part.push n
+    if !part.isEmpty || first then
+      push (mathChunk fs part size (if first then src else "") false)
+    push (.kern 0 .explicit)
+  modify fun s => { s with sf := 1000 }
 
 /-- Reads a formula's source up to its closing delimiter (`$`, `$$`, `\)` or `\]`). -/
 def readFormula (at_ : Tok) (close : Tok → Bool) (double : Bool) : M String := do
@@ -1439,7 +1547,7 @@ def textCommand (t : Tok) (name : String) : M Unit := do
     if size ≤ 0 then failAt t "Font size must be positive"
     flushRun
     modifyVars fun x => { x with key := { x.key with size }, baselineSkip := { width := skip } }
-  | "(" => startParagraph; push (← formula t (← readFormula t (·.isCs ")") false) false)
+  | "(" => startParagraph; inlineFormula t (← readFormula t (·.isCs ")") false)
   | "[" => displayFormula t (← readFormula t (·.isCs "]") false)
   | "%" | "&" | "#" | "$" | "_" | "{" | "}" => addChar (name.toList.headD ' ')
   | "textbackslash" => addChar '\\'

@@ -362,6 +362,9 @@ def main (args : List String) : IO UInt32 := do
   if args == ["--update-examples"] then
     let fails ← BackendChecks.run true
     return if fails.isEmpty then 0 else 1
+  if args == ["--doc"] then
+    let _ ← DocChecks.run false
+    return 0
   if args == ["--update-doc"] then
     let _ ← DocChecks.run true
     return 0
