@@ -368,6 +368,9 @@ def main (args : List String) : IO UInt32 := do
   if let ["--show-doc", name] := args then
     let _ ← DocChecks.run false (some name)
     return 0
+  if let ["--show-vlist", name] := args then
+    DocChecks.showVList name
+    return 0
   if args == ["--bounds"] then
     let fails ← boundsFailures
     for f in fails do IO.eprintln s!"  {f}"

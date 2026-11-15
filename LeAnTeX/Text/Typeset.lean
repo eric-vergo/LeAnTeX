@@ -190,6 +190,8 @@ structure Vars where
   lineSkipLimit : Int := 0
   /-- `\interlinepenalty`. -/
   interlinePenalty : Int := 0
+  /-- The space factor code of `.` (`3000`; LaTeX's bibliography sets `1000`). -/
+  periodSf : Nat := 3000
   /-- `\clubpenalty`. -/
   clubPenalty : Int := 150
   /-- `\widowpenalty`. -/
@@ -1331,7 +1333,7 @@ def addChar (c : Char) : M Unit := do
   let v ← vars
   let s ← get
   if !s.run.isEmpty && s.runKey != v.key then flushRun
-  let code := sfCode c
+  let code := if c == '.' then v.periodSf else sfCode c
   modify fun s => { s with
     run := s.run.push c, runKey := v.key
     sf := if code == 0 then s.sf

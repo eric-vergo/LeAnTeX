@@ -96,14 +96,21 @@ def addVSpace (g : Glue) : M Unit := do
     pushV (.glue sum 0)
 
 /-- LaTeX's `\addpenalty{p}` in vertical mode: a penalty, moved before a final skip so that
-the skip stays after it. Nothing after a heading. -/
+the skip stays after it. As LaTeX does since 2020, the skip taken back before the penalty
+includes the depth of the last box (`\prevdepth`, at most `\maxdepth`, nothing when it is
+ignored) and that depth is given back after the penalty, so that a page that ends at the
+penalty ends at the box's baseline. Nothing after a heading. -/
 def addPenalty (p : Int) : M Unit := do
   if (← docSt).noBreak then return
   let ls ← lastSkip
   if ls.width == 0 then pushV (.penalty p)
   else
-    pushV (.glue (negGlue ls) 0)
+    let pv := (← get).vPrev
+    let md := (← classP).maxDepth
+    let pd := if pv ≤ ignoreDepth then 0 else min pv md
+    pushV (.glue (negGlue { ls with width := ls.width + pd }) 0)
     pushV (.penalty p)
+    if pd != 0 then pushV (.glue { width := pd } 0)
     pushV (.glue ls 0)
 
 /-! ### Counters and their numbers -/

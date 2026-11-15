@@ -1,0 +1,53 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}[proposition]{Corollary}
+\title{Elementary Facts About Divisibility}
+\author{Sunniva Aldous}
+\date{November 5, 2020}
+\begin{document}
+\maketitle
+
+\section{Preliminaries}
+Throughout, all letters denote integers unless stated otherwise. We write
+$a \mid b$ if there is an integer $c$ with $b = ac$. The set of positive
+integers is denoted $\mathbb{N}$, and $\mathbb{Z}$ is the set of all integers.
+
+\begin{proposition}\label{prop:sum}
+If $a \mid b$ and $a \mid c$, then $a \mid (b + c)$.
+\end{proposition}
+\begin{proof}
+Write $b = ax$ and $c = ay$. Then $b + c = a(x + y)$.
+\end{proof}
+
+\begin{corollary}\label{cor:lin}
+If $a \mid b$ and $a \mid c$, then $a \mid (mb + nc)$ for all $m, n \in
+\mathbb{Z}$.
+\end{corollary}
+
+\section{Counting Divisors}
+Let $d(n)$ denote the number of positive divisors of $n$. If
+$n = p_1^{e_1} \cdots p_k^{e_k}$ is the prime factorisation, then
+\begin{align}
+d(n) &= \prod_{i=1}^{k} (e_i + 1), \label{eq:d}\\
+\sigma(n) &= \prod_{i=1}^{k} \frac{p_i^{e_i+1} - 1}{p_i - 1}. \label{eq:sigma}
+\end{align}
+For instance, $d(360) = 4 \cdot 3 \cdot 2 = 24$, using \eqref{eq:d} and the
+factorisation $360 = 2^3 \cdot 3^2 \cdot 5$.
+
+\section{A Summation Identity}
+Proposition~\ref{prop:sum} is used in the proof of the following identity,
+which appears on page~\pageref{eq:id}:
+\begin{equation}\label{eq:id}
+\sum_{k=1}^{n} \left\lfloor \frac{n}{k} \right\rfloor = \sum_{m=1}^{n} d(m).
+\end{equation}
+Both sides count the pairs $(k, j)$ with $1 \le k j \le n$.
+
+\subsection{Table of Small Values}
+\begin{center}
+\begin{tabular}{c|cccccc}
+$n$ & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+$d(n)$ & 1 & 2 & 2 & 3 & 2 & 4 \\
+\end{tabular}
+\end{center}
+\end{document}

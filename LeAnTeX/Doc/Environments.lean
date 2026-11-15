@@ -461,6 +461,10 @@ def docCommand (t : Tok) (name : String) : M Bool := do
   | "leantex@labelbox" => labelBox t
   | "leantex@fitlast" => fitLast t
   | "leantex@endlist" => endList t
+  | "leantex@biblist" => bibList t
+  | "leantex@bibcite" => bibCite t
+  | "bibitem" => bibItem t
+  | "cite" => cite t
   | "\\" =>
     if (← curTable).isSome then
       endRow t

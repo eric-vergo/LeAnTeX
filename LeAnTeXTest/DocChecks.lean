@@ -24,7 +24,9 @@ New Computer Modern and compared with LuaLaTeX's answers (`fixtures/doc/*.json`,
 A document agrees when all of these agree. `parity/doc-baseline.tsv` lists the documents that
 agreed when it was written; `lake test` fails when one of them no longer agrees (or a fixture
 is missing) and reports the others. `lake exe leantex-test --update-doc` rewrites the baseline
-and `parity/DOC.md`; `--show-doc NAME` prints a document's differences.
+and `parity/DOC.md`; `--show-doc NAME` prints a document's differences, and `--show-vlist NAME`
+the first node of each page's body (glue, box, penalty, kern, rule; empty glue left out) where
+it differs from LuaLaTeX's recorded list.
 
 The class parameters (`LeAnTeX.Doc.Class`) are also checked against the recorded values
 (`fixtures/doc/class/params-*.txt`).
@@ -264,7 +266,69 @@ def feature (name : String) : String :=
   | "tabular" => "tables"
   | "pages" | "newpage" | "skips" | "widows" | "nopagebreak" | "pagestyle" | "thispagestyle" =>
     "page breaking"
+  | "bib" => "bibliographies"
+  | "fresh" => "fresh (written without reading LeAnTeX)"
   | _ => "combined"
+
+/-- One node of a body's vertical list as the fixture writes it: `glue w stretch order shrink
+order subtype`, `h w h d shift`, `p n`, `k w`, `r h d` (the text of a box left out). -/
+def nodeText : VNode → Option String
+  | .glue g st => some s!"glue {g.width} {g.stretch} {g.stretchOrder} {g.shrink} \
+      {g.shrinkOrder} {st}"
+  | .hbox w h d sh _ _ => some s!"h {w} {h} {d} {sh}"
+  | .vbox w h d sh _ _ => some s!"h {w} {h} {d} {sh}"
+  | .penalty n => some s!"p {n}"
+  | .kern w => some s!"k {w}"
+  | .rule _ h d => some s!"r {h} {d}"
+  | _ => none
+
+/-- The same for a fixture's item (`["glue", …]`, `["h", …]`, `["p", n]`, …); whatsits and
+other items are left out. -/
+def itemText (j : Json) : Option String :=
+  match j.getArr? with
+  | some a =>
+    let nums := fun (k : Nat) => " ".intercalate ((a.extract 1 (k + 1)).toList.map
+      fun x => toString (int x))
+    match (a[0]?.bind Json.getStr?) with
+    | some "glue" => some s!"glue {nums 6}"
+    | some "h" | some "v" => some s!"h {nums 4}"
+    | some "p" => some s!"p {nums 1}"
+    | some "k" => some s!"k {nums 1}"
+    | some "r" => some s!"r {nums 2}"
+    | _ => none
+  | none => none
+
+/-- The first node at which the body of each page differs from LuaLaTeX's, with six nodes before
+it and three after for context (`--show-vlist NAME`). -/
+def showVList (name : String) : IO Unit := do
+  let some resolve ← FrontChecks.newComputerModern | IO.println "fonts missing"; return
+  let src ← IO.FS.readFile s!"corpus/doc/{name}.tex"
+  let .ok fx := Json.parse (← IO.FS.readFile s!"fixtures/doc/{name}.json")
+    | IO.println "fixture unreadable"; return
+  let theirs := ((fx.get? "pages").bind Json.getArr?).getD #[]
+  let png ← IO.FS.readBinFile "corpus/doc/images/square.png"
+  let cfg : Text.Settings :=
+    { images := fun p => if p == "images/square.png" then some png else none }
+  match typesetDocument src resolve cfg with
+  | .error e => IO.println s!"error: {e.message}"
+  | .ok r =>
+    for i in [0:min r.pages.size theirs.size] do
+      -- glue of nothing at all (LuaTeX keeps some that change no position) is left out
+      let empty := fun (t : String) => t.startsWith "glue 0 0 0 0 0 "
+      let ours := (r.pages[i]!.body.content.filterMap nodeText).filter (!empty ·)
+      let items := (((((theirs[i]!.get? "body").bind (·.get? "items")).bind Json.getArr?).getD
+        #[]).filterMap itemText).filter (!empty ·)
+      match (List.range (min ours.size items.size)).find? (fun k => ours[k]! != items[k]!) with
+      | some k =>
+        IO.println s!"page {i + 1}: node {k} of {ours.size} (LuaLaTeX {items.size})"
+        for j in [k - min k 6:min (k + 4) (min ours.size items.size)] do
+          IO.println s!"  ours {ours[j]!}  |  LuaLaTeX {items[j]!}"
+        break
+      | none =>
+        if ours.size != items.size then
+          IO.println s!"page {i + 1}: same first {min ours.size items.size} nodes, then \
+            {ours.size} against {items.size}"
+          break
 
 /-- Runs every document; with `update` rewrites the baseline and the report. Returns the
 failures (a baselined document that no longer agrees). -/

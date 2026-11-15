@@ -1,0 +1,12 @@
+\documentclass{article}
+\begin{document}
+Two books \cite{knuth84,lamport94} and a paper \cite{knuth81}; the line breaking of
+\cite[section~2]{knuth81} decides the lines of this paragraph, and a missing key gives
+\cite{nowhere}.
+Lines of a paragraph are chosen together rather than one at a time. The program looks at every way of breaking the paragraph and picks the one whose lines are spaced most evenly, avoiding hyphens on consecutive lines and very loose lines next to very tight ones.
+\begin{thebibliography}{Lam94}
+\bibitem[Knu81]{knuth81} D. E. Knuth and M. F. Plass. Breaking paragraphs into lines. Software: Practice and Experience 11, 1981.
+\bibitem[Knu84]{knuth84} D. E. Knuth. The TeXbook. Addison-Wesley, 1984.
+\bibitem[Lam94]{lamport94} L. Lamport. LaTeX: A Document Preparation System. Second edition, Addison-Wesley, 1994.
+\end{thebibliography}
+\end{document}

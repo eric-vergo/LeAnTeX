@@ -1,0 +1,60 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath}
+\newcommand{\lab}{the laboratory}
+\title{Results of the Seed Germination Experiment}
+\author{Anselm Brodrick}
+\date{April 18, 2019}
+\begin{document}
+\maketitle
+
+\section{Purpose}
+The aim of this experiment was to compare germination rates of three kinds of
+seed under identical conditions in \lab. The trays were kept at a constant
+temperature and watered every second day.
+
+\section{Results}
+Each tray held one hundred seeds. After two weeks the following counts were
+recorded.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|c|p{3cm}|}
+\hline
+Variety & Germinated & Remarks \\
+\hline
+Basil & 82 & Uniform emergence, strong seedlings \\
+\hline
+Parsley & 47 & Slow and uneven, some seeds mouldy \\
+\hline
+Coriander & 91 & Very rapid germination \\
+\hline
+\end{tabular}
+\caption{Germination counts after fourteen days.}\label{tab:germ}
+\end{table}
+
+The mean rate is $\bar{x} = \frac{1}{3}\sum_{i=1}^{3} x_i = 73.3$ per hundred.
+The sample variance is
+\[
+s^2 = \frac{1}{2}\sum_{i=1}^{3} (x_i - \bar{x})^2 \approx 485.
+\]
+
+\begin{figure}[htbp]
+\centering
+\begin{tabular}{lcr}
+Day 3 & Day 7 & Day 14 \\
+12 & 40 & 73 \\
+\end{tabular}
+\caption{Average number of germinated seeds per tray over time.}
+\label{fig:time}
+\end{figure}
+
+\section{Discussion}
+As Table~\ref{tab:germ} shows, parsley performed notably worse. Figure~\ref{fig:time}
+on page~\pageref{fig:time} indicates that growth is roughly linear early on.
+
+\newpage
+\section{Conclusion}
+Coriander and basil are recommended for the school garden. Further trials
+with different watering schedules would clarify whether the poor parsley
+result is intrinsic or a consequence of the chosen conditions.
+\end{document}

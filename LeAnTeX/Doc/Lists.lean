@@ -15,8 +15,9 @@ LuaLaTeX shows them:
   `\parsep`, `\parindent` `\listparindent`; the lines are `\leftmargin` further in and
   `\leftmargin + \rightmargin` shorter (LaTeX's `\@totalleftmargin` and `\linewidth`).
 * **An item** (`\item[label]`): before the first, `\addpenalty{-51}` (`\@beginparpenalty`),
-  `\addvspace` of `\@topsepadd` plus the outer `\parskip`, and `\addvspace{-\parskip}`; before the
-  others `\addpenalty{-51}` and `\addvspace{\itemsep}`. Its paragraph starts without the
+  `\addvspace` of `\@topsepadd` plus the outer `\parskip`, and `\addvspace{-\parskip}` (right
+  after a heading only `\addvspace` of the outer `\parskip` less the list's, `\@nbitem`); before
+  the others `\addpenalty{-51}` and `\addvspace{\itemsep}`. Its paragraph starts without the
   indentation, with the label box: `\hskip\itemindent \hskip-\labelwidth \hskip-\labelsep`, the
   label in a box `\labelwidth` wide (flush right; at its natural width when wider, and always
   for `description`), `\hskip\labelsep`, then `\penalty 0`. A numbered list steps its counter
@@ -33,7 +34,7 @@ LuaLaTeX shows them:
 Environments: `itemize` (labels •, bold –, ∗, ·), `enumerate` (`1.`, `(a)`, `i.`, `A.`; its
 `\ref` texts `1`, `1a`, `1(a)i`, `1(a)iA`), `description` (bold labels at their natural
 width, the item indented by `-\leftmargin`), `quote`, `quotation`, `center`, `flushleft`,
-`flushright`, `trivlist`.
+`flushright`, `trivlist`, `thebibliography` (with `\bibitem` and `\cite`, see `bibList`).
 -/
 
 namespace LeAnTeX.Text.Typeset
@@ -102,6 +103,14 @@ def item (at_ : Tok) : M Unit := do
         addPenalty (-51)
         addVSpace l.topSepItem
         addVSpace (negGlue (← vars).parSkip)
+      else
+        -- right after a heading (LaTeX's `\@nbitem`): `\addvspace` of the outer `\parskip`
+        -- less the list's, so that the skip after the heading stays what it was once the
+        -- item's paragraph adds the list's `\parskip`
+        let ps := (← vars).parSkip
+        let o := l.outerParSkip
+        addVSpace { o with width := o.width - ps.width, stretch := o.stretch - ps.stretch,
+                           shrink := o.shrink - ps.shrink }
   else
     addPenalty (-51)
     addVSpace l.itemSep
@@ -218,6 +227,13 @@ def beginListEnv (at_ : Tok) (name : String) : M Bool := do
     beginList at_ fun l => { l with listParIndent := pi, itemIndent := pi,
                                     rightMargin := l.leftMargin, parSep := { stretch := 65536 } }
     inject at_ #[csT "item" at_, csT "relax" at_]
+  | "thebibliography" =>
+    -- `\section*{\refname}`, then the list
+    let w ← readArg at_
+    let p := at_.pos
+    inject at_ (#[csT "section" at_, Tok.char '*' 12 p, Tok.char '{' 1 p] ++
+      textToks at_ "References" ++ #[Tok.char '}' 2 p, csT "leantex@biblist" at_,
+      Tok.char '{' 1 p] ++ w ++ #[Tok.char '}' 2 p])
   | "trivlist" => beginList at_ id (trivial := true)
   | "center" | "flushleft" | "flushright" =>
     beginList at_ id (trivial := true)
@@ -231,9 +247,83 @@ def beginListEnv (at_ : Tok) (name : String) : M Bool := do
   | _ => return false
   return true
 
+/-! ### Bibliographies -/
+
+/-- The list of `thebibliography` (`\list{\@biblabel{\@arabic\c@enumiv}}{…}` of the article
+class): the width of `[w]` for the widest label `w` (the environment's argument) is
+`\labelwidth`, plus `\labelsep` is `\leftmargin`; the items are numbered with `enumiv`,
+printed in arabic; then `\sloppy` (`\tolerance 9999`, `\emergencystretch 3em`),
+`\clubpenalty 4000`, `\widowpenalty 4000` and a space factor of `1000` after a full stop. -/
+def bibList (at_ : Tok) : M Unit := do
+  let w ← readArg at_
+  let txt ← expandText at_ w
+  let tf ← fontFor (← vars).key
+  let width := (tf.shape ("[" ++ txt ++ "]").toList.toArray).foldl (· + ·.width) 0
+  let (em, _) ← fontUnits
+  modifyDoc fun d => { d with counters := d.counters.set "enumiv" 0 }
+  let theNum : Macro := { params := 0, body := tokenize "\\arabic{enumiv}" }
+  modifyVars fun v => { v with macros := v.macros.insert "theenumiv" theNum }
+  let lab := textToks at_ "[" ++ #[csT "theenumiv" at_] ++ textToks at_ "]"
+  beginList at_ fun l =>
+    { l with labelWidth := width, leftMargin := width + l.labelSep, counter := some "enumiv",
+             env := "thebibliography", label := lab }
+  modifyVars fun v =>
+    { v with p := { v.p with tolerance := 9999, emergencyStretch := 3 * em },
+             clubPenalty := 4000, widowPenalty := 4000, periodSf := 1000 }
+
+/-- The key of a citation in the labels: `bib@` and the citation key. -/
+def bibKey (key : String) : String := "bib@" ++ key
+
+/-- `\bibitem[label]{key}`: an item whose label is `[label]` flush left in `\labelwidth`, or the
+next number; the label's text is recorded for `\cite` (LaTeX's `\bibcite`). -/
+def bibItem (at_ : Tok) : M Unit := do
+  let opt ← readOptional?
+  let key ← readWord at_
+  let some l := (← docSt).lists.back?
+    | failAt at_ "Lonely \\item--perhaps a missing list environment"
+  let p := at_.pos
+  let lb := Tok.char '{' 1 p
+  let rb := Tok.char '}' 2 p
+  match opt with
+  | some ts =>
+    let txt ← expandText at_ ts
+    modifyDoc fun d => { d with labels := d.labels.push (bibKey key, txt) }
+    -- `\item[\@biblabel{label}\hfill]`: the label left in its box
+    inject at_ (#[csT "item" at_, Tok.char '[' 12 p, lb, csT "hbox" at_] ++
+      textToks at_ s!"to {l.labelWidth}sp" ++ #[lb] ++ textToks at_ "[" ++ ts ++
+      textToks at_ "]" ++ #[csT "hss" at_, rb, rb, Tok.char ']' 12 p])
+  | none =>
+    inject at_ (#[csT "item" at_, csT "leantex@bibcite" at_, lb] ++ textToks at_ key ++ #[rb])
+
+/-- After a numbered `\bibitem`: its number recorded for `\cite`. -/
+def bibCite (at_ : Tok) : M Unit := do
+  let key ← readWord at_
+  let txt ← theCounter at_ "enumiv"
+  modifyDoc fun d => { d with labels := d.labels.push (bibKey key, txt) }
+
+/-- `\cite[note]{a,b}`: `[1, 2]` or `[1, note]` from the previous pass's labels, the keys
+apart by `,\penalty\@m\ ` (LaTeX's `\@citex`); an unknown key prints a bold `?` and is
+reported. -/
+def cite (at_ : Tok) : M Unit := do
+  let note ← readOptional?
+  let keys := ((tokText (← readArg at_)).splitOn ",").map (·.trimAscii.toString)
+  let p := at_.pos
+  let lb := Tok.char '{' 1 p
+  let rb := Tok.char '}' 2 p
+  let mut body : Array Tok := #[]
+  for (k, i) in keys.zipIdx do
+    if i > 0 then
+      body := body ++ textToks at_ "," ++ #[csT "penalty" at_] ++ textToks at_ "1000" ++
+        #[csT " " at_]
+    let t ← refText (bibKey k) false
+    body := body ++ (if t == "??" then #[lb, csT "bfseries" at_] ++ textToks at_ "?" ++ #[rb]
+      else textToks at_ t)
+  if let some n := note then body := body ++ textToks at_ ", " ++ n
+  inject at_ (textToks at_ "[" ++ #[lb] ++ body ++ #[rb] ++ textToks at_ "]")
+
 /-- Whether an environment is a list ended by `endList`. -/
 def isListEnv (name : String) : Bool :=
   ["itemize", "enumerate", "description", "quote", "quotation", "trivlist", "center",
-    "flushleft", "flushright"].contains name
+    "flushleft", "flushright", "thebibliography"].contains name
 
 end LeAnTeX.Text.Typeset

@@ -1,0 +1,52 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+\title{On Sorting Large Collections}
+\author{Priya Nandakumar}
+\date{September 9, 2022}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We review the classical comparison-based sorting algorithms and discuss the
+information-theoretic lower bound that constrains all of them.
+\end{abstract}
+
+\section{Introduction}
+Sorting is among the most thoroughly studied problems in computer science
+\cite{knuth}. Textbook treatments such as \cite{clrs} describe dozens of
+methods, yet only a handful are used in practice. Detailed analysis of
+quicksort appears in \cite[p.~5]{knuth}, and a historical account of the
+subject can be found by consulting \cite{knuth,clrs} together.
+
+\section{A Lower Bound}
+Any comparison sort must distinguish among $n!$ possible orderings. Each
+comparison yields one bit, so at least $\log_2 (n!)$ comparisons are needed in
+the worst case. By Stirling's approximation,
+\begin{equation}\label{eq:stirling}
+\log_2 (n!) = n\log_2 n - n\log_2 e + O(\log n).
+\end{equation}
+Hence the number of comparisons is $\Omega(n \log n)$, as claimed in
+Section~\ref{sec:practice}.
+
+\section{Practical Considerations}\label{sec:practice}
+Real implementations care about caching and memory movement as much as about
+comparison counts. A simple verbatim sketch of insertion sort follows.
+\begin{verbatim}
+for i = 1 to n-1:
+    key = a[i]
+    j = i - 1
+    while j >= 0 and a[j] > key:
+        a[j+1] = a[j]
+        j = j - 1
+    a[j+1] = key
+\end{verbatim}
+The inner loop uses the comparison \verb|a[j] > key|, which dominates the
+running time for nearly reversed input.
+
+\begin{thebibliography}{99}
+\bibitem[Knu84]{knuth} Donald E. Knuth, \emph{The Art of Computer
+  Programming, Volume 3: Sorting and Searching}, Addison-Wesley, 1984.
+\bibitem{clrs} Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest and
+  Clifford Stein, \emph{Introduction to Algorithms}, MIT Press, 2009.
+\end{thebibliography}
+\end{document}

@@ -537,6 +537,47 @@ Quoted.
 """ + paras(1, 5))
 
 
+DOCS["bib-numbered"] = doc(r"""
+\section{Sources}
+The method goes back to \cite{gauss} and was refined in \cite{jacobi,seidel}; see also
+\cite[p.~12]{gauss} for the original statement, and \cite[Chapter~3]{seidel,young}.
+""" + para(0) + r"""
+\begin{thebibliography}{9}
+\bibitem{gauss} C. F. Gauss. Letter to Gerling, 1823.
+\bibitem{jacobi} C. G. J. Jacobi. On a new way of solving linear equations. Astronomische Nachrichten 22, 1845.
+\bibitem{seidel} L. Seidel. On a process for solving the equations of least squares by successive approximation. Abhandlungen der Bayerischen Akademie 11, 1874.
+\bibitem{young} D. M. Young. Iterative methods for solving partial difference equations of elliptic type. Thesis, 1950.
+\end{thebibliography}
+""")
+
+DOCS["bib-labels"] = doc(r"""
+Two books \cite{knuth84,lamport94} and a paper \cite{knuth81}; the line breaking of
+\cite[section~2]{knuth81} decides the lines of this paragraph, and a missing key gives
+\cite{nowhere}.
+""" + para(1) + r"""
+\begin{thebibliography}{Lam94}
+\bibitem[Knu81]{knuth81} D. E. Knuth and M. F. Plass. Breaking paragraphs into lines. Software: Practice and Experience 11, 1981.
+\bibitem[Knu84]{knuth84} D. E. Knuth. The TeXbook. Addison-Wesley, 1984.
+\bibitem[Lam94]{lamport94} L. Lamport. LaTeX: A Document Preparation System. Second edition, Addison-Wesley, 1994.
+\end{thebibliography}
+""")
+
+DOCS["bib-long"] = doc(r"""
+\section{Introduction}
+Citations to many sources \cite{s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12} break across lines
+like any other text, and the reference list numbers them to twelve, so its labels are as wide as
+the label of the widest, given as \texttt{99}. Later entries are cited alone \cite{s11} and with a
+note \cite[remark]{s12}.
+""" + paras(2, 2) + r"""
+\begin{thebibliography}{99}
+""" + "\n".join(
+    rf"\bibitem{{s{i}}} A. Author{i}. A study of item number {i} in a long list of references, "
+    rf"with enough words to need a second line. Journal of Examples {i}, 19{60 + i}."
+    for i in range(1, 13)) + r"""
+\end{thebibliography}
+""")
+
+
 def main():
     """Writes every document of DOCS into corpus/doc/."""
     OUT.mkdir(parents=True, exist_ok=True)

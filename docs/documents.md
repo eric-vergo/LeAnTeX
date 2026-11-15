@@ -3,7 +3,7 @@
 LeAnTeX's document layer typesets whole LaTeX documents of the `article` class into pages, as
 LaTeX does: TeX's vertical lists and page builder, LaTeX's output routine with its floats and
 footnotes, sectioning, counters, cross-references, the table of contents, lists, theorems,
-tables and figures. It is checked against LuaLaTeX on a corpus of 61 documents, line by line, to
+tables and figures. It is checked against LuaLaTeX on a corpus of 74 documents, line by line, to
 the scaled point.
 
 ```lean
@@ -56,6 +56,12 @@ given). `examples/article/article.tex` and `examples/article/` show the result.
 * **Floats**: `figure`, `table` (and starred) with `[htbp]`, `\caption`; `\includegraphics` of PNG
   and SVG files with `width`, `height`, `scale`.
 * **Line breaks**: `\linebreak[n]`, `\nolinebreak[n]` (LaTeX's penalties), `\newline`, `\\`.
+* **Bibliographies**: `thebibliography{widest}` (an unnumbered section "References" and a list
+  whose labels are as wide as `[widest]`, set `\sloppy`, with `\clubpenalty` and
+  `\widowpenalty` 4000 and no extra space after a full stop), `\bibitem{key}` (numbered) and
+  `\bibitem[label]{key}` (the label flush left), `\cite{key}`, `\cite{a,b}` (`[1, 2]`, the keys
+  apart by `,\penalty1000\ `) and `\cite[note]{key}` (`[1, note]`); citations are resolved in the
+  same passes as labels; an unknown key prints a bold `?` and is reported. No BibTeX.
 * **Pages**: `\newpage`, `\clearpage`, `\pagebreak[n]`, `\nopagebreak[n]`, `\vfill`, `\vskip`,
   `\vspace`, `\smallskip`, `\medskip`, `\bigskip`, `\addvspace`; `\pagestyle` and
   `\thispagestyle` with `plain` (centred page number in the foot) and `empty`.
@@ -108,44 +114,83 @@ the same text, and the same labels, contents and counter steps.
 | footnotes | 3 / 3 | 205 / 205 | 205 |
 | page breaking | 7 / 7 | 312 / 312 | 312 |
 | tables | 1 / 4 | 18 / 67 | 20 |
-| **all** | **47 / 61** | **1378 / 1514** | **1400** |
+| bibliographies | 2 / 3 | 67 / 69 | 67 |
+| **all of the above** | **49 / 64** | **1445 / 1583** | **1467** |
+| fresh documents (below) | 0 / 10 | 212 / 398 | 268 |
 
-Every disagreement, with its cause:
+**Fresh documents.** Ten small documents (`corpus/doc/fresh-*.tex`) were written by someone who
+had not read this library's source, each mixing two to four of the features listed above, and
+recorded with LuaLaTeX as they came: they measure how well the layer does on documents it was
+not tuned to. None agrees in full; half of their lines are at LuaLaTeX's place to the sp and two
+thirds within 1 pt. The differences start mostly in what the corpus covers least: `\maketitle`
+with an abstract, `align`, displays and lists after them, and inline math with limits.
+
+`lake exe leantex-test --show-vlist NAME` prints, for each page, the first node of the text
+body's vertical list (glue, box, penalty, kern or rule) where it differs from LuaLaTeX's recorded
+list, with the nodes around it; the causes below were found with it.
+
+Every disagreement, with its cause (the first differing node of the vertical list named where it
+says where to look):
 
 * `align` (1 of 15 lines): LaTeX sets each row of an alignment as a line of its own; here the
   whole alignment is one box from the math layout's `aligned`, and the row numbers are not
-  drawn. The vertical space around it is TeX's.
+  drawn. The first differing node is the skip above the display (`\abovedisplayskip`, 10 pt,
+  in LuaLaTeX; a single box here).
 * `equation` (8 of 13), `refs` (30 of 31): every line at its place vertically; a formula's left
   edge differs by up to 0.73 pt (47,590 sp) because the math layout's widths are KaTeX's, not
-  TeX's Computer Modern math fonts, and amsmath centres a numbered formula by its own rule.
-* `float-bottom` (13 of 14): the caption of a bottom float is 16 sp low: LuaLaTeX's
-  `\vskip -\pagedepth` at the end of that page is 0 (the page builder's state after the float's
-  output), here the last line's depth; the share of `\raggedbottom`'s glue moves by 16 sp.
-* `quote` (20 of 23): in `quotation` a later paragraph breaks its first line one word earlier
-  than LuaLaTeX; not yet explained.
-* Tables: `tabular-multi`, `tabular-para`, `tabular-mixed`, `hyphen-hard`. Two differences,
-  neither caused by `\multicolumn` (`tabular-para` has none and shows both): a `p{}` cell's
-  paragraph breaks and hyphenates differently from LuaLaTeX (it hyphenates "col-umn",
-  "hyphen-ates", "International-ization" where this layer does not), with every line of the
-  cell 1 sp to the right; and the table as a whole sits off by a fixed amount (1.67 pt to the
-  right in `tabular-mixed`, 3.3 pt narrower in `tabular-multi`). Both point at the parameters
-  a `p{}` cell's paragraph is set with (LaTeX's `\@arrayparboxrestore`, the column's width
-  and `\tabcolsep` arithmetic); not yet found.
-* `description-long` (5 of 12): a long label that runs into the item's text; the following
-  lines break one word earlier than LuaLaTeX's (the positions agree), so the label's box width
-  or the glue after it differs from LaTeX's `\descriptionlabel` handling; not yet found.
-* `inline-limits` (1 of 9): a line holding an inline `\sum` or `\lim` with limits is 290 sp
-  lower than LuaLaTeX's and later lines move by up to 2.2 pt: the formula's height and depth
-  come from the math layout (KaTeX's metrics), not from TeX's math fonts, as for `equation`.
-* `verbatim-mixed` (6 of 11): after a `verbatim` block every line is one baseline (12 pt) lower
-  than LuaLaTeX's: the space this layer leaves after the block differs from LaTeX's
-  `\@verbatim` list's; not yet found.
-* `article` (32 of 52): page 1 agrees; on page 2 LuaLaTeX puts the table (`[ht]`) one line
-  earlier than here, so the lines after it are in a different order.
+  TeX's Computer Modern math fonts, and amsmath centres a numbered formula by its own rule. In
+  `equation` the first differing node is the baseline skip under a display, 69 sp short: the
+  display's depth is the math layout's.
+* `inline-limits` (1 of 9): the first line's box is 290 sp less high and 171 sp deeper than
+  LuaLaTeX's: an inline `\sum` with limits gets its height and depth from the math layout
+  (KaTeX's metrics), not from TeX's math fonts' parameters. Not changed here: the math layout's
+  outer box would have to follow TeX's rules for `\textstyle` limits and the MATH table of the
+  font, which the 12,272 cases of the math parity do not check; it is the largest remaining
+  source of differences in the fresh documents.
+* `float-bottom` (13 of 14): LuaLaTeX's list has a `\penalty 0` after the last line before the
+  bottom float where this layer has the baseline skip of the next line: the float's own
+  penalty (LaTeX's `\@xfloat` in vertical mode) is not put into the list here; the caption then
+  moves by 16 sp.
+* `footnotes`: the page's final glue is `0pt plus 1fill` in LuaLaTeX's list and `plus 1fil`
+  here (LaTeX's `\newpage` at the end of the document); no line moves.
+* `quote` (20 of 23): the first differing node is the baseline skip of the line after the first
+  line of a `quotation` paragraph (7,209 sp more here), because that line holds other words:
+  the paragraph's first line breaks one word earlier than LuaLaTeX's. Its line breaking
+  parameters (the item's paragraph inside the list) are the place to look; not found.
+* `description-long` (5 of 12): the baseline skip after the line with the long label is 7,209 sp
+  short, because the next line holds other words (the following lines break one word earlier);
+  the long label's box or the glue after it differs from LaTeX's `\descriptionlabel`; not found.
+* `verbatim-mixed` (6 of 11): right after the skip that closes the `verbatim` list, LuaLaTeX's
+  list has a `0pt plus 1pt` skip (user glue) and, after the next line, a `\penalty 0`, which this
+  layer has not; the 12 pt shift of the later lines follows from there. The cause is the end of
+  LaTeX's verbatim environment (`\@endparenv` and the paragraph after it), not modelled.
+* Tables: `tabular-para`, `tabular-mixed`, `tabular-multi`, `hyphen-hard`. In `tabular-para` the
+  first differing node is the box of the row with `p{}` cells: 6 pt less high and deep than
+  LuaLaTeX's (the cells' paragraphs as `\vtop` boxes with LaTeX's `\@arstrut` and
+  `\@finalstrut` are not modelled exactly); in `tabular-multi` and `hyphen-hard` the table's
+  box is 6 pt less high and deep for the same reason; in `tabular-mixed` LuaLaTeX has
+  `\vskip -5pt` (the `center` environment's `\topsep` taken back by `\par` before the table)
+  where this layer has `\parskip`. The `p{}` cells' line breaking (LuaLaTeX hyphenates "col-umn"
+  where this layer does not) follows from the same cell parameters. Not fixed.
+* `article` (32 of 52): on page 2 LuaLaTeX puts the table (`[ht]`) one line earlier; the first
+  differing node is on page 1, the skip after a theorem (`\topsep` of the environment's
+  `\@endparenv`): 10 pt plus 3 minus 5 here, 6 pt plus 3 minus 3 in LuaLaTeX (the theorem
+  environment's end uses the list parameters of its own level); not fixed.
 * `title-thanks`: lines agree; the recorded counter step differs only in how the symbol is
-  printed (`\ensuremath{\ast}` in LuaLaTeX's record).
+  printed (`\ensuremath{\ast}` in LuaLaTeX's record); the page's final glue is `plus 1fil`
+  here and `plus 1fill` in LuaLaTeX, as in `footnotes`.
+* `bib-numbered` (14 of 16): one reference's lines break differently: here the line breaker
+  hyphenates "succes-sive", LuaLaTeX does not; the first differing node is the penalty between
+  two lines of that item (8,100 here, 8,000 in LuaLaTeX: the hyphenated line's `\brokenpenalty`
+  added to the club penalty), so the break itself differs; not found.
 * `theorem-amsthm` agreed only after taking amsthm's theorems without `\partopsep`, found from
   LuaLaTeX's output rather than from amsthm's documentation.
+
+Found and fixed with the vertical-list comparison: a list right after a heading now gets
+LaTeX's `\@nbitem` (the outer `\parskip` less the list's), which put every such list 4 pt
+low; `\addpenalty` takes back the last box's depth with the skip and gives it back after the
+penalty, as LaTeX's current `\addpenalty` does; and the recorder of counter steps now also
+records in documents that load amsmath (it patched `\stepcounter` too early).
 
 Pixel comparison of the example article's pages with LuaLaTeX's PDF
 (`tools/doc-render-compare.sh examples/article/article.tex N`, Quick Look renderings at 2 pixels per
@@ -186,7 +231,7 @@ Tested only: everything else, against LuaLaTeX as above.
 | Other classes (`report`, `book`, `letter`), `titlepage`, two-sided layout, `twocolumn` | Medium: the class table and the output routine's two-column and two-sided cases. |
 | Packages (`geometry`, `hyperref`, `xcolor`, `tikz`, `booktabs`, `enumitem`, `natbib`, …) | Each its own work; `geometry` and `booktabs` are small, `hyperref` medium (links in SVG and HTML), `tikz` very large. |
 | TeX's programming layer (`\let`, `\edef`, `\expandafter`, conditionals, registers, `\catcode`, delimited parameters, `\csname`) | Large: a TeX macro processor; the front end expands LaTeX's user commands only. |
-| Bibliographies (`thebibliography`, `\cite`, BibTeX, biblatex) | `thebibliography` and `\cite` are small (a list and labels); BibTeX styles large. |
+| BibTeX and biblatex, `natbib` citation styles | Large (BibTeX's style language); `thebibliography` and `\cite` are here. |
 | Indexes, glossaries | Medium (sorting and pages, no external program). |
 | Colour | Small in the display list, medium with every package's colour model. |
 | Graphics beyond PNG and SVG files: EPS, PDF, `\rotatebox`, `\scalebox`, `picture`, `tikz` | PDF and EPS need their own readers (large); rotations and scaling are small. |

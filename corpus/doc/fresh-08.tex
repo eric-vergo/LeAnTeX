@@ -1,0 +1,52 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath,amssymb}
+\title{Heat Flow in a Thin Rod}
+\author{Leopold Ashgrove}
+\date{February 27, 2018}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We derive the one-dimensional heat equation from conservation of energy and
+describe the behaviour of its simplest solutions.
+\end{abstract}
+
+\section{Derivation}
+Consider a thin rod of length $L$ with temperature $u(x,t)$. Energy
+conservation together with Fourier's law gives
+\begin{equation}\label{eq:heat}
+\frac{\partial u}{\partial t} = \kappa \frac{\partial^2 u}{\partial x^2},
+\end{equation}
+where $\kappa > 0$ is the thermal diffusivity. The total heat content is
+$Q(t) = c\rho \int_0^L u(x,t)\,dx$.
+
+\subsection{Separated Solutions}
+Seeking solutions $u = X(x)T(t)$ leads to
+\begin{align*}
+X'' + \lambda X &= 0, \\
+T' + \kappa\lambda T &= 0, \\
+X(0) = X(L) &= 0.
+\end{align*}
+The admissible eigenvalues are $\lambda_n = (n\pi/L)^2$ for $n = 1, 2, \dots$
+
+\section{General Solution}
+Superposing the separated solutions, we obtain
+\[
+u(x,t) = \sum_{n=1}^{\infty} b_n \sin\frac{n\pi x}{L}\, e^{-\kappa n^2\pi^2 t/L^2},
+\]
+with coefficients determined by the initial data:
+\begin{equation}
+b_n = \frac{2}{L}\int_0^L u(x,0)\sin\frac{n\pi x}{L}\,dx.
+\end{equation}
+Equation~\eqref{eq:heat} is thus solved term by term.
+
+\section{Behaviour}
+\begin{itemize}
+\item[$\bullet$] High frequencies decay fastest.
+\item[(a)] The temperature approaches zero everywhere as $t \to \infty$.
+\item[(b)] The dominant late-time profile is the first mode,
+  $b_1 \sin(\pi x/L)$.
+\end{itemize}
+The characteristic relaxation time is $\tau = L^2/(\kappa\pi^2)$, so
+doubling the rod's length quadruples the time to cool.
+\end{document}

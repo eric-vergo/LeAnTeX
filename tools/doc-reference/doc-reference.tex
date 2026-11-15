@@ -10,9 +10,14 @@
 \input{\LeanTeXTools/../tex-reference/ncm.tex}
 \directlua{dofile("\LeanTeXTools/doc-reference.lua")}
 \makeatletter
-\let\leantex@stepcounter\stepcounter
-\def\stepcounter#1{\leantex@stepcounter{#1}%
+% (patched again at the start of the document, since a package such as amsmath may define
+% \stepcounter anew)
+\def\leantex@ours#1{\leantex@stepcounter{#1}%
   \ifx\@elt\@stpelt\else\leantex@record{#1}\fi}
+\def\leantex@patch{\ifx\stepcounter\leantex@ours\else
+  \let\leantex@stepcounter\stepcounter\let\stepcounter\leantex@ours\fi}
+\leantex@patch
+\AtBeginDocument{\leantex@patch}
 \def\leantex@record#1{%
   \protected@edef\leantex@value{\csname the#1\endcsname}%
   \directlua{leantexCounter("step", "\luaescapestring{#1}",

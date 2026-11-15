@@ -1,0 +1,56 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage{amsmath,amssymb}
+\title{Household Budget Worksheet and Commentary}
+\author{Rosalind Faircloth}
+\date{July 7, 2016}
+\begin{document}
+\maketitle
+
+\section{Monthly Summary}
+A careful budget is the foundation of financial independence. The table
+below lists typical categories of expense and the amount allocated to each.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|l|c|r|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Monthly Budget}} \\
+\hline
+Item & Share & Amount \\
+\hline
+Housing & 35\% & 1400.00 \\
+Food & 15\% & 600.00 \\
+Transportation & 10\% & 400.00 \\
+Savings & 20\% & 800.00 \\
+Miscellaneous & 20\% & 800.00 \\
+\hline
+\end{tabular}
+\caption{Proposed allocation for a monthly income of 4000.}\label{tab:budget}
+\end{table}
+
+\bigskip
+\section{Reasoning}
+The shares in Table~\ref{tab:budget} satisfy
+$\sum_{i=1}^{5} s_i = 1$, so no income is left unassigned. If savings
+earn interest at an annual rate $r$, compounded yearly, then after $t$ years
+a monthly deposit $m$ accumulates to roughly
+\[
+A = 12m \cdot \frac{(1+r)^t - 1}{r}.
+\]
+
+\subsection{Unexpected Costs}
+Everyone should maintain an emergency fund. Experts differ about the proper
+amount, but three to six months of expenses is a frequent recommendation.
+
+\begin{flushleft}
+\textbf{Reminder:} review the budget every quarter, and adjust the
+miscellaneous category first.
+\end{flushleft}
+
+\vspace{2cm}
+\subsection*{Signature}
+\begin{flushright}
+R.~Faircloth\\
+Treasurer
+\end{flushright}
+\end{document}
