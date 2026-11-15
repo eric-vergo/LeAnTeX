@@ -285,6 +285,23 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
     let (fok, ferr) ← fuzz resolve 6
     IO.println s!"  mutated documents: {fok + ferr} ended ({fok} with pages, {ferr} with an error)"
   let mut fails := #[]
+  -- the example article's pages, byte for byte (`examples/article/`)
+  if show?.isNone then
+    let (fonts, missing) ← LeAnTeX.Backend.Fonts.load "fonts/newcomputermodern"
+    if missing.isEmpty then
+      let src ← IO.FS.readFile "examples/article.tex"
+      let png ← IO.FS.readBinFile "examples/images/square.png"
+      let cfg : Text.Settings :=
+        { images := fun p => if p == "images/square.png" then some png else none }
+      match typesetDocument src fonts.resolver cfg with
+      | .ok r =>
+        let pages := LeAnTeX.Backend.svgPages fonts.set r "article"
+        for h : k in [0:pages.size] do
+          let f := s!"examples/article/page-{k + 1}.svg"
+          if update then IO.FS.writeFile f pages[k]
+          else if (← IO.FS.readFile f) != pages[k] then
+            fails := fails.push s!"example {f} differs from what the back end writes"
+      | .error e => fails := fails.push s!"example article: {e.message}"
   for b in baseline do
     match outs.find? (·.name == b) with
     | some o => if !o.diffs.isEmpty then
