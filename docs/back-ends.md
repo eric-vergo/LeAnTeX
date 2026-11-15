@@ -94,6 +94,16 @@ smallest at least as tall as KaTeX's glyph. What does not line up:
   `style-src <the sheet's origin>` without `'unsafe-inline'`. Inline styles stay the default:
   one self-contained file, nothing to keep beside it.
 
+## MathML
+
+`mathML` (`LeAnTeX/Backend/MathML.lean`) writes a formula's parse tree as MathML Core, for a
+page that shows the formula as a picture and wants screen readers and other software to read
+it: identifiers, numbers and operators with their characters, fractions, roots, scripts and
+limits, fences, accents, braces, matrices, text, font changes as Unicode's mathematical
+alphanumeric characters, the source as an `application/x-tex` annotation. Spacing, colours,
+sizes and boxes keep only their content. Text is escaped and nesting past 200 levels is left
+out. It is not drawn: the picture stays the formula's appearance.
+
 ## Documents
 
 `leantex-render --document FILE OUTDIR` typesets a whole document (`docs/documents.md`) and

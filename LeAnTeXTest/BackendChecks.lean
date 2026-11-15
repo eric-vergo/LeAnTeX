@@ -254,13 +254,39 @@ def privateUseChecks (fs : FontSet) : Array (String × Bool) :=
     (s!"private use: every symbol drawn with one of KaTeX's private-use characters has its \
       glyph ({pua.size} symbols; unmapped: {unmapped.map (·.1)})", unmapped.isEmpty)]
 
+/-- The MathML writer's checks: structure of scripts, fractions, roots, fences, matrices,
+fonts and text; the source as the annotation, escaped; hostile nesting bounded. -/
+def mathMLChecks : Array (String × Bool) :=
+  let m := fun (src : String) => (mathML src).toOption.getD ""
+  let deep := String.join (List.replicate 600 "{") ++ "x" ++ String.join (List.replicate 600 "}")
+  #[("mathml: a superscript", has (m "x^2") "<msup><mrow><mi>x</mi></mrow><mrow><mn>2</mn>\
+      </mrow></msup>"),
+    ("mathml: a fraction and a relation", has (m "\\frac{a}{b} < c")
+      "<mfrac><mrow><mi>a</mi></mrow><mrow><mi>b</mi></mrow></mfrac><mo>&lt;</mo>"),
+    ("mathml: a root with its index", has (m "\\sqrt[3]{y}") "<mroot>"),
+    ("mathml: fences", has (m "\\left( x \\right]") "<mo fence=\"true\">(</mo>"),
+    ("mathml: a sum with limits in display style",
+      has ((mathML "\\sum_{k=1}^n k" { displayMode := true }).toOption.getD "") "<munderover>"),
+    ("mathml: a matrix", has (m "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}")
+      "<mtable><mtr><mtd>"),
+    ("mathml: a blackboard letter", has (m "\\mathbb{R}") "<mi>ℝ</mi>"),
+    ("mathml: text", has (m "\\text{if } x") "<mtext>if </mtext>"),
+    ("mathml: the source is the annotation, escaped", has (m "a<b")
+      "<annotation encoding=\"application/x-tex\">a&lt;b</annotation>"),
+    ("mathml: no markup from the source", !has (m "\\text{<script>}") "<script"),
+    ("mathml: nesting past the cap is left out, well-formed",
+      let s := m deep
+      (s.splitOn "<mrow>").length == (s.splitOn "</mrow>").length && s.length < 20000),
+    ("mathml: a parse error is an error", (mathML "\\frac{1}{").toOption.isNone)]
+
 /-- Runs the back ends' checks (with `update`, rewrites the goldens); prints the summaries,
 returns the failures. -/
 def run (update : Bool := false) : IO (Array String) := do
   let (fonts, missing) ← Fonts.load "fonts/newcomputermodern"
   if !missing.isEmpty then return missing.map (s!"fonts: " ++ ·)
   let g ← goldens fonts update
-  let mut cs := checks fonts ++ privateUseChecks fonts.set ++ placementChecks fonts.set
+  let mut cs := checks fonts ++ privateUseChecks fonts.set ++ placementChecks fonts.set ++
+    mathMLChecks
   for src in ["a\\ne b", "a\\not< b"] do
     if let some ok ← texOverlays fonts.set src (Char.ofNat 0x0338) then
       cs := cs.push (s!"not: the TeX-rule layout's slash of {src} is centred on the relation", ok)
