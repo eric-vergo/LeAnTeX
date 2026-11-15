@@ -1,0 +1,9 @@
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\term}[1]{\emph{#1}}
+\newcommand{\greet}[2][friend]{Hello, #1 and #2!}
+A \term{norm} on a vector space $V$ over $\R$ is a function $\norm{\cdot} : V \to \R$ with
+$\norm{x} \ge 0$, $\norm{\lambda x} = |\lambda| \, \norm{x}$ and
+$\norm{x + y} \le \norm{x} + \norm{y}$; macros defined in the text work in its formulas too.
+\greet{reader} \greet[dear]{patient reader}
+\[ \norm{\sum_{i=1}^n x_i} \le \sum_{i=1}^n \norm{x_i}. \]

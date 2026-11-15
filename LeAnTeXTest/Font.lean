@@ -326,12 +326,13 @@ def fuzz (seeds : Array ByteArray) (count : Nat) (seed : UInt64 := 0x5eed) :
       | .error _ => err := err + 1
   return (ok, err, sum)
 
-/-- The source files of the reader, checked for operations that can panic (`!`-indexing,
-`get!`, `panic!`): a font must never make the reader panic. -/
+/-- The source files of the reader and of the back ends, checked for operations that can panic
+(`!`-indexing, `get!`, `panic!`): a font or a source must never make them panic. -/
 def panicFree : IO (Array String) := do
   let mut bad := #[]
   let mut files : Array System.FilePath := #["LeAnTeX/OpenType.lean", "LeAnTeX/Path.lean"]
   for e in ← System.FilePath.readDir "LeAnTeX/OpenType" do files := files.push e.path
+  for e in ← System.FilePath.readDir "LeAnTeX/Backend" do files := files.push e.path
   for p in files do
     let lines ← IO.FS.lines p
     for i in [0:lines.size] do
