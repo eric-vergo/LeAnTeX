@@ -103,7 +103,9 @@ The defaults are LaTeX's article class at ten points: `\hsize` 345 pt, `\parinde
 
 ## Not implemented, against a full LaTeX
 
-* **Document structure**: environments (`\begin…\end`), lists, sectioning, counters,
+* **Document structure** is the document layer's (`docs/documents.md`); in a fragment (no
+  `\documentclass`) these are not available: environments (`\begin…\end`), lists, sectioning,
+  counters,
   cross-references, footnotes, floats, tables, the title, page breaking and the page itself
   (the document layer, next).
 * **Vertical material**: the lines are stacked with `\baselineskip`, `\lineskip` and

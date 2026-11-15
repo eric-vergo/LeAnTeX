@@ -70,10 +70,23 @@ What LeAnTeX does today, and what comes next.
 - Gates: `lake build --wfail` and `lake test` green; a Lean style checker (100 columns,
   headers, naming) run read-only on this tree: 0 violations.
 
+- Documents (`LeAnTeX/Doc*`, `docs/documents.md`): `\documentclass{article}` with its size and
+  paper options; vertical lists with TeX's interline glue and penalties, TeX's page builder with
+  insertions, LaTeX's output routine (footnotes, top, bottom, here and page floats, deferral,
+  `\clearpage`), headings, the table of contents, counters, labels and references resolved in
+  repeated passes inside the engine, lists, quotations, centring, verbatim, theorems and
+  proofs, equations, accents, rules, lengths, the title and abstract, `tabular`,
+  `\includegraphics` of PNG and SVG. Against LuaLaTeX (`tools/doc-reference.sh`, 47 documents in
+  `corpus/doc/`, fixtures in `fixtures/doc/`): 39 documents agree line by line to the sp, 1,088 of
+  1,142 lines (`parity/DOC.md`). Paged SVG and HTML (`leantex-render --document`),
+  `examples/article/`. Theorems: the pages hold the vertical list's boxes, counters, references,
+  image paths. 282 mutated documents end cleanly.
+
 ## Next
 
-1. The document layer: vertical lists and page breaking, environments, lists and sectioning,
-   counters and cross-references, floats and simple tables.
+1. The document layer's open disagreements (`docs/documents.md`): alignments row by row,
+   `quotation`'s later paragraphs, `p{}` cells and `\multicolumn` widths, a float placed one line
+   late; bibliographies; `minipage` and `\parbox`.
 2. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
    tests (`Box.hasClass`) and style lookups.
 

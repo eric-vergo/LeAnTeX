@@ -25,7 +25,9 @@ One font's own `name` table carries a copyright line without a licence statement
 
 ## The GUST Font License
 
-The GUST Font License is the LaTeX Project Public License, version 1.3c or later
+The GUST Font License's own text is not part of the local TeX installation this repository was
+prepared with, so it is not copied here; the addresses below give it. The GUST Font License is
+the LaTeX Project Public License, version 1.3c or later
 (`LPPL-1.3c.txt`, copied verbatim from TeX Live), with an added request, not a legal
 requirement, that derived works be distributed only after renaming the fonts and their files. The
 licence is published at <https://www.gust.org.pl/projects/e-foundry/licenses> and

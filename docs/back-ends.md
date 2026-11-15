@@ -88,6 +88,20 @@ smallest at least as tall as KaTeX's glyph. What does not line up:
 * One style sheet, no script and no event handler; positions are `style` attributes. The page
   works under a content security policy such as `default-src 'none'; style-src 'unsafe-inline';
   font-src <the fonts' origin>`.
+* For a stricter policy, a document's pages can take every position from a generated style
+  sheet instead (`HtmlDocOptions.externalStyles`, `leantex-render --document --external-css`):
+  each element gets a class of its own and the page links `document.css`; it then works under
+  `style-src <the sheet's origin>` without `'unsafe-inline'`. Inline styles stay the default:
+  one self-contained file, nothing to keep beside it.
+
+## Documents
+
+`leantex-render --document FILE OUTDIR` typesets a whole document (`docs/documents.md`) and
+writes `page-N.svg` per page (the paper's size), `document.svg` (every page on a sheet, one
+below the other), `document.html` (the pages as sheets) and `web.html` (one continuous page, no
+page breaks, floats where they are given: the document typeset with `Settings.continuous`).
+Images are `<image>` elements with the file as a `data:` URL; the table of contents' dotted
+leaders are drawn as LaTeX aligns them.
 
 ## Untrusted input
 
