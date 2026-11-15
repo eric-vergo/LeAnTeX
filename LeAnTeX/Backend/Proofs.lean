@@ -16,7 +16,12 @@ About the functions the back ends call:
   cannot carry; so every `&` the escaping writes starts one of its entities, and the text a
   reader sees is the source text.
 * `refsDefined`: every glyph an SVG picture draws (`<use>`) has its definition in the picture,
-  so the picture is self-contained.
+  so the picture is self-contained. It holds by construction: `picture` ends with
+  `SvgPicture.ofParts`, which keeps a use only if its definition is there. What that filter
+  removes is not hidden from the reader: a character no font has, and a glyph whose outline
+  cannot be read, are given the missing-glyph box (`notdefPath`) with its definition before the
+  filter, so the only uses it drops are of glyphs with an empty outline (spaces), which draw
+  nothing anyway.
 
 Each is stated for every input (no hypotheses). Axioms: `propext`, `Classical.choice`,
 `Quot.sound` only.
@@ -108,7 +113,9 @@ theorem refsDefined (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) (u : S
   obtain ⟨d, hd, hdu⟩ := Array.mem_map.mp (Array.contains_iff_mem.mp hk)
   exact ⟨d, hd, hdu⟩
 
-/-- The hypothesis of `refsDefined` can be met: a picture with a drawn glyph. -/
+/-- The hypothesis of `refsDefined` can be met: a picture with a drawn glyph (stated for
+`SvgPicture.ofParts`, the last step of `picture`; `picture` itself reads fonts and cannot be
+evaluated by the kernel). -/
 example : Sum.inl ({ ref := "g0-1", matrix := "", fill := none } : SvgUse) ∈
     (SvgPicture.ofParts (0, 0, 0, 0) #[("g0-1", "M0 0Z")]
       #[.inl { ref := "g0-1", matrix := "", fill := none }]).body := by

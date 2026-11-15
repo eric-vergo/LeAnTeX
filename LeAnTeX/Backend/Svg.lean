@@ -19,8 +19,9 @@ needs nothing else: every glyph is drawn as its outline, read from the font with
 * **Glyphs.** Each glyph used is defined once, in `<defs>`, as a `<path>` in its font's units
   (`y` down), and drawn with `<use>` and a transformation that scales it to its size, places
   its origin, slants it (`Face.slant`) or mirrors it (`DisplayList.mirrored`). `\pmb`'s shadow
-  copies are offset by (0.02 em, 0.01 em) of their size. A glyph no font of the `FontSet` has is
-  not drawn.
+  copies are offset by (0.02 em, 0.01 em) of their size. A character no font of the
+  `FontSet` has, and a glyph whose outline cannot be read, is drawn as the missing-glyph box
+  (`notdefPath`), defined once like a glyph: a missing character is visible, never dropped.
 * **Rules** are `<rect>`s; **paths** are nested `<svg>` elements with the item's `viewBox` and
   `preserveAspectRatio`, which clip to their rectangle as the display list's paths are drawn;
   an item's own clip is one more nested `<svg>`.
@@ -175,6 +176,16 @@ def SvgPicture.ofParts (box : Int × Int × Int × Int) (defs : Array (String ×
   { left := box.1, top := box.2.1, width := box.2.2.1, height := box.2.2.2, defs,
     body := body.filter (keepElement defs) }
 
+/-- The id of the missing-glyph box of a picture. -/
+def notdefId (opts : SvgOptions) : String := cssIdent opts.idPrefix ++ "notdef"
+
+/-- The missing-glyph box, in units of a 1000-unit em with `y` down: an outlined rectangle
+500 wide and 700 high on the baseline, drawn where a character has no glyph in any font or a
+glyph's outline cannot be read, so that a missing character is visible, never silently left
+out. -/
+def notdefPath : String :=
+  "M50 0V-700H550V0ZM110 -60H490V-640H110Z"
+
 /-- The parts of the picture of a display list drawn with the fonts of `fs` (see the module
 docstring): its box, its glyph definitions and its body before `SvgPicture.ofParts`. -/
 def pictureParts (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) :
@@ -194,7 +205,12 @@ def pictureParts (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) :
       let some it := dl.items[i]? | continue
       match it with
       | .glyph face c x y size _ shadow col _ =>
-        let some r := fs.resolve face c | continue
+        let some r := fs.resolve face c | do
+          -- a character no font has: the missing-glyph box, never nothing
+          let s := sp size
+          let k := fixed s (65536 * 1000) 6
+          let m := s!"{k} 0 0 {k} {ptText (lx + sp x)} {ptText (ly + sp y)}"
+          body := body.push (.inl { ref := notdefId opts, matrix := m, fill := col })
         let id ← match index[r]? with
           | some id => pure id
           | none =>
@@ -242,12 +258,19 @@ def pictureParts (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) :
           {attr "transform" m}/>")
   -- the definitions of the glyphs that have outlines
   let mut defs : Array (String × String) := #[]
+  let mut broken : Std.HashSet String := {}
   for r in order do
     let some f := fs.fonts[r.font]? | continue
     let some id := index[r]? | continue
     match f.outline r.glyph with
     | .ok p => if p.cmds.size > 0 then defs := defs.push (id, glyphPathData p)
-    | .error _ => pure ()
+    | .error _ => broken := broken.insert id
+  -- a glyph whose outline cannot be read is drawn as the missing-glyph box too
+  body := body.map fun
+    | .inl u => if broken.contains u.ref then .inl { u with ref := notdefId opts } else .inl u
+    | e => e
+  if body.any (fun | .inl u => u.ref == notdefId opts | _ => false) then
+    defs := defs.push (notdefId opts, notdefPath)
   let pad := opts.padding
   let top := -(sp dl.height) - pad
   return ((-pad, top, sp dl.width + 2 * pad, bottom - top + pad), defs, body)
