@@ -359,6 +359,7 @@ def docCommand (t : Tok) (name : String) : M Bool := do
     push (.glue { stretch := 65536, stretchOrder := 2 } 100)
   | "leantex@tocline" => tocLine t
   | "footnote" => footnote t
+  | "includegraphics" => includeGraphics t
   | "thanks" => footnote t (thanks := true)
   | "newenvironment" => newEnvironment t false
   | "renewenvironment" => newEnvironment t true

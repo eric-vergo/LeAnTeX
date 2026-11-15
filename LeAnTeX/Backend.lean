@@ -9,6 +9,7 @@ import LeAnTeX.Backend.Setup
 import LeAnTeX.Backend.Html
 import LeAnTeX.Backend.Render
 import LeAnTeX.Backend.Proofs
+import LeAnTeX.Backend.Document
 
 /-!
 # Back ends

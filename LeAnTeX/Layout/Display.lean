@@ -152,6 +152,9 @@ inductive Item where
   /-- SVG path data drawn into the rectangle with top-left corner `(x, y)`. -/
   | path (data viewBox preserveAspectRatio : String) (x y width height : Em)
       (clip : Option (Em × Em × Em × Em)) (color : Option String) (source : Option SourceRange)
+  /-- An image (a document's `\includegraphics`) drawn into the rectangle with top-left corner
+  `(x, y)`: its data as a `data:` URL (PNG or SVG, checked when it was read). -/
+  | image (href : String) (x y width height : Em)
   deriving Inhabited, Repr
 
 /-- The rectangle of a laid-out parse node, for mapping a position back to the source: its left
@@ -280,6 +283,7 @@ def Item.shift (dx dy : Em) : Item → Item
   | .path d vb par x y w h clip col src =>
     .path d vb par (x + dx) (y + dy) w h
       (clip.map fun (cx, cy, cw, ch) => (cx + dx, cy + dy, cw, ch)) col src
+  | .image h x y w ht => .image h (x + dx) (y + dy) w ht
 
 namespace Display
 
@@ -342,6 +346,7 @@ instance : Placeable Item where
     | .path d vb par x y w h clip col src =>
       .path d vb par (dx - x - w) (y + dy) w h
         (clip.map fun (cx, cy, cw, ch) => (dx - cx - cw, cy + dy, cw, ch)) col src
+    | .image h x y w ht => .image h (dx - x - w) (y + dy) w ht
 
 instance : Placeable Region where
   place reflected dx dy r :=
@@ -1013,6 +1018,7 @@ def DisplayList.wellFormed (d : DisplayList) : Bool :=
     | .glyph f _ _ _ size _ _ _ _ => Face.katexFaces.contains f.name && size > 0
     | .rule _ _ w h _ _ => w ≥ 0 && h ≥ 0
     | .path _ _ _ _ _ w h _ _ _ => w ≥ 0 && h ≥ 0
+    | .image _ _ _ w h => w ≥ 0 && h ≥ 0
   let (linesOk, next) := d.lines.foldl (init := (true, 0)) fun (ok, k) ln =>
     (ok && ln.start == k && ln.start ≤ ln.stop, ln.stop)
   let (mirrorsOk, _) := d.mirrored.foldl (init := (true, 0)) fun (ok, k) (a, z) =>

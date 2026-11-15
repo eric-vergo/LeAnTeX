@@ -164,7 +164,9 @@ where
 /-- Whether a horizontal list holds a character (or a formula) directly. -/
 def holdsText (nodes : Array HNode) : Bool :=
   nodes.any fun n => match n with
-    | .glyph .. | .disc .. | .math .. => true
+    | .glyph .. | .disc .. => true
+    -- a formula, not an image (an image's display list records no formula)
+    | .math _ _ _ dl _ => !dl.formulas.isEmpty
     | _ => false
 
 /-- The lines in a horizontal list set with `g` at `(x, y)` (its baseline), not inside a line,

@@ -148,8 +148,11 @@ def makePages (vlist : Array VNode) : Typeset.M (Array Page) := do
   let fparams : FloatParams :=
     { floatSep := cp.floatSep, textFloatSep := cp.textFloatSep, inTextSep := cp.inTextSep,
       fpSep := cp.fpSep }
+  let (cfg, _) ← read
+  let specs := if cfg.continuous then specs.map fun f => { f with here := true } else specs
+  let vsize := if cfg.continuous then 536870911 else cp.textHeight
   let pp : PageParams :=
-    { vsize := cp.textHeight, maxDepth := cp.maxDepth, topSkip := { width := cp.topSkip },
+    { vsize, maxDepth := cp.maxDepth, topSkip := { width := cp.topSkip },
       inserts := fun n => if n == 254 then some fn else none, floats := specs, fp := fparams }
   let outs ← match buildPages vlist pp with
     | .ok o => pure o
@@ -157,7 +160,10 @@ def makePages (vlist : Array VNode) : Typeset.M (Array Page) := do
   let mut pages := #[]
   let mut number : Int := 1
   for o in outs do
-    let body := makeColumn cp o cp.textWidth boxes
+    let body := if cfg.continuous then
+        let b := makeColumn cp o cp.textWidth boxes
+        vpack b.content
+      else makeColumn cp o cp.textWidth boxes
     let fl := (o.top ++ o.bottom ++ o.floatPage).filterMap fun i => boxes[i]?
     let anchors := anchorsOf o.items 64 ++ anchorsOf fl 64 ++
       (o.inserts.foldl (init := #[]) fun acc (_, m) => acc ++ anchorsOf m 64)
@@ -168,9 +174,11 @@ def makePages (vlist : Array VNode) : Typeset.M (Array Page) := do
     let bodyY := inch + cp.topMargin + cp.headHeight + cp.headSep
     let text := toString number
     let foot ← if style == "empty" then pure none else some <$> footLine text cp.textWidth
-    let footY := bodyY + cp.textHeight + cp.footSkip
+    let textHeight := if cfg.continuous then body.height + body.depth else cp.textHeight
+    let footY := bodyY + textHeight + cp.footSkip
     let pg : Page :=
-      { number, text, width := cp.paperWidth, height := cp.paperHeight, body,
+      { number, text, width := cp.paperWidth,
+          height := if cfg.continuous then footY + inch else cp.paperHeight, body,
         bodyX, bodyY, foot, footX := bodyX, footY, anchors }
     pages := pages.push pg
     number := number + 1

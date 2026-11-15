@@ -10,6 +10,7 @@ import LeAnTeX.Doc.Counters
 import LeAnTeX.Doc.Lists
 import LeAnTeX.Doc.Tables
 import LeAnTeX.Doc.Blocks
+import LeAnTeX.Doc.Graphics
 import LeAnTeX.Doc.Commands
 import LeAnTeX.Doc.Environments
 import LeAnTeX.Doc.Output

@@ -27,10 +27,12 @@ def itemJson (m : Bool) : Item → Json
   | .rule x y w h _ _ => .arr #[.str "r", x.toJson, y.toJson, w.toJson, h.toJson]
   | .path _ _ _ x y w h _ _ _ =>
     .arr #[.str "p", x.toJson, y.toJson, w.toJson, h.toJson, .bool m]
+  | .image _ x y w h => .arr #[.str "i", x.toJson, y.toJson, w.toJson, h.toJson]
 
 /-- The colour an item is drawn in, if one is set. -/
 def itemColor : Item → Option String
   | .glyph _ _ _ _ _ _ _ c _ | .rule _ _ _ _ c _ | .path _ _ _ _ _ _ _ _ c _ => c
+  | .image .. => none
 
 /-- Print the display lists of the corpora named on the command line. -/
 def main (args : List String) : IO UInt32 := do

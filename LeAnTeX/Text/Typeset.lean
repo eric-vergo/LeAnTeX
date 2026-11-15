@@ -127,6 +127,15 @@ structure Settings where
   patterns : Patterns := Patterns.english
   /-- Whether to hyphenate at all. -/
   hyphenate : Bool := true
+  /-- The images a document may include (`\includegraphics`), by the path it gives: their
+  bytes, or `none`. The caller decides which files are reachable; paths are checked before
+  they are asked for (relative, no `..`, letters, digits, `.`, `_`, `-`, `/` only). -/
+  images : String → Option ByteArray := fun _ => none
+  /-- The most bytes an image may have. -/
+  maxImage : Nat := 16777216
+  /-- A document is set on one continuous page (no page breaks, floats where they are given):
+  the web view of the HTML back end. -/
+  continuous : Bool := false
   /-- What `\today` prints (a document's output must not depend on the clock). -/
   today : String := "January 1, 2000"
   /-- The settings for formulas; the text's macros are added to them. -/

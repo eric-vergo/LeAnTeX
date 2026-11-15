@@ -218,6 +218,10 @@ def pictureParts (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) :
           | some c => s!"<g{attr "fill" c}>{el}</g>"
           | none => el
         body := body.push (.inr el)
+      | .image href x y w h =>
+        body := body.push (.inr s!"<image{attr "x" (ptText (lx + sp x))}\
+          {attr "y" (ptText (ly + sp y))}{attr "width" (ptText (sp w))}\
+          {attr "height" (ptText (sp h))}{attr "href" href}/>")
   -- the definitions of the glyphs that have outlines
   let mut defs : Array (String × String) := #[]
   for r in order do

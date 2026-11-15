@@ -3,6 +3,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
 import LeAnTeX.Doc.Tables
+import LeAnTeX.Doc.Graphics
 
 /-!
 # Blocks: theorems, user environments, equations, verbatim, accents, the title
