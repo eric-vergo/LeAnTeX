@@ -327,20 +327,36 @@ def fuzz (seeds : Array ByteArray) (count : Nat) (seed : UInt64 := 0x5eed) :
       | .error _ => err := err + 1
   return (ok, err, sum)
 
-/-- The source files of the reader and of the back ends, checked for operations that can panic
-(`!`-indexing, `get!`, `panic!`): a font or a source must never make them panic. -/
+/-- The operations that can panic: `!`-indexing, `get!`, `head!`, `back!`, `set!`, `toNat!`,
+`panic!` and `unreachable!`. -/
+def panicPatterns : List String :=
+  ["]!", "get!", "head!", "back!", "set!", "panic!", "toNat!", "unreachable!"]
+
+/-- The uses of panicking operations that are accepted, as a file and the text of the line, each
+with the reason. Empty: no library source may use a panicking operation. -/
+def panicAllowList : List (System.FilePath × String) := []
+
+/-- The `.lean` files under a directory, recursively. -/
+partial def leanFilesUnder (dir : System.FilePath) : IO (Array System.FilePath) := do
+  let mut files := #[]
+  for e in ← dir.readDir do
+    if ← e.path.isDir then files := files ++ (← leanFilesUnder e.path)
+    else if e.path.extension == some "lean" then files := files.push e.path
+  return files
+
+/-- The source files of the library, checked for operations that can panic (see
+`panicPatterns`) outside `panicAllowList`: an input must never make the library panic. -/
 def panicFree : IO (Array String) := do
   let mut bad := #[]
-  let mut files : Array System.FilePath := #["LeAnTeX/OpenType.lean", "LeAnTeX/Path.lean"]
-  for e in ← System.FilePath.readDir "LeAnTeX/OpenType" do files := files.push e.path
-  for e in ← System.FilePath.readDir "LeAnTeX/Backend" do files := files.push e.path
+  let files := (← leanFilesUnder "LeAnTeX").push "LeAnTeX.lean"
   for p in files do
+    if !(← p.pathExists) then continue
     let lines ← IO.FS.lines p
-    for i in [0:lines.size] do
-      let l := lines[i]!
-      let code := (l.splitOn "--").head!
-      if ["]!", "get!", "head!", "back!", "set!", "panic!", "toNat!", "unreachable!"].any
-          (code.contains ·) then
+    for h : i in [0:lines.size] do
+      let l := lines[i]'h.upper
+      let code := (l.splitOn "--").headD ""
+      if panicPatterns.any (code.contains ·) &&
+          !panicAllowList.any (fun (q, t) => q == p && t == l.trimAscii.toString) then
         bad := bad.push s!"{p}:{i + 1}"
   return bad
 
