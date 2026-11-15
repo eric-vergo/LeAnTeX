@@ -2,7 +2,7 @@
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
-import LeAnTeX.Doc.Lists
+import LeAnTeX.Doc.Tables
 
 /-!
 # The document layer's commands: environments and the dispatcher
@@ -133,6 +133,10 @@ where
     if ← beginListEnv at_ name then
       setEnd #[csT "leantex@endlist" at_]
       return true
+    if name == "tabular" then
+      beginTabular at_
+      setEnd #[csT "leantex@endtabular" at_]
+      return true
     if name == "figure" || name == "table" || name == "figure*" || name == "table*" then
       beginFloat at_ (if name.startsWith "figure" then "figure" else "table")
       setEnd #[csT "leantex@endfloat" at_]
@@ -260,7 +264,7 @@ def endEnvGroup (at_ : Tok) : M Unit := do
     if isListEnv e.name then modifyDoc fun d => { d with endPe := true }
 
 /-- An alignment tab `&` (only inside a table). -/
-def alignTab (at_ : Tok) : M Unit := failAt at_ "Misplaced alignment tab character &"
+def alignTab (at_ : Tok) : M Unit := nextCell at_
 
 /-- The document layer's commands (see the module docstrings); `false` for a command it does
 not carry out. -/
@@ -320,10 +324,16 @@ def docCommand (t : Tok) (name : String) : M Bool := do
       push (.penalty 10000)
       push (.rule 0 0 (strutDepth (← vars).baselineSkip.width))
   | "item" => item t
+  | "leantex@endtabular" => endTabular t
+  | "hline" => hline t
+  | "multicolumn" => multicolumn t
   | "leantex@labelbox" => labelBox t
   | "leantex@fitlast" => fitLast t
   | "leantex@endlist" => endList t
   | "\\" =>
+    if (← curTable).isSome then
+      endRow t
+      return true
     if !(← vars).crPar then return false
     let _ ← readStar
     let skip ← readOptional?

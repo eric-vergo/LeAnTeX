@@ -8,10 +8,10 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | environments | 2 / 11 | 30 / 87 | 30 |
 | combined | 1 / 2 | 30 / 82 | 30 |
 | lists | 3 / 3 | 23 / 23 | 23 |
-| floats | 2 / 5 | 47 / 115 | 48 |
+| floats | 2 / 5 | 111 / 115 | 115 |
 | footnotes | 2 / 2 | 81 / 81 | 81 |
 | page breaking | 6 / 7 | 296 / 312 | 296 |
-| tables | 0 / 2 | 0 / 23 | 0 |
+| tables | 0 / 2 | 7 / 23 | 13 |
 
 ## Per document
 
@@ -28,8 +28,8 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | enumerate | yes | 8 / 8 |  |
 | equation | no | 0 / 13 | error: Environment equation undefined at 399 |
 | float-bottom | no | 13 / 14 | page 1 line 13: (16494428, 44117141) 'Figure 1: At the bottom.', LuaLaTeX (16494428, 44117157) 'Figure 1: At the bottom.' (dy -16) |
-| float-default | no | 0 / 50 | error: Environment tabular undefined at 3220 |
-| float-here | no | 0 / 17 | error: Environment tabular undefined at 743 |
+| float-default | no | 49 / 50 | page 2 line 1: (18990366, 8786408) '1', LuaLaTeX (18990365, 8786408) '1' (dy 0) |
+| float-here | no | 15 / 17 | page 1 line 10: (18972016, 20856353) 'a', LuaLaTeX (18972015, 20856353) 'a' (dy 0) |
 | float-page | yes | 19 / 19 |  |
 | float-top | yes | 15 / 15 |  |
 | footnotes | yes | 14 / 14 |  |
@@ -53,8 +53,8 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). 
 | sections-levels | yes | 14 / 14 |  |
 | sections-pages | yes | 86 / 86 |  |
 | skips | no | 4 / 20 | page 1: 22 lines, LuaLaTeX 20 |
-| tabular | no | 0 / 13 | error: Environment tabular undefined at 41 |
-| tabular-multi | no | 0 / 10 | error: Environment tabular undefined at 56 |
+| tabular | no | 7 / 13 | page 1 line 3: (14008976, 8760194) 'right', LuaLaTeX (14008977, 8760194) 'right' (dy 0) |
+| tabular-multi | no | 0 / 10 | page 1: 9 lines, LuaLaTeX 10 |
 | theorem | no | 0 / 6 | error: Undefined control sequence \newtheorem at 41 |
 | theorem-amsthm | no | 0 / 6 | error: Undefined control sequence \newtheorem at 61 |
 | thispagestyle | yes | 46 / 46 |  |

@@ -7,6 +7,8 @@ import LeAnTeX.Doc.PageBuilder
 import LeAnTeX.Doc.State
 import LeAnTeX.Doc.Class
 import LeAnTeX.Doc.Counters
+import LeAnTeX.Doc.Lists
+import LeAnTeX.Doc.Tables
 import LeAnTeX.Doc.Commands
 import LeAnTeX.Doc.Environments
 import LeAnTeX.Doc.Output

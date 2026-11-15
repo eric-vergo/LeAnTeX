@@ -167,6 +167,80 @@ structure EnvFrame where
   depth : Nat := 0
   deriving Inhabited
 
+/-- A column of a table's preamble: its alignment (`l`, `c`, `r`, `p`), the width of a `p`
+column, the rules before and after it, and whether `\tabcolsep` is left out on either side
+(`@{}`). -/
+structure Column where
+  /-- `l`, `c`, `r` or `p`. -/
+  align : Char := 'l'
+  /-- The width of a `p` column. -/
+  width : Int := 0
+  /-- Rules before the column (the first column only; others carry them after the previous
+  column). -/
+  rulesBefore : Nat := 0
+  /-- Rules after it. -/
+  rulesAfter : Nat := 0
+  /-- No `\tabcolsep` on the left. -/
+  noSepLeft : Bool := false
+  /-- No `\tabcolsep` on the right. -/
+  noSepRight : Bool := false
+  deriving Inhabited, Repr
+
+/-- A table cell as set: its material (the cell's horizontal list; a `p` cell's is one box),
+its natural size, the columns it spans and its own preamble (`\multicolumn`). -/
+structure Cell where
+  /-- The material. -/
+  content : Array HNode := #[]
+  /-- The natural width. -/
+  width : Int := 0
+  /-- The height. -/
+  height : Int := 0
+  /-- The depth. -/
+  depth : Int := 0
+  /-- The columns spanned. -/
+  span : Nat := 1
+  /-- Its own column, for a `\multicolumn`. -/
+  own : Option Column := none
+  deriving Inhabited
+
+/-- A row of a table: its cells and extra depth (`\\[dim]`), or rules (`\hline`, one per
+rule, `\doublerulesep` between). -/
+inductive Row where
+  /-- A row of cells. -/
+  | cells (cs : Array Cell) (extra : Int)
+  /-- `\hline` repeated `n` times. -/
+  | hline (n : Nat)
+  deriving Inhabited
+
+/-- A table being built: its position (`t`, `c`, `b`), its columns, the rows so far, the
+current row's cells, the current cell's column, span and own preamble, the group depth of the
+current cell, and whether the current cell is a `p` cell (a nested vertical list) and has had
+any material. -/
+structure Table where
+  /-- `t`, `c` or `b`. -/
+  pos : Char := 'c'
+  /-- The columns. -/
+  cols : Array Column := #[]
+  /-- The rows done. -/
+  rows : Array Row := #[]
+  /-- The current row's cells. -/
+  cells : Array Cell := #[]
+  /-- The current cell's first column. -/
+  col : Nat := 0
+  /-- The current cell's span. -/
+  span : Nat := 1
+  /-- The current cell's own preamble. -/
+  own : Option Column := none
+  /-- The group depth of the current cell. -/
+  depth : Nat := 0
+  /-- Whether the current cell is a `p` cell. -/
+  pcell : Bool := false
+  /-- Whether the current cell has material (anything typed in it). -/
+  touched : Bool := false
+  /-- The array's environment (`tabular`) or `array`. -/
+  env : String := "tabular"
+  deriving Inhabited
+
 /-- The class's options and the title block. -/
 structure ClassOptions where
   /-- The base size in points: 10, 11 or 12. -/
@@ -245,6 +319,8 @@ structure DocState where
   anchors : Nat := 0
   /-- User lengths (`\newlength`) and LaTeX's layout lengths, as glue. -/
   lengths : Std.HashMap String Glue := {}
+  /-- The tables being built, innermost last. -/
+  tables : Array Table := #[]
   /-- The counter steps, in order: the counter and its printed value after the step. -/
   steps : Array (String × String) := #[]
   /-- Warnings of the document layer (undefined references, unknown packages). -/
