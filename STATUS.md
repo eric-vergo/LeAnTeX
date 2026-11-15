@@ -37,13 +37,24 @@ Resume notes for the work in progress. Updated after every step.
 - Notices: every module derived from KaTeX names its sources under *References* and has a row
   in `THIRD-PARTY.md`; `LICENSE-KaTeX` holds KaTeX's MIT notice; the font-advance table states
   the fonts' SIL Open Font License 1.1 (Reserved Font Names `KaTeX_*`).
+- Text-mode reference (`docs/text-reference.md`): `tools/tex-reference.sh` records LuaLaTeX's
+  answers for 162 paragraphs (item lists, breaks, line glue, demerits), 1,691 words
+  (hyphenation points) and 80 boxes into `fixtures/text/`; `lake test` keeps them coherent.
+  This is the reference for the line breaker and the hyphenator.
+- OpenType reader (`LeAnTeX/OpenType*`, `docs/opentype.md`): every table listed there; outlines
+  as `LeAnTeX.Path Int` and as display-list path items. Checked against fontTools on every glyph
+  of fifteen Latin Modern fonts (when TeX Live is installed) and two committed test fonts, against
+  TeX's 72 comparable boxes (glyphs, ligatures, widths, kerns), and by 1,200 mutated fonts per
+  run.
 - Gates: `lake build --wfail` and `lake test` green; a Lean style checker (100 columns,
   headers, naming) run read-only on this tree: 0 violations.
 
 ## Next
 
-1. Back ends (outside this repository's layout work).
-2. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
+1. Text mode: Knuth–Plass line breaking and Liang hyphenation against `fixtures/text/`, glue
+   and penalties, macros, fonts and sizes, lists and sectioning.
+2. Back ends.
+3. Speed: the parser's macro and symbol lookups dominate parsing; in the display list, class
    tests (`Box.hasClass`) and style lookups.
 
 ## Open questions for the owner
@@ -57,6 +68,10 @@ Resume notes for the work in progress. Updated after every step.
    advances glyphs by the fonts' own widths. Defaults taken earlier.
 4. The layout fixtures (`fixtures/layout/`, about 13 MB) are committed so that `lake test`
    needs no KaTeX. Default: committed.
+5. The text fixtures (`fixtures/text/`, about 2.9 MB) and the fontTools references
+   (`fixtures/font/`, about 2.1 MB) are committed likewise; the Latin Modern fonts are not (the
+   tests read them from TeX Live). Default taken.
+6. Contour starts of TrueType glyphs follow fontTools (the first on-curve point). Default.
 
 Decided: package `leantex`, namespace `LeAnTeX`; the Noperthedron corpus stays local and
 ignored by git; the Rokicki corpus keeps its attribution line.

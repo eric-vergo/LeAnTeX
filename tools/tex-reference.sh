@@ -37,8 +37,10 @@ for name in "${names[@]}"; do
   # Paths go to TeX inside \def; refuse characters TeX or Lua would read specially.
   case "$root" in *[\\\{\}\%\#\$\&\~\^\"\ ]*)
     echo "tex-reference: unsupported characters in $root" >&2; exit 2;; esac
-  (cd "$work" && "$lualatex" --interaction=nonstopmode --halt-on-error --jobname=ref \
-    "\\def\\LeanTeXCorpus{$corpus}\\def\\LeanTeXFixture{out.jsonl}\\def\\LeanTeXTools{$root/tools/tex-reference}\\input{$root/tools/tex-reference/reference.tex}" \
+  tools="$root/tools/tex-reference"
+  defs="\\def\\LeanTeXCorpus{$corpus}\\def\\LeanTeXFixture{out.jsonl}"
+  defs="$defs\\def\\LeanTeXTools{$tools}\\input{$tools/reference.tex}"
+  (cd "$work" && "$lualatex" --interaction=nonstopmode --halt-on-error --jobname=ref "$defs" \
     >"$work/run.out" 2>&1) || { tail -40 "$work/ref.log" >&2; exit 1; }
   mv "$work/out.jsonl" "$fixture"
   grep -o 'leantex-reference: .*' "$work/ref.log" | tr -d '\n'; echo

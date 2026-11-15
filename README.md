@@ -1,8 +1,8 @@
 # LeAnTeX
 
-A TeX math renderer in pure Lean 4, ported from [KaTeX](https://katex.org). It depends on
-Lean's `Init` and `Std` only, so it can be used from any Lean program, including code that may
-not import the `Lean` package.
+A TeX math renderer in pure Lean 4, ported from [KaTeX](https://katex.org), growing into a
+typesetter for documents. It depends on Lean's `Init` and `Std` only, so it can be used from
+any Lean program, including code that may not import the `Lean` package.
 
 It aims at KaTeX parity in math mode: the same formulas accepted, the same errors for the
 others, the same boxes, glyphs and positions, laid out to a neutral display list that drawing
@@ -15,6 +15,9 @@ back ends consume.
 | Lexer, macro expander, parser of KaTeX 0.19.1's whole function list, KaTeX's error messages | done: every case of every corpus parses to KaTeX's tree or fails with KaTeX's error ([parity report](parity/REPORT.md)) |
 | Layout to KaTeX's box tree: every construct, from symbols, scripts and fractions to arrays and environments, `{CD}`, enclosures, extensible arrows and braces | done: every corpus formula KaTeX lays out gets KaTeX's box tree ([layout parity report](parity/LAYOUT.md)) |
 | Display list (positioned glyphs, rules, paths; mirrored material, display-mode placement, equation numbers) | done ([definition](docs/display-list.md)); checked against KaTeX in a browser |
+| OpenType font reader: metrics, character maps, CFF and TrueType outlines, ligatures, pair kerning, `MATH` constants; untrusted input checked ([reader](docs/opentype.md)) | done: every glyph of fifteen Latin Modern fonts as fontTools reads it; TeX's boxes reproduced; fuzzed |
+| Text mode: reference harness against real TeX for line breaks, hyphenation and boxes ([reference](docs/text-reference.md)) | done: 162 paragraphs, 1,691 words, 80 boxes recorded from LuaLaTeX |
+| Text mode: line breaking, hyphenation, paragraphs | not started |
 | Back ends | not started |
 
 ## Use
@@ -54,6 +57,10 @@ no longer does, or a display-list check fails. `lake exe leantex-test --update` 
 baselines and the reports; `--show PREFIX` and `--show-layout PREFIX` print the mismatched cases
 whose id starts with `PREFIX`; `--bench` and `--bench-matrix` time the stages.
 
+It also checks the text-mode fixtures (`fixtures/text/`, real TeX's line breaks, hyphenation
+points and boxes) against their corpora and the font reader against fontTools and TeX
+(`docs/opentype.md`); `lake exe leantex-test --text` runs those checks alone.
+
 The corpora: KaTeX's own parser and error tests (`katex-spec`), its screenshot cases, the examples
 of its support table, a few formulas per KaTeX name (`katex-names`), the formulas of Mathlib's doc
 comments and of a Verso blueprint site.
@@ -83,6 +90,16 @@ PLAYWRIGHT_MODULE=path/to/playwright node tools/gen-advances.mjs KATEX_DIST
 `KATEX_DIST` is a directory with KaTeX's built `katex.min.js`, `katex.min.css` and `fonts/`.
 `tools/check-display.mjs` compares display lists with a browser's rendering of KaTeX
 (`docs/display-list.md`).
+
+The text-mode corpora and TeX's answers (LuaLaTeX from TeX Live, with the Latin Modern
+OpenType fonts), and fontTools' reading of the fonts:
+
+```
+python3 -I tools/text-corpus.py
+bash tools/tex-reference.sh
+python3 -I tools/test-fonts.py && python3 -I tools/font-reference.py --test-fonts
+python3 -I tools/font-reference.py
+```
 
 `tools/extract-mathlib.py` and `tools/extract-blueprint.py` build the Mathlib and blueprint
 corpora from a Mathlib checkout and a built blueprint site.
