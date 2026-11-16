@@ -16,6 +16,7 @@ it with the SVG or the HTML back end, with the source as the picture's title.
 ## Main definitions
 
 * `RenderOptions`, `render`.
+* `readSource`: a source file's text, refused unread when it is too large to be typeset.
 -/
 
 namespace LeAnTeX.Backend
@@ -55,5 +56,15 @@ def render (fonts : Fonts) (src : String) (opts : RenderOptions := {}) :
   else
     let em := if opts.math then opts.mathEm else 10 * 65536
     return svgDocument fonts.set dl { em, title }
+
+/-- The text of a source file, or why it is not read: a file with more bytes than
+`Settings.maxSource` characters can have (four each) is refused before it is read, so that a
+program given a file by a stranger holds no more of it than the typesetter would take. -/
+def readSource (path : System.FilePath) (cfg : Text.Settings := {}) :
+    IO (Except String String) := do
+  let size := (← path.metadata).byteSize.toNat
+  if size > 4 * cfg.maxSource then
+    return .error s!"source too long: {size} bytes, more than {4 * cfg.maxSource}"
+  return .ok (← IO.FS.readFile path)
 
 end LeAnTeX.Backend

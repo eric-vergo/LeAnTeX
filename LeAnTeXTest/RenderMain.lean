@@ -19,7 +19,8 @@ lake exe leantex-render --document [--external-css] [--fonts DIR] [--font-url UR
 `--html` writes an HTML page (else an SVG picture); `--math` takes the file as one formula in
 display mode instead of text. The fonts are read from `DIR` (default `fonts/newcomputermodern`);
 `--font-url` is where the HTML page finds them (default `DIR`). Exit status 1 when the source
-does not typeset (the error is printed with its position), 2 for bad usage or missing fonts.
+does not typeset (the error is printed with its position) or is a file too large to be
+typeset (it is not read), 2 for bad usage or missing fonts.
 
 `--document` typesets a whole LaTeX document (`\documentclass{article}`) and writes into
 `OUTDIR`: `page-N.svg` for every page, `document.svg` (all pages), `document.html` (the pages
@@ -99,7 +100,8 @@ def maxOutputBytes : Nat := 512 * 1024 * 1024
 
 /-- Typesets a document into a directory (see the module docstring). -/
 def renderDocument (fonts : Fonts) (a : Args) (src out : String) : IO UInt32 := do
-  let source ← IO.FS.readFile src
+  let .ok source ← readSource src
+    | IO.eprintln s!"{terminalText src}: error: source too long"; return 1
   let dir := (System.FilePath.mk src).parent.getD "."
   let images ← loadImages dir source
   let dirs ← if a.tfm.isEmpty then TeXMath.texLiveTfmDirs else pure (a.tfm.map (⟨·⟩))
@@ -153,7 +155,8 @@ def main (argv : List String) : IO UInt32 := do
   if !a.tfm.isEmpty then
     IO.eprintln "leantex-render: warning: --tfm applies to --document only; formulas here are \
       laid out by the KaTeX-compatible layout"
-  let source ← IO.FS.readFile src
+  let .ok source ← readSource src
+    | IO.eprintln s!"{terminalText src}: error: source too long"; return 1
   let opts : RenderOptions := { html := a.html, math := a.math, fontUrl := a.fontUrl.getD a.fonts }
   match render fonts source opts with
   | .ok s => IO.FS.writeFile out s; return 0

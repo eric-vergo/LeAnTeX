@@ -15,7 +15,8 @@ lake exe leantex-typeset FILE          # Latin Modern from TeX Live, else the te
 lake exe leantex-typeset --test-fonts FILE
 ```
 
-Exit status 1 when the source does not typeset (the error is printed), 2 for bad usage.
+Exit status 1 when the source does not typeset (the error is printed) or is a file too large
+to be typeset (it is not read), 2 for bad usage.
 -/
 
 open LeAnTeX LeAnTeX.Text LeAnTeX.Backend
@@ -32,7 +33,9 @@ def main (args : List String) : IO UInt32 := do
     match ← FrontChecks.latinModern with
     | some r => pure r
     | none => TypesetChecks.testFonts
-  match typeset (← IO.FS.readFile file) res with
+  let .ok source ← readSource file
+    | IO.eprintln s!"{terminalText file}: error: source too long"; return 1
+  match typeset source res with
   | .ok d =>
     IO.print d.toDisplayList.textForm
     for w in d.warnings do IO.eprintln s!"warning: {terminalText w}"
