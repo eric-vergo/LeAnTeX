@@ -1,11 +1,12 @@
 # Documents
 
-LeAnTeX's document layer typesets whole LaTeX documents of the `article` class into pages, as
-LaTeX does: TeX's vertical lists and page builder, LaTeX's output routine with its floats and
-footnotes, sectioning, counters, cross-references, the table of contents, lists, theorems,
-tables and figures. It is checked against LuaLaTeX line by line, to the scaled point, on 97
-documents it was developed with and on two held-out sets it was not (see *Agreement with
-LuaLaTeX*: the second held-out set is the figure to go by).
+LeAnTeX's document layer typesets whole LaTeX documents of the `article` class into pages by
+LaTeX's own constructions: TeX's vertical lists and page builder, LaTeX's output routine with
+its floats and footnotes, sectioning, counters, cross-references, the table of contents, lists,
+theorems, tables and figures. On documents it was not developed with, about half come out as
+LuaLaTeX's line for line. It is checked against LuaLaTeX's recorded pages line by line, to the scaled
+point, on 97 documents it was developed with and on two held-out sets it was not (see
+*Agreement with LuaLaTeX*: the second held-out set is the figure to go by).
 
 ```lean
 import LeAnTeX
@@ -109,40 +110,42 @@ lines with their positions and text, the text body's vertical list, the counter 
 and the contents (`fixtures/doc/`). `lake test` typesets the same documents and compares
 (`LeAnTeXTest/DocChecks.lean`, report `parity/DOC.md`): a document agrees when every page has
 the same lines in the same order at the same position (left edge and baseline, to the sp) with
-the same text, and the same labels, contents and counter steps. A page break is at LuaLaTeX's
-place when the page after it begins with LuaLaTeX's line.
+the same text, and the same labels, counter steps and, when the document prints a table of
+contents, contents entries. A page break is at LuaLaTeX's place when the page after it begins
+with LuaLaTeX's line.
 
-Three sets, which must be read together:
+Four sets, which must be read together (`lake test` prints each row; `lake exe leantex-test
+--doc-table`, `--doc-table heldout` and `--doc-table heldout-2` print a line per document):
 
 | Set | Documents agreeing | Lines at the same place (to the sp) | Within 1 pt | Page breaks |
 |---|---|---|---|---|
-| reference documents: the 72 written to cover the features, the math ones included (tuned on) | 72 / 72 | 1667 / 1667 | 1667 | 17 / 17 |
-| regression documents: 15, one or more per difference fixed | 15 / 15 | 143 / 143 | 143 | 3 / 3 |
-| fresh documents: 10 written without reading this library | 7 / 10 | 367 / 398 | 367 | 10 / 10 |
+| reference and regression documents: 87 written to cover the features, the math ones included, or to hold a difference that was corrected (tuned on) | 87 / 87 | 1810 / 1810 | 1810 | 20 / 20 |
+| fresh documents: 10 written without reading this library (corrected against afterwards) | 7 / 10 | 367 / 398 | 367 | 10 / 10 |
 | first held-out set: 20 written without reading this library (8 / 20 when first run blind) | 9 / 20 | 398 / 469 | 405 | 3 / 3 |
 | **second held-out set: 10 written blind after the first set was run, run once, never tuned to** | **5 / 10** | **374 / 400** | **375** | **10 / 10** |
 
 The first held-out set gave 8 / 20 (397 lines) when it was first run blind with the TeX-rule
-layout. Since then one defect it showed (a doubled thin space after `\cdots` before
-punctuation) was fixed, which made a ninth document agree, and four of its fixtures
-(`held-01`, `held-04`, `held-10`, `held-15`) were re-recorded after a fix to the recorder (it
-had kept the counter steps amsmath makes while measuring): its present figure is not a blind
-one. The second set (`corpus/doc-heldout-2/`, `tools/doc-reference.sh --held-out-2`) was
-written blind after that, run once, and nothing was changed for it.
+layout (the commit `e04b63b` prints that figure). One defect it showed (a doubled thin space
+after `\cdots` before punctuation) was then fixed, which made a ninth document agree, and four
+of its fixtures (`held-01`, `held-04`, `held-10`, `held-15`) were re-recorded after a fix to
+the recorder (it had kept the counter steps amsmath makes while measuring): its present figure
+is not a blind one. The fixture of `held-13` was recorded before the recorder gave `\today` a
+fixed date and holds the day it was recorded, so that document's date line cannot agree (one of
+its two lines that differ). The second set (`corpus/doc-heldout-2/`,
+`tools/doc-reference.sh --held-out-2`) was written blind after that, run once, and nothing was
+changed for it: its documents and fixtures have a single commit.
 
 The figures are with the Computer Modern metric files installed (the TeX-rule math layout,
-`docs/math-boxes.md`); without them formulas are set by the KaTeX-compatible layout and the
-documents with formulas differ as they did before it: the held-out set then gave 0 / 20, 190 of
-469 lines and 355 within 1 pt.
+`docs/math-boxes.md`). Without them formulas are set by the KaTeX-compatible layout, whose
+boxes are not TeX's, and no held-out document agrees: 0 / 20 with 194 of 469 lines at the place
+and 367 within 1 pt, and 0 / 10 with 202 of 400 and 329 (`LEANTEX_TFM_DIRS=/nonexistent lake
+test` prints these).
 
 The held-out sets (`corpus/doc-heldout/`, `bash tools/doc-reference.sh --held-out`, and the
-second) measure the layer on documents it was not written from, the second one blind: short mathematical articles with
-prose, lists, theorems and proofs, inline and displayed formulas, tables, footnotes and
-references, written from a list of the supported features only. `lake test` reports it and
-requires nothing of it. Before the changes listed below the same set gave 0 / 20, 156 of 469
-lines and 280 within 1 pt; the fresh documents 0 / 10, 212 of 398 and 268 (fewer of their
-lines are at the place to the sp now, more within 1 pt: their pages are filled with glue set by
-the boxes of their formulas, see below).
+second) measure the layer on documents it was not written from: short mathematical articles
+with prose, lists, theorems and proofs, inline and displayed formulas, tables, footnotes and
+references, written from a list of the supported features only. `lake test` reports them and
+requires nothing of them.
 
 `lake exe leantex-test --show-vlist NAME` prints, for each page, the first node of the text
 body's vertical list (glue, box, penalty, kern or rule) where it differs from LuaLaTeX's
@@ -162,8 +165,9 @@ the abstract, lists in `\small` and `\footnotesize`, the bibliography), LuaLaTeX
 points in that document (`[99]` measured 0.38 pt narrower by LaTeX there, where a document of
 its own measures it as here).
 
-**Differences found with the vertical-list comparison and fixed**, each with the documents that
-agree since and its regression document:
+**What the regression documents hold.** The behaviour below was found by comparing vertical
+lists node by node; each item names the documents of the corpus that depend on it and, after
+the semicolon, the regression document written for it:
 
 * Floats: LaTeX's output routine leaves `\penalty\interlinepenalty` (10000 right after a
   heading) and `\penalty10000` where a float was given; a here float given between paragraphs
@@ -174,15 +178,14 @@ agree since and its regression document:
   `float-here-vertical`, `float-pagedepth`.
 * Vertical material made among the glue a line break removes goes with the line before (as
   LuaTeX moves a `\vadjust`), and images are sized as graphicx computes it (`\Gscale@div`, the
-  LuaTeX driver's natural size in big points): `article` (the `[ht]` table no longer a line
-  late); `image-scale`.
+  LuaTeX driver's natural size in big points): `article` (its `[ht]` table); `image-scale`.
 * A `\label` written in vertical mode right after a heading is followed by two `\nobreak`
-  penalties (`\protected@write`): `refs` now differs only in formula widths; `label-heading`.
+  penalties (`\protected@write`): `refs`; `label-heading`.
 * `verbatim` as `\@verbatim`: the item's label starts the first line, `\vskip\parskip` after
   the item, `\penalty\interlinepenalty` after every line: `verbatim-mixed`; `verbatim-lines`.
 * The space after an environment's own `\item\relax` (and after a numbered `\bibitem`) is
-  ignored, as TeX ignores it in vertical mode: `quote` (quotation's first line), `bib-numbered`
-  (the hyphen that was not LaTeX's), `fresh-05`; `env-item-space`, `bib-space`.
+  ignored, as TeX ignores it in vertical mode: `quote` (quotation's first line),
+  `bib-numbered`, `fresh-05`; `env-item-space`, `bib-space`.
 * `description` labels as `\descriptionlabel` sets them (`\labelsep` of space, then bold):
   `description-long`, `fresh-03`; `description-label`.
 * Lists follow LaTeX's depth rules (trivial lists outside the count of levels, `\labelwidth`
@@ -194,11 +197,10 @@ agree since and its regression document:
 * `p{}` cells are `\sloppy`, without indentation or `\parskip` (`\@startpbox`), and have no
   1 sp beside them; a word after a strut is hyphenated: `tabular-para`, `tabular-mixed`,
   `tabular-multi`, `hyphen-hard`; `tabular-sloppy`, `hyphen-strut`.
-* amsmath's `align`, `gather` and `multline` as amsmath builds them (below): every line of
-  `align`, `align-rows` and `align-pairs` within 1 pt, the vertical list LuaLaTeX's; their
-  remaining differences are the formulas' widths.
-* `title-thanks` and the final `plus 1fill` of `footnotes` were differences of the comparison
-  itself (the recorded footnote symbol, LuaTeX's numbering of glue orders and its rule nodes).
+* amsmath's `align`, `gather` and `multline` as amsmath builds them (below): `align`,
+  `align-rows`, `align-pairs`.
+* The comparison itself reads the recorded footnote symbol, LuaTeX's numbering of glue orders
+  and its rule nodes as LuaTeX writes them: `title-thanks`, `footnotes`.
 
 **What is still different**, by cause:
 
@@ -206,6 +208,7 @@ agree since and its regression document:
 |---|---|---|
 | Line breaking in two paragraphs and a bibliography entry: the breaks differ from LuaLaTeX's (cause not found) | `fresh-04`, `fresh-09` | open |
 | A paragraph with an inline sum in a definition breaks one word earlier than LuaLaTeX's | `fresh-02` | open |
+| The held-out documents that differ (11 of 20 and 5 of 10): the title block in some, `--` in bold headings, text accents, the width of some displays, line breaks in a few paragraphs, a page one line longer or shorter | `parity/DOC.md` gives each one's first difference | open |
 | `\intertext`, `split`, `alignat`, `flalign` | — | not modelled |
 
 Formulas are set by the TeX-rule layout when the Computer Modern metric files are installed
@@ -238,23 +241,36 @@ Source is untrusted. The text layer's caps apply (source length, tokens, expansi
 the page builder takes at most `PageParams.maxSteps` steps; at most four passes run; verbatim
 text is taken out of the source before it is read; image paths must be relative without `..`,
 images are asked from the caller (`Settings.images`), at most `Settings.maxImage` bytes, PNG or
-SVG with a size, and an SVG is drawn as an image (its scripts do not run in the document). The
-tests run 534 mutated documents (six from each document of the corpus), each ending in pages or
-a clean error.
+SVG with a size, and an SVG is drawn as an image (its scripts do not run in the document). A
+formula is parsed under the math parser's caps (`docs/text.md`, *Bounds*). The tests run 582
+mutated documents (six from each of the 97 documents of the corpus), each ending in pages or
+an error, and run the command-line programs on hostile sources under CPU and memory limits
+(`lake exe leantex-test --bounds`).
+
+Past the caps, time and memory grow in proportion to the source, with large constants where
+the output is large: a page costs about a millisecond and some tens of kilobytes whatever is
+on it, so a source of 60,000 one-word pages (660 kB) takes more than a minute and more than a
+gigabyte before `leantex-render` refuses to write more than 512 MiB. A caller that typesets sources from
+strangers should set its own limits on time and memory around the call.
 
 ## Proved and tested
 
 Proved (`LeAnTeX.Doc.Proofs`, axioms `propext`, `Classical.choice`, `Quot.sound` only):
 
-* `buildPages_boxes`: the pages hold exactly the boxes of the vertical list, each once, in order
-  (checked by the builder before it returns, so it holds by construction).
-* `Counters.add_value`, `Counters.set_value`, `Counters.newCounter_value`: counters change as
-  specified.
-* `lookupRef_some`, `lookupRef_none`: a reference's text is its label's text from the previous
-  pass, or there is no label of that key (and it is reported).
-* `safeImagePath_relative`, `safeImagePath_noParent`: image paths asked for are relative and
-  have no `..` segment.
-* `romanLower_nonpos`.
+* `buildPages_boxes`: when the page builder returns pages, the sizes (width, height, depth) of
+  the boxes on them, in order, are the sizes of the vertical list's boxes in order: no box is
+  lost, repeated or moved (the boxes of floats set here and the material of insertions are not
+  in the count). The builder makes this comparison (`pagesPartition`) before it returns and
+  gives an error otherwise, so the theorem holds by construction; it says nothing about where
+  the pages are cut.
+* `Counters.add_value`, `Counters.set_value`, `Counters.newCounter_value`: adding to and
+  setting a defined counter give the value asked for, and a new counter is zero.
+* `lookupRef_some`, `lookupRef_none`: a reference that resolves gives the text (or page) the
+  table of labels holds for its key, and one that does not has no entry there.
+* `safeImagePath_relative`, `safeImagePath_noParent`: a path that passes the check
+  (`safeImagePath`, which the front end applies before it asks the caller for an image) does
+  not start with `/` and has no `..` segment.
+* `romanLower_nonpos`: `\roman` of a number that is not positive prints nothing.
 
 Tested only: everything else, against LuaLaTeX as above.
 

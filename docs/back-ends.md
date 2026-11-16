@@ -118,23 +118,26 @@ leaders are drawn as LaTeX aligns them.
 Everything from TeX source (text, formula sources in titles and alternative text, colour names)
 is escaped or checked: `<`, `>`, `&`, `"` and `'` become entities and characters XML cannot carry
 are dropped (`LeAnTeX.Backend.escape`); a colour is used only if it is `#` and 3, 4, 6 or 8
-hexadecimal digits or a name of ASCII letters. Fonts are read with the reader's checks
-(`docs/opentype.md`). The back ends' sources are in the test that refuses panicking operations.
+hexadecimal digits or a name of ASCII letters. The MathML writer escapes every text with the
+same function. Fonts are read with the reader's checks (`docs/opentype.md`). The back ends'
+sources are in the test that refuses panicking operations.
 
 ## Proved and tested
 
 Proved (`LeAnTeX.Backend.Proofs`; axioms `propext`, `Classical.choice`, `Quot.sound` only):
 
-* `escape_no_lt`, `escape_no_gt`, `escape_no_quot`, `escape_no_apos`: escaped text contains no
-  `<`, `>`, `"` or `'`.
+* `escape_no_lt`, `escape_no_gt`, `escape_no_quot`, `escape_no_apos`: the result of `escape`
+  contains no `<`, `>`, `"` or `'`. (That the writers pass every text from the source through
+  `escape` is not a theorem: the tests check it on hostile sources.)
 * `unescape_escape`: decoding the five entities gives the input back, less the characters XML
   cannot carry (so every `&` written starts an entity).
-* `refsDefined`: every glyph an SVG picture draws has its definition in the picture.
+* `exists_def_of_mem_picture_body`: every glyph an SVG picture draws has its definition in the picture.
 
 Tested (`lake test`, `LeAnTeXTest/BackendChecks.lean`): the examples' SVG and HTML byte for byte
 (`lake exe leantex-test --update-examples` rewrites them) and rendered twice; in each, every
-`<use>` has its definition and there is no script, event handler or foreign object; 21 named
-checks (faces, size variants, colours, hostile source, runs, slant and small capitals, units).
+`<use>` has its definition and there is no script, event handler or foreign object; 43 named
+checks, 41 without the metric files (faces, size variants, colours, hostile source, runs, slant
+and small capitals, units, MathML, documents).
 
 **Against LuaLaTeX's own rendering.** `bash tools/tex-render-compare.sh FRAGMENT.tex` sets a
 fragment with `leantex-render` and with LuaLaTeX (text in New Computer Modern, math in LaTeX's
@@ -158,11 +161,10 @@ pixels within 32 levels. The comparison needs LuaLaTeX and macOS and is not part
 
 ## Not implemented
 
-* Pages: the back ends draw one block of text (the document layer, with page breaking, is to
-  come); no PDF.
+* No PDF: pages are SVG pictures and HTML sheets (*Documents*, above).
 * In HTML, text inside formulas is not selectable as text (the formula's source is); `\rule`s and
   glyphs drawn as outlines outside formulas are one SVG picture per line.
 * Fonts other than New Computer Modern for drawing formulas need a `FontSet` of their own; the
   text layer takes any fonts through its resolver.
-* `leantex-render` takes 1.8 s of processor time for a sample (one core of an Apple M2 Ultra,
-  load average about 13), most of it reading the eighteen fonts.
+* `leantex-render` takes about 1.6 s of processor time for a small sample (one core of an
+  Apple M2 Ultra), most of it reading the fonts.

@@ -8,14 +8,13 @@ Largest deviation on an identical tree: 1.3e-5 em in an unrounded number, 1.0e-4
 
 | Corpus | Cases | KaTeX lays out | Identical | Differs | Not yet in scope | Both reject |
 |---|---:|---:|---:|---:|---:|---:|
-| blueprint-noperthedron | 387 | 387 | 387 | 0 | 0 | 0 |
 | blueprint-rokicki | 287 | 287 | 287 | 0 | 0 | 0 |
 | katex-names | 8202 | 7491 | 7491 | 0 | 0 | 711 |
 | katex-screenshots | 123 | 122 | 122 | 0 | 0 | 1 |
 | katex-spec | 1160 | 852 | 852 | 0 | 0 | 308 |
 | katex-support-table | 993 | 987 | 987 | 0 | 0 | 6 |
 | mathlib | 1120 | 1116 | 1116 | 0 | 0 | 4 |
-| all | 12272 | 11242 | 11242 | 0 | 0 | 1030 |
+| all | 11885 | 10855 | 10855 | 0 | 0 | 1030 |
 
 ## Mismatches by kind
 
@@ -32,40 +31,40 @@ For each parse node type (atoms by class), the formulas KaTeX lays out that cont
 
 | Construct | Formulas | Identical | Differs | Not yet in scope |
 |---|---:|---:|---:|---:|
-| `accent` | 248 | 248 | 0 | 0 |
+| `accent` | 236 | 236 | 0 | 0 |
 | `accentUnder` | 38 | 38 | 0 | 0 |
-| `array` | 210 | 210 | 0 | 0 |
-| `atom:bin` | 1310 | 1310 | 0 | 0 |
-| `atom:close` | 1069 | 1069 | 0 | 0 |
-| `atom:inner` | 148 | 148 | 0 | 0 |
-| `atom:open` | 1038 | 1038 | 0 | 0 |
-| `atom:punct` | 436 | 436 | 0 | 0 |
-| `atom:rel` | 3069 | 3069 | 0 | 0 |
+| `array` | 201 | 201 | 0 | 0 |
+| `atom:bin` | 1209 | 1209 | 0 | 0 |
+| `atom:close` | 905 | 905 | 0 | 0 |
+| `atom:inner` | 140 | 140 | 0 | 0 |
+| `atom:open` | 874 | 874 | 0 | 0 |
+| `atom:punct` | 340 | 340 | 0 | 0 |
+| `atom:rel` | 2844 | 2844 | 0 | 0 |
 | `cdlabel` | 3 | 3 | 0 | 0 |
 | `cdlabelparent` | 3 | 3 | 0 | 0 |
 | `color` | 175 | 175 | 0 | 0 |
 | `cr` | 73 | 73 | 0 | 0 |
-| `delimsizing` | 59 | 59 | 0 | 0 |
+| `delimsizing` | 48 | 48 | 0 | 0 |
 | `enclose` | 74 | 74 | 0 | 0 |
-| `font` | 517 | 517 | 0 | 0 |
-| `genfrac` | 273 | 273 | 0 | 0 |
+| `font` | 445 | 445 | 0 | 0 |
+| `genfrac` | 254 | 254 | 0 | 0 |
 | `hbox` | 4 | 4 | 0 | 0 |
 | `horizBrace` | 24 | 24 | 0 | 0 |
 | `href` | 15 | 15 | 0 | 0 |
 | `html` | 6 | 6 | 0 | 0 |
-| `htmlmathml` | 407 | 407 | 0 | 0 |
+| `htmlmathml` | 398 | 398 | 0 | 0 |
 | `includegraphics` | 1 | 1 | 0 | 0 |
-| `kern` | 551 | 551 | 0 | 0 |
-| `lap` | 110 | 110 | 0 | 0 |
-| `leftright` | 156 | 156 | 0 | 0 |
-| `mathchoice` | 57 | 57 | 0 | 0 |
-| `mathord` | 7504 | 7504 | 0 | 0 |
-| `mclass` | 382 | 382 | 0 | 0 |
+| `kern` | 514 | 514 | 0 | 0 |
+| `lap` | 106 | 106 | 0 | 0 |
+| `leftright` | 149 | 149 | 0 | 0 |
+| `mathchoice` | 55 | 55 | 0 | 0 |
+| `mathord` | 7147 | 7147 | 0 | 0 |
+| `mclass` | 372 | 372 | 0 | 0 |
 | `middle` | 15 | 15 | 0 | 0 |
-| `op` | 880 | 880 | 0 | 0 |
-| `operatorname` | 141 | 141 | 0 | 0 |
-| `ordgroup` | 3637 | 3637 | 0 | 0 |
-| `overline` | 16 | 16 | 0 | 0 |
+| `op` | 842 | 842 | 0 | 0 |
+| `operatorname` | 139 | 139 | 0 | 0 |
+| `ordgroup` | 3535 | 3535 | 0 | 0 |
+| `overline` | 15 | 15 | 0 | 0 |
 | `phantom` | 16 | 16 | 0 | 0 |
 | `pmb` | 12 | 12 | 0 | 0 |
 | `raisebox` | 43 | 43 | 0 | 0 |
@@ -73,13 +72,13 @@ For each parse node type (atoms by class), the formulas KaTeX lays out that cont
 | `rule` | 21 | 21 | 0 | 0 |
 | `sizing` | 107 | 107 | 0 | 0 |
 | `smash` | 33 | 33 | 0 | 0 |
-| `spacing` | 908 | 908 | 0 | 0 |
-| `sqrt` | 55 | 55 | 0 | 0 |
-| `styling` | 393 | 393 | 0 | 0 |
-| `supsub` | 1423 | 1423 | 0 | 0 |
+| `spacing` | 893 | 893 | 0 | 0 |
+| `sqrt` | 51 | 51 | 0 | 0 |
+| `styling` | 382 | 382 | 0 | 0 |
+| `supsub` | 1194 | 1194 | 0 | 0 |
 | `tag` | 9 | 9 | 0 | 0 |
-| `text` | 1910 | 1910 | 0 | 0 |
-| `textord` | 4361 | 4361 | 0 | 0 |
+| `text` | 1908 | 1908 | 0 | 0 |
+| `textord` | 4136 | 4136 | 0 | 0 |
 | `underline` | 18 | 18 | 0 | 0 |
 | `vcenter` | 5 | 5 | 0 | 0 |
 | `verb` | 2 | 2 | 0 | 0 |

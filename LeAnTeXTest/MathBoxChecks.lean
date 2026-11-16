@@ -273,6 +273,12 @@ def run (update : Bool := false) : IO String := do
   for (c, st) in groups do
     md := md ++ row s!"{c} ({st})" (bs.filter fun b => b.construct == c && b.style == st)
   md := md ++ row "**all**" bs
+  let built := bs.filter (·.tex)
+  let refused := bs.filter (!·.tex)
+  let split := s!"{cnt built 0} of the {built.size} the TeX-rule layout builds, \
+    {cnt refused 0} of the {refused.size} it refuses"
+  md := md ++ s!"\nThe boxes the same to the sp: {split} (those set by the KaTeX-compatible \
+    layout).\n"
   md := md ++ "\n## Boxes that are not TeX's\n\nThe formula, style and size, the largest \
     difference in sp, and the first node that differs (path of indices into the box's list) \
     or why the TeX-rule layout refused it.\n\n| Formula | Style | Size | Difference | First \
@@ -285,7 +291,6 @@ def run (update : Bool := false) : IO String := do
         {if dd ≥ 1073741824 then "none" else toString dd} | {cell (b.diff.getD "")} |\n"
   if update then IO.FS.writeFile "parity/MATHBOX.md" md
   return s!"formula boxes against TeX (reported, not required): {cnt bs 0} of {bs.size} the \
-    same to the sp ({(bs.filter (·.tex)).size} by the TeX-rule layout), {cnt bs 6554} within \
-    0.1 pt, {cnt bs 65536} within 1 pt"
+    same to the sp ({split}), {cnt bs 6554} within 0.1 pt, {cnt bs 65536} within 1 pt"
 
 end MathBoxChecks

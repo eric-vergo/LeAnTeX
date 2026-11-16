@@ -1,10 +1,11 @@
 # Text mode
 
-LeAnTeX's text layer sets paragraphs of LaTeX source into lines as TeX sets them: the same
-horizontal lists, the same hyphenation points, the same line breaks, the same glue settings,
-the same total demerits, the same interline spacing. It is checked against LuaLaTeX (TeX Live
-2025) on every case of the text corpora (`docs/text-reference.md`). Every length is an integer
-number of TeX's scaled points (sp, 2⁻¹⁶ pt), so the arithmetic is TeX's exactly.
+LeAnTeX's text layer sets paragraphs of LaTeX source into lines by TeX's algorithms. For every
+case of the text corpora (`docs/text-reference.md`) it gives what LuaLaTeX (TeX Live 2025)
+recorded: the same horizontal lists, the same hyphenation points, the same line breaks, the
+same glue settings, the same total demerits, the same interline spacing; *Not implemented*
+below says what a full LaTeX has that it does not. Every length is an integer number of TeX's
+scaled points (sp, 2⁻¹⁶ pt), computed with TeX's rounding.
 
 ```lean
 import LeAnTeX
@@ -107,9 +108,8 @@ The defaults are LaTeX's article class at ten points: `\hsize` 345 pt, `\parinde
 
 * **Document structure** is the document layer's (`docs/documents.md`); in a fragment (no
   `\documentclass`) these are not available: environments (`\begin…\end`), lists, sectioning,
-  counters,
-  cross-references, footnotes, floats, tables, the title, page breaking and the page itself
-  (the document layer, next).
+  counters, cross-references, footnotes, floats, tables, the title, page breaking and the page
+  itself.
 * **Vertical material**: the lines are stacked with `\baselineskip`, `\lineskip` and
   `\lineskiplimit` and `\parskip` at its natural size; vertical glue is never stretched or
   shrunk. `\vspace` inside a paragraph takes effect after the paragraph, not after its line.
@@ -137,11 +137,15 @@ the active breakpoints and its steps (`Params.maxNodes`, `Params.maxActive`, `Pa
 per paragraph, `Settings.maxBreakWork` over the document), so a paragraph costs at most
 `maxWork` steps plus a constant per node whatever its parameters. Hyphenating and shaping a
 word is linear in its length (LuaTeX hyphenates words of any length, and so does this layer). A
-formula in the text is parsed with the math parser's caps (`maxExpand`, and `maxTokens`, 20000
-tokens by default). The modules of the text layer (`LeAnTeX/Text/`) have no `partial`
+formula in the text is parsed with the math parser's caps: `maxExpand` expansions, `maxTokens`
+(20000 by default) tokens from expansions and fifty times as many read as arguments (an
+argument inside others is read once per level), and `maxNesting` (1000) levels of groups,
+arguments and environments, which bounds the parser's recursion. The modules of the text layer (`LeAnTeX/Text/`) have no `partial`
 definition: every loop has a bound from its input. (The math parser it calls for formulas
-recurses as KaTeX's does; see `docs/layout.md`, *Termination*.) The tests run 900 mutated sources and 400
-random horizontal lists, each ending in a result or a clean error.
+recurses as KaTeX's does; see `docs/layout.md`, *Termination*.) The tests run 900 mutated
+sources and 400 random horizontal lists, each ending in a result or an error, and the
+command-line programs on hostile sources under CPU and memory limits (`lake exe leantex-test
+--bounds`).
 
 ## Proved and tested
 
@@ -149,8 +153,9 @@ Proved (`LeAnTeX.Text.Proofs`, axioms `propext`, `Classical.choice`, `Quot.sound
 
 * `breakParagraph_legal`, `breakParagraph_increasing`, `breakParagraph_ends`: every break the
   line breaker returns is a legal breakpoint of its input or its end, the breaks increase, and
-  the last is the end. The line breaker checks its result before returning it (`checkBreaks`),
-  so these hold by construction; the algorithm itself is tested, not proved.
+  the last is the end. The line breaker checks its result before returning it (`checkBreaks`)
+  and gives an error otherwise, so these hold by construction; that the breaks are TeX's (the
+  algorithm itself) is tested, not proved.
 * `lineRanges_first`, `lineRanges_stop`, `lineRanges_next`: the lines take the input's nodes in
   order, each ending at its break, the next starting after it with only discardable nodes
   between: the lines together are the input without the nodes dropped at breaks.

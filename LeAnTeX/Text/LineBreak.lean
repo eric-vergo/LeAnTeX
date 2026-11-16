@@ -10,8 +10,8 @@ import LeAnTeX.Text.Node
 TeX's line breaker: the total-fit algorithm of Knuth and Plass, as TeX runs it, on a horizontal
 list in scaled points. Given the paragraph's list (ending with `\penalty10000` and
 `\parfillskip`, as TeX's is) and the parameters, it chooses the breaks with the fewest total
-demerits, exactly as TeX does: the same breaks, the same demerits, in the same order of
-preference when two choices tie.
+demerits by TeX's rules: for every paragraph of the recorded corpus the same breaks and the
+same demerits as LuaLaTeX's, with TeX's order of preference when two choices tie.
 
 ## What TeX does, and what this module does
 

@@ -162,7 +162,9 @@ computed from the box tree by evaluating the part of KaTeX's style sheet that it
 LeAnTeX lays out with KaTeX, its CSS and fonts in headless Chromium at 400 px, display-mode
 formulas in a line as wide as `lake exe leantex-display --line-width` gives (40 em), and
 compares every glyph's position, face and size, every rule's rectangle (dashed rules as the
-dashes above) and every SVG image's viewport, in order, and the width. Over the corpora
+dashes above) and every SVG image's viewport, in order, and the width. The tool needs KaTeX's
+built distribution and a browser and is not part of `lake test`; the figures are those of its
+last run, over the corpora as they then were
 (11,100 formulas, 49,234 glyphs, 719 rules, 648 SVG images): no count, face or character
 differs; glyph positions agree within 0.0049 em horizontally (99 % within 0.0003 em) and 0.0002 em
 vertically, rules and SVG

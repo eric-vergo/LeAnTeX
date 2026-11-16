@@ -4,12 +4,14 @@ What LeAnTeX does today, and what comes next.
 
 ## State
 
-- Parser (done): 12,272 of 12,272 corpus cases match KaTeX 0.19.1 (trees, errors, warnings).
+- Parser (done): 11,885 of 11,885 corpus cases match KaTeX 0.19.1's recorded answers (trees,
+  errors, warnings).
 - Layout (done, `docs/layout.md`): every parse node type KaTeX builds is laid out, arrays and
   environments (`Layout/Builders/Array.lean`), `{CD}`, enclosures, extensible arrows and
   horizontal braces (`Layout/Builders/Enclose.lean`) included.
-- Layout parity (`parity/LAYOUT.md`): 11,242 of 12,272 cases identical to KaTeX, 0 differ,
-  none out of scope, 1,030 rejected by both. Largest deviation 1.3e-5 em.
+- Layout parity (`parity/LAYOUT.md`): 10,855 of 11,885 cases identical to KaTeX within the
+  tolerances of `docs/layout.md`, 0 differ, none out of scope, 1,030 rejected by both. Largest
+  deviation 1.3e-5 em.
 - Display list (`Layout/Display.lean`, `docs/display-list.md`): glyphs, rules (dashed rules as
   runs of dashes, box borders and backgrounds), paths (strokes of `\cancel` as outlines),
   regions, parts, lines; mirrored ranges for `\reflectbox`; `DisplayOptions` (line width for
@@ -19,22 +21,26 @@ What LeAnTeX does today, and what comes next.
   them out. Placement trees (`Placed`) instead of copying items at every level.
   Invariants checked on every formula and 26 feature checks (`LeAnTeXTest/DisplayChecks.lean`)
   by `lake test`.
-- Display list against Chromium (`tools/check-display.mjs`, 11,100 formulas, 49,234 glyphs,
-  719 rules, 648 SVG images): no count, face or character differs; glyph x within 0.0049 em
-  (99 % within 0.0003), baseline within 0.0002 em, rules and SVG viewports within 0.01 em
-  (one-pixel least width of array rules, pixel rounding of borders).
+- Display list against Chromium (`tools/check-display.mjs`; not part of `lake test`, it needs
+  KaTeX's built distribution and a headless browser; the figures are its last run's, over
+  11,100 formulas of the corpora as they then were, 49,234 glyphs, 719 rules, 648 SVG images):
+  no count, face or character differs; glyph x within 0.0049 em (99 % within 0.0003), baseline
+  within 0.0002 em, rules and SVG viewports within 0.01 em (one-pixel least width of array
+  rules, pixel rounding of borders).
 - Settings: KaTeX's `maxSize` (`Settings.maxSize`, in em; `none` by default, as KaTeX's
   `Infinity`): every size a formula writes is cut to it in `calculateSize`, as in KaTeX. LeAnTeX's
   own `maxTokens` (20000 by default, `defaultMaxTokens`; KaTeX has no such limit) bounds the
-  tokens all macro expansions produce together, an error past it, so a formula's cost stays
-  linear in its source.
+  tokens all macro expansions produce together and, fifty times over, the tokens read as
+  arguments (an argument inside others is read once per level); `maxNesting` (1000 by
+  default) bounds the nesting of groups, arguments and environments, and with it the parser's
+  recursion. Past either, an error, so a formula's cost stays linear in its source.
 - Box tree JSON (`Layout/BoxJson.lean`): total, by well-founded recursion. `partial` remains in
   the parse stage, `Json.lean` and `Parse/NodeJson.lean` (`docs/layout.md`, *Termination*).
 - Speed, 10 × 10 matrix (`lake exe leantex-test --bench-matrix`), in processor cycles on one
-  core of an Apple M2 Ultra under a load average of about 75 (wall-clock times were not
-  usable): parse 2.4 M cycles, parse + layout 4.7 M, display list 3.6 M; about 0.7 ms, 1.3 ms
-  and 1.0 ms at 3.5 GHz. The budget of 1 ms for laying out this formula is met by the layout
-  alone (about 0.6 ms) but not with parsing included. To re-measure on a quiet machine.
+  core of an Apple M2 Ultra: parse 2.4 M cycles, parse + layout 4.7 M, display list 3.6 M;
+  about 0.7 ms, 1.3 ms and 1.0 ms at 3.5 GHz. The budget of 1 ms for laying out this formula is
+  met by the layout alone (about 0.6 ms) but not with parsing included. The figures are one
+  measurement on a machine that was busy with other work.
 - Notices: every module derived from KaTeX names its sources under *References* and has a row
   in `THIRD-PARTY.md`; `LICENSE-KaTeX` holds KaTeX's MIT notice; the font-advance table states
   the fonts' SIL Open Font License 1.1 (Reserved Font Names `KaTeX_*`).
@@ -47,8 +53,8 @@ What LeAnTeX does today, and what comes next.
   hyphenation points of the 1,691 words; for all 174 paragraphs the breaks, total demerits, line
   lengths, natural widths and glue settings from TeX's item lists; and the front end gives TeX's
   item lists, lines and paragraph boxes from the corpus source. Theorems: legal and increasing
-  breaks, the lines' nodes are the input's without the dropped ones, hyphen minima, the badness
-  bound. `lake exe leantex-typeset` with goldens in `fixtures/typeset/`.
+  breaks (checked by the line breaker on its result, so true by construction), the lines'
+  nodes are the input's without the dropped ones, hyphen minima, the badness bound. `lake exe leantex-typeset` with goldens in `fixtures/typeset/`.
 - OpenType reader (`LeAnTeX/OpenType*`, `docs/opentype.md`): every table listed there; outlines
   as `LeAnTeX.Path Int` and as display-list path items. Checked against fontTools on every glyph
   of fifteen Latin Modern fonts (when TeX Live is installed) and two committed test fonts, against
@@ -64,12 +70,12 @@ What LeAnTeX does today, and what comes next.
   monospace, as luaotfload does, and the `MATH` table's size variants.
 - Back ends (`LeAnTeX/Backend*`, `docs/back-ends.md`): SVG with glyphs as outlines defined once,
   HTML with text runs at TeX's positions in the web fonts and formulas as inline SVG;
-  `leantex-render`; `examples/` (three samples as source, SVG and HTML) checked byte for byte; 21
-  named checks; escaping and glyph references proved. Against LuaLaTeX's rendering
-  (`tools/tex-render-compare.sh`): text within 9.4 levels on average, 89.7 % of pixels within 32
-  levels; formulas within one to three pixels at 4 pixels to the point.
-- Gates: `lake build --wfail` and `lake test` green; a Lean style checker (100 columns,
-  headers, naming) run read-only on this tree: 0 violations.
+  `leantex-render`; `examples/` (three samples as source, SVG and HTML) checked byte for byte; 43
+  named checks (41 without the metric files); the escaping function and the glyph references
+  proved. Against LuaLaTeX's rendering (`tools/tex-render-compare.sh`, not part of `lake test`):
+  text within 9.4 levels on average, 89.7 % of pixels within 32 levels; formulas within one to
+  three pixels at 4 pixels to the point.
+- Gates: `lake build --wfail` and `lake test` pass.
 
 - Documents (`LeAnTeX/Doc*`, `docs/documents.md`): `\documentclass{article}` with its size and
   paper options; vertical lists with TeX's interline glue and penalties, TeX's page builder with
@@ -86,11 +92,13 @@ What LeAnTeX does today, and what comes next.
   1 pt, page breaks 10 of 10**; the first held-out set of twenty, written the same way: 8 agreed
   when it was first run blind with the TeX-rule layout, 9 agree now (398 of 469 lines, 405
   within 1 pt, page breaks 3 of 3) after a defect it showed was fixed and four of its fixtures
-  were re-recorded for a fix to the recorder (before the TeX-rule layout: none, 190 and 355).
+  were re-recorded for a fix to the recorder (without the metric files, formulas set by the
+  KaTeX-compatible layout: none, 194 lines and 367).
   List parameters probed against LuaLaTeX at every level for three sizes
   (`tools/list-params.sh`). Paged SVG and HTML (`leantex-render --document`),
-  `examples/article/`. Theorems: the pages hold the vertical list's boxes, counters,
-  references, image paths. 582 mutated documents end cleanly.
+  `examples/article/`. Theorems: the pages' boxes have the sizes of the vertical list's boxes
+  in order (checked by the page builder on its result, so true by construction), counters,
+  references, image paths. 582 mutated documents end in pages or an error.
 - TeX-rule math layout (`LeAnTeX/TeXMath*`, `docs/math-boxes.md`): a TFM reader in pure Lean
   (checked as TeX checks a file, scaled as TeX scales it, fuzzed), TeX's Appendix G with TeX's
   rounding and LuaTeX's five differences, LaTeX's math codes recorded from LuaLaTeX, the
@@ -98,11 +106,14 @@ What LeAnTeX does today, and what comes next.
   metric files are read at run time from a TeX installation (none is committed); without one
   formulas fall back to the KaTeX-compatible layout (and `lake test` skips the box checks and
   the baselined documents with formulas, with a note). Against LuaLaTeX (`parity/MATHBOX.md`):
-  12,166 of 12,750 formula boxes to the sp (12,166 of the 12,174 it builds); `lake test` fails
-  if a box that was TeX's no longer is. Inline formulas break after relations and binary
-  operations as in TeX; glyphs drawn with New Computer Modern Math at TeX's positions.
-  Theorems: the style lattice, the spacing table's totality and its script-style rule,
-  `hpack` containing its children.
+  12,162 of the 12,174 formula boxes it builds are TeX's to the sp; the other 576 recorded boxes
+  are of formulas it refuses (4 of those are TeX's as the KaTeX-compatible layout sets them:
+  12,166 of 12,750 in all); `lake test` fails if a box that was TeX's no longer is. Inline
+  formulas break after relations and binary operations as in TeX; glyphs drawn with New Computer
+  Modern Math at TeX's positions.
+  Theorems: the style transitions, where the spacing table has its unconditional thin space
+  and where it has none, the script-style rule of the inter-atom glue, `hpack` containing its
+  children.
 
 ## Next
 

@@ -7,7 +7,7 @@ import LeAnTeX.Parse.Base
 /-!
 # Lexer
 
-Splits a TeX string into tokens exactly as KaTeX's `Lexer` does: whitespace runs, control
+Splits a TeX string into tokens as KaTeX's `Lexer` does: whitespace runs, control
 spaces, single characters with their combining accents, `\verb` and `\verb*` with their
 delimited text, control words (eating the spaces after them) and control symbols, with `%`
 comments skipped while `%` has category code 14.

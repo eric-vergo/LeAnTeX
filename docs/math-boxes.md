@@ -4,9 +4,10 @@ A formula in a paragraph or a display is material to the line breaker and boxes 
 builder: its width, height and depth decide where lines break, how far apart they are and where
 pages end. The text and document layers lay formulas out with the **TeX-rule layout**
 (`LeAnTeX.TeXMath`), which follows TeX's own rules with the metrics of the fonts LaTeX uses, so
-that the boxes are TeX's to the sp. The KaTeX-compatible layout (`docs/layout.md`) stays beside
-it for its own use (the editor preview, the 11,885 parity cases of `parity/REPORT.md`) and
-takes over for a formula the TeX-rule layout does not build.
+that the boxes it builds are TeX's to the sp for all but twelve of the recorded ones (*How far
+apart they are*, below). The KaTeX-compatible layout (`docs/layout.md`) stays beside it for its
+own use (a formula on its own, the 11,885 parity cases of `parity/REPORT.md`) and takes over
+for a formula the TeX-rule layout does not build.
 
 ## The metrics
 
@@ -26,8 +27,9 @@ TeX Live's catalogue calls it Knuth's licence), and the SIL Open Font License th
 names for the AMS fonts. No formal licence text accompanies the metric files in the TeX Live
 installation the tests run against (its documentation tree is not installed; the METAFONT
 sources say only that the fonts must not be changed under the same names). The files are not
-committed: a program reads them at run time from a TeX installation (`LeAnTeX.TeXMath.readTfmDirs`, `leantex-render --document --tfm DIR`, in the
-tests `LEANTEX_TFM_DIRS`, by default the directories of `/usr/local/texlive/*`); without one,
+committed: a program reads them at run time from a TeX installation
+(`LeAnTeX.TeXMath.readTfmDirs`, `leantex-render --document --tfm DIR`, in the tests
+`LEANTEX_TFM_DIRS`, by default the directories of `/usr/local/texlive/*`); without one,
 formulas are laid out by the KaTeX-compatible layout, and `lake test` skips the comparisons
 below and the baselined documents that have formulas, each with a note. The committed
 recordings of TeX's output (`fixtures/math-box/`) are LuaLaTeX's typeset results for the
@@ -113,7 +115,8 @@ amsmath's macros build them, read from their sources and checked against the rec
 Refused, and laid out by the KaTeX-compatible layout instead (each listed in
 `parity/MATHBOX.md` with its reason; in a document every such formula is counted, and the
 document's warnings give the number with the offsets and reasons of the first three, which
-`leantex-render --document` prints and `parity/DOC.md` reports): `\over`, `\atop`, `\choose` and their relatives (the tree
+`leantex-render --document` prints and `parity/DOC.md` reports): `\over`, `\atop`, `\choose`
+and their relatives (the tree
 does not tell them from `\frac`), glue with `plus` or `minus`, arrays with rules, row gaps or
 script-style cells (`smallmatrix`, `\substack`, `aligned`, `gathered`), extensible arrows,
 `\overbrace`, `\overrightarrow`, `\boldsymbol`, `\notin`, `\iint` with explicit limits,
@@ -121,8 +124,7 @@ script-style cells (`smallmatrix`, `\substack`, `aligned`, `gathered`), extensib
 formula past the layout's work budget (a million steps: an inline formula of some ten thousand
 atoms or more). Set by the KaTeX-compatible layout, an inline formula is one box, which no line
 break enters: a formula of 16,000 atoms is one line far wider than the page, with the
-warning. The
-parser's tree cannot tell `\mkern3mu` from `\,` (nor 4mu, 5mu from `\:`, `\;`): they are read
+warning. The parser's tree cannot tell `\mkern3mu` from `\,` (nor 4mu, 5mu from `\:`, `\;`): they are read
 as the glue, whose width is the same.
 
 ## How far apart they are
@@ -135,13 +137,50 @@ families for every construct and the formulas of the reference documents,
 with the first differing node of every box that is not TeX's) and fails when a box that was
 TeX's to the sp (`parity/mathbox-baseline.tsv`) no longer is.
 
-At the time of writing: **12,166 of 12,750 boxes are TeX's to the sp** in width, height and
-depth (the KaTeX-compatible layout: 10 of them); of the 12,174 the TeX-rule layout builds,
-12,166, and 576 boxes are of formulas it refuses. The eight it builds and misses are a
-radical in scriptscript style inside a superscript (1,218 or 2,435 sp in height) and
-`\genfrac` with `\|` delimiters in scriptscript style (TeX takes a wider delimiter). Of the
-boxes TeX's to the sp, a few hundred differ from TeX's in the structure of their lists (LuaTeX
-wraps some material in boxes of its own) without a difference in any dimension.
+Of the 12,750 boxes the TeX-rule layout builds 12,174, and **12,162 of those are TeX's to the
+sp** in width, height and depth. The twelve it builds and misses are two formulas in both
+styles at the three sizes: a radical in scriptscript style inside a superscript (1,218 or
+2,435 sp in height) and `\genfrac` with `\|` delimiters in scriptscript style (TeX takes a
+wider delimiter). The other 576 boxes are of formulas it refuses; the KaTeX-compatible layout
+sets those, and 4 of them (two `\rule`s) come out as TeX's, so the total `lake test` prints is
+12,166 of 12,750. (The KaTeX-compatible layout on its own gives TeX's box for 10 of the
+12,750.) Of the boxes that are TeX's to the sp, 882 differ from TeX's in the structure of
+their lists (LuaTeX wraps some material in boxes of its own) without a difference in any
+dimension: the whole node list is TeX's for 11,280.
+
+What the figure shows: for these formulas, chosen and generated in this repository and used
+while the layout was written, the boxes are LuaLaTeX's. It does not show how often a formula
+from elsewhere is built and right: in the thirty held-out documents the layout refused three
+formulas, and three of the documents that differ do so first at a displayed formula's width
+(`parity/DOC.md`).
+
+## Proved and tested
+
+Proved (`LeAnTeX.TeXMath.Proofs`, axioms `propext`, `Classical.choice`, `Quot.sound` only),
+each about a function the layout calls:
+
+* The style functions (`Style.sub`, `sup`, `num`, `denom`, `cramped`, `size`):
+  `Style.sub_isCramped` and `Style.denom_isCramped` (a subscript's and a denominator's style
+  is cramped), `Style.sup_isCramped_of` (a cramped style's superscript is cramped),
+  `Style.cramped_cramped`, `Style.size_le_sub` and `Style.size_le_num` (a script or a
+  numerator is never set at a larger size than what it belongs to),
+  `Style.sub_size_eq_sup_size`, `Style.sub_of_script` (the scripts of a script style are
+  scriptscript).
+* The spacing table as it is written here (`spacingTable`): `spacingTable_eq_two_iff` (the
+  unconditional thin space stands between an operator and an ordinary atom or another
+  operator, and before an operator after a closing or an inner atom, and nowhere else),
+  `spacingTable_after_open` (no space after an opening atom), `spacingTable_before_close` (none
+  before a closing atom except after punctuation). That these are the entries of *The
+  TeXbook*'s table is a reading of the two tables side by side, and is tested through the
+  boxes.
+* `interAtomGlue_script`: in a script style there is glue between two atoms only where the
+  table has the unconditional thin space.
+* `hpack_width`, `le_hpack_height`, `le_hpack_depth`: a box packed at its natural width is as
+  wide as its children together and at least as high and as deep as each of them, a box child
+  counted with its shift.
+
+Tested only: everything else, against LuaLaTeX's boxes as above; in particular that the rules
+of Appendix G are followed is shown by the boxes, not proved.
 
 ## Drawing
 

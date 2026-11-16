@@ -61,9 +61,12 @@ is structurally recursive on a depth bound too, and the JSON conversions of box 
 
 `partial` remains in the parse stage and its helpers: the lexer, the macro expander and the
 parser (`Parse/`) recurse as KaTeX's do, and terminate because every step consumes a token or
-counts an expansion against `maxExpand`, an argument not written down as a measure; the JSON
-printer (`Json.lean`) and the parse tree's JSON form (`Parse/NodeJson.lean`) recurse on values
-of nested types; and the test harness (with the reader of the fixtures' JSON). `getBaseElem`
+counts an expansion against `maxExpand`, an argument not written down as a measure (the depth
+of the parser's recursion is bounded by `Settings.maxNesting`); the JSON
+printer (`Json.lean`), the parse tree's JSON form (`Parse/NodeJson.lean`) and the TeX-rule
+layout's conversion of the parse tree into a math list (`TeXMath/Front.lean`) recurse on
+values of nested types, as deep as the tree, which the parser's bound keeps shallow; and the
+test harness (with the reader of the fixtures' JSON, which bounds its own nesting). `getBaseElem`
 is defined by well-founded recursion on the node's size.
 
 ## Numbers
@@ -118,8 +121,8 @@ node tools/record.mjs --layout path/to/katex.min.js
 `lake exe leantex-test --bench` times parsing, layout and the display list over the corpora;
 `--bench-matrix` times each stage on its own for an `n × n` matrix of subscripted entries
 (`\begin{pmatrix}a_{11} & … \end{pmatrix}`, n = 5, 10, 20; the time grows with the number of
-cells). For the 10 × 10 matrix, counted in processor cycles on one core of the reference
-machine (Apple M2 Ultra) because the wall-clock times of a loaded machine are not usable:
-parsing 2.4 million cycles, parsing and layout 4.7 million, the display list 3.6 million; at
+cells). For the 10 × 10 matrix, counted in processor cycles on one core of an Apple M2 Ultra
+(one measurement, on a machine busy with other work, which is why cycles and not wall-clock
+times are given): parsing 2.4 million cycles, parsing and layout 4.7 million, the display list 3.6 million; at
 the core's 3.5 GHz about 0.7 ms, 1.3 ms and 1.0 ms. The layout itself is about 0.6 ms of the
 1.3 ms; most of the parse time goes to macro and symbol lookups.

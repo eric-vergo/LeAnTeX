@@ -58,6 +58,8 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/MathBoxChecks.lean
 | doc (display) | 222 | 222 | 222 | 222 | 222 | 222 | 0 |
 | **all** | 12750 | 12174 | 12166 | 12332 | 12459 | 11280 | 10 |
 
+The boxes the same to the sp: 12162 of the 12174 the TeX-rule layout builds, 4 of the 576 it refuses (those set by the KaTeX-compatible layout).
+
 ## Boxes that are not TeX's
 
 The formula, style and size, the largest difference in sp, and the first node that differs (path of indices into the box's list) or why the TeX-rule layout refused it.
