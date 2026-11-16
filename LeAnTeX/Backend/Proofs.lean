@@ -15,13 +15,13 @@ About the functions the back ends call:
 * `unescape_escape`: decoding the five entities gives the input back, less the characters XML
   cannot carry; so every `&` the escaping writes starts one of its entities, and the text a
   reader sees is the source text.
-* `exists_def_of_mem_picture_body`: every glyph an SVG picture draws (`<use>`) has its definition in the picture,
-  so the picture is self-contained. It holds by construction: `picture` ends with
+* `exists_def_of_mem_picture_body`: every glyph an SVG picture draws (`<use>`) has its definition
+  in the picture, so the picture is self-contained. It holds by construction: `picture` ends with
   `SvgPicture.ofParts`, which keeps a use only if its definition is there. What that filter
-  removes is not hidden from the reader: a character no font has, and a glyph whose outline
-  cannot be read, are given the missing-glyph box (`notdefPath`) with its definition before the
-  filter, so the only uses it drops are of glyphs with an empty outline (spaces), which draw
-  nothing anyway.
+  removes is not hidden from the reader: a character no font has, and a glyph whose outline cannot
+  be read, are given the missing-glyph box (`notdefPath`) with its definition before the filter,
+  so the only uses it drops are of glyphs with an empty outline (spaces), which draw nothing
+  anyway.
 
 Each is stated for every input (no hypotheses). Axioms: `propext`, `Classical.choice`,
 `Quot.sound` only.
@@ -102,8 +102,8 @@ theorem unescape_escape (l : List Char) : unescapeList (escapeList l) = l.filter
       exact ih
 
 /-- Every glyph a picture's body draws has its definition among the picture's `defs`. -/
-theorem exists_def_of_mem_picture_body (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) (u : SvgUse)
-    (h : Sum.inl u ∈ (picture fs dl opts).body) :
+theorem exists_def_of_mem_picture_body (fs : FontSet) (dl : DisplayList) (opts : SvgOptions)
+    (u : SvgUse) (h : Sum.inl u ∈ (picture fs dl opts).body) :
     ∃ d ∈ (picture fs dl opts).defs, d.1 = u.ref := by
   unfold picture at h ⊢
   generalize pictureParts fs dl opts = parts at h ⊢
@@ -113,9 +113,9 @@ theorem exists_def_of_mem_picture_body (fs : FontSet) (dl : DisplayList) (opts :
   obtain ⟨d, hd, hdu⟩ := Array.mem_map.mp (Array.contains_iff_mem.mp hk)
   exact ⟨d, hd, hdu⟩
 
-/-- The hypothesis of `exists_def_of_mem_picture_body` can be met: a picture with a drawn glyph (stated for
-`SvgPicture.ofParts`, the last step of `picture`; `picture` itself reads fonts and cannot be
-evaluated by the kernel). -/
+/-- The hypothesis of `exists_def_of_mem_picture_body` can be met: a picture with a drawn glyph
+(stated for `SvgPicture.ofParts`, the last step of `picture`; `picture` itself reads fonts and
+cannot be evaluated by the kernel). -/
 example : Sum.inl ({ ref := "g0-1", matrix := "", fill := none } : SvgUse) ∈
     (SvgPicture.ofParts (0, 0, 0, 0) #[("g0-1", "M0 0Z")]
       #[.inl { ref := "g0-1", matrix := "", fill := none }]).body := by
@@ -128,4 +128,3 @@ theorem refsDefined (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) (u : S
     ∃ d ∈ (picture fs dl opts).defs, d.1 = u.ref :=
   exists_def_of_mem_picture_body fs dl opts u h
 
-end LeAnTeX.Backend
