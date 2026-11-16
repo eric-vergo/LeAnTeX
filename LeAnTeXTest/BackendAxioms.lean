@@ -18,4 +18,4 @@ open LeAnTeX.Backend
 #print axioms escape_no_quot
 #print axioms escape_no_apos
 #print axioms unescape_escape
-#print axioms refsDefined
+#print axioms exists_def_of_mem_picture_body

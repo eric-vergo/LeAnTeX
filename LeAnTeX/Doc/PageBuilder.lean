@@ -648,9 +648,10 @@ def boxSizes (items : Array VNode) : Array (Int × Int × Int) := Id.run do
 def pagesBoxSizes (pages : Array PageOut) : Array (Int × Int × Int) :=
   pages.foldl (init := #[]) fun acc p => acc ++ boxSizes p.items
 
-/-- Whether the pages hold exactly the boxes of the input, each once, in order: the page
-builder cuts the list, adding only `\topskip` glue and discarding only glue, kerns and
-penalties (`buildPages_boxes` states it). -/
+/-- Whether the boxes on the pages have, in order, the sizes of the input's boxes (`boxSizes`):
+the page builder cuts the list, adding only `\topskip` glue and discarding only glue, kerns and
+penalties, so no box may be lost, repeated or moved (`buildPages_boxes` states that every
+result of `buildPages` passes). -/
 def pagesPartition (items : Array VNode) (pages : Array PageOut) : Bool :=
   pagesBoxSizes pages == boxSizes items
 
@@ -670,8 +671,8 @@ def buildPagesCore (items : Array VNode) (p : PageParams) :
 /-- Builds the pages of a contribution list (`items` in order): TeX's page builder run until
 the list is used up, the last page cut at the end as `\end` cuts it (a page with material left
 is cut with a forced break). The pages in order, or an error when the step cap is reached.
-The result is checked before it is returned: the pages hold the list's boxes, each once, in
-order (`pagesPartition`, `buildPages_boxes`). -/
+The result is checked before it is returned: the boxes on the pages have the sizes of the
+list's boxes, in order (`pagesPartition`, `buildPages_boxes`). -/
 def buildPages (items : Array VNode) (p : PageParams) :
     Except String (Array PageOut) :=
   match buildPagesCore items p with

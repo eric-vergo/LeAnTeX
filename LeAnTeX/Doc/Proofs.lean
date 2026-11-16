@@ -10,18 +10,21 @@ import LeAnTeX.Doc.Graphics
 
 About the functions the document layer calls:
 
-* `buildPages_boxes`: the pages the page builder returns hold exactly the boxes of the vertical
-  list it was given, each once, in order (glue, kerns and penalties may be discarded at breaks,
-  `\topskip` glue added; floats set here and insertions are their own material). The builder
-  checks this before returning (`pagesPartition`), so it holds by construction; the algorithm
-  (TeX's) is tested against LuaLaTeX, not proved.
+* `buildPages_boxes`: the sizes (width, height, depth) of the boxes on the pages the page
+  builder returns are, in order, the sizes of the boxes of the vertical list it was given: no
+  box is lost, repeated or moved (glue, kerns and penalties may be discarded at breaks,
+  `\topskip` glue added; the boxes of floats set here and the material of insertions are not
+  in the count). The builder makes this comparison before returning (`pagesPartition`), so the
+  theorem holds by construction; where the pages are cut (TeX's algorithm) is tested against
+  LuaLaTeX, not proved.
 * `Counters.add_value`, `Counters.set_value`, `Counters.newCounter_value`: setting and adding
   to a counter change its value as specified; a new counter starts at zero.
-* `lookupRef_some`, `lookupRef_none`: a reference's text is the text of the label of that key
-  in the previous pass, or there is no such label (and the front end reports the key and prints
-  `??`).
-* `safeImagePath_relative`, `safeImagePath_noParent`: a path the document layer asks for is
-  relative and has no `..` segment.
+* `lookupRef_some`, `lookupRef_none`: a reference that resolves gives the text (or the page)
+  the table of labels holds for its key, and one that does not has no entry there (the front
+  end, which passes the labels of the previous pass, then reports the key and prints `??`).
+* `safeImagePath_relative`, `safeImagePath_noParent`: a path that passes `safeImagePath` (the
+  check the document layer makes before it asks for an image) does not start with `/` and has
+  no `..` segment.
 * `romanLower_nonpos`: `\roman` prints nothing for zero or less, as TeX's `\romannumeral`.
 -/
 
@@ -29,7 +32,8 @@ namespace LeAnTeX.Doc
 
 open LeAnTeX.Text
 
-/-- The pages hold the list's boxes (see the module docstring). -/
+/-- When `buildPages` returns pages, they pass `pagesPartition`: their boxes' sizes, in order,
+are those of the list's boxes (see the module docstring). -/
 theorem buildPages_boxes (items : Array VNode) (p : PageParams) (pages : Array PageOut)
     (h : buildPages items p = .ok pages) : pagesPartition items pages = true := by
   unfold buildPages at h
@@ -78,14 +82,14 @@ theorem lookupRef_none (refs : Std.HashMap String (String × String)) (key : Str
   | none => rfl
   | some v => simp [hk] at h
 
-/-- An image path the document layer asks for is relative. -/
+/-- A path that passes `safeImagePath` does not start with `/`. -/
 theorem safeImagePath_relative (p : String) (h : Typeset.safeImagePath p = true) :
     p.startsWith "/" = false := by
   unfold Typeset.safeImagePath at h
   simp only [Bool.and_eq_true, Bool.not_eq_true'] at h
   exact h.1.1.2
 
-/-- An image path the document layer asks for has no `..` segment. -/
+/-- A path that passes `safeImagePath` has no `..` segment. -/
 theorem safeImagePath_noParent (p : String) (h : Typeset.safeImagePath p = true) :
     ∀ seg ∈ p.splitOn "/", seg ≠ ".." := by
   unfold Typeset.safeImagePath at h

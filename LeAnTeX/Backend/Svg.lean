@@ -37,7 +37,7 @@ needs nothing else: every glyph is drawn as its outline, read from the font with
   the options, the same on every machine.
 
 `LeAnTeX.Backend.Proofs` proves that every glyph the picture draws has its definition in it
-(`refsDefined`).
+(`exists_def_of_mem_picture_body`).
 
 ## Main definitions
 
