@@ -45,6 +45,13 @@ theorem buildPages_boxes (items : Array VNode) (p : PageParams) (pages : Array P
     · cases h
   · cases h
 
+/-- The hypothesis of `buildPages_boxes` can be met: two boxes with a penalty between them, on
+pages with room for one, come back as two pages. -/
+example : (match buildPages #[.hbox 10 20 5 0 #[] {}, .penalty 0, .hbox 10 20 5 0 #[] {}]
+      { vsize := 30, maxDepth := 5, topSkip := {}, maxSteps := 100 } with
+    | .ok pages => pages.size == 2 | .error _ => false) = true := by
+  decide +kernel
+
 /-- Adding to a defined counter adds to its value. -/
 theorem Counters.add_value (cs : Counters) (n : String) (v : Int) (c : Counter)
     (h : cs.table.get? n = some c) : (cs.add n v).value n = c.value + v := by
