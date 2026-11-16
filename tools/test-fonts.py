@@ -10,6 +10,8 @@
 #                                        scaled composite glyph; a version-0 `kern` table.
 # Their shapes are drawn here (no third-party outlines), so the files are this repository's own,
 # under its licence. tools/font-reference.py --test-fonts then records what fontTools reads.
+# The fonts' creation and modification times are fixed (STAMP), so the script writes the same
+# bytes on every run.
 #
 # Usage, from the repository root: python3 -I tools/test-fonts.py
 
@@ -21,6 +23,19 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.ttLib import newTable
 from fontTools.ttLib.tables._k_e_r_n import KernTable_format_0
 from fontTools.cffLib import SubrsIndex, GlobalSubrsIndex
+
+# The `head` table's `created` and `modified`: seconds since 1904, the moment the committed
+# fonts were first built.
+STAMP = 3877551039
+
+
+def save(fb, path):
+    """Writes the font with its times set to STAMP and not recalculated."""
+    fb.font["head"].created = STAMP
+    fb.font["head"].modified = STAMP
+    fb.font.recalcTimestamp = False
+    fb.save(path)
+
 
 ORDER = [".notdef", "space", "A", "f", "i", "f_i", "acute", "Aacute"]
 CMAP = {0x20: "space", 0x41: "A", 0x66: "f", 0x69: "i", 0xFB01: "f_i", 0xB4: "acute",
@@ -87,7 +102,7 @@ def cff_font():
         cs.globalSubrs = gsubrs
     addOpenTypeFeaturesFromString(fb.font, FEATURES)
     fb.font.recalcBBoxes = True
-    fb.save("fixtures/font/leantex-test-cff.otf")
+    save(fb, "fixtures/font/leantex-test-cff.otf")
 
 
 def glyf_font():
@@ -139,7 +154,7 @@ def glyf_font():
     sub.kernTable = {("A", "A"): -40, ("A", "f"): -20, ("f", "i"): 15}
     kern.kernTables = [sub]
     fb.font["kern"] = kern
-    fb.save("fixtures/font/leantex-test-glyf.ttf")
+    save(fb, "fixtures/font/leantex-test-glyf.ttf")
 
 
 if __name__ == "__main__":
