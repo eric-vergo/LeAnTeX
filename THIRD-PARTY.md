@@ -65,6 +65,13 @@ other outline of its fonts, and uses none of the Reserved Font Names for a font 
 back ends draw KaTeX's faces with New Computer Modern instead, and KaTeX's fixed paths as
 KaTeX gives them.
 
+As a precaution, and not as a legal conclusion that the licence of the fonts attaches to these
+tables, the fonts' copyright lines and the full text of the SIL Open Font License, Version 1.1,
+are reproduced in `LICENSE-KaTeX-fonts`, beside the MIT notice below. No font is distributed in
+this repository under a Reserved Font Name. For the paths that KaTeX's comments attribute to the
+MnSymbol package, this repository holds only KaTeX's statement ("public domain"); MnSymbol's own
+licence text is not reproduced here.
+
 ## Fonts: New Computer Modern
 
 `fonts/newcomputermodern/` holds 29 font files of New Computer Modern by Antonis Tsolomitis,
@@ -77,7 +84,9 @@ Exception (FE) plus Distribution Exception (DE)". Only fonts under the GUST Font
 included; the excepted files are not part of this repository. Each included font carries its
 own notice, for example: "(C) 2019-2026 Antonis Tsolomitis. This work is released under the GUST
 Font License -- see http://tug.org/fonts/licenses/GUST-FONT-LICENSE.txt for details." The GUST
-Font License is the LaTeX Project Public License 1.3c or later (`fonts/LPPL-1.3c.txt`, copied
+Font License (version 1.0, 22 June 2009; `fonts/GUST-FONT-LICENSE.txt`, the plain-text
+licence from <https://www.gust.org.pl/projects/e-foundry/licenses/GUST-FONT-LICENSE.txt>, unmodified)
+is the LaTeX Project Public License 1.3c or later (`fonts/LPPL-1.3c.txt`, copied
 verbatim from TeX Live) with a request, not a requirement, to rename modified fonts; none is
 modified. The back ends draw glyph outlines of these fonts into SVG pictures, and HTML pages load
 the files themselves. The pictures and pages of `examples/` are such output: they hold the

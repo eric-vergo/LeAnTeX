@@ -25,12 +25,12 @@ One font's own `name` table carries a copyright line without a licence statement
 
 ## The GUST Font License
 
-The GUST Font License's own text is not copied here; the addresses below give it. The GUST
-Font License is
+The GUST Font License, version 1.0 of 22 June 2009, is in `GUST-FONT-LICENSE.txt`, as published
+at <https://www.gust.org.pl/projects/e-foundry/licenses/GUST-FONT-LICENSE.txt>, unmodified. It is
 the LaTeX Project Public License, version 1.3c or later
 (`LPPL-1.3c.txt`, copied verbatim from TeX Live), with an added request, not a legal
 requirement, that derived works be distributed only after renaming the fonts and their files. The
-licence is published at <https://www.gust.org.pl/projects/e-foundry/licenses> and
+licence is also published at <https://www.gust.org.pl/projects/e-foundry/licenses> and
 <http://tug.org/fonts/licenses/GUST-FONT-LICENSE.txt>, the address each font's copyright notice
 gives.
 
