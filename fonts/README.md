@@ -25,8 +25,8 @@ One font's own `name` table carries a copyright line without a licence statement
 
 ## The GUST Font License
 
-The GUST Font License's own text is not part of the local TeX installation this repository was
-prepared with, so it is not copied here; the addresses below give it. The GUST Font License is
+The GUST Font License's own text is not copied here; the addresses below give it. The GUST
+Font License is
 the LaTeX Project Public License, version 1.3c or later
 (`LPPL-1.3c.txt`, copied verbatim from TeX Live), with an added request, not a legal
 requirement, that derived works be distributed only after renaming the fonts and their files. The
@@ -41,6 +41,8 @@ available at the CTAN address above.
 
 ## Where they are used
 
-`LeAnTeX.Text.newComputerModernFile` names the file the text layer uses for a font (the Book
-weight is the default, as in the package's `newcomputermodern.sty`); the SVG and HTML back ends
-draw glyphs from these files as outlines, so no output refers to a font file.
+`LeAnTeX.Text.newComputerModernFace` names the file the text layer uses for a font (the Book
+weight is the default, as in the package's `newcomputermodern.sty`). The SVG back end draws
+glyphs from these files as outlines, so an SVG picture refers to no font file; an HTML page
+sets its text in the fonts themselves and loads the files by `@font-face` rules from the
+address it is given (`docs/back-ends.md`).

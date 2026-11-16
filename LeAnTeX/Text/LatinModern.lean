@@ -10,9 +10,9 @@ import LeAnTeX.Text.Typeset
 Which Latin Modern OpenType file LaTeX uses for a font, by its font definition files for the
 `TU` encoding (`tulmr.fd`, `tulmss.fd`, `tulmtt.fd`): the optical size nearest the requested
 size, as those files choose it, and the substitutions they make (sans serif italic is its
-oblique, small capitals come from the roman). LeAnTeX bundles no font; a caller that has the
-fonts (in a TeX installation, for instance) reads the file named here and gives it to
-`typeset` through its `FontResolver`.
+oblique, small capitals come from the roman). LeAnTeX bundles no Latin Modern font; a caller
+that has the fonts (in a TeX installation, for instance) reads the file named here and gives it
+to `typeset` through its `FontResolver`.
 
 ## Main definitions
 
