@@ -6,8 +6,8 @@ any Lean program, including code that may not import the `Lean` package.
 
 It aims at KaTeX parity in math mode: the same formulas accepted, the same errors for the
 others, the same boxes, glyphs and positions, laid out to a neutral display list that drawing
-back ends consume. Where KaTeX has no limit it has two of its own, so that a hostile formula
-costs no more than its length allows: on the tokens macros produce and arguments re-read
+back ends consume. It has two limits of its own, so that a formula from a stranger costs no
+more than its length allows: on the tokens macros produce and arguments re-read
 (`Settings.maxTokens`) and on nesting (`Settings.maxNesting`), both far above what a formula
 written by hand reaches. What agrees with KaTeX and with TeX, on which inputs, and how to
 check it, is in *The figures, and how to reproduce them* below.

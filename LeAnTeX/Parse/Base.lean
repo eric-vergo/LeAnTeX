@@ -208,8 +208,8 @@ structure Settings where
   tokens so read may together come to `argumentReadFactor` times this limit. -/
   maxTokens : Option Nat := some defaultMaxTokens
   /-- The limit on the nesting of groups, arguments and environments: LeAnTeX's own setting,
-  not KaTeX's. The parser, like KaTeX's, recurses once per level, so the depth it accepts has
-  to be bounded for its stack to be. Past it, an error (`Too deeply nested: …`). The default,
+  not KaTeX's. The parser recurses once per level, so the depth it accepts has to be bounded
+  for its stack to be. Past it, an error (`Too deeply nested: …`). The default,
   `defaultMaxNesting`, is far above what a formula written by hand reaches; `none`: no limit,
   as in KaTeX. -/
   maxNesting : Option Nat := some defaultMaxNesting
