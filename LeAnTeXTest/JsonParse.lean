@@ -9,8 +9,9 @@ import LeAnTeX.Json
 
 The reader of the recorded fixtures (`fixtures/*.jsonl`) and other JSON files of this repository,
 which the tests compare with. It is test support, not library: its input is the repository's own
-files. It reads one value with nothing after it, refuses misspelt literals, and refuses numbers
-whose exponent is beyond ±400 instead of computing a huge power of ten.
+files. It reads one value with nothing after it, refuses misspelt literals, refuses numbers
+whose exponent is beyond ±400 instead of computing a huge power of ten, and refuses arrays and
+objects nested deeper than `maxDepth` instead of recursing without bound.
 
 ## Main definitions
 
@@ -96,8 +97,13 @@ def pnum (p : P) : Except String (Float × P) := do
   let v := if e ≥ 0 then Float.ofNat (m * 10 ^ e.toNat) else Float.ofScientific m true e.natAbs
   return (if neg then -v else v, { p with i })
 
-/-- A value. -/
-partial def pval (p : P) : Except String (Json × P) := do
+/-- The deepest nesting of arrays and objects the reader accepts (the fixtures stay far below
+it). -/
+def maxDepth : Nat := 4000
+
+/-- A value, `depth` arrays and objects deep. -/
+partial def pval (p : P) (depth : Nat := 0) : Except String (Json × P) := do
+  if depth > maxDepth then throw s!"nested deeper than {maxDepth}"
   let p := ws p
   let some c := p.cs[p.i]? | throw "unexpected end"
   match c with
@@ -110,7 +116,7 @@ partial def pval (p : P) : Except String (Json × P) := do
       let (k, q1) ← pstr q
       let q2 := ws q1
       if q2.cs[q2.i]? != some ':' then throw "expected ':'"
-      let (v, q3) ← pval { q2 with i := q2.i + 1 }
+      let (v, q3) ← pval { q2 with i := q2.i + 1 } (depth + 1)
       kvs := kvs.push (k, v)
       let q4 := ws q3
       match q4.cs[q4.i]? with
@@ -123,7 +129,7 @@ partial def pval (p : P) : Except String (Json × P) := do
     let mut xs := #[]
     if q.cs[q.i]? == some ']' then return (arr xs, { q with i := q.i + 1 })
     repeat
-      let (v, q1) ← pval q
+      let (v, q1) ← pval q (depth + 1)
       xs := xs.push v
       let q2 := ws q1
       match q2.cs[q2.i]? with
@@ -144,8 +150,8 @@ partial def pval (p : P) : Except String (Json × P) := do
     return (num x, q)
 
 /-- Parse a JSON text: one value, nothing but whitespace after it; literals spelled exactly;
-numbers with an exponent beyond ±400 refused. Fixtures only (the recorded files of this
-repository). -/
+numbers with an exponent beyond ±400 and nesting deeper than `maxDepth` refused. Fixtures only
+(the recorded files of this repository). -/
 def parse (s : String) : Except String Json := do
   let (v, q) ← pval ⟨s.toList.toArray, 0⟩
   if (ws q).i != q.cs.size then throw s!"unexpected text after the value at {(ws q).i}"

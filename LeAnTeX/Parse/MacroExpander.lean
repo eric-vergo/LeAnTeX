@@ -68,9 +68,22 @@ partial def consumeSpaces : M Unit := do
     modify fun s => { s with stack := s.stack.pop }
     consumeSpaces
 
+/-- Count `n` tokens read as an argument; an error past `argumentReadFactor` times
+`maxTokens`. An argument is read to its end before it is parsed, so one inside `k` others is
+read `k + 1` times: without the count, arguments nested in each other cost the square of the
+formula's length. -/
+def countArgument (n : Nat) : M Unit := do
+  let s ← get
+  set { s with argumentCount := s.argumentCount + n }
+  if let some mx := s.settings.maxTokens then
+    if s.argumentCount + n > argumentReadFactor * mx then
+      perr (s!"Too many tokens: arguments nested in each other were read as more than " ++
+        s!"{argumentReadFactor * mx} tokens (maxTokens setting)")
+
 /-- One macro argument: its tokens in reverse order, and the first and last token read. An
 undelimited argument is the next non-space token or a braced group (without the braces); a
-delimited one runs to the delimiter list `delims` at brace depth zero. -/
+delimited one runs to the delimiter list `delims` at brace depth zero. The tokens read are
+counted (`countArgument`). -/
 partial def consumeArg (delims : Option (Array String) := none) :
     M (Array Token × Token × Token) := do
   let isDelimited := match delims with | some d => d.size > 0 | none => false
@@ -101,6 +114,7 @@ partial def consumeArg (delims : Option (Array String) := none) :
       else matched := 0
     if depth != 0 || isDelimited then loop tokens depth matched else return (tokens, tok)
   let (tokens, last) ← loop #[] 0 0
+  countArgument tokens.size
   let tokens :=
     if start.text == "{" && tokens.back?.map (·.text) == some "}" then
       (tokens.pop).extract 1 tokens.size

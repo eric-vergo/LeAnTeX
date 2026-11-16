@@ -583,9 +583,10 @@ def Builder.fire (b : Builder) (p : PageParams) : Builder := Id.run do
   return nb.startPage p b.fl.deferred
 
 /-- One step of the page builder on the next contribution (TeX's `build_page` loop body);
-`none` when there is nothing left. -/
-def Builder.step (b : Builder) (p : PageParams) : Option Builder := do
-  let n ← b.peek
+the builder unchanged when there is nothing left. The builder is passed on, never kept beside
+the result, so that its lists are changed in place. -/
+def Builder.step (b : Builder) (p : PageParams) : Builder := Id.run do
+  let some n := b.peek | return b
   match n with
   | .hbox .. | .vbox .. | .rule .. =>
     if !b.boxThere then
@@ -626,7 +627,9 @@ def Builder.step (b : Builder) (p : PageParams) : Option Builder := do
       if cutNow then return b.fire p
     match n with
     | .penalty _ => return b.contribute n
-    | _ => return { b.contribute n with hs := b.hs.add n }
+    | _ =>
+      let hs := b.hs.add n
+      return { b.contribute n with hs }
 
 /-- The boxes of a list in order, by their sizes (width, height, depth), without the boxes of
 floats set here (each follows a `@float` mark) and without the material of insertions. -/
@@ -656,13 +659,12 @@ def buildPagesCore (items : Array VNode) (p : PageParams) :
     Except String (Array PageOut) := Id.run do
   let mut b : Builder := ({ contrib := items.reverse } : Builder).startPage p #[]
   for _ in [0:p.maxSteps] do
-    match b.step p with
-    | some b' => b := b'
-    | none =>
+    if b.contrib.isEmpty then
       if b.page.isEmpty || !b.boxThere then
         return .ok (if b.fl.deferred.isEmpty then b.pages else (b.flushFloats p).pages)
       -- the end of the document: what is left forces a page
       b := { b with contrib := #[.penalty (-10000)] }
+    else b := b.step p
   return .error "page builder: too many steps"
 
 /-- Builds the pages of a contribution list (`items` in order): TeX's page builder run until

@@ -162,6 +162,19 @@ def cases : Array Case := #[
     files := fun _ => #[("mt.tex",
       ("$\\def\\a{" ++ rep "x" 4000 ++ "}" ++ rep "\\a" 1000 ++ "$").toUTF8)],
     expect := "Too many tokens" },
+  { name := "formula: braces nested 100000 deep stop at the nesting cap",
+    exe := "leantex-render", args := #["--math", "--fonts", fontDir, "@/deep.tex", "@/deep.svg"],
+    files := fun _ => #[("deep.tex", (rep "{" 100000 ++ "x" ++ rep "}" 100000).toUTF8)],
+    expect := "Too deeply nested", maxUserMs := 10000 },
+  { name := "formula: arguments nested 5000 deep stop at the budget for reading arguments",
+    exe := "leantex-render", args := #["--math", "--fonts", fontDir, "@/args.tex", "@/args.svg"],
+    files := fun _ => #[("args.tex", (rep "\\frac{1}{" 5000 ++ "x" ++ rep "}" 5000).toUTF8)],
+    expect := "arguments nested in each other", maxUserMs := 10000 },
+  { name := "document: 40000 one-line paragraphs are paged in linear time",
+    exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/pars.tex", "@/o7"],
+    files := fun _ => #[("pars.tex", ("\\documentclass{article}\\begin{document}" ++
+      rep "a\n\n" 40000 ++ "\\end{document}").toUTF8)],
+    expect := "pages", maxUserMs := 20000 },
   { name := "TeX-rule layout: nested \\sqrt[n], each level built in four styles, stays bounded",
     exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/root.tex", "@/o3"],
     files := fun _ => #[("root.tex", ("\\documentclass{article}\\begin{document}$" ++
@@ -252,6 +265,9 @@ def checks : Array (String × Bool) :=
     ("json: an exponent beyond 400 is refused, not computed",
       (Json.parse "1e300000000").toOption.isNone && (Json.parse "1e300").toOption.isSome),
     ("json: text after the value is refused", (Json.parse "[1] x").toOption.isNone),
+    ("json: arrays nested 200000 deep are refused, not recursed into",
+      (Json.parse (rep "[" 200000 ++ rep "]" 200000)).toOption.isNone &&
+      (Json.parse (rep "[" 100 ++ rep "]" 100)).toOption.isSome),
     ("terminal: no character terminalText lets through is unsafe",
       !(terminalText everyChar).any terminalUnsafe)]
 

@@ -298,8 +298,22 @@ partial def parseArgumentGroup (optional : Bool) (mode : Option Mode) : M (Optio
   return some result
 
 /-- A group: braces or `\begingroup … \endgroup`, a function call, or a symbol; an undefined
-control sequence is an error (or red text without `throwOnError`) (KaTeX's `parseGroup`). -/
+control sequence is an error (or red text without `throwOnError`) (KaTeX's `parseGroup`).
+Every recursion of the parser passes through here, so this is where the nesting is counted
+against `Settings.maxNesting`. -/
 partial def parseGroup (name : String) (breakOnTokenText : Option String) :
+    M (Option Node) := do
+  let s ← get
+  if let some mx := s.settings.maxNesting then
+    if s.depth ≥ mx then
+      perrAt s!"Too deeply nested: more than {mx} levels (maxNesting setting)" (← fetch)
+  modify fun s => { s with depth := s.depth + 1 }
+  let result ← parseGroupCore name breakOnTokenText
+  modify fun s => { s with depth := s.depth - 1 }
+  return result
+
+/-- `parseGroup` without the count of the nesting. -/
+partial def parseGroupCore (name : String) (breakOnTokenText : Option String) :
     M (Option Node) := do
   let firstToken ← fetch
   let text := firstToken.text

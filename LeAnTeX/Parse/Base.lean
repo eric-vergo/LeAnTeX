@@ -169,6 +169,14 @@ def strictReport (strict : Strict) (code msg : String) (loc : OLoc) :
 (`Settings.maxTokens`). -/
 def defaultMaxTokens : Nat := 20000
 
+/-- How many times `Settings.maxTokens` the tokens read as arguments may come to (see
+`Settings.maxTokens`). -/
+def argumentReadFactor : Nat := 50
+
+/-- The default limit on the nesting of groups, arguments and environments in one formula
+(`Settings.maxNesting`). -/
+def defaultMaxNesting : Nat := 1000
+
 /-- The options that affect parsing (KaTeX's `Settings`, minus the output-only ones). -/
 structure Settings where
   /-- Display style (`displayMode`). -/
@@ -195,8 +203,16 @@ structure Settings where
   KaTeX's (`maxExpand` counts expansions, so a few hundred of a long macro make a formula of
   hundreds of thousands of tokens). Past it, an error (`Too many tokens: …`). The default,
   `defaultMaxTokens`, is far above what a formula written by hand produces; `none`: no limit, as
-  in KaTeX. -/
+  in KaTeX. The same setting bounds the reading of arguments: an argument is read once to find
+  its end before it is parsed, so an argument inside `k` others is read `k + 1` times, and the
+  tokens so read may together come to `argumentReadFactor` times this limit. -/
   maxTokens : Option Nat := some defaultMaxTokens
+  /-- The limit on the nesting of groups, arguments and environments: LeAnTeX's own setting,
+  not KaTeX's. The parser, like KaTeX's, recurses once per level, so the depth it accepts has
+  to be bounded for its stack to be. Past it, an error (`Too deeply nested: …`). The default,
+  `defaultMaxNesting`, is far above what a formula written by hand reaches; `none`: no limit,
+  as in KaTeX. -/
+  maxNesting : Option Nat := some defaultMaxNesting
   /-- The largest size a user may give, in em (`maxSize`): every size written in the formula
   (`\rule`, `\hspace`, `\kern`, a row gap, …) is cut to it, as `calculateSize` cuts it; a
   negative one counts as 0, as in KaTeX's `Settings`. `none` (KaTeX's default, `Infinity`) and an

@@ -84,17 +84,23 @@ def has (ns : Namespace) (name : String) : Bool := (ns.get name).isSome
 /-- Open a group. -/
 def beginGroup (ns : Namespace) : Namespace := { ns with undefStack := ns.undefStack.push {} }
 
-/-- Close a group, restoring the definitions it changed; an error at top level. -/
-def endGroup (ns : Namespace) : Except KError Namespace := do
+/-- Close the innermost group, restoring the definitions it changed; nothing at top level. -/
+def closeGroup (ns : Namespace) : Namespace :=
   match ns.undefStack.back? with
-  | none => throw (.parse ("Unbalanced namespace destruction: attempt to pop global " ++
-      "namespace; please report this as a bug") .absent)
+  | none => ns
   | some undefs =>
     let cur := undefs.fold (init := ns.current) fun cur k v =>
       match v with
       | none => cur.erase k
       | some d => cur.insert k d
-    return { current := cur, undefStack := ns.undefStack.pop }
+    { current := cur, undefStack := ns.undefStack.pop }
+
+/-- Close a group, restoring the definitions it changed; an error at top level. -/
+def endGroup (ns : Namespace) : Except KError Namespace :=
+  if ns.undefStack.isEmpty then
+    throw (.parse ("Unbalanced namespace destruction: attempt to pop global " ++
+      "namespace; please report this as a bug") .absent)
+  else return ns.closeGroup
 
 /-- Close every open group. -/
 def endGroups (ns : Namespace) : Namespace :=
@@ -140,6 +146,11 @@ structure State where
   expansionCount : Nat := 0
   /-- Tokens the expansions produced so far, against `Settings.maxTokens`. -/
   tokenCount : Nat := 0
+  /-- Tokens read as arguments so far, against `argumentReadFactor` times
+  `Settings.maxTokens`. -/
+  argumentCount : Nat := 0
+  /-- The nesting depth of the groups being parsed, against `Settings.maxNesting`. -/
+  depth : Nat := 0
   /-- The current mode. -/
   mode : Mode := .math
   /-- The nesting depth of `\left`, for `\middle`. -/
@@ -201,10 +212,12 @@ def getMacro (name : String) : M (Option MacroDef) := return (← get).macros.ge
 /-- Open a macro group. -/
 def beginGroup : M Unit := modifyMacros Namespace.beginGroup
 
-/-- Close a macro group. -/
+/-- Close a macro group. The state's namespace is changed where it is, never copied out, so
+that closing a group costs the same at every depth. -/
 def endGroup : M Unit := do
-  let ns ← liftE (← get).macros.endGroup
-  modify fun s => { s with macros := ns }
+  if (← get).macros.undefStack.isEmpty then
+    let _ ← liftE (← get).macros.endGroup
+  else modifyMacros Namespace.closeGroup
 
 /-- Close every macro group. -/
 def endGroups : M Unit := modifyMacros Namespace.endGroups
