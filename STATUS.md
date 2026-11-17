@@ -71,8 +71,8 @@ What LeAnTeX does today, and what comes next.
 - Back ends (`LeAnTeX/Backend*`, `docs/back-ends.md`): SVG with glyphs as outlines defined once,
   HTML with text runs at TeX's positions in the web fonts and formulas as inline SVG;
   `leantex-render`; `examples/` (three samples as source, SVG and HTML) checked byte for byte; 43
-  named checks (41 without the metric files); the escaping function and the glyph references
-  proved. Against LuaLaTeX's rendering (`tools/tex-render-compare.sh`, not part of `lake test`):
+  named checks (41 without the metric files); the escaping function (no `<`, `>`, `"` or `'`; decoding gives the input back) and the glyph
+  references proved, and the writers' use of it tested. Against LuaLaTeX's rendering (`tools/tex-render-compare.sh`, not part of `lake test`):
   text within 9.4 levels on average, 89.7 % of pixels within 32 levels; formulas within one to
   three pixels at 4 pixels to the point.
 - Gates: `lake build --wfail` and `lake test` pass.
