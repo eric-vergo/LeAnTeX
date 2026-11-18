@@ -130,7 +130,9 @@ Proved (`LeAnTeX.Backend.Proofs`; axioms `propext`, `Classical.choice`, `Quot.so
   contains no `<`, `>`, `"` or `'`. (That the writers pass every text from the source through
   `escape` is not a theorem: the tests check it on hostile sources.)
 * `unescape_escape`: decoding the five entities gives the input back, less the characters XML
-  cannot carry (so every `&` written starts an entity).
+  cannot carry. (That every `&` written starts an entity follows from reading `escapeChar`,
+  which writes `&` only as the first character of one of its five entities; it is not a
+  consequence of this theorem.)
 * `exists_def_of_mem_picture_body`: every glyph an SVG picture draws has its definition in the picture.
 
 Tested (`lake test`, `LeAnTeXTest/BackendChecks.lean`): the examples' SVG and HTML byte for byte

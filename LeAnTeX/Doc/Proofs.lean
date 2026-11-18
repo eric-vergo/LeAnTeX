@@ -11,11 +11,12 @@ import LeAnTeX.Doc.Graphics
 About the functions the document layer calls:
 
 * `buildPages_boxes`: the sizes (width, height, depth) of the boxes on the pages the page
-  builder returns are, in order, the sizes of the boxes of the vertical list it was given: no
-  box is lost, repeated or moved (glue, kerns and penalties may be discarded at breaks,
-  `\topskip` glue added; the boxes of floats set here and the material of insertions are not
-  in the count). The builder makes this comparison before returning (`pagesPartition`), so the
-  theorem holds by construction; where the pages are cut (TeX's algorithm) is tested against
+  builder returns are, in order, the sizes of the boxes of the vertical list it was given, so
+  the number of boxes and their sizes in order are kept (boxes of equal size are not told
+  apart, so the theorem does not say which box is which; glue, kerns and penalties may be
+  discarded at breaks, `\topskip` glue added; the boxes of floats set here and the material of
+  insertions are not in the count). The builder makes this comparison before returning
+  (`pagesPartition`), so the theorem holds by construction; where the pages are cut (TeX's algorithm) is tested against
   LuaLaTeX, not proved.
 * `Counters.add_value`, `Counters.set_value`, `Counters.newCounter_value`: setting and adding
   to a counter change its value as specified; a new counter starts at zero.

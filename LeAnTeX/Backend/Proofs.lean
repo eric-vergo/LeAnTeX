@@ -13,8 +13,9 @@ About the functions the back ends call:
   and attribute values from TeX source in the SVG and HTML output) contains no `<`, `>`, `"` or
   `'`, so it can neither open markup nor close an attribute value.
 * `unescape_escape`: decoding the five entities gives the input back, less the characters XML
-  cannot carry; so every `&` the escaping writes starts one of its entities, and the text a
-  reader sees is the source text.
+  cannot carry. (That every `&` the escaping writes starts one of its entities follows from
+  reading `escapeChar`, which writes `&` only as the first character of one of its five
+  entities; the theorem does not state it.)
 * `exists_def_of_mem_picture_body`: every glyph an SVG picture draws (`<use>`) has its definition
   in the picture, so the picture is self-contained. It holds by construction: `picture` ends with
   `SvgPicture.ofParts`, which keeps a use only if its definition is there. What that filter
@@ -121,7 +122,7 @@ example : Sum.inl ({ ref := "g0-1", matrix := "", fill := none } : SvgUse) ∈
       #[.inl { ref := "g0-1", matrix := "", fill := none }]).body := by
   simp [SvgPicture.ofParts, keepElement]
 
-/-- The former name of `exists_def_of_mem_picture_body`. -/
+/-- Deprecated alias of `exists_def_of_mem_picture_body`; use that theorem. -/
 @[deprecated exists_def_of_mem_picture_body (since := "2026-11-16")]
 theorem refsDefined (fs : FontSet) (dl : DisplayList) (opts : SvgOptions) (u : SvgUse)
     (h : Sum.inl u ∈ (picture fs dl opts).body) :

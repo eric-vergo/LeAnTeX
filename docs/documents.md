@@ -258,8 +258,9 @@ strangers should set its own limits on time and memory around the call.
 Proved (`LeAnTeX.Doc.Proofs`, axioms `propext`, `Classical.choice`, `Quot.sound` only):
 
 * `buildPages_boxes`: when the page builder returns pages, the sizes (width, height, depth) of
-  the boxes on them, in order, are the sizes of the vertical list's boxes in order: no box is
-  lost, repeated or moved (the boxes of floats set here and the material of insertions are not
+  the boxes on them, in order, are the sizes of the vertical list's boxes in order, so the
+  number of boxes and their sizes in order are kept (boxes of equal size are not told apart, so
+  the theorem does not say which box is which; the boxes of floats set here and the material of insertions are not
   in the count). The builder makes this comparison (`pagesPartition`) before it returns and
   gives an error otherwise, so the theorem holds by construction; it says nothing about where
   the pages are cut.

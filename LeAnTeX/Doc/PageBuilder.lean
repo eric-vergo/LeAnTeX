@@ -650,8 +650,8 @@ def pagesBoxSizes (pages : Array PageOut) : Array (Int × Int × Int) :=
 
 /-- Whether the boxes on the pages have, in order, the sizes of the input's boxes (`boxSizes`):
 the page builder cuts the list, adding only `\topskip` glue and discarding only glue, kerns and
-penalties, so no box may be lost, repeated or moved (`buildPages_boxes` states that every
-result of `buildPages` passes). -/
+penalties, so the boxes' sizes must come out unchanged and in order (`buildPages_boxes` states
+that every result of `buildPages` passes). -/
 def pagesPartition (items : Array VNode) (pages : Array PageOut) : Bool :=
   pagesBoxSizes pages == boxSizes items
 
