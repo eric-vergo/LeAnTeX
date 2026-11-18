@@ -149,6 +149,25 @@ python3 -I tools/font-reference.py
 `tools/extract-mathlib.py` and `tools/extract-blueprint.py` build the Mathlib and blueprint
 corpora from a Mathlib checkout and a built blueprint site.
 
+## Manual
+
+`manual/` is a Lake package that builds LeAnTeX's manual, a Verso web site: getting started,
+a guide to each layer, the agreement figures, the theorems, the API reference of every module,
+and the licences.
+
+```
+cd manual
+lake exe leantex-manual        # writes the site to manual/_out/html-multi
+```
+
+Its Lean examples are compiled and its pictures are typeset by LeAnTeX while the pages are
+built; the lists of what is supported are quoted from `docs/`; the agreement chapter runs
+`leantex-test` and puts what it prints beside the figures of this file; a public declaration
+without a docstring fails the build unless `manual/api-allow.txt` names it. After adding,
+removing or renaming a module, `lake exe leantex-manual-api` (in `manual/`) writes the API
+reference's pages. The workflow `.github/workflows/manual.yml`, started by hand, builds the site
+and uploads it as a GitHub Pages artifact.
+
 ## Licence
 
 Apache License 2.0 (`LICENSE`). Parts are derived from KaTeX (MIT licence, `LICENSE-KaTeX`), and

@@ -1,0 +1,8 @@
+# Public declarations of LeAnTeX that may have no docstring: one name and the reason per
+# line, separated by a tab. The manual's build fails on a line that is no longer needed.
+LeAnTeX.handleSupSubscript.loop	a helper in the `where` clause of the function before the dot, which documents it
+LeAnTeX.parseStringGroup.loop	a helper in the `where` clause of the function before the dot, which documents it
+LeAnTeX.parseSizeGroup.loop	a helper in the `where` clause of the function before the dot, which documents it
+LeAnTeX.parseUrlGroup.unescape	a helper in the `where` clause of the function before the dot, which documents it
+LeAnTeX.consumeArg.loop	a helper in the `where` clause of the function before the dot, which documents it
+LeAnTeX.expandTokens.loop	a helper in the `where` clause of the function before the dot, which documents it

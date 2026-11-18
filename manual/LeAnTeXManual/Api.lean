@@ -1,0 +1,433 @@
+/-
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
+-/
+import VersoManual
+import LeAnTeXManual.ApiMeta
+import LeAnTeX
+import LeAnTeXManual.Api.LeAnTeX
+import LeAnTeXManual.Api.LeAnTeX.Backend
+import LeAnTeXManual.Api.LeAnTeX.Backend.Document
+import LeAnTeXManual.Api.LeAnTeX.Backend.Escape
+import LeAnTeXManual.Api.LeAnTeX.Backend.Fonts
+import LeAnTeXManual.Api.LeAnTeX.Backend.Html
+import LeAnTeXManual.Api.LeAnTeX.Backend.MathML
+import LeAnTeXManual.Api.LeAnTeX.Backend.Proofs
+import LeAnTeXManual.Api.LeAnTeX.Backend.Render
+import LeAnTeXManual.Api.LeAnTeX.Backend.Setup
+import LeAnTeXManual.Api.LeAnTeX.Backend.Svg
+import LeAnTeXManual.Api.LeAnTeX.Data.Environments
+import LeAnTeXManual.Api.LeAnTeX.Data.FontAdvances
+import LeAnTeXManual.Api.LeAnTeX.Data.FontMetrics
+import LeAnTeXManual.Api.LeAnTeX.Data.FontParams
+import LeAnTeXManual.Api.LeAnTeX.Data.Functions
+import LeAnTeXManual.Api.LeAnTeX.Data.HyphenEnUs
+import LeAnTeXManual.Api.LeAnTeX.Data.HyphenEnglish
+import LeAnTeXManual.Api.LeAnTeX.Data.Macros
+import LeAnTeXManual.Api.LeAnTeX.Data.SvgPaths
+import LeAnTeXManual.Api.LeAnTeX.Data.Symbols
+import LeAnTeXManual.Api.LeAnTeX.Data.Unicode
+import LeAnTeXManual.Api.LeAnTeX.Doc
+import LeAnTeXManual.Api.LeAnTeX.Doc.Blocks
+import LeAnTeXManual.Api.LeAnTeX.Doc.Class
+import LeAnTeXManual.Api.LeAnTeX.Doc.Commands
+import LeAnTeXManual.Api.LeAnTeX.Doc.Counters
+import LeAnTeXManual.Api.LeAnTeX.Doc.Environments
+import LeAnTeXManual.Api.LeAnTeX.Doc.Front
+import LeAnTeXManual.Api.LeAnTeX.Doc.Graphics
+import LeAnTeXManual.Api.LeAnTeX.Doc.Lists
+import LeAnTeXManual.Api.LeAnTeX.Doc.Output
+import LeAnTeXManual.Api.LeAnTeX.Doc.PageBuilder
+import LeAnTeXManual.Api.LeAnTeX.Doc.Proofs
+import LeAnTeXManual.Api.LeAnTeX.Doc.State
+import LeAnTeXManual.Api.LeAnTeX.Doc.Tables
+import LeAnTeXManual.Api.LeAnTeX.Doc.VList
+import LeAnTeXManual.Api.LeAnTeX.Json
+import LeAnTeXManual.Api.LeAnTeX.Layout.Box
+import LeAnTeXManual.Api.LeAnTeX.Layout.BoxJson
+import LeAnTeXManual.Api.LeAnTeX.Layout.Build
+import LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Accents
+import LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Array
+import LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Basic
+import LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Enclose
+import LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Misc
+import LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Scripts
+import LeAnTeXManual.Api.LeAnTeX.Layout.Common
+import LeAnTeXManual.Api.LeAnTeX.Layout.Delimiter
+import LeAnTeXManual.Api.LeAnTeX.Layout.Display
+import LeAnTeXManual.Api.LeAnTeX.Layout.Em
+import LeAnTeXManual.Api.LeAnTeX.Layout.Html
+import LeAnTeXManual.Api.LeAnTeX.Layout.Metrics
+import LeAnTeXManual.Api.LeAnTeX.Layout.Options
+import LeAnTeXManual.Api.LeAnTeX.Layout.Stretchy
+import LeAnTeXManual.Api.LeAnTeX.OpenType
+import LeAnTeXManual.Api.LeAnTeX.OpenType.Binary
+import LeAnTeXManual.Api.LeAnTeX.OpenType.Cff
+import LeAnTeXManual.Api.LeAnTeX.OpenType.Display
+import LeAnTeXManual.Api.LeAnTeX.OpenType.Glyf
+import LeAnTeXManual.Api.LeAnTeX.OpenType.Layout
+import LeAnTeXManual.Api.LeAnTeX.OpenType.Math
+import LeAnTeXManual.Api.LeAnTeX.OpenType.Tables
+import LeAnTeXManual.Api.LeAnTeX.Parse.Base
+import LeAnTeXManual.Api.LeAnTeX.Parse.Environments
+import LeAnTeXManual.Api.LeAnTeX.Parse.Functions
+import LeAnTeXManual.Api.LeAnTeX.Parse.Lexer
+import LeAnTeXManual.Api.LeAnTeX.Parse.MacroExpander
+import LeAnTeXManual.Api.LeAnTeX.Parse.Node
+import LeAnTeXManual.Api.LeAnTeX.Parse.NodeJson
+import LeAnTeXManual.Api.LeAnTeX.Parse.Ops
+import LeAnTeXManual.Api.LeAnTeX.Parse.Parser
+import LeAnTeXManual.Api.LeAnTeX.Parse.State
+import LeAnTeXManual.Api.LeAnTeX.Parse.Tables
+import LeAnTeXManual.Api.LeAnTeX.Path
+import LeAnTeXManual.Api.LeAnTeX.Spec
+import LeAnTeXManual.Api.LeAnTeX.TeXMath
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Arith
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Data.Glyphs
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Data.MathCodes
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Display
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Files
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Font
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Front
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.MList
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Noad
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Node
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Proofs
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Setup
+import LeAnTeXManual.Api.LeAnTeX.TeXMath.Tfm
+import LeAnTeXManual.Api.LeAnTeX.Text
+import LeAnTeXManual.Api.LeAnTeX.Text.Font
+import LeAnTeXManual.Api.LeAnTeX.Text.Hyphen
+import LeAnTeXManual.Api.LeAnTeX.Text.LatinModern
+import LeAnTeXManual.Api.LeAnTeX.Text.LineBreak
+import LeAnTeXManual.Api.LeAnTeX.Text.NewComputerModern
+import LeAnTeXManual.Api.LeAnTeX.Text.Node
+import LeAnTeXManual.Api.LeAnTeX.Text.Output
+import LeAnTeXManual.Api.LeAnTeX.Text.Pack
+import LeAnTeXManual.Api.LeAnTeX.Text.Proofs
+import LeAnTeXManual.Api.LeAnTeX.Text.Source
+import LeAnTeXManual.Api.LeAnTeX.Text.Typeset
+
+-- Generated by `lake exe leantex-manual-api` in manual/; regenerate rather than edit.
+
+open Verso.Genre Manual
+open LeAnTeXManual
+
+#doc (Manual) "API Reference" =>
+%%%
+tag := "api-reference"
+%%%
+
+One page per module of the library: the module's docstring, then each public declaration with its signature and docstring, in the order of the source, taken from the code when the manual is built. Names in signatures link to their definitions. A *source* line links the file and line in the repository.
+
+The build fails when a module has no page, when a public declaration (or a field or constructor it shows) has no docstring and is not on the allow-list {file}`manual/api-allow.txt`, and when that list names a declaration that does not need it. Instances, deprecated aliases and the declarations Lean generates (recursors, projections, constructors, which appear in their type's block) are not listed.
+
+{apiIndex}
+
+* {api}`LeAnTeX`
+* {api}`LeAnTeX.Backend`
+* {api}`LeAnTeX.Backend.Document`
+* {api}`LeAnTeX.Backend.Escape`
+* {api}`LeAnTeX.Backend.Fonts`
+* {api}`LeAnTeX.Backend.Html`
+* {api}`LeAnTeX.Backend.MathML`
+* {api}`LeAnTeX.Backend.Proofs`
+* {api}`LeAnTeX.Backend.Render`
+* {api}`LeAnTeX.Backend.Setup`
+* {api}`LeAnTeX.Backend.Svg`
+* {api}`LeAnTeX.Data.Environments`
+* {api}`LeAnTeX.Data.FontAdvances`
+* {api}`LeAnTeX.Data.FontMetrics`
+* {api}`LeAnTeX.Data.FontParams`
+* {api}`LeAnTeX.Data.Functions`
+* {api}`LeAnTeX.Data.HyphenEnUs`
+* {api}`LeAnTeX.Data.HyphenEnglish`
+* {api}`LeAnTeX.Data.Macros`
+* {api}`LeAnTeX.Data.SvgPaths`
+* {api}`LeAnTeX.Data.Symbols`
+* {api}`LeAnTeX.Data.Unicode`
+* {api}`LeAnTeX.Doc`
+* {api}`LeAnTeX.Doc.Blocks`
+* {api}`LeAnTeX.Doc.Class`
+* {api}`LeAnTeX.Doc.Commands`
+* {api}`LeAnTeX.Doc.Counters`
+* {api}`LeAnTeX.Doc.Environments`
+* {api}`LeAnTeX.Doc.Front`
+* {api}`LeAnTeX.Doc.Graphics`
+* {api}`LeAnTeX.Doc.Lists`
+* {api}`LeAnTeX.Doc.Output`
+* {api}`LeAnTeX.Doc.PageBuilder`
+* {api}`LeAnTeX.Doc.Proofs`
+* {api}`LeAnTeX.Doc.State`
+* {api}`LeAnTeX.Doc.Tables`
+* {api}`LeAnTeX.Doc.VList`
+* {api}`LeAnTeX.Json`
+* {api}`LeAnTeX.Layout.Box`
+* {api}`LeAnTeX.Layout.BoxJson`
+* {api}`LeAnTeX.Layout.Build`
+* {api}`LeAnTeX.Layout.Builders.Accents`
+* {api}`LeAnTeX.Layout.Builders.Array`
+* {api}`LeAnTeX.Layout.Builders.Basic`
+* {api}`LeAnTeX.Layout.Builders.Enclose`
+* {api}`LeAnTeX.Layout.Builders.Misc`
+* {api}`LeAnTeX.Layout.Builders.Scripts`
+* {api}`LeAnTeX.Layout.Common`
+* {api}`LeAnTeX.Layout.Delimiter`
+* {api}`LeAnTeX.Layout.Display`
+* {api}`LeAnTeX.Layout.Em`
+* {api}`LeAnTeX.Layout.Html`
+* {api}`LeAnTeX.Layout.Metrics`
+* {api}`LeAnTeX.Layout.Options`
+* {api}`LeAnTeX.Layout.Stretchy`
+* {api}`LeAnTeX.OpenType`
+* {api}`LeAnTeX.OpenType.Binary`
+* {api}`LeAnTeX.OpenType.Cff`
+* {api}`LeAnTeX.OpenType.Display`
+* {api}`LeAnTeX.OpenType.Glyf`
+* {api}`LeAnTeX.OpenType.Layout`
+* {api}`LeAnTeX.OpenType.Math`
+* {api}`LeAnTeX.OpenType.Tables`
+* {api}`LeAnTeX.Parse.Base`
+* {api}`LeAnTeX.Parse.Environments`
+* {api}`LeAnTeX.Parse.Functions`
+* {api}`LeAnTeX.Parse.Lexer`
+* {api}`LeAnTeX.Parse.MacroExpander`
+* {api}`LeAnTeX.Parse.Node`
+* {api}`LeAnTeX.Parse.NodeJson`
+* {api}`LeAnTeX.Parse.Ops`
+* {api}`LeAnTeX.Parse.Parser`
+* {api}`LeAnTeX.Parse.State`
+* {api}`LeAnTeX.Parse.Tables`
+* {api}`LeAnTeX.Path`
+* {api}`LeAnTeX.Spec`
+* {api}`LeAnTeX.TeXMath`
+* {api}`LeAnTeX.TeXMath.Arith`
+* {api}`LeAnTeX.TeXMath.Data.Glyphs`
+* {api}`LeAnTeX.TeXMath.Data.MathCodes`
+* {api}`LeAnTeX.TeXMath.Display`
+* {api}`LeAnTeX.TeXMath.Files`
+* {api}`LeAnTeX.TeXMath.Font`
+* {api}`LeAnTeX.TeXMath.Front`
+* {api}`LeAnTeX.TeXMath.MList`
+* {api}`LeAnTeX.TeXMath.Noad`
+* {api}`LeAnTeX.TeXMath.Node`
+* {api}`LeAnTeX.TeXMath.Proofs`
+* {api}`LeAnTeX.TeXMath.Setup`
+* {api}`LeAnTeX.TeXMath.Tfm`
+* {api}`LeAnTeX.Text`
+* {api}`LeAnTeX.Text.Font`
+* {api}`LeAnTeX.Text.Hyphen`
+* {api}`LeAnTeX.Text.LatinModern`
+* {api}`LeAnTeX.Text.LineBreak`
+* {api}`LeAnTeX.Text.NewComputerModern`
+* {api}`LeAnTeX.Text.Node`
+* {api}`LeAnTeX.Text.Output`
+* {api}`LeAnTeX.Text.Pack`
+* {api}`LeAnTeX.Text.Proofs`
+* {api}`LeAnTeX.Text.Source`
+* {api}`LeAnTeX.Text.Typeset`
+
+{include 1 LeAnTeXManual.Api.LeAnTeX}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Backend}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Backend.Document}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Backend.Escape}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Backend.Fonts}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Backend.Html}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Backend.MathML}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Backend.Proofs}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Backend.Render}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Backend.Setup}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Backend.Svg}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.Environments}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.FontAdvances}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.FontMetrics}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.FontParams}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.Functions}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.HyphenEnUs}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.HyphenEnglish}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.Macros}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.SvgPaths}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.Symbols}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Data.Unicode}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Blocks}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Class}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Commands}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Counters}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Environments}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Front}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Graphics}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Lists}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Output}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.PageBuilder}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Proofs}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.State}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.Tables}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Doc.VList}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Json}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Box}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.BoxJson}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Build}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Accents}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Array}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Basic}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Enclose}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Misc}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Builders.Scripts}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Common}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Delimiter}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Display}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Em}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Html}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Metrics}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Options}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Layout.Stretchy}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.OpenType}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.OpenType.Binary}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.OpenType.Cff}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.OpenType.Display}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.OpenType.Glyf}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.OpenType.Layout}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.OpenType.Math}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.OpenType.Tables}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.Base}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.Environments}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.Functions}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.Lexer}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.MacroExpander}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.Node}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.NodeJson}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.Ops}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.Parser}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.State}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Parse.Tables}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Path}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Spec}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Arith}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Data.Glyphs}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Data.MathCodes}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Display}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Files}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Font}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Front}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.MList}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Noad}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Node}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Proofs}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Setup}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.TeXMath.Tfm}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.Font}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.Hyphen}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.LatinModern}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.LineBreak}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.NewComputerModern}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.Node}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.Output}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.Pack}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.Proofs}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.Source}
+
+{include 1 LeAnTeXManual.Api.LeAnTeX.Text.Typeset}
+
