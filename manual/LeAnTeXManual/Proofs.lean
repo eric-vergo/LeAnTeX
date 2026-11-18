@@ -17,15 +17,16 @@ htmlSplit := .never
 
 A few properties of LeAnTeX are theorems in the library, stated about the functions the library
 calls (not about copies of them). Lean's kernel checks each theorem when the library is built
-(`lake build`). Everything else is tested, mostly by comparison with recorded answers of TeX and
+(`lake build`). The rest is tested or only reported, mostly by comparison with recorded answers of TeX and
 KaTeX ({ref "agreement"}[Agreement with TeX and KaTeX]); a theorem below says only what its
 statement says.
 
-Each theorem is shown here by a restatement that this manual's build checks against it: the
-`example` must have the theorem as its proof, so if the theorem's statement changes, the manual
-no longer builds until this page is changed with it. Below each, one paragraph says what the
+Each main theorem is shown here by a restatement that this manual's build checks against it:
+the `example` must be provable by the theorem alone, so if the theorem no longer implies the
+restatement (it is weakened, renamed or its hypotheses change), the manual no longer builds
+until this page is changed with it. A theorem made stronger would not be noticed. Below each, one paragraph says what the
 statement establishes and what it does not. The table at the end lists every theorem of the
-library's four modules of theorems with the axioms it rests on, read from the compiled library
+library's four modules of theorems (helper lemmas included, deprecated aliases left out) with the axioms it rests on, read from the compiled library
 when the manual is built; the build fails if any rests on an axiom other than Lean's three
 standard ones (`propext`, `Classical.choice`, `Quot.sound`). The library's own check is
 `lake build LeAnTeXTest.TextAxioms LeAnTeXTest.DocAxioms LeAnTeXTest.BackendAxioms
@@ -54,7 +55,9 @@ example (s : String) : '\'' ∉ (escape s).toList := escape_no_apos s
 ```
 
 *Establishes:* for every string, the result of `escape` contains none of the four characters
-`<`, `>`, `"` and `'`, so escaped text can neither open markup nor end a quoted attribute value.
+`<`, `>`, `"` and `'`, so escaped text, in element text or a quoted attribute value, can
+neither open markup nor end the value. It is not about unquoted attributes, addresses or style
+contexts.
 *Does not establish:* that every writer passes every piece of text from the source through
 `escape`. That is tested (the back ends' checks run hostile sources and look for script, event
 handlers and foreign objects in the output), not proved. It says nothing about `&`, which the
@@ -66,9 +69,10 @@ example (l : List Char) : unescapeList (escapeList l) = l.filter xmlChar :=
   unescape_escape l
 ```
 
-*Establishes:* decoding the five entities `escape` writes (`unescapeList`) gives the input back,
-less the characters XML cannot carry, which `escape` drops; so every `&` that escaping writes
-starts one of its own entities. The statement is about `escapeList` on lists of characters;
+*Establishes:* decoding the five references `escape` writes (`unescapeList`; four named
+entities and `&#39;`) gives the input back, less the characters XML cannot carry, which `escape`
+drops. That every `&` escaping writes starts one of those references is read from the definition
+of `escapeChar`, not stated by this theorem. The statement is about `escapeList` on lists of characters;
 `escape` is defined as `escapeList` on the string's characters.
 *Does not establish:* anything about a browser's or an XML parser's decoding beyond these five
 entities, or about text that did not go through `escape`.
@@ -82,10 +86,10 @@ example (fs : FontSet) (dl : LeAnTeX.DisplayList) (opts : SvgOptions) (u : SvgUs
 ```
 
 *Establishes:* every glyph an SVG picture draws refers to a definition inside the same picture.
-*Does not establish:* that the right glyph is drawn: it holds by construction, because the
-picture keeps a reference only if its definition is there. The module documentation of
-{name}`LeAnTeX.Backend.exists_def_of_mem_picture_body`'s module says which references that
-filter can drop (glyphs with an empty outline, which draw nothing).
+*Does not establish:* that the right glyph is drawn, or anything about images, rules and paths
+(the statement is about glyph uses). It holds because the picture's last step keeps a glyph use
+only if its definition is there; the documentation of `LeAnTeX.Backend.Proofs` says which uses
+that filter can drop (glyphs with an empty outline, which draw nothing).
 
 # Line Breaking and Hyphenation
 %%%
@@ -112,12 +116,13 @@ example {items : Array HNode} {p : Params} {r : Breaks}
   breakParagraph_ends h
 ```
 
-*Establishes:* when the line breaker returns breaks, each is a legal breakpoint of its input
-(or the end), they increase, and the last is the end of the paragraph.
-*Does not establish:* that the breaks are TeX's, or optimal in TeX's sense. The line breaker
-checks these three conditions on its own result before returning it and returns an error
-otherwise, so the theorems hold by construction; that the algorithm is TeX's is shown by the
-comparison with LuaLaTeX's breaks, not proved.
+*Establishes:* when the line breaker returns breaks, each is a legal breakpoint of its input by
+the library's `legalBreak` (or the end), they increase, and the last is the end of the
+paragraph.
+*Does not establish:* that the breaks are TeX's, or optimal in TeX's sense, or how often an
+error is returned. The line breaker checks these three conditions on its own result at run time
+and returns an error otherwise, which is why the theorems hold; that the algorithm is TeX's is
+shown by the comparison with LuaLaTeX's breaks, not proved.
 
 ```lean
 open LeAnTeX.Text in
@@ -139,11 +144,12 @@ example {items : Array HNode} {bs : Array Nat} {k a b a' b' : Nat}
   lineRanges_next h h'
 ```
 
-*Establishes:* the ranges of nodes the lines are built from start at the first node, each ends
-at its break, and the next starts after it with only discardable nodes (glue, penalties, kerns)
-between: together, the lines hold the input's nodes in order, without the nodes dropped at
-breaks.
-*Does not establish:* how each line is set (its glue setting), which is tested against TeX.
+*Establishes:* the ranges of nodes the lines are built from: the first starts at the first
+node, each ends at its own break, and the next starts after that break, with only discardable
+nodes (glue, penalties, and explicit or italic kerns) skipped between them.
+*Does not establish:* what is done with the break node itself (`setLines` handles it outside the
+ranges) or with nodes after the last break, or how each line is set (its glue setting), which is
+tested against TeX.
 
 ```lean
 open LeAnTeX.Text in
@@ -172,12 +178,14 @@ example (items : Array LeAnTeX.Doc.VNode) (p : PageParams) (pages : Array PageOu
   buildPages_boxes items p pages h
 ```
 
-*Establishes:* when the page builder returns pages, they pass `pagesPartition`: the sizes of the
-boxes on them, in order, are the sizes of the vertical list's boxes in order, so no box is lost,
-repeated or moved (the boxes of floats set here and the material of insertions are not in the
-count).
-*Does not establish:* where the pages are cut. The builder makes the comparison before it
-returns, so the theorem holds by construction; the page breaks are compared with LuaLaTeX's.
+*Establishes:* when the page builder returns pages, they pass `pagesPartition`: the sizes
+(width, height, depth) of the boxes and rules on them, in order, are the sizes of the vertical
+list's, so that sequence of sizes is neither shortened, repeated nor reordered (boxes of equal
+size are not told apart; the boxes of floats set here and the material of insertions are not in
+the count).
+*Does not establish:* where the pages are cut. The builder makes the comparison at run time
+before it returns and gives an error otherwise, which is why the theorem holds; the page breaks
+are compared with LuaLaTeX's.
 
 ```lean
 open LeAnTeX.Doc in
@@ -195,8 +203,8 @@ example (cs : Counters) (n : String) : (cs.newCounter n none).value n = 0 :=
   Counters.newCounter_value cs n
 ```
 
-*Establishes:* adding to and setting a defined counter give the value asked for; a new counter
-(not within another) is zero.
+*Establishes:* adding `v` to a defined counter gives its old value plus `v`, setting it gives
+`v`; a new counter (not within another) is zero.
 *Does not establish:* that LaTeX's resets of dependent counters happen as in LaTeX, which is
 tested through the recorded counter steps.
 
@@ -274,8 +282,9 @@ example (s : Style) (h : 4 ≤ s.code.val) : s.sub.size = 2 := Style.sub_of_scri
 *Establishes:* properties of the style functions the layout calls: a subscript's and a
 denominator's style is cramped, a cramped style's superscript is cramped, `cramped` is
 idempotent, a script or numerator is never set at a larger size than what it belongs to (a
-larger `size` code is a smaller size), subscript and superscript share a size, and the scripts
-of a script style are scriptscript.
+larger `size` code is a smaller size), subscript and superscript share a size, and the
+subscript of a script style is scriptscript (the superscript too, with the previous
+statement).
 *Does not establish:* that these are all of *The TeXbook*'s style rules, or that the layout
 uses them where TeX does; the boxes are compared with LuaLaTeX's.
 

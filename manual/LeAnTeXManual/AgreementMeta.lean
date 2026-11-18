@@ -66,13 +66,19 @@ def figures : Array Figure := #[
     expect := #["11885 of 11885"], needs := .nothing },
   { readme := "Layout: 10,855 laid out as KaTeX does, the other 1,030 rejected by both",
     line := "layout:", expect := #["10855 of 11885"], needs := .nothing,
-    note := "The other 1,030 cases are those KaTeX rejects, and LeAnTeX with it (the parser's \
-      line)." },
+    note := "1,030 is 11,885 minus 10,855; that these are cases both KaTeX and LeAnTeX reject \
+      is shown by the parser's line (all 11,885 cases match, errors included) and by \
+      parity/LAYOUT.md, not by a number of this line." },
   { readme := "Text: 174 of 174 paragraphs", line := "line breaker:",
-    expect := #["174 of 174"], needs := .nothing },
+    expect := #["174 of 174"], needs := .nothing,
+    note := "This line is the line breaker on TeX's own item lists (breaks, demerits, widths, \
+      glue). The front end's 174 paragraphs from the source (horizontal lists, lines, boxes) are \
+      the driver's lines starting \"front end\", not shown here; with Latin Modern absent the \
+      Latin Modern one is skipped." },
   { readme := "1,691 of 1,691 words (2,686 hyphenation points)", line := "hyphenation:",
     expect := #["1691 of 1691", "2686 points"], needs := .nothing },
-  { readme := "72 boxes", line := "boxes:", expect := #["72 of 72"], needs := .latinModern },
+  { readme := "72 boxes", line := "boxes:", expect := #["72 of 72"], needs := .latinModern,
+    note := "Of the 80 recorded boxes; 8 are not compared (the README's last column says why)." },
   { readme := "Formula boxes: 12,166 of 12,750 the same to the sp: 12,162 of the 12,174 the \
       TeX-rule layout builds and 4 of the 576 it refuses",
     line := "formula boxes against TeX", expect := #["12166 of 12750", "12162 of the 12174",
@@ -80,14 +86,20 @@ def figures : Array Figure := #[
   { readme := "87 of 87 reference and regression documents (1,810 of 1,810 lines), 7 of 10 \
       fresh documents (367 of 398 lines)",
     line := "documents:", expect := #["94 of 97", "2177 of 2208"], needs := .metricFiles,
-    note := "`lake test` prints the two sets together: 87 + 7 = 94 of 87 + 10 = 97 documents, \
-      1,810 + 367 = 2,177 of 1,810 + 398 = 2,208 lines. \
+    note := "Both sets were tuned on: this row says nothing about documents the layer was not \
+      developed with. `lake test` prints the two sets only as a total (87 + 7 = 94 of 97 \
+      documents, 1,810 + 367 = 2,177 of 2,208 lines); this build checks the total, not the \
+      split between the sets, which is the README's and parity/DOC.md's. \
       `lake exe leantex-test --doc-table` prints a line per document." },
   { readme := "First held-out set: 9 of 20 documents, 398 of 469 lines",
-    line := "held-out documents", expect := #["9 of 20", "398 of 469"], needs := .metricFiles },
+    line := "held-out documents", expect := #["9 of 20", "398 of 469"], needs := .metricFiles,
+    note := "Not a blind result: a defect the set showed was fixed and four fixtures were \
+      re-recorded afterwards; the blind run gave 8 of 20 and 397 lines (README)." },
   { readme := "Second held-out set: 5 of 10 documents, 374 of 400 lines, page breaks 10 of 10",
     line := "second held-out set", expect := #["5 of 10", "374 of 400", "page breaks 10 of 10"],
-    needs := .metricFiles }]
+    needs := .metricFiles,
+    note := "Written blind after the first set was run, run once, never tuned to; ten short \
+      articles." }]
 
 /-- The test driver's output, run once per site generation. -/
 initialize driverOutput : IO.Ref (Option (UInt32 × String)) ← IO.mkRef none
@@ -120,6 +132,15 @@ def missingIn (out : String) : Needs → Option String
       some "this build had no Latin Modern fonts (the driver skipped the boxes)"
     else none
 
+/-- Whether `e` occurs in `line` with no digit right before or after it (so that `9 of 20` is
+not found in `19 of 20`). -/
+def containsNumber (line e : String) : Bool :=
+  let parts := line.splitOn e
+  (List.range (parts.length - 1)).any fun i =>
+    let before := (parts[i]!.toList.getLast?).getD ' '
+    let after := (parts[i + 1]!.toList.head?).getD ' '
+    !before.isDigit && !after.isDigit
+
 /-- The table's HTML, from the driver's output; an error when a figure the build could
 regenerate is not in its line. -/
 def figureTableHtml (figs : Array Figure) (code : UInt32) (out : String) : Except String String := do
@@ -133,10 +154,11 @@ def figureTableHtml (figs : Array Figure) (code : UInt32) (out : String) : Excep
       | throw s!"the test driver printed no line starting \"{f.line}\" (figure \"{f.readme}\")"
     let status ← match missingIn out f.needs with
       | some why => pure s!"<strong>Not regenerated</strong>: {esc why}. The README's figure is \
-          the committed record; the line is what this build printed without those files."
+          the committed record and the figure to rely on; the line is what this build printed \
+          without those files."
       | none =>
         for e in f.expect do
-          unless (line.splitOn e).length > 1 do
+          unless containsNumber line e do
             throw s!"the figure \"{f.readme}\" expects \"{e}\" in the driver's line, which \
               reads: {line}"
         pure s!"<strong>Regenerated</strong> in this build: the line contains \
@@ -167,7 +189,10 @@ in the README. -/
 @[block_command]
 def figureRuns : BlockCommandOf Unit
   | () => do
-    let readme ← readRepoFile "README.md"
+    let some figSection := sectionLines (← readRepoFile "README.md")
+        "The figures, and how to reproduce them"
+      | throwError "README.md has no section \"The figures, and how to reproduce them\""
+    let readme := "\n".intercalate figSection
     -- the README's table cells may wrap; compare with white space collapsed
     let flat (s : String) : String := Id.run do
       let mut out := ""
@@ -181,7 +206,7 @@ def figureRuns : BlockCommandOf Unit
       return out
     for f in figures do
       unless (flat readme).contains (flat f.readme) do
-        throwError "README.md no longer says \"{f.readme}\": change the figure in \
+        throwError "README.md's section on the figures no longer says \"{f.readme}\": change the figure in \
           LeAnTeXManual.AgreementMeta.figures together with the README"
     ``(Block.other (Block.figureTable $(quote (toJson figures).compress)) #[])
 

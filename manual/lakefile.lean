@@ -32,6 +32,44 @@ target leantexShared : Dynlib := do
     | error "the library `LeAnTeX` of the package `leantex` is not in the workspace"
   lib.shared.fetch
 
+/-- The repository's files the pages read while they are elaborated (quoted documents, notices,
+licence texts, the allow-list of the API reference). -/
+def manualInputFiles (root : System.FilePath) : IO (Array System.FilePath) := do
+  let mut out : Array System.FilePath := #[]
+  for f in ["README.md", "THIRD-PARTY.md", "LICENSE", "LICENSE-KaTeX", "LICENSE-KaTeX-fonts",
+      "lean-toolchain", "fonts/README.md", "fonts/MANIFEST.tsv", "fonts/GUST-FONT-LICENSE.txt",
+      "fonts/LPPL-1.3c.txt", "fonts/newcomputermodern/License.txt", "manual/api-allow.txt"] do
+    out := out.push (root / f)
+  for e in ← (root / "docs").readDir do
+    if e.fileName.endsWith ".md" then out := out.push e.path
+  return out.qsort (·.toString < ·.toString)
+
+/-- Writes `LeAnTeXManualInputs.lean` below the build folder: a hash of `manualInputFiles`. The
+pages import it, so that Lake elaborates them again when one of those files changes, although
+it does not know that a page reads them. The file is rewritten only when the hash changes. -/
+target manualInputs : Unit := do
+  let pkg ← getRootPackage
+  let root := pkg.dir / ".."
+  let files ← manualInputFiles root
+  let mut h : UInt64 := 7
+  for f in files do
+    h := mixHash h (hash f.fileName)
+    h := mixHash h (hash (← IO.FS.readFile f))
+  let dir := pkg.buildDir / "manual-inputs"
+  let file := dir / "LeAnTeXManualInputs.lean"
+  let text := "/-- A hash of the repository files the manual's pages read. -/\n" ++
+    s!"def LeAnTeXManualInputs.hash : UInt64 := {h}\n"
+  IO.FS.createDirAll dir
+  let old ← if ← file.pathExists then some <$> IO.FS.readFile file else pure none
+  unless old == some text do IO.FS.writeFile file text
+  return .pure ()
+
+/-- The generated module of `manualInputs`. -/
+lean_lib LeAnTeXManualInputs where
+  srcDir := ".lake/build/manual-inputs"
+  roots := #[`LeAnTeXManualInputs]
+  needs := #[manualInputs]
+
 lean_lib LeAnTeXManual where
   roots := #[`LeAnTeXManual]
   globs := #[.andSubmodules `LeAnTeXManual]

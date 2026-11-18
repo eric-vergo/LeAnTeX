@@ -4,6 +4,8 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 -/
 import VersoManual
 import LeAnTeX
+-- a hash of the repository files the pages read: a changed file rebuilds the pages
+import LeAnTeXManualInputs
 
 /-!
 # The manual's elements
@@ -517,6 +519,8 @@ def axiomTable : BlockCommandOf Unit
         unless env.getModuleIdxFor? n == some idx do continue
         unless ci matches .thmInfo _ do continue
         if n.isInternalDetail || Linter.isDeprecated env n then continue
+        -- equation lemmas Lean generates on demand
+        if let .str _ last := n then if last.startsWith "eq_" then continue
         let line := (← findDeclarationRanges? n).map (·.range.pos.line) |>.getD 0
         thms := thms.push (n, line)
       for (n, _) in thms.qsort (fun a b => a.2 < b.2) do
