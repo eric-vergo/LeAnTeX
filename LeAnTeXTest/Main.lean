@@ -131,12 +131,26 @@ structure Result where
   /-- LeAnTeX's answer. -/
   lean : Json
 
-/-- The corpora: every `corpus/*.jsonl`, sorted. -/
+/-- The corpora that `.gitignore` lists as `corpus/NAME.jsonl`: local files that are not part of
+the repository. -/
+def ignoredCorpora : IO (Array String) := do
+  let some lines := (← IO.FS.lines ".gitignore" |>.toBaseIO).toOption | return #[]
+  return lines.filterMap fun l =>
+    let l := l.trimAscii.toString
+    if l.startsWith "corpus/" && l.endsWith ".jsonl" then
+      some ((l.drop 7).dropEnd 6).toString
+    else none
+
+/-- The corpora: every `corpus/*.jsonl`, sorted. When the environment variable
+`LEANTEX_COMMITTED_CORPORA` is set, a corpus that `.gitignore` lists is left out, so that the
+totals are those of a clean clone. -/
 def corpora : IO (Array String) := do
   let entries ← System.FilePath.readDir "corpus"
   let names := entries.filterMap fun e =>
     if e.fileName.endsWith ".jsonl" then some (e.fileName.dropEnd 6).toString else none
-  return names.qsort (· < ·)
+  let skip ← if (← IO.getEnv "LEANTEX_COMMITTED_CORPORA").isSome then ignoredCorpora
+    else pure #[]
+  return (names.filter (!skip.contains ·)).qsort (· < ·)
 
 /-- Run every case of a corpus against its fixture. -/
 def runCorpus (name : String) : IO (Array Result) := do

@@ -25,7 +25,10 @@ what LeAnTeX's test driver prints for it in the build that wrote the site.
   site's build. A driver that fails (a regression against the committed baselines) fails it
   too.
 
-The driver reads only the committed corpora and fixtures (KaTeX's, LuaLaTeX's and fontTools'
+The driver is run with `LEANTEX_COMMITTED_CORPORA` set, which leaves out a corpus that
+`.gitignore` lists (a local file that a clean clone does not have), so the page shows the figures
+of a clean clone whether or not the checkout holds one. The driver reads only the committed
+corpora and fixtures (KaTeX's, LuaLaTeX's and fontTools'
 recorded answers) and, when present, the metric files and fonts of a TeX installation; it runs
 neither KaTeX nor TeX.
 -/
@@ -113,7 +116,8 @@ def runDriver : IO (UInt32 × String) := do
     throw <| IO.userError s!"{bin} is missing: build the manual with `lake exe leantex-manual`, \
       which builds it first"
   IO.eprintln "leantex-manual: running the test driver for the agreement chapter"
-  let out ← IO.Process.output { cmd := bin.toString, cwd := root }
+  let env : Array (String × Option String) := #[("LEANTEX_COMMITTED_CORPORA", some "1")]
+  let out ← IO.Process.output { cmd := bin.toString, cwd := root, env := env }
   let r := (out.exitCode, out.stdout ++ out.stderr)
   driverOutput.set (some r)
   return r
