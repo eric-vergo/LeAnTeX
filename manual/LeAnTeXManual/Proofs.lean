@@ -17,19 +17,20 @@ htmlSplit := .never
 
 A few properties of LeAnTeX are theorems in the library, stated about the functions the library
 calls (not about copies of them). Lean's kernel checks each theorem when the library is built
-(`lake build`). The rest is tested or only reported, mostly by comparison with recorded answers of TeX and
-KaTeX ({ref "agreement"}[Agreement with TeX and KaTeX]); a theorem below says only what its
-statement says.
+(`lake build`). The rest is tested or only reported, mostly by comparison with recorded answers
+of TeX and KaTeX ({ref "agreement"}[Agreement with TeX and KaTeX]); a theorem below says only
+what its statement says.
 
-Each main theorem is shown here by a restatement that this manual's build checks against it:
-the `example` must be provable by the theorem alone, so if the theorem no longer implies the
+Each main theorem is shown here by a restatement that this manual's build checks against it: the
+`example` must be provable by the theorem alone, so if the theorem no longer implies the
 restatement (it is weakened, renamed or its hypotheses change), the manual no longer builds
-until this page is changed with it. A theorem made stronger would not be noticed. Below each, one paragraph says what the
-statement establishes and what it does not. The table at the end lists every theorem of the
-library's four modules of theorems (helper lemmas included, deprecated aliases left out) with the axioms it rests on, read from the compiled library
-when the manual is built; the build fails if any rests on an axiom other than Lean's three
-standard ones (`propext`, `Classical.choice`, `Quot.sound`). The library's own check is
-`lake build LeAnTeXTest.TextAxioms LeAnTeXTest.DocAxioms LeAnTeXTest.BackendAxioms
+until this page is changed with it. A theorem made stronger would not be noticed. Below each,
+one paragraph says what the statement establishes and what it does not. The table at the end
+lists every theorem of the library's four modules of theorems (helper lemmas included,
+deprecated aliases left out) with the axioms it rests on, read from the compiled library when
+the manual is built; the build fails if any rests on an axiom other than Lean's three standard
+ones (`propext`, `Classical.choice`, `Quot.sound`). The library's own check is `lake build
+LeAnTeXTest.TextAxioms LeAnTeXTest.DocAxioms LeAnTeXTest.BackendAxioms
 LeAnTeXTest.TeXMathAxioms`.
 
 # Escaping in the Back Ends
@@ -72,8 +73,8 @@ example (l : List Char) : unescapeList (escapeList l) = l.filter xmlChar :=
 *Establishes:* decoding the five references `escape` writes (`unescapeList`; four named
 entities and `&#39;`) gives the input back, less the characters XML cannot carry, which `escape`
 drops. That every `&` escaping writes starts one of those references is read from the definition
-of `escapeChar`, not stated by this theorem. The statement is about `escapeList` on lists of characters;
-`escape` is defined as `escapeList` on the string's characters.
+of `escapeChar`, not stated by this theorem. The statement is about `escapeList` on lists of
+characters; `escape` is defined as `escapeList` on the string's characters.
 *Does not establish:* anything about a browser's or an XML parser's decoding beyond these five
 entities, or about text that did not go through `escape`.
 

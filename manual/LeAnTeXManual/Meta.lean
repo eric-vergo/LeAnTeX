@@ -61,7 +61,8 @@ def repoRoot : IO System.FilePath := do
 /-- Whether `p` names a file inside the repository: relative, no `..` segment, no empty or
 `.` segment. -/
 def safeRepoPath (p : String) : Bool :=
-  !p.isEmpty && !p.startsWith "/" && (p.splitOn "/").all fun s => !s.isEmpty && s != ".." && s != "."
+  !p.isEmpty && !p.startsWith "/" &&
+    (p.splitOn "/").all fun s => !s.isEmpty && s != ".." && s != "."
 
 /-- The text of a file of the repository (`path` relative to the root). -/
 def readRepoFile (path : String) : IO String := do

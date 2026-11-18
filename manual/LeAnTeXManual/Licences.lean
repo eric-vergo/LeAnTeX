@@ -57,8 +57,8 @@ tag := "licences-patterns"
 
 {quoteSection "THIRD-PARTY.md" "Hyphenation patterns"}
 
-Each pattern module carries its source file's notice in its module documentation: {api}`LeAnTeX.Data.HyphenEnglish`
-and {api}`LeAnTeX.Data.HyphenEnUs`.
+Each pattern module carries its source file's notice in its module documentation:
+{api}`LeAnTeX.Data.HyphenEnglish` and {api}`LeAnTeX.Data.HyphenEnUs`.
 
 # TeX's Metric Files and Other Sources
 %%%
