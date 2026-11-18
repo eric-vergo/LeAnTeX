@@ -118,9 +118,16 @@ open LeAnTeXManual
 tag := "api-reference"
 %%%
 
-One page per module of the library: the module's docstring, then each public declaration with its signature and docstring, in the order of the source, taken from the code when the manual is built. Names in signatures link to their definitions. A *source* line links the file and line in the repository.
+One page per module of the library: the module's docstring, then each public declaration
+with its signature and docstring, in the order of the source, taken from the code when the
+manual is built. Names in signatures link to their definitions. A *source* line links the
+file and line in the repository.
 
-The build fails when a module has no page, when a public declaration (or a field or constructor it shows) has no docstring and is not on the allow-list {file}`manual/api-allow.txt`, and when that list names a declaration that does not need it. Instances, deprecated aliases and the declarations Lean generates (recursors, projections, constructors, which appear in their type's block) are not listed.
+The build fails when a module has no page, when a public declaration (or a field or
+constructor it shows) has no docstring and is not on the allow-list
+{file}`manual/api-allow.txt`, and when that list names a declaration that does not need
+it. Instances, deprecated aliases and the declarations Lean generates (recursors,
+projections, constructors, which appear in their type's block) are not listed.
 
 {apiIndex}
 

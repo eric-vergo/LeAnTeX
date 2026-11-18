@@ -55,14 +55,14 @@ def index (mods : Array String) : String :=
   header ++ "import VersoManual\nimport LeAnTeXManual.ApiMeta\nimport LeAnTeX\n" ++ imports ++
     "\n" ++ generatedNote ++ "\nopen Verso.Genre Manual\nopen LeAnTeXManual\n\n" ++
     "#doc (Manual) \"API Reference\" =>\n%%%\ntag := \"api-reference\"\n%%%\n\n" ++
-    "One page per module of the library: the module's docstring, then each public declaration \
-    with its signature and docstring, in the order of the source, taken from the code when the \
-    manual is built. Names in signatures link to their definitions. A *source* line links the \
+    "One page per module of the library: the module's docstring, then each public declaration\n\
+    with its signature and docstring, in the order of the source, taken from the code when the\n\
+    manual is built. Names in signatures link to their definitions. A *source* line links the\n\
     file and line in the repository.\n\n" ++
-    "The build fails when a module has no page, when a public declaration (or a field or \
-    constructor it shows) has no docstring and is not on the allow-list \
-    {file}`manual/api-allow.txt`, and when that list names a declaration that does not need \
-    it. Instances, deprecated aliases and the declarations Lean generates (recursors, \
+    "The build fails when a module has no page, when a public declaration (or a field or\n\
+    constructor it shows) has no docstring and is not on the allow-list\n\
+    {file}`manual/api-allow.txt`, and when that list names a declaration that does not need\n\
+    it. Instances, deprecated aliases and the declarations Lean generates (recursors,\n\
     projections, constructors, which appear in their type's block) are not listed.\n\n" ++
     "{apiIndex}\n\n" ++ links ++ "\n" ++ includes
 
@@ -96,7 +96,8 @@ def main (args : List String) : IO UInt32 := do
   let mut wanted : Array System.FilePath := #[]
   for m in mods do
     let path : System.FilePath :=
-      ("LeAnTeXManual/Api" : System.FilePath) / (System.mkFilePath (m.splitOn ".")).addExtension "lean"
+      ("LeAnTeXManual/Api" : System.FilePath) /
+        (System.mkFilePath (m.splitOn ".")).addExtension "lean"
     wanted := wanted.push path
     if ← put check path (page m) then changed := changed.push path.toString
   if ← put check "LeAnTeXManual/Api.lean" (index mods) then

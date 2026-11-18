@@ -143,7 +143,8 @@ def containsNumber (line e : String) : Bool :=
 
 /-- The table's HTML, from the driver's output; an error when a figure the build could
 regenerate is not in its line. -/
-def figureTableHtml (figs : Array Figure) (code : UInt32) (out : String) : Except String String := do
+def figureTableHtml (figs : Array Figure) (code : UInt32) (out : String) :
+    Except String String := do
   if code != 0 then
     throw s!"the test driver failed (exit {code}); its output:\n{out}"
   let lines := (out.splitOn "\n").map (·.trimAscii.toString)
@@ -206,7 +207,8 @@ def figureRuns : BlockCommandOf Unit
       return out
     for f in figures do
       unless (flat readme).contains (flat f.readme) do
-        throwError "README.md's section on the figures no longer says \"{f.readme}\": change the figure in \
+        throwError "README.md's section on the figures no longer says \"{f.readme}\": change \
+          the figure in \
           LeAnTeXManual.AgreementMeta.figures together with the README"
     ``(Block.other (Block.figureTable $(quote (toJson figures).compress)) #[])
 
