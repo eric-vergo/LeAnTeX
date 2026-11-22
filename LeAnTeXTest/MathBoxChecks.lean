@@ -327,7 +327,7 @@ def boxes : IO (Except String (Array Box)) := do
 boxes the same to the sp, within 0.1 pt, within 1 pt, lists the same throughout, and the
 KaTeX-compatible layout's boxes the same; with `update` written to `parity/MATHBOX.md`
 together with the first difference of each box that is not TeX's. Returns the summary
-line. -/
+line, followed by the totals as `figure mathbox.KEY VALUE` lines for the manual. -/
 def run (update : Bool := false) : IO String := do
   let bs ← match ← boxes with
     | .ok b => pure b
@@ -372,7 +372,13 @@ def run (update : Bool := false) : IO String := do
       md := md ++ s!"| `{cell b.formula}` | {b.style} | {b.size} | \
         {if dd ≥ 1073741824 then "none" else toString dd} | {cell (b.diff.getD "")} |\n"
   if update then IO.FS.writeFile "parity/MATHBOX.md" md
+  let lists := (bs.filter fun b => b.tex && b.diff.isNone).size
+  let fields := [("same", cnt bs 0), ("boxes", bs.size), ("builtSame", cnt built 0),
+    ("built", built.size), ("refusedSame", cnt refused 0), ("refused", refused.size),
+    ("within01", cnt bs 6554), ("within1", cnt bs 65536), ("listsSame", lists)]
   return s!"formula boxes against TeX (reported, not required): {cnt bs 0} of {bs.size} the \
-    same to the sp ({split}), {cnt bs 6554} within 0.1 pt, {cnt bs 65536} within 1 pt"
+    same to the sp ({split}), {cnt bs 6554} within 0.1 pt, {cnt bs 65536} within 1 pt; whole \
+    node lists TeX's in every recorded field {lists}" ++
+    String.join (fields.map fun (k, v) => s!"\nfigure mathbox.{k} {v}")
 
 end MathBoxChecks

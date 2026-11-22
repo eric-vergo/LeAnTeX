@@ -596,9 +596,11 @@ def main (args : List String) : IO UInt32 := do
         | none => if st == "ok" then regressions := regressions.push s!"{c}: {id} (missing)"
       | _ => pure ()
     let ok := (results.filter (·.outcome.ok)).size
+    let recorded := results.size + (← unrepresentable.get)
     IO.println s!"parity: {ok} of {results.size} cases match KaTeX ({results.size} representable \
-      of {results.size + (← unrepresentable.get)} recorded: a formula with a lone surrogate has \
-      no Lean string)"
+      of {recorded} recorded: a formula with a lone surrogate has no Lean string)"
+    IO.println s!"figure parser.match {ok}\nfigure parser.cases {results.size}\n\
+      figure parser.recorded {recorded}"
     -- the layout baseline: a case laid out identically must stay so
     let lres ← runLayout results
     let lnow : Std.HashMap String String := Std.HashMap.ofList (lres.toList.map fun r =>
@@ -619,6 +621,8 @@ def main (args : List String) : IO UInt32 := do
     else regressions := regressions.push "parity/layout-baseline.tsv is missing"
     let lsame := (lres.filter (·.outcome == .same)).size
     IO.println s!"layout: {lsame} of {lres.size} cases laid out as KaTeX does"
+    IO.println s!"figure layout.same {lsame}\nfigure layout.cases {lres.size}\n\
+      figure layout.bothReject {(lres.filter (·.outcome == .bothReject)).size}"
     -- the files the comparisons read are all there (`parity/required.txt`)
     let missing ← LeAnTeXTest.Required.check
     for m in missing do regressions := regressions.push s!"required files: {m}"

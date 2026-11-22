@@ -140,6 +140,8 @@ def runWith (resolve : FontResolver) (fixture label : String) : IO (Array String
           ({ours.size} and {theirs.size} nodes)"
   IO.println s!"  front end{label}: {same} of {n} corpus paragraphs give TeX's horizontal list, \
     lines and box"
+  let key := if label.isEmpty then "lm" else "ncm"
+  IO.println s!"figure frontend.{key}.same {same}\nfigure frontend.{key}.cases {n}"
   return fails
 
 /-- Runs the comparison with Latin Modern (`fixtures/text/paragraphs.jsonl`) and with New

@@ -36,6 +36,8 @@ def run : IO (Array String) := do
     if ours != tex then fails := fails.push s!"hyphenation of {w}: {ours}; TeX's {tex}"
   IO.println s!"  hyphenation: {n - fails.size} of {n} words hyphenated as TeX does \
     ({points} points)"
+  IO.println s!"figure hyphenation.same {n - fails.size}\nfigure hyphenation.words {n}\n\
+    figure hyphenation.points {points}"
   return fails
 
 end HyphenChecks

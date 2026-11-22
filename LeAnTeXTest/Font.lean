@@ -419,6 +419,8 @@ def run (fuzzCount : Nat := 400) : IO (Array String) := do
         fails := fails ++ (o.failures.extract 0 20).map (s!"font {o.name}: " ++ ·)
   let (n, skipped, bfails) ← checkBoxes
   IO.println s!"  boxes: {n - bfails.size} of {n} TeX boxes reproduced ({skipped} skipped)"
+  IO.println s!"figure boxes.same {n - bfails.size}\nfigure boxes.compared {n}\n\
+    figure boxes.skipped {skipped}"
   fails := fails ++ (bfails.extract 0 20).map ("box " ++ ·)
   let mut seeds := #[]
   for name in ["leantex-test-cff.otf", "leantex-test-glyf.ttf", "lmroman10-regular.otf"] do

@@ -158,6 +158,7 @@ def run : IO (Array String) := do
   let bad := (fails.filter (!·.isEmpty)).size
   IO.println s!"  line breaker: {cases.size - bad} of {cases.size} paragraphs broken as TeX \
     breaks them (breaks, demerits, line lengths and shifts, natural widths, glue)"
+  IO.println s!"figure linebreak.same {cases.size - bad}\nfigure linebreak.cases {cases.size}"
   let (ff, n, rej) := fuzz
   IO.println s!"  line breaker fuzz: {n} random lists, {n - rej} broken (every result \
     checked), {rej} rejected with an error"

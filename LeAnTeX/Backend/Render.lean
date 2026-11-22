@@ -33,8 +33,10 @@ structure RenderOptions where
   mathEm : Int := 10 * 65536
   deriving Inhabited
 
-/-- The source as SVG or HTML (see the module docstring), or the error's position (a character
-offset in the source) and message. -/
+/-- The source as SVG or HTML (see the module docstring), or the error's position and message.
+With `math` the position is KaTeX's, a UTF-16 offset in the source (`KError.position`: a
+character outside the Basic Multilingual Plane counts two); otherwise it is a character offset
+(for an error inside a formula, the offset of the formula's start). -/
 def render (fonts : Fonts) (src : String) (opts : RenderOptions := {}) :
     Except (Nat × String) String := do
   let dl ← if opts.math then

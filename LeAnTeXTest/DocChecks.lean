@@ -37,10 +37,16 @@ namespace DocChecks
 
 open LeAnTeX LeAnTeX.Text LeAnTeX.Doc
 
-/-- A number of a JSON value as an integer. -/
-def int (j : Json) : Int := match j.getNum? with
-  | some x => if x < 0 then -((-x).toUInt64.toNat : Int) else (x.toUInt64.toNat : Int)
-  | none => 0
+/-- A JSON value as an integer: `none` when it is not a number or not a whole one. -/
+def int? (j : Json) : Option Int := do
+  let x ← j.getNum?
+  let n := x.abs.toUInt64.toNat
+  if n.toFloat != x.abs || x.abs ≥ 9.0e15 then none
+  else some (if x < 0 then -(n : Int) else n)
+
+/-- A JSON value as an integer, for the node lists printed by `--show-vlist` (0 when it is not
+one). -/
+def int (j : Json) : Int := (int? j).getD 0
 
 /-- A text with runs of spaces made one and the ends trimmed. -/
 def norm (s : String) : String :=
@@ -309,7 +315,8 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
       let first := ((theirs[i]!.get? "lines").bind Json.getArr?).bind (·[0]?)
       let tt := norm (((first.bind (·.get? "text")).bind Json.getStr?).getD "")
       let at_ := fun (a : PlacedLine) => match first with
-        | some b => a.x == int ((b.get? "x").getD .null) && a.y == int ((b.get? "y").getD .null)
+        | some b => some a.x == int? ((b.get? "x").getD .null) &&
+            some a.y == int? ((b.get? "y").getD .null)
         | none => false
       match (r.pages[i]?.bind (·.lines[0]?)) with
       | some a =>
@@ -330,8 +337,10 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
       for k in [0:min ours.size tl.size] do
         let a := ours[k]!
         let b := tl[k]!
-        let bx := int ((b.get? "x").getD .null)
-        let byy := int ((b.get? "y").getD .null)
+        -- a recorded position that is not an integer is a difference, never a zero
+        let (some bx, some byy) := (int? ((b.get? "x").getD .null), int? ((b.get? "y").getD .null))
+          | o := o.add s!"page {i + 1} line {k + 1}: the fixture's position is not an integer"
+            continue
         let bt := norm (((b.get? "text").bind Json.getStr?).getD "")
         -- a line with a formula: our text is its source, LuaLaTeX's the glyphs of the math
         -- fonts, so the text is not compared
