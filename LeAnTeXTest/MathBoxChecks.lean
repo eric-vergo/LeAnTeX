@@ -346,8 +346,9 @@ def run (update : Bool := false) : IO String := do
     column when its width, height and depth are all within that much of TeX's; *lists same* \
     counts the boxes whose whole node list is TeX's in every field the recorder writes (every \
     node's kind and subtype, a character's font, size and code, every dimension, glue's orders, \
-    a box's glue setting, the ratio within one part in a million; `sameNode`); a formula the TeX-rule layout refuses is laid out by the KaTeX-compatible \
-    layout and counted only in the columns of dimensions. The last column is the \
+    a box's glue setting, the ratio within one part in a million; `sameNode`); a formula the \
+    TeX-rule layout refuses is laid out by the KaTeX-compatible layout and counted only in the \
+    columns of dimensions. The last column is the \
     KaTeX-compatible layout's own boxes the same to the sp.\n\n\
     | Construct (style) | Boxes | TeX-rule layout | Same to the sp | Within 0.1 pt | \
     Within 1 pt | Lists same | KaTeX layout same |\n|---|---|---|---|---|---|---|---|\n"
