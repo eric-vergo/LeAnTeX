@@ -1,6 +1,6 @@
 # Formula boxes against TeX
 
-Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/MathBoxChecks.lean`): every formula of `corpus/math-box/formulas.tsv` in text and display style, in the `article` class at 10, 11 and 12 points, laid out by the TeX-rule layout (`docs/math-boxes.md`) and compared with the box LuaLaTeX made for it (`fixtures/math-box/boxes-*pt.jsonl`, `tools/math-box-reference.sh`). A box counts in a column when its width, height and depth are all within that much of TeX's; *lists same* counts the boxes whose whole node list is TeX's (every node's kind, font, character and dimensions); a formula the TeX-rule layout refuses is laid out by the KaTeX-compatible layout and counted only in the columns of dimensions. The last column is the KaTeX-compatible layout's own boxes the same to the sp.
+Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/MathBoxChecks.lean`): every formula of `corpus/math-box/formulas.tsv` in text and display style, in the `article` class at 10, 11 and 12 points, laid out by the TeX-rule layout (`docs/math-boxes.md`) and compared with the box LuaLaTeX made for it (`fixtures/math-box/boxes-*pt.jsonl`, `tools/math-box-reference.sh`). A box counts in a column when its width, height and depth are all within that much of TeX's; *lists same* counts the boxes whose whole node list is TeX's in every field the recorder writes (every node's kind and subtype, a character's font, size and code, every dimension, glue's orders, a box's glue setting, the ratio within one part in a million; `sameNode`); a formula the TeX-rule layout refuses is laid out by the KaTeX-compatible layout and counted only in the columns of dimensions. The last column is the KaTeX-compatible layout's own boxes the same to the sp.
 
 | Construct (style) | Boxes | TeX-rule layout | Same to the sp | Within 0.1 pt | Within 1 pt | Lists same | KaTeX layout same |
 |---|---|---|---|---|---|---|---|
@@ -14,14 +14,14 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/MathBoxChecks.lean
 | sub (display) | 30 | 30 | 30 | 30 | 30 | 30 | 0 |
 | subsup (text) | 24 | 24 | 24 | 24 | 24 | 24 | 0 |
 | subsup (display) | 24 | 24 | 24 | 24 | 24 | 24 | 0 |
-| frac (text) | 45 | 45 | 45 | 45 | 45 | 42 | 0 |
-| frac (display) | 45 | 45 | 45 | 45 | 45 | 42 | 0 |
-| sum-int (text) | 45 | 45 | 45 | 45 | 45 | 45 | 0 |
-| sum-int (display) | 45 | 45 | 45 | 45 | 45 | 45 | 0 |
-| limits-op (text) | 45 | 45 | 45 | 45 | 45 | 45 | 0 |
-| limits-op (display) | 45 | 45 | 45 | 45 | 45 | 45 | 0 |
-| sqrt (text) | 24 | 24 | 24 | 24 | 24 | 24 | 0 |
-| sqrt (display) | 24 | 24 | 24 | 24 | 24 | 24 | 0 |
+| frac (text) | 45 | 45 | 45 | 45 | 45 | 39 | 0 |
+| frac (display) | 45 | 45 | 45 | 45 | 45 | 39 | 0 |
+| sum-int (text) | 45 | 45 | 45 | 45 | 45 | 36 | 0 |
+| sum-int (display) | 45 | 45 | 45 | 45 | 45 | 36 | 0 |
+| limits-op (text) | 45 | 45 | 45 | 45 | 45 | 0 | 0 |
+| limits-op (display) | 45 | 45 | 45 | 45 | 45 | 0 | 0 |
+| sqrt (text) | 24 | 24 | 24 | 24 | 24 | 18 | 0 |
+| sqrt (display) | 24 | 24 | 24 | 24 | 24 | 18 | 0 |
 | delim (text) | 45 | 45 | 45 | 45 | 45 | 39 | 0 |
 | delim (display) | 45 | 45 | 45 | 45 | 45 | 39 | 0 |
 | accent (text) | 30 | 30 | 30 | 30 | 30 | 30 | 0 |
@@ -30,33 +30,33 @@ Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/MathBoxChecks.lean
 | font (display) | 30 | 30 | 30 | 30 | 30 | 30 | 0 |
 | text-in-math (text) | 12 | 12 | 12 | 12 | 12 | 12 | 0 |
 | text-in-math (display) | 12 | 12 | 12 | 12 | 12 | 12 | 0 |
-| spacing (text) | 24 | 24 | 24 | 24 | 24 | 24 | 0 |
-| spacing (display) | 24 | 24 | 24 | 24 | 24 | 24 | 0 |
+| spacing (text) | 24 | 24 | 24 | 24 | 24 | 6 | 0 |
+| spacing (display) | 24 | 24 | 24 | 24 | 24 | 6 | 0 |
 | matrix (text) | 18 | 18 | 18 | 18 | 18 | 0 | 0 |
 | matrix (display) | 18 | 18 | 18 | 18 | 18 | 0 | 0 |
-| mixed (text) | 75 | 75 | 75 | 75 | 75 | 69 | 0 |
-| mixed (display) | 75 | 75 | 75 | 75 | 75 | 69 | 0 |
-| gen-spacing (text) | 342 | 342 | 342 | 342 | 342 | 342 | 0 |
-| gen-spacing (display) | 342 | 342 | 342 | 342 | 342 | 342 | 0 |
-| gen-scripts (text) | 495 | 495 | 492 | 495 | 495 | 486 | 0 |
-| gen-scripts (display) | 495 | 495 | 492 | 495 | 495 | 486 | 0 |
+| mixed (text) | 75 | 75 | 75 | 75 | 75 | 45 | 0 |
+| mixed (display) | 75 | 75 | 75 | 75 | 75 | 45 | 0 |
+| gen-spacing (text) | 342 | 342 | 342 | 342 | 342 | 324 | 0 |
+| gen-spacing (display) | 342 | 342 | 342 | 342 | 342 | 324 | 0 |
+| gen-scripts (text) | 495 | 495 | 492 | 495 | 495 | 480 | 0 |
+| gen-scripts (display) | 495 | 495 | 492 | 495 | 495 | 480 | 0 |
 | gen-frac (text) | 225 | 225 | 222 | 222 | 222 | 165 | 0 |
 | gen-frac (display) | 225 | 225 | 222 | 222 | 222 | 165 | 0 |
-| gen-radical (text) | 186 | 186 | 186 | 186 | 186 | 180 | 0 |
-| gen-radical (display) | 186 | 186 | 186 | 186 | 186 | 180 | 0 |
-| gen-op (text) | 933 | 918 | 918 | 918 | 919 | 909 | 0 |
-| gen-op (display) | 933 | 918 | 918 | 918 | 919 | 909 | 0 |
+| gen-radical (text) | 186 | 186 | 186 | 186 | 186 | 132 | 0 |
+| gen-radical (display) | 186 | 186 | 186 | 186 | 186 | 132 | 0 |
+| gen-op (text) | 933 | 918 | 918 | 918 | 919 | 306 | 0 |
+| gen-op (display) | 933 | 918 | 918 | 918 | 919 | 306 | 0 |
 | gen-accent (text) | 786 | 684 | 684 | 739 | 755 | 636 | 0 |
 | gen-accent (display) | 786 | 684 | 684 | 739 | 755 | 636 | 0 |
 | gen-delim (text) | 1230 | 1230 | 1230 | 1230 | 1230 | 1095 | 1 |
 | gen-delim (display) | 1230 | 1230 | 1230 | 1230 | 1230 | 1095 | 1 |
 | gen-font (text) | 339 | 327 | 327 | 335 | 339 | 327 | 0 |
 | gen-font (display) | 339 | 327 | 327 | 335 | 339 | 327 | 0 |
-| gen-misc (text) | 990 | 831 | 833 | 847 | 894 | 684 | 4 |
-| gen-misc (display) | 990 | 831 | 833 | 853 | 891 | 684 | 4 |
-| doc (text) | 222 | 222 | 222 | 222 | 222 | 222 | 0 |
-| doc (display) | 222 | 222 | 222 | 222 | 222 | 222 | 0 |
-| **all** | 12750 | 12174 | 12166 | 12332 | 12459 | 11280 | 10 |
+| gen-misc (text) | 990 | 831 | 833 | 847 | 894 | 555 | 4 |
+| gen-misc (display) | 990 | 831 | 833 | 853 | 891 | 555 | 4 |
+| doc (text) | 222 | 222 | 222 | 222 | 222 | 192 | 0 |
+| doc (display) | 222 | 222 | 222 | 222 | 222 | 192 | 0 |
+| **all** | 12750 | 12174 | 12166 | 12332 | 12459 | 9402 | 10 |
 
 The boxes the same to the sp: 12162 of the 12174 the TeX-rule layout builds, 4 of the 576 it refuses (those set by the KaTeX-compatible layout).
 
@@ -66,94 +66,614 @@ The formula, style and size, the largest difference in sp, and the first node th
 
 | Formula | Style | Size | Difference | First difference |
 |---|---|---|---|---|
-| `\frac{a}{\frac{b}{c}}` | text | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -114688 (0), TeX hbox 370090 403671 157909 shift 0 (3) |
-| `\frac{a}{\frac{b}{c}}` | display | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -163840 (0), TeX hbox 391495 576613 225995 shift 0 (3) |
-| `\bigl(x\bigr)` | text | 10 | 0 | 1.1: hbox 300375 26213 760226 shift -530846 (1), TeX hbox 300375 557059 229380 shift 0 (3) |
-| `\bigl(x\bigr)` | display | 10 | 0 | 1.1: hbox 300375 26213 760226 shift -530846 (1), TeX hbox 300375 557059 229380 shift 0 (3) |
-| `\Bigl(x\Bigr)` | text | 10 | 0 | 1.1: hbox 391396 26213 1153446 shift -727456 (1), TeX hbox 391396 753669 425990 shift 0 (3) |
-| `\Bigl(x\Bigr)` | display | 10 | 0 | 1.1: hbox 391396 26213 1153446 shift -727456 (1), TeX hbox 391396 753669 425990 shift 0 (3) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 983041 422343 0 shift 0 (7), TeX hbox 983041 550500 235932 shift 0 (10) |
-| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 983041 422343 0 shift 0 (7), TeX hbox 983041 550500 235932 shift 0 (10) |
-| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\binom{n}{k}` | text | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\binom{n}{k}` | display | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\binom{2n}{n}` | text | 10 | 0 | 1.0: hbox 1185951 586443 229380 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\binom{2n}{n}` | display | 10 | 0 | 1.0: hbox 1685891 950279 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | text | 10 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | display | 10 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `f\colon A\to B` | text | 10 | 0 | 4: kern 72816, TeX glue 72816 0 0 |
-| `f\colon A\to B` | display | 10 | 0 | 4: kern 72816, TeX glue 72816 0 0 |
-| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | text | 10 | 0 | 15.0: hbox 924716 557059 229380 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | display | 10 | 0 | 14.0: hbox 1358210 950279 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `x_{\binom{n}{k}}` | text | 10 | 0 | 2.0.0: char cmr10 40 254863 491520 163840, TeX hbox 254863 491520 163840 shift 0 (3) |
-| `x_{\binom{n}{k}}` | display | 10 | 0 | 2.0.0: char cmr10 40 254863 491520 163840, TeX hbox 254863 491520 163840 shift 0 (3) |
-| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | text | 10 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -81920 (0), TeX hbox 380294 338135 174295 shift 0 (3) |
-| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | display | 10 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -81920 (0), TeX hbox 380294 338135 174295 shift 0 (3) |
-| `x^{\scriptscriptstyle\sqrt2}` | text | 10 | 2435 | 2: hbox 615320 306897 39133 shift -237825 (2), TeX hbox 615320 304462 39133 shift -237825 (2) |
-| `x^{\scriptscriptstyle\sqrt2}` | display | 10 | 2435 | 2: hbox 615320 306897 39133 shift -270593 (2), TeX hbox 615320 304462 39133 shift -270593 (2) |
-| `\dbinom{n}{k}` | text | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 (1), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\dbinom{n}{k}` | display | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 (1), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\tbinom{n}{k}` | text | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 (1), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\tbinom{n}{k}` | display | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 (1), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\binom{n+1}{k-1}` | text | 10 | 0 | 1.0: hbox 1588271 586443 280609 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\binom{n+1}{k-1}` | display | 10 | 0 | 1.0: hbox 2486881 950279 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\dbinom{n+1}{k-1}` | text | 10 | 0 | 1.0: hbox 2486881 950279 622600 shift 0 (1), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\dbinom{n+1}{k-1}` | display | 10 | 0 | 1.0: hbox 2486881 950279 622600 shift 0 (1), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\tbinom{n+1}{k-1}` | text | 10 | 0 | 1.0: hbox 1588271 586443 280609 shift 0 (1), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\tbinom{n+1}{k-1}` | display | 10 | 0 | 1.0: hbox 1588271 586443 280609 shift 0 (1), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\binom{\frac12}{k}` | text | 10 | 0 | 1.0: hbox 981044 697254 245159 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\binom{\frac12}{k}` | display | 10 | 0 | 1.0: hbox 1383361 997032 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\binom{n}{\frac{k}{2}}` | text | 10 | 0 | 1.0: hbox 1011763 557059 383904 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\binom{n}{\frac{k}{2}}` | display | 10 | 0 | 1.0: hbox 1411806 950279 675540 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\binom{a}{b}^2` | text | 10 | 0 | 1.0: hbox 885022 557059 229380 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\binom{a}{b}^2` | display | 10 | 0 | 1.0: hbox 1311256 950279 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\binom{n}{k}_q` | text | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\binom{n}{k}_q` | display | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\genfrac{(}{)}{0pt}{}{n}{k}` | text | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\genfrac{(}{)}{0pt}{}{n}{k}` | display | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | text | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | display | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\genfrac{[}{]}{1pt}{0}{a}{b}` | text | 10 | 0 | 1.0: hbox 1038188 950279 622600 shift 0 (1), TeX hbox 345886 950279 622600 shift 0 (1) |
-| `\genfrac{[}{]}{1pt}{0}{a}{b}` | display | 10 | 0 | 1.0: hbox 1038188 950279 622600 shift 0 (1), TeX hbox 345886 950279 622600 shift 0 (1) |
-| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | text | 10 | 0 | 1.0: hbox 1048862 557059 229380 shift 0 (1), TeX hbox 382295 557059 229380 shift 0 (1) |
-| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | display | 10 | 0 | 1.0: hbox 1048862 557059 229380 shift 0 (1), TeX hbox 382295 557059 229380 shift 0 (1) |
-| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | text | 10 | 0 | 1.0: hbox 763491 491520 163840 shift 0 (1), TeX hbox 254863 491520 163840 shift 0 (1) |
-| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | display | 10 | 0 | 1.0: hbox 763491 491520 163840 shift 0 (1), TeX hbox 254863 491520 163840 shift 0 (1) |
-| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | text | 10 | 206804 | 1: hbox 976497 433634 238010 shift 0 (1), TeX hbox 1183301 491520 238010 shift 0 (5) |
-| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | display | 10 | 206804 | 1: hbox 976497 433634 238010 shift 0 (1), TeX hbox 1183301 491520 238010 shift 0 (5) |
-| `\genfrac{(}{]}{0pt}{}{a}{b}` | text | 10 | 0 | 1.0: hbox 857715 557059 229380 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\genfrac{(}{]}{0pt}{}{a}{b}` | display | 10 | 0 | 1.0: hbox 1174722 950279 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\frac{1}{\frac{1}{\frac{1}{x}}}` | text | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -114688 (0), TeX hbox 573987 387287 431164 shift 0 (3) |
-| `\frac{1}{\frac{1}{\frac{1}{x}}}` | display | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -163840 (0), TeX hbox 573987 553676 420676 shift 0 (3) |
-| `\frac{\frac{a}{b}}{\frac{c}{d}}` | text | 10 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -114688 (0), TeX hbox 411051 317200 157909 shift 0 (3) |
-| `\frac{\frac{a}{b}}{\frac{c}{d}}` | display | 10 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -163840 (0), TeX hbox 441558 455554 225995 shift 0 (3) |
-| `\frac{\frac{\frac{a}{b}}{c}}{d}` | text | 10 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -114688 (0), TeX hbox 568337 590453 157909 shift 0 (3) |
-| `\frac{\frac{\frac{a}{b}}{c}}{d}` | display | 10 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -163840 (0), TeX hbox 568337 678269 225995 shift 0 (3) |
-| `\frac{a}{\frac{b}{\frac{c}{d}}}` | text | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -114688 (0), TeX hbox 556958 403671 361077 shift 0 (3) |
-| `\frac{a}{\frac{b}{\frac{c}{d}}}` | display | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -163840 (0), TeX hbox 556958 576613 383904 shift 0 (3) |
-| `\sqrt{\frac{\frac12}{3}}` | text | 10 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -114688 (0), TeX hbox 380294 387287 157909 shift 0 (3) |
-| `\sqrt{\frac{\frac12}{3}}` | display | 10 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -163840 (0), TeX hbox 418521 553676 225995 shift 0 (3) |
-| `\sqrt{\binom{n}{k}}` | text | 10 | 0 | 1.1.3.0: hbox 300375 26213 760226 shift -530846 (1), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\sqrt{\binom{n}{k}}` | display | 10 | 0 | 1.1.3.0: hbox 482420 26213 1546666 shift -924066 (1), TeX hbox 482420 950279 622600 shift 0 (1) |
+| `\frac{\sin x}{x}` | text | 10 | 0 | 1.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\frac{\sin x}{x}` | display | 10 | 0 | 1.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\frac{a}{\frac{b}{c}}` | text | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -114688 set 0 0 0.000000 (0), TeX hbox 370090 403671 157909 shift 0 set 0 0 0 (3) |
+| `\frac{a}{\frac{b}{c}}` | display | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -163840 set 0 0 0.000000 (0), TeX hbox 391495 576613 225995 shift 0 set 0 0 0 (3) |
+| `\int_a^b g(x)\,dx` | text | 10 | 0 | 9: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int_a^b g(x)\,dx` | display | 10 | 0 | 9: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-x}\,dx` | text | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-x}\,dx` | display | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\iint_D` | text | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iint_D` | display | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\lim_{n\to\infty} a_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty} a_n` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to 0} \frac{\sin x}{x}` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to 0} \frac{\sin x}{x}` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{i} x_i` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{i} x_i` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min(a,b)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min(a,b)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in A} f(x)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in A} f(x)` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf S` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf S` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n} a_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n} a_n` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det A` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det A` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd(a,b)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd(a,b)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\theta` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\theta` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp(x)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp(x)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Var}(X)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Var}(X)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sqrt[3]{2}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{2}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\bigl(x\bigr)` | text | 10 | 0 | 1.1: hbox 300375 26213 760226 shift -530846 set 0 0 0.000000 (1), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (3) |
+| `\bigl(x\bigr)` | display | 10 | 0 | 1.1: hbox 300375 26213 760226 shift -530846 set 0 0 0.000000 (1), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (3) |
+| `\Bigl(x\Bigr)` | text | 10 | 0 | 1.1: hbox 391396 26213 1153446 shift -727456 set 0 0 0.000000 (1), TeX hbox 391396 753669 425990 shift 0 set 0 0 0 (3) |
+| `\Bigl(x\Bigr)` | display | 10 | 0 | 1.1: hbox 391396 26213 1153446 shift -727456 set 0 0 0.000000 (1), TeX hbox 391396 753669 425990 shift 0 set 0 0 0 (3) |
+| `a\,b` | text | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `a\,b` | display | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `a\;b` | text | 10 | 0 | 2: glue 182040 182040 0 0 0 subtype 99, TeX glue 182040 182040 0 0 0 subtype 0 |
+| `a\;b` | display | 10 | 0 | 2: glue 182040 182040 0 0 0 subtype 99, TeX glue 182040 182040 0 0 0 subtype 0 |
+| `a\!b` | text | 10 | 0 | 2: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `a\!b` | display | 10 | 0 | 2: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `a\ b` | text | 10 | 0 | 2: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `a\ b` | display | 10 | 0 | 2: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `\,dx` | text | 10 | 0 | 1: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\,dx` | display | 10 | 0 | 1: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `f(x)\,dx` | text | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `f(x)\,dx` | display | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 983041 422343 0 shift 0 set 0 0 0.000000 (7), TeX hbox 983041 550500 235932 shift 0 set 0 0 0 (10) |
+| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 983041 422343 0 shift 0 set 0 0 0.000000 (7), TeX hbox 983041 550500 235932 shift 0 set 0 0 0 (10) |
+| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\binom{n}{k}` | text | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\binom{n}{k}` | display | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\binom{2n}{n}` | text | 10 | 0 | 1.0: hbox 1185951 586443 229380 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\binom{2n}{n}` | display | 10 | 0 | 1.0: hbox 1685891 950279 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | text | 10 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | display | 10 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\mathbb{P}(\|X-\mu\|\ge t)\le \frac{\operatorname{Var}(X)}{t^2}` | text | 10 | 0 | 19.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\mathbb{P}(\|X-\mu\|\ge t)\le \frac{\operatorname{Var}(X)}{t^2}` | display | 10 | 0 | 19.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 (n!) = n\log_2 n - n\log_2 e + O(\log n)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 (n!) = n\log_2 n - n\log_2 e + O(\log n)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x \equiv 3 \pmod{11}` | text | 10 | 0 | 7: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `x \equiv 3 \pmod{11}` | display | 10 | 0 | 7: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `f\colon A\to B` | text | 10 | 0 | 4: kern 72816 subtype 1, TeX glue 72816 0 0 0 0 subtype 0 |
+| `f\colon A\to B` | display | 10 | 0 | 4: kern 72816 subtype 1, TeX glue 72816 0 0 0 0 subtype 0 |
+| `\forall \varepsilon>0\ \exists \delta>0` | text | 10 | 0 | 7: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `\forall \varepsilon>0\ \exists \delta>0` | display | 10 | 0 | 7: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `\overline{\lim} a_n` | text | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\overline{\lim} a_n` | display | 10 | 0 | 1.3.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\int_{-\infty}^{\infty} e^{-x^2}\,dx=\sqrt{\pi}` | text | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int_{-\infty}^{\infty} e^{-x^2}\,dx=\sqrt{\pi}` | display | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | text | 10 | 0 | 15.0: hbox 924716 557059 229380 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | display | 10 | 0 | 14.0: hbox 1358210 950279 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `O(n\log n)` | text | 10 | 0 | 6.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `O(n\log n)` | display | 10 | 0 | 6.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det(A-\lambda I)=0` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det(A-\lambda I)=0` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `a,\ b` | text | 10 | 0 | 3: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `a,\ b` | display | 10 | 0 | 3: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `a\lim b` | text | 10 | 0 | 3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `a\lim b` | display | 10 | 0 | 3.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\sum` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\sum` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sum\lim` | text | 10 | 0 | 3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sum\lim` | display | 10 | 0 | 3.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x_{a\lim b}` | text | 10 | 0 | 2.2.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x_{a\lim b}` | display | 10 | 0 | 2.2.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x_{\binom{n}{k}}` | text | 10 | 0 | 2.0.0: char cmr10 655360 40 254863 491520 163840, TeX hbox 254863 491520 163840 shift 0 set 0 0 0 (3) |
+| `x_{\binom{n}{k}}` | display | 10 | 0 | 2.0.0: char cmr10 655360 40 254863 491520 163840, TeX hbox 254863 491520 163840 shift 0 set 0 0 0 (3) |
+| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | text | 10 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -81920 set 0 0 0.000000 (0), TeX hbox 380294 338135 174295 shift 0 set 0 0 0 (3) |
+| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | display | 10 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -81920 set 0 0 0.000000 (0), TeX hbox 380294 338135 174295 shift 0 set 0 0 0 (3) |
+| `x^{\scriptscriptstyle\sqrt2}` | text | 10 | 2435 | 2: hbox 615320 306897 39133 shift -237825 set 0 0 0.000000 (2), TeX hbox 615320 304462 39133 shift -237825 set 0 0 0 (2) |
+| `x^{\scriptscriptstyle\sqrt2}` | display | 10 | 2435 | 2: hbox 615320 306897 39133 shift -270593 set 0 0 0.000000 (2), TeX hbox 615320 304462 39133 shift -270593 set 0 0 0 (2) |
+| `\lim_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty}x_n` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `F_{\mu\nu}^{\ \ \alpha}` | text | 10 | 0 | 2.0.0: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `F_{\mu\nu}^{\ \ \alpha}` | display | 10 | 0 | 2.0.0: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `\dbinom{n}{k}` | text | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 set 0 0 0.000000 (1), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\dbinom{n}{k}` | display | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 set 0 0 0.000000 (1), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\tbinom{n}{k}` | text | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 set 0 0 0.000000 (1), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\tbinom{n}{k}` | display | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 set 0 0 0.000000 (1), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\binom{n+1}{k-1}` | text | 10 | 0 | 1.0: hbox 1588271 586443 280609 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\binom{n+1}{k-1}` | display | 10 | 0 | 1.0: hbox 2486881 950279 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\dbinom{n+1}{k-1}` | text | 10 | 0 | 1.0: hbox 2486881 950279 622600 shift 0 set 0 0 0.000000 (1), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\dbinom{n+1}{k-1}` | display | 10 | 0 | 1.0: hbox 2486881 950279 622600 shift 0 set 0 0 0.000000 (1), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\tbinom{n+1}{k-1}` | text | 10 | 0 | 1.0: hbox 1588271 586443 280609 shift 0 set 0 0 0.000000 (1), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\tbinom{n+1}{k-1}` | display | 10 | 0 | 1.0: hbox 1588271 586443 280609 shift 0 set 0 0 0.000000 (1), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\binom{\frac12}{k}` | text | 10 | 0 | 1.0: hbox 981044 697254 245159 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\binom{\frac12}{k}` | display | 10 | 0 | 1.0: hbox 1383361 997032 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\binom{n}{\frac{k}{2}}` | text | 10 | 0 | 1.0: hbox 1011763 557059 383904 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\binom{n}{\frac{k}{2}}` | display | 10 | 0 | 1.0: hbox 1411806 950279 675540 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\binom{a}{b}^2` | text | 10 | 0 | 1.0: hbox 885022 557059 229380 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\binom{a}{b}^2` | display | 10 | 0 | 1.0: hbox 1311256 950279 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\binom{n}{k}_q` | text | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\binom{n}{k}_q` | display | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0pt}{}{n}{k}` | text | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0pt}{}{n}{k}` | display | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | text | 10 | 0 | 1.0: hbox 924716 557059 229380 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | display | 10 | 0 | 1.0: hbox 1358210 950279 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\genfrac{[}{]}{1pt}{0}{a}{b}` | text | 10 | 0 | 1.0: hbox 1038188 950279 622600 shift 0 set 0 0 0.000000 (1), TeX hbox 345886 950279 622600 shift 0 set 0 0 0 (1) |
+| `\genfrac{[}{]}{1pt}{0}{a}{b}` | display | 10 | 0 | 1.0: hbox 1038188 950279 622600 shift 0 set 0 0 0.000000 (1), TeX hbox 345886 950279 622600 shift 0 set 0 0 0 (1) |
+| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | text | 10 | 0 | 1.0: hbox 1048862 557059 229380 shift 0 set 0 0 0.000000 (1), TeX hbox 382295 557059 229380 shift 0 set 0 0 0 (1) |
+| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | display | 10 | 0 | 1.0: hbox 1048862 557059 229380 shift 0 set 0 0 0.000000 (1), TeX hbox 382295 557059 229380 shift 0 set 0 0 0 (1) |
+| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | text | 10 | 0 | 1.0: hbox 763491 491520 163840 shift 0 set 0 0 0.000000 (1), TeX hbox 254863 491520 163840 shift 0 set 0 0 0 (1) |
+| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | display | 10 | 0 | 1.0: hbox 763491 491520 163840 shift 0 set 0 0 0.000000 (1), TeX hbox 254863 491520 163840 shift 0 set 0 0 0 (1) |
+| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | text | 10 | 206804 | 1: hbox 976497 433634 238010 shift 0 set 0 0 0.000000 (1), TeX hbox 1183301 491520 238010 shift 0 set 0 0 0 (5) |
+| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | display | 10 | 206804 | 1: hbox 976497 433634 238010 shift 0 set 0 0 0.000000 (1), TeX hbox 1183301 491520 238010 shift 0 set 0 0 0 (5) |
+| `\genfrac{(}{]}{0pt}{}{a}{b}` | text | 10 | 0 | 1.0: hbox 857715 557059 229380 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{]}{0pt}{}{a}{b}` | display | 10 | 0 | 1.0: hbox 1174722 950279 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\frac{1}{\frac{1}{\frac{1}{x}}}` | text | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -114688 set 0 0 0.000000 (0), TeX hbox 573987 387287 431164 shift 0 set 0 0 0 (3) |
+| `\frac{1}{\frac{1}{\frac{1}{x}}}` | display | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -163840 set 0 0 0.000000 (0), TeX hbox 573987 553676 420676 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{a}{b}}{\frac{c}{d}}` | text | 10 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -114688 set 0 0 0.000000 (0), TeX hbox 411051 317200 157909 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{a}{b}}{\frac{c}{d}}` | display | 10 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -163840 set 0 0 0.000000 (0), TeX hbox 441558 455554 225995 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{\frac{a}{b}}{c}}{d}` | text | 10 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -114688 set 0 0 0.000000 (0), TeX hbox 568337 590453 157909 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{\frac{a}{b}}{c}}{d}` | display | 10 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -163840 set 0 0 0.000000 (0), TeX hbox 568337 678269 225995 shift 0 set 0 0 0 (3) |
+| `\frac{a}{\frac{b}{\frac{c}{d}}}` | text | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -114688 set 0 0 0.000000 (0), TeX hbox 556958 403671 361077 shift 0 set 0 0 0 (3) |
+| `\frac{a}{\frac{b}{\frac{c}{d}}}` | display | 10 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -163840 set 0 0 0.000000 (0), TeX hbox 556958 576613 383904 shift 0 set 0 0 0 (3) |
+| `\sqrt{\frac{\frac12}{3}}` | text | 10 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -114688 set 0 0 0.000000 (0), TeX hbox 380294 387287 157909 shift 0 set 0 0 0 (3) |
+| `\sqrt{\frac{\frac12}{3}}` | display | 10 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -163840 set 0 0 0.000000 (0), TeX hbox 418521 553676 225995 shift 0 set 0 0 0 (3) |
+| `\sqrt{\binom{n}{k}}` | text | 10 | 0 | 1.1.3.0: hbox 300375 26213 760226 shift -530846 set 0 0 0.000000 (1), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\sqrt{\binom{n}{k}}` | display | 10 | 0 | 1.1.3.0: hbox 482420 26213 1546666 shift -924066 set 0 0 0.000000 (1), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\sqrt[3]{x}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{x}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{x}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{x}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{a+b}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{a+b}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[10]{x}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[10]{x}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\frac12}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\frac12}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{\frac{a}{b}}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{\frac{a}{b}}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{\sum_i x_i}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{\sum_i x_i}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\frac12]{x}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\frac12]{x}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\sqrt[3]{x}}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\sqrt[3]{x}}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[a]{\sqrt[b]{\sqrt[c]{x}}}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[a]{\sqrt[b]{\sqrt[c]{x}}}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x^n}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x^n}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[m+n]{y}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[m+n]{y}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\beta]{x}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\beta]{x}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{x_{i_j}}` | text | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{x_{i_j}}` | display | 10 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `x^{\sqrt[3]{y}}` | text | 10 | 0 | 2.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `x^{\sqrt[3]{y}}` | display | 10 | 0 | 2.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt{2}\,\pi` | text | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\sqrt{2}\,\pi` | display | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\iint` | text | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iint` | display | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iint_a^b` | text | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iint_a^b` | display | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iint_{i=1}^{n}x_i` | text | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iint_{i=1}^{n}x_i` | display | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
 | `\iint\limits_a^b` | text | 10 | 100415 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
 | `\iint\limits_a^b` | display | 10 | 90589 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
 | `\iint\nolimits_a^b` | text | 10 | 134079 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
 | `\iint\nolimits_a^b` | display | 10 | 124253 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
+| `\iint_{\frac12}^{\frac34}x` | text | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iint_{\frac12}^{\frac34}x` | display | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iiint` | text | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iiint` | display | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iiint_a^b` | text | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iiint_a^b` | display | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iiint_{i=1}^{n}x_i` | text | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iiint_{i=1}^{n}x_i` | display | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
 | `\iiint\limits_a^b` | text | 10 | 200688 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
 | `\iiint\limits_a^b` | display | 10 | 194579 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
 | `\iiint\nolimits_a^b` | text | 10 | 234352 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
 | `\iiint\nolimits_a^b` | display | 10 | 228243 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
+| `\iiint_{\frac12}^{\frac34}x` | text | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
+| `\iiint_{\frac12}^{\frac34}x` | display | 10 | 0 | 2: kern -218448 subtype 1, TeX kern -218448 subtype 3 |
 | `\sum_{\substack{i<j\\ j<n}}x_{ij}` | text | 10 | 184170 | not supported by the TeX-rule layout: array cells in script style |
 | `\sum_{\substack{i<j\\ j<n}}x_{ij}` | display | 10 | 85544 | not supported by the TeX-rule layout: array cells in script style |
-| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | text | 10 | 0 | 2.0.0.0: char cmr10 40 254863 491520 163840, TeX hbox 254863 491520 163840 shift 0 (3) |
-| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | display | 10 | 0 | 1.1.1.0: char cmr10 40 254863 491520 163840, TeX hbox 254863 491520 163840 shift 0 (3) |
-| `\sum_{k}\binom{n}{k}` | text | 10 | 0 | 4.0: hbox 924716 557059 229380 shift 0 (3), TeX hbox 300375 557059 229380 shift 0 (1) |
-| `\sum_{k}\binom{n}{k}` | display | 10 | 0 | 3.0: hbox 1358210 950279 622600 shift 0 (3), TeX hbox 482420 950279 622600 shift 0 (1) |
-| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 10 | 0 | 3.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 10 | 0 | 3.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
+| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | text | 10 | 0 | 2.0.0.0: char cmr10 655360 40 254863 491520 163840, TeX hbox 254863 491520 163840 shift 0 set 0 0 0 (3) |
+| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | display | 10 | 0 | 1.1.1.0: char cmr10 655360 40 254863 491520 163840, TeX hbox 254863 491520 163840 shift 0 set 0 0 0 (3) |
+| `\int\limits_0^1 f\,dx` | text | 10 | 0 | 5: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int\limits_0^1 f\,dx` | display | 10 | 0 | 5: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int\nolimits_0^1 f\,dx` | text | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int\nolimits_0^1 f\,dx` | display | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\sum_{k}\binom{n}{k}` | text | 10 | 0 | 4.0: hbox 924716 557059 229380 shift 0 set 0 0 0.000000 (3), TeX hbox 300375 557059 229380 shift 0 set 0 0 0 (1) |
+| `\sum_{k}\binom{n}{k}` | display | 10 | 0 | 3.0: hbox 1358210 950279 622600 shift 0 set 0 0 0.000000 (3), TeX hbox 482420 950279 622600 shift 0 set 0 0 0 (1) |
+| `\lim x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty}x_n` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim^2x` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\left(x\right)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n\to\infty}x_n` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup^2x` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup\left(x\right)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n\to\infty}x_n` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf^2x` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf\left(x\right)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n\to\infty}x_n` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max^2x` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max\left(x\right)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n\to\infty}x_n` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min^2x` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min\left(x\right)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n\to\infty}x_n` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup^2x` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup\left(x\right)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n\to\infty}x_n` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf^2x` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf\left(x\right)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n\to\infty}x_n` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det^2x` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\left(x\right)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n\to\infty}x_n` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd^2x` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd\left(x\right)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n\to\infty}x_n` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr^2x` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr\left(x\right)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n\to\infty}x_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n\to\infty}x_n` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth^2x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth^2x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth\left(x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth\left(x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}(x)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}(x)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Hom}_R(M,N)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Hom}_R(M,N)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{rank}A` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{rank}A` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{tr}A^2` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{tr}A^2` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Re}z` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Re}z` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Im}z` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Im}z` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{id}_X` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{id}_X` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{span}\{v\}` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{span}\{v\}` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{argmax}_x f` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{argmax}_x f` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmax}_x f` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmax}_x f` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmin}_{x\in X}f(x)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmin}_{x\in X}f(x)` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{ess\,sup}_{x}f` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{ess\,sup}_{x}f` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{Res}_{z=0}f` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{Res}_{z=0}f` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{lim\,inf}_{n}a_n` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{lim\,inf}_{n}a_n` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}_{\frac12}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}_{\frac12}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}_{\frac12}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}_{\frac12}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}^{a}_{b}` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}^{a}_{b}` | display | 10 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}^{a}_{b}` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}^{a}_{b}` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{a b}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{a b}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Aut}(G)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Aut}(G)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{GL}_n(\mathbb{R})` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{GL}_n(\mathbb{R})` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to0}\frac{\sin x}{x}` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to0}\frac{\sin x}{x}` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{1\le i\le n}x_i` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{1\le i\le n}x_i` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in\frac12}f` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in\frac12}f` | display | 10 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{\sum}f` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{\sum}f` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\limits_{n}x` | text | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\limits_{n}x` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\nolimits_{n}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\nolimits_{n}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^{-1}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^{-1}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{\frac12}x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{\frac12}x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\ln x` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\ln x` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\cos\tan` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\cos\tan` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(-x\right)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(-x\right)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 10 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
 | `\hat{\imath}` | text | 10 | 299 | not supported by the TeX-rule layout: htmlmathml |
 | `\hat{\imath}` | display | 10 | 299 | not supported by the TeX-rule layout: htmlmathml |
 | `\hat{\jmath}` | text | 10 | 20 | not supported by the TeX-rule layout: htmlmathml |
@@ -202,34 +722,34 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\dddot x` | display | 10 | 132690 | not supported by the TeX-rule layout: raisebox |
 | `\dddot{x}^2` | text | 10 | 141109 | not supported by the TeX-rule layout: raisebox |
 | `\dddot{x}^2` | display | 10 | 141109 | not supported by the TeX-rule layout: raisebox |
-| `\widehat{\widehat{x}}` | text | 10 | 0 | 1.0: hbox 0 473316 0 shift 5234 (1), TeX hbox 0 473316 0 shift 23438 (1) |
-| `\widehat{\widehat{x}}` | display | 10 | 0 | 1.0: hbox 0 473316 0 shift 5234 (1), TeX hbox 0 473316 0 shift 23438 (1) |
-| `\hat{\hat{x}}` | text | 10 | 0 | 1: vbox 374556 628054 0 shift 0 (3), TeX vbox 410966 628054 0 shift 0 (3) |
-| `\hat{\hat{x}}` | display | 10 | 0 | 1: vbox 374556 628054 0 shift 0 (3), TeX vbox 410966 628054 0 shift 0 (3) |
-| `\hat{\tilde{x}}` | text | 10 | 0 | 1: vbox 374556 610631 0 shift 0 (3), TeX vbox 410966 610631 0 shift 0 (3) |
-| `\hat{\tilde{x}}` | display | 10 | 0 | 1: vbox 374556 610631 0 shift 0 (3), TeX vbox 410966 610631 0 shift 0 (3) |
-| `\tilde{\hat{x}}` | text | 10 | 0 | 1: vbox 374556 610631 0 shift 0 (3), TeX vbox 410966 610631 0 shift 0 (3) |
-| `\tilde{\hat{x}}` | display | 10 | 0 | 1: vbox 374556 610631 0 shift 0 (3), TeX vbox 410966 610631 0 shift 0 (3) |
-| `\bar{\bar{x}}` | text | 10 | 0 | 1: vbox 374556 462028 0 shift 0 (3), TeX vbox 410966 462028 0 shift 0 (3) |
-| `\bar{\bar{x}}` | display | 10 | 0 | 1: vbox 374556 462028 0 shift 0 (3), TeX vbox 410966 462028 0 shift 0 (3) |
-| `\dot{\hat{x}}` | text | 10 | 0 | 1: vbox 374556 610631 0 shift 0 (3), TeX vbox 410966 610631 0 shift 0 (3) |
-| `\dot{\hat{x}}` | display | 10 | 0 | 1: vbox 374556 610631 0 shift 0 (3), TeX vbox 410966 610631 0 shift 0 (3) |
-| `\ddot{\vec{x}}` | text | 10 | 0 | 1: vbox 374556 623738 0 shift 0 (3), TeX vbox 410966 623738 0 shift 0 (3) |
-| `\ddot{\vec{x}}` | display | 10 | 0 | 1: vbox 374556 623738 0 shift 0 (3), TeX vbox 410966 623738 0 shift 0 (3) |
-| `\vec{\dot{x}}` | text | 10 | 0 | 1: vbox 374556 623738 0 shift 0 (3), TeX vbox 410966 623738 0 shift 0 (3) |
-| `\vec{\dot{x}}` | display | 10 | 0 | 1: vbox 374556 623738 0 shift 0 (3), TeX vbox 410966 623738 0 shift 0 (3) |
-| `\hat{\bar{A}}` | text | 10 | 0 | 1: vbox 491521 710701 0 shift 0 (3), TeX vbox 673571 710701 0 shift 0 (3) |
-| `\hat{\bar{A}}` | display | 10 | 0 | 1: vbox 491521 710701 0 shift 0 (3), TeX vbox 673571 710701 0 shift 0 (3) |
-| `\acute{\grave{x}}` | text | 10 | 0 | 1: vbox 374556 628054 0 shift 0 (3), TeX vbox 410966 628054 0 shift 0 (3) |
-| `\acute{\grave{x}}` | display | 10 | 0 | 1: vbox 374556 628054 0 shift 0 (3), TeX vbox 410966 628054 0 shift 0 (3) |
-| `\check{\breve{y}}` | text | 10 | 0 | 1: vbox 344824 584819 127431 shift 0 (3), TeX vbox 417644 584819 127431 shift 0 (3) |
-| `\check{\breve{y}}` | display | 10 | 0 | 1: vbox 344824 584819 127431 shift 0 (3), TeX vbox 417644 584819 127431 shift 0 (3) |
-| `\vec{\vec{v}}` | text | 10 | 0 | 1: vbox 341181 654268 0 shift 0 (3), TeX vbox 377591 654268 0 shift 0 (3) |
-| `\vec{\vec{v}}` | display | 10 | 0 | 1: vbox 341181 654268 0 shift 0 (3), TeX vbox 377591 654268 0 shift 0 (3) |
-| `\dot{\dot{x}}` | text | 10 | 0 | 1: vbox 374556 593208 0 shift 0 (3), TeX vbox 410966 593208 0 shift 0 (3) |
-| `\dot{\dot{x}}` | display | 10 | 0 | 1: vbox 374556 593208 0 shift 0 (3), TeX vbox 410966 593208 0 shift 0 (3) |
-| `\tilde{\tilde{f}}` | text | 10 | 0 | 1: vbox 391398 766151 127431 shift 0 (3), TeX vbox 609858 766151 127431 shift 0 (3) |
-| `\tilde{\tilde{f}}` | display | 10 | 0 | 1: vbox 391398 766151 127431 shift 0 (3), TeX vbox 609858 766151 127431 shift 0 (3) |
+| `\widehat{\widehat{x}}` | text | 10 | 0 | 1.0: hbox 0 473316 0 shift 5234 set 0 0 0.000000 (1), TeX hbox 0 473316 0 shift 23438 set 0 0 0 (1) |
+| `\widehat{\widehat{x}}` | display | 10 | 0 | 1.0: hbox 0 473316 0 shift 5234 set 0 0 0.000000 (1), TeX hbox 0 473316 0 shift 23438 set 0 0 0 (1) |
+| `\hat{\hat{x}}` | text | 10 | 0 | 1: vbox 374556 628054 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 628054 0 shift 0 set 0 0 0 (3) |
+| `\hat{\hat{x}}` | display | 10 | 0 | 1: vbox 374556 628054 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 628054 0 shift 0 set 0 0 0 (3) |
+| `\hat{\tilde{x}}` | text | 10 | 0 | 1: vbox 374556 610631 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 610631 0 shift 0 set 0 0 0 (3) |
+| `\hat{\tilde{x}}` | display | 10 | 0 | 1: vbox 374556 610631 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 610631 0 shift 0 set 0 0 0 (3) |
+| `\tilde{\hat{x}}` | text | 10 | 0 | 1: vbox 374556 610631 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 610631 0 shift 0 set 0 0 0 (3) |
+| `\tilde{\hat{x}}` | display | 10 | 0 | 1: vbox 374556 610631 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 610631 0 shift 0 set 0 0 0 (3) |
+| `\bar{\bar{x}}` | text | 10 | 0 | 1: vbox 374556 462028 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 462028 0 shift 0 set 0 0 0 (3) |
+| `\bar{\bar{x}}` | display | 10 | 0 | 1: vbox 374556 462028 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 462028 0 shift 0 set 0 0 0 (3) |
+| `\dot{\hat{x}}` | text | 10 | 0 | 1: vbox 374556 610631 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 610631 0 shift 0 set 0 0 0 (3) |
+| `\dot{\hat{x}}` | display | 10 | 0 | 1: vbox 374556 610631 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 610631 0 shift 0 set 0 0 0 (3) |
+| `\ddot{\vec{x}}` | text | 10 | 0 | 1: vbox 374556 623738 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 623738 0 shift 0 set 0 0 0 (3) |
+| `\ddot{\vec{x}}` | display | 10 | 0 | 1: vbox 374556 623738 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 623738 0 shift 0 set 0 0 0 (3) |
+| `\vec{\dot{x}}` | text | 10 | 0 | 1: vbox 374556 623738 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 623738 0 shift 0 set 0 0 0 (3) |
+| `\vec{\dot{x}}` | display | 10 | 0 | 1: vbox 374556 623738 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 623738 0 shift 0 set 0 0 0 (3) |
+| `\hat{\bar{A}}` | text | 10 | 0 | 1: vbox 491521 710701 0 shift 0 set 0 0 0.000000 (3), TeX vbox 673571 710701 0 shift 0 set 0 0 0 (3) |
+| `\hat{\bar{A}}` | display | 10 | 0 | 1: vbox 491521 710701 0 shift 0 set 0 0 0.000000 (3), TeX vbox 673571 710701 0 shift 0 set 0 0 0 (3) |
+| `\acute{\grave{x}}` | text | 10 | 0 | 1: vbox 374556 628054 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 628054 0 shift 0 set 0 0 0 (3) |
+| `\acute{\grave{x}}` | display | 10 | 0 | 1: vbox 374556 628054 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 628054 0 shift 0 set 0 0 0 (3) |
+| `\check{\breve{y}}` | text | 10 | 0 | 1: vbox 344824 584819 127431 shift 0 set 0 0 0.000000 (3), TeX vbox 417644 584819 127431 shift 0 set 0 0 0 (3) |
+| `\check{\breve{y}}` | display | 10 | 0 | 1: vbox 344824 584819 127431 shift 0 set 0 0 0.000000 (3), TeX vbox 417644 584819 127431 shift 0 set 0 0 0 (3) |
+| `\vec{\vec{v}}` | text | 10 | 0 | 1: vbox 341181 654268 0 shift 0 set 0 0 0.000000 (3), TeX vbox 377591 654268 0 shift 0 set 0 0 0 (3) |
+| `\vec{\vec{v}}` | display | 10 | 0 | 1: vbox 341181 654268 0 shift 0 set 0 0 0.000000 (3), TeX vbox 377591 654268 0 shift 0 set 0 0 0 (3) |
+| `\dot{\dot{x}}` | text | 10 | 0 | 1: vbox 374556 593208 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 593208 0 shift 0 set 0 0 0 (3) |
+| `\dot{\dot{x}}` | display | 10 | 0 | 1: vbox 374556 593208 0 shift 0 set 0 0 0.000000 (3), TeX vbox 410966 593208 0 shift 0 set 0 0 0 (3) |
+| `\tilde{\tilde{f}}` | text | 10 | 0 | 1: vbox 391398 766151 127431 shift 0 set 0 0 0.000000 (3), TeX vbox 609858 766151 127431 shift 0 set 0 0 0 (3) |
+| `\tilde{\tilde{f}}` | display | 10 | 0 | 1: vbox 391398 766151 127431 shift 0 set 0 0 0.000000 (3), TeX vbox 609858 766151 127431 shift 0 set 0 0 0 (3) |
 | `\overrightarrow{AB}` | text | 10 | 101662 | not supported by the TeX-rule layout: accent \overrightarrow |
 | `\overrightarrow{AB}` | display | 10 | 101662 | not supported by the TeX-rule layout: accent \overrightarrow |
 | `\overleftarrow{AB}` | text | 10 | 101662 | not supported by the TeX-rule layout: accent \overleftarrow |
@@ -246,104 +766,104 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\overbrace{x}` | display | 10 | 131084 | not supported by the TeX-rule layout: horizBrace |
 | `\underbrace{x}` | text | 10 | 131084 | not supported by the TeX-rule layout: horizBrace |
 | `\underbrace{x}` | display | 10 | 131084 | not supported by the TeX-rule layout: horizBrace |
-| `\overset{a}{=}` | text | 10 | 0 | 1.0.3.0: char cmr10 61 509726 240435 -87245, TeX kern 0 |
-| `\overset{a}{=}` | display | 10 | 0 | 1.0.3.0: char cmr10 61 509726 240435 -87245, TeX kern 0 |
-| `\underset{a}{=}` | text | 10 | 0 | 1.0.0.0: char cmr10 61 509726 240435 -87245, TeX kern 0 |
-| `\underset{a}{=}` | display | 10 | 0 | 1.0.0.0: char cmr10 61 509726 240435 -87245, TeX kern 0 |
+| `\overset{a}{=}` | text | 10 | 0 | 1.0.3.0: char cmr10 655360 61 509726 240435 -87245, TeX kern 0 subtype 1 |
+| `\overset{a}{=}` | display | 10 | 0 | 1.0.3.0: char cmr10 655360 61 509726 240435 -87245, TeX kern 0 subtype 1 |
+| `\underset{a}{=}` | text | 10 | 0 | 1.0.0.0: char cmr10 655360 61 509726 240435 -87245, TeX kern 0 subtype 1 |
+| `\underset{a}{=}` | display | 10 | 0 | 1.0.0.0: char cmr10 655360 61 509726 240435 -87245, TeX kern 0 subtype 1 |
 | `\xrightarrow{a}` | text | 10 | 260762 | not supported by the TeX-rule layout: xArrow |
 | `\xrightarrow{a}` | display | 10 | 260762 | not supported by the TeX-rule layout: xArrow |
 | `\xleftarrow[b]{a}` | text | 10 | 260762 | not supported by the TeX-rule layout: xArrow |
 | `\xleftarrow[b]{a}` | display | 10 | 260762 | not supported by the TeX-rule layout: xArrow |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left( \frac{\frac12}{\frac34}\right)` | text | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -114688 (0), TeX hbox 380294 387287 157909 shift 0 (3) |
-| `\left( \frac{\frac12}{\frac34}\right)` | display | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -163840 (0), TeX hbox 418521 553676 225995 shift 0 (3) |
-| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left[ \frac{\frac12}{\frac34}\right]` | text | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -114688 (0), TeX hbox 380294 387287 157909 shift 0 (3) |
-| `\left[ \frac{\frac12}{\frac34}\right]` | display | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -163840 (0), TeX hbox 418521 553676 225995 shift 0 (3) |
-| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left( \frac{\frac12}{\frac34}\right.` | text | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -114688 (0), TeX hbox 380294 387287 157909 shift 0 (3) |
-| `\left( \frac{\frac12}{\frac34}\right.` | display | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -163840 (0), TeX hbox 418521 553676 225995 shift 0 (3) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | text | 10 | 0 | 1.1.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | display | 10 | 0 | 1.1.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | text | 10 | 0 | 1.1.0.3: hbox 996466 455111 0 shift 0 (6), TeX hbox 996466 550500 235932 shift 0 (9) |
-| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | display | 10 | 0 | 1.1.0.3: hbox 996466 455111 0 shift 0 (6), TeX hbox 996466 550500 235932 shift 0 (9) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left( \frac{\frac12}{\frac34}\right)` | text | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -114688 set 0 0 0.000000 (0), TeX hbox 380294 387287 157909 shift 0 set 0 0 0 (3) |
+| `\left( \frac{\frac12}{\frac34}\right)` | display | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -163840 set 0 0 0.000000 (0), TeX hbox 418521 553676 225995 shift 0 set 0 0 0 (3) |
+| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left[ \frac{\frac12}{\frac34}\right]` | text | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -114688 set 0 0 0.000000 (0), TeX hbox 380294 387287 157909 shift 0 set 0 0 0 (3) |
+| `\left[ \frac{\frac12}{\frac34}\right]` | display | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -163840 set 0 0 0.000000 (0), TeX hbox 418521 553676 225995 shift 0 set 0 0 0 (3) |
+| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left( \frac{\frac12}{\frac34}\right.` | text | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -114688 set 0 0 0.000000 (0), TeX hbox 380294 387287 157909 shift 0 set 0 0 0 (3) |
+| `\left( \frac{\frac12}{\frac34}\right.` | display | 10 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -163840 set 0 0 0.000000 (0), TeX hbox 418521 553676 225995 shift 0 set 0 0 0 (3) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | text | 10 | 0 | 1.1.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | display | 10 | 0 | 1.1.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | text | 10 | 0 | 1.1.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.913208 (6), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.913208 (9) |
+| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | display | 10 | 0 | 1.1.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.913208 (6), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.913208 (9) |
 | `\text{\textbf{a}}` | text | 10 | 5610 | not supported by the TeX-rule layout: text that is not plain characters |
 | `\text{\textbf{a}}` | display | 10 | 5610 | not supported by the TeX-rule layout: text that is not plain characters |
 | `\text{a$x$b}` | text | 10 | 7209 | not supported by the TeX-rule layout: text that is not plain characters |
@@ -352,64 +872,142 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\boldsymbol{\alpha}` | display | 10 | 233 | not supported by the TeX-rule layout: \boldsymbol |
 | `\boldsymbol{x}` | text | 10 | 18 | not supported by the TeX-rule layout: \boldsymbol |
 | `\boldsymbol{x}` | display | 10 | 18 | not supported by the TeX-rule layout: \boldsymbol |
-| `a\hphantom{b}c` | text | 10 | 0 | 2.0: math false, TeX nothing |
-| `a\hphantom{b}c` | display | 10 | 0 | 2.0: math false, TeX nothing |
-| `\smash{\frac12}` | text | 10 | 0 | 1: hbox 418521 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash{\frac12}` | display | 10 | 0 | 1: hbox 484967 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\smash{b}c` | text | 10 | 0 | 2: hbox 281258 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\smash{b}c` | display | 10 | 0 | 2: hbox 281258 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash{x_i}` | text | 10 | 0 | 1: hbox 592744 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash{x_i}` | display | 10 | 0 | 1: hbox 592744 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\hphantom{\frac12}` | text | 10 | 0 | 1.0: math false, TeX nothing |
-| `\hphantom{\frac12}` | display | 10 | 0 | 1.0: math false, TeX nothing |
-| `\smash[t]{\frac12}` | text | 10 | 0 | 1: hbox 418521 0 225995 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash[t]{\frac12}` | display | 10 | 0 | 1: hbox 484967 0 449545 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash[b]{\frac12}` | text | 10 | 0 | 1: hbox 418521 553676 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash[b]{\frac12}` | display | 10 | 0 | 1: hbox 484967 865699 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\mkern-3mu b` | text | 10 | 0 | 2: glue -109224 0 0, TeX kern -109224 |
-| `a\mkern-3mu b` | display | 10 | 0 | 2: glue -109224 0 0, TeX kern -109224 |
-| `a\kern2pt b` | text | 10 | 0 | 2: glue 131072 0 0, TeX kern 131072 |
-| `a\kern2pt b` | display | 10 | 0 | 2: glue 131072 0 0, TeX kern 131072 |
+| `a\hphantom{b}c` | text | 10 | 0 | 2.0: math 0, TeX nothing |
+| `a\hphantom{b}c` | display | 10 | 0 | 2.0: math 0, TeX nothing |
+| `\smash{\frac12}` | text | 10 | 0 | 1: hbox 418521 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash{\frac12}` | display | 10 | 0 | 1: hbox 484967 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\smash{b}c` | text | 10 | 0 | 2: hbox 281258 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\smash{b}c` | display | 10 | 0 | 2: hbox 281258 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash{x_i}` | text | 10 | 0 | 1: hbox 592744 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash{x_i}` | display | 10 | 0 | 1: hbox 592744 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\hphantom{\frac12}` | text | 10 | 0 | 1.0: math 0, TeX nothing |
+| `\hphantom{\frac12}` | display | 10 | 0 | 1.0: math 0, TeX nothing |
+| `\smash[t]{\frac12}` | text | 10 | 0 | 1: hbox 418521 0 225995 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash[t]{\frac12}` | display | 10 | 0 | 1: hbox 484967 0 449545 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash[b]{\frac12}` | text | 10 | 0 | 1: hbox 418521 553676 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash[b]{\frac12}` | display | 10 | 0 | 1: hbox 484967 865699 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\:b` | text | 10 | 0 | 2: glue 145632 72816 0 145632 0 subtype 99, TeX glue 145632 72816 0 145632 0 subtype 0 |
+| `a\:b` | display | 10 | 0 | 2: glue 145632 72816 0 145632 0 subtype 99, TeX glue 145632 72816 0 145632 0 subtype 0 |
+| `a~b` | text | 10 | 0 | 3: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `a~b` | display | 10 | 0 | 3: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `a\mkern18mu b` | text | 10 | 0 | 2: kern 655344 subtype 1, TeX kern 655344 subtype 3 |
+| `a\mkern18mu b` | display | 10 | 0 | 2: kern 655344 subtype 1, TeX kern 655344 subtype 3 |
+| `a\mkern-3mu b` | text | 10 | 0 | 2: glue -109224 0 0 0 0 subtype 99, TeX kern -109224 subtype 3 |
+| `a\mkern-3mu b` | display | 10 | 0 | 2: glue -109224 0 0 0 0 subtype 99, TeX kern -109224 subtype 3 |
+| `a\kern2pt b` | text | 10 | 0 | 2: glue 131072 0 0 0 0 subtype 0, TeX kern 131072 subtype 1 |
+| `a\kern2pt b` | display | 10 | 0 | 2: glue 131072 0 0 0 0 subtype 0, TeX kern 131072 subtype 1 |
 | `a\hskip 3pt plus 1pt b` | text | 10 | 2114141 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
 | `a\hskip 3pt plus 1pt b` | display | 10 | 2114141 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
-| `a\negmedspace b` | text | 10 | 0 | 2: kern -145632, TeX glue -145632 -72816 -145632 |
-| `a\negmedspace b` | display | 10 | 0 | 2: kern -145632, TeX glue -145632 -72816 -145632 |
-| `a\negthickspace b` | text | 10 | 0 | 2: kern -182040, TeX glue -182040 -182040 0 |
-| `a\negthickspace b` | display | 10 | 0 | 2: kern -182040, TeX glue -182040 -182040 0 |
-| `a\mskip 5mu b` | text | 10 | 0 | 2: glue 182040 182040 0, TeX glue 182040 0 0 |
-| `a\mskip 5mu b` | display | 10 | 0 | 2: glue 182040 182040 0, TeX glue 182040 0 0 |
-| `a\enspace b` | text | 10 | 0 | 2: glue 327680 0 0, TeX kern 327680 |
-| `a\enspace b` | display | 10 | 0 | 2: glue 327680 0 0, TeX kern 327680 |
+| `a\negthinspace b` | text | 10 | 0 | 2: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `a\negthinspace b` | display | 10 | 0 | 2: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `a\thinspace b` | text | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `a\thinspace b` | display | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `a\medspace b` | text | 10 | 0 | 2: glue 145632 72816 0 145632 0 subtype 99, TeX glue 145632 72816 0 145632 0 subtype 0 |
+| `a\medspace b` | display | 10 | 0 | 2: glue 145632 72816 0 145632 0 subtype 99, TeX glue 145632 72816 0 145632 0 subtype 0 |
+| `a\thickspace b` | text | 10 | 0 | 2: glue 182040 182040 0 0 0 subtype 99, TeX glue 182040 182040 0 0 0 subtype 0 |
+| `a\thickspace b` | display | 10 | 0 | 2: glue 182040 182040 0 0 0 subtype 99, TeX glue 182040 182040 0 0 0 subtype 0 |
+| `a\negmedspace b` | text | 10 | 0 | 2: kern -145632 subtype 1, TeX glue -145632 -72816 0 -145632 0 subtype 0 |
+| `a\negmedspace b` | display | 10 | 0 | 2: kern -145632 subtype 1, TeX glue -145632 -72816 0 -145632 0 subtype 0 |
+| `a\negthickspace b` | text | 10 | 0 | 2: kern -182040 subtype 1, TeX glue -182040 -182040 0 0 0 subtype 0 |
+| `a\negthickspace b` | display | 10 | 0 | 2: kern -182040 subtype 1, TeX glue -182040 -182040 0 0 0 subtype 0 |
+| `a\mskip 5mu b` | text | 10 | 0 | 2: glue 182040 182040 0 0 0 subtype 99, TeX glue 182040 0 0 0 0 subtype 0 |
+| `a\mskip 5mu b` | display | 10 | 0 | 2: glue 182040 182040 0 0 0 subtype 99, TeX glue 182040 0 0 0 0 subtype 0 |
+| `\int f\,dx` | text | 10 | 0 | 5: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int f\,dx` | display | 10 | 0 | 5: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int\!f\,dx` | text | 10 | 0 | 2: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `\int\!f\,dx` | display | 10 | 0 | 2: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `f\!\left(x\right)` | text | 10 | 0 | 3: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `f\!\left(x\right)` | display | 10 | 0 | 3: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `a\enspace b` | text | 10 | 0 | 2: glue 327680 0 0 0 0 subtype 0, TeX kern 327680 subtype 1 |
+| `a\enspace b` | display | 10 | 0 | 2: glue 327680 0 0 0 0 subtype 0, TeX kern 327680 subtype 1 |
+| `\cdots` | text | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\cdots` | display | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\dots` | text | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\dots` | display | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\dotsb` | text | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\dotsb` | display | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\dotsc` | text | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\dotsc` | display | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\dotsm` | text | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\dotsm` | display | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\dotsi` | text | 10 | 0 | 1: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `\dotsi` | display | 10 | 0 | 1: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
 | `\vdots` | text | 10 | 19661 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\vdots` | display | 10 | 19661 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\ddots` | text | 10 | 447611 | not supported by the TeX-rule layout: symbol \ddots |
 | `\ddots` | display | 10 | 447611 | not supported by the TeX-rule layout: symbol \ddots |
+| `1,2,\dots` | text | 10 | 0 | 8: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `1,2,\dots` | display | 10 | 0 | 8: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int\dotsi\int` | text | 10 | 0 | 2: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `\int\dotsi\int` | display | 10 | 0 | 2: glue -109224 0 0 0 0 subtype 99, TeX glue -109224 0 0 0 0 subtype 0 |
+| `a_1,\dots` | text | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `a_1,\dots` | display | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `1+2+\dots` | text | 10 | 0 | 10: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `1+2+\dots` | display | 10 | 0 | 10: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `x=\dots` | text | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `x=\dots` | display | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
 | `\vdots+x` | text | 10 | 3932 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\vdots+x` | display | 10 | 3932 | not supported by the TeX-rule layout: symbol \varvdots |
-| `a\bmod n` | text | 10 | 0 | 2: kern 36408, TeX glue 0 0 0 |
-| `a\bmod n` | display | 10 | 0 | 2: kern 36408, TeX glue 0 0 0 |
-| `a\bmod{n+1}` | text | 10 | 0 | 2: kern 36408, TeX glue 0 0 0 |
-| `a\bmod{n+1}` | display | 10 | 0 | 2: kern 36408, TeX glue 0 0 0 |
-| `a\bmod b\bmod c` | text | 10 | 0 | 2: kern 36408, TeX glue 0 0 0 |
-| `a\bmod b\bmod c` | display | 10 | 0 | 2: kern 36408, TeX glue 0 0 0 |
+| `a_{1},\dots,a_{n}=\cdots` | text | 10 | 0 | 15: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `a_{1},\dots,a_{n}=\cdots` | display | 10 | 0 | 15: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `a\pmod{n}` | text | 10 | 0 | 3: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\pmod{n}` | display | 10 | 0 | 3: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\bmod n` | text | 10 | 0 | 2: kern 36408 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\bmod n` | display | 10 | 0 | 2: kern 36408 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\pod{n}` | text | 10 | 0 | 3: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\pod{n}` | display | 10 | 0 | 3: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\equiv b\pmod{n}` | text | 10 | 0 | 7: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\equiv b\pmod{n}` | display | 10 | 0 | 7: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\equiv b\pmod n` | text | 10 | 0 | 7: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\equiv b\pmod n` | display | 10 | 0 | 7: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\equiv b\pod{n}` | text | 10 | 0 | 7: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\equiv b\pod{n}` | display | 10 | 0 | 7: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\equiv b \mod n` | text | 10 | 0 | 7: kern 436896 subtype 1, TeX kern 436896 subtype 3 |
+| `a\equiv b \mod n` | display | 10 | 0 | 7: kern 436896 subtype 1, TeX kern 436896 subtype 3 |
+| `a\bmod{n+1}` | text | 10 | 0 | 2: kern 36408 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\bmod{n+1}` | display | 10 | 0 | 2: kern 36408 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `x\pmod{\frac12}` | text | 10 | 0 | 3: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `x\pmod{\frac12}` | display | 10 | 0 | 3: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `\pmod{n}` | text | 10 | 0 | 2: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `\pmod{n}` | display | 10 | 0 | 2: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `\pod{n}` | text | 10 | 0 | 2: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `\pod{n}` | display | 10 | 0 | 2: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `a\bmod b\bmod c` | text | 10 | 0 | 2: kern 36408 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\bmod b\bmod c` | display | 10 | 0 | 2: kern 36408 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `x\equiv y\pmod{m+n}` | text | 10 | 0 | 8: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
+| `x\equiv y\pmod{m+n}` | display | 10 | 0 | 8: kern 291264 subtype 1, TeX kern 291264 subtype 3 |
 | `a\notin B` | text | 10 | 138217 | not supported by the TeX-rule layout: htmlmathml |
 | `a\notin B` | display | 10 | 138217 | not supported by the TeX-rule layout: htmlmathml |
-| `a\longrightarrow b` | text | 10 | 0 | 3.0: hbox 509726 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longrightarrow b` | display | 10 | 0 | 3.0: hbox 509726 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longleftarrow b` | text | 10 | 0 | 5.0: hbox 509726 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longleftarrow b` | display | 10 | 0 | 5.0: hbox 509726 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longmapsto b` | text | 10 | 0 | 4.0: hbox 509726 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longmapsto b` | display | 10 | 0 | 4.0: hbox 509726 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longleftrightarrow b` | text | 10 | 0 | 3: char cmsy10 36 655361 240435 -87245, TeX char cmsy10 32 655361 240435 -87245 |
-| `a\longleftrightarrow b` | display | 10 | 0 | 3: char cmsy10 36 655361 240435 -87245, TeX char cmsy10 32 655361 240435 -87245 |
-| `f\colon X\hookrightarrow Y` | text | 10 | 0 | 4: kern 72816, TeX glue 72816 0 0 |
-| `f\colon X\hookrightarrow Y` | display | 10 | 0 | 4: kern 72816, TeX glue 72816 0 0 |
+| `a\longrightarrow b` | text | 10 | 0 | 3.0: hbox 509726 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\longrightarrow b` | display | 10 | 0 | 3.0: hbox 509726 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\Longrightarrow b` | text | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\Longrightarrow b` | display | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\iff b` | text | 10 | 0 | 2: glue 182040 182040 0 0 0 subtype 99, TeX glue 182040 182040 0 0 0 subtype 0 |
+| `a\iff b` | display | 10 | 0 | 2: glue 182040 182040 0 0 0 subtype 99, TeX glue 182040 182040 0 0 0 subtype 0 |
+| `a\implies b` | text | 10 | 0 | 2: glue 182040 182040 0 0 0 subtype 99, TeX glue 182040 182040 0 0 0 subtype 0 |
+| `a\implies b` | display | 10 | 0 | 2: glue 182040 182040 0 0 0 subtype 99, TeX glue 182040 182040 0 0 0 subtype 0 |
+| `a\hookrightarrow b` | text | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\hookrightarrow b` | display | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\longleftarrow b` | text | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\longleftarrow b` | display | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\Longleftarrow b` | text | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\Longleftarrow b` | display | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\longmapsto b` | text | 10 | 0 | 4.0: hbox 509726 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\longmapsto b` | display | 10 | 0 | 4.0: hbox 509726 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\longleftrightarrow b` | text | 10 | 0 | 3: char cmsy10 655360 36 655361 240435 -87245, TeX char cmsy10 655360 32 655361 240435 -87245 |
+| `a\longleftrightarrow b` | display | 10 | 0 | 3: char cmsy10 655360 36 655361 240435 -87245, TeX char cmsy10 655360 32 655361 240435 -87245 |
+| `a\Longleftrightarrow b` | text | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\Longleftrightarrow b` | display | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\hookleftarrow b` | text | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `a\hookleftarrow b` | display | 10 | 0 | 4.0: kern -109224 subtype 1, TeX kern -109224 subtype 3 |
+| `f\colon X\hookrightarrow Y` | text | 10 | 0 | 4: kern 72816 subtype 1, TeX glue 72816 0 0 0 0 subtype 0 |
+| `f\colon X\hookrightarrow Y` | display | 10 | 0 | 4: kern 72816 subtype 1, TeX glue 72816 0 0 0 0 subtype 0 |
 | `x\xrightarrow{f}y` | text | 10 | 238192 | not supported by the TeX-rule layout: xArrow |
 | `x\xrightarrow{f}y` | display | 10 | 238192 | not supported by the TeX-rule layout: xArrow |
 | `x\xrightarrow[g]{f}y` | text | 10 | 238192 | not supported by the TeX-rule layout: xArrow |
 | `x\xrightarrow[g]{f}y` | display | 10 | 238192 | not supported by the TeX-rule layout: xArrow |
-| `x\overset{f}{\longrightarrow}y` | text | 10 | 0 | 3.0.3.0: hbox 509726 0 0 shift 0 (1), TeX kern 0 |
-| `x\overset{f}{\longrightarrow}y` | display | 10 | 0 | 3.0.3.0: hbox 509726 0 0 shift 0 (1), TeX kern 0 |
+| `x\overset{f}{\longrightarrow}y` | text | 10 | 0 | 3.0.3.0: hbox 509726 0 0 shift 0 set 0 0 0.000000 (1), TeX kern 0 subtype 1 |
+| `x\overset{f}{\longrightarrow}y` | display | 10 | 0 | 3.0.3.0: hbox 509726 0 0 shift 0 set 0 0 0.000000 (1), TeX kern 0 subtype 1 |
 | `A\xleftarrow{\frac12}B` | text | 10 | 165067 | not supported by the TeX-rule layout: xArrow |
 | `A\xleftarrow{\frac12}B` | display | 10 | 165067 | not supported by the TeX-rule layout: xArrow |
 | `a\cong b` | text | 10 | 32768 | not supported by the TeX-rule layout: symbol \cong |
@@ -420,66 +1018,66 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\hbar` | display | 10 | 23705 | not supported by the TeX-rule layout: symbol \hbar |
 | `\checkmark` | text | 10 | 220 | not supported by the TeX-rule layout: symbol \checkmark |
 | `\checkmark` | display | 10 | 220 | not supported by the TeX-rule layout: symbol \checkmark |
-| `\begin{matrix}a&b\\c&d\end{matrix}` | text | 10 | 0 | 2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{matrix}a&b\\c&d\end{matrix}` | display | 10 | 0 | 2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
+| `\begin{matrix}a&b\\c&d\end{matrix}` | text | 10 | 0 | 2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{matrix}a&b\\c&d\end{matrix}` | display | 10 | 0 | 2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
 | `\begin{smallmatrix}a&b\\c&d\end{smallmatrix}` | text | 10 | 221415 | not supported by the TeX-rule layout: this array environment |
 | `\begin{smallmatrix}a&b\\c&d\end{smallmatrix}` | display | 10 | 221415 | not supported by the TeX-rule layout: this array environment |
 | `\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)` | text | 10 | 196617 | not supported by the TeX-rule layout: this array environment |
 | `\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)` | display | 10 | 196617 | not supported by the TeX-rule layout: this array environment |
-| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 983041 422343 0 shift 0 (7), TeX hbox 983041 550500 235932 shift 0 (7) |
-| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 983041 422343 0 shift 0 (7), TeX hbox 983041 550500 235932 shift 0 (7) |
-| `\begin{pmatrix}a\\b\end{pmatrix}` | text | 10 | 0 | 1.2.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{pmatrix}a\\b\end{pmatrix}` | display | 10 | 0 | 1.2.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{pmatrix}a&b\end{pmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 936618 455111 0 shift 0 (7), TeX hbox 936618 550500 235932 shift 0 (7) |
-| `\begin{pmatrix}a&b\end{pmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 936618 455111 0 shift 0 (7), TeX hbox 936618 550500 235932 shift 0 (7) |
-| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 1073881 553676 225995 shift 0 (7), TeX hbox 1073881 553676 235932 shift 0 (10) |
-| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 1073881 553676 225995 shift 0 (7), TeX hbox 1073881 553676 235932 shift 0 (10) |
-| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 2214042 491524 196611 shift 0 (11), TeX hbox 2214042 550500 235932 shift 0 (14) |
-| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 2214042 491524 196611 shift 0 (11), TeX hbox 2214042 550500 235932 shift 0 (14) |
+| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 983041 422343 0 shift 0 set 0 0 0.000000 (7), TeX hbox 983041 550500 235932 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 983041 422343 0 shift 0 set 0 0 0.000000 (7), TeX hbox 983041 550500 235932 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}a\\b\end{pmatrix}` | text | 10 | 0 | 1.2.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{pmatrix}a\\b\end{pmatrix}` | display | 10 | 0 | 1.2.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{pmatrix}a&b\end{pmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 936618 455111 0 shift 0 set 0 0 0.000000 (7), TeX hbox 936618 550500 235932 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}a&b\end{pmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 936618 455111 0 shift 0 set 0 0 0.000000 (7), TeX hbox 936618 550500 235932 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 1073881 553676 225995 shift 0 set 0 0 0.000000 (7), TeX hbox 1073881 553676 235932 shift 0 set 0 0 0 (10) |
+| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 1073881 553676 225995 shift 0 set 0 0 0.000000 (7), TeX hbox 1073881 553676 235932 shift 0 set 0 0 0 (10) |
+| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 2214042 491524 196611 shift 0 set 0 0 0.000000 (11), TeX hbox 2214042 550500 235932 shift 0 set 0 0 0 (14) |
+| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 2214042 491524 196611 shift 0 set 0 0 0.000000 (11), TeX hbox 2214042 550500 235932 shift 0 set 0 0 0 (14) |
 | `\begin{pmatrix}1&\cdots&n\\\vdots&\ddots&\vdots\\m&\cdots&mn\end{pmatrix}` | text | 10 | 33809 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\begin{pmatrix}1&\cdots&n\\\vdots&\ddots&\vdots\\m&\cdots&mn\end{pmatrix}` | display | 10 | 33809 | not supported by the TeX-rule layout: symbol \varvdots |
-| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 (7), TeX hbox 1032951 550500 235932 shift 0 (7) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 (7), TeX hbox 996466 550500 235932 shift 0 (10) |
-| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | text | 10 | 0 | 2.0.3: hbox 2293624 455111 0 shift 0 (7), TeX hbox 2293624 550500 235932 shift 0 (10) |
-| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | display | 10 | 0 | 2.0.3: hbox 2293624 455111 0 shift 0 (7), TeX hbox 2293624 550500 235932 shift 0 (10) |
-| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | text | 10 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | display | 10 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | text | 10 | 0 | 9.1.0.1.1: glue 0 0 0, TeX math false |
-| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | display | 10 | 0 | 9.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | text | 10 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | display | 10 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}a\end{cases}` | text | 10 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}a\end{cases}` | display | 10 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | text | 10 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | display | 10 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | text | 10 | 0 | 1.0.3: hbox 1265666 455111 0 shift 0 (7), TeX hbox 1265666 550500 235932 shift 0 (7) |
-| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | display | 10 | 0 | 1.0.3: hbox 1265666 455111 0 shift 0 (7), TeX hbox 1265666 550500 235932 shift 0 (7) |
-| `\begin{array}{c}a\\b\end{array}` | text | 10 | 0 | 1.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{array}{c}a\\b\end{array}` | display | 10 | 0 | 1.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{array}{l}a\\bbb\end{array}` | text | 10 | 0 | 1.0.1.5: glue 0 65536 0, TeX math false |
-| `\begin{array}{l}a\\bbb\end{array}` | display | 10 | 0 | 1.0.1.5: glue 0 65536 0, TeX math false |
-| `\begin{array}{r}a\\bbb\end{array}` | text | 10 | 0 | 1.0.1.6: glue 327680 0 0, TeX math false |
-| `\begin{array}{r}a\\bbb\end{array}` | display | 10 | 0 | 1.0.1.6: glue 327680 0 0, TeX math false |
-| `\begin{array}{cc}a&b\end{array}` | text | 10 | 0 | 1.0.3: hbox 936618 455111 0 shift 0 (7), TeX hbox 936618 550500 235932 shift 0 (7) |
-| `\begin{array}{cc}a&b\end{array}` | display | 10 | 0 | 1.0.3: hbox 936618 455111 0 shift 0 (7), TeX hbox 936618 550500 235932 shift 0 (7) |
-| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | text | 10 | 0 | 1.0.3: hbox 1674807 422343 0 shift 0 (8), TeX hbox 1674807 550500 235932 shift 0 (11) |
-| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | display | 10 | 0 | 1.0.3: hbox 1674807 422343 0 shift 0 (8), TeX hbox 1674807 550500 235932 shift 0 (11) |
+| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 1032951 455111 0 shift 0 set 1 2 0.734962 (7), TeX hbox 1032951 550500 235932 shift 0 set 1 2 0.734962 (7) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | text | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | display | 10 | 0 | 1.2.0.3: hbox 996466 455111 0 shift 0 set 1 2 0.456604 (7), TeX hbox 996466 550500 235932 shift 0 set 1 2 0.456604 (10) |
+| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | text | 10 | 0 | 2.0.3: hbox 2293624 455111 0 shift 0 set 1 2 9.896530 (7), TeX hbox 2293624 550500 235932 shift 0 set 1 2 9.896530 (10) |
+| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | display | 10 | 0 | 2.0.3: hbox 2293624 455111 0 shift 0 set 1 2 9.896530 (7), TeX hbox 2293624 550500 235932 shift 0 set 1 2 9.896530 (10) |
+| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | text | 10 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | display | 10 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | text | 10 | 0 | 9.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | display | 10 | 0 | 9.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | text | 10 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | display | 10 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}a\end{cases}` | text | 10 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}a\end{cases}` | display | 10 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | text | 10 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | display | 10 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | text | 10 | 0 | 1.0.3: hbox 1265666 455111 0 shift 0 set 1 2 2.510437 (7), TeX hbox 1265666 550500 235932 shift 0 set 1 2 2.510437 (7) |
+| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | display | 10 | 0 | 1.0.3: hbox 1265666 455111 0 shift 0 set 1 2 2.510437 (7), TeX hbox 1265666 550500 235932 shift 0 set 1 2 2.510437 (7) |
+| `\begin{array}{c}a\\b\end{array}` | text | 10 | 0 | 1.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{c}a\\b\end{array}` | display | 10 | 0 | 1.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{l}a\\bbb\end{array}` | text | 10 | 0 | 1.0.1.5: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{l}a\\bbb\end{array}` | display | 10 | 0 | 1.0.1.5: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{r}a\\bbb\end{array}` | text | 10 | 0 | 1.0.1.6: glue 327680 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{r}a\\bbb\end{array}` | display | 10 | 0 | 1.0.1.6: glue 327680 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{cc}a&b\end{array}` | text | 10 | 0 | 1.0.3: hbox 936618 455111 0 shift 0 set 0 0 0.000000 (7), TeX hbox 936618 550500 235932 shift 0 set 0 0 0 (7) |
+| `\begin{array}{cc}a&b\end{array}` | display | 10 | 0 | 1.0.3: hbox 936618 455111 0 shift 0 set 0 0 0.000000 (7), TeX hbox 936618 550500 235932 shift 0 set 0 0 0 (7) |
+| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | text | 10 | 0 | 1.0.3: hbox 1674807 422343 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1674807 550500 235932 shift 0 set 0 0 0 (11) |
+| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | display | 10 | 0 | 1.0.3: hbox 1674807 422343 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1674807 550500 235932 shift 0 set 0 0 0 (11) |
 | `\begin{array}{c\|c}a&b\\\hline c&d\end{array}` | text | 10 | 13107 | not supported by the TeX-rule layout: array rules |
 | `\begin{array}{c\|c}a&b\\\hline c&d\end{array}` | display | 10 | 13107 | not supported by the TeX-rule layout: array rules |
-| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | text | 10 | 0 | 1.0.3: hbox 1482753 282168 0 shift 0 (7), TeX hbox 1482753 553676 235932 shift 0 (7) |
-| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | display | 10 | 0 | 1.0.3: hbox 1482753 282168 0 shift 0 (7), TeX hbox 1482753 553676 235932 shift 0 (7) |
-| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | text | 10 | 0 | 1.0.3: hbox 1310722 422343 0 shift 0 (8), TeX hbox 1310722 550500 235932 shift 0 (8) |
-| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | display | 10 | 0 | 1.0.3: hbox 1310722 422343 0 shift 0 (8), TeX hbox 1310722 550500 235932 shift 0 (8) |
+| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | text | 10 | 0 | 1.0.3: hbox 1482753 282168 0 shift 0 set 1 2 3.454872 (7), TeX hbox 1482753 553676 235932 shift 0 set 1 2 3.454872 (7) |
+| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | display | 10 | 0 | 1.0.3: hbox 1482753 282168 0 shift 0 set 1 2 3.454872 (7), TeX hbox 1482753 553676 235932 shift 0 set 1 2 3.454872 (7) |
+| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | text | 10 | 0 | 1.0.3: hbox 1310722 422343 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1310722 550500 235932 shift 0 set 0 0 0 (8) |
+| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | display | 10 | 0 | 1.0.3: hbox 1310722 422343 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1310722 550500 235932 shift 0 set 0 0 0 (8) |
 | `\begin{array}[t]{c}a\\b\end{array}` | text | 10 | none | KaTeX parse error: Unknown column alignment: [ at position 14: \begin{array}[̲t]{c}a\\b\end{a… |
 | `\begin{array}[t]{c}a\\b\end{array}` | display | 10 | none | KaTeX parse error: Unknown column alignment: [ at position 14: \begin{array}[̲t]{c}a\\b\end{a… |
 | `\begin{array}[b]{c}a\\b\end{array}` | text | 10 | none | KaTeX parse error: Unknown column alignment: [ at position 14: \begin{array}[̲b]{c}a\\b\end{a… |
@@ -496,14 +1094,16 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\begin{aligned}a&=b\\c&=d\end{aligned}` | display | 10 | 102 | not supported by the TeX-rule layout: this array environment |
 | `\begin{gathered}a\\bb\end{gathered}` | text | 10 | 218 | not supported by the TeX-rule layout: this array environment |
 | `\begin{gathered}a\\bb\end{gathered}` | display | 10 | 218 | not supported by the TeX-rule layout: this array environment |
-| `\overset{\mathrm{def}}{=}` | text | 10 | 0 | 1.0.3.1: char cmr10 61 509726 240435 -87245, TeX kern 0 |
-| `\overset{\mathrm{def}}{=}` | display | 10 | 0 | 1.0.3.1: char cmr10 61 509726 240435 -87245, TeX kern 0 |
+| `\overset{\mathrm{def}}{=}` | text | 10 | 0 | 1.0.3.1: char cmr10 655360 61 509726 240435 -87245, TeX kern 0 subtype 1 |
+| `\overset{\mathrm{def}}{=}` | display | 10 | 0 | 1.0.3.1: char cmr10 655360 61 509726 240435 -87245, TeX kern 0 subtype 1 |
 | `\boxed{x}` | text | 10 | 52118 | not supported by the TeX-rule layout: enclose |
 | `\boxed{x}` | display | 10 | 52118 | not supported by the TeX-rule layout: enclose |
 | `\boxed{\frac12}` | text | 10 | 52429 | not supported by the TeX-rule layout: enclose |
 | `\boxed{\frac12}` | display | 10 | 52429 | not supported by the TeX-rule layout: enclose |
 | `\fbox{x}` | text | 10 | 52428 | not supported by the TeX-rule layout: enclose |
 | `\fbox{x}` | display | 10 | 52428 | not supported by the TeX-rule layout: enclose |
+| `\tfrac{1}{2}\,\cdot\,x` | text | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\tfrac{1}{2}\,\cdot\,x` | display | 10 | 0 | 2: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
 | `\left(a\atop b\right)` | text | 10 | 42032 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
 | `\left(a\atop b\right)` | display | 10 | 32 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
 | `a\over b` | text | 10 | 41592 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
@@ -556,94 +1156,640 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `a\nonscript\mskip 4mu b` | display | 10 | none | KaTeX parse error: Undefined control sequence: \nonscript at position 2: a\̲n̲o̲n̲s̲c̲r̲i̲p̲t̲\mskip 4mu b |
 | `x_{a\nonscript\mskip4mu b}` | text | 10 | none | KaTeX parse error: Undefined control sequence: \nonscript at position 5: x_{a\̲n̲o̲n̲s̲c̲r̲i̲p̲t̲\mskip4mu b} |
 | `x_{a\nonscript\mskip4mu b}` | display | 10 | none | KaTeX parse error: Undefined control sequence: \nonscript at position 5: x_{a\̲n̲o̲n̲s̲c̲r̲i̲p̲t̲\mskip4mu b} |
-| `\frac{a}{\frac{b}{c}}` | text | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 377150 487413 205608 shift 0 (3) |
-| `\frac{a}{\frac{b}{c}}` | display | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -179404 (0), TeX hbox 398559 646638 247464 shift 0 (3) |
-| `\bigl(x\bigr)` | text | 11 | 0 | 1.1: hbox 328910 28704 832447 shift -581275 (1), TeX hbox 328910 609979 251172 shift 0 (3) |
-| `\bigl(x\bigr)` | display | 11 | 0 | 1.1: hbox 328910 28704 832447 shift -581275 (1), TeX hbox 328910 609979 251172 shift 0 (3) |
-| `\Bigl(x\Bigr)` | text | 11 | 0 | 1.1: hbox 428579 28704 1263023 shift -796563 (1), TeX hbox 428579 825267 466460 shift 0 (3) |
-| `\Bigl(x\Bigr)` | display | 11 | 0 | 1.1: hbox 428579 28704 1263023 shift -796563 (1), TeX hbox 428579 825267 466460 shift 0 (3) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1014170 462465 0 shift 0 (7), TeX hbox 1014170 623900 267389 shift 0 (10) |
-| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1014170 462465 0 shift 0 (7), TeX hbox 1014170 623900 267389 shift 0 (10) |
-| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\binom{n}{k}` | text | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\binom{n}{k}` | display | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\binom{2n}{n}` | text | 11 | 0 | 1.0: hbox 1274352 656305 251172 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\binom{2n}{n}` | display | 11 | 0 | 1.0: hbox 1846048 1040555 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | text | 11 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | display | 11 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `f\colon A\to B` | text | 11 | 0 | 4: kern 79734, TeX glue 79734 0 0 |
-| `f\colon A\to B` | display | 11 | 0 | 4: kern 79734, TeX glue 79734 0 0 |
-| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | text | 11 | 0 | 15.0: hbox 995820 609979 251172 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | display | 11 | 0 | 14.0: hbox 1487238 1040555 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `x_{\binom{n}{k}}` | text | 11 | 0 | 2.0: hbox 279075 538214 179404 shift 1 (1), TeX hbox 279075 538213 179405 shift 0 (1) |
-| `x_{\binom{n}{k}}` | display | 11 | 0 | 2.0: hbox 279075 538214 179404 shift 1 (1), TeX hbox 279075 538213 179405 shift 0 (1) |
-| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | text | 11 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -98304 (0), TeX hbox 397581 407675 183748 shift 0 (3) |
-| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | display | 11 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -98304 (0), TeX hbox 397581 407675 183748 shift 0 (3) |
-| `x^{\scriptscriptstyle\sqrt2}` | text | 11 | 1218 | 2: hbox 666276 365721 47811 shift -260418 (2), TeX hbox 666276 364503 47811 shift -260418 (2) |
-| `x^{\scriptscriptstyle\sqrt2}` | display | 11 | 1218 | 2: hbox 666276 365721 47811 shift -296299 (2), TeX hbox 666276 364503 47811 shift -296299 (2) |
-| `\dbinom{n}{k}` | text | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 (1), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\dbinom{n}{k}` | display | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 (1), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\tbinom{n}{k}` | text | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 (1), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\tbinom{n}{k}` | display | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 (1), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\binom{n+1}{k-1}` | text | 11 | 0 | 1.0: hbox 1707624 656305 302080 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\binom{n+1}{k-1}` | display | 11 | 0 | 1.0: hbox 2723134 1040555 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\dbinom{n+1}{k-1}` | text | 11 | 0 | 1.0: hbox 2723134 1040555 681748 shift 0 (1), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\dbinom{n+1}{k-1}` | display | 11 | 0 | 1.0: hbox 2723134 1040555 681748 shift 0 (1), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\tbinom{n+1}{k-1}` | text | 11 | 0 | 1.0: hbox 1707624 656305 302080 shift 0 (1), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\tbinom{n+1}{k-1}` | display | 11 | 0 | 1.0: hbox 1707624 656305 302080 shift 0 (1), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\binom{\frac12}{k}` | text | 11 | 0 | 1.0: hbox 1055401 831139 292422 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\binom{\frac12}{k}` | display | 11 | 0 | 1.0: hbox 1492316 1105898 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\binom{n}{\frac{k}{2}}` | text | 11 | 0 | 1.0: hbox 1083164 609979 456888 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\binom{n}{\frac{k}{2}}` | display | 11 | 0 | 1.0: hbox 1517802 1040555 739715 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\binom{a}{b}^2` | text | 11 | 0 | 1.0: hbox 953707 609979 251172 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\binom{a}{b}^2` | display | 11 | 0 | 1.0: hbox 1435824 1040555 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\binom{n}{k}_q` | text | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\binom{n}{k}_q` | display | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\genfrac{(}{)}{0pt}{}{n}{k}` | text | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\genfrac{(}{)}{0pt}{}{n}{k}` | display | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | text | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | display | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\genfrac{[}{]}{1pt}{0}{a}{b}` | text | 11 | 0 | 1.0: hbox 1136816 1040555 681748 shift 0 (1), TeX hbox 378745 1040555 681748 shift 0 (1) |
-| `\genfrac{[}{]}{1pt}{0}{a}{b}` | display | 11 | 0 | 1.0: hbox 1136816 1040555 681748 shift 0 (1), TeX hbox 378745 1040555 681748 shift 0 (1) |
-| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | text | 11 | 0 | 1.0: hbox 1133111 609979 251172 shift 0 (1), TeX hbox 418612 609979 251172 shift 0 (1) |
-| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | display | 11 | 0 | 1.0: hbox 1133111 609979 251172 shift 0 (1), TeX hbox 418612 609979 251172 shift 0 (1) |
-| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | text | 11 | 0 | 1.0: hbox 823525 538213 205608 shift 0 (1), TeX hbox 279075 538213 179405 shift 0 (1) |
-| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | display | 11 | 0 | 1.0: hbox 823525 538213 205608 shift 0 (1), TeX hbox 279075 538213 179405 shift 0 (1) |
-| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | text | 11 | 241392 | 1: hbox 1039738 484965 245291 shift 0 (1), TeX hbox 1281130 538213 245291 shift 0 (5) |
-| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | display | 11 | 241392 | 1: hbox 1039738 484965 245291 shift 0 (1), TeX hbox 1281130 538213 245291 shift 0 (5) |
-| `\genfrac{(}{]}{0pt}{}{a}{b}` | text | 11 | 0 | 1.0: hbox 923806 609979 251172 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\genfrac{(}{]}{0pt}{}{a}{b}` | display | 11 | 0 | 1.0: hbox 1286320 1040555 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\frac{1}{\frac{1}{\frac{1}{x}}}` | text | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 589003 467751 480825 shift 0 (3) |
-| `\frac{1}{\frac{1}{\frac{1}{x}}}` | display | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -179404 (0), TeX hbox 589003 620424 537011 shift 0 (3) |
-| `\frac{\frac{a}{b}}{\frac{c}{d}}` | text | 11 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 422661 383646 205608 shift 0 (3) |
-| `\frac{\frac{a}{b}}{\frac{c}{d}}` | display | 11 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -179404 (0), TeX hbox 453173 508284 247464 shift 0 (3) |
-| `\frac{\frac{\frac{a}{b}}{c}}{d}` | text | 11 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 579947 693442 205608 shift 0 (3) |
-| `\frac{\frac{\frac{a}{b}}{c}}{d}` | display | 11 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -179404 (0), TeX hbox 579947 811714 247464 shift 0 (3) |
-| `\frac{a}{\frac{b}{\frac{c}{d}}}` | text | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 567203 487413 431298 shift 0 (3) |
-| `\frac{a}{\frac{b}{\frac{c}{d}}}` | display | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -179404 (0), TeX hbox 567203 646638 453072 shift 0 (3) |
-| `\sqrt{\frac{\frac12}{3}}` | text | 11 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 397581 467751 205608 shift 0 (3) |
-| `\sqrt{\frac{\frac12}{3}}` | display | 11 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -179404 (0), TeX hbox 435818 620424 247464 shift 0 (3) |
-| `\sqrt{\binom{n}{k}}` | text | 11 | 0 | 1.1.3.0: hbox 328910 28704 832447 shift -581275 (1), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\sqrt{\binom{n}{k}}` | display | 11 | 0 | 1.1.3.0: hbox 528249 28704 1693599 shift -1011851 (1), TeX hbox 528249 1040555 681748 shift 0 (1) |
+| `\mathbin{\ }` | text | 10 | 0 | 1.0: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `\mathbin{\ }` | display | 10 | 0 | 1.0: glue 218235 109117 0 72745 0 subtype 0, TeX glue 218235 109117 0 72745 0 subtype 13 |
+| `\int_0^1 f(x)\,dx` | text | 10 | 0 | 9: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int_0^1 f(x)\,dx` | display | 10 | 0 | 9: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-\lambda t}\,dt = 1/\lambda` | text | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-\lambda t}\,dt = 1/\lambda` | display | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int_0^{\infty} \sum_{k=0}^{\infty} e^{-(k+1)\lambda t}\,dt = \sum_{k=1}^{\infty} \frac{1}{k\lambda},` | text | 10 | 0 | 9: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\int_0^{\infty} \sum_{k=0}^{\infty} e^{-(k+1)\lambda t}\,dt = \sum_{k=1}^{\infty} \frac{1}{k\lambda},` | display | 10 | 0 | 8: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\log_2 (n!)` | text | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 (n!)` | display | 10 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Omega(n \log n)` | text | 10 | 0 | 5.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Omega(n \log n)` | display | 10 | 0 | 5.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `Q(t) = c\rho \int_0^L u(x,t)\,dx` | text | 10 | 0 | 21: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `Q(t) = c\rho \int_0^L u(x,t)\,dx` | display | 10 | 0 | 21: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `n = 1, 2, \dots` | text | 10 | 0 | 12: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `n = 1, 2, \dots` | display | 10 | 0 | 12: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `u(x,t) = \sum_{n=1}^{\infty} b_n \sin\frac{n\pi x}{L}\, e^{-\kappa n^2\pi^2 t/L^2},` | text | 10 | 0 | 17.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `u(x,t) = \sum_{n=1}^{\infty} b_n \sin\frac{n\pi x}{L}\, e^{-\kappa n^2\pi^2 t/L^2},` | display | 10 | 0 | 16.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_n = \frac{2}{L}\int_0^L u(x,0)\sin\frac{n\pi x}{L}\,dx.` | text | 10 | 0 | 19.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_n = \frac{2}{L}\int_0^L u(x,0)\sin\frac{n\pi x}{L}\,dx.` | display | 10 | 0 | 19.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_1 \sin(\pi x/L)` | text | 10 | 0 | 4.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_1 \sin(\pi x/L)` | display | 10 | 0 | 4.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `a+\cdots.` | text | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `a+\cdots.` | display | 10 | 0 | 6: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\left(a,\dots\right)` | text | 10 | 0 | 1.5: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\left(a,\dots\right)` | display | 10 | 0 | 1.5: glue 109224 0 0 0 0 subtype 99, TeX glue 109224 0 0 0 0 subtype 0 |
+| `\frac{\sin x}{x}` | text | 11 | 0 | 1.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\frac{\sin x}{x}` | display | 11 | 0 | 1.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\frac{a}{\frac{b}{c}}` | text | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 377150 487413 205608 shift 0 set 0 0 0 (3) |
+| `\frac{a}{\frac{b}{c}}` | display | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -179404 set 0 0 0.000000 (0), TeX hbox 398559 646638 247464 shift 0 set 0 0 0 (3) |
+| `\int_a^b g(x)\,dx` | text | 11 | 0 | 9: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int_a^b g(x)\,dx` | display | 11 | 0 | 9: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-x}\,dx` | text | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-x}\,dx` | display | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\iint_D` | text | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iint_D` | display | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\lim_{n\to\infty} a_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty} a_n` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to 0} \frac{\sin x}{x}` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to 0} \frac{\sin x}{x}` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{i} x_i` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{i} x_i` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min(a,b)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min(a,b)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in A} f(x)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in A} f(x)` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf S` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf S` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n} a_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n} a_n` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det A` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det A` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd(a,b)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd(a,b)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\theta` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\theta` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp(x)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp(x)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Var}(X)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Var}(X)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sqrt[3]{2}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{2}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\bigl(x\bigr)` | text | 11 | 0 | 1.1: hbox 328910 28704 832447 shift -581275 set 0 0 0.000000 (1), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (3) |
+| `\bigl(x\bigr)` | display | 11 | 0 | 1.1: hbox 328910 28704 832447 shift -581275 set 0 0 0.000000 (1), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (3) |
+| `\Bigl(x\Bigr)` | text | 11 | 0 | 1.1: hbox 428579 28704 1263023 shift -796563 set 0 0 0.000000 (1), TeX hbox 428579 825267 466460 shift 0 set 0 0 0 (3) |
+| `\Bigl(x\Bigr)` | display | 11 | 0 | 1.1: hbox 428579 28704 1263023 shift -796563 set 0 0 0.000000 (1), TeX hbox 428579 825267 466460 shift 0 set 0 0 0 (3) |
+| `a\,b` | text | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `a\,b` | display | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `a\;b` | text | 11 | 0 | 2: glue 199335 199335 0 0 0 subtype 99, TeX glue 199335 199335 0 0 0 subtype 0 |
+| `a\;b` | display | 11 | 0 | 2: glue 199335 199335 0 0 0 subtype 99, TeX glue 199335 199335 0 0 0 subtype 0 |
+| `a\!b` | text | 11 | 0 | 2: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `a\!b` | display | 11 | 0 | 2: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `a\ b` | text | 11 | 0 | 2: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `a\ b` | display | 11 | 0 | 2: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `\,dx` | text | 11 | 0 | 1: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\,dx` | display | 11 | 0 | 1: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `f(x)\,dx` | text | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `f(x)\,dx` | display | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1014170 462465 0 shift 0 set 0 0 0.000000 (7), TeX hbox 1014170 623900 267389 shift 0 set 0 0 0 (10) |
+| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1014170 462465 0 shift 0 set 0 0 0.000000 (7), TeX hbox 1014170 623900 267389 shift 0 set 0 0 0 (10) |
+| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\binom{n}{k}` | text | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\binom{n}{k}` | display | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\binom{2n}{n}` | text | 11 | 0 | 1.0: hbox 1274352 656305 251172 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\binom{2n}{n}` | display | 11 | 0 | 1.0: hbox 1846048 1040555 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | text | 11 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | display | 11 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\mathbb{P}(\|X-\mu\|\ge t)\le \frac{\operatorname{Var}(X)}{t^2}` | text | 11 | 0 | 19.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\mathbb{P}(\|X-\mu\|\ge t)\le \frac{\operatorname{Var}(X)}{t^2}` | display | 11 | 0 | 19.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 (n!) = n\log_2 n - n\log_2 e + O(\log n)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 (n!) = n\log_2 n - n\log_2 e + O(\log n)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x \equiv 3 \pmod{11}` | text | 11 | 0 | 7: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `x \equiv 3 \pmod{11}` | display | 11 | 0 | 7: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `f\colon A\to B` | text | 11 | 0 | 4: kern 79734 subtype 1, TeX glue 79734 0 0 0 0 subtype 0 |
+| `f\colon A\to B` | display | 11 | 0 | 4: kern 79734 subtype 1, TeX glue 79734 0 0 0 0 subtype 0 |
+| `\forall \varepsilon>0\ \exists \delta>0` | text | 11 | 0 | 7: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `\forall \varepsilon>0\ \exists \delta>0` | display | 11 | 0 | 7: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `\overline{\lim} a_n` | text | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\overline{\lim} a_n` | display | 11 | 0 | 1.3.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\int_{-\infty}^{\infty} e^{-x^2}\,dx=\sqrt{\pi}` | text | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int_{-\infty}^{\infty} e^{-x^2}\,dx=\sqrt{\pi}` | display | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | text | 11 | 0 | 15.0: hbox 995820 609979 251172 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | display | 11 | 0 | 14.0: hbox 1487238 1040555 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `O(n\log n)` | text | 11 | 0 | 6.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `O(n\log n)` | display | 11 | 0 | 6.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det(A-\lambda I)=0` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det(A-\lambda I)=0` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `a,\ b` | text | 11 | 0 | 3: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `a,\ b` | display | 11 | 0 | 3: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `a\lim b` | text | 11 | 0 | 3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `a\lim b` | display | 11 | 0 | 3.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\sum` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\sum` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sum\lim` | text | 11 | 0 | 3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sum\lim` | display | 11 | 0 | 3.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x_{a\lim b}` | text | 11 | 0 | 2.2.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x_{a\lim b}` | display | 11 | 0 | 2.2.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x_{\binom{n}{k}}` | text | 11 | 0 | 2.0: hbox 279075 538214 179404 shift 1 set 0 0 0.000000 (1), TeX hbox 279075 538213 179405 shift 0 set 0 0 0 (1) |
+| `x_{\binom{n}{k}}` | display | 11 | 0 | 2.0: hbox 279075 538214 179404 shift 1 set 0 0 0.000000 (1), TeX hbox 279075 538213 179405 shift 0 set 0 0 0 (1) |
+| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | text | 11 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -98304 set 0 0 0.000000 (0), TeX hbox 397581 407675 183748 shift 0 set 0 0 0 (3) |
+| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | display | 11 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -98304 set 0 0 0.000000 (0), TeX hbox 397581 407675 183748 shift 0 set 0 0 0 (3) |
+| `x^{\scriptscriptstyle\sqrt2}` | text | 11 | 1218 | 2: hbox 666276 365721 47811 shift -260418 set 0 0 0.000000 (2), TeX hbox 666276 364503 47811 shift -260418 set 0 0 0 (2) |
+| `x^{\scriptscriptstyle\sqrt2}` | display | 11 | 1218 | 2: hbox 666276 365721 47811 shift -296299 set 0 0 0.000000 (2), TeX hbox 666276 364503 47811 shift -296299 set 0 0 0 (2) |
+| `\lim_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty}x_n` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `F_{\mu\nu}^{\ \ \alpha}` | text | 11 | 0 | 2.0.0: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `F_{\mu\nu}^{\ \ \alpha}` | display | 11 | 0 | 2.0.0: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `\dbinom{n}{k}` | text | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 set 0 0 0.000000 (1), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\dbinom{n}{k}` | display | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 set 0 0 0.000000 (1), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\tbinom{n}{k}` | text | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 set 0 0 0.000000 (1), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\tbinom{n}{k}` | display | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 set 0 0 0.000000 (1), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\binom{n+1}{k-1}` | text | 11 | 0 | 1.0: hbox 1707624 656305 302080 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\binom{n+1}{k-1}` | display | 11 | 0 | 1.0: hbox 2723134 1040555 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\dbinom{n+1}{k-1}` | text | 11 | 0 | 1.0: hbox 2723134 1040555 681748 shift 0 set 0 0 0.000000 (1), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\dbinom{n+1}{k-1}` | display | 11 | 0 | 1.0: hbox 2723134 1040555 681748 shift 0 set 0 0 0.000000 (1), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\tbinom{n+1}{k-1}` | text | 11 | 0 | 1.0: hbox 1707624 656305 302080 shift 0 set 0 0 0.000000 (1), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\tbinom{n+1}{k-1}` | display | 11 | 0 | 1.0: hbox 1707624 656305 302080 shift 0 set 0 0 0.000000 (1), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\binom{\frac12}{k}` | text | 11 | 0 | 1.0: hbox 1055401 831139 292422 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\binom{\frac12}{k}` | display | 11 | 0 | 1.0: hbox 1492316 1105898 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\binom{n}{\frac{k}{2}}` | text | 11 | 0 | 1.0: hbox 1083164 609979 456888 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\binom{n}{\frac{k}{2}}` | display | 11 | 0 | 1.0: hbox 1517802 1040555 739715 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\binom{a}{b}^2` | text | 11 | 0 | 1.0: hbox 953707 609979 251172 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\binom{a}{b}^2` | display | 11 | 0 | 1.0: hbox 1435824 1040555 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\binom{n}{k}_q` | text | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\binom{n}{k}_q` | display | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0pt}{}{n}{k}` | text | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0pt}{}{n}{k}` | display | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | text | 11 | 0 | 1.0: hbox 995820 609979 251172 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | display | 11 | 0 | 1.0: hbox 1487238 1040555 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\genfrac{[}{]}{1pt}{0}{a}{b}` | text | 11 | 0 | 1.0: hbox 1136816 1040555 681748 shift 0 set 0 0 0.000000 (1), TeX hbox 378745 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\genfrac{[}{]}{1pt}{0}{a}{b}` | display | 11 | 0 | 1.0: hbox 1136816 1040555 681748 shift 0 set 0 0 0.000000 (1), TeX hbox 378745 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | text | 11 | 0 | 1.0: hbox 1133111 609979 251172 shift 0 set 0 0 0.000000 (1), TeX hbox 418612 609979 251172 shift 0 set 0 0 0 (1) |
+| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | display | 11 | 0 | 1.0: hbox 1133111 609979 251172 shift 0 set 0 0 0.000000 (1), TeX hbox 418612 609979 251172 shift 0 set 0 0 0 (1) |
+| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | text | 11 | 0 | 1.0: hbox 823525 538213 205608 shift 0 set 0 0 0.000000 (1), TeX hbox 279075 538213 179405 shift 0 set 0 0 0 (1) |
+| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | display | 11 | 0 | 1.0: hbox 823525 538213 205608 shift 0 set 0 0 0.000000 (1), TeX hbox 279075 538213 179405 shift 0 set 0 0 0 (1) |
+| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | text | 11 | 241392 | 1: hbox 1039738 484965 245291 shift 0 set 0 0 0.000000 (1), TeX hbox 1281130 538213 245291 shift 0 set 0 0 0 (5) |
+| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | display | 11 | 241392 | 1: hbox 1039738 484965 245291 shift 0 set 0 0 0.000000 (1), TeX hbox 1281130 538213 245291 shift 0 set 0 0 0 (5) |
+| `\genfrac{(}{]}{0pt}{}{a}{b}` | text | 11 | 0 | 1.0: hbox 923806 609979 251172 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{]}{0pt}{}{a}{b}` | display | 11 | 0 | 1.0: hbox 1286320 1040555 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\frac{1}{\frac{1}{\frac{1}{x}}}` | text | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 589003 467751 480825 shift 0 set 0 0 0 (3) |
+| `\frac{1}{\frac{1}{\frac{1}{x}}}` | display | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -179404 set 0 0 0.000000 (0), TeX hbox 589003 620424 537011 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{a}{b}}{\frac{c}{d}}` | text | 11 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 422661 383646 205608 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{a}{b}}{\frac{c}{d}}` | display | 11 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -179404 set 0 0 0.000000 (0), TeX hbox 453173 508284 247464 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{\frac{a}{b}}{c}}{d}` | text | 11 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 579947 693442 205608 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{\frac{a}{b}}{c}}{d}` | display | 11 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -179404 set 0 0 0.000000 (0), TeX hbox 579947 811714 247464 shift 0 set 0 0 0 (3) |
+| `\frac{a}{\frac{b}{\frac{c}{d}}}` | text | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 567203 487413 431298 shift 0 set 0 0 0 (3) |
+| `\frac{a}{\frac{b}{\frac{c}{d}}}` | display | 11 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -179404 set 0 0 0.000000 (0), TeX hbox 567203 646638 453072 shift 0 set 0 0 0 (3) |
+| `\sqrt{\frac{\frac12}{3}}` | text | 11 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 397581 467751 205608 shift 0 set 0 0 0 (3) |
+| `\sqrt{\frac{\frac12}{3}}` | display | 11 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -179404 set 0 0 0.000000 (0), TeX hbox 435818 620424 247464 shift 0 set 0 0 0 (3) |
+| `\sqrt{\binom{n}{k}}` | text | 11 | 0 | 1.1.3.0: hbox 328910 28704 832447 shift -581275 set 0 0 0.000000 (1), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\sqrt{\binom{n}{k}}` | display | 11 | 0 | 1.1.3.0: hbox 528249 28704 1693599 shift -1011851 set 0 0 0.000000 (1), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\sqrt[3]{x}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{x}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{x}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{x}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{a+b}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{a+b}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[10]{x}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[10]{x}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\frac12}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\frac12}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{\frac{a}{b}}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{\frac{a}{b}}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{\sum_i x_i}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{\sum_i x_i}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\frac12]{x}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\frac12]{x}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\sqrt[3]{x}}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\sqrt[3]{x}}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[a]{\sqrt[b]{\sqrt[c]{x}}}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[a]{\sqrt[b]{\sqrt[c]{x}}}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x^n}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x^n}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[m+n]{y}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[m+n]{y}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\beta]{x}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\beta]{x}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{x_{i_j}}` | text | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{x_{i_j}}` | display | 11 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `x^{\sqrt[3]{y}}` | text | 11 | 0 | 2.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `x^{\sqrt[3]{y}}` | display | 11 | 0 | 2.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt{2}\,\pi` | text | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\sqrt{2}\,\pi` | display | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\iint` | text | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iint` | display | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iint_a^b` | text | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iint_a^b` | display | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iint_{i=1}^{n}x_i` | text | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iint_{i=1}^{n}x_i` | display | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
 | `\iint\limits_a^b` | text | 11 | 109954 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
 | `\iint\limits_a^b` | display | 11 | 99193 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
 | `\iint\nolimits_a^b` | text | 11 | 129640 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
 | `\iint\nolimits_a^b` | display | 11 | 118880 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
+| `\iint_{\frac12}^{\frac34}x` | text | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iint_{\frac12}^{\frac34}x` | display | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iiint` | text | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iiint` | display | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iiint_a^b` | text | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iiint_a^b` | display | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iiint_{i=1}^{n}x_i` | text | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iiint_{i=1}^{n}x_i` | display | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
 | `\iiint\limits_a^b` | text | 11 | 219752 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
 | `\iiint\limits_a^b` | display | 11 | 213061 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
 | `\iiint\nolimits_a^b` | text | 11 | 239438 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
 | `\iiint\nolimits_a^b` | display | 11 | 232747 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
+| `\iiint_{\frac12}^{\frac34}x` | text | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
+| `\iiint_{\frac12}^{\frac34}x` | display | 11 | 0 | 2: kern -239202 subtype 1, TeX kern -239202 subtype 3 |
 | `\sum_{\substack{i<j\\ j<n}}x_{ij}` | text | 11 | 128092 | not supported by the TeX-rule layout: array cells in script style |
 | `\sum_{\substack{i<j\\ j<n}}x_{ij}` | display | 11 | 110403 | not supported by the TeX-rule layout: array cells in script style |
-| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | text | 11 | 0 | 2.0.0: hbox 279075 538214 179404 shift 1 (1), TeX hbox 279075 538213 179405 shift 0 (1) |
-| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | display | 11 | 0 | 1.1.1: hbox 279075 538214 179404 shift 1 (1), TeX hbox 279075 538213 179405 shift 0 (1) |
-| `\sum_{k}\binom{n}{k}` | text | 11 | 0 | 4.0: hbox 995820 609979 251172 shift 0 (3), TeX hbox 328910 609979 251172 shift 0 (1) |
-| `\sum_{k}\binom{n}{k}` | display | 11 | 0 | 3.0: hbox 1487238 1040555 681748 shift 0 (3), TeX hbox 528249 1040555 681748 shift 0 (1) |
-| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 11 | 0 | 3.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 11 | 0 | 3.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
+| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | text | 11 | 0 | 2.0.0: hbox 279075 538214 179404 shift 1 set 0 0 0.000000 (1), TeX hbox 279075 538213 179405 shift 0 set 0 0 0 (1) |
+| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | display | 11 | 0 | 1.1.1: hbox 279075 538214 179404 shift 1 set 0 0 0.000000 (1), TeX hbox 279075 538213 179405 shift 0 set 0 0 0 (1) |
+| `\int\limits_0^1 f\,dx` | text | 11 | 0 | 5: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int\limits_0^1 f\,dx` | display | 11 | 0 | 5: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int\nolimits_0^1 f\,dx` | text | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int\nolimits_0^1 f\,dx` | display | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\sum_{k}\binom{n}{k}` | text | 11 | 0 | 4.0: hbox 995820 609979 251172 shift 0 set 0 0 0.000000 (3), TeX hbox 328910 609979 251172 shift 0 set 0 0 0 (1) |
+| `\sum_{k}\binom{n}{k}` | display | 11 | 0 | 3.0: hbox 1487238 1040555 681748 shift 0 set 0 0 0.000000 (3), TeX hbox 528249 1040555 681748 shift 0 set 0 0 0 (1) |
+| `\lim x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty}x_n` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim^2x` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\left(x\right)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n\to\infty}x_n` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup^2x` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup\left(x\right)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n\to\infty}x_n` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf^2x` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf\left(x\right)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n\to\infty}x_n` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max^2x` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max\left(x\right)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n\to\infty}x_n` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min^2x` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min\left(x\right)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n\to\infty}x_n` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup^2x` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup\left(x\right)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n\to\infty}x_n` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf^2x` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf\left(x\right)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n\to\infty}x_n` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det^2x` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\left(x\right)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n\to\infty}x_n` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd^2x` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd\left(x\right)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n\to\infty}x_n` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr^2x` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr\left(x\right)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n\to\infty}x_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n\to\infty}x_n` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth^2x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth^2x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth\left(x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth\left(x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}(x)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}(x)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Hom}_R(M,N)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Hom}_R(M,N)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{rank}A` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{rank}A` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{tr}A^2` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{tr}A^2` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Re}z` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Re}z` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Im}z` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Im}z` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{id}_X` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{id}_X` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{span}\{v\}` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{span}\{v\}` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{argmax}_x f` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{argmax}_x f` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmax}_x f` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmax}_x f` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmin}_{x\in X}f(x)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmin}_{x\in X}f(x)` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{ess\,sup}_{x}f` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{ess\,sup}_{x}f` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{Res}_{z=0}f` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{Res}_{z=0}f` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{lim\,inf}_{n}a_n` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{lim\,inf}_{n}a_n` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}_{\frac12}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}_{\frac12}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}_{\frac12}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}_{\frac12}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}^{a}_{b}` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}^{a}_{b}` | display | 11 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}^{a}_{b}` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}^{a}_{b}` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{a b}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{a b}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Aut}(G)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Aut}(G)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{GL}_n(\mathbb{R})` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{GL}_n(\mathbb{R})` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to0}\frac{\sin x}{x}` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to0}\frac{\sin x}{x}` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{1\le i\le n}x_i` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{1\le i\le n}x_i` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in\frac12}f` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in\frac12}f` | display | 11 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{\sum}f` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{\sum}f` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\limits_{n}x` | text | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\limits_{n}x` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\nolimits_{n}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\nolimits_{n}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^{-1}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^{-1}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{\frac12}x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{\frac12}x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\ln x` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\ln x` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\cos\tan` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\cos\tan` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(-x\right)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(-x\right)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 11 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
 | `\hat{\imath}` | text | 11 | 327 | not supported by the TeX-rule layout: htmlmathml |
 | `\hat{\imath}` | display | 11 | 327 | not supported by the TeX-rule layout: htmlmathml |
 | `\hat{\jmath}` | text | 11 | 22 | not supported by the TeX-rule layout: htmlmathml |
@@ -692,34 +1838,34 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\dddot x` | display | 11 | 142002 | not supported by the TeX-rule layout: raisebox |
 | `\dddot{x}^2` | text | 11 | 143880 | not supported by the TeX-rule layout: raisebox |
 | `\dddot{x}^2` | display | 11 | 143880 | not supported by the TeX-rule layout: raisebox |
-| `\widehat{\widehat{x}}` | text | 11 | 0 | 1.0: hbox 0 518281 0 shift 5732 (1), TeX hbox 0 518281 0 shift 25665 (1) |
-| `\widehat{\widehat{x}}` | display | 11 | 0 | 1.0: hbox 0 518281 0 shift 5732 (1), TeX hbox 0 518281 0 shift 25665 (1) |
-| `\hat{\hat{x}}` | text | 11 | 0 | 1: vbox 410139 687718 0 shift 0 (3), TeX vbox 450007 687718 0 shift 0 (3) |
-| `\hat{\hat{x}}` | display | 11 | 0 | 1: vbox 410139 687718 0 shift 0 (3), TeX vbox 450007 687718 0 shift 0 (3) |
-| `\hat{\tilde{x}}` | text | 11 | 0 | 1: vbox 410139 668640 0 shift 0 (3), TeX vbox 450007 668640 0 shift 0 (3) |
-| `\hat{\tilde{x}}` | display | 11 | 0 | 1: vbox 410139 668640 0 shift 0 (3), TeX vbox 450007 668640 0 shift 0 (3) |
-| `\tilde{\hat{x}}` | text | 11 | 0 | 1: vbox 410139 668640 0 shift 0 (3), TeX vbox 450007 668640 0 shift 0 (3) |
-| `\tilde{\hat{x}}` | display | 11 | 0 | 1: vbox 410139 668640 0 shift 0 (3), TeX vbox 450007 668640 0 shift 0 (3) |
-| `\bar{\bar{x}}` | text | 11 | 0 | 1: vbox 410139 505920 0 shift 0 (3), TeX vbox 450007 505920 0 shift 0 (3) |
-| `\bar{\bar{x}}` | display | 11 | 0 | 1: vbox 410139 505920 0 shift 0 (3), TeX vbox 450007 505920 0 shift 0 (3) |
-| `\dot{\hat{x}}` | text | 11 | 0 | 1: vbox 410139 668640 0 shift 0 (3), TeX vbox 450007 668640 0 shift 0 (3) |
-| `\dot{\hat{x}}` | display | 11 | 0 | 1: vbox 410139 668640 0 shift 0 (3), TeX vbox 450007 668640 0 shift 0 (3) |
-| `\ddot{\vec{x}}` | text | 11 | 0 | 1: vbox 410139 682992 0 shift 0 (3), TeX vbox 450007 682992 0 shift 0 (3) |
-| `\ddot{\vec{x}}` | display | 11 | 0 | 1: vbox 410139 682992 0 shift 0 (3), TeX vbox 450007 682992 0 shift 0 (3) |
-| `\vec{\dot{x}}` | text | 11 | 0 | 1: vbox 410139 682992 0 shift 0 (3), TeX vbox 450007 682992 0 shift 0 (3) |
-| `\vec{\dot{x}}` | display | 11 | 0 | 1: vbox 410139 682992 0 shift 0 (3), TeX vbox 450007 682992 0 shift 0 (3) |
-| `\hat{\bar{A}}` | text | 11 | 0 | 1: vbox 538215 778217 0 shift 0 (3), TeX vbox 737559 778217 0 shift 0 (3) |
-| `\hat{\bar{A}}` | display | 11 | 0 | 1: vbox 538215 778217 0 shift 0 (3), TeX vbox 737559 778217 0 shift 0 (3) |
-| `\acute{\grave{x}}` | text | 11 | 0 | 1: vbox 410139 687718 0 shift 0 (3), TeX vbox 450007 687718 0 shift 0 (3) |
-| `\acute{\grave{x}}` | display | 11 | 0 | 1: vbox 410139 687718 0 shift 0 (3), TeX vbox 450007 687718 0 shift 0 (3) |
-| `\check{\breve{y}}` | text | 11 | 0 | 1: vbox 377582 640376 139537 shift 0 (3), TeX vbox 457318 640376 139537 shift 0 (3) |
-| `\check{\breve{y}}` | display | 11 | 0 | 1: vbox 377582 640376 139537 shift 0 (3), TeX vbox 457318 640376 139537 shift 0 (3) |
-| `\vec{\vec{v}}` | text | 11 | 0 | 1: vbox 373594 716422 0 shift 0 (3), TeX vbox 413462 716422 0 shift 0 (3) |
-| `\vec{\vec{v}}` | display | 11 | 0 | 1: vbox 373594 716422 0 shift 0 (3), TeX vbox 413462 716422 0 shift 0 (3) |
-| `\dot{\dot{x}}` | text | 11 | 0 | 1: vbox 410139 649562 0 shift 0 (3), TeX vbox 450007 649562 0 shift 0 (3) |
-| `\dot{\dot{x}}` | display | 11 | 0 | 1: vbox 410139 649562 0 shift 0 (3), TeX vbox 450007 649562 0 shift 0 (3) |
-| `\tilde{\tilde{f}}` | text | 11 | 0 | 1: vbox 428580 838934 139537 shift 0 (3), TeX vbox 667792 838934 139537 shift 0 (3) |
-| `\tilde{\tilde{f}}` | display | 11 | 0 | 1: vbox 428580 838934 139537 shift 0 (3), TeX vbox 667792 838934 139537 shift 0 (3) |
+| `\widehat{\widehat{x}}` | text | 11 | 0 | 1.0: hbox 0 518281 0 shift 5732 set 0 0 0.000000 (1), TeX hbox 0 518281 0 shift 25665 set 0 0 0 (1) |
+| `\widehat{\widehat{x}}` | display | 11 | 0 | 1.0: hbox 0 518281 0 shift 5732 set 0 0 0.000000 (1), TeX hbox 0 518281 0 shift 25665 set 0 0 0 (1) |
+| `\hat{\hat{x}}` | text | 11 | 0 | 1: vbox 410139 687718 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 687718 0 shift 0 set 0 0 0 (3) |
+| `\hat{\hat{x}}` | display | 11 | 0 | 1: vbox 410139 687718 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 687718 0 shift 0 set 0 0 0 (3) |
+| `\hat{\tilde{x}}` | text | 11 | 0 | 1: vbox 410139 668640 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 668640 0 shift 0 set 0 0 0 (3) |
+| `\hat{\tilde{x}}` | display | 11 | 0 | 1: vbox 410139 668640 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 668640 0 shift 0 set 0 0 0 (3) |
+| `\tilde{\hat{x}}` | text | 11 | 0 | 1: vbox 410139 668640 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 668640 0 shift 0 set 0 0 0 (3) |
+| `\tilde{\hat{x}}` | display | 11 | 0 | 1: vbox 410139 668640 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 668640 0 shift 0 set 0 0 0 (3) |
+| `\bar{\bar{x}}` | text | 11 | 0 | 1: vbox 410139 505920 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 505920 0 shift 0 set 0 0 0 (3) |
+| `\bar{\bar{x}}` | display | 11 | 0 | 1: vbox 410139 505920 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 505920 0 shift 0 set 0 0 0 (3) |
+| `\dot{\hat{x}}` | text | 11 | 0 | 1: vbox 410139 668640 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 668640 0 shift 0 set 0 0 0 (3) |
+| `\dot{\hat{x}}` | display | 11 | 0 | 1: vbox 410139 668640 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 668640 0 shift 0 set 0 0 0 (3) |
+| `\ddot{\vec{x}}` | text | 11 | 0 | 1: vbox 410139 682992 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 682992 0 shift 0 set 0 0 0 (3) |
+| `\ddot{\vec{x}}` | display | 11 | 0 | 1: vbox 410139 682992 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 682992 0 shift 0 set 0 0 0 (3) |
+| `\vec{\dot{x}}` | text | 11 | 0 | 1: vbox 410139 682992 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 682992 0 shift 0 set 0 0 0 (3) |
+| `\vec{\dot{x}}` | display | 11 | 0 | 1: vbox 410139 682992 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 682992 0 shift 0 set 0 0 0 (3) |
+| `\hat{\bar{A}}` | text | 11 | 0 | 1: vbox 538215 778217 0 shift 0 set 0 0 0.000000 (3), TeX vbox 737559 778217 0 shift 0 set 0 0 0 (3) |
+| `\hat{\bar{A}}` | display | 11 | 0 | 1: vbox 538215 778217 0 shift 0 set 0 0 0.000000 (3), TeX vbox 737559 778217 0 shift 0 set 0 0 0 (3) |
+| `\acute{\grave{x}}` | text | 11 | 0 | 1: vbox 410139 687718 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 687718 0 shift 0 set 0 0 0 (3) |
+| `\acute{\grave{x}}` | display | 11 | 0 | 1: vbox 410139 687718 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 687718 0 shift 0 set 0 0 0 (3) |
+| `\check{\breve{y}}` | text | 11 | 0 | 1: vbox 377582 640376 139537 shift 0 set 0 0 0.000000 (3), TeX vbox 457318 640376 139537 shift 0 set 0 0 0 (3) |
+| `\check{\breve{y}}` | display | 11 | 0 | 1: vbox 377582 640376 139537 shift 0 set 0 0 0.000000 (3), TeX vbox 457318 640376 139537 shift 0 set 0 0 0 (3) |
+| `\vec{\vec{v}}` | text | 11 | 0 | 1: vbox 373594 716422 0 shift 0 set 0 0 0.000000 (3), TeX vbox 413462 716422 0 shift 0 set 0 0 0 (3) |
+| `\vec{\vec{v}}` | display | 11 | 0 | 1: vbox 373594 716422 0 shift 0 set 0 0 0.000000 (3), TeX vbox 413462 716422 0 shift 0 set 0 0 0 (3) |
+| `\dot{\dot{x}}` | text | 11 | 0 | 1: vbox 410139 649562 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 649562 0 shift 0 set 0 0 0 (3) |
+| `\dot{\dot{x}}` | display | 11 | 0 | 1: vbox 410139 649562 0 shift 0 set 0 0 0.000000 (3), TeX vbox 450007 649562 0 shift 0 set 0 0 0 (3) |
+| `\tilde{\tilde{f}}` | text | 11 | 0 | 1: vbox 428580 838934 139537 shift 0 set 0 0 0.000000 (3), TeX vbox 667792 838934 139537 shift 0 set 0 0 0 (3) |
+| `\tilde{\tilde{f}}` | display | 11 | 0 | 1: vbox 428580 838934 139537 shift 0 set 0 0 0.000000 (3), TeX vbox 667792 838934 139537 shift 0 set 0 0 0 (3) |
 | `\overrightarrow{AB}` | text | 11 | 111320 | not supported by the TeX-rule layout: accent \overrightarrow |
 | `\overrightarrow{AB}` | display | 11 | 111320 | not supported by the TeX-rule layout: accent \overrightarrow |
 | `\overleftarrow{AB}` | text | 11 | 111320 | not supported by the TeX-rule layout: accent \overleftarrow |
@@ -736,104 +1882,104 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\overbrace{x}` | display | 11 | 143534 | not supported by the TeX-rule layout: horizBrace |
 | `\underbrace{x}` | text | 11 | 143534 | not supported by the TeX-rule layout: horizBrace |
 | `\underbrace{x}` | display | 11 | 143534 | not supported by the TeX-rule layout: horizBrace |
-| `\overset{a}{=}` | text | 11 | 0 | 1.0.3.0: char cmr10 61 558150 263276 -95534, TeX kern 0 |
-| `\overset{a}{=}` | display | 11 | 0 | 1.0.3.0: char cmr10 61 558150 263276 -95534, TeX kern 0 |
-| `\underset{a}{=}` | text | 11 | 0 | 1.0.0.0: char cmr10 61 558150 263276 -95534, TeX kern 0 |
-| `\underset{a}{=}` | display | 11 | 0 | 1.0.0.0: char cmr10 61 558150 263276 -95534, TeX kern 0 |
+| `\overset{a}{=}` | text | 11 | 0 | 1.0.3.0: char cmr10 717619 61 558150 263276 -95534, TeX kern 0 subtype 1 |
+| `\overset{a}{=}` | display | 11 | 0 | 1.0.3.0: char cmr10 717619 61 558150 263276 -95534, TeX kern 0 subtype 1 |
+| `\underset{a}{=}` | text | 11 | 0 | 1.0.0.0: char cmr10 717619 61 558150 263276 -95534, TeX kern 0 subtype 1 |
+| `\underset{a}{=}` | display | 11 | 0 | 1.0.0.0: char cmr10 717619 61 558150 263276 -95534, TeX kern 0 subtype 1 |
 | `\xrightarrow{a}` | text | 11 | 325023 | not supported by the TeX-rule layout: xArrow |
 | `\xrightarrow{a}` | display | 11 | 325023 | not supported by the TeX-rule layout: xArrow |
 | `\xleftarrow[b]{a}` | text | 11 | 325023 | not supported by the TeX-rule layout: xArrow |
 | `\xleftarrow[b]{a}` | display | 11 | 325023 | not supported by the TeX-rule layout: xArrow |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left( \frac{\frac12}{\frac34}\right)` | text | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 397581 467751 205608 shift 0 (3) |
-| `\left( \frac{\frac12}{\frac34}\right)` | display | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -179404 (0), TeX hbox 435818 620424 247464 shift 0 (3) |
-| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left[ \frac{\frac12}{\frac34}\right]` | text | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 397581 467751 205608 shift 0 (3) |
-| `\left[ \frac{\frac12}{\frac34}\right]` | display | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -179404 (0), TeX hbox 435818 620424 247464 shift 0 (3) |
-| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left( \frac{\frac12}{\frac34}\right.` | text | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 397581 467751 205608 shift 0 (3) |
-| `\left( \frac{\frac12}{\frac34}\right.` | display | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -179404 (0), TeX hbox 435818 620424 247464 shift 0 (3) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | text | 11 | 0 | 1.1.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | display | 11 | 0 | 1.1.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | text | 11 | 0 | 1.1.0.3: hbox 1028871 498346 0 shift 0 (6), TeX hbox 1028871 623900 267389 shift 0 (9) |
-| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | display | 11 | 0 | 1.1.0.3: hbox 1028871 498346 0 shift 0 (6), TeX hbox 1028871 623900 267389 shift 0 (9) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left( \frac{\frac12}{\frac34}\right)` | text | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 397581 467751 205608 shift 0 set 0 0 0 (3) |
+| `\left( \frac{\frac12}{\frac34}\right)` | display | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -179404 set 0 0 0.000000 (0), TeX hbox 435818 620424 247464 shift 0 set 0 0 0 (3) |
+| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left[ \frac{\frac12}{\frac34}\right]` | text | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 397581 467751 205608 shift 0 set 0 0 0 (3) |
+| `\left[ \frac{\frac12}{\frac34}\right]` | display | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -179404 set 0 0 0.000000 (0), TeX hbox 435818 620424 247464 shift 0 set 0 0 0 (3) |
+| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left( \frac{\frac12}{\frac34}\right.` | text | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 397581 467751 205608 shift 0 set 0 0 0 (3) |
+| `\left( \frac{\frac12}{\frac34}\right.` | display | 11 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -179404 set 0 0 0.000000 (0), TeX hbox 435818 620424 247464 shift 0 set 0 0 0 (3) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | text | 11 | 0 | 1.1.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | display | 11 | 0 | 1.1.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | text | 11 | 0 | 1.1.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.999954 (6), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.999954 (9) |
+| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | display | 11 | 0 | 1.1.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.999954 (6), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.999954 (9) |
 | `\text{\textbf{a}}` | text | 11 | 6143 | not supported by the TeX-rule layout: text that is not plain characters |
 | `\text{\textbf{a}}` | display | 11 | 6143 | not supported by the TeX-rule layout: text that is not plain characters |
 | `\text{a$x$b}` | text | 11 | 7894 | not supported by the TeX-rule layout: text that is not plain characters |
@@ -842,64 +1988,142 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\boldsymbol{\alpha}` | display | 11 | 255 | not supported by the TeX-rule layout: \boldsymbol |
 | `\boldsymbol{x}` | text | 11 | 19 | not supported by the TeX-rule layout: \boldsymbol |
 | `\boldsymbol{x}` | display | 11 | 19 | not supported by the TeX-rule layout: \boldsymbol |
-| `a\hphantom{b}c` | text | 11 | 0 | 2.0: math false, TeX nothing |
-| `a\hphantom{b}c` | display | 11 | 0 | 2.0: math false, TeX nothing |
-| `\smash{\frac12}` | text | 11 | 0 | 1: hbox 435818 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash{\frac12}` | display | 11 | 0 | 1: hbox 516096 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\smash{b}c` | text | 11 | 0 | 2: hbox 307978 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\smash{b}c` | display | 11 | 0 | 2: hbox 307978 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash{x_i}` | text | 11 | 0 | 1: hbox 632565 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash{x_i}` | display | 11 | 0 | 1: hbox 632565 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\hphantom{\frac12}` | text | 11 | 0 | 1.0: math false, TeX nothing |
-| `\hphantom{\frac12}` | display | 11 | 0 | 1.0: math false, TeX nothing |
-| `\smash[t]{\frac12}` | text | 11 | 0 | 1: hbox 435818 0 247464 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash[t]{\frac12}` | display | 11 | 0 | 1: hbox 516096 0 492251 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash[b]{\frac12}` | text | 11 | 0 | 1: hbox 435818 620424 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash[b]{\frac12}` | display | 11 | 0 | 1: hbox 516096 947939 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\mkern-3mu b` | text | 11 | 0 | 2: glue -119601 0 0, TeX kern -119601 |
-| `a\mkern-3mu b` | display | 11 | 0 | 2: glue -119601 0 0, TeX kern -119601 |
-| `a\kern2pt b` | text | 11 | 0 | 2: glue 131072 0 0, TeX kern 131072 |
-| `a\kern2pt b` | display | 11 | 0 | 2: glue 131072 0 0, TeX kern 131072 |
+| `a\hphantom{b}c` | text | 11 | 0 | 2.0: math 0, TeX nothing |
+| `a\hphantom{b}c` | display | 11 | 0 | 2.0: math 0, TeX nothing |
+| `\smash{\frac12}` | text | 11 | 0 | 1: hbox 435818 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash{\frac12}` | display | 11 | 0 | 1: hbox 516096 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\smash{b}c` | text | 11 | 0 | 2: hbox 307978 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\smash{b}c` | display | 11 | 0 | 2: hbox 307978 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash{x_i}` | text | 11 | 0 | 1: hbox 632565 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash{x_i}` | display | 11 | 0 | 1: hbox 632565 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\hphantom{\frac12}` | text | 11 | 0 | 1.0: math 0, TeX nothing |
+| `\hphantom{\frac12}` | display | 11 | 0 | 1.0: math 0, TeX nothing |
+| `\smash[t]{\frac12}` | text | 11 | 0 | 1: hbox 435818 0 247464 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash[t]{\frac12}` | display | 11 | 0 | 1: hbox 516096 0 492251 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash[b]{\frac12}` | text | 11 | 0 | 1: hbox 435818 620424 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash[b]{\frac12}` | display | 11 | 0 | 1: hbox 516096 947939 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\:b` | text | 11 | 0 | 2: glue 159468 79734 0 159468 0 subtype 99, TeX glue 159468 79734 0 159468 0 subtype 0 |
+| `a\:b` | display | 11 | 0 | 2: glue 159468 79734 0 159468 0 subtype 99, TeX glue 159468 79734 0 159468 0 subtype 0 |
+| `a~b` | text | 11 | 0 | 3: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `a~b` | display | 11 | 0 | 3: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `a\mkern18mu b` | text | 11 | 0 | 2: kern 717606 subtype 1, TeX kern 717606 subtype 3 |
+| `a\mkern18mu b` | display | 11 | 0 | 2: kern 717606 subtype 1, TeX kern 717606 subtype 3 |
+| `a\mkern-3mu b` | text | 11 | 0 | 2: glue -119601 0 0 0 0 subtype 99, TeX kern -119601 subtype 3 |
+| `a\mkern-3mu b` | display | 11 | 0 | 2: glue -119601 0 0 0 0 subtype 99, TeX kern -119601 subtype 3 |
+| `a\kern2pt b` | text | 11 | 0 | 2: glue 131072 0 0 0 0 subtype 0, TeX kern 131072 subtype 1 |
+| `a\kern2pt b` | display | 11 | 0 | 2: glue 131072 0 0 0 0 subtype 0, TeX kern 131072 subtype 1 |
 | `a\hskip 3pt plus 1pt b` | text | 11 | 2333660 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
 | `a\hskip 3pt plus 1pt b` | display | 11 | 2333660 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
-| `a\negmedspace b` | text | 11 | 0 | 2: kern -159468, TeX glue -159468 -79734 -159468 |
-| `a\negmedspace b` | display | 11 | 0 | 2: kern -159468, TeX glue -159468 -79734 -159468 |
-| `a\negthickspace b` | text | 11 | 0 | 2: kern -199335, TeX glue -199335 -199335 0 |
-| `a\negthickspace b` | display | 11 | 0 | 2: kern -199335, TeX glue -199335 -199335 0 |
-| `a\mskip 5mu b` | text | 11 | 0 | 2: glue 199335 199335 0, TeX glue 199335 0 0 |
-| `a\mskip 5mu b` | display | 11 | 0 | 2: glue 199335 199335 0, TeX glue 199335 0 0 |
-| `a\enspace b` | text | 11 | 0 | 2: glue 358809 0 0, TeX kern 358809 |
-| `a\enspace b` | display | 11 | 0 | 2: glue 358809 0 0, TeX kern 358809 |
+| `a\negthinspace b` | text | 11 | 0 | 2: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `a\negthinspace b` | display | 11 | 0 | 2: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `a\thinspace b` | text | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `a\thinspace b` | display | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `a\medspace b` | text | 11 | 0 | 2: glue 159468 79734 0 159468 0 subtype 99, TeX glue 159468 79734 0 159468 0 subtype 0 |
+| `a\medspace b` | display | 11 | 0 | 2: glue 159468 79734 0 159468 0 subtype 99, TeX glue 159468 79734 0 159468 0 subtype 0 |
+| `a\thickspace b` | text | 11 | 0 | 2: glue 199335 199335 0 0 0 subtype 99, TeX glue 199335 199335 0 0 0 subtype 0 |
+| `a\thickspace b` | display | 11 | 0 | 2: glue 199335 199335 0 0 0 subtype 99, TeX glue 199335 199335 0 0 0 subtype 0 |
+| `a\negmedspace b` | text | 11 | 0 | 2: kern -159468 subtype 1, TeX glue -159468 -79734 0 -159468 0 subtype 0 |
+| `a\negmedspace b` | display | 11 | 0 | 2: kern -159468 subtype 1, TeX glue -159468 -79734 0 -159468 0 subtype 0 |
+| `a\negthickspace b` | text | 11 | 0 | 2: kern -199335 subtype 1, TeX glue -199335 -199335 0 0 0 subtype 0 |
+| `a\negthickspace b` | display | 11 | 0 | 2: kern -199335 subtype 1, TeX glue -199335 -199335 0 0 0 subtype 0 |
+| `a\mskip 5mu b` | text | 11 | 0 | 2: glue 199335 199335 0 0 0 subtype 99, TeX glue 199335 0 0 0 0 subtype 0 |
+| `a\mskip 5mu b` | display | 11 | 0 | 2: glue 199335 199335 0 0 0 subtype 99, TeX glue 199335 0 0 0 0 subtype 0 |
+| `\int f\,dx` | text | 11 | 0 | 5: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int f\,dx` | display | 11 | 0 | 5: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int\!f\,dx` | text | 11 | 0 | 2: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `\int\!f\,dx` | display | 11 | 0 | 2: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `f\!\left(x\right)` | text | 11 | 0 | 3: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `f\!\left(x\right)` | display | 11 | 0 | 3: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `a\enspace b` | text | 11 | 0 | 2: glue 358809 0 0 0 0 subtype 0, TeX kern 358809 subtype 1 |
+| `a\enspace b` | display | 11 | 0 | 2: glue 358809 0 0 0 0 subtype 0, TeX kern 358809 subtype 1 |
+| `\cdots` | text | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\cdots` | display | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\dots` | text | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\dots` | display | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\dotsb` | text | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\dotsb` | display | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\dotsc` | text | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\dotsc` | display | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\dotsm` | text | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\dotsm` | display | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\dotsi` | text | 11 | 0 | 1: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `\dotsi` | display | 11 | 0 | 1: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
 | `\vdots` | text | 11 | 82857 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\vdots` | display | 11 | 82857 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\ddots` | text | 11 | 402972 | not supported by the TeX-rule layout: symbol \ddots |
 | `\ddots` | display | 11 | 402972 | not supported by the TeX-rule layout: symbol \ddots |
+| `1,2,\dots` | text | 11 | 0 | 8: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `1,2,\dots` | display | 11 | 0 | 8: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int\dotsi\int` | text | 11 | 0 | 2: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `\int\dotsi\int` | display | 11 | 0 | 2: glue -119601 0 0 0 0 subtype 99, TeX glue -119601 0 0 0 0 subtype 0 |
+| `a_1,\dots` | text | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `a_1,\dots` | display | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `1+2+\dots` | text | 11 | 0 | 10: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `1+2+\dots` | display | 11 | 0 | 10: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `x=\dots` | text | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `x=\dots` | display | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
 | `\vdots+x` | text | 11 | 82857 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\vdots+x` | display | 11 | 82857 | not supported by the TeX-rule layout: symbol \varvdots |
-| `a\bmod n` | text | 11 | 0 | 2: kern 39867, TeX glue 0 0 0 |
-| `a\bmod n` | display | 11 | 0 | 2: kern 39867, TeX glue 0 0 0 |
-| `a\bmod{n+1}` | text | 11 | 0 | 2: kern 39867, TeX glue 0 0 0 |
-| `a\bmod{n+1}` | display | 11 | 0 | 2: kern 39867, TeX glue 0 0 0 |
-| `a\bmod b\bmod c` | text | 11 | 0 | 2: kern 39867, TeX glue 0 0 0 |
-| `a\bmod b\bmod c` | display | 11 | 0 | 2: kern 39867, TeX glue 0 0 0 |
+| `a_{1},\dots,a_{n}=\cdots` | text | 11 | 0 | 15: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `a_{1},\dots,a_{n}=\cdots` | display | 11 | 0 | 15: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `a\pmod{n}` | text | 11 | 0 | 3: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\pmod{n}` | display | 11 | 0 | 3: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\bmod n` | text | 11 | 0 | 2: kern 39867 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\bmod n` | display | 11 | 0 | 2: kern 39867 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\pod{n}` | text | 11 | 0 | 3: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\pod{n}` | display | 11 | 0 | 3: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\equiv b\pmod{n}` | text | 11 | 0 | 7: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\equiv b\pmod{n}` | display | 11 | 0 | 7: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\equiv b\pmod n` | text | 11 | 0 | 7: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\equiv b\pmod n` | display | 11 | 0 | 7: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\equiv b\pod{n}` | text | 11 | 0 | 7: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\equiv b\pod{n}` | display | 11 | 0 | 7: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\equiv b \mod n` | text | 11 | 0 | 7: kern 478404 subtype 1, TeX kern 478404 subtype 3 |
+| `a\equiv b \mod n` | display | 11 | 0 | 7: kern 478404 subtype 1, TeX kern 478404 subtype 3 |
+| `a\bmod{n+1}` | text | 11 | 0 | 2: kern 39867 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\bmod{n+1}` | display | 11 | 0 | 2: kern 39867 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `x\pmod{\frac12}` | text | 11 | 0 | 3: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `x\pmod{\frac12}` | display | 11 | 0 | 3: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `\pmod{n}` | text | 11 | 0 | 2: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `\pmod{n}` | display | 11 | 0 | 2: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `\pod{n}` | text | 11 | 0 | 2: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `\pod{n}` | display | 11 | 0 | 2: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `a\bmod b\bmod c` | text | 11 | 0 | 2: kern 39867 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\bmod b\bmod c` | display | 11 | 0 | 2: kern 39867 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `x\equiv y\pmod{m+n}` | text | 11 | 0 | 8: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
+| `x\equiv y\pmod{m+n}` | display | 11 | 0 | 8: kern 318936 subtype 1, TeX kern 318936 subtype 3 |
 | `a\notin B` | text | 11 | 151348 | not supported by the TeX-rule layout: htmlmathml |
 | `a\notin B` | display | 11 | 151348 | not supported by the TeX-rule layout: htmlmathml |
-| `a\longrightarrow b` | text | 11 | 0 | 3.0: hbox 558150 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longrightarrow b` | display | 11 | 0 | 3.0: hbox 558150 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longleftarrow b` | text | 11 | 0 | 5.0: hbox 558150 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longleftarrow b` | display | 11 | 0 | 5.0: hbox 558150 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longmapsto b` | text | 11 | 0 | 4.0: hbox 558150 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longmapsto b` | display | 11 | 0 | 4.0: hbox 558150 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longleftrightarrow b` | text | 11 | 0 | 3: char cmsy10 36 717621 263276 -95534, TeX char cmsy10 32 717621 263276 -95534 |
-| `a\longleftrightarrow b` | display | 11 | 0 | 3: char cmsy10 36 717621 263276 -95534, TeX char cmsy10 32 717621 263276 -95534 |
-| `f\colon X\hookrightarrow Y` | text | 11 | 0 | 4: kern 79734, TeX glue 79734 0 0 |
-| `f\colon X\hookrightarrow Y` | display | 11 | 0 | 4: kern 79734, TeX glue 79734 0 0 |
+| `a\longrightarrow b` | text | 11 | 0 | 3.0: hbox 558150 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\longrightarrow b` | display | 11 | 0 | 3.0: hbox 558150 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\Longrightarrow b` | text | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\Longrightarrow b` | display | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\iff b` | text | 11 | 0 | 2: glue 199335 199335 0 0 0 subtype 99, TeX glue 199335 199335 0 0 0 subtype 0 |
+| `a\iff b` | display | 11 | 0 | 2: glue 199335 199335 0 0 0 subtype 99, TeX glue 199335 199335 0 0 0 subtype 0 |
+| `a\implies b` | text | 11 | 0 | 2: glue 199335 199335 0 0 0 subtype 99, TeX glue 199335 199335 0 0 0 subtype 0 |
+| `a\implies b` | display | 11 | 0 | 2: glue 199335 199335 0 0 0 subtype 99, TeX glue 199335 199335 0 0 0 subtype 0 |
+| `a\hookrightarrow b` | text | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\hookrightarrow b` | display | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\longleftarrow b` | text | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\longleftarrow b` | display | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\Longleftarrow b` | text | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\Longleftarrow b` | display | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\longmapsto b` | text | 11 | 0 | 4.0: hbox 558150 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\longmapsto b` | display | 11 | 0 | 4.0: hbox 558150 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\longleftrightarrow b` | text | 11 | 0 | 3: char cmsy10 717619 36 717621 263276 -95534, TeX char cmsy10 717619 32 717621 263276 -95534 |
+| `a\longleftrightarrow b` | display | 11 | 0 | 3: char cmsy10 717619 36 717621 263276 -95534, TeX char cmsy10 717619 32 717621 263276 -95534 |
+| `a\Longleftrightarrow b` | text | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\Longleftrightarrow b` | display | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\hookleftarrow b` | text | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `a\hookleftarrow b` | display | 11 | 0 | 4.0: kern -119601 subtype 1, TeX kern -119601 subtype 3 |
+| `f\colon X\hookrightarrow Y` | text | 11 | 0 | 4: kern 79734 subtype 1, TeX glue 79734 0 0 0 0 subtype 0 |
+| `f\colon X\hookrightarrow Y` | display | 11 | 0 | 4: kern 79734 subtype 1, TeX glue 79734 0 0 0 0 subtype 0 |
 | `x\xrightarrow{f}y` | text | 11 | 295648 | not supported by the TeX-rule layout: xArrow |
 | `x\xrightarrow{f}y` | display | 11 | 295648 | not supported by the TeX-rule layout: xArrow |
 | `x\xrightarrow[g]{f}y` | text | 11 | 295648 | not supported by the TeX-rule layout: xArrow |
 | `x\xrightarrow[g]{f}y` | display | 11 | 295648 | not supported by the TeX-rule layout: xArrow |
-| `x\overset{f}{\longrightarrow}y` | text | 11 | 0 | 3.0.3.0: hbox 558150 0 0 shift 0 (1), TeX kern 0 |
-| `x\overset{f}{\longrightarrow}y` | display | 11 | 0 | 3.0.3.0: hbox 558150 0 0 shift 0 (1), TeX kern 0 |
+| `x\overset{f}{\longrightarrow}y` | text | 11 | 0 | 3.0.3.0: hbox 558150 0 0 shift 0 set 0 0 0.000000 (1), TeX kern 0 subtype 1 |
+| `x\overset{f}{\longrightarrow}y` | display | 11 | 0 | 3.0.3.0: hbox 558150 0 0 shift 0 set 0 0 0.000000 (1), TeX kern 0 subtype 1 |
 | `A\xleftarrow{\frac12}B` | text | 11 | 223686 | not supported by the TeX-rule layout: xArrow |
 | `A\xleftarrow{\frac12}B` | display | 11 | 223686 | not supported by the TeX-rule layout: xArrow |
 | `a\cong b` | text | 11 | 32768 | not supported by the TeX-rule layout: symbol \cong |
@@ -910,66 +2134,66 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\hbar` | display | 11 | 25955 | not supported by the TeX-rule layout: symbol \hbar |
 | `\checkmark` | text | 11 | 240 | not supported by the TeX-rule layout: symbol \checkmark |
 | `\checkmark` | display | 11 | 240 | not supported by the TeX-rule layout: symbol \checkmark |
-| `\begin{matrix}a&b\\c&d\end{matrix}` | text | 11 | 0 | 2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{matrix}a&b\\c&d\end{matrix}` | display | 11 | 0 | 2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
+| `\begin{matrix}a&b\\c&d\end{matrix}` | text | 11 | 0 | 2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{matrix}a&b\\c&d\end{matrix}` | display | 11 | 0 | 2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
 | `\begin{smallmatrix}a&b\\c&d\end{smallmatrix}` | text | 11 | 214955 | not supported by the TeX-rule layout: this array environment |
 | `\begin{smallmatrix}a&b\\c&d\end{smallmatrix}` | display | 11 | 214955 | not supported by the TeX-rule layout: this array environment |
 | `\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)` | text | 11 | 215295 | not supported by the TeX-rule layout: this array environment |
 | `\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)` | display | 11 | 215295 | not supported by the TeX-rule layout: this array environment |
-| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1014170 462465 0 shift 0 (7), TeX hbox 1014170 623900 267389 shift 0 (7) |
-| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1014170 462465 0 shift 0 (7), TeX hbox 1014170 623900 267389 shift 0 (7) |
-| `\begin{pmatrix}a\\b\end{pmatrix}` | text | 11 | 0 | 1.2.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{pmatrix}a\\b\end{pmatrix}` | display | 11 | 0 | 1.2.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{pmatrix}a&b\end{pmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 963338 498346 0 shift 0 (7), TeX hbox 963338 623900 267389 shift 0 (7) |
-| `\begin{pmatrix}a&b\end{pmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 963338 498346 0 shift 0 (7), TeX hbox 963338 623900 267389 shift 0 (7) |
-| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1091178 620424 247464 shift 0 (7), TeX hbox 1091178 623900 267389 shift 0 (10) |
-| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1091178 620424 247464 shift 0 (7), TeX hbox 1091178 623900 267389 shift 0 (10) |
-| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 2329137 538218 212178 shift 0 (11), TeX hbox 2329137 623900 267389 shift 0 (14) |
-| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 2329137 538218 212178 shift 0 (11), TeX hbox 2329137 623900 267389 shift 0 (14) |
+| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1014170 462465 0 shift 0 set 0 0 0.000000 (7), TeX hbox 1014170 623900 267389 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1014170 462465 0 shift 0 set 0 0 0.000000 (7), TeX hbox 1014170 623900 267389 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}a\\b\end{pmatrix}` | text | 11 | 0 | 1.2.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{pmatrix}a\\b\end{pmatrix}` | display | 11 | 0 | 1.2.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{pmatrix}a&b\end{pmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 963338 498346 0 shift 0 set 0 0 0.000000 (7), TeX hbox 963338 623900 267389 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}a&b\end{pmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 963338 498346 0 shift 0 set 0 0 0.000000 (7), TeX hbox 963338 623900 267389 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1091178 620424 247464 shift 0 set 0 0 0.000000 (7), TeX hbox 1091178 623900 267389 shift 0 set 0 0 0 (10) |
+| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1091178 620424 247464 shift 0 set 0 0 0.000000 (7), TeX hbox 1091178 623900 267389 shift 0 set 0 0 0 (10) |
+| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 2329137 538218 212178 shift 0 set 0 0 0.000000 (11), TeX hbox 2329137 623900 267389 shift 0 set 0 0 0 (14) |
+| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 2329137 538218 212178 shift 0 set 0 0 0.000000 (11), TeX hbox 2329137 623900 267389 shift 0 set 0 0 0 (14) |
 | `\begin{pmatrix}1&\cdots&n\\\vdots&\ddots&\vdots\\m&\cdots&mn\end{pmatrix}` | text | 11 | 87496 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\begin{pmatrix}1&\cdots&n\\\vdots&\ddots&\vdots\\m&\cdots&mn\end{pmatrix}` | display | 11 | 87496 | not supported by the TeX-rule layout: symbol \varvdots |
-| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 (7), TeX hbox 1068822 623900 267389 shift 0 (7) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 (7), TeX hbox 1028871 623900 267389 shift 0 (10) |
-| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | text | 11 | 0 | 2.0.3: hbox 2449257 498346 0 shift 0 (7), TeX hbox 2449257 623900 267389 shift 0 (10) |
-| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | display | 11 | 0 | 2.0.3: hbox 2449257 498346 0 shift 0 (7), TeX hbox 2449257 623900 267389 shift 0 (10) |
-| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | text | 11 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | display | 11 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | text | 11 | 0 | 9.1.0.1.1: glue 0 0 0, TeX math false |
-| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | display | 11 | 0 | 9.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | text | 11 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | display | 11 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}a\end{cases}` | text | 11 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}a\end{cases}` | display | 11 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | text | 11 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | display | 11 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | text | 11 | 0 | 1.0.3: hbox 1323644 498346 0 shift 0 (7), TeX hbox 1323644 623900 267389 shift 0 (7) |
-| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | display | 11 | 0 | 1.0.3: hbox 1323644 498346 0 shift 0 (7), TeX hbox 1323644 623900 267389 shift 0 (7) |
-| `\begin{array}{c}a\\b\end{array}` | text | 11 | 0 | 1.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{array}{c}a\\b\end{array}` | display | 11 | 0 | 1.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{array}{l}a\\bbb\end{array}` | text | 11 | 0 | 1.0.1.5: glue 0 65536 0, TeX math false |
-| `\begin{array}{l}a\\bbb\end{array}` | display | 11 | 0 | 1.0.1.5: glue 0 65536 0, TeX math false |
-| `\begin{array}{r}a\\bbb\end{array}` | text | 11 | 0 | 1.0.1.6: glue 327680 0 0, TeX math false |
-| `\begin{array}{r}a\\bbb\end{array}` | display | 11 | 0 | 1.0.1.6: glue 327680 0 0, TeX math false |
-| `\begin{array}{cc}a&b\end{array}` | text | 11 | 0 | 1.0.3: hbox 963338 498346 0 shift 0 (7), TeX hbox 963338 623900 267389 shift 0 (7) |
-| `\begin{array}{cc}a&b\end{array}` | display | 11 | 0 | 1.0.3: hbox 963338 498346 0 shift 0 (7), TeX hbox 963338 623900 267389 shift 0 (7) |
-| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | text | 11 | 0 | 1.0.3: hbox 1771655 462465 0 shift 0 (8), TeX hbox 1771655 623900 267389 shift 0 (11) |
-| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | display | 11 | 0 | 1.0.3: hbox 1771655 462465 0 shift 0 (8), TeX hbox 1771655 623900 267389 shift 0 (11) |
+| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1068822 498346 0 shift 0 set 1 2 0.804779 (7), TeX hbox 1068822 623900 267389 shift 0 set 1 2 0.804779 (7) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | text | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | display | 11 | 0 | 1.2.0.3: hbox 1028871 498346 0 shift 0 set 1 2 0.499977 (7), TeX hbox 1028871 623900 267389 shift 0 set 1 2 0.499977 (10) |
+| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | text | 11 | 0 | 2.0.3: hbox 2449257 498346 0 shift 0 set 1 2 10.836685 (7), TeX hbox 2449257 623900 267389 shift 0 set 1 2 10.836685 (10) |
+| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | display | 11 | 0 | 2.0.3: hbox 2449257 498346 0 shift 0 set 1 2 10.836685 (7), TeX hbox 2449257 623900 267389 shift 0 set 1 2 10.836685 (10) |
+| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | text | 11 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | display | 11 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | text | 11 | 0 | 9.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | display | 11 | 0 | 9.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | text | 11 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | display | 11 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}a\end{cases}` | text | 11 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}a\end{cases}` | display | 11 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | text | 11 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | display | 11 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | text | 11 | 0 | 1.0.3: hbox 1323644 498346 0 shift 0 set 1 2 2.748917 (7), TeX hbox 1323644 623900 267389 shift 0 set 1 2 2.748917 (7) |
+| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | display | 11 | 0 | 1.0.3: hbox 1323644 498346 0 shift 0 set 1 2 2.748917 (7), TeX hbox 1323644 623900 267389 shift 0 set 1 2 2.748917 (7) |
+| `\begin{array}{c}a\\b\end{array}` | text | 11 | 0 | 1.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{c}a\\b\end{array}` | display | 11 | 0 | 1.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{l}a\\bbb\end{array}` | text | 11 | 0 | 1.0.1.5: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{l}a\\bbb\end{array}` | display | 11 | 0 | 1.0.1.5: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{r}a\\bbb\end{array}` | text | 11 | 0 | 1.0.1.6: glue 327680 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{r}a\\bbb\end{array}` | display | 11 | 0 | 1.0.1.6: glue 327680 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{cc}a&b\end{array}` | text | 11 | 0 | 1.0.3: hbox 963338 498346 0 shift 0 set 0 0 0.000000 (7), TeX hbox 963338 623900 267389 shift 0 set 0 0 0 (7) |
+| `\begin{array}{cc}a&b\end{array}` | display | 11 | 0 | 1.0.3: hbox 963338 498346 0 shift 0 set 0 0 0.000000 (7), TeX hbox 963338 623900 267389 shift 0 set 0 0 0 (7) |
+| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | text | 11 | 0 | 1.0.3: hbox 1771655 462465 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1771655 623900 267389 shift 0 set 0 0 0 (11) |
+| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | display | 11 | 0 | 1.0.3: hbox 1771655 462465 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1771655 623900 267389 shift 0 set 0 0 0 (11) |
 | `\begin{array}{c\|c}a&b\\\hline c&d\end{array}` | text | 11 | 124463 | not supported by the TeX-rule layout: array rules |
 | `\begin{array}{c\|c}a&b\\\hline c&d\end{array}` | display | 11 | 124463 | not supported by the TeX-rule layout: array rules |
-| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | text | 11 | 0 | 1.0.3: hbox 1561355 308974 0 shift 0 (7), TeX hbox 1561355 623900 267389 shift 0 (7) |
-| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | display | 11 | 0 | 1.0.3: hbox 1561355 308974 0 shift 0 (7), TeX hbox 1561355 623900 267389 shift 0 (7) |
-| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | text | 11 | 0 | 1.0.3: hbox 1372980 462465 0 shift 0 (8), TeX hbox 1372980 623900 267389 shift 0 (8) |
-| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | display | 11 | 0 | 1.0.3: hbox 1372980 462465 0 shift 0 (8), TeX hbox 1372980 623900 267389 shift 0 (8) |
+| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | text | 11 | 0 | 1.0.3: hbox 1561355 308974 0 shift 0 set 1 2 3.783081 (7), TeX hbox 1561355 623900 267389 shift 0 set 1 2 3.783081 (7) |
+| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | display | 11 | 0 | 1.0.3: hbox 1561355 308974 0 shift 0 set 1 2 3.783081 (7), TeX hbox 1561355 623900 267389 shift 0 set 1 2 3.783081 (7) |
+| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | text | 11 | 0 | 1.0.3: hbox 1372980 462465 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1372980 623900 267389 shift 0 set 0 0 0 (8) |
+| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | display | 11 | 0 | 1.0.3: hbox 1372980 462465 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1372980 623900 267389 shift 0 set 0 0 0 (8) |
 | `\begin{array}[t]{c}a\\b\end{array}` | text | 11 | none | KaTeX parse error: Unknown column alignment: [ at position 14: \begin{array}[̲t]{c}a\\b\end{a… |
 | `\begin{array}[t]{c}a\\b\end{array}` | display | 11 | none | KaTeX parse error: Unknown column alignment: [ at position 14: \begin{array}[̲t]{c}a\\b\end{a… |
 | `\begin{array}[b]{c}a\\b\end{array}` | text | 11 | none | KaTeX parse error: Unknown column alignment: [ at position 14: \begin{array}[̲b]{c}a\\b\end{a… |
@@ -986,14 +2210,16 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\begin{aligned}a&=b\\c&=d\end{aligned}` | display | 11 | 20808 | not supported by the TeX-rule layout: this array environment |
 | `\begin{gathered}a\\bb\end{gathered}` | text | 11 | 20808 | not supported by the TeX-rule layout: this array environment |
 | `\begin{gathered}a\\bb\end{gathered}` | display | 11 | 20808 | not supported by the TeX-rule layout: this array environment |
-| `\overset{\mathrm{def}}{=}` | text | 11 | 0 | 1.0.3.1: char cmr10 61 558150 263276 -95534, TeX kern 0 |
-| `\overset{\mathrm{def}}{=}` | display | 11 | 0 | 1.0.3.1: char cmr10 61 558150 263276 -95534, TeX kern 0 |
+| `\overset{\mathrm{def}}{=}` | text | 11 | 0 | 1.0.3.1: char cmr10 717619 61 558150 263276 -95534, TeX kern 0 subtype 1 |
+| `\overset{\mathrm{def}}{=}` | display | 11 | 0 | 1.0.3.1: char cmr10 717619 61 558150 263276 -95534, TeX kern 0 subtype 1 |
 | `\boxed{x}` | text | 11 | 21172 | not supported by the TeX-rule layout: enclose |
 | `\boxed{x}` | display | 11 | 21172 | not supported by the TeX-rule layout: enclose |
 | `\boxed{\frac12}` | text | 11 | 21520 | not supported by the TeX-rule layout: enclose |
 | `\boxed{\frac12}` | display | 11 | 21520 | not supported by the TeX-rule layout: enclose |
 | `\fbox{x}` | text | 11 | 21168 | not supported by the TeX-rule layout: enclose |
 | `\fbox{x}` | display | 11 | 21168 | not supported by the TeX-rule layout: enclose |
+| `\tfrac{1}{2}\,\cdot\,x` | text | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\tfrac{1}{2}\,\cdot\,x` | display | 11 | 0 | 2: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
 | `\left(a\atop b\right)` | text | 11 | 15691 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
 | `\left(a\atop b\right)` | display | 11 | 14915 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
 | `a\over b` | text | 11 | 15210 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
@@ -1046,94 +2272,640 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `a\nonscript\mskip 4mu b` | display | 11 | none | KaTeX parse error: Undefined control sequence: \nonscript at position 2: a\̲n̲o̲n̲s̲c̲r̲i̲p̲t̲\mskip 4mu b |
 | `x_{a\nonscript\mskip4mu b}` | text | 11 | none | KaTeX parse error: Undefined control sequence: \nonscript at position 5: x_{a\̲n̲o̲n̲s̲c̲r̲i̲p̲t̲\mskip4mu b} |
 | `x_{a\nonscript\mskip4mu b}` | display | 11 | none | KaTeX parse error: Undefined control sequence: \nonscript at position 5: x_{a\̲n̲o̲n̲s̲c̲r̲i̲p̲t̲\mskip4mu b} |
-| `\frac{a}{\frac{b}{c}}` | text | 12 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 377150 487413 205608 shift 0 (3) |
-| `\frac{a}{\frac{b}{c}}` | display | 12 | 0 | 1.0.1.4.1: hbox 78643 0 0 shift -196608 (0), TeX hbox 398559 673732 271194 shift 0 (3) |
-| `\bigl(x\bigr)` | text | 12 | 0 | 1.1: hbox 360450 31456 912271 shift -637015 (1), TeX hbox 360450 668471 275256 shift 0 (3) |
-| `\bigl(x\bigr)` | display | 12 | 0 | 1.1: hbox 360450 31456 912271 shift -637015 (1), TeX hbox 360450 668471 275256 shift 0 (3) |
-| `\Bigl(x\Bigr)` | text | 12 | 0 | 1.1: hbox 469676 31456 1384135 shift -872947 (1), TeX hbox 469676 904403 511188 shift 0 (3) |
-| `\Bigl(x\Bigr)` | display | 12 | 0 | 1.1: hbox 469676 31456 1384135 shift -872947 (1), TeX hbox 469676 904403 511188 shift 0 (3) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1040380 506811 0 shift 0 (7), TeX hbox 1040380 665187 285084 shift 0 (10) |
-| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1040380 506811 0 shift 0 (7), TeX hbox 1040380 665187 285084 shift 0 (10) |
-| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\binom{n}{k}` | text | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\binom{n}{k}` | display | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\binom{2n}{n}` | text | 12 | 0 | 1.0: hbox 1337432 686839 275256 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\binom{2n}{n}` | display | 12 | 0 | 1.0: hbox 2002485 1140335 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | text | 12 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | display | 12 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `f\colon A\to B` | text | 12 | 0 | 4: kern 87380, TeX glue 87380 0 0 |
-| `f\colon A\to B` | display | 12 | 0 | 4: kern 87380, TeX glue 87380 0 0 |
-| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | text | 12 | 0 | 15.0: hbox 1058900 668471 275256 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | display | 12 | 0 | 14.0: hbox 1617465 1140335 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `x_{\binom{n}{k}}` | text | 12 | 0 | 2.0.0: char cmr12 40 299460 589824 196608, TeX hbox 299460 589824 196608 shift 0 (3) |
-| `x_{\binom{n}{k}}` | display | 12 | 0 | 2.0.0: char cmr12 40 299460 589824 196608, TeX hbox 299460 589824 196608 shift 0 (3) |
-| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | text | 12 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -98304 (0), TeX hbox 397581 407675 183748 shift 0 (3) |
-| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | display | 12 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -98304 (0), TeX hbox 397581 407675 183748 shift 0 (3) |
-| `x^{\scriptscriptstyle\sqrt2}` | text | 12 | 1218 | 2: hbox 666276 365721 47811 shift -285390 (2), TeX hbox 666276 364503 47811 shift -285390 (2) |
-| `x^{\scriptscriptstyle\sqrt2}` | display | 12 | 1218 | 2: hbox 666276 365721 47811 shift -324711 (2), TeX hbox 666276 364503 47811 shift -324711 (2) |
-| `\dbinom{n}{k}` | text | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 (1), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\dbinom{n}{k}` | display | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 (1), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\tbinom{n}{k}` | text | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 (1), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\tbinom{n}{k}` | display | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 (1), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\binom{n+1}{k-1}` | text | 12 | 0 | 1.0: hbox 1770704 686839 325810 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\binom{n+1}{k-1}` | display | 12 | 0 | 1.0: hbox 2950925 1140335 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\dbinom{n+1}{k-1}` | text | 12 | 0 | 1.0: hbox 2950925 1140335 747120 shift 0 (1), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\dbinom{n+1}{k-1}` | display | 12 | 0 | 1.0: hbox 2950925 1140335 747120 shift 0 (1), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\tbinom{n+1}{k-1}` | text | 12 | 0 | 1.0: hbox 1770704 686839 325810 shift 0 (1), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\tbinom{n+1}{k-1}` | display | 12 | 0 | 1.0: hbox 1770704 686839 325810 shift 0 (1), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\binom{\frac12}{k}` | text | 12 | 0 | 1.0: hbox 1118481 838669 293148 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\binom{\frac12}{k}` | display | 12 | 0 | 1.0: hbox 1593626 1179545 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\binom{n}{\frac{k}{2}}` | text | 12 | 0 | 1.0: hbox 1146244 668471 476802 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\binom{n}{\frac{k}{2}}` | display | 12 | 0 | 1.0: hbox 1619112 1140335 810648 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\binom{a}{b}^2` | text | 12 | 0 | 1.0: hbox 1016787 668471 275256 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\binom{a}{b}^2` | display | 12 | 0 | 1.0: hbox 1562033 1140335 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\binom{n}{k}_q` | text | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\binom{n}{k}_q` | display | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\genfrac{(}{)}{0pt}{}{n}{k}` | text | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\genfrac{(}{)}{0pt}{}{n}{k}` | display | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | text | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | display | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\genfrac{[}{]}{1pt}{0}{a}{b}` | text | 12 | 0 | 1.0: hbox 1234351 1140335 747120 shift 0 (1), TeX hbox 415063 1140335 747120 shift 0 (1) |
-| `\genfrac{[}{]}{1pt}{0}{a}{b}` | display | 12 | 0 | 1.0: hbox 1234351 1140335 747120 shift 0 (1), TeX hbox 415063 1140335 747120 shift 0 (1) |
-| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | text | 12 | 0 | 1.0: hbox 1213395 668471 275256 shift 0 (1), TeX hbox 458754 668471 275256 shift 0 (1) |
-| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | display | 12 | 0 | 1.0: hbox 1213395 668471 275256 shift 0 (1), TeX hbox 458754 668471 275256 shift 0 (1) |
-| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | text | 12 | 0 | 1.0: hbox 877045 589824 205608 shift 0 (1), TeX hbox 305835 589824 196608 shift 0 (1) |
-| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | display | 12 | 0 | 1.0: hbox 877045 589824 205608 shift 0 (1), TeX hbox 305835 589824 196608 shift 0 (1) |
-| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | text | 12 | 279622 | 1: hbox 1039738 484965 245291 shift 0 (1), TeX hbox 1319360 589824 245291 shift 0 (5) |
-| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | display | 12 | 279622 | 1: hbox 1039738 484965 245291 shift 0 (1), TeX hbox 1319360 589824 245291 shift 0 (5) |
-| `\genfrac{(}{]}{0pt}{}{a}{b}` | text | 12 | 0 | 1.0: hbox 984018 668471 275256 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\genfrac{(}{]}{0pt}{}{a}{b}` | display | 12 | 0 | 1.0: hbox 1398192 1140335 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\frac{1}{\frac{1}{\frac{1}{x}}}` | text | 12 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 589003 467751 480825 shift 0 (3) |
-| `\frac{1}{\frac{1}{\frac{1}{x}}}` | display | 12 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -196608 (0), TeX hbox 589003 647518 523935 shift 0 (3) |
-| `\frac{\frac{a}{b}}{\frac{c}{d}}` | text | 12 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 422661 383646 205608 shift 0 (3) |
-| `\frac{\frac{a}{b}}{\frac{c}{d}}` | display | 12 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -196608 (0), TeX hbox 453173 535378 271194 shift 0 (3) |
-| `\frac{\frac{\frac{a}{b}}{c}}{d}` | text | 12 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 579947 693442 205608 shift 0 (3) |
-| `\frac{\frac{\frac{a}{b}}{c}}{d}` | display | 12 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -196608 (0), TeX hbox 579947 833046 271194 shift 0 (3) |
-| `\frac{a}{\frac{b}{\frac{c}{d}}}` | text | 12 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 567203 487413 431298 shift 0 (3) |
-| `\frac{a}{\frac{b}{\frac{c}{d}}}` | display | 12 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -196608 (0), TeX hbox 567203 673732 476802 shift 0 (3) |
-| `\sqrt{\frac{\frac12}{3}}` | text | 12 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 397581 467751 205608 shift 0 (3) |
-| `\sqrt{\frac{\frac12}{3}}` | display | 12 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -196608 (0), TeX hbox 435818 647518 271194 shift 0 (3) |
-| `\sqrt{\binom{n}{k}}` | text | 12 | 0 | 1.1.3.0: hbox 360450 31456 912271 shift -637015 (1), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\sqrt{\binom{n}{k}}` | display | 12 | 0 | 1.1.3.0: hbox 578904 31456 1855999 shift -1108879 (1), TeX hbox 578904 1140335 747120 shift 0 (1) |
+| `\mathbin{\ }` | text | 11 | 0 | 1.0: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `\mathbin{\ }` | display | 11 | 0 | 1.0: glue 238967 119484 0 79656 0 subtype 0, TeX glue 238967 119484 0 79656 0 subtype 13 |
+| `\int_0^1 f(x)\,dx` | text | 11 | 0 | 9: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int_0^1 f(x)\,dx` | display | 11 | 0 | 9: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-\lambda t}\,dt = 1/\lambda` | text | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-\lambda t}\,dt = 1/\lambda` | display | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int_0^{\infty} \sum_{k=0}^{\infty} e^{-(k+1)\lambda t}\,dt = \sum_{k=1}^{\infty} \frac{1}{k\lambda},` | text | 11 | 0 | 9: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\int_0^{\infty} \sum_{k=0}^{\infty} e^{-(k+1)\lambda t}\,dt = \sum_{k=1}^{\infty} \frac{1}{k\lambda},` | display | 11 | 0 | 8: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\log_2 (n!)` | text | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 (n!)` | display | 11 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Omega(n \log n)` | text | 11 | 0 | 5.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Omega(n \log n)` | display | 11 | 0 | 5.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `Q(t) = c\rho \int_0^L u(x,t)\,dx` | text | 11 | 0 | 21: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `Q(t) = c\rho \int_0^L u(x,t)\,dx` | display | 11 | 0 | 21: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `n = 1, 2, \dots` | text | 11 | 0 | 12: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `n = 1, 2, \dots` | display | 11 | 0 | 12: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `u(x,t) = \sum_{n=1}^{\infty} b_n \sin\frac{n\pi x}{L}\, e^{-\kappa n^2\pi^2 t/L^2},` | text | 11 | 0 | 17.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `u(x,t) = \sum_{n=1}^{\infty} b_n \sin\frac{n\pi x}{L}\, e^{-\kappa n^2\pi^2 t/L^2},` | display | 11 | 0 | 16.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_n = \frac{2}{L}\int_0^L u(x,0)\sin\frac{n\pi x}{L}\,dx.` | text | 11 | 0 | 19.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_n = \frac{2}{L}\int_0^L u(x,0)\sin\frac{n\pi x}{L}\,dx.` | display | 11 | 0 | 19.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_1 \sin(\pi x/L)` | text | 11 | 0 | 4.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_1 \sin(\pi x/L)` | display | 11 | 0 | 4.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `a+\cdots.` | text | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `a+\cdots.` | display | 11 | 0 | 6: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\left(a,\dots\right)` | text | 11 | 0 | 1.5: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\left(a,\dots\right)` | display | 11 | 0 | 1.5: glue 119601 0 0 0 0 subtype 99, TeX glue 119601 0 0 0 0 subtype 0 |
+| `\frac{\sin x}{x}` | text | 12 | 0 | 1.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\frac{\sin x}{x}` | display | 12 | 0 | 1.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\frac{a}{\frac{b}{c}}` | text | 12 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 377150 487413 205608 shift 0 set 0 0 0 (3) |
+| `\frac{a}{\frac{b}{c}}` | display | 12 | 0 | 1.0.1.4.1: hbox 78643 0 0 shift -196608 set 0 0 0.000000 (0), TeX hbox 398559 673732 271194 shift 0 set 0 0 0 (3) |
+| `\int_a^b g(x)\,dx` | text | 12 | 0 | 9: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int_a^b g(x)\,dx` | display | 12 | 0 | 9: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-x}\,dx` | text | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-x}\,dx` | display | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\iint_D` | text | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iint_D` | display | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\lim_{n\to\infty} a_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty} a_n` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to 0} \frac{\sin x}{x}` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to 0} \frac{\sin x}{x}` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{i} x_i` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{i} x_i` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min(a,b)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min(a,b)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in A} f(x)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in A} f(x)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf S` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf S` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n} a_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n} a_n` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det A` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det A` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd(a,b)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd(a,b)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\theta` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\theta` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp(x)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp(x)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Var}(X)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Var}(X)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sqrt[3]{2}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{2}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\bigl(x\bigr)` | text | 12 | 0 | 1.1: hbox 360450 31456 912271 shift -637015 set 0 0 0.000000 (1), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (3) |
+| `\bigl(x\bigr)` | display | 12 | 0 | 1.1: hbox 360450 31456 912271 shift -637015 set 0 0 0.000000 (1), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (3) |
+| `\Bigl(x\Bigr)` | text | 12 | 0 | 1.1: hbox 469676 31456 1384135 shift -872947 set 0 0 0.000000 (1), TeX hbox 469676 904403 511188 shift 0 set 0 0 0 (3) |
+| `\Bigl(x\Bigr)` | display | 12 | 0 | 1.1: hbox 469676 31456 1384135 shift -872947 set 0 0 0.000000 (1), TeX hbox 469676 904403 511188 shift 0 set 0 0 0 (3) |
+| `a\,b` | text | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `a\,b` | display | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `a\;b` | text | 12 | 0 | 2: glue 218450 218450 0 0 0 subtype 99, TeX glue 218450 218450 0 0 0 subtype 0 |
+| `a\;b` | display | 12 | 0 | 2: glue 218450 218450 0 0 0 subtype 99, TeX glue 218450 218450 0 0 0 subtype 0 |
+| `a\!b` | text | 12 | 0 | 2: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `a\!b` | display | 12 | 0 | 2: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `a\ b` | text | 12 | 0 | 2: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `a\ b` | display | 12 | 0 | 2: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `\,dx` | text | 12 | 0 | 1: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\,dx` | display | 12 | 0 | 1: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `f(x)\,dx` | text | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `f(x)\,dx` | display | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1040380 506811 0 shift 0 set 0 0 0.000000 (7), TeX hbox 1040380 665187 285084 shift 0 set 0 0 0 (10) |
+| `\begin{bmatrix}1&0\\0&1\end{bmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1040380 506811 0 shift 0 set 0 0 0.000000 (7), TeX hbox 1040380 665187 285084 shift 0 set 0 0 0 (10) |
+| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{vmatrix}a&b\\c&d\end{vmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\binom{n}{k}` | text | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\binom{n}{k}` | display | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\binom{2n}{n}` | text | 12 | 0 | 1.0: hbox 1337432 686839 275256 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\binom{2n}{n}` | display | 12 | 0 | 1.0: hbox 2002485 1140335 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | text | 12 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}1 & x>0\\0 & x\le 0\end{cases}` | display | 12 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\mathbb{P}(\|X-\mu\|\ge t)\le \frac{\operatorname{Var}(X)}{t^2}` | text | 12 | 0 | 19.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\mathbb{P}(\|X-\mu\|\ge t)\le \frac{\operatorname{Var}(X)}{t^2}` | display | 12 | 0 | 19.0.1.0.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 (n!) = n\log_2 n - n\log_2 e + O(\log n)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 (n!) = n\log_2 n - n\log_2 e + O(\log n)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x \equiv 3 \pmod{11}` | text | 12 | 0 | 7: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `x \equiv 3 \pmod{11}` | display | 12 | 0 | 7: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `f\colon A\to B` | text | 12 | 0 | 4: kern 87380 subtype 1, TeX glue 87380 0 0 0 0 subtype 0 |
+| `f\colon A\to B` | display | 12 | 0 | 4: kern 87380 subtype 1, TeX glue 87380 0 0 0 0 subtype 0 |
+| `\forall \varepsilon>0\ \exists \delta>0` | text | 12 | 0 | 7: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `\forall \varepsilon>0\ \exists \delta>0` | display | 12 | 0 | 7: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `\overline{\lim} a_n` | text | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\overline{\lim} a_n` | display | 12 | 0 | 1.3.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\int_{-\infty}^{\infty} e^{-x^2}\,dx=\sqrt{\pi}` | text | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int_{-\infty}^{\infty} e^{-x^2}\,dx=\sqrt{\pi}` | display | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | text | 12 | 0 | 15.0: hbox 1058900 668471 275256 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `(1+x)^n=\sum_{k=0}^n \binom{n}{k}x^k` | display | 12 | 0 | 14.0: hbox 1617465 1140335 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `O(n\log n)` | text | 12 | 0 | 6.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `O(n\log n)` | display | 12 | 0 | 6.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det(A-\lambda I)=0` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det(A-\lambda I)=0` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `a,\ b` | text | 12 | 0 | 3: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `a,\ b` | display | 12 | 0 | 3: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `a\lim b` | text | 12 | 0 | 3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `a\lim b` | display | 12 | 0 | 3.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\sum` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\sum` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sum\lim` | text | 12 | 0 | 3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sum\lim` | display | 12 | 0 | 3.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x_{a\lim b}` | text | 12 | 0 | 2.2.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x_{a\lim b}` | display | 12 | 0 | 2.2.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `x_{\binom{n}{k}}` | text | 12 | 0 | 2.0.0: char cmr12 786432 40 299460 589824 196608, TeX hbox 299460 589824 196608 shift 0 set 0 0 0 (3) |
+| `x_{\binom{n}{k}}` | display | 12 | 0 | 2.0.0: char cmr12 786432 40 299460 589824 196608, TeX hbox 299460 589824 196608 shift 0 set 0 0 0 (3) |
+| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | text | 12 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -98304 set 0 0 0.000000 (0), TeX hbox 397581 407675 183748 shift 0 set 0 0 0 (3) |
+| `x^{\sqrt{\frac12}}_{\frac{\frac12}{3}}` | display | 12 | 0 | 2.2.1.0.0: hbox 78643 0 0 shift -98304 set 0 0 0.000000 (0), TeX hbox 397581 407675 183748 shift 0 set 0 0 0 (3) |
+| `x^{\scriptscriptstyle\sqrt2}` | text | 12 | 1218 | 2: hbox 666276 365721 47811 shift -285390 set 0 0 0.000000 (2), TeX hbox 666276 364503 47811 shift -285390 set 0 0 0 (2) |
+| `x^{\scriptscriptstyle\sqrt2}` | display | 12 | 1218 | 2: hbox 666276 365721 47811 shift -324711 set 0 0 0.000000 (2), TeX hbox 666276 364503 47811 shift -324711 set 0 0 0 (2) |
+| `\lim_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty}x_n` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `F_{\mu\nu}^{\ \ \alpha}` | text | 12 | 0 | 2.0.0: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `F_{\mu\nu}^{\ \ \alpha}` | display | 12 | 0 | 2.0.0: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `\dbinom{n}{k}` | text | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 set 0 0 0.000000 (1), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\dbinom{n}{k}` | display | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 set 0 0 0.000000 (1), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\tbinom{n}{k}` | text | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 set 0 0 0.000000 (1), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\tbinom{n}{k}` | display | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 set 0 0 0.000000 (1), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\binom{n+1}{k-1}` | text | 12 | 0 | 1.0: hbox 1770704 686839 325810 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\binom{n+1}{k-1}` | display | 12 | 0 | 1.0: hbox 2950925 1140335 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\dbinom{n+1}{k-1}` | text | 12 | 0 | 1.0: hbox 2950925 1140335 747120 shift 0 set 0 0 0.000000 (1), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\dbinom{n+1}{k-1}` | display | 12 | 0 | 1.0: hbox 2950925 1140335 747120 shift 0 set 0 0 0.000000 (1), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\tbinom{n+1}{k-1}` | text | 12 | 0 | 1.0: hbox 1770704 686839 325810 shift 0 set 0 0 0.000000 (1), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\tbinom{n+1}{k-1}` | display | 12 | 0 | 1.0: hbox 1770704 686839 325810 shift 0 set 0 0 0.000000 (1), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\binom{\frac12}{k}` | text | 12 | 0 | 1.0: hbox 1118481 838669 293148 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\binom{\frac12}{k}` | display | 12 | 0 | 1.0: hbox 1593626 1179545 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\binom{n}{\frac{k}{2}}` | text | 12 | 0 | 1.0: hbox 1146244 668471 476802 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\binom{n}{\frac{k}{2}}` | display | 12 | 0 | 1.0: hbox 1619112 1140335 810648 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\binom{a}{b}^2` | text | 12 | 0 | 1.0: hbox 1016787 668471 275256 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\binom{a}{b}^2` | display | 12 | 0 | 1.0: hbox 1562033 1140335 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\binom{n}{k}_q` | text | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\binom{n}{k}_q` | display | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0pt}{}{n}{k}` | text | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0pt}{}{n}{k}` | display | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | text | 12 | 0 | 1.0: hbox 1058900 668471 275256 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{)}{0.4pt}{}{n}{k}` | display | 12 | 0 | 1.0: hbox 1617465 1140335 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\genfrac{[}{]}{1pt}{0}{a}{b}` | text | 12 | 0 | 1.0: hbox 1234351 1140335 747120 shift 0 set 0 0 0.000000 (1), TeX hbox 415063 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\genfrac{[}{]}{1pt}{0}{a}{b}` | display | 12 | 0 | 1.0: hbox 1234351 1140335 747120 shift 0 set 0 0 0.000000 (1), TeX hbox 415063 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | text | 12 | 0 | 1.0: hbox 1213395 668471 275256 shift 0 set 0 0 0.000000 (1), TeX hbox 458754 668471 275256 shift 0 set 0 0 0 (1) |
+| `\genfrac{\{}{\}}{0pt}{1}{a}{b}` | display | 12 | 0 | 1.0: hbox 1213395 668471 275256 shift 0 set 0 0 0.000000 (1), TeX hbox 458754 668471 275256 shift 0 set 0 0 0 (1) |
+| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | text | 12 | 0 | 1.0: hbox 877045 589824 205608 shift 0 set 0 0 0.000000 (1), TeX hbox 305835 589824 196608 shift 0 set 0 0 0 (1) |
+| `\genfrac{\langle}{\rangle}{0pt}{2}{a}{b}` | display | 12 | 0 | 1.0: hbox 877045 589824 205608 shift 0 set 0 0 0.000000 (1), TeX hbox 305835 589824 196608 shift 0 set 0 0 0 (1) |
+| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | text | 12 | 279622 | 1: hbox 1039738 484965 245291 shift 0 set 0 0 0.000000 (1), TeX hbox 1319360 589824 245291 shift 0 set 0 0 0 (5) |
+| `\genfrac{\|}{\|}{0.8pt}{3}{x+1}{y}` | display | 12 | 279622 | 1: hbox 1039738 484965 245291 shift 0 set 0 0 0.000000 (1), TeX hbox 1319360 589824 245291 shift 0 set 0 0 0 (5) |
+| `\genfrac{(}{]}{0pt}{}{a}{b}` | text | 12 | 0 | 1.0: hbox 984018 668471 275256 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\genfrac{(}{]}{0pt}{}{a}{b}` | display | 12 | 0 | 1.0: hbox 1398192 1140335 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\frac{1}{\frac{1}{\frac{1}{x}}}` | text | 12 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 589003 467751 480825 shift 0 set 0 0 0 (3) |
+| `\frac{1}{\frac{1}{\frac{1}{x}}}` | display | 12 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -196608 set 0 0 0.000000 (0), TeX hbox 589003 647518 523935 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{a}{b}}{\frac{c}{d}}` | text | 12 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 422661 383646 205608 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{a}{b}}{\frac{c}{d}}` | display | 12 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -196608 set 0 0 0.000000 (0), TeX hbox 453173 535378 271194 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{\frac{a}{b}}{c}}{d}` | text | 12 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 579947 693442 205608 shift 0 set 0 0 0 (3) |
+| `\frac{\frac{\frac{a}{b}}{c}}{d}` | display | 12 | 0 | 1.0.1.0.0: hbox 78643 0 0 shift -196608 set 0 0 0.000000 (0), TeX hbox 579947 833046 271194 shift 0 set 0 0 0 (3) |
+| `\frac{a}{\frac{b}{\frac{c}{d}}}` | text | 12 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 567203 487413 431298 shift 0 set 0 0 0 (3) |
+| `\frac{a}{\frac{b}{\frac{c}{d}}}` | display | 12 | 0 | 1.0.1.4.0: hbox 78643 0 0 shift -196608 set 0 0 0.000000 (0), TeX hbox 567203 673732 476802 shift 0 set 0 0 0 (3) |
+| `\sqrt{\frac{\frac12}{3}}` | text | 12 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 397581 467751 205608 shift 0 set 0 0 0 (3) |
+| `\sqrt{\frac{\frac12}{3}}` | display | 12 | 0 | 1.1.3.1.0.0: hbox 78643 0 0 shift -196608 set 0 0 0.000000 (0), TeX hbox 435818 647518 271194 shift 0 set 0 0 0 (3) |
+| `\sqrt{\binom{n}{k}}` | text | 12 | 0 | 1.1.3.0: hbox 360450 31456 912271 shift -637015 set 0 0 0.000000 (1), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\sqrt{\binom{n}{k}}` | display | 12 | 0 | 1.1.3.0: hbox 578904 31456 1855999 shift -1108879 set 0 0 0.000000 (1), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\sqrt[3]{x}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{x}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{x}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{x}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{a+b}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{a+b}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[10]{x}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[10]{x}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\frac12}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\frac12}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{\frac{a}{b}}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{\frac{a}{b}}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{\sum_i x_i}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[k+1]{\sum_i x_i}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\frac12]{x}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\frac12]{x}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\sqrt[3]{x}}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{\sqrt[3]{x}}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[a]{\sqrt[b]{\sqrt[c]{x}}}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[a]{\sqrt[b]{\sqrt[c]{x}}}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x^n}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[n]{x^n}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[m+n]{y}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[m+n]{y}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\beta]{x}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[\beta]{x}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{x_{i_j}}` | text | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt[3]{x_{i_j}}` | display | 12 | 0 | 1.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `x^{\sqrt[3]{y}}` | text | 12 | 0 | 2.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `x^{\sqrt[3]{y}}` | display | 12 | 0 | 2.0: kern 0 subtype 1, TeX kern 0 subtype 3 |
+| `\sqrt{2}\,\pi` | text | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\sqrt{2}\,\pi` | display | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\iint` | text | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iint` | display | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iint_a^b` | text | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iint_a^b` | display | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iint_{i=1}^{n}x_i` | text | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iint_{i=1}^{n}x_i` | display | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
 | `\iint\limits_a^b` | text | 12 | 120498 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
 | `\iint\limits_a^b` | display | 12 | 108706 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
 | `\iint\nolimits_a^b` | text | 12 | 116080 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
 | `\iint\nolimits_a^b` | display | 12 | 104288 | not supported by the TeX-rule layout: \iint with \limits or \nolimits |
+| `\iint_{\frac12}^{\frac34}x` | text | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iint_{\frac12}^{\frac34}x` | display | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iiint` | text | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iiint` | display | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iiint_a^b` | text | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iiint_a^b` | display | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iiint_{i=1}^{n}x_i` | text | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iiint_{i=1}^{n}x_i` | display | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
 | `\iiint\limits_a^b` | text | 12 | 240825 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
 | `\iiint\limits_a^b` | display | 12 | 233492 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
 | `\iiint\nolimits_a^b` | text | 12 | 236407 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
 | `\iiint\nolimits_a^b` | display | 12 | 229074 | not supported by the TeX-rule layout: \iiint with \limits or \nolimits |
+| `\iiint_{\frac12}^{\frac34}x` | text | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
+| `\iiint_{\frac12}^{\frac34}x` | display | 12 | 0 | 2: kern -262140 subtype 1, TeX kern -262140 subtype 3 |
 | `\sum_{\substack{i<j\\ j<n}}x_{ij}` | text | 12 | 27935 | not supported by the TeX-rule layout: array cells in script style |
 | `\sum_{\substack{i<j\\ j<n}}x_{ij}` | display | 12 | 28179 | not supported by the TeX-rule layout: array cells in script style |
-| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | text | 12 | 0 | 2.0.0.0: char cmr12 40 299460 589824 196608, TeX hbox 299460 589824 196608 shift 0 (3) |
-| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | display | 12 | 0 | 1.1.1.0: char cmr12 40 299460 589824 196608, TeX hbox 299460 589824 196608 shift 0 (3) |
-| `\sum_{k}\binom{n}{k}` | text | 12 | 0 | 4.0: hbox 1058900 668471 275256 shift 0 (3), TeX hbox 360450 668471 275256 shift 0 (1) |
-| `\sum_{k}\binom{n}{k}` | display | 12 | 0 | 3.0: hbox 1617465 1140335 747120 shift 0 (3), TeX hbox 578904 1140335 747120 shift 0 (1) |
-| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 12 | 0 | 3.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 12 | 0 | 3.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
+| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | text | 12 | 0 | 2.0.0.0: char cmr12 786432 40 299460 589824 196608, TeX hbox 299460 589824 196608 shift 0 set 0 0 0 (3) |
+| `\prod_{\sqrt{n}}^{\binom{n}{k}}` | display | 12 | 0 | 1.1.1.0: char cmr12 786432 40 299460 589824 196608, TeX hbox 299460 589824 196608 shift 0 set 0 0 0 (3) |
+| `\int\limits_0^1 f\,dx` | text | 12 | 0 | 5: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int\limits_0^1 f\,dx` | display | 12 | 0 | 5: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int\nolimits_0^1 f\,dx` | text | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int\nolimits_0^1 f\,dx` | display | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\sum_{k}\binom{n}{k}` | text | 12 | 0 | 4.0: hbox 1058900 668471 275256 shift 0 set 0 0 0.000000 (3), TeX hbox 360450 668471 275256 shift 0 set 0 0 0 (1) |
+| `\sum_{k}\binom{n}{k}` | display | 12 | 0 | 3.0: hbox 1617465 1140335 747120 shift 0 set 0 0 0.000000 (3), TeX hbox 578904 1140335 747120 shift 0 set 0 0 0 (1) |
+| `\lim x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{n\to\infty}x_n` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim^2x` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\left(x\right)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup_{n\to\infty}x_n` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup^2x` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\limsup\left(x\right)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf_{n\to\infty}x_n` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf^2x` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\liminf\left(x\right)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{n\to\infty}x_n` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max^2x` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max\left(x\right)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min_{n\to\infty}x_n` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min^2x` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\min\left(x\right)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{n\to\infty}x_n` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup^2x` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup\left(x\right)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{n\to\infty}x_n` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf^2x` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf\left(x\right)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det_{n\to\infty}x_n` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det^2x` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\left(x\right)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd_{n\to\infty}x_n` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd^2x` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\gcd\left(x\right)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr_{n\to\infty}x_n` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr^2x` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Pr\left(x\right)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cos\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tan\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arg\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\deg\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\dim\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\hom\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ker\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sec\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\csc\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cot\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sinh\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\cosh\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\tanh\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arcsin\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arccos\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\arctan\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lg\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n\to\infty}x_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth_{n\to\infty}x_n` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth^2x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth^2x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth\left(x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\coth\left(x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}(x)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{sgn}(x)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Hom}_R(M,N)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Hom}_R(M,N)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{rank}A` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{rank}A` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{tr}A^2` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{tr}A^2` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Re}z` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Re}z` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Im}z` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Im}z` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{id}_X` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{id}_X` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{span}\{v\}` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{span}\{v\}` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{argmax}_x f` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{argmax}_x f` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmax}_x f` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmax}_x f` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmin}_{x\in X}f(x)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{argmin}_{x\in X}f(x)` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{ess\,sup}_{x}f` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{ess\,sup}_{x}f` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{Res}_{z=0}f` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{Res}_{z=0}f` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{lim\,inf}_{n}a_n` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{lim\,inf}_{n}a_n` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}_{\frac12}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}_{\frac12}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}_{\frac12}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}_{\frac12}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}^{a}_{b}` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname*{op}^{a}_{b}` | display | 12 | 0 | 1.3.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}^{a}_{b}` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{op}^{a}_{b}` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{a b}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{a b}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Aut}(G)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{Aut}(G)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{GL}_n(\mathbb{R})` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\operatorname{GL}_n(\mathbb{R})` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to0}\frac{\sin x}{x}` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim_{x\to0}\frac{\sin x}{x}` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{1\le i\le n}x_i` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\max_{1\le i\le n}x_i` | display | 12 | 0 | 1.0.1: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in\frac12}f` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sup_{x\in\frac12}f` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{\sum}f` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\inf_{\sum}f` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\limits_{n}x` | text | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\limits_{n}x` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\nolimits_{n}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\lim\nolimits_{n}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^{-1}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin^{-1}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{\frac12}x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_{\frac12}x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\ln x` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\ln\ln x` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\cos\tan` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\sin\cos\tan` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(-x\right)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\exp\left(-x\right)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\det\begin{pmatrix}a&b\\c&d\end{pmatrix}` | display | 12 | 0 | 1.0.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
 | `\hat{\imath}` | text | 12 | 7474 | not supported by the TeX-rule layout: htmlmathml |
 | `\hat{\imath}` | display | 12 | 7474 | not supported by the TeX-rule layout: htmlmathml |
 | `\hat{\jmath}` | text | 12 | 4804 | not supported by the TeX-rule layout: htmlmathml |
@@ -1182,34 +2954,34 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\dddot x` | display | 12 | 151402 | not supported by the TeX-rule layout: raisebox |
 | `\dddot{x}^2` | text | 12 | 160832 | not supported by the TeX-rule layout: raisebox |
 | `\dddot{x}^2` | display | 12 | 127827 | not supported by the TeX-rule layout: raisebox |
-| `\widehat{\widehat{x}}` | text | 12 | 0 | 1.0: hbox 0 567979 0 shift 340 (1), TeX hbox 0 567979 0 shift 21729 (1) |
-| `\widehat{\widehat{x}}` | display | 12 | 0 | 1.0: hbox 0 567979 0 shift 340 (1), TeX hbox 0 567979 0 shift 21729 (1) |
-| `\hat{\hat{x}}` | text | 12 | 0 | 1: vbox 437586 753661 0 shift 0 (3), TeX vbox 480366 753661 0 shift 0 (3) |
-| `\hat{\hat{x}}` | display | 12 | 0 | 1: vbox 437586 753661 0 shift 0 (3), TeX vbox 480366 753661 0 shift 0 (3) |
-| `\hat{\tilde{x}}` | text | 12 | 0 | 1: vbox 437586 729478 0 shift 0 (3), TeX vbox 480366 729478 0 shift 0 (3) |
-| `\hat{\tilde{x}}` | display | 12 | 0 | 1: vbox 437586 729478 0 shift 0 (3), TeX vbox 480366 729478 0 shift 0 (3) |
-| `\tilde{\hat{x}}` | text | 12 | 0 | 1: vbox 437586 729478 0 shift 0 (3), TeX vbox 480366 729478 0 shift 0 (3) |
-| `\tilde{\hat{x}}` | display | 12 | 0 | 1: vbox 437586 729478 0 shift 0 (3), TeX vbox 480366 729478 0 shift 0 (3) |
-| `\bar{\bar{x}}` | text | 12 | 0 | 1: vbox 437586 549769 0 shift 0 (3), TeX vbox 480366 549769 0 shift 0 (3) |
-| `\bar{\bar{x}}` | display | 12 | 0 | 1: vbox 437586 549769 0 shift 0 (3), TeX vbox 480366 549769 0 shift 0 (3) |
-| `\dot{\hat{x}}` | text | 12 | 0 | 1: vbox 437586 729478 0 shift 0 (3), TeX vbox 480366 729478 0 shift 0 (3) |
-| `\dot{\hat{x}}` | display | 12 | 0 | 1: vbox 437586 729478 0 shift 0 (3), TeX vbox 480366 729478 0 shift 0 (3) |
-| `\ddot{\vec{x}}` | text | 12 | 0 | 1: vbox 437586 743896 0 shift 0 (3), TeX vbox 480366 743896 0 shift 0 (3) |
-| `\ddot{\vec{x}}` | display | 12 | 0 | 1: vbox 437586 743896 0 shift 0 (3), TeX vbox 480366 743896 0 shift 0 (3) |
-| `\vec{\dot{x}}` | text | 12 | 0 | 1: vbox 437586 743896 0 shift 0 (3), TeX vbox 480366 743896 0 shift 0 (3) |
-| `\vec{\dot{x}}` | display | 12 | 0 | 1: vbox 437586 743896 0 shift 0 (3), TeX vbox 480366 743896 0 shift 0 (3) |
-| `\hat{\bar{A}}` | text | 12 | 0 | 1: vbox 577257 850507 0 shift 0 (3), TeX vbox 791157 850507 0 shift 0 (3) |
-| `\hat{\bar{A}}` | display | 12 | 0 | 1: vbox 577257 850507 0 shift 0 (3), TeX vbox 791157 850507 0 shift 0 (3) |
-| `\acute{\grave{x}}` | text | 12 | 0 | 1: vbox 437586 753661 0 shift 0 (3), TeX vbox 480366 753661 0 shift 0 (3) |
-| `\acute{\grave{x}}` | display | 12 | 0 | 1: vbox 437586 753661 0 shift 0 (3), TeX vbox 480366 753661 0 shift 0 (3) |
-| `\check{\breve{y}}` | text | 12 | 0 | 1: vbox 403679 701779 152916 shift 0 (3), TeX vbox 489239 701779 152916 shift 0 (3) |
-| `\check{\breve{y}}` | display | 12 | 0 | 1: vbox 403679 701779 152916 shift 0 (3), TeX vbox 489239 701779 152916 shift 0 (3) |
-| `\vec{\vec{v}}` | text | 12 | 0 | 1: vbox 400493 782497 0 shift 0 (3), TeX vbox 443273 782497 0 shift 0 (3) |
-| `\vec{\vec{v}}` | display | 12 | 0 | 1: vbox 400493 782497 0 shift 0 (3), TeX vbox 443273 782497 0 shift 0 (3) |
-| `\dot{\dot{x}}` | text | 12 | 0 | 1: vbox 437586 705295 0 shift 0 (3), TeX vbox 480366 705295 0 shift 0 (3) |
-| `\dot{\dot{x}}` | display | 12 | 0 | 1: vbox 437586 705295 0 shift 0 (3), TeX vbox 480366 705295 0 shift 0 (3) |
-| `\tilde{\tilde{f}}` | text | 12 | 0 | 1: vbox 463527 912824 152916 shift 0 (3), TeX vbox 720207 912824 152916 shift 0 (3) |
-| `\tilde{\tilde{f}}` | display | 12 | 0 | 1: vbox 463527 912824 152916 shift 0 (3), TeX vbox 720207 912824 152916 shift 0 (3) |
+| `\widehat{\widehat{x}}` | text | 12 | 0 | 1.0: hbox 0 567979 0 shift 340 set 0 0 0.000000 (1), TeX hbox 0 567979 0 shift 21729 set 0 0 0 (1) |
+| `\widehat{\widehat{x}}` | display | 12 | 0 | 1.0: hbox 0 567979 0 shift 340 set 0 0 0.000000 (1), TeX hbox 0 567979 0 shift 21729 set 0 0 0 (1) |
+| `\hat{\hat{x}}` | text | 12 | 0 | 1: vbox 437586 753661 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 753661 0 shift 0 set 0 0 0 (3) |
+| `\hat{\hat{x}}` | display | 12 | 0 | 1: vbox 437586 753661 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 753661 0 shift 0 set 0 0 0 (3) |
+| `\hat{\tilde{x}}` | text | 12 | 0 | 1: vbox 437586 729478 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 729478 0 shift 0 set 0 0 0 (3) |
+| `\hat{\tilde{x}}` | display | 12 | 0 | 1: vbox 437586 729478 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 729478 0 shift 0 set 0 0 0 (3) |
+| `\tilde{\hat{x}}` | text | 12 | 0 | 1: vbox 437586 729478 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 729478 0 shift 0 set 0 0 0 (3) |
+| `\tilde{\hat{x}}` | display | 12 | 0 | 1: vbox 437586 729478 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 729478 0 shift 0 set 0 0 0 (3) |
+| `\bar{\bar{x}}` | text | 12 | 0 | 1: vbox 437586 549769 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 549769 0 shift 0 set 0 0 0 (3) |
+| `\bar{\bar{x}}` | display | 12 | 0 | 1: vbox 437586 549769 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 549769 0 shift 0 set 0 0 0 (3) |
+| `\dot{\hat{x}}` | text | 12 | 0 | 1: vbox 437586 729478 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 729478 0 shift 0 set 0 0 0 (3) |
+| `\dot{\hat{x}}` | display | 12 | 0 | 1: vbox 437586 729478 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 729478 0 shift 0 set 0 0 0 (3) |
+| `\ddot{\vec{x}}` | text | 12 | 0 | 1: vbox 437586 743896 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 743896 0 shift 0 set 0 0 0 (3) |
+| `\ddot{\vec{x}}` | display | 12 | 0 | 1: vbox 437586 743896 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 743896 0 shift 0 set 0 0 0 (3) |
+| `\vec{\dot{x}}` | text | 12 | 0 | 1: vbox 437586 743896 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 743896 0 shift 0 set 0 0 0 (3) |
+| `\vec{\dot{x}}` | display | 12 | 0 | 1: vbox 437586 743896 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 743896 0 shift 0 set 0 0 0 (3) |
+| `\hat{\bar{A}}` | text | 12 | 0 | 1: vbox 577257 850507 0 shift 0 set 0 0 0.000000 (3), TeX vbox 791157 850507 0 shift 0 set 0 0 0 (3) |
+| `\hat{\bar{A}}` | display | 12 | 0 | 1: vbox 577257 850507 0 shift 0 set 0 0 0.000000 (3), TeX vbox 791157 850507 0 shift 0 set 0 0 0 (3) |
+| `\acute{\grave{x}}` | text | 12 | 0 | 1: vbox 437586 753661 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 753661 0 shift 0 set 0 0 0 (3) |
+| `\acute{\grave{x}}` | display | 12 | 0 | 1: vbox 437586 753661 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 753661 0 shift 0 set 0 0 0 (3) |
+| `\check{\breve{y}}` | text | 12 | 0 | 1: vbox 403679 701779 152916 shift 0 set 0 0 0.000000 (3), TeX vbox 489239 701779 152916 shift 0 set 0 0 0 (3) |
+| `\check{\breve{y}}` | display | 12 | 0 | 1: vbox 403679 701779 152916 shift 0 set 0 0 0.000000 (3), TeX vbox 489239 701779 152916 shift 0 set 0 0 0 (3) |
+| `\vec{\vec{v}}` | text | 12 | 0 | 1: vbox 400493 782497 0 shift 0 set 0 0 0.000000 (3), TeX vbox 443273 782497 0 shift 0 set 0 0 0 (3) |
+| `\vec{\vec{v}}` | display | 12 | 0 | 1: vbox 400493 782497 0 shift 0 set 0 0 0.000000 (3), TeX vbox 443273 782497 0 shift 0 set 0 0 0 (3) |
+| `\dot{\dot{x}}` | text | 12 | 0 | 1: vbox 437586 705295 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 705295 0 shift 0 set 0 0 0 (3) |
+| `\dot{\dot{x}}` | display | 12 | 0 | 1: vbox 437586 705295 0 shift 0 set 0 0 0.000000 (3), TeX vbox 480366 705295 0 shift 0 set 0 0 0 (3) |
+| `\tilde{\tilde{f}}` | text | 12 | 0 | 1: vbox 463527 912824 152916 shift 0 set 0 0 0.000000 (3), TeX vbox 720207 912824 152916 shift 0 set 0 0 0 (3) |
+| `\tilde{\tilde{f}}` | display | 12 | 0 | 1: vbox 463527 912824 152916 shift 0 set 0 0 0.000000 (3), TeX vbox 720207 912824 152916 shift 0 set 0 0 0 (3) |
 | `\overrightarrow{AB}` | text | 12 | 121993 | not supported by the TeX-rule layout: accent \overrightarrow |
 | `\overrightarrow{AB}` | display | 12 | 121993 | not supported by the TeX-rule layout: accent \overrightarrow |
 | `\overleftarrow{AB}` | text | 12 | 121993 | not supported by the TeX-rule layout: accent \overleftarrow |
@@ -1226,104 +2998,104 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\overbrace{x}` | display | 12 | 157301 | not supported by the TeX-rule layout: horizBrace |
 | `\underbrace{x}` | text | 12 | 157301 | not supported by the TeX-rule layout: horizBrace |
 | `\underbrace{x}` | display | 12 | 157301 | not supported by the TeX-rule layout: horizBrace |
-| `\overset{a}{=}` | text | 12 | 0 | 1.0.3.0: char cmr12 61 598920 283824 -109392, TeX kern 0 |
-| `\overset{a}{=}` | display | 12 | 0 | 1.0.3.0: char cmr12 61 598920 283824 -109392, TeX kern 0 |
-| `\underset{a}{=}` | text | 12 | 0 | 1.0.0.0: char cmr12 61 598920 283824 -109392, TeX kern 0 |
-| `\underset{a}{=}` | display | 12 | 0 | 1.0.0.0: char cmr12 61 598920 283824 -109392, TeX kern 0 |
+| `\overset{a}{=}` | text | 12 | 0 | 1.0.3.0: char cmr12 786432 61 598920 283824 -109392, TeX kern 0 subtype 1 |
+| `\overset{a}{=}` | display | 12 | 0 | 1.0.3.0: char cmr12 786432 61 598920 283824 -109392, TeX kern 0 subtype 1 |
+| `\underset{a}{=}` | text | 12 | 0 | 1.0.0.0: char cmr12 786432 61 598920 283824 -109392, TeX kern 0 subtype 1 |
+| `\underset{a}{=}` | display | 12 | 0 | 1.0.0.0: char cmr12 786432 61 598920 283824 -109392, TeX kern 0 subtype 1 |
 | `\xrightarrow{a}` | text | 12 | 368824 | not supported by the TeX-rule layout: xArrow |
 | `\xrightarrow{a}` | display | 12 | 368824 | not supported by the TeX-rule layout: xArrow |
 | `\xleftarrow[b]{a}` | text | 12 | 368824 | not supported by the TeX-rule layout: xArrow |
 | `\xleftarrow[b]{a}` | display | 12 | 368824 | not supported by the TeX-rule layout: xArrow |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left( \frac{\frac12}{\frac34}\right)` | text | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 397581 467751 205608 shift 0 (3) |
-| `\left( \frac{\frac12}{\frac34}\right)` | display | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -196608 (0), TeX hbox 435818 647518 271194 shift 0 (3) |
-| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left[ \frac{\frac12}{\frac34}\right]` | text | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 397581 467751 205608 shift 0 (3) |
-| `\left[ \frac{\frac12}{\frac34}\right]` | display | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -196608 (0), TeX hbox 435818 647518 271194 shift 0 (3) |
-| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left( \frac{\frac12}{\frac34}\right.` | text | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 (0), TeX hbox 397581 467751 205608 shift 0 (3) |
-| `\left( \frac{\frac12}{\frac34}\right.` | display | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -196608 (0), TeX hbox 435818 647518 271194 shift 0 (3) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | text | 12 | 0 | 1.1.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | display | 12 | 0 | 1.1.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | text | 12 | 0 | 1.1.0.3: hbox 1055490 546132 0 shift 0 (6), TeX hbox 1055490 665187 285084 shift 0 (9) |
-| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | display | 12 | 0 | 1.1.0.3: hbox 1055490 546132 0 shift 0 (6), TeX hbox 1055490 665187 285084 shift 0 (9) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left( \frac{\frac12}{\frac34}\right)` | text | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 397581 467751 205608 shift 0 set 0 0 0 (3) |
+| `\left( \frac{\frac12}{\frac34}\right)` | display | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -196608 set 0 0 0.000000 (0), TeX hbox 435818 647518 271194 shift 0 set 0 0 0 (3) |
+| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left[ \begin{matrix}a&b\\c&d\end{matrix}\right]` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left[ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right]` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left[ \frac{\frac12}{\frac34}\right]` | text | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 397581 467751 205608 shift 0 set 0 0 0 (3) |
+| `\left[ \frac{\frac12}{\frac34}\right]` | display | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -196608 set 0 0 0.000000 (0), TeX hbox 435818 647518 271194 shift 0 set 0 0 0 (3) |
+| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\{ \begin{matrix}a&b\\c&d\end{matrix}\right\}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\{ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\}` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\langle \begin{matrix}a&b\\c&d\end{matrix}\right\rangle` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\langle \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rangle` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\| \begin{matrix}a&b\\c&d\end{matrix}\right\|` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\|` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\\| \begin{matrix}a&b\\c&d\end{matrix}\right\\|` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\\| \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\\|` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lfloor \begin{matrix}a&b\\c&d\end{matrix}\right\rfloor` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lfloor \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rfloor` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lceil \begin{matrix}a&b\\c&d\end{matrix}\right\rceil` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lceil \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rceil` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left/ \begin{matrix}a&b\\c&d\end{matrix}\right\backslash` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left/ \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\backslash` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\downarrow` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\downarrow` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\Uparrow \begin{matrix}a&b\\c&d\end{matrix}\right\updownarrow` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\Uparrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\updownarrow` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right)` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right)` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left( \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left( \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left( \frac{\frac12}{\frac34}\right.` | text | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -131072 set 0 0 0.000000 (0), TeX hbox 397581 467751 205608 shift 0 set 0 0 0 (3) |
+| `\left( \frac{\frac12}{\frac34}\right.` | display | 12 | 0 | 1.1.0.1.0.0: hbox 78643 0 0 shift -196608 set 0 0 0.000000 (0), TeX hbox 435818 647518 271194 shift 0 set 0 0 0 (3) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left. \begin{matrix}a&b\\c&d\end{matrix}\right.` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left. \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right.` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\Downarrow \begin{matrix}a&b\\c&d\end{matrix}\right\Updownarrow` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\Downarrow \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\Updownarrow` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\backslash \begin{matrix}a&b\\c&d\end{matrix}\right/` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\backslash \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right/` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lvert \begin{matrix}a&b\\c&d\end{matrix}\right\rvert` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lvert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rvert` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lVert \begin{matrix}a&b\\c&d\end{matrix}\right\rVert` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lVert \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rVert` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lbrace \begin{matrix}a&b\\c&d\end{matrix}\right\rbrace` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lbrace \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrace` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lbrack \begin{matrix}a&b\\c&d\end{matrix}\right\rbrack` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left\lbrack \begin{matrix}a&b&c\\d&e&f\\g&h&i\end{matrix}\right\rbrack` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | text | 12 | 0 | 1.1.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left(\begin{array}{cc}a&b\\c&d\end{array}\right)` | display | 12 | 0 | 1.1.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | text | 12 | 0 | 1.1.0.3: hbox 1055490 546132 0 shift 0 set 1 2 1.109741 (6), TeX hbox 1055490 665187 285084 shift 0 set 1 2 1.109741 (9) |
+| `\left\{\begin{array}{ll}a&b\\c&d\end{array}\right.` | display | 12 | 0 | 1.1.0.3: hbox 1055490 546132 0 shift 0 set 1 2 1.109741 (6), TeX hbox 1055490 665187 285084 shift 0 set 1 2 1.109741 (9) |
 | `\text{\textbf{a}}` | text | 12 | 6732 | not supported by the TeX-rule layout: text that is not plain characters |
 | `\text{\textbf{a}}` | display | 12 | 6732 | not supported by the TeX-rule layout: text that is not plain characters |
 | `\text{a$x$b}` | text | 12 | 12253 | not supported by the TeX-rule layout: text that is not plain characters |
@@ -1332,64 +3104,142 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\boldsymbol{\alpha}` | display | 12 | 280 | not supported by the TeX-rule layout: \boldsymbol |
 | `\boldsymbol{x}` | text | 12 | 22 | not supported by the TeX-rule layout: \boldsymbol |
 | `\boldsymbol{x}` | display | 12 | 22 | not supported by the TeX-rule layout: \boldsymbol |
-| `a\hphantom{b}c` | text | 12 | 0 | 2.0: math false, TeX nothing |
-| `a\hphantom{b}c` | display | 12 | 0 | 2.0: math false, TeX nothing |
-| `\smash{\frac12}` | text | 12 | 0 | 1: hbox 435818 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash{\frac12}` | display | 12 | 0 | 1: hbox 542306 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\smash{b}c` | text | 12 | 0 | 2: hbox 327402 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\smash{b}c` | display | 12 | 0 | 2: hbox 327402 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash{x_i}` | text | 12 | 0 | 1: hbox 660012 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash{x_i}` | display | 12 | 0 | 1: hbox 660012 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\hphantom{\frac12}` | text | 12 | 0 | 1.0: math false, TeX nothing |
-| `\hphantom{\frac12}` | display | 12 | 0 | 1.0: math false, TeX nothing |
-| `\smash[t]{\frac12}` | text | 12 | 0 | 1: hbox 435818 0 271194 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash[t]{\frac12}` | display | 12 | 0 | 1: hbox 542306 0 539454 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash[b]{\frac12}` | text | 12 | 0 | 1: hbox 435818 647518 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `\smash[b]{\frac12}` | display | 12 | 0 | 1: hbox 542306 1038838 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\mkern-3mu b` | text | 12 | 0 | 2: glue -131070 0 0, TeX kern -131070 |
-| `a\mkern-3mu b` | display | 12 | 0 | 2: glue -131070 0 0, TeX kern -131070 |
-| `a\kern2pt b` | text | 12 | 0 | 2: glue 131072 0 0, TeX kern 131072 |
-| `a\kern2pt b` | display | 12 | 0 | 2: glue 131072 0 0, TeX kern 131072 |
+| `a\hphantom{b}c` | text | 12 | 0 | 2.0: math 0, TeX nothing |
+| `a\hphantom{b}c` | display | 12 | 0 | 2.0: math 0, TeX nothing |
+| `\smash{\frac12}` | text | 12 | 0 | 1: hbox 435818 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash{\frac12}` | display | 12 | 0 | 1: hbox 542306 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\smash{b}c` | text | 12 | 0 | 2: hbox 327402 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\smash{b}c` | display | 12 | 0 | 2: hbox 327402 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash{x_i}` | text | 12 | 0 | 1: hbox 660012 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash{x_i}` | display | 12 | 0 | 1: hbox 660012 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\hphantom{\frac12}` | text | 12 | 0 | 1.0: math 0, TeX nothing |
+| `\hphantom{\frac12}` | display | 12 | 0 | 1.0: math 0, TeX nothing |
+| `\smash[t]{\frac12}` | text | 12 | 0 | 1: hbox 435818 0 271194 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash[t]{\frac12}` | display | 12 | 0 | 1: hbox 542306 0 539454 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash[b]{\frac12}` | text | 12 | 0 | 1: hbox 435818 647518 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `\smash[b]{\frac12}` | display | 12 | 0 | 1: hbox 542306 1038838 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\:b` | text | 12 | 0 | 2: glue 174760 87380 0 174760 0 subtype 99, TeX glue 174760 87380 0 174760 0 subtype 0 |
+| `a\:b` | display | 12 | 0 | 2: glue 174760 87380 0 174760 0 subtype 99, TeX glue 174760 87380 0 174760 0 subtype 0 |
+| `a~b` | text | 12 | 0 | 3: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `a~b` | display | 12 | 0 | 3: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `a\mkern18mu b` | text | 12 | 0 | 2: kern 786420 subtype 1, TeX kern 786420 subtype 3 |
+| `a\mkern18mu b` | display | 12 | 0 | 2: kern 786420 subtype 1, TeX kern 786420 subtype 3 |
+| `a\mkern-3mu b` | text | 12 | 0 | 2: glue -131070 0 0 0 0 subtype 99, TeX kern -131070 subtype 3 |
+| `a\mkern-3mu b` | display | 12 | 0 | 2: glue -131070 0 0 0 0 subtype 99, TeX kern -131070 subtype 3 |
+| `a\kern2pt b` | text | 12 | 0 | 2: glue 131072 0 0 0 0 subtype 0, TeX kern 131072 subtype 1 |
+| `a\kern2pt b` | display | 12 | 0 | 2: glue 131072 0 0 0 0 subtype 0, TeX kern 131072 subtype 1 |
 | `a\hskip 3pt plus 1pt b` | text | 12 | 2597873 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
 | `a\hskip 3pt plus 1pt b` | display | 12 | 2597873 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
-| `a\negmedspace b` | text | 12 | 0 | 2: kern -174760, TeX glue -174760 -87380 -174760 |
-| `a\negmedspace b` | display | 12 | 0 | 2: kern -174760, TeX glue -174760 -87380 -174760 |
-| `a\negthickspace b` | text | 12 | 0 | 2: kern -218450, TeX glue -218450 -218450 0 |
-| `a\negthickspace b` | display | 12 | 0 | 2: kern -218450, TeX glue -218450 -218450 0 |
-| `a\mskip 5mu b` | text | 12 | 0 | 2: glue 218450 218450 0, TeX glue 218450 0 0 |
-| `a\mskip 5mu b` | display | 12 | 0 | 2: glue 218450 218450 0, TeX glue 218450 0 0 |
-| `a\enspace b` | text | 12 | 0 | 2: glue 393216 0 0, TeX kern 393216 |
-| `a\enspace b` | display | 12 | 0 | 2: glue 393216 0 0, TeX kern 393216 |
+| `a\negthinspace b` | text | 12 | 0 | 2: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `a\negthinspace b` | display | 12 | 0 | 2: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `a\thinspace b` | text | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `a\thinspace b` | display | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `a\medspace b` | text | 12 | 0 | 2: glue 174760 87380 0 174760 0 subtype 99, TeX glue 174760 87380 0 174760 0 subtype 0 |
+| `a\medspace b` | display | 12 | 0 | 2: glue 174760 87380 0 174760 0 subtype 99, TeX glue 174760 87380 0 174760 0 subtype 0 |
+| `a\thickspace b` | text | 12 | 0 | 2: glue 218450 218450 0 0 0 subtype 99, TeX glue 218450 218450 0 0 0 subtype 0 |
+| `a\thickspace b` | display | 12 | 0 | 2: glue 218450 218450 0 0 0 subtype 99, TeX glue 218450 218450 0 0 0 subtype 0 |
+| `a\negmedspace b` | text | 12 | 0 | 2: kern -174760 subtype 1, TeX glue -174760 -87380 0 -174760 0 subtype 0 |
+| `a\negmedspace b` | display | 12 | 0 | 2: kern -174760 subtype 1, TeX glue -174760 -87380 0 -174760 0 subtype 0 |
+| `a\negthickspace b` | text | 12 | 0 | 2: kern -218450 subtype 1, TeX glue -218450 -218450 0 0 0 subtype 0 |
+| `a\negthickspace b` | display | 12 | 0 | 2: kern -218450 subtype 1, TeX glue -218450 -218450 0 0 0 subtype 0 |
+| `a\mskip 5mu b` | text | 12 | 0 | 2: glue 218450 218450 0 0 0 subtype 99, TeX glue 218450 0 0 0 0 subtype 0 |
+| `a\mskip 5mu b` | display | 12 | 0 | 2: glue 218450 218450 0 0 0 subtype 99, TeX glue 218450 0 0 0 0 subtype 0 |
+| `\int f\,dx` | text | 12 | 0 | 5: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int f\,dx` | display | 12 | 0 | 5: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int\!f\,dx` | text | 12 | 0 | 2: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `\int\!f\,dx` | display | 12 | 0 | 2: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `f\!\left(x\right)` | text | 12 | 0 | 3: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `f\!\left(x\right)` | display | 12 | 0 | 3: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `a\enspace b` | text | 12 | 0 | 2: glue 393216 0 0 0 0 subtype 0, TeX kern 393216 subtype 1 |
+| `a\enspace b` | display | 12 | 0 | 2: glue 393216 0 0 0 0 subtype 0, TeX kern 393216 subtype 1 |
+| `\cdots` | text | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\cdots` | display | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\dots` | text | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\dots` | display | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\dotsb` | text | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\dotsb` | display | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\dotsc` | text | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\dotsc` | display | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\dotsm` | text | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\dotsm` | display | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\dotsi` | text | 12 | 0 | 1: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `\dotsi` | display | 12 | 0 | 1: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
 | `\vdots` | text | 12 | 178782 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\vdots` | display | 12 | 178782 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\ddots` | text | 12 | 353633 | not supported by the TeX-rule layout: symbol \ddots |
 | `\ddots` | display | 12 | 353633 | not supported by the TeX-rule layout: symbol \ddots |
+| `1,2,\dots` | text | 12 | 0 | 8: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `1,2,\dots` | display | 12 | 0 | 8: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int\dotsi\int` | text | 12 | 0 | 2: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `\int\dotsi\int` | display | 12 | 0 | 2: glue -131070 0 0 0 0 subtype 99, TeX glue -131070 0 0 0 0 subtype 0 |
+| `a_1,\dots` | text | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `a_1,\dots` | display | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `1+2+\dots` | text | 12 | 0 | 10: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `1+2+\dots` | display | 12 | 0 | 10: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `x=\dots` | text | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `x=\dots` | display | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
 | `\vdots+x` | text | 12 | 178782 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\vdots+x` | display | 12 | 178782 | not supported by the TeX-rule layout: symbol \varvdots |
-| `a\bmod n` | text | 12 | 0 | 2: kern 43690, TeX glue 0 0 0 |
-| `a\bmod n` | display | 12 | 0 | 2: kern 43690, TeX glue 0 0 0 |
-| `a\bmod{n+1}` | text | 12 | 0 | 2: kern 43690, TeX glue 0 0 0 |
-| `a\bmod{n+1}` | display | 12 | 0 | 2: kern 43690, TeX glue 0 0 0 |
-| `a\bmod b\bmod c` | text | 12 | 0 | 2: kern 43690, TeX glue 0 0 0 |
-| `a\bmod b\bmod c` | display | 12 | 0 | 2: kern 43690, TeX glue 0 0 0 |
+| `a_{1},\dots,a_{n}=\cdots` | text | 12 | 0 | 15: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `a_{1},\dots,a_{n}=\cdots` | display | 12 | 0 | 15: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `a\pmod{n}` | text | 12 | 0 | 3: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\pmod{n}` | display | 12 | 0 | 3: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\bmod n` | text | 12 | 0 | 2: kern 43690 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\bmod n` | display | 12 | 0 | 2: kern 43690 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\pod{n}` | text | 12 | 0 | 3: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\pod{n}` | display | 12 | 0 | 3: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\equiv b\pmod{n}` | text | 12 | 0 | 7: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\equiv b\pmod{n}` | display | 12 | 0 | 7: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\equiv b\pmod n` | text | 12 | 0 | 7: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\equiv b\pmod n` | display | 12 | 0 | 7: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\equiv b\pod{n}` | text | 12 | 0 | 7: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\equiv b\pod{n}` | display | 12 | 0 | 7: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\equiv b \mod n` | text | 12 | 0 | 7: kern 524280 subtype 1, TeX kern 524280 subtype 3 |
+| `a\equiv b \mod n` | display | 12 | 0 | 7: kern 524280 subtype 1, TeX kern 524280 subtype 3 |
+| `a\bmod{n+1}` | text | 12 | 0 | 2: kern 43690 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\bmod{n+1}` | display | 12 | 0 | 2: kern 43690 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `x\pmod{\frac12}` | text | 12 | 0 | 3: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `x\pmod{\frac12}` | display | 12 | 0 | 3: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `\pmod{n}` | text | 12 | 0 | 2: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `\pmod{n}` | display | 12 | 0 | 2: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `\pod{n}` | text | 12 | 0 | 2: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `\pod{n}` | display | 12 | 0 | 2: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `a\bmod b\bmod c` | text | 12 | 0 | 2: kern 43690 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `a\bmod b\bmod c` | display | 12 | 0 | 2: kern 43690 subtype 1, TeX glue 0 0 0 0 0 subtype 98 |
+| `x\equiv y\pmod{m+n}` | text | 12 | 0 | 8: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
+| `x\equiv y\pmod{m+n}` | display | 12 | 0 | 8: kern 349520 subtype 1, TeX kern 349520 subtype 3 |
 | `a\notin B` | text | 12 | 165861 | not supported by the TeX-rule layout: htmlmathml |
 | `a\notin B` | display | 12 | 165861 | not supported by the TeX-rule layout: htmlmathml |
-| `a\longrightarrow b` | text | 12 | 0 | 3.0: hbox 611671 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longrightarrow b` | display | 12 | 0 | 3.0: hbox 611671 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longleftarrow b` | text | 12 | 0 | 5.0: hbox 611671 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longleftarrow b` | display | 12 | 0 | 5.0: hbox 611671 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longmapsto b` | text | 12 | 0 | 4.0: hbox 611671 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longmapsto b` | display | 12 | 0 | 4.0: hbox 611671 0 0 shift 0 (3), TeX hbox 0 0 0 shift 0 (0) |
-| `a\longleftrightarrow b` | text | 12 | 0 | 3: char cmsy10 36 786434 288522 -104694, TeX char cmsy10 32 786434 288522 -104694 |
-| `a\longleftrightarrow b` | display | 12 | 0 | 3: char cmsy10 36 786434 288522 -104694, TeX char cmsy10 32 786434 288522 -104694 |
-| `f\colon X\hookrightarrow Y` | text | 12 | 0 | 4: kern 87380, TeX glue 87380 0 0 |
-| `f\colon X\hookrightarrow Y` | display | 12 | 0 | 4: kern 87380, TeX glue 87380 0 0 |
+| `a\longrightarrow b` | text | 12 | 0 | 3.0: hbox 611671 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\longrightarrow b` | display | 12 | 0 | 3.0: hbox 611671 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\Longrightarrow b` | text | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\Longrightarrow b` | display | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\iff b` | text | 12 | 0 | 2: glue 218450 218450 0 0 0 subtype 99, TeX glue 218450 218450 0 0 0 subtype 0 |
+| `a\iff b` | display | 12 | 0 | 2: glue 218450 218450 0 0 0 subtype 99, TeX glue 218450 218450 0 0 0 subtype 0 |
+| `a\implies b` | text | 12 | 0 | 2: glue 218450 218450 0 0 0 subtype 99, TeX glue 218450 218450 0 0 0 subtype 0 |
+| `a\implies b` | display | 12 | 0 | 2: glue 218450 218450 0 0 0 subtype 99, TeX glue 218450 218450 0 0 0 subtype 0 |
+| `a\hookrightarrow b` | text | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\hookrightarrow b` | display | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\longleftarrow b` | text | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\longleftarrow b` | display | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\Longleftarrow b` | text | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\Longleftarrow b` | display | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\longmapsto b` | text | 12 | 0 | 4.0: hbox 611671 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\longmapsto b` | display | 12 | 0 | 4.0: hbox 611671 0 0 shift 0 set 0 0 0.000000 (3), TeX hbox 0 0 0 shift 0 set 0 0 0 (0) |
+| `a\longleftrightarrow b` | text | 12 | 0 | 3: char cmsy10 786432 36 786434 288522 -104694, TeX char cmsy10 786432 32 786434 288522 -104694 |
+| `a\longleftrightarrow b` | display | 12 | 0 | 3: char cmsy10 786432 36 786434 288522 -104694, TeX char cmsy10 786432 32 786434 288522 -104694 |
+| `a\Longleftrightarrow b` | text | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\Longleftrightarrow b` | display | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\hookleftarrow b` | text | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `a\hookleftarrow b` | display | 12 | 0 | 4.0: kern -131070 subtype 1, TeX kern -131070 subtype 3 |
+| `f\colon X\hookrightarrow Y` | text | 12 | 0 | 4: kern 87380 subtype 1, TeX glue 87380 0 0 0 0 subtype 0 |
+| `f\colon X\hookrightarrow Y` | display | 12 | 0 | 4: kern 87380 subtype 1, TeX glue 87380 0 0 0 0 subtype 0 |
 | `x\xrightarrow{f}y` | text | 12 | 390972 | not supported by the TeX-rule layout: xArrow |
 | `x\xrightarrow{f}y` | display | 12 | 390972 | not supported by the TeX-rule layout: xArrow |
 | `x\xrightarrow[g]{f}y` | text | 12 | 390972 | not supported by the TeX-rule layout: xArrow |
 | `x\xrightarrow[g]{f}y` | display | 12 | 390972 | not supported by the TeX-rule layout: xArrow |
-| `x\overset{f}{\longrightarrow}y` | text | 12 | 0 | 3.0.3.0: hbox 611671 0 0 shift 0 (1), TeX kern 0 |
-| `x\overset{f}{\longrightarrow}y` | display | 12 | 0 | 3.0.3.0: hbox 611671 0 0 shift 0 (1), TeX kern 0 |
+| `x\overset{f}{\longrightarrow}y` | text | 12 | 0 | 3.0.3.0: hbox 611671 0 0 shift 0 set 0 0 0.000000 (1), TeX kern 0 subtype 1 |
+| `x\overset{f}{\longrightarrow}y` | display | 12 | 0 | 3.0.3.0: hbox 611671 0 0 shift 0 set 0 0 0.000000 (1), TeX kern 0 subtype 1 |
 | `A\xleftarrow{\frac12}B` | text | 12 | 348665 | not supported by the TeX-rule layout: xArrow |
 | `A\xleftarrow{\frac12}B` | display | 12 | 348665 | not supported by the TeX-rule layout: xArrow |
 | `a\cong b` | text | 12 | 32768 | not supported by the TeX-rule layout: symbol \cong |
@@ -1400,66 +3250,66 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\hbar` | display | 12 | 18607 | not supported by the TeX-rule layout: symbol \hbar |
 | `\checkmark` | text | 12 | 264 | not supported by the TeX-rule layout: symbol \checkmark |
 | `\checkmark` | display | 12 | 264 | not supported by the TeX-rule layout: symbol \checkmark |
-| `\begin{matrix}a&b\\c&d\end{matrix}` | text | 12 | 0 | 2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{matrix}a&b\\c&d\end{matrix}` | display | 12 | 0 | 2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
+| `\begin{matrix}a&b\\c&d\end{matrix}` | text | 12 | 0 | 2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{matrix}a&b\\c&d\end{matrix}` | display | 12 | 0 | 2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{bmatrix}a&b\\c&d\end{bmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{Bmatrix}a&b\\c&d\end{Bmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{Vmatrix}a&b\\c&d\end{Vmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
 | `\begin{smallmatrix}a&b\\c&d\end{smallmatrix}` | text | 12 | 179711 | not supported by the TeX-rule layout: this array environment |
 | `\begin{smallmatrix}a&b\\c&d\end{smallmatrix}` | display | 12 | 179711 | not supported by the TeX-rule layout: this array environment |
 | `\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)` | text | 12 | 288924 | not supported by the TeX-rule layout: this array environment |
 | `\left(\begin{smallmatrix}a&b\\c&d\end{smallmatrix}\right)` | display | 12 | 288924 | not supported by the TeX-rule layout: this array environment |
-| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1040380 506811 0 shift 0 (7), TeX hbox 1040380 665187 285084 shift 0 (7) |
-| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1040380 506811 0 shift 0 (7), TeX hbox 1040380 665187 285084 shift 0 (7) |
-| `\begin{pmatrix}a\\b\end{pmatrix}` | text | 12 | 0 | 1.2.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{pmatrix}a\\b\end{pmatrix}` | display | 12 | 0 | 1.2.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{pmatrix}a&b\end{pmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 982762 546132 0 shift 0 (7), TeX hbox 982762 665187 285084 shift 0 (7) |
-| `\begin{pmatrix}a&b\end{pmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 982762 546132 0 shift 0 (7), TeX hbox 982762 665187 285084 shift 0 (7) |
-| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1091178 647518 271194 shift 0 (7), TeX hbox 1091178 665187 285084 shift 0 (10) |
-| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1091178 647518 271194 shift 0 (7), TeX hbox 1091178 665187 285084 shift 0 (10) |
-| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 2436869 589829 229381 shift 0 (11), TeX hbox 2436869 665187 285084 shift 0 (14) |
-| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 2436869 589829 229381 shift 0 (11), TeX hbox 2436869 665187 285084 shift 0 (14) |
+| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1040380 506811 0 shift 0 set 0 0 0.000000 (7), TeX hbox 1040380 665187 285084 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1040380 506811 0 shift 0 set 0 0 0.000000 (7), TeX hbox 1040380 665187 285084 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}a\\b\end{pmatrix}` | text | 12 | 0 | 1.2.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{pmatrix}a\\b\end{pmatrix}` | display | 12 | 0 | 1.2.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{pmatrix}a&b\end{pmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 982762 546132 0 shift 0 set 0 0 0.000000 (7), TeX hbox 982762 665187 285084 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}a&b\end{pmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 982762 546132 0 shift 0 set 0 0 0.000000 (7), TeX hbox 982762 665187 285084 shift 0 set 0 0 0 (7) |
+| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1091178 647518 271194 shift 0 set 0 0 0.000000 (7), TeX hbox 1091178 665187 285084 shift 0 set 0 0 0 (10) |
+| `\begin{pmatrix}\frac12&\frac34\\x&y\end{pmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1091178 647518 271194 shift 0 set 0 0 0.000000 (7), TeX hbox 1091178 665187 285084 shift 0 set 0 0 0 (10) |
+| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 2436869 589829 229381 shift 0 set 0 0 0.000000 (11), TeX hbox 2436869 665187 285084 shift 0 set 0 0 0 (14) |
+| `\begin{bmatrix}x^2&\sum_i y_i\\\sqrt{z}&w\end{bmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 2436869 589829 229381 shift 0 set 0 0 0.000000 (11), TeX hbox 2436869 665187 285084 shift 0 set 0 0 0 (14) |
 | `\begin{pmatrix}1&\cdots&n\\\vdots&\ddots&\vdots\\m&\cdots&mn\end{pmatrix}` | text | 12 | 267837 | not supported by the TeX-rule layout: symbol \varvdots |
 | `\begin{pmatrix}1&\cdots&n\\\vdots&\ddots&\vdots\\m&\cdots&mn\end{pmatrix}` | display | 12 | 267837 | not supported by the TeX-rule layout: symbol \varvdots |
-| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 (7), TeX hbox 1098634 665187 285084 shift 0 (7) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 (7), TeX hbox 1055490 665187 285084 shift 0 (10) |
-| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | text | 12 | 0 | 2.0.3: hbox 2584619 546132 0 shift 0 (7), TeX hbox 2584619 665187 285084 shift 0 (10) |
-| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | display | 12 | 0 | 2.0.3: hbox 2584619 546132 0 shift 0 (7), TeX hbox 2584619 665187 285084 shift 0 (10) |
-| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | text | 12 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | display | 12 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | text | 12 | 0 | 9.1.0.1.1: glue 0 0 0, TeX math false |
-| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | display | 12 | 0 | 9.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | text | 12 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | display | 12 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}a\end{cases}` | text | 12 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}a\end{cases}` | display | 12 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | text | 12 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | display | 12 | 0 | 1.1.0.1.1: glue 0 0 0, TeX math false |
-| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | text | 12 | 0 | 1.0.3: hbox 1369150 546132 0 shift 0 (7), TeX hbox 1369150 665187 285084 shift 0 (7) |
-| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | display | 12 | 0 | 1.0.3: hbox 1369150 546132 0 shift 0 (7), TeX hbox 1369150 665187 285084 shift 0 (7) |
-| `\begin{array}{c}a\\b\end{array}` | text | 12 | 0 | 1.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{array}{c}a\\b\end{array}` | display | 12 | 0 | 1.0.1.6: glue 0 65536 0, TeX math false |
-| `\begin{array}{l}a\\bbb\end{array}` | text | 12 | 0 | 1.0.1.5: glue 0 65536 0, TeX math false |
-| `\begin{array}{l}a\\bbb\end{array}` | display | 12 | 0 | 1.0.1.5: glue 0 65536 0, TeX math false |
-| `\begin{array}{r}a\\bbb\end{array}` | text | 12 | 0 | 1.0.1.6: glue 327680 0 0, TeX math false |
-| `\begin{array}{r}a\\bbb\end{array}` | display | 12 | 0 | 1.0.1.6: glue 327680 0 0, TeX math false |
-| `\begin{array}{cc}a&b\end{array}` | text | 12 | 0 | 1.0.3: hbox 982762 546132 0 shift 0 (7), TeX hbox 982762 665187 285084 shift 0 (7) |
-| `\begin{array}{cc}a&b\end{array}` | display | 12 | 0 | 1.0.3: hbox 982762 546132 0 shift 0 (7), TeX hbox 982762 665187 285084 shift 0 (7) |
-| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | text | 12 | 0 | 1.0.3: hbox 1857750 506811 0 shift 0 (8), TeX hbox 1857750 665187 285084 shift 0 (11) |
-| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | display | 12 | 0 | 1.0.3: hbox 1857750 506811 0 shift 0 (8), TeX hbox 1857750 665187 285084 shift 0 (11) |
+| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\begin{vmatrix}a&b&c\\d&e&f\\g&h&i\end{vmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1098634 546132 0 shift 0 set 1 2 0.884033 (7), TeX hbox 1098634 665187 285084 shift 0 set 1 2 0.884033 (7) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}^2` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | text | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}` | display | 12 | 0 | 1.2.0.3: hbox 1055490 546132 0 shift 0 set 1 2 0.554871 (7), TeX hbox 1055490 665187 285084 shift 0 set 1 2 0.554871 (10) |
+| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | text | 12 | 0 | 2.0.3: hbox 2584619 546132 0 shift 0 set 1 2 11.666328 (7), TeX hbox 2584619 665187 285084 shift 0 set 1 2 11.666328 (10) |
+| `\begin{matrix}abc&d\\e&fghij\end{matrix}` | display | 12 | 0 | 2.0.3: hbox 2584619 546132 0 shift 0 set 1 2 11.666328 (7), TeX hbox 2584619 665187 285084 shift 0 set 1 2 11.666328 (10) |
+| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | text | 12 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}a&x>0\\b&x\le0\end{cases}` | display | 12 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | text | 12 | 0 | 9.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `f(x)=\begin{cases}1&x>0\\0&\text{otherwise}\end{cases}` | display | 12 | 0 | 9.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | text | 12 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}\frac12&a\\\sqrt{x}&b\\c&d\end{cases}` | display | 12 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}a\end{cases}` | text | 12 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}a\end{cases}` | display | 12 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | text | 12 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{cases}x&\text{if }x\ge0,\\-x&\text{if }x<0\end{cases}` | display | 12 | 0 | 1.1.0.1.1: glue 0 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | text | 12 | 0 | 1.0.3: hbox 1369150 546132 0 shift 0 set 1 2 2.947906 (7), TeX hbox 1369150 665187 285084 shift 0 set 1 2 2.947906 (7) |
+| `\begin{array}{lcr}a&b&c\\dd&ee&ff\end{array}` | display | 12 | 0 | 1.0.3: hbox 1369150 546132 0 shift 0 set 1 2 2.947906 (7), TeX hbox 1369150 665187 285084 shift 0 set 1 2 2.947906 (7) |
+| `\begin{array}{c}a\\b\end{array}` | text | 12 | 0 | 1.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{c}a\\b\end{array}` | display | 12 | 0 | 1.0.1.6: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{l}a\\bbb\end{array}` | text | 12 | 0 | 1.0.1.5: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{l}a\\bbb\end{array}` | display | 12 | 0 | 1.0.1.5: glue 0 65536 2 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{r}a\\bbb\end{array}` | text | 12 | 0 | 1.0.1.6: glue 327680 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{r}a\\bbb\end{array}` | display | 12 | 0 | 1.0.1.6: glue 327680 0 0 0 0 subtype 0, TeX math 0 |
+| `\begin{array}{cc}a&b\end{array}` | text | 12 | 0 | 1.0.3: hbox 982762 546132 0 shift 0 set 0 0 0.000000 (7), TeX hbox 982762 665187 285084 shift 0 set 0 0 0 (7) |
+| `\begin{array}{cc}a&b\end{array}` | display | 12 | 0 | 1.0.3: hbox 982762 546132 0 shift 0 set 0 0 0.000000 (7), TeX hbox 982762 665187 285084 shift 0 set 0 0 0 (7) |
+| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | text | 12 | 0 | 1.0.3: hbox 1857750 506811 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1857750 665187 285084 shift 0 set 0 0 0 (11) |
+| `\begin{array}{rl}x&=1\\yyy&=2\end{array}` | display | 12 | 0 | 1.0.3: hbox 1857750 506811 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1857750 665187 285084 shift 0 set 0 0 0 (11) |
 | `\begin{array}{c\|c}a&b\\\hline c&d\end{array}` | text | 12 | 282755 | not supported by the TeX-rule layout: array rules |
 | `\begin{array}{c\|c}a&b\\\hline c&d\end{array}` | display | 12 | 282755 | not supported by the TeX-rule layout: array rules |
-| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | text | 12 | 0 | 1.0.3: hbox 1638124 338603 0 shift 0 (7), TeX hbox 1638124 665187 285084 shift 0 (7) |
-| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | display | 12 | 0 | 1.0.3: hbox 1638124 338603 0 shift 0 (7), TeX hbox 1638124 665187 285084 shift 0 (7) |
-| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | text | 12 | 0 | 1.0.3: hbox 1425400 506811 0 shift 0 (8), TeX hbox 1425400 665187 285084 shift 0 (8) |
-| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | display | 12 | 0 | 1.0.3: hbox 1425400 506811 0 shift 0 (8), TeX hbox 1425400 665187 285084 shift 0 (8) |
+| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | text | 12 | 0 | 1.0.3: hbox 1638124 338603 0 shift 0 set 1 2 4.159378 (7), TeX hbox 1638124 665187 285084 shift 0 set 1 2 4.159378 (7) |
+| `\begin{array}{ccc}\frac12&x&\sum\\a&\sqrt{b}&c\end{array}` | display | 12 | 0 | 1.0.3: hbox 1638124 338603 0 shift 0 set 1 2 4.159378 (7), TeX hbox 1638124 665187 285084 shift 0 set 1 2 4.159378 (7) |
+| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | text | 12 | 0 | 1.0.3: hbox 1425400 506811 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1425400 665187 285084 shift 0 set 0 0 0 (8) |
+| `\begin{array}{lcr}1&22&333\\4444&55&6\end{array}` | display | 12 | 0 | 1.0.3: hbox 1425400 506811 0 shift 0 set 0 0 0.000000 (8), TeX hbox 1425400 665187 285084 shift 0 set 0 0 0 (8) |
 | `\begin{array}[t]{c}a\\b\end{array}` | text | 12 | none | KaTeX parse error: Unknown column alignment: [ at position 14: \begin{array}[̲t]{c}a\\b\end{a… |
 | `\begin{array}[t]{c}a\\b\end{array}` | display | 12 | none | KaTeX parse error: Unknown column alignment: [ at position 14: \begin{array}[̲t]{c}a\\b\end{a… |
 | `\begin{array}[b]{c}a\\b\end{array}` | text | 12 | none | KaTeX parse error: Unknown column alignment: [ at position 14: \begin{array}[̲b]{c}a\\b\end{a… |
@@ -1476,14 +3326,16 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `\begin{aligned}a&=b\\c&=d\end{aligned}` | display | 12 | 33541 | not supported by the TeX-rule layout: this array environment |
 | `\begin{gathered}a\\bb\end{gathered}` | text | 12 | 19954 | not supported by the TeX-rule layout: this array environment |
 | `\begin{gathered}a\\bb\end{gathered}` | display | 12 | 19954 | not supported by the TeX-rule layout: this array environment |
-| `\overset{\mathrm{def}}{=}` | text | 12 | 0 | 1.0.3.1: char cmr12 61 598920 283824 -109392, TeX kern 0 |
-| `\overset{\mathrm{def}}{=}` | display | 12 | 0 | 1.0.3.1: char cmr12 61 598920 283824 -109392, TeX kern 0 |
+| `\overset{\mathrm{def}}{=}` | text | 12 | 0 | 1.0.3.1: char cmr12 786432 61 598920 283824 -109392, TeX kern 0 subtype 1 |
+| `\overset{\mathrm{def}}{=}` | display | 12 | 0 | 1.0.3.1: char cmr12 786432 61 598920 283824 -109392, TeX kern 0 subtype 1 |
 | `\boxed{x}` | text | 12 | 44568 | not supported by the TeX-rule layout: enclose |
 | `\boxed{x}` | display | 12 | 44568 | not supported by the TeX-rule layout: enclose |
 | `\boxed{\frac12}` | text | 12 | 65868 | not supported by the TeX-rule layout: enclose |
 | `\boxed{\frac12}` | display | 12 | 65868 | not supported by the TeX-rule layout: enclose |
 | `\fbox{x}` | text | 12 | 44564 | not supported by the TeX-rule layout: enclose |
 | `\fbox{x}` | display | 12 | 44564 | not supported by the TeX-rule layout: enclose |
+| `\tfrac{1}{2}\,\cdot\,x` | text | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\tfrac{1}{2}\,\cdot\,x` | display | 12 | 0 | 2: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
 | `\left(a\atop b\right)` | text | 12 | 26258 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
 | `\left(a\atop b\right)` | display | 12 | 42902 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
 | `a\over b` | text | 12 | 26786 | not supported by the TeX-rule layout: \over, \atop, \choose, \above or glue with plus or minus |
@@ -1536,3 +3388,29 @@ The formula, style and size, the largest difference in sp, and the first node th
 | `a\nonscript\mskip 4mu b` | display | 12 | none | KaTeX parse error: Undefined control sequence: \nonscript at position 2: a\̲n̲o̲n̲s̲c̲r̲i̲p̲t̲\mskip 4mu b |
 | `x_{a\nonscript\mskip4mu b}` | text | 12 | none | KaTeX parse error: Undefined control sequence: \nonscript at position 5: x_{a\̲n̲o̲n̲s̲c̲r̲i̲p̲t̲\mskip4mu b} |
 | `x_{a\nonscript\mskip4mu b}` | display | 12 | none | KaTeX parse error: Undefined control sequence: \nonscript at position 5: x_{a\̲n̲o̲n̲s̲c̲r̲i̲p̲t̲\mskip4mu b} |
+| `\mathbin{\ }` | text | 12 | 0 | 1.0: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `\mathbin{\ }` | display | 12 | 0 | 1.0: glue 261882 130941 0 87294 0 subtype 0, TeX glue 261882 130941 0 87294 0 subtype 13 |
+| `\int_0^1 f(x)\,dx` | text | 12 | 0 | 9: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int_0^1 f(x)\,dx` | display | 12 | 0 | 9: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-\lambda t}\,dt = 1/\lambda` | text | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int_0^\infty e^{-\lambda t}\,dt = 1/\lambda` | display | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int_0^{\infty} \sum_{k=0}^{\infty} e^{-(k+1)\lambda t}\,dt = \sum_{k=1}^{\infty} \frac{1}{k\lambda},` | text | 12 | 0 | 9: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\int_0^{\infty} \sum_{k=0}^{\infty} e^{-(k+1)\lambda t}\,dt = \sum_{k=1}^{\infty} \frac{1}{k\lambda},` | display | 12 | 0 | 8: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\log_2 (n!)` | text | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\log_2 (n!)` | display | 12 | 0 | 1.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Omega(n \log n)` | text | 12 | 0 | 5.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `\Omega(n \log n)` | display | 12 | 0 | 5.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `Q(t) = c\rho \int_0^L u(x,t)\,dx` | text | 12 | 0 | 21: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `Q(t) = c\rho \int_0^L u(x,t)\,dx` | display | 12 | 0 | 21: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `n = 1, 2, \dots` | text | 12 | 0 | 12: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `n = 1, 2, \dots` | display | 12 | 0 | 12: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `u(x,t) = \sum_{n=1}^{\infty} b_n \sin\frac{n\pi x}{L}\, e^{-\kappa n^2\pi^2 t/L^2},` | text | 12 | 0 | 17.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `u(x,t) = \sum_{n=1}^{\infty} b_n \sin\frac{n\pi x}{L}\, e^{-\kappa n^2\pi^2 t/L^2},` | display | 12 | 0 | 16.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_n = \frac{2}{L}\int_0^L u(x,0)\sin\frac{n\pi x}{L}\,dx.` | text | 12 | 0 | 19.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_n = \frac{2}{L}\int_0^L u(x,0)\sin\frac{n\pi x}{L}\,dx.` | display | 12 | 0 | 19.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_1 \sin(\pi x/L)` | text | 12 | 0 | 4.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `b_1 \sin(\pi x/L)` | display | 12 | 0 | 4.0: kern 0 subtype 0, TeX kern 0 subtype 1 |
+| `a+\cdots.` | text | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `a+\cdots.` | display | 12 | 0 | 6: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\left(a,\dots\right)` | text | 12 | 0 | 1.5: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |
+| `\left(a,\dots\right)` | display | 12 | 0 | 1.5: glue 131070 0 0 0 0 subtype 99, TeX glue 131070 0 0 0 0 subtype 0 |

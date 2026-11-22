@@ -246,7 +246,7 @@ def baselineRegressions (update : Bool) : IO (Option (Array String)) := do
       (String.join (exact.toList.map (key · ++ "\n")))
     return some #[]
   let path : System.FilePath := "parity/mathbox-baseline.tsv"
-  if !(← path.pathExists) then return some #[]
+  if !(← path.pathExists) then return some #[s!"{path} is missing"]
   let want := ((← IO.FS.readFile path).splitOn "\n").filter (· ≠ "")
   let have_ : Std.HashSet String := Std.HashSet.ofList (exact.toList.map key)
   return some (want.filter (!have_.contains ·)).toArray
@@ -256,6 +256,9 @@ def run (update : Bool := false) : IO (Array String) := do
   let mut fails := #[]
   for (name, ok) in readerChecks do
     if !ok then fails := fails.push s!"metric file reader: {name}"
+  for name in MathBoxChecks.nodeChecks do
+    fails := fails.push s!"formula box comparison: {name}"
+  IO.println s!"  formula box comparison: {MathBoxChecks.nodeChecks.length} of its checks fail"
   IO.println s!"  metric file reader: {(readerChecks.filter (·.2)).length} of \
     {readerChecks.length} checks hold"
   let (r, x, sum) ← fuzz 1500
