@@ -17,6 +17,7 @@ import LeAnTeXTest.BackendChecks
 import LeAnTeXTest.DocChecks
 import LeAnTeXTest.TeXMathChecks
 import LeAnTeXTest.Bounds
+import LeAnTeXTest.Required
 
 /-!
 # The differential test and the parity report
@@ -32,7 +33,8 @@ It then lays out every formula and compares the box tree with KaTeX's
 
 * `lake test` (no arguments): fail if a case that matched in the committed baselines
   (`parity/baseline.tsv`, `parity/layout-baseline.tsv`) no longer matches, or if a corpus or
-  fixture is missing.
+  fixture is missing (`parity/required.txt`, `LeAnTeXTest.Required`), malformed or holds a case
+  twice.
 * `lake exe leantex-test --bench`, `--bench-matrix`: the speed over the corpora, and of a
   10 × 10 matrix.
 * `lake exe leantex-test --update`: rewrite the baselines, `parity/REPORT.md`,
@@ -62,7 +64,8 @@ inductive Outcome where
   | sameError
   /-- Both accept, with different trees. -/
   | treeDiffers
-  /-- Both accept with the same tree, but the warnings differ. -/
+  /-- Both accept with the same tree, or both reject with the same error, but the warnings
+  differ. -/
   | warningsDiffer
   /-- Both reject, with different errors. -/
   | errorDiffers
@@ -81,22 +84,21 @@ def Outcome.name : Outcome → String
 /-- Whether the outcome is parity. -/
 def Outcome.ok (o : Outcome) : Bool := o == .same || o == .sameError
 
-/-- Whether two errors are the same: for a `ParseError` the raw and full message, position and
-length; for an error KaTeX raises as a JavaScript `Error` the message; for other classes the
-class. -/
+/-- Whether two errors are the same: the same class, and every field KaTeX's recorded error
+has (for a `ParseError` the raw and full message, position and length; for any other class the
+message) equal in LeAnTeX's; a `ParseError` without a position on one side has none on the
+other. -/
 def sameError (k l : Json) : Bool :=
   let kind := (k.get? "kind").bind Json.getStr?
-  kind == (l.get? "kind").bind Json.getStr? &&
-    match kind with
-    | some "ParseError" =>
-      ["rawMessage", "position", "length", "message"].all fun f =>
-        match k.get? f, l.get? f with
-        | some a, some b => a.sameAs b
-        | none, none => true
-        | _, _ => false
-    | some "Error" => ((k.get? "message").map fun a =>
-        ((l.get? "message").map a.sameAs).getD false).getD false
-    | _ => true
+  let fields := match k with
+    | .obj kvs => kvs.toList.map (fun (p : String × Json) => p.1)
+    | _ => []
+  kind.isSome && kind == (l.get? "kind").bind Json.getStr? &&
+    fields.all (fun f => match k.get? f, l.get? f with
+      | some a, some b => a.sameAs b
+      | _, _ => false) &&
+    (kind != some "ParseError" || ["rawMessage", "position", "length", "message"].all fun f =>
+      (k.get? f).isSome == (l.get? f).isSome)
 
 /-- LeAnTeX's answer for a case, in the fixture's shape. -/
 def leanAnswer (c : Case) : Json :=
@@ -115,8 +117,25 @@ def compare (katex lean : Json) : Outcome :=
   | some kt, _, some lt, _ => if kt.sameAs lt then (if warnSame then .same else .warningsDiffer)
       else .treeDiffers
   | some _, _, none, _ => .leanRejects
-  | none, some ke, _, some le => if sameError ke le then .sameError else .errorDiffers
+  | none, some ke, _, some le =>
+    if sameError ke le then (if warnSame then .sameError else .warningsDiffer)
+    else .errorDiffers
   | _, _, _, _ => .leanAccepts
+
+/-- The checks of the error comparison (`sameError`, `compare`) on made-up answers: each pair is
+`(name, holds)`. Each would catch a field or the warnings of a failed parse left unread. -/
+def errorChecks : List (String × Bool) :=
+  let j := fun (s : String) => (Json.parse s).toOption.getD .null
+  let pe := "{\"kind\":\"ParseError\",\"rawMessage\":\"x\",\"position\":1,\"length\":2,\
+    \"message\":\"KaTeX parse error: x\"}"
+  [("a ParseError's fields are compared", sameError (j pe) (j pe) &&
+      !sameError (j pe) (j (pe.replace "\"position\":1" "\"position\":2"))),
+   ("another class's message is compared",
+     !sameError (j "{\"kind\":\"TypeError\",\"message\":\"a\"}")
+       (j "{\"kind\":\"TypeError\",\"message\":\"b\"}")),
+   ("the warnings of a failed parse are compared",
+     compare (j s!"\{\"error\":{pe},\"warnings\":[\"w\"]}")
+       (j s!"\{\"error\":{pe},\"warnings\":[]}") == .warningsDiffer)]
 
 /-- The result of one case. -/
 structure Result where
@@ -152,20 +171,39 @@ def corpora : IO (Array String) := do
     else pure #[]
   return (names.filter (!skip.contains ·)).qsort (· < ·)
 
-/-- Run every case of a corpus against its fixture. -/
+/-- The cases left out of the comparison because the recorder marked them unrepresentable (a
+formula with a lone surrogate has no Lean string), counted over the run. -/
+initialize unrepresentable : IO.Ref Nat ← IO.mkRef 0
+
+/-- Run every case of a corpus against its fixture. A case id given twice, in the corpus or the
+fixture, a case without a fixture and a fixture of the wrong shape (neither a tree nor an
+error, or no list of warnings) are errors. -/
 def runCorpus (name : String) : IO (Array Result) := do
   let cases ← readJsonLines s!"corpus/{name}.jsonl"
   let fixtures ← readJsonLines s!"fixtures/{name}.jsonl"
-  let byId : Std.HashMap String Json := Std.HashMap.ofList (fixtures.toList.filterMap fun f =>
-    ((f.get? "id").bind Json.getStr?).map (·, f))
+  let mut byId : Std.HashMap String Json := {}
+  for f in fixtures do
+    let some id := (f.get? "id").bind Json.getStr? | continue
+    if byId.contains id then throw (IO.userError s!"fixtures/{name}.jsonl: {id} twice")
+    byId := byId.insert id f
+  let mut seen : Std.HashSet String := {}
   let mut out := #[]
   for j in cases do
     let some id := (j.get? "id").bind Json.getStr? | continue
+    if seen.contains id then throw (IO.userError s!"corpus/{name}.jsonl: {id} twice")
+    seen := seen.insert id
     let tex := ((j.get? "tex").bind Json.getStr?).getD ""
     let c : Case := { id, tex, settings := caseSettings j }
     let some k := byId[id]? | throw (IO.userError s!"no fixture for {id}; run tools/record.mjs")
     -- a formula with a lone surrogate has no Lean string; the recorder marks it
-    if k.get? "unrepresentable" |>.isSome then continue
+    if k.get? "unrepresentable" |>.isSome then
+      unrepresentable.modify (· + 1)
+      continue
+    let shapeOk := ((k.get? "tree").isSome != (k.get? "error").isSome) &&
+      ((k.get? "warnings").bind Json.getArr?).isSome
+    if !shapeOk then
+      throw (IO.userError s!"fixtures/{name}.jsonl: {id}: neither a tree nor an error, or no \
+        warnings")
     let l := leanAnswer c
     out := out.push { corpus := name, case := c, outcome := compare k l, katex := k, lean := l }
   return out
@@ -542,18 +580,25 @@ def main (args : List String) : IO UInt32 := do
       (r.corpus ++ "\t" ++ r.case.id, r.outcome.ok))
     let mut regressions := #[]
     let mut improved := 0
+    -- a baselined corpus that is missing is reported once
+    let mut gone : Std.HashSet String := {}
     for l in baseline.toList.drop 1 do
       match l.splitOn "\t" with
       | [c, id, st] =>
-        -- a corpus that is not in this checkout (one kept out of the repository) is skipped
-        if !(← System.FilePath.pathExists s!"corpus/{c}.jsonl") then continue
+        if !(← System.FilePath.pathExists s!"corpus/{c}.jsonl") then
+          if !gone.contains c then
+            regressions := regressions.push s!"{c}: corpus/{c}.jsonl is missing"
+            gone := gone.insert c
+          continue
         match now[c ++ "\t" ++ id]? with
         | some true => if st == "mismatch" then improved := improved + 1
         | some false => if st == "ok" then regressions := regressions.push s!"{c}: {id}"
         | none => if st == "ok" then regressions := regressions.push s!"{c}: {id} (missing)"
       | _ => pure ()
     let ok := (results.filter (·.outcome.ok)).size
-    IO.println s!"parity: {ok} of {results.size} cases match KaTeX"
+    IO.println s!"parity: {ok} of {results.size} cases match KaTeX ({results.size} representable \
+      of {results.size + (← unrepresentable.get)} recorded: a formula with a lone surrogate has \
+      no Lean string)"
     -- the layout baseline: a case laid out identically must stay so
     let lres ← runLayout results
     let lnow : Std.HashMap String String := Std.HashMap.ofList (lres.toList.map fun r =>
@@ -562,7 +607,11 @@ def main (args : List String) : IO UInt32 := do
     let lpath : System.FilePath := "parity/layout-baseline.tsv"
     if ← lpath.pathExists then
       for (c, id, st) in ← readBaseline lpath do
-        if !(← System.FilePath.pathExists s!"corpus/{c}.jsonl") then continue
+        if !(← System.FilePath.pathExists s!"corpus/{c}.jsonl") then
+          if !gone.contains c then
+            regressions := regressions.push s!"layout {c}: corpus/{c}.jsonl is missing"
+            gone := gone.insert c
+          continue
         let now := lnow[c ++ "\t" ++ id]?
         if st == "ok" && now != some "ok" then
           regressions := regressions.push s!"layout {c}: {id} ({now.getD "missing"})"
@@ -570,6 +619,18 @@ def main (args : List String) : IO UInt32 := do
     else regressions := regressions.push "parity/layout-baseline.tsv is missing"
     let lsame := (lres.filter (·.outcome == .same)).size
     IO.println s!"layout: {lsame} of {lres.size} cases laid out as KaTeX does"
+    -- the files the comparisons read are all there (`parity/required.txt`)
+    let missing ← LeAnTeXTest.Required.check
+    for m in missing do regressions := regressions.push s!"required files: {m}"
+    let said := if missing.isEmpty then "every one listed is present, none unlisted"
+      else s!"{missing.size} problems"
+    IO.println s!"required files: {said}"
+    -- the comparisons' own checks
+    let comparators := errorChecks ++ LayoutTest.comparatorChecks
+    for (name, ok) in comparators do
+      if !ok then regressions := regressions.push s!"comparison: {name}"
+    IO.println s!"comparison checks: {(comparators.filter (·.2)).length} of \
+      {comparators.length} hold"
     -- the display-list checks
     let failed := DisplayChecks.displayChecks.filter (!·.2)
     for (name, _) in failed do regressions := regressions.push s!"display list: {name}"

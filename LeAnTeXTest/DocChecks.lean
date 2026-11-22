@@ -675,6 +675,8 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
     | return #["documents: the New Computer Modern fonts are missing"]
   let names ← documents
   let hasBase ← System.FilePath.pathExists "parity/doc-baseline.tsv"
+  if !hasBase && !update && show?.isNone then
+    return #["documents: parity/doc-baseline.tsv is missing"]
   let baseText ← if hasBase then IO.FS.readFile "parity/doc-baseline.tsv" else pure ""
   let baseline := (baseText.splitOn "\n").filter (· ≠ "")
   let mut outs := #[]

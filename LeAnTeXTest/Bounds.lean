@@ -12,9 +12,13 @@ import LeAnTeXTest.TfmSynth
 The command-line programs are run as a user runs them, in child processes under a CPU-time
 limit and a wall-clock watchdog, on sources made to cost as much as the caps allow, and their
 peak resident memory and CPU time are measured with `/usr/bin/time`. A check fails if a child is
-killed, gives the wrong answer (a result, or an error naming the cap), or uses more memory or
-CPU time than its bound. The bounds are far above what the programs take and far below what
-unbounded work takes on these sources (minutes, or gigabytes).
+killed, ends with another exit status than the case's (0 for a result, 1 for an error), gives
+the wrong answer (a result, or an error naming the cap), uses more memory or CPU time than its
+bound, or if either was not measured. The memory bound is checked after the run: no limit on
+memory is set on the child (only the CPU-time limit and the watchdog stop it). The bounds are
+far above what the programs take and far below what unbounded work takes on these sources
+(minutes, or gigabytes): they are regression ceilings measured on these sources, not a proof of
+a cost for every input.
 
 The sources are in `fixtures/hostile/` or generated here (the large ones and the images).
 
@@ -123,6 +127,8 @@ structure Case where
   args : Array String
   /-- Files to write first: a name in the scratch folder and the bytes. -/
   files : Unit → Array (String × ByteArray) := fun _ => #[]
+  /-- The exit status the program must end with: 0 for a result, 1 for an error. -/
+  status : UInt32 := 1
   /-- Text the standard output or error must contain. -/
   expect : String
   /-- The bound on peak resident memory, in bytes. -/
@@ -148,11 +154,11 @@ def cases : Array Case := #[
   { name := "hyphenation: one word of 8800 letters in linear time",
     exe := "leantex-typeset", args := #["--test-fonts", "@/word.tex"],
     files := fun _ => #[("word.tex", ("\\hsize=100pt " ++ rep "hyphenation" 800).toUTF8)],
-    expect := "display width", maxUserMs := 15000 },
+    status := 0, expect := "display width", maxUserMs := 15000 },
   { name := "hyphenation: a run of 30000 explicit hyphens in linear time",
     exe := "leantex-typeset", args := #["--test-fonts", "@/hyphens.tex"],
     files := fun _ => #[("hyphens.tex", ("\\hsize=100pt " ++ rep "ab-" 30000).toUTF8)],
-    expect := "display width", maxUserMs := 15000 },
+    status := 0, expect := "display width", maxUserMs := 15000 },
   { name := "formula: macros that expand past the token cap (math mode)",
     exe := "leantex-render", args := #["--math", "--fonts", fontDir, "@/m.tex", "@/m.svg"],
     files := fun _ => #[("m.tex", ("\\def\\a{" ++ rep "x" 4000 ++ "}" ++ rep "\\a" 1000).toUTF8)],
@@ -178,29 +184,29 @@ def cases : Array Case := #[
     exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/pars.tex", "@/o7"],
     files := fun _ => #[("pars.tex", ("\\documentclass{article}\\begin{document}" ++
       rep "a\n\n" 40000 ++ "\\end{document}").toUTF8)],
-    expect := "pages", maxUserMs := 20000 },
+    status := 0, expect := "pages", maxUserMs := 20000 },
   { name := "TeX-rule layout: nested \\sqrt[n], each level built in four styles, stays bounded",
     exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/root.tex", "@/o3"],
     files := fun _ => #[("root.tex", ("\\documentclass{article}\\begin{document}$" ++
       rep "\\sqrt[3]{" 12 ++ "x" ++ rep "}" 12 ++ "$\\end{document}").toUTF8)],
-    expect := "pages" },
+    status := 0, expect := "pages" },
   { name := "TeX-rule layout: a paragraph of 3000 breakable formulas in linear time",
     exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/inl.tex", "@/o4"],
     files := fun _ => #[("inl.tex", ("\\documentclass{article}\\begin{document}" ++
       rep "$a+b=c$ " 3000 ++ "\\end{document}").toUTF8)],
-    expect := "pages" },
+    status := 0, expect := "pages" },
   { name := "TeX-rule layout: delimiters around 4000 atoms and fractions 300 deep",
     exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/del.tex", "@/o5"],
     files := fun _ => #[("del.tex", ("\\documentclass{article}\\begin{document}$\\left(" ++
       rep "x+" 4000 ++ "\\right)$ $" ++ rep "\\frac{1}{" 300 ++ "x" ++ rep "}" 300 ++
       "$\\end{document}").toUTF8)],
-    expect := "pages" },
+    status := 0, expect := "pages" },
   { name := "images: one 1 MiB image included 400 times is read and written once per file",
     exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/img.tex", "@/o2"],
     files := fun _ => #[("mid.png", paddedPng (1 <<< 20)), ("img.tex",
       ("\\documentclass{article}\\usepackage{graphicx}\\begin{document}" ++
         rep "\\includegraphics[width=1cm]{mid.png}\n" 400 ++ "\\end{document}").toUTF8)],
-    expect := "pages, 1 passes", maxRss := 300 <<< 20 },
+    status := 0, expect := "pages, 1 passes", maxRss := 300 <<< 20 },
   { name := "images: a path spelt with ./ is refused (one spelling per file)",
     exe := "leantex-render", args := #["--document", "--fonts", fontDir, "@/alias.tex", "@/o3"],
     files := fun _ => #[("mid.png", paddedPng 1000), ("alias.tex",
@@ -221,7 +227,7 @@ def cases : Array Case := #[
     files := fun _ => (TeXMath.mathTfmNames.map fun n =>
         ("endless/" ++ n ++ ".tfm", LeAnTeXTest.TfmSynth.ligFont 3)).toArray.push
       ("aa.tex", "\\documentclass{article}\\begin{document}$aa$\\end{document}".toUTF8),
-    expect := "do not end", maxUserMs := 15000 },
+    status := 0, expect := "do not end", maxUserMs := 15000 },
   { name := "messages: control and bidirectional characters of the source are printed escaped",
     exe := "leantex-typeset", args := #["--test-fonts", "@/ctrl.tex"],
     files := fun _ => #[("ctrl.tex", "ctrl \u001b[31m $x\u000B\u202E$".toUTF8)],
@@ -247,11 +253,13 @@ def ioChecks : IO (Array (String × Bool)) := do
         | none => "memory not measured"
       let cpu := match run.userMs with | some t => s!"{t} ms" | none => "?"
       let said := (run.out ++ run.err)
+      let exit := (run.status.map toString).getD "none"
       IO.println s!"  bounds: {c.name}: {terminalText ((said.take 120).toString)}; {mem}; \
-        user {cpu}"
-      let ok := run.status.isSome && (said.splitOn c.expect).length > 1 && !hasUnsafe run.err &&
-        (run.rss.map (fun m => decide (m ≤ c.maxRss))).getD true &&
-        (run.userMs.map (fun t => decide (t ≤ c.maxUserMs))).getD true
+        user {cpu}; exit {exit} (expected {c.status})"
+      -- a measurement that is missing fails the check, as does any other exit status
+      let ok := run.status == some c.status && (said.splitOn c.expect).length > 1 &&
+        !hasUnsafe run.err && (run.rss.map (fun m => decide (m ≤ c.maxRss))).getD false &&
+        (run.userMs.map (fun t => decide (t ≤ c.maxUserMs))).getD false
       r := r.push (s!"bounds: {c.name}", ok)
   finally
     IO.FS.removeDirAll scratch

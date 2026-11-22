@@ -36,7 +36,7 @@ def tolerance : Float := 1e-4
 inductive LayoutOutcome where
   /-- Both lay it out, with the same tree within the tolerance and the same warnings. -/
   | same
-  /-- Both reject it. -/
+  /-- Both reject it, with the same error (class and message) and the same warnings. -/
   | bothReject
   /-- KaTeX lays it out; LeAnTeX does not lay out one of its constructs yet. -/
   | notYet
@@ -48,6 +48,8 @@ inductive LayoutOutcome where
   | leanRejects
   /-- KaTeX fails, LeAnTeX lays it out. -/
   | leanAccepts
+  /-- Both reject it, with different errors or different warnings. -/
+  | errorDiffers
   deriving BEq, Inhabited
 
 /-- The outcome's name in reports. -/
@@ -55,6 +57,7 @@ def LayoutOutcome.name : LayoutOutcome → String
   | .same => "same" | .bothReject => "both-reject" | .notYet => "not-yet"
   | .differs => "differs" | .warningsDiffer => "warnings-differ"
   | .leanRejects => "lean-rejects" | .leanAccepts => "lean-accepts"
+  | .errorDiffers => "error-differs"
 
 /-- Whether the outcome counts as parity (for the baseline). -/
 def LayoutOutcome.ok (o : LayoutOutcome) : Bool := o == .same || o == .bothReject
@@ -134,16 +137,42 @@ def stringDiff (a b : String) : Option Float :=
           | .inr p, .inr q => some (max m (p - q).abs)
           | _, _ => none
 
+/-- The keys of the compact form whose number the recorder leaves out when it is zero
+(`put` in `tools/record.mjs`), in a node of kind `kind`: height, depth, maximum font size and
+skew everywhere, a symbol's italic correction and width. Elsewhere an absent number is not a
+zero (a span's `w` and `i` are written whenever they are set, zero included). -/
+def zeroOmitted (kind : Option String) (key : String) : Bool :=
+  ["h", "d", "m", "sk"].contains key || (kind == some "sym" && (key == "i" || key == "w"))
+
+/-- Compare two lists of `[name, value]` pairs (a node's style `st` or attributes `at`): the
+names exactly, the values as lengths. A value is SVG data (in SVG units) when `svg` is set and
+it does not end in `em`, else a CSS value. -/
+def pairsDiff (k l : Json) (path : String) (svg : Bool) : Except String Deviation := do
+  let some a := k.getArr? | throw s!"{path}: not a list of pairs"
+  let some b := l.getArr? | throw s!"{path}: not a list of pairs"
+  if a.size != b.size then throw s!"{path}: {a.size} vs {b.size} pairs"
+  let mut m : Deviation := {}
+  for h : i in [0:a.size] do
+    match a[i].getArr?, (b[i]?.getD .null).getArr? with
+    | some #[.str n, .str x], some #[.str n', .str y] =>
+      if n != n' then throw s!"{path}[{i}]: {Json.quote n} vs {Json.quote n'}"
+      match stringDiff x y with
+      | some d => m := m.max (if svg && !x.endsWith "em" then { svg := d } else { css := d })
+      | none => throw s!"{path}[{i}] {n}: {Json.quote x} vs {Json.quote y}"
+    | _, _ => throw s!"{path}[{i}]: not a pair of strings"
+  return m
+
 /-- The first structural difference of two trees in JSON form (`.error path`), or the largest
-deviations (`.ok d`). Inside an `svg` node strings are SVG data; elsewhere a string with a
-number in it is a CSS value. -/
+deviations (`.ok d`). Every string is compared exactly (kinds, texts, classes, path names, image
+sources) except the values of style properties and attributes (`pairsDiff`) and an SVG path's
+data (`alt`, in SVG units), whose numbers are compared within the tolerances. An absent number
+is zero only where the recorder leaves zeros out (`zeroOmitted`). -/
 partial def treeDiff (k l : Json) (path : String := "") (svg : Bool := false) :
     Except String Deviation :=
   match k, l with
   | .num a, .num b => .ok { raw := (a - b).abs }
-  | .str a, .str b => match stringDiff a b with
-    | some d => .ok (if svg && !a.endsWith "em" then { svg := d } else { css := d })
-    | none => .error s!"{path}: {Json.quote a} vs {Json.quote b}"
+  | .str a, .str b =>
+    if a == b then .ok {} else .error s!"{path}: {Json.quote a} vs {Json.quote b}"
   | .arr a, .arr b =>
     if a.size != b.size then .error s!"{path}: {a.size} vs {b.size} elements"
     else Id.run do
@@ -155,14 +184,26 @@ partial def treeDiff (k l : Json) (path : String := "") (svg : Bool := false) :
       return .ok m
   | .obj a, .obj b => do
     let keys := (a.map (·.1) ++ b.map (·.1)).toList.eraseDups
-    let svg := svg || ((k.get? "k").bind Json.getStr?) == some "svg"
+    let kind := (k.get? "k").bind Json.getStr?
+    let svg := svg || kind == some "svg"
     let mut m : Deviation := {}
     for key in keys do
       match k.get? key, l.get? key with
-      | some x, some y => m := m.max (← treeDiff x y s!"{path}.{key}" svg)
-      -- an absent number is zero
-      | some (.num x), none => m := m.max { raw := x.abs }
-      | none, some (.num y) => m := m.max { raw := y.abs }
+      | some x, some y =>
+        if key == "st" || key == "at" then m := m.max (← pairsDiff x y s!"{path}.{key}" svg)
+        else if key == "alt" && kind == some "path" then
+          match x, y with
+          | .str p, .str q => match stringDiff p q with
+            | some d => m := m.max { svg := d }
+            | none => throw s!"{path}.alt: {Json.quote p} vs {Json.quote q}"
+          | _, _ => throw s!"{path}.alt: not a string"
+        else m := m.max (← treeDiff x y s!"{path}.{key}" svg)
+      | some (.num x), none =>
+        if zeroOmitted kind key then m := m.max { raw := x.abs }
+        else throw s!"{path}.{key}: KaTeX has {x}, LeAnTeX none"
+      | none, some (.num y) =>
+        if zeroOmitted kind key then m := m.max { raw := y.abs }
+        else throw s!"{path}.{key}: LeAnTeX has {y}, KaTeX none"
       | some x, none => throw s!"{path}.{key}: KaTeX has {x.compress.take 80}, LeAnTeX none"
       | none, some y => throw s!"{path}.{key}: LeAnTeX has {y.compress.take 80}, KaTeX none"
       | none, none => pure ()
@@ -170,6 +211,41 @@ partial def treeDiff (k l : Json) (path : String := "") (svg : Bool := false) :
   | .bool a, .bool b => if a == b then .ok {} else .error s!"{path}: booleans"
   | .null, .null => .ok {}
   | _, _ => .error s!"{path}: {k.compress.take 60} vs {l.compress.take 60}"
+
+/-- The checks of the tree comparison on made-up trees (`treeDiff`): each pair is
+`(name, holds)`. Each would catch a string compared with the tolerance of a length, or an absent
+number taken for a zero where the recorder writes zeros. -/
+def comparatorChecks : List (String × Bool) :=
+  let j := fun (s : String) => (Json.parse s).toOption.getD .null
+  let passes := fun (a b : String) => match treeDiff (j a) (j b) with
+    | .ok d => d.ok
+    | .error _ => false
+  [("a text is compared exactly",
+     !passes "{\"k\":\"sym\",\"t\":\"01\"}" "{\"k\":\"sym\",\"t\":\"1\"}"),
+   ("a class is compared exactly",
+     !passes "{\"k\":\"span\",\"c\":[\"x1\"]}" "{\"k\":\"span\",\"c\":[\"x1.00009\"]}"),
+   ("a style length within the tolerance passes",
+     passes "{\"k\":\"span\",\"st\":[[\"height\",\"0.35em\"]]}"
+       "{\"k\":\"span\",\"st\":[[\"height\",\"0.35009em\"]]}"),
+   ("a style property's name is compared exactly",
+     !passes "{\"k\":\"span\",\"st\":[[\"height\",\"1em\"]]}"
+       "{\"k\":\"span\",\"st\":[[\"width\",\"1em\"]]}"),
+   ("a style length past the tolerance fails",
+     !passes "{\"k\":\"span\",\"st\":[[\"height\",\"0.35em\"]]}"
+       "{\"k\":\"span\",\"st\":[[\"height\",\"0.3502em\"]]}"),
+   ("SVG path data within one SVG unit passes",
+     passes "{\"k\":\"path\",\"name\":\"v\",\"alt\":\"M1 2\"}"
+       "{\"k\":\"path\",\"name\":\"v\",\"alt\":\"M1.9 2\"}"),
+   ("SVG path data past one SVG unit fails",
+     !passes "{\"k\":\"path\",\"name\":\"v\",\"alt\":\"M1 2\"}"
+       "{\"k\":\"path\",\"name\":\"v\",\"alt\":\"M2.1 2\"}"),
+   ("a path's name is compared exactly",
+     !passes "{\"k\":\"path\",\"name\":\"v1\"}" "{\"k\":\"path\",\"name\":\"v2\"}"),
+   ("an absent height is a zero height",
+     passes "{\"k\":\"span\"}" "{\"k\":\"span\",\"h\":0}"),
+   ("an absent span width is not a zero width",
+     !passes "{\"k\":\"span\"}" "{\"k\":\"span\",\"w\":0}"),
+   ("an unknown absent number is not a zero", !passes "{\"a\":0}" "{}")]
 
 /-- The result of one case. -/
 structure LayoutResult where
@@ -221,12 +297,17 @@ def runLayoutCorpus (name : String) (cases : Array (String × String × Settings
   for l in lines.toList.drop 1 do
     if l.trimAscii.isEmpty then continue
     match Json.parse l with
-    | .ok j => if let some id := (j.get? "id").bind Json.getStr? then byId := byId.insert id j
+    | .ok j => if let some id := (j.get? "id").bind Json.getStr? then
+        if byId.contains id then throw (IO.userError s!"{path}: {id} twice")
+        byId := byId.insert id j
     | .error e => throw (IO.userError s!"{path}: bad JSON line ({e})")
   let mut out := #[]
   for (id, tex, settings) in cases do
     let some k := byId[id]? | throw (IO.userError s!"no layout fixture for {id}")
     if k.get? "unrepresentable" |>.isSome then continue
+    if (k.get? "box").isSome == (k.get? "error").isSome ||
+        ((k.get? "warnings").bind Json.getArr?).isNone then
+      throw (IO.userError s!"{path}: {id}: neither a box nor an error, or no warnings")
     let constructs := match (parse tex settings).result with
       | .ok t => (constructsOf (nodesToJson t)).eraseDups
       | .error _ => []
@@ -256,7 +337,16 @@ def runLayoutCorpus (name : String) (cases : Array (String × String × Settings
         { base with outcome := .leanRejects, detail := e.message, katex := kb }
       | none, .ok b => { base with outcome := .leanAccepts, lean := b.toJson }
       | none, .error (.unsupported what) => { base with outcome := .notYet, detail := what }
-      | none, .error (.katex _) => { base with outcome := .bothReject }
+      | none, .error (.katex e) =>
+        let ke := k.get? "error"
+        let sameErr := (ke.bind (·.get? "kind")).bind Json.getStr? == some "ParseError" &&
+          (ke.bind (·.get? "message")).bind Json.getStr? == some e.message
+        if !sameErr then
+          { base with outcome := .errorDiffers,
+                      detail := s!"KaTeX {(ke.getD .null).compress.take 80}, LeAnTeX {e.message}" }
+        else if !(kw.map (·.sameAs lw)).getD false then
+          { base with outcome := .errorDiffers, detail := "the warnings differ" }
+        else { base with outcome := .bothReject }
     let res := if displayOk then res
       else { res with outcome := .differs, detail := "display list breaks its invariants" }
     out := out.push res
@@ -308,7 +398,8 @@ def layoutReport (results : Array LayoutResult) (seconds : Float) : String := Id
   let names := (results.map (·.corpus)).toList.eraseDups
   let row (label : String) (rs : Array LayoutResult) : String :=
     let cnt (p : LayoutResult → Bool) := (rs.filter p).size
-    let katexOk := cnt fun r => r.outcome != .bothReject && r.outcome != .leanAccepts
+    let katexOk := cnt fun r => r.outcome != .bothReject && r.outcome != .leanAccepts &&
+      r.outcome != .errorDiffers
     s!"| {label} | {rs.size} | {katexOk} | {cnt (·.outcome == .same)} | " ++
       s!"{cnt fun r => !r.outcome.ok && r.outcome != .notYet} | " ++
       s!"{cnt (·.outcome == .notYet)} | {cnt (·.outcome == .bothReject)} |\n"
@@ -316,12 +407,13 @@ def layoutReport (results : Array LayoutResult) (seconds : Float) : String := Id
     s := s ++ row c (results.filter (·.corpus == c))
   s := s ++ row "all" results
   s := s ++ "\n## Mismatches by kind\n\n| Kind | Cases |\n|---|---:|\n"
-  for o in [LayoutOutcome.differs, .warningsDiffer, .leanRejects, .leanAccepts] do
+  for o in [LayoutOutcome.differs, .warningsDiffer, .leanRejects, .leanAccepts, .errorDiffers] do
     s := s ++ s!"| {o.name} | {(results.filter (·.outcome == o)).size} |\n"
   -- per construct: the formulas KaTeX lays out that contain it
   let mut stats : Std.HashMap String (Nat × Nat × Nat) := {}
   for r in results do
-    if r.outcome == .bothReject || r.outcome == .leanAccepts then continue
+    if r.outcome == .bothReject || r.outcome == .leanAccepts || r.outcome == .errorDiffers then
+      continue
     for c in r.constructs do
       let (a, b, n) := stats.getD c (0, 0, 0)
       stats := stats.insert c <| match r.outcome with
