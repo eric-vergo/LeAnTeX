@@ -47,35 +47,129 @@ def norm (s : String) : String :=
   let words := (s.splitOn " ").filter (· ≠ "")
   " ".intercalate words
 
-/-- Whether our text is LuaLaTeX's: equal, a ligature glyph the font maps from a private-use
-code point (U+E000–U+F8FF) standing for two or three letters of theirs. -/
-def sameText (ours theirs : String) : Bool := Id.run do
-  if ours == theirs then return true
-  let isPua := fun (c : Char) => c.toNat ≥ 0xE000 && c.toNat ≤ 0xF8FF
-  -- small capitals and other unmapped glyphs in LuaLaTeX's text: compared by position only
-  if theirs.any isPua then return true
-  if !ours.any isPua then return false
-  -- match piece by piece, a private-use character taking two or three of theirs
-  let a := ours.toList.toArray
-  let b := theirs.toList.toArray
-  let mut i := 0
-  let mut j := 0
-  for _ in [0:a.size + b.size + 1] do
-    if i ≥ a.size then break
-    let c := a[i]!
-    if isPua c then
-      -- try the shortest take that lets the next character match
-      let next := a[i + 1]?
-      let mut k := 2
-      for t in [2:4] do
-        if (next.map (b[j + t]? == some ·)).getD (j + t == b.size) then k := t; break
-      i := i + 1
-      j := j + k
-    else
-      if b[j]? != some c then return false
-      i := i + 1
-      j := j + 1
-  return j == b.size
+/-- Whether a character is in the Basic Multilingual Plane's private use area (U+E000–U+F8FF). -/
+def isPua (c : Char) : Bool := c.toNat ≥ 0xE000 && c.toNat ≤ 0xF8FF
+
+/-- What the private-use characters of the fonts stand for: each such character a glyph of the
+fonts maps from, with the texts it can stand for. A ligature glyph (the `liga` feature) stands
+for its components (`ft` for the `ft` ligature); a small capital (the `smcp` feature) for the
+letter it replaces. -/
+abbrev PuaTable := Std.HashMap Char (Array String)
+
+/-- The private-use characters of some fonts with what they stand for, read from the fonts'
+own `liga` and `smcp` substitutions (`PuaTable`). An expansion that itself holds a private-use
+character is left out. -/
+def puaTableOf (infos : List FontInfo) : PuaTable := Id.run do
+  let mut out : PuaTable := {}
+  for i in infos do
+    let some g := i.font.gsub | continue
+    let charOf := fun (x : Nat) => i.chars[x]?
+    let add := fun (t : PuaTable) (glyph : Nat) (text : String) =>
+      match charOf glyph with
+      | some c =>
+        if isPua c && !text.isEmpty && !text.any isPua then
+          let old := t.getD c #[]
+          if old.contains text then t else t.insert c (old.push text)
+        else t
+      | none => t
+    for feat in ["liga", "smcp"] do
+      for li in g.table.lookupsFor feat "latn" do
+        for st in g.substs[li]?.getD #[] do
+          for g0 in [0:i.font.numGlyphs] do
+            match st with
+            | .ligature cov sets =>
+              if let some k := cov.index? g0 then
+                for (lig, rest) in sets[k]?.getD #[] do
+                  let comps := (#[g0] ++ rest).filterMap charOf
+                  if comps.size == rest.size + 1 then
+                    out := add out lig (String.ofList comps.toList)
+            | .single cov gl =>
+              if let some k := cov.index? g0 then
+                if let some c := charOf g0 then
+                  out := add out (gl[k]?.getD 0) (String.singleton c)
+            | .delta cov d =>
+              if (cov.index? g0).isSome then
+                if let some c := charOf g0 then
+                  out := add out ((g0 + d) % 65536) (String.singleton c)
+  return out
+
+/-- The private-use table of the committed New Computer Modern fonts, read once per run. -/
+initialize puaCache : IO.Ref (Option PuaTable) ← IO.mkRef none
+
+/-- The private-use table of the committed New Computer Modern fonts (`puaTableOf`), read once
+per run; empty without the fonts. -/
+def puaTable : IO PuaTable := do
+  if let some t := ← puaCache.get then return t
+  let (infos, _) ← loadNewComputerModern "fonts/newcomputermodern"
+  let t := puaTableOf (infos.toList.map (·.2))
+  puaCache.set (some t)
+  return t
+
+/-- Matches our text against LuaLaTeX's, character by character. A private-use character on
+either side that `table` knows is replaced by one of the texts it stands for (each tried in
+turn); one it does not know matches exactly one character of the other side, and is counted.
+Every other character must be equal. Returns `none` when the texts differ, else the number of
+private-use characters matched without the table. -/
+def textMatch (table : PuaTable) (ours theirs : String) : Option Nat :=
+  if ours == theirs then some 0 else
+  go (4 * (ours.length + theirs.length) + 16) ours.toList theirs.toList
+where
+  /-- The match of the rest of both texts, with a bound on the steps. -/
+  go : Nat → List Char → List Char → Option Nat
+    | 0, _, _ => none
+    | _ + 1, [], [] => some 0
+    | fuel + 1, a :: as, bs =>
+      if isPua a then
+        match table[a]? with
+        | some es => es.toList.findSome? fun e => go fuel (e.toList ++ as) bs
+        | none => match bs with
+          | _ :: bs' => (go fuel as bs').map (· + 1)
+          | [] => none
+      else match bs with
+        | b :: bs' =>
+          if isPua b then
+            match table[b]? with
+            | some es => es.toList.findSome? fun e => go fuel (a :: as) (e.toList ++ bs')
+            | none => (go fuel as bs').map (· + 1)
+          else if a == b then go fuel as bs' else none
+        | [] => none
+    | fuel + 1, [], b :: bs' =>
+      if isPua b then
+        match table[b]? with
+        | some es => es.toList.findSome? fun e => go fuel [] (e.toList ++ bs')
+        | none => none
+      else none
+
+/-- Whether our text is LuaLaTeX's (`textMatch`): equal, but for private-use characters, each
+replaced by what the fonts' tables say it stands for or matching one character. -/
+def sameText (ours theirs : String) (table : PuaTable := {}) : Bool :=
+  (textMatch table ours theirs).isSome
+
+/-- The checks of the text comparison (`sameText`): the failures. Each case states what it
+catches: a private-use character must stand for the characters at its own place only, and
+through the fonts' tables where they know it. -/
+def textChecks : IO (Array String) := do
+  let table ← puaTable
+  let ft := (table.toList.find? fun (_, es) => es.contains "ft").map (·.1)
+  let sc := String.ofList ['S', .ofNat 0xF76D, .ofNat 0xF761, .ofNat 0xF76C, .ofNat 0xF76C]
+  let cases : List (String × Bool) := [
+    -- one unknown private-use character of LuaLaTeX's does not excuse the rest of the line
+    ("an unknown private-use character takes one place",
+      !sameText "completely different" "A\uE000"),
+    ("one for one, without a table", sameText "AB" "A\uE000"),
+    ("one for one: not two", !sameText "ABC" "A\uE000"),
+    ("different text without private-use characters", !sameText "after" "afier" table),
+    -- the small capitals of LuaLaTeX's text through the font's `smcp` table
+    ("small capitals through the font's table", sameText "Small" sc table),
+    ("small capitals: the letters are compared", !sameText "Smell" sc table),
+    -- our `ft` ligature through the font's `liga` table
+    ("the ft ligature is known to the fonts' table", ft.isSome),
+    ("a ligature through the font's table",
+      ft.all fun c => sameText (String.ofList ['a', c, 'e', 'r']) "after" table),
+    ("a ligature: its components are compared",
+      ft.all fun c => !sameText (String.ofList ['a', c, 'e', 'r']) "afier" table),
+    ("a ligature: not one for one", ft.all fun c => !sameText (String.ofList ['a', c]) "af" table)]
+  return (cases.filter (!·.2)).toArray.map fun (n, _) => s!"text comparison: {n}"
 
 /-- The outcome for one document: the differences (empty when it agrees), the numbers of pages
 and lines compared, and how many lines agree. -/
@@ -86,15 +180,23 @@ structure Outcome where
   diffs : Array String := #[]
   /-- Lines in LuaLaTeX's pages. -/
   lines : Nat := 0
-  /-- Lines at the same place with the same text. -/
+  /-- Lines at the same place with the same text (a line with a formula: at the same place). -/
   sameLines : Nat := 0
+  /-- Of `sameLines`, the lines with a formula, whose text is not compared. -/
+  positionOnly : Nat := 0
+  /-- Private-use characters of LuaLaTeX's or our text that the fonts' tables do not know,
+  matched one for one in lines counted in `sameLines`. -/
+  unmapped : Nat := 0
   /-- Lines at the same place to within 1 pt. -/
   nearLines : Nat := 0
   /-- LuaLaTeX's page breaks (its pages less one). -/
   breaks : Nat := 0
   /-- Page breaks at LuaLaTeX's place: the page after the break begins with LuaLaTeX's first
-  line. -/
+  line (its text, or for a line with a formula its position). -/
   sameBreaks : Nat := 0
+  /-- Of `sameBreaks`, the breaks whose next page begins with a line with a formula, compared by
+  that line's position only. -/
+  breaksByPosition : Nat := 0
   /-- The formulas the TeX-rule layout refused (set by the KaTeX-compatible layout although the
   metric files were there): the offset in the source and the reason. -/
   fallbacks : Array (Nat × String) := #[]
@@ -130,9 +232,10 @@ where
       else if depth > 0 then cur := cur.push c
     return out
 
-/-- The contents lines of the fixture as level, number, page (from the auxiliary file's
-`\@writefile{toc}{\contentsline {section}{\numberline {1}Title}{page}{}}`). -/
-def fixtureToc (j : Json) : Array (Nat × String × String) := Id.run do
+/-- The contents lines of the fixture as level, number, title, page (from the auxiliary file's
+`\@writefile{toc}{\contentsline {section}{\numberline {1}Title}{page}{}}`; the title as LaTeX
+wrote it, after the number). -/
+def fixtureToc (j : Json) : Array (Nat × String × String × String) := Id.run do
   let mut out := #[]
   for l in ((j.get? "labels").bind Json.getArr?).getD #[] ++
       ((j.get? "toc").bind Json.getArr?).getD #[] do
@@ -144,10 +247,18 @@ def fixtureToc (j : Json) : Array (Nat × String × String) := Id.run do
       | "section" => 1 | "subsection" => 2 | "subsubsection" => 3 | "paragraph" => 4
       | _ => 5
     let title := g[1]?.getD ""
-    let num := if title.startsWith "\\numberline " then
-        (fixtureLabels.groups title)[0]?.getD "" else ""
-    out := out.push (level, num, (g[2]?.getD "").trimAscii.toString)
+    let (num, text) := if title.startsWith "\\numberline " then
+        let rest := (title.drop "\\numberline ".length).toString
+        let n := (fixtureLabels.groups rest)[0]?.getD ""
+        (n, (rest.drop (n.length + 2)).toString)
+      else ("", title)
+    out := out.push (level, num, text, (g[2]?.getD "").trimAscii.toString)
   return out
+
+/-- A contents title as text to compare: TeX's space after a control word dropped and runs of
+spaces made one. -/
+def tocTitle (s : String) : String :=
+  norm ((s.replace "\\protect " "").replace " {" "{")
 
 /-- A counter's printed value as LuaLaTeX's recorder writes it, with the footnote symbols
 (`\TextOrMath {\textasteriskcentered }{*}`, …) as the characters they print. -/
@@ -188,6 +299,7 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
   let cfg : Text.Settings :=
     { images := fun p => if p == "images/square.png" then some png else none,
       mathTfms := ← MathBoxChecks.mathTfms }
+  let table ← puaTable
   match typesetDocument src resolve cfg with
   | .error e => return { name, diffs := #[s!"error: {e.message} at {e.pos}"], lines := total }
   | .ok r =>
@@ -196,8 +308,16 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
     for i in [1:theirs.size] do
       let first := ((theirs[i]!.get? "lines").bind Json.getArr?).bind (·[0]?)
       let tt := norm (((first.bind (·.get? "text")).bind Json.getStr?).getD "")
+      let at_ := fun (a : PlacedLine) => match first with
+        | some b => a.x == int ((b.get? "x").getD .null) && a.y == int ((b.get? "y").getD .null)
+        | none => false
       match (r.pages[i]?.bind (·.lines[0]?)) with
-      | some a => if a.math || sameText (norm a.text) tt then
+      | some a =>
+        if a.math then
+          if at_ a then
+            o := { o with sameBreaks := o.sameBreaks + 1,
+                          breaksByPosition := o.breaksByPosition + 1 }
+        else if sameText (norm a.text) tt table then
           o := { o with sameBreaks := o.sameBreaks + 1 }
       | none => pure ()
     if r.pages.size != theirs.size then
@@ -213,21 +333,31 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
         let bx := int ((b.get? "x").getD .null)
         let byy := int ((b.get? "y").getD .null)
         let bt := norm (((b.get? "text").bind Json.getStr?).getD "")
-        let textOk := a.math || sameText (norm a.text) bt
+        -- a line with a formula: our text is its source, LuaLaTeX's the glyphs of the math
+        -- fonts, so the text is not compared
+        let text := if a.math then some 0 else textMatch table (norm a.text) bt
+        let textOk := text.isSome
         let posOk := a.x == bx && a.y == byy
-        if posOk && textOk then o := { o with sameLines := o.sameLines + 1 }
+        if posOk && textOk then
+          o := { o with sameLines := o.sameLines + 1, unmapped := o.unmapped + text.getD 0,
+                        positionOnly := o.positionOnly + (if a.math then 1 else 0) }
         if textOk && (a.x - bx).natAbs ≤ 65536 && (a.y - byy).natAbs ≤ 65536 then
           o := { o with nearLines := o.nearLines + 1 }
         if !(posOk && textOk) then
           o := o.add s!"page {i + 1} line {k + 1}: ({a.x}, {a.y}) '{(norm a.text).take 40}', \
               LuaLaTeX ({bx}, {byy}) '{bt.take 40}' (dy {a.y - byy})"
-    -- labels
+    -- labels: the same keys (the recorder reads `\newlabel` only, so our bibliography keys,
+    -- `bib@…`, have no counterpart), each with LuaLaTeX's text and page
     for (k, t, p) in fixtureLabels fx do
       match r.labels.find? (·.1 == k) with
       | some (_, t', p') =>
         if t' != t || p' != p then
           o := o.add s!"label {k}: '{t'}' p. {p'}, LuaLaTeX '{t}' p. {p}"
       | none => o := o.add s!"label {k}: missing"
+    let fkeys := (fixtureLabels fx).map (·.1)
+    for (k, _, _) in r.labels do
+      if !k.startsWith "bib@" && !fkeys.contains k then
+        o := o.add s!"label {k}: not in LuaLaTeX's labels"
     -- contents
     let ft := fixtureToc fx
     let ot := r.toc.filter (·.1 ≤ 3)
@@ -240,9 +370,10 @@ def compare (name : String) (resolve : FontResolver) : IO Outcome := do
     let ft := if printsToc then ft else #[]
     if ft.size != ot.size then
       o := o.add s!"contents: {ot.size} entries, LuaLaTeX {ft.size}"
-    for ((l, n, p), (l', n', _, p')) in ft.zip ot do
-      if l != l' || n != n' || p != p' then
-        o := o.add s!"contents: {l'} {n'} p. {p'}, LuaLaTeX {l} {n} p. {p}"
+    for ((l, n, t, p), (l', n', t', p')) in ft.zip ot do
+      if l != l' || n != n' || p != p' || tocTitle t != tocTitle t' then
+        o := o.add s!"contents: {l'} {n'} '{tocTitle t'}' p. {p'}, LuaLaTeX {l} {n} \
+          '{tocTitle t}' p. {p}"
     -- counter steps of the counters both know
     let known := ["section", "subsection", "subsubsection", "equation", "figure", "table",
       "footnote", "enumi", "enumii", "enumiii", "enumiv"]
@@ -405,17 +536,66 @@ def showVList (name : String) (full : Bool := false) : IO Unit := do
             {ours.size} against {items.size}"
           break
 
-/-- The totals of some outcomes: documents agreeing, documents, lines at the same place, lines,
-lines within 1 pt, page breaks at the same place, page breaks. -/
-def totals (outs : Array Outcome) : Nat × Nat × Nat × Nat × Nat × Nat × Nat :=
-  ((outs.filter (·.diffs.isEmpty)).size, outs.size, outs.foldl (init := 0) (· + ·.sameLines),
-    outs.foldl (init := 0) (· + ·.lines), outs.foldl (init := 0) (· + ·.nearLines),
-    outs.foldl (init := 0) (· + ·.sameBreaks), outs.foldl (init := 0) (· + ·.breaks))
+/-- The totals of some outcomes. -/
+structure Totals where
+  /-- Documents agreeing. -/
+  agree : Nat
+  /-- Documents. -/
+  docs : Nat
+  /-- Lines at the same place (with the same text, but for lines with a formula). -/
+  same : Nat
+  /-- Of `same`, lines with a formula, compared by position only. -/
+  positionOnly : Nat
+  /-- Private-use characters matched one for one, without the fonts' tables. -/
+  unmapped : Nat
+  /-- Lines. -/
+  lines : Nat
+  /-- Lines within 1 pt. -/
+  near : Nat
+  /-- Page breaks at the same place. -/
+  sameBreaks : Nat
+  /-- Of `sameBreaks`, those decided by the position of a line with a formula. -/
+  breaksByPosition : Nat
+  /-- Page breaks. -/
+  breaks : Nat
 
-/-- A table row of totals: documents, lines to the sp, lines within 1 pt, page breaks. -/
+/-- The totals of some outcomes. -/
+def totals (outs : Array Outcome) : Totals :=
+  let sum := fun (f : Outcome → Nat) => outs.foldl (init := 0) (· + f ·)
+  { agree := (outs.filter (·.diffs.isEmpty)).size, docs := outs.size, same := sum (·.sameLines),
+    positionOnly := sum (·.positionOnly), unmapped := sum (·.unmapped), lines := sum (·.lines),
+    near := sum (·.nearLines), sameBreaks := sum (·.sameBreaks),
+    breaksByPosition := sum (·.breaksByPosition), breaks := sum (·.breaks) }
+
+/-- A table row of totals: documents, lines to the sp (and how many of them are lines with a
+formula, compared by position only), lines within 1 pt, page breaks (and how many of them were
+decided by a formula line's position). -/
 def totalsRow (label : String) (outs : Array Outcome) : String :=
-  let (a, n, same, lines, near, sb, b) := totals outs
-  s!"| {label} | {a} / {n} | {same} / {lines} | {near} | {sb} / {b} |\n"
+  let t := totals outs
+  s!"| {label} | {t.agree} / {t.docs} | {t.same} / {t.lines} | {t.positionOnly} | {t.near} | \
+    {t.sameBreaks} / {t.breaks} | {t.breaksByPosition} |\n"
+
+/-- The header of a table of `totalsRow` rows, its first column named `first`. -/
+def totalsHeader (first : String) : String :=
+  s!"| {first} | Documents agreeing | Lines at the same place | Of them with a formula \
+    (position only) | Within 1 pt | Page breaks | Of them by position only |\n\
+    |---|---|---|---|---|---|---|\n"
+
+/-- The driver's sentence for some outcomes' lines and page breaks, as `lake test` prints it. -/
+def linesSentence (t : Totals) : String :=
+  s!"lines at the same place {t.same} of {t.lines} ({t.positionOnly} of them with a formula, \
+    by position only), within 1 pt {t.near}; page breaks {t.sameBreaks} of {t.breaks} \
+    ({t.breaksByPosition} by position only); private-use characters matched without the \
+    fonts' tables {t.unmapped}"
+
+/-- The machine-readable lines of some outcomes' totals for the manual's figure table:
+`figure KEY VALUE`, one per number, the key `set.field`. -/
+def figureLines (set : String) (t : Totals) : String :=
+  String.join ([("agree", t.agree), ("docs", t.docs), ("same", t.same),
+    ("positionOnly", t.positionOnly), ("lines", t.lines), ("near", t.near),
+    ("sameBreaks", t.sameBreaks), ("breaksByPosition", t.breaksByPosition),
+    ("breaks", t.breaks), ("unmapped", t.unmapped)].map fun (k, v) =>
+      s!"figure {set}.{k} {v}\n")
 
 /-- The held-out documents (`corpus/doc-heldout/`, or the second set `corpus/doc-heldout-2/`),
 written without reading this library; their agreement is reported, never required. The first
@@ -437,6 +617,7 @@ def table (set : String) : IO Unit := do
     IO.println s!"{n}\t{if o.diffs.isEmpty then "yes" else "no"}\t{o.sameLines}/{o.lines}\t\
       {o.nearLines}\t{o.sameBreaks}/{o.breaks}\t{(o.diffs[0]?.getD "").take 110}"
   IO.print (totalsRow "all" outs)
+  IO.println (linesSentence (totals outs))
 
 /-- The list parameters at every probe of `corpus/doc-probe/lists.tex` against LuaLaTeX's
 (`fixtures/doc/probe/lists-<size>.txt`, `tools/list-params.sh`) for the three class sizes:
@@ -504,11 +685,13 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
     if show?.isSome then
       for d in o.diffs do IO.println s!"  {d}"
   let agree := outs.filter (·.diffs.isEmpty)
-  let lines := outs.foldl (init := 0) (· + ·.lines)
-  let same := outs.foldl (init := 0) (· + ·.sameLines)
-  let near := outs.foldl (init := 0) (· + ·.nearLines)
-  IO.println s!"  documents: {agree.size} of {outs.size} agree with LuaLaTeX; lines at the same \
-    place {same} of {lines}, within 1 pt {near}"
+  let all := totals outs
+  IO.println s!"  documents: {all.agree} of {all.docs} agree with LuaLaTeX; {linesSentence all}"
+  let fresh := outs.filter (·.name.startsWith "fresh-")
+  let reference := outs.filter (!·.name.startsWith "fresh-")
+  if show?.isNone then
+    IO.print (figureLines "reference" (totals reference))
+    IO.print (figureLines "fresh" (totals fresh))
   IO.println s!"  formulas the TeX-rule layout refused (set by the KaTeX-compatible layout): \
     {fallbackSummary outs}"
   if show?.isNone then IO.println s!"  {← MathBoxChecks.run update}"
@@ -516,16 +699,16 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
   let skipHeld := (← IO.getEnv "LEANTEX_SKIP_HELDOUT").isSome
   let held ← if show?.isNone && !skipHeld then heldOut resolve else pure #[]
   if !held.isEmpty then
-    let (a, n, hs, hl, hn, hb, hbt) := totals held
-    IO.println s!"  held-out documents (reported, not required): {a} of {n} agree; lines at the \
-      same place {hs} of {hl}, within 1 pt {hn}; page breaks {hb} of {hbt}; formulas the \
-      TeX-rule layout refused: {fallbackSummary held}"
+    let t := totals held
+    IO.println s!"  held-out documents (reported, not required): {t.agree} of {t.docs} agree; \
+      {linesSentence t}; formulas the TeX-rule layout refused: {fallbackSummary held}"
+    IO.print (figureLines "heldout" t)
   let held2 ← if show?.isNone && !skipHeld then heldOut resolve "doc-heldout-2" else pure #[]
   if !held2.isEmpty then
-    let (a, n, hs, hl, hn, hb, hbt) := totals held2
-    IO.println s!"  second held-out set (reported, not required): {a} of {n} agree; lines at \
-      the same place {hs} of {hl}, within 1 pt {hn}; page breaks {hb} of {hbt}; formulas the \
-      TeX-rule layout refused: {fallbackSummary held2}"
+    let t := totals held2
+    IO.println s!"  second held-out set (reported, not required): {t.agree} of {t.docs} agree; \
+      {linesSentence t}; formulas the TeX-rule layout refused: {fallbackSummary held2}"
+    IO.print (figureLines "heldout2" t)
   if show?.isNone then
     let (fok, ferr) ← fuzz resolve 6
     IO.println s!"  mutated documents: {fok + ferr} ended ({fok} with pages, {ferr} with an error)"
@@ -586,27 +769,34 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
     let mut md := "# Documents against LuaLaTeX\n\nWritten by `lake exe leantex-test \
       --update-doc` (`LeAnTeXTest/DocChecks.lean`). A document agrees when its pages, every \
       line's position (to the sp) and text, its labels, its table of contents and its \
-      counter steps are LuaLaTeX's. A page break is at LuaLaTeX's place when the page after it \
-      begins with LuaLaTeX's line. The reference documents were written to cover the \
-      features and the layer was tuned on them; the fresh and the held-out documents were \
-      written by someone who had not read this library. The first held-out set agreed in 8 \
-      of 20 documents when it was first run blind with the TeX-rule layout; one defect it \
-      showed was fixed after that and four of its fixtures were re-recorded after a fix to the \
-      recorder, so its figure below is no longer a blind one. The second held-out set was \
-      written blind after that, run once and never tuned to: it is the honest measure.\n\n\
-      | Set | Documents agreeing | Lines at the same place | Within 1 pt | Page breaks |\n\
-      |---|---|---|---|---|\n"
-    let fresh := outs.filter (·.name.startsWith "fresh-")
-    md := md ++ totalsRow "reference documents (tuned on)" (outs.filter
-      (!·.name.startsWith "fresh-")) ++ totalsRow "fresh documents (written blind)" fresh ++
-      totalsRow "first held-out set (written blind; 8 / 20 when first run)" held ++
+      counter steps are LuaLaTeX's, with these exemptions, counted in the table: a line with a \
+      formula is compared by position only (our text of it is its source, LuaLaTeX's the \
+      glyphs of the math fonts); a private-use character of either text is replaced by what \
+      the fonts' own ligature and small-capital tables say it stands for, and one they do not \
+      know matches one character (counted in the driver's line); the bibliography's keys are \
+      not compared (the recorder reads `\\newlabel` only); the counter steps are compared for \
+      the sectioning, equation, float, footnote and list counters; the contents (levels 1 to \
+      3: number, title, page) only in documents that print them. A page break is at \
+      LuaLaTeX's place when the page after it begins with LuaLaTeX's line: with its text, or \
+      for a line with a formula at its position. The reference documents were written to \
+      cover the features and the layer was tuned on them; the fresh and the held-out \
+      documents were written by someone who had not read this library. The first held-out \
+      set's first recorded score with the TeX-rule layout was 8 of 20 documents (commit \
+      `e04b63b`, with the comparison of that commit); the set existed before the TeX-rule \
+      layout was developed, four of its fixtures were re-recorded after a fix to the \
+      recorder before that score, and a defect it showed was fixed after it, so it is no \
+      untouched test. The second held-out set was written blind after that and first \
+      recorded at `648d738`; its sources and fixtures have not changed since.\n\n" ++
+      totalsHeader "Set"
+    md := md ++ totalsRow "reference documents (tuned on)" reference ++
+      totalsRow "fresh documents (written blind)" fresh ++
+      totalsRow "first held-out set (written blind; 8 / 20 when first recorded)" held ++
       (if held2.isEmpty then "" else
-        totalsRow "**second held-out set (written blind, run once, not tuned to)**" held2)
+        totalsRow "**second held-out set (written blind, not tuned to)**" held2)
     let refusedAll := fallbackSummary (outs ++ held ++ held2)
     md := md ++ s!"\nFormulas the TeX-rule layout refused although the metric files were \
       there, set by the KaTeX-compatible layout instead: {refusedAll}.\n"
-    md := md ++ "\n| Feature | Documents agreeing | Lines at the same place | Within 1 pt | \
-      Page breaks |\n|---|---|---|---|---|\n"
+    md := md ++ "\n" ++ totalsHeader "Feature"
     let feats := (outs.map (feature ·.name)).toList.eraseDups
     for f in feats do
       md := md ++ totalsRow f (outs.filter (feature ·.name == f))
@@ -617,6 +807,7 @@ def run (update : Bool := false) (show? : Option String := none) : IO (Array Str
       md := md ++ s!"| {o.name} | {if o.diffs.isEmpty then "yes" else "no"} | \
         {o.sameLines} / {o.lines} | {first} |\n"
     IO.FS.writeFile "parity/DOC.md" md
+  fails := fails ++ (← textChecks)
   -- the report holds no control characters (they are escaped where it is written)
   if reportCell "a\u0000b\u0015|c" != "a\\u{0}b\\u{15}\\|c" then
     fails := fails.push "report: a control character is not escaped in a table cell"
