@@ -1,28 +1,28 @@
 # Documents against LuaLaTeX
 
-Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). A document agrees when its pages, every line's position (to the sp) and text, its labels, its table of contents and its counter steps are LuaLaTeX's. A page break is at LuaLaTeX's place when the page after it begins with LuaLaTeX's line. The reference documents were written to cover the features and the layer was tuned on them; the fresh and the held-out documents were written by someone who had not read this library. The first held-out set agreed in 8 of 20 documents when it was first run blind with the TeX-rule layout; one defect it showed was fixed after that and four of its fixtures were re-recorded after a fix to the recorder, so its figure below is no longer a blind one. The second held-out set was written blind after that, run once and never tuned to: it is the honest measure.
+Written by `lake exe leantex-test --update-doc` (`LeAnTeXTest/DocChecks.lean`). A document agrees when its pages, every line's position (to the sp) and text, its labels, its table of contents and its counter steps are LuaLaTeX's, with these exemptions, counted in the table: a line with a formula is compared by position only (our text of it is its source, LuaLaTeX's the glyphs of the math fonts); a private-use character of either text is replaced by what the fonts' own ligature and small-capital tables say it stands for, and one they do not know matches one character (counted in the driver's line); the bibliography's keys are not compared (the recorder reads `\newlabel` only); the counter steps are compared for the sectioning, equation, float, footnote and list counters; the contents (levels 1 to 3: number, title, page) only in documents that print them. A page break is at LuaLaTeX's place when the page after it begins with LuaLaTeX's line: with its text, or for a line with a formula at its position. The reference documents were written to cover the features and the layer was tuned on them; the fresh and the held-out documents were written by someone who had not read this library. The first held-out set's first recorded score with the TeX-rule layout was 8 of 20 documents (commit `e04b63b`, with the comparison of that commit); the set existed before the TeX-rule layout was developed, four of its fixtures were re-recorded after a fix to the recorder before that score, and a defect it showed was fixed after it, so it is no untouched test. The second held-out set was written blind after that and first recorded at `648d738`; its sources and fixtures have not changed since.
 
-| Set | Documents agreeing | Lines at the same place | Within 1 pt | Page breaks |
-|---|---|---|---|---|
-| reference documents (tuned on) | 87 / 87 | 1810 / 1810 | 1810 | 20 / 20 |
-| fresh documents (written blind) | 7 / 10 | 367 / 398 | 367 | 10 / 10 |
-| first held-out set (written blind; 8 / 20 when first run) | 9 / 20 | 398 / 469 | 405 | 3 / 3 |
-| **second held-out set (written blind, run once, not tuned to)** | 5 / 10 | 374 / 400 | 375 | 10 / 10 |
+| Set | Documents agreeing | Lines at the same place | Of them with a formula (position only) | Within 1 pt | Page breaks | Of them by position only |
+|---|---|---|---|---|---|---|
+| reference documents (tuned on) | 87 / 87 | 1810 / 1810 | 88 | 1810 | 20 / 20 | 0 |
+| fresh documents (written blind) | 7 / 10 | 367 / 398 | 56 | 367 | 10 / 10 | 2 |
+| first held-out set (written blind; 8 / 20 when first recorded) | 9 / 20 | 398 / 469 | 163 | 405 | 3 / 3 | 0 |
+| **second held-out set (written blind, not tuned to)** | 5 / 10 | 374 / 400 | 157 | 375 | 10 / 10 | 5 |
 
 Formulas the TeX-rule layout refused although the metric files were there, set by the KaTeX-compatible layout instead: 3 (held-13@983, held-20@624, blind-06@1780).
 
-| Feature | Documents agreeing | Lines at the same place | Within 1 pt | Page breaks |
-|---|---|---|---|---|
-| structure | 17 / 17 | 457 / 457 | 457 | 5 / 5 |
-| environments | 16 / 16 | 167 / 167 | 167 | 0 / 0 |
-| combined | 22 / 22 | 337 / 337 | 337 | 1 / 1 |
-| bibliographies | 4 / 4 | 77 / 77 | 77 | 1 / 1 |
-| lists | 5 / 5 | 42 / 42 | 42 | 0 / 0 |
-| floats | 8 / 8 | 136 / 136 | 136 | 5 / 5 |
-| footnotes | 3 / 3 | 205 / 205 | 205 | 3 / 3 |
-| fresh (written without reading LeAnTeX) | 7 / 10 | 367 / 398 | 367 | 10 / 10 |
-| page breaking | 7 / 7 | 312 / 312 | 312 | 5 / 5 |
-| tables | 5 / 5 | 77 / 77 | 77 | 0 / 0 |
+| Feature | Documents agreeing | Lines at the same place | Of them with a formula (position only) | Within 1 pt | Page breaks | Of them by position only |
+|---|---|---|---|---|---|---|
+| structure | 17 / 17 | 457 / 457 | 1 | 457 | 5 / 5 | 0 |
+| environments | 16 / 16 | 167 / 167 | 48 | 167 | 0 / 0 | 0 |
+| combined | 22 / 22 | 337 / 337 | 38 | 337 | 1 / 1 | 0 |
+| bibliographies | 4 / 4 | 77 / 77 | 0 | 77 | 1 / 1 | 0 |
+| lists | 5 / 5 | 42 / 42 | 1 | 42 | 0 / 0 | 0 |
+| floats | 8 / 8 | 136 / 136 | 0 | 136 | 5 / 5 | 0 |
+| footnotes | 3 / 3 | 205 / 205 | 0 | 205 | 3 / 3 | 0 |
+| fresh (written without reading LeAnTeX) | 7 / 10 | 367 / 398 | 56 | 367 | 10 / 10 | 2 |
+| page breaking | 7 / 7 | 312 / 312 | 0 | 312 | 5 / 5 | 0 |
+| tables | 5 / 5 | 77 / 77 | 0 | 77 | 0 / 0 | 0 |
 
 ## Per document
 
