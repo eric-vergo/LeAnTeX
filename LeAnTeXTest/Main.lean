@@ -651,8 +651,8 @@ def main (args : List String) : IO UInt32 := do
     if regressions.isEmpty then
       IO.println "no regression against parity/baseline.tsv and parity/layout-baseline.tsv"
       return 0
-    IO.eprintln s!"{regressions.size} regressions against parity/baseline.tsv and \
-      parity/layout-baseline.tsv:"
+    IO.eprintln s!"{regressions.size} failures (regressions against the committed baselines, \
+      missing or unlisted files, failed checks):"
     for r in regressions do IO.eprintln s!"  {r}"
     return 1
   | _ =>
