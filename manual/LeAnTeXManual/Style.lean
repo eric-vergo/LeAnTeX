@@ -8,8 +8,10 @@ Authors: Eric Vergo (Two-Circle Solutions), Claude (Anthropic)
 
 The rules for the manual's own elements (`LeAnTeXManual.Meta`): samples on a white sheet (the
 pictures are black on transparent, as TeX's output is black on paper), quoted sections of the
-repository's documents in a frame that names the file, their tables, the licence texts and the
-footer.
+repository's documents in a frame that names the file, their tables (the heading cells with
+their own dark text on their light ground, so that they read in a dark theme too), the licence
+texts and the footer; inline code in prose and tables may break anywhere, so that a long path
+does not widen a narrow screen.
 -/
 
 namespace LeAnTeXManual
@@ -33,7 +35,8 @@ def css : String := r#"
 .ltx-quote-table { border-collapse: collapse; font-size: 0.9em; }
 .ltx-quote-table th, .ltx-quote-table td { border: 1px solid #ccc; padding: 0.3em 0.5em;
   vertical-align: top; text-align: left; }
-.ltx-quote-table th { background: #f2f4f7; }
+.ltx-quote-table th { background: #f2f4f7; color: #1f2328; }
+p code, li code, td code { overflow-wrap: anywhere; }
 .ltx-quote-code, .ltx-licence pre { overflow-x: auto; font-size: 0.85em; }
 .ltx-licence { margin: 0.75em 0; }
 .ltx-licence summary { cursor: pointer; }

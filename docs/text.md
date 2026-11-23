@@ -144,8 +144,9 @@ arguments and environments, which bounds the parser's recursion. The modules of 
 definition: every loop has a bound from its input. (The math parser it calls for formulas
 recurses as KaTeX's does; see `docs/layout.md`, *Termination*.) The tests run 900 mutated
 sources and 400 random horizontal lists, each ending in a result or an error, and the
-command-line programs on hostile sources under CPU and memory limits (`lake exe leantex-test
---bounds`).
+command-line programs on hostile sources under a CPU-time limit, each held to its exit status
+and to ceilings on its peak memory and CPU time measured after the run (`lake exe leantex-test
+--bounds`); memory is measured, not limited.
 
 ## Proved and tested
 

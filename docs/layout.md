@@ -86,15 +86,23 @@ double computation from the exact table values (`buildOp`).
 `tools/record.mjs --layout KATEX` records, for every case of every corpus, KaTeX's box tree from
 `katex.__renderToHTMLTree` (numbers rounded to 1e-6 em) into `fixtures/layout/<corpus>.jsonl`,
 with the strict-mode warnings. `lake test` lays every case out and compares the trees
-(`LeAnTeXTest/Layout.lean`): kinds, texts, classes (without KaTeX's empty ones), style keys and
-attributes exactly; numbers within the tolerance:
+(`LeAnTeXTest/Layout.lean`): kinds, texts, classes (without KaTeX's empty ones), path names and
+the names of style properties and attributes exactly, every other string too but for the
+values of style properties and attributes and an SVG path's data, whose numbers are compared
+as lengths; an absent number is zero only for the fields the recorder leaves out when they
+are zero (heights, depths, `maxFontSize`, skews, a symbol's italic correction and width); for
+a formula both reject, KaTeX's error (class and message) and warnings; numbers within the
+tolerance:
 
 - unrounded numbers (heights, depths, widths, `maxFontSize`, italic corrections, skews):
   1e-4 em; the largest deviation measured is 1.3e-5 em;
 - CSS lengths, which KaTeX rounds to four decimals: one unit of that rounding, 1e-4 em (two
   correct values a hair apart can round to neighbouring four-decimal strings);
-- numbers in SVG data, which KaTeX rounds to whole SVG units: one unit, 1/1000 em (none
-  measured).
+- numbers in SVG data, which KaTeX rounds to whole SVG units: one unit, 1/1000 em (the largest
+  deviation measured is 0.00023 units).
+
+Each bound allows a further 1e-9 for floating-point rounding; the recorder rounds KaTeX's
+numbers to 1e-6 em first.
 
 The report (`parity/LAYOUT.md`) gives per corpus and per construct the cases laid out
 identically, those that differ and those not yet in scope (none); `parity/layout-baseline.tsv` holds

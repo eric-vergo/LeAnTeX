@@ -4,9 +4,10 @@ LeAnTeX's document layer typesets whole LaTeX documents of the `article` class i
 LaTeX's own constructions: TeX's vertical lists and page builder, LaTeX's output routine with
 its floats and footnotes, sectioning, counters, cross-references, the table of contents, lists,
 theorems, tables and figures. On documents it was not developed with, about half come out as
-LuaLaTeX's line for line. It is checked against LuaLaTeX's recorded pages line by line, to the scaled
-point, on 97 documents it was developed with and on two held-out sets it was not (see
-*Agreement with LuaLaTeX*: the second held-out set is the figure to go by).
+LuaLaTeX's line for line (lines with a formula by their position). It is checked against
+LuaLaTeX's recorded pages line by line, to the scaled point, on 97 documents it was developed
+with and on two held-out sets it was not (see *Agreement with LuaLaTeX*: the second held-out set
+is the figure to go by).
 
 ```lean
 import LeAnTeX
@@ -110,30 +111,41 @@ lines with their positions and text, the text body's vertical list, the counter 
 and the contents (`fixtures/doc/`). `lake test` typesets the same documents and compares
 (`LeAnTeXTest/DocChecks.lean`, report `parity/DOC.md`): a document agrees when every page has
 the same lines in the same order at the same position (left edge and baseline, to the sp) with
-the same text, and the same labels, counter steps and, when the document prints a table of
-contents, contents entries. A page break is at LuaLaTeX's place when the page after it begins
-with LuaLaTeX's line.
+the same text, the same labels (their keys, texts and pages), the same counter steps and, when
+the document prints a table of contents, the same contents entries (number, title, page). What
+is not compared, and is counted where it applies: the text of a line with a formula (our text
+of it is its source, LuaLaTeX's the glyphs of the math fonts), which is compared by its
+position only; the bibliography's keys, which the recorder does not read; the steps of
+counters other than the sectioning, equation, float, footnote and list counters. A private-use
+character in either text (a ligature such as `ft`, LuaLaTeX's small capitals) is replaced by
+what the fonts' own `liga` and `smcp` tables say it stands for; one they do not know would
+match one character and be counted (none is). A page break is at LuaLaTeX's place when the page
+after it begins with LuaLaTeX's line: with its text, or for a line with a formula at its
+position (counted apart).
 
 Four sets, which must be read together (`lake test` prints each row; `lake exe leantex-test
 --doc-table`, `--doc-table heldout` and `--doc-table heldout-2` print a line per document):
 
-| Set | Documents agreeing | Lines at the same place (to the sp) | Within 1 pt | Page breaks |
-|---|---|---|---|---|
-| reference and regression documents: 87 written to cover the features, the math ones included, or to hold a difference that was corrected (tuned on) | 87 / 87 | 1810 / 1810 | 1810 | 20 / 20 |
-| fresh documents: 10 written without reading this library (corrected against afterwards) | 7 / 10 | 367 / 398 | 367 | 10 / 10 |
-| first held-out set: 20 written without reading this library (8 / 20 when first run blind) | 9 / 20 | 398 / 469 | 405 | 3 / 3 |
-| **second held-out set: 10 written blind after the first set was run, run once, never tuned to** | **5 / 10** | **374 / 400** | **375** | **10 / 10** |
+| Set | Documents agreeing | Lines at the same place (to the sp) | Of them with a formula (position only) | Within 1 pt | Page breaks (by position only) |
+|---|---|---|---|---|---|
+| reference and regression documents: 87 written to cover the features, the math ones included, or to hold a difference that was corrected (tuned on) | 87 / 87 | 1810 / 1810 | 88 | 1810 | 20 / 20 (0) |
+| fresh documents: 10 written without reading this library (corrected against afterwards) | 7 / 10 | 367 / 398 | 56 | 367 | 10 / 10 (2) |
+| first held-out set: 20 written without reading this library (8 / 20 at its first recorded score with the TeX-rule layout) | 9 / 20 | 398 / 469 | 163 | 405 | 3 / 3 (0) |
+| **second held-out set: 10 written blind after the first set was run, never tuned to** | **5 / 10** | **374 / 400** | **157** | **375** | **10 / 10 (5)** |
 
-The first held-out set gave 8 / 20 (397 lines) when it was first run blind with the TeX-rule
-layout (the commit `e04b63b` prints that figure). One defect it showed (a doubled thin space
-after `\cdots` before punctuation) was then fixed, which made a ninth document agree, and four
-of its fixtures (`held-01`, `held-04`, `held-10`, `held-15`) were re-recorded after a fix to
-the recorder (it had kept the counter steps amsmath makes while measuring): its present figure
-is not a blind one. The fixture of `held-13` was recorded before the recorder gave `\today` a
+The first held-out set is no untouched test. It was added at `3901e6f`, before the TeX-rule
+layout was developed. Four of its fixtures (`held-01`, `held-04`, `held-10`, `held-15`) were
+re-recorded at `712bb28` after a fix to the recorder (it had kept the counter steps amsmath
+makes while measuring), in the commit that also set amsmath's alignments row by row. Its first
+recorded score with the TeX-rule layout came after that: 8 / 20 (397 lines) at `e04b63b`, with
+the comparison of that commit (`git checkout e04b63b && lake test` prints it). One defect it
+showed (a doubled thin space after `\cdots` before punctuation) was fixed after that, at
+`496a40b`, which made a ninth document agree. The fixture of `held-13` was recorded before the recorder gave `\today` a
 fixed date and holds the day it was recorded, so that document's date line cannot agree (one of
 its two lines that differ). The second set (`corpus/doc-heldout-2/`,
-`tools/doc-reference.sh --held-out-2`) was written blind after that, run once, and nothing was
-changed for it: its documents and fixtures have a single commit.
+`tools/doc-reference.sh --held-out-2`) was written blind after that and first recorded at
+`648d738` with the scores it has today; its sources and fixtures have not changed since (they
+have that single commit). The same scores do not show that the pages are the same as then.
 
 The figures are with the Computer Modern metric files installed (the TeX-rule math layout,
 `docs/math-boxes.md`). Without them formulas are set by the KaTeX-compatible layout, whose
@@ -244,14 +256,19 @@ images are asked from the caller (`Settings.images`), at most `Settings.maxImage
 SVG with a size, and an SVG is drawn as an image (its scripts do not run in the document). A
 formula is parsed under the math parser's caps (`docs/text.md`, *Bounds*). The tests run 582
 mutated documents (six from each of the 97 documents of the corpus), each ending in pages or
-an error, and run the command-line programs on hostile sources under CPU and memory limits
+an error, and run the command-line programs on hostile sources under a CPU-time limit, each
+held to its exit status and to ceilings on its peak memory and CPU time, measured after the run
 (`lake exe leantex-test --bounds`).
 
-Past the caps, time and memory grow in proportion to the source, with large constants where
-the output is large: a page costs about a millisecond and some tens of kilobytes whatever is
-on it, so a source of 60,000 one-word pages (660 kB) takes more than a minute and more than a
-gigabyte before `leantex-render` refuses to write more than 512 MiB. A caller that typesets sources from
-strangers should set its own limits on time and memory around the call.
+These are budgets on particular operations (tokens, expansions, nesting, page-builder steps,
+passes, the source's length) and ceilings measured on those hostile sources; no limit is set
+on memory, and they do not show that every stage costs time in proportion to the source. Some
+work grows faster: an alignment's rows are measured against its widest row, so its cost is the
+number of rows times the number of columns. Where the output is large the constants are large
+too: a page costs about a millisecond and some tens of kilobytes whatever is on it, so a source
+of 60,000 one-word pages (660 kB) takes more than a minute and more than a gigabyte before
+`leantex-render` refuses to write more than 512 MiB. A caller that typesets sources from
+strangers sets its own hard limits on time and memory around the call.
 
 ## Proved and tested
 

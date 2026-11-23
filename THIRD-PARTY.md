@@ -69,8 +69,10 @@ As a precaution, and not as a legal conclusion that the licence of the fonts att
 tables, the fonts' copyright lines and the full text of the SIL Open Font License, Version 1.1,
 are reproduced in `LICENSE-KaTeX-fonts`, beside the MIT notice below. No font is distributed in
 this repository under a Reserved Font Name. For the paths that KaTeX's comments attribute to the
-MnSymbol package, this repository holds only KaTeX's statement ("public domain"); MnSymbol's own
-licence text is not reproduced here.
+MnSymbol package, this repository holds KaTeX's statement ("public domain"), and the package
+database of TeX Live 2025 (`tlpkg/texlive.tlpdb`, entry `mnsymbol`, from CTAN's catalogue entry
+`/fonts/mnsymbol`, version 1.4) records the package's licence as `pd`, public domain. MnSymbol's
+own licence text is not reproduced here, and the paths' attribution rests on KaTeX's comments.
 
 ## Fonts: New Computer Modern
 

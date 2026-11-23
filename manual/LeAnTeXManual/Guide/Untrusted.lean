@@ -25,8 +25,8 @@ manual is built.
 tag := "untrusted-math"
 %%%
 
-KaTeX limits the number of macro expansions (`maxExpand`). LeAnTeX adds two limits of its own,
-so that a formula's cost stays linear in its source:
+KaTeX limits the number of macro expansions (`maxExpand`). LeAnTeX adds two limits of its own
+on the work a formula can cause:
 
 * `Settings.maxTokens` bounds the tokens all macro expansions produce together, and, a fixed
   factor over, the tokens read as arguments (an argument inside others is read once per level).
@@ -150,4 +150,12 @@ script and no event handler. What of this is proved and what is tested is stated
 
 The library's tests run the command-line programs on hostile sources (deep nesting, runaway
 macros, paragraphs with thousands of active breakpoints, oversized files, images included many
-times) under limits on processor time and memory: `lake exe leantex-test --bounds`.
+times) under a limit on processor time, and hold each to its exit status and to ceilings on its
+peak memory and processor time, measured after the run: `lake exe leantex-test --bounds`.
+
+These are budgets on particular operations and ceilings measured on those sources, not a proof
+that every stage costs time or memory in proportion to its input, and the tests set no limit on
+memory: a program that takes sources from strangers runs LeAnTeX under hard limits of its own
+(a time-out, a memory limit on the process). With `trust` set, `\href`, `\url`,
+`\includegraphics` and the other commands KaTeX gates are accepted for any URL whose protocol
+parses, as in KaTeX: `trust` is not a list of safe schemes.

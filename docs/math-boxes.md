@@ -144,9 +144,13 @@ styles at the three sizes: a radical in scriptscript style inside a superscript 
 wider delimiter). The other 576 boxes are of formulas it refuses; the KaTeX-compatible layout
 sets those, and 4 of them (two `\rule`s) come out as TeX's, so the total `lake test` prints is
 12,166 of 12,750. (The KaTeX-compatible layout on its own gives TeX's box for 10 of the
-12,750.) Of the boxes that are TeX's to the sp, 882 differ from TeX's in the structure of
-their lists (LuaTeX wraps some material in boxes of its own) without a difference in any
-dimension: the whole node list is TeX's for 11,280.
+12,750.) Of the 12,162 boxes the TeX-rule layout builds that are TeX's to the sp, 2,760 differ
+from TeX's in some field of their lists without a difference in the box's dimensions: most in
+a kern's subtype (an italic correction where TeX has an explicit kern, or the other way) or a
+glue's subtype, others in the structure (LuaTeX wraps some material in boxes of its own). The
+whole node list is TeX's for 9,402: every node's kind and subtype, a character's font, size
+and code, every dimension, glue's stretch and shrink orders, a box's glue sign, order and
+ratio (to one part in a million), as the recorder writes them (`MathBoxChecks.sameNode`).
 
 What the figure shows: for these formulas, chosen and generated in this repository and used
 while the layout was written, the boxes are LuaLaTeX's. It does not show how often a formula

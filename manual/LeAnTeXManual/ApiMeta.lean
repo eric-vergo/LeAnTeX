@@ -65,10 +65,11 @@ def generated (env : Environment) (n : Name) : Bool :=
       | _ => false) ||
     env.isProjectionFn n ||
     (match n with
-      | .str _ s => ["injEq", "inj", "sizeOf_spec", "ext_iff", "ctorIdx", "toCtorIdx",
+      | .str p s => ["injEq", "inj", "sizeOf_spec", "ext_iff", "ctorIdx", "toCtorIdx",
           "noConfusionType", "ofNat", "ctorElim", "ctorElimType"].contains s ||
           s.startsWith "_" || s.startsWith "match_" || s.startsWith "proof_" ||
-          s.startsWith "eq_" || s.startsWith "fun_"
+          -- equation lemmas: names Lean reserves for them, under a definition
+          (Meta.isEqnLikeSuffix s && (env.find? p).any (·.isDefinition)) || s.startsWith "fun_"
       | _ => false)
 
 /-- The public declarations of module `mod` (see the module docstring), in source order, with

@@ -17,9 +17,9 @@ htmlSplit := .never
 
 LeAnTeX is a library: a Lean program imports it and calls it. This chapter adds it to a Lake
 project, typesets a formula, a paragraph and a short document, and writes each as an SVG
-picture. Every code block on this page is compiled when the manual is built, and every picture
-below it is what that code returned when the manual was built, with the fonts the repository
-carries.
+picture. Every Lean code block on this page is compiled when the manual is built (the Lake
+configuration is shown as text, not compiled), and every picture below it is what that code
+returned when the manual was built, with the fonts the repository carries.
 
 # Adding LeAnTeX to a Project
 %%%
@@ -127,12 +127,13 @@ The picture `eulerSvg` returned when this manual was built. Its glyphs are outli
 Computer Modern Math, at the positions KaTeX's layout gives them.
 :::
 
-A program reads the fonts once and writes the picture to a file:
+A program reads the fonts once, here from the dependency's copy, and writes the picture to a
+file:
 
 ```lean
 open LeAnTeX.Backend in
 def writeEuler : IO Unit := do
-  let (fonts, missing) ← Fonts.load "fonts/newcomputermodern"
+  let (fonts, missing) ← Fonts.load ".lake/packages/leantex/fonts/newcomputermodern"
   unless missing.isEmpty do
     throw (IO.userError s!"fonts missing or unreadable: {missing}")
   match eulerSvg fonts with
@@ -142,8 +143,9 @@ def writeEuler : IO Unit := do
 
 `Fonts.load` returns the fonts it read and the names of the files it could not read; the
 picture refers to no font file afterwards (each glyph it uses is defined once inside it), so it
-looks the same everywhere. An error is the position in the source (a character offset) and the
-message.
+looks the same everywhere. An error is the position in the source and the message. For a
+formula (`math := true`) the position is KaTeX's, a UTF-16 offset: a character outside the
+Basic Multilingual Plane, such as `𝑥`, counts two. For text it is a character offset.
 
 # A Paragraph
 %%%
@@ -222,6 +224,68 @@ passes no TeX metric files. Given the Computer Modern metric files of a TeX inst
 (`LeAnTeX.Text.Settings.mathTfms`), the document layer lays formulas out by TeX's own rules
 instead, and falls back to the KaTeX-compatible layout, with a warning, only for a formula
 those rules do not build; {ref "math"}[Math] says which formulas those are.
+
+# A Complete Program
+%%%
+tag := "first-program"
+%%%
+
+The functions above make a program. Its `main` reads the dependency's fonts, writes the
+formula and the note as SVG files, and writes an HTML page with the fonts beside it. (On this
+page it sits in a namespace, because the manual is itself a program with a `main`; in a
+project's `Main.lean` it is the root's `main`.)
+
+```lean
+namespace FirstProgram
+
+/-- The dependency's fonts, where Lake puts them in a project that
+requires LeAnTeX, relative to the project's root. -/
+def fontDir : System.FilePath := ".lake/packages/leantex/fonts/newcomputermodern"
+
+open LeAnTeX.Backend in
+def main : IO UInt32 := do
+  let (fonts, missing) ← Fonts.load fontDir
+  unless missing.isEmpty do
+    IO.eprintln s!"fonts missing or unreadable in {fontDir}: {missing}"
+    return 1
+  IO.FS.createDirAll "out"
+  -- a picture holds the outlines of its glyphs: it needs no font file afterwards
+  match eulerSvg fonts with
+  | .ok svg => IO.FS.writeFile "out/euler.svg" svg
+  | .error (pos, msg) => IO.eprintln s!"euler: at {pos}: {msg}"; return 1
+  match notePages fonts with
+  | .ok pages =>
+    for h : i in [0:pages.size] do IO.FS.writeFile s!"out/note-{i + 1}.svg" pages[i]
+  | .error e => IO.eprintln s!"note: {e}"; return 1
+  -- an HTML page sets its text in the fonts: the browser loads them from `fontUrl`, a URL
+  -- relative to the page, so the files are copied there
+  let page := render fonts "The sum $\\sum_{k=1}^n (2k-1) = n^2$ is a square."
+    { html := true, fontUrl := "fonts" }
+  match page with
+  | .ok html => IO.FS.writeFile "out/sum.html" html
+  | .error (pos, msg) => IO.eprintln s!"sum: at {pos}: {msg}"; return 1
+  IO.FS.createDirAll "out/fonts"
+  for e in ← fontDir.readDir do
+    if e.fileName.endsWith ".otf" then
+      IO.FS.writeBinFile ("out/fonts" / e.fileName) (← IO.FS.readBinFile e.path)
+  return 0
+
+end FirstProgram
+```
+
+The project's `lakefile.lean` names the program (Lake's configuration is shown, not
+compiled, on this page):
+
+```
+lean_exe «first-program» where
+  root := `Main
+```
+
+and `lake exe first-program`, run in the project's root (the font folder above is relative to
+it), writes `out/euler.svg`, `out/note-1.svg`, `out/sum.html` and
+`out/fonts/`. The page refers to each font it uses as `fonts/NAME.otf`, relative to
+itself: a page served from another folder than its fonts takes that folder's URL as `fontUrl`
+instead (an absolute one, or one relative to the page). The pictures refer to no file.
 
 # Where to Go Next
 %%%

@@ -412,14 +412,18 @@ partial def mdBlock : MD4Lean.Block → String
       "</thead><tbody>" ++ String.join (body.toList.map (row "td")) ++ "</tbody></table></div>\n"
 
 /-- The lines of the section of Markdown text `md` under the heading `heading` (any level), up
-to the next heading of the same or a higher level; `none` when there is no such heading. -/
+to the next heading of the same or a higher level; `none` when there is no such heading, when
+there is more than one, or when the section holds nothing but blank lines. -/
 def sectionLines (md heading : String) : Option (List String) := do
   let ls := md.splitOn "\n"
   let level (l : String) : Nat := (l.toList.takeWhile (· == '#')).length
-  let idx ← ls.findIdx? fun l => level l > 0 && (l.drop (level l)).trimAscii.toString == heading
+  let isIt (l : String) : Bool := level l > 0 && (l.drop (level l)).trimAscii.toString == heading
+  guard ((ls.filter isIt).length == 1)
+  let idx ← ls.findIdx? isIt
   let lvl := level ls[idx]!
   let rest := ls.drop (idx + 1)
   let body := rest.takeWhile fun l => let k := level l; k == 0 || k > lvl
+  guard (body.any fun l => !l.trimAscii.isEmpty)
   return body
 
 block_extension Block.rawHtml (html : String) where
@@ -445,7 +449,7 @@ instance : FromArgs QuoteArgs DocElabM where
 def quoteHtml (file heading : String) : DocElabM String := do
   let md ← readRepoFile file
   let some body := sectionLines md heading
-    | throwError "{file} has no heading \"{heading}\""
+    | throwError "{file} has no heading \"{heading}\", more than one, or an empty section"
   let flags := MD4Lean.MD_FLAG_TABLES ||| MD4Lean.MD_FLAG_NOHTML
   let some doc := MD4Lean.parse ("\n".intercalate body) flags
     | throwError "the section \"{heading}\" of {file} is not Markdown MD4Lean reads"
@@ -520,8 +524,11 @@ def axiomTable : BlockCommandOf Unit
         unless env.getModuleIdxFor? n == some idx do continue
         unless ci matches .thmInfo _ do continue
         if n.isInternalDetail || Linter.isDeprecated env n then continue
-        -- equation lemmas Lean generates on demand
-        if let .str _ last := n then if last.startsWith "eq_" then continue
+        -- the equation lemmas Lean generates for a definition (`f.eq_1`, `f.eq_def`,
+        -- `f.eq_unfold`: names reserved for them, under a definition); a hand-written theorem
+        -- of any other name, `eq_` at its start or not, is listed
+        if let .str parent last := n then
+          if Meta.isEqnLikeSuffix last && (env.find? parent).any (·.isDefinition) then continue
         let line := (← findDeclarationRanges? n).map (·.range.pos.line) |>.getD 0
         thms := thms.push (n, line)
       for (n, _) in thms.qsort (fun a b => a.2 < b.2) do

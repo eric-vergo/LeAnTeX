@@ -6,23 +6,25 @@ any Lean program, including code that may not import the `Lean` package.
 
 It aims at KaTeX parity in math mode: the same formulas accepted, the same errors for the
 others, the same boxes, glyphs and positions, laid out to a neutral display list that drawing
-back ends consume. It has two limits of its own, so that a formula from a stranger costs no
-more than its length allows: on the tokens macros produce and arguments re-read
-(`Settings.maxTokens`) and on nesting (`Settings.maxNesting`), both far above what a formula
-written by hand reaches. What agrees with KaTeX and with TeX, on which inputs, and how to
+back ends consume. It has two limits of its own on the work a formula can cause: on the tokens
+macros produce and arguments re-read (`Settings.maxTokens`) and on nesting
+(`Settings.maxNesting`), both far above what a formula written by hand reaches. They budget
+those operations; they are not a bound on the cost of every stage, and a program that takes
+sources from strangers sets its own limits on time and memory around the call (the manual's
+*Untrusted Input*). What agrees with KaTeX and with TeX, on which inputs, and how to
 check it, is in *The figures, and how to reproduce them* below.
 
 ## Status
 
 | Stage | State |
 |---|---|
-| Lexer, macro expander, parser of KaTeX 0.19.1's whole function list, KaTeX's error messages | done: each of the 11,885 corpus cases parses to the tree KaTeX's recorded answer has, or fails with its error ([parity report](parity/REPORT.md)) |
+| Lexer, macro expander, parser of KaTeX 0.19.1's whole function list, KaTeX's error messages | done: each of the 11,885 representable corpus cases (of 11,886 recorded: one holds a lone surrogate, which a Lean string cannot) parses to the tree KaTeX's recorded answer has, or fails with its error, with KaTeX's warnings ([parity report](parity/REPORT.md)) |
 | Layout to KaTeX's box tree: every construct, from symbols, scripts and fractions to arrays and environments, `{CD}`, enclosures, extensible arrows and braces | done: each of the 10,855 corpus formulas KaTeX lays out gets KaTeX's recorded box tree, numbers within the tolerances of `docs/layout.md` ([layout parity report](parity/LAYOUT.md)) |
 | Display list (positioned glyphs, rules, paths; mirrored material, display-mode placement, equation numbers) | done ([definition](docs/display-list.md)); compared with KaTeX in a browser by a tool that is not part of `lake test` |
 | OpenType font reader: metrics, character maps, CFF and TrueType outlines, ligatures, pair kerning, `MATH` constants; untrusted input checked ([reader](docs/opentype.md)) | done: every glyph of fifteen Latin Modern fonts as fontTools reads it; 72 of TeX's 80 recorded boxes reproduced (8 are left out, see below); fuzzed |
 | Text mode: reference harness against real TeX for line breaks, hyphenation and boxes ([reference](docs/text-reference.md)) | done: 174 paragraphs, 1,691 words, 80 boxes recorded from LuaLaTeX |
 | Text mode: Liang hyphenation, Knuth–Plass line breaking, a LaTeX front end (paragraphs, spacing, fonts and sizes, boxes, formulas, macros), lines as a display list ([text mode](docs/text.md)) | done: for the recorded corpus (174 paragraphs, 1,691 words) every hyphenation point, every break, demerit and glue setting, and every horizontal list LuaLaTeX built, reproduced |
-| Documents: the `article` class to pages: vertical lists, TeX's page builder, LaTeX's output routine with floats and footnotes, sectioning, counters, references, contents, lists, theorems, tables, figures, bibliographies; paged SVG and HTML ([documents](docs/documents.md)) | Second held-out set (10 documents written without reading the library after the first set was run, run once, never tuned to): 5 of 10 agree in full, 374 of 400 lines at LuaLaTeX's place to the sp; first held-out set (20 written the same way): 8 of 20 when first run blind, 9 of 20 and 398 of 469 lines now, after a defect it showed was fixed and four of its fixtures were re-recorded for a recorder fix; reference documents (tuned on): 87 of 87, 1,810 of 1,810 lines; fresh documents (written blind, tuned on): 7 of 10 ([report](parity/DOC.md)) |
+| Documents: the `article` class to pages: vertical lists, TeX's page builder, LaTeX's output routine with floats and footnotes, sectioning, counters, references, contents, lists, theorems, tables, figures, bibliographies; paged SVG and HTML ([documents](docs/documents.md)) | Second held-out set (10 documents written without reading the library after the first set was run, not tuned to; first recorded at `648d738` with today's scores, its sources and fixtures unchanged since): 5 of 10 agree, 374 of 400 lines at LuaLaTeX's place to the sp (157 of them lines with a formula, compared by position only); first held-out set (20 written the same way, before the TeX-rule layout was developed): 8 of 20 at its first recorded score with the TeX-rule layout, after four of its fixtures had been re-recorded for a recorder fix, 9 of 20 and 398 of 469 lines now, after a defect it showed was fixed; reference documents (tuned on): 87 of 87, 1,810 of 1,810 lines; fresh documents (written blind, tuned on): 7 of 10 ([report](parity/DOC.md), which says what a document's agreement compares and what it leaves out) |
 | TeX-rule math layout for documents: TeX's Appendix G with the Computer Modern metric files read from a TeX installation, LaTeX's and amsmath's constructions, inline formulas breaking as in TeX ([formula boxes](docs/math-boxes.md)) | 12,162 of the 12,174 recorded formula boxes it builds are TeX's to the sp, of 12,750 recorded (2,125 formulas, text and display style, 10, 11 and 12 pt); the other 576 are of formulas it refuses, which the KaTeX-compatible layout sets (4 of those are TeX's) ([report](parity/MATHBOX.md)) |
 | Back ends: SVG (glyphs as outlines, self-contained) and HTML (text as text, formulas as inline SVG), with New Computer Modern; MathML of the parse tree ([back ends](docs/back-ends.md)) | done: examples in `examples/`; the escaping function proved to leave no `<`, `>`, `"` or `'` and to decode back to its input (less the characters XML cannot carry; that every `&` it writes starts an entity is read from its definition, not stated by that theorem) (that every writer passes all text through it is tested, not proved); compared with LuaLaTeX's rendering by a tool that is not part of `lake test` |
 | Fonts: New Computer Modern, the files under the GUST Font License, unmodified ([fonts](fonts/README.md)) | committed with a manifest; the text layer agrees with LuaLaTeX on all 174 paragraphs with them too |
@@ -73,7 +75,10 @@ layer's: hyphenation, line breaking and the front end against TeX, the typesetti
 Then the documents against LuaLaTeX's recorded pages (`docs/documents.md`), the formula boxes
 against LuaLaTeX's (`docs/math-boxes.md`; `--update-doc` rewrites `parity/DOC.md`,
 `parity/MATHBOX.md` and their baselines), and the bounded-work checks, which run the
-command-line programs on hostile sources under CPU and memory limits (`--bounds`).
+command-line programs on hostile sources under a CPU-time limit and hold their exit status, peak
+memory and CPU time to the case's (`--bounds`). Every corpus and fixture file the comparisons
+read is listed in `parity/required.txt`, which no `--update` option writes: a listed file that
+is missing, or a file of those folders that is not listed, fails `lake test`.
 `lake exe leantex-typeset FILE` typesets a LaTeX file and prints its display list;
 `lake exe leantex-render FILE OUT` writes it as SVG or HTML (`docs/back-ends.md`), and the back
 ends' checks compare `examples/` byte for byte (`--update-examples` rewrites them).
@@ -92,12 +97,12 @@ integers compared for equality.
 
 | Figure | Printed by | What it shows | What it does not show |
 |---|---|---|---|
-| Parser: 11,885 of 11,885 cases. Layout: 10,855 laid out as KaTeX does, the other 1,030 rejected by both | `lake test` (its first lines); `parity/REPORT.md`, `parity/LAYOUT.md` | the parse tree or error, and the box tree with every number within 1e-4 em (`docs/layout.md`), equal KaTeX's recorded ones for every case of the committed corpora | anything about formulas outside the corpora. A corpus file that is present locally but not committed is counted too, so a checkout with one prints larger totals (`LEANTEX_COMMITTED_CORPORA=1 lake test` leaves such a file out; the manual runs the driver that way) |
+| Parser: 11,885 of the 11,885 representable cases (11,886 recorded). Layout: 10,855 laid out as KaTeX does, the other 1,030 rejected by both | `lake test` (its first lines); `parity/REPORT.md`, `parity/LAYOUT.md` | the parse tree or the error (class, raw and full message, position, length), with the warnings, of an accepted and of a rejected formula; the box tree with its kinds, texts and classes exact and its numbers within three tolerances: 1e-4 em for unrounded numbers, one unit of KaTeX's four-decimal rounding (1e-4 em) for CSS lengths, one SVG unit (1/1000 em) for SVG data (`docs/layout.md`); for a formula both reject, KaTeX's error (class and message) and warnings. All equal KaTeX's recorded ones for every representable case of the committed corpora | anything about formulas outside the corpora, or about the recorded case with a lone surrogate, which is left out. A local corpus that `.gitignore` names (`corpus/NAME.jsonl`) is counted too, so a checkout with one prints larger totals (`LEANTEX_COMMITTED_CORPORA=1 lake test` leaves it out; the manual runs the driver that way); any other corpus file that `parity/required.txt` does not list fails `lake test` |
 | Text: 174 of 174 paragraphs, 1,691 of 1,691 words (2,686 hyphenation points), 72 boxes | `lake exe leantex-test --text` | LuaLaTeX's recorded horizontal lists, breaks, demerits, glue settings, hyphenation points and boxes, reproduced exactly | with Latin Modern only where TeX Live's fonts are installed (else those rows are skipped with a note; the New Computer Modern rows always run). 8 of the 80 recorded boxes are left out: they need TeX's own ligature characters or a character the font lacks |
-| Formula boxes: 12,166 of 12,750 the same to the sp: 12,162 of the 12,174 the TeX-rule layout builds and 4 of the 576 it refuses | `lake test`, `lake exe leantex-test --math-boxes`; `parity/MATHBOX.md` | width, height and depth equal LuaLaTeX's for 2,125 formulas in two styles at three sizes | needs the Computer Modern metric files of a TeX installation (skipped with a note without them). The boxes of formulas the layout refuses are set by the KaTeX-compatible layout and are not TeX's but for 4. The formulas were chosen and generated here and the layout was developed against them |
-| Documents developed with: 87 of 87 reference and regression documents (1,810 of 1,810 lines), 7 of 10 fresh documents (367 of 398 lines) | `lake test`, `lake exe leantex-test --doc-table`; `parity/DOC.md` | every line of every page at LuaLaTeX's position to the sp with its text, and the labels, contents and counter steps | how the layer does on documents it was not tuned on: these were written for it or it was corrected against them. The 18 with formulas need the metric files |
-| First held-out set: 9 of 20 documents, 398 of 469 lines | `lake test`, `lake exe leantex-test --doc-table heldout` | the same comparison on twenty documents written without reading the library | a blind result: one defect the set showed was fixed afterwards and four fixtures were re-recorded. The blind run gave 8 of 20 and 397 lines; `git checkout e04b63b && lake test` prints it |
-| Second held-out set: 5 of 10 documents, 374 of 400 lines, page breaks 10 of 10 | `lake test`, `lake exe leantex-test --doc-table heldout-2` | the same comparison on ten documents written blind after the first set was run; run once, nothing changed for them (their files have one commit, `648d738`) | more than ten short mathematical articles can show: it is a small sample, and the figure to go by all the same |
+| Formula boxes: 12,166 of 12,750 the same to the sp: 12,162 of the 12,174 the TeX-rule layout builds and 4 of the 576 it refuses | `lake test`, `lake exe leantex-test --math-boxes`; `parity/MATHBOX.md` | width, height and depth equal LuaLaTeX's for 2,125 formulas in two styles at three sizes (the whole node list, in every field the recorder writes, is TeX's for 9,402 of them: `docs/math-boxes.md`) | needs the Computer Modern metric files of a TeX installation (skipped with a note without them). The boxes of formulas the layout refuses are set by the KaTeX-compatible layout and are not TeX's but for 4. The formulas were chosen and generated here and the layout was developed against them |
+| Documents developed with: 87 of 87 reference and regression documents (1,810 of 1,810 lines, 88 of them with a formula and compared by position only), 7 of 10 fresh documents (367 of 398 lines, 56 by position only) | `lake test`, `lake exe leantex-test --doc-table`; `parity/DOC.md` | every line of every page at LuaLaTeX's position to the sp, with its text but for a line with a formula (our text of it is its source, LuaLaTeX's the math fonts' glyphs), a private-use character of either text read through the fonts' own ligature and small-capital tables; the labels (keys, texts, pages; the bibliography's keys are not recorded); the contents (numbers, titles, pages) of a document that prints them; the counter steps of the sectioning, equation, float, footnote and list counters | how the layer does on documents it was not tuned on: these were written for it or it was corrected against them. The text of the lines with a formula. The 18 with formulas need the metric files |
+| First held-out set: 9 of 20 documents, 398 of 469 lines (163 by position only) | `lake test`, `lake exe leantex-test --doc-table heldout` | the same comparison on twenty documents written without reading the library | an untouched test: the set was added (`3901e6f`) before the TeX-rule layout was developed; four of its fixtures were re-recorded for a recorder fix (`712bb28`) before its first recorded score with the TeX-rule layout, 8 of 20 and 397 lines (`e04b63b`, with that commit's comparison: `git checkout e04b63b && lake test` prints it); a defect it showed was fixed after that (`496a40b`) |
+| Second held-out set: 5 of 10 documents, 374 of 400 lines (157 by position only), page breaks 10 of 10 (5 by position only) | `lake test`, `lake exe leantex-test --doc-table heldout-2` | the same comparison on ten documents written blind after the first set was run; first recorded at `648d738` with the same scores as today, and no later change to the set's sources or fixtures (their files have that one commit) | more than ten short mathematical articles can show; nor that the pages are the same as at `648d738` (the same scores can come from different output). It is a small sample, and the figure to go by all the same |
 | Display list against a browser; rendering against LuaLaTeX's (`STATUS.md`, `docs/display-list.md`, `docs/back-ends.md`) | `tools/check-display.mjs`, `tools/tex-render-compare.sh`, `tools/doc-render-compare.sh` | what those documents say | reproducible from the commit alone: they need KaTeX's built distribution and Chromium, or LuaLaTeX and macOS, and are not part of `lake test`; their figures are those of the last run |
 
 The theorems (`docs/text.md`, `docs/documents.md`, `docs/back-ends.md`, `docs/math-boxes.md`,
@@ -162,14 +167,19 @@ lake exe leantex-manual        # writes the site to manual/_out/html-multi
 
 Its Lean examples are compiled and its pictures are typeset by LeAnTeX while the pages are
 built; the lists of what is supported are quoted from `docs/`; the agreement chapter runs
-`leantex-test` and puts what it prints beside the figures of this file; a public declaration
-without a docstring fails the build unless `manual/api-allow.txt` names it. After adding,
+`leantex-test` and checks the figures of this file against the fields it prints; a public
+declaration of the API pages (instances, deprecated declarations and those Lean generates are
+left out) without a docstring fails the build unless `manual/api-allow.txt` names it. After adding,
 removing or renaming a module, `lake exe leantex-manual-api` (in `manual/`) writes the API
 reference's pages. The workflow `.github/workflows/manual.yml`, started by hand, builds the site
 and uploads it as a GitHub Pages artifact.
 
 ## Licence
 
-Apache License 2.0 (`LICENSE`). Parts are derived from KaTeX (MIT licence, `LICENSE-KaTeX`), and
-one table from KaTeX's fonts (SIL Open Font License 1.1); `fonts/` holds fonts of New Computer
-Modern under the GUST Font License; see `THIRD-PARTY.md` for which.
+Apache License 2.0 (`LICENSE`). Parts are derived from KaTeX (MIT licence, `LICENSE-KaTeX`).
+Three tables hold data of KaTeX's fonts: the glyph metrics and the fixed SVG paths, which are
+files of KaTeX's MIT-licensed source (KaTeX generated the metrics from its fonts; its comments
+trace the paths to glyphs of its fonts and to the MnSymbol package), and the advance widths,
+measured from the fonts here; the fonts' copyright lines and the SIL Open Font License 1.1 are
+reproduced in `LICENSE-KaTeX-fonts` as a precaution. `fonts/` holds fonts of New Computer
+Modern under the GUST Font License. `THIRD-PARTY.md` says which files are which.

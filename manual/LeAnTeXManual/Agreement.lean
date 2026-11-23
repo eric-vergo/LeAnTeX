@@ -24,10 +24,12 @@ they relate to the library's development: the parser, layout and text figures ar
 committed corpora only; the formula-box corpus and the reference documents were used while the
 code was written (the library was developed against them);
 the ten fresh documents were written without reading the library but corrected against
-afterwards; the first held-out set was written the same way, but a defect it showed was then
-fixed and four of its fixtures re-recorded, so its present figure is not a blind one; only the
-second held-out set was written blind and never tuned to. The README's table states these
-limits figure by figure; this chapter quotes it, and adds the table of what this build printed.
+afterwards; the first held-out set was written the same way, before the TeX-rule layout was
+developed, four of its fixtures were re-recorded before its first recorded score and a defect
+it showed was fixed after it, so it is no untouched test; only the second held-out set was
+written blind and never tuned to. A document's lines with a formula are compared by their
+position only. The README's table states these limits figure by figure; this chapter quotes
+it, and adds the table of what this build printed.
 
 # The Figures as the README States Them
 %%%
@@ -44,15 +46,19 @@ tag := "agreement-this-build"
 %%%
 
 When this site was written, its build ran LeAnTeX's test driver (`leantex-test` in the
-repository's root, what `lake test` runs) and read what it printed. The table puts each figure
-of the README beside the line the driver printed for it. A figure that needs files of a TeX
-installation (the Computer Modern metric files, the Latin Modern fonts) is regenerated only when
-the machine that built the site had them; otherwise its row says so, and the README's figure is
-the committed record, not a result of this build. The build fails if an expected number of a
-figure it could regenerate is absent from the driver's line, if the driver reports a regression
-against its committed baselines, or if a figure's wording here no longer occurs in the README's
-section. Some lines are marked by the driver as reported, not required: for those the driver
-does not fail on a change, but this build still does.
+repository's root, what `lake test` runs) and read what it printed: its sentences, and its
+totals as typed fields (`figure KEY VALUE`). The table puts each figure of the README beside
+the sentence the driver printed for it and checks the figure's numbers against the fields. A
+number that needs files of a TeX installation (the Computer Modern metric files, the Latin
+Modern fonts) is checked only when the machine that built the site had them. The status says
+how much was checked: *Regenerated* when every number of the README's wording is a field this
+build checked, *Partly regenerated* (naming the numbers it did not check) when some are not,
+*Not regenerated* when none could be, and then the README's figure is the committed record,
+not a result of this build. The build fails if a field it could check is missing or has
+another value, if the driver reports a regression against its committed baselines, or if a
+figure's wording here no longer occurs in the README's section. Some lines are marked by the
+driver as reported, not required: for those the driver does not fail on a change, but this
+build still does.
 
 {figureRuns}
 

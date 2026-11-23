@@ -33,7 +33,8 @@ target leantexShared : Dynlib := do
   lib.shared.fetch
 
 /-- The repository's files the pages read while they are elaborated (quoted documents, notices,
-licence texts, the allow-list of the API reference). -/
+licence texts, the allow-list of the API reference, and the fonts the samples are typeset
+with). -/
 def manualInputFiles (root : System.FilePath) : IO (Array System.FilePath) := do
   let mut out : Array System.FilePath := #[]
   for f in ["README.md", "THIRD-PARTY.md", "LICENSE", "LICENSE-KaTeX", "LICENSE-KaTeX-fonts",
@@ -42,6 +43,8 @@ def manualInputFiles (root : System.FilePath) : IO (Array System.FilePath) := do
     out := out.push (root / f)
   for e in ← (root / "docs").readDir do
     if e.fileName.endsWith ".md" then out := out.push e.path
+  for e in ← (root / "fonts" / "newcomputermodern").readDir do
+    if e.fileName.endsWith ".otf" then out := out.push e.path
   return out.qsort (·.toString < ·.toString)
 
 /-- Writes `LeAnTeXManualInputs.lean` below the build folder: a hash of `manualInputFiles`. The
@@ -54,7 +57,7 @@ target manualInputs : Unit := do
   let mut h : UInt64 := 7
   for f in files do
     h := mixHash h (hash f.fileName)
-    h := mixHash h (hash (← IO.FS.readFile f))
+    h := mixHash h (hash (← IO.FS.readBinFile f))
   let dir := pkg.buildDir / "manual-inputs"
   let file := dir / "LeAnTeXManualInputs.lean"
   let text := "/-- A hash of the repository files the manual's pages read. -/\n" ++

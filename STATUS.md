@@ -4,14 +4,16 @@ What LeAnTeX does today, and what comes next.
 
 ## State
 
-- Parser (done): 11,885 of 11,885 corpus cases match KaTeX 0.19.1's recorded answers (trees,
-  errors, warnings).
+- Parser (done): 11,885 of the 11,885 representable corpus cases (of 11,886 recorded; one holds
+  a lone surrogate, which a Lean string cannot) match KaTeX 0.19.1's recorded answers (trees,
+  errors, and the warnings of both).
 - Layout (done, `docs/layout.md`): every parse node type KaTeX builds is laid out, arrays and
   environments (`Layout/Builders/Array.lean`), `{CD}`, enclosures, extensible arrows and
   horizontal braces (`Layout/Builders/Enclose.lean`) included.
 - Layout parity (`parity/LAYOUT.md`): 10,855 of 11,885 cases identical to KaTeX within the
-  tolerances of `docs/layout.md`, 0 differ, none out of scope, 1,030 rejected by both. Largest
-  deviation 1.3e-5 em.
+  tolerances of `docs/layout.md` (texts and classes exact; numbers within 1e-4 em, CSS lengths
+  within one unit of KaTeX's rounding, SVG data within one SVG unit), 0 differ, none out of
+  scope, 1,030 rejected by both with KaTeX's error and warnings. Largest deviation 1.3e-5 em.
 - Display list (`Layout/Display.lean`, `docs/display-list.md`): glyphs, rules (dashed rules as
   runs of dashes, box borders and backgrounds), paths (strokes of `\cancel` as outlines),
   regions, parts, lines; mirrored ranges for `\reflectbox`; `DisplayOptions` (line width for
@@ -33,7 +35,8 @@ What LeAnTeX does today, and what comes next.
   tokens all macro expansions produce together and, fifty times over, the tokens read as
   arguments (an argument inside others is read once per level); `maxNesting` (1000 by
   default) bounds the nesting of groups, arguments and environments, and with it the parser's
-  recursion. Past either, an error, so a formula's cost stays linear in its source.
+  recursion. Past either, an error. These budget the expansion and the nesting; they are not a
+  bound on the cost of every later stage (`docs/text.md`, *Bounds*).
 - Box tree JSON (`Layout/BoxJson.lean`): total, by well-founded recursion. `partial` remains in
   the parse stage, `Json.lean` and `Parse/NodeJson.lean` (`docs/layout.md`, *Termination*).
 - Speed, 10 × 10 matrix (`lake exe leantex-test --bench-matrix`), in processor cycles on one
@@ -88,12 +91,16 @@ What LeAnTeX does today, and what comes next.
   (`tools/doc-reference.sh`, `parity/DOC.md`), line by line to the sp: the 87 reference and
   regression documents all agree, 1,810 of 1,810 lines; ten fresh documents written without
   reading the source 7 agree, 367 of 398 lines; **a second held-out set of ten, written blind
-  after the first was run, run once and never tuned to: 5 agree, 374 of 400 lines, 375 within
-  1 pt, page breaks 10 of 10**; the first held-out set of twenty, written the same way: 8 agreed
-  when it was first run blind with the TeX-rule layout, 9 agree now (398 of 469 lines, 405
-  within 1 pt, page breaks 3 of 3) after a defect it showed was fixed and four of its fixtures
-  were re-recorded for a fix to the recorder (without the metric files, formulas set by the
-  KaTeX-compatible layout: none, 194 lines and 367).
+  after the first was run and never tuned to, first recorded at `648d738` with today's scores
+  and unchanged since: 5 agree, 374 of 400 lines (157 of them lines with a formula, compared by
+  position only), 375 within 1 pt, page breaks 10 of 10 (5 decided by a formula line's
+  position)**; the first held-out set of twenty, written the same way before the TeX-rule layout
+  was developed: 8 agreed at its first recorded score with the TeX-rule layout (`e04b63b`), four
+  of its fixtures having been re-recorded for a fix to the recorder before it, and 9 agree now
+  (398 of 469 lines, 163 by position only, 405 within 1 pt, page breaks 3 of 3) after a defect
+  it showed was fixed (without the metric files, formulas set by the KaTeX-compatible layout:
+  none, 194 lines and 367). Lines with a formula are compared by position only, and private-use
+  characters through the fonts' ligature and small-capital tables (`parity/DOC.md`).
   List parameters probed against LuaLaTeX at every level for three sizes
   (`tools/list-params.sh`). Paged SVG and HTML (`leantex-render --document`),
   `examples/article/`. Theorems: the pages' boxes have the sizes of the vertical list's boxes
