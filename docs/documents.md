@@ -140,9 +140,9 @@ makes while measuring), in the commit that also set amsmath's alignments row by 
 recorded score with the TeX-rule layout came after that: 8 / 20 (397 lines) at `e04b63b`, with
 the comparison of that commit (`git checkout e04b63b && lake test` prints it). One defect it
 showed (a doubled thin space after `\cdots` before punctuation) was fixed after that, at
-`496a40b`, which made a ninth document agree. The fixture of `held-13` was recorded before the recorder gave `\today` a
-fixed date and holds the day it was recorded, so that document's date line cannot agree (one of
-its two lines that differ). The second set (`corpus/doc-heldout-2/`,
+`496a40b`, which made a ninth document agree. The fixture of `held-13` was recorded before
+the recorder gave `\today` a fixed date and holds the day it was recorded, so that document's
+date line cannot agree (one of its two lines that differ). The second set (`corpus/doc-heldout-2/`,
 `tools/doc-reference.sh --held-out-2`) was written blind after that and first recorded at
 `648d738` with the scores it has today; its sources and fixtures have not changed since (they
 have that single commit). The same scores do not show that the pages are the same as then.

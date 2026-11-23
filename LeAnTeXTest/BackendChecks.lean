@@ -136,13 +136,15 @@ def checks (fonts : Fonts) : Array (String × Bool) :=
       has (html "\\textsl{a}") "matrix(1,0,-0.25,1,0,0)" &&
       has (html "\\textsc{a}") "&quot;smcp&quot;"),
     ("render: a formula's error position is KaTeX's UTF-16 offset (2 after one astral \
-      character), a text's a character offset (2 after one and a space)",
+      character), a text's a character offset (2 after one and a space; for a formula in the
+      text, the offset of its start)",
       let pos := fun (src : String) (math : Bool) => match render fonts src { math } with
         | .error (p, _) => some p
         | .ok _ => none
       let x := String.singleton (.ofNat 0x1D465)
       pos (x ++ "\\unknown") true == some 2 && pos "x\\unknown" true == some 1 &&
-        pos (x ++ " \\undefinedcs") false == some 2),
+        pos (x ++ " \\undefinedcs") false == some 2 &&
+        pos (x ++ x ++ " ab $\\unknown$") false == some 6),
     ("html: a formula is an inline picture with its source as alternative text",
       let s := html "see $x^2$"
       has s "aria-label=\"x^2\"" && has s "class=\"ltx-a\">$x^2$"),
