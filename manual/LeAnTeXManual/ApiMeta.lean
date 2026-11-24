@@ -119,7 +119,7 @@ block_extension Block.sourceLink (path : String) (line : Nat) where
       let anchor := if line > 0 then s!"#L{line}" else ""
       let href := s!"{repositoryUrl}/blob/main/{p}{anchor}"
       let label := if line > 0 then s!"{p}:{line}" else p
-      pure {{<div class="ltx-src">"source: "<a href={{href}}><code>{{label}}</code></a></div>}}
+      pure html%{<div class="ltx-src">{"source: "}<a href={href}><code>{label}</code></a></div>}
     | _ => pure .empty
 
 /-- The argument of `apiModule`: the module. -/

@@ -35,7 +35,7 @@ def config : RenderConfig :=
   let base : RenderConfig := {}
   { base with
     htmlDepth := 2
-    extraContents := base.extraContents.push (.text false footer)
+    extraContents := base.extraContents.push (.raw footer)
     extraCss := base.extraCss.insert ⟨LeAnTeXManual.css⟩
     sourceLink := some LeAnTeXManual.repositoryUrl
     issueLink := some (LeAnTeXManual.repositoryUrl ++ "/issues")

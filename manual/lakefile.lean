@@ -23,8 +23,8 @@ package «leantex-manual» where
   leanOptions := #[⟨`autoImplicit, false⟩, ⟨`weak.verso.code.warnLineLength, .ofNat 90⟩]
 
 require leantex from ".."
-require subverso from git "https://github.com/eric-vergo/subverso" @ "release/verso-v4.35.0"
-require verso from git "https://github.com/eric-vergo/verso" @ "sbs"
+require subverso from git "https://github.com/eric-vergo/subverso" @ "release/verso-v4.36.0"
+require verso from git "https://github.com/eric-vergo/verso" @ "release/v4.36.0"
 
 /-- The LeAnTeX library as a shared library, loaded while the pages are elaborated. -/
 target leantexShared : Dynlib := do

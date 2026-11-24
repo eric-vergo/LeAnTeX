@@ -283,7 +283,7 @@ block_extension Block.figureTable (figs : String) where
       | .error e => throw <| IO.userError s!"the agreement table's data: {e}"
     let (code, out) ← runDriver
     match figureTableHtml figs code out with
-    | .ok h => return .text false h
+    | .ok h => return .raw h
     | .error e => throw <| IO.userError s!"agreement chapter: {e}"
 
 /-- `{figureRuns}`: the table (see the module docstring). Fails when a figure's wording is not

@@ -166,11 +166,11 @@ block_extension Block.pictures (svgs : Array String) (alts : Array String) (kind
           let w := match svgWidthPt? svg with
             | some pt => s!"width: {pt * pictureScale kind}px"
             | none => ""
-          {{<img class="ltx-picture" src={{src}} alt={{alt}} style={{w}}/>}}
+          html%{<img class="ltx-picture" src={src} alt={alt} style={w}/>}
         | _ => .empty
       let caption ← content.mapM go
-      pure {{<figure class={{"ltx-sample ltx-" ++ kind}}><div class="ltx-paper">{{imgs}}</div>
-        <figcaption>{{caption}}</figcaption></figure>}}
+      pure html%{<figure class={"ltx-sample ltx-" ++ kind}><div class="ltx-paper">{imgs}</div>
+        <figcaption>{caption}</figcaption></figure>}
     | _ => pure .empty
 
 block_extension Block.htmlFrame (page : String) (height : Nat) where
@@ -182,10 +182,10 @@ block_extension Block.htmlFrame (page : String) (height : Nat) where
     | .arr #[.str page, h] =>
       let height : Nat := (Lean.fromJson? h).toOption.getD 200
       let caption ← content.mapM go
-      pure {{<figure class="ltx-sample ltx-html"><iframe class="ltx-frame" srcdoc={{page}}
+      pure html%{<figure class="ltx-sample ltx-html"><iframe class="ltx-frame" srcdoc={page}
         sandbox="allow-same-origin" referrerpolicy="no-referrer" loading="lazy"
-        style={{s!"height: {height}px"}} title="An HTML page written by LeAnTeX"></iframe>
-        <figcaption>{{caption}}</figcaption></figure>}}
+        style={s!"height: {height}px"} title="An HTML page written by LeAnTeX"></iframe>
+        <figcaption>{caption}</figcaption></figure>}
     | _ => pure .empty
 
 /-- The arguments of the sample elements: the function that makes the sample, and (for HTML)
@@ -323,7 +323,7 @@ inline_extension Inline.repoFile (path : String) where
     match data with
     | .str p =>
       let href := s!"{repositoryUrl}/blob/main/{p}"
-      pure {{<a class="ltx-file" href={{href}}><code>{{Html.text true p}}</code></a>}}
+      pure html%{<a class="ltx-file" href={href}><code>{Html.text p}</code></a>}
     | _ => pure .empty
 
 /-- The text of a role's argument (its plain text and code pieces). -/
@@ -432,7 +432,7 @@ block_extension Block.rawHtml (html : String) where
   toTeX := some fun _ _ _ _ _ => pure .empty
   toHtml := some fun _ _ _ data _ => do
     match data with
-    | .str h => pure (.text false h)
+    | .str h => pure (.raw h)
     | _ => pure .empty
 
 /-- The arguments of `quoteSection`: the file and the heading. -/
